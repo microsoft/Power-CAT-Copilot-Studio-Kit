@@ -1,0 +1,333 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_applicationinsights_1": {
+        "api": {
+          "name": "shared_applicationinsights"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorAzureApplicationInsights"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_commondataserviceforapps_1": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_an_action_is_performed": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "catalog": "allcatalog",
+              "category": "allcategory",
+              "subscriptionRequest/entityname": "cat_copilottestrun",
+              "subscriptionRequest/sdkmessagename": "cat_RunAzureApplicationInsightsEnrichment"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "BusinessEventsTrigger",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "6f260134-22f0-4ba2-86b5-7e66d3481ead"
+          }
+        }
+      },
+      "actions": {
+        "Get_Generative_Answers_Copilot_Test_Results": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestresults",
+              "$select": "cat_name, cat_copilottestresultid, cat_response",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  and statecode eq 0 and cat_resultcode ne 4 and cat_CopilotTestId/cat_testtypecode eq 4",
+              "$orderby": "createdon asc",
+              "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance)"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Running": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6076da45-72f2-4ca7-bc39-244924e64238"
+          }
+        },
+        "Get_Copilot_Configuration": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilotconfigurations",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
+              "$select": "cat_delayforazureapplicationinsightsenrichment, cat_isgeneratedanswersanalysisenabled"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "25599a62-4e1c-487d-84bb-d087bb11b867"
+          }
+        },
+        "Apply_to_each_Generative_Answers_Result": {
+          "type": "Foreach",
+          "foreach": "@outputs('Get_Generative_Answers_Copilot_Test_Results')?['body/value']",
+          "actions": {
+            "Run_Analytics_query": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "query": "customEvents\n| where name == \"GenerativeAnswers\"\n| where tostring(todynamic(customDimensions).conversationId) == \"@{items('Apply_to_each_Generative_Answers_Result')?['cat_name']}\"\n| extend cd = todynamic(customDimensions)\n| extend result = tostring(cd.Result)\n| project result",
+                  "timerange": "Last hour"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_applicationinsights",
+                  "operationId": "RunQuery",
+                  "connectionName": "shared_applicationinsights_1"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "720c77ea-3bf0-4eca-a91d-5cb9b6e3555a"
+              }
+            },
+            "Update_Copilot_Test_Result": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilottestresults",
+                  "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
+                  "item/cat_resultcode": "@if(\n    empty(body('Run_Analytics_query')?['value']),\n    if(\n        or(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        3,\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            5,\n            3\n        )\n    ),\n    if(\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n            startsWith(first(body('Run_Analytics_query')?['value'])['result'], 'Filtered'),\n            1,\n            2\n        ),\n        if(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'No Search Results'),\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'Answer not Found in Search Results')\n                ),\n                1,\n                2\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n                5,\n                3\n            )\n        )\n    )\n)\n",
+                  "item/cat_appinsightsresult": "@if(\r\n    greater(\r\n        length(body('Run_Analytics_query')?['value']), \r\n        0\r\n    ), \r\n    first(\r\n        body('Run_Analytics_query')?['value']\r\n    )['result'], \r\n    'No Azure Application Insights Result'\r\n)",
+                  "item/cat_resultreason": "@{if(\n    empty(body('Run_Analytics_query')?['value']),\n    if(\n        or(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        'Impossible to evaluate: no Azure Application Insights result',\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            'No Azure Application Insights result, but result can still be assessed with AI Builder',\n            'Impossible to evaluate: no Azure Application Insights result'\n        )\n    ),\n    if(\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n            startsWith(first(body('Run_Analytics_query')?['value'])['result'], 'Filtered'),\n            'Answer was moderated',\n            'Moderation was expected'\n        ),\n        if(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'No Search Results'),\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'Answer not Found in Search Results')\n                ),\n                'Answer was not generated because of no search results',\n                'No search results were expected'\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n               'Result still needs to be assessed by AI Builder',\n               'Could not assess the answer'\n            )\n        )\n    )\n)\n}"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Run_Analytics_query": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+              }
+            }
+          },
+          "runAfter": {
+            "Get_Generative_Answers_Copilot_Test_Results": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "repetitions": 50
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "fdd67cc2-01c6-4669-beb8-4a8c089f6504"
+          }
+        },
+        "Update_Copilot_Test_Run:_Running": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 2
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Delay": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1879daca-4f37-49d8-8b18-6a8cf166f470"
+          }
+        },
+        "Update_Copilot_Test_Run:_Complete": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 3
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Perform_a_bound_action:_Update_Rollup_Columns": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "46100016-2f1b-4e28-9ef7-90648debe3d9"
+          }
+        },
+        "Update_Copilot_Test_Run:_Error": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 6,
+              "item/cat_generatedanswersanalysiscode": 4
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Apply_to_each_Generative_Answers_Result": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "46100016-2f1b-4e28-9ef7-90648debe3d9"
+          }
+        },
+        "Delay": {
+          "type": "Wait",
+          "inputs": {
+            "interval": {
+              "count": "@outputs('Get_Copilot_Configuration')?['body/cat_delayforazureapplicationinsightsenrichment']",
+              "unit": "Minute"
+            }
+          },
+          "runAfter": {
+            "Get_Copilot_Configuration": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4d599376-4b60-4b5b-a3d0-f167ef6bc4ec"
+          }
+        },
+        "Perform_a_bound_action:_Update_Rollup_Columns": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "actionName": "Microsoft.Dynamics.CRM.cat_RunRollupColumnsUpdates",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/DataverseUriHost": "@uriHost(outputs('Get_Copilot_Configuration')?['body/@odata.id'])",
+              "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Apply_to_each_Generative_Answers_Result": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "af483f4c-32dd-412b-a719-f226b3756087"
+          }
+        },
+        "Condition:_If_Analyze_Generative_Answers_is_enabled": {
+          "type": "If",
+          "expression": {
+            "equals": [
+              "@outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled']",
+              true
+            ]
+          },
+          "actions": {
+            "Perform_a_bound_action:_Run_AI_Builder_Analysis": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilottestruns",
+                  "actionName": "Microsoft.Dynamics.CRM.cat_RunAIBuilderAnalysis",
+                  "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/CopilotTestSetId": "@triggerOutputs()?['body/InputParameters/CopilotTestSetId']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "PerformBoundAction",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "cc622639-9ae0-4c18-aa8a-0dfcd7171aff"
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Complete": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "653f3f78-5dfe-462a-a3ab-291541720e2d"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,822 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps_1": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_Copilot_Test_Run_is_created": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "subscriptionRequest/message": 1,
+              "subscriptionRequest/entityname": "cat_copilottestrun",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filterexpression": "cat_runstatuscode eq 1",
+              "subscriptionRequest/runas": 3
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "cffa0206-84e3-4f9b-ba1e-d494f1915321"
+          }
+        }
+      },
+      "actions": {
+        "Apply_to_each_Copilot_Test": {
+          "type": "Foreach",
+          "foreach": "@outputs('Get_Copilot_Tests')?['body/value']",
+          "actions": {
+            "Initiate_Conversation": {
+              "type": "Http",
+              "inputs": {
+                "uri": "@{variables('Bot Framework URI')}/v3/directline/conversations",
+                "method": "POST",
+                "authentication": {
+                  "type": "Raw",
+                  "value": "Bearer @{body('Parse_Token_Response')?['token']}"
+                }
+              },
+              "runAfter": {
+                "Parse_Token_Response": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "89c2b2e4-3b4d-413f-b9e0-7e06e641b8d9"
+              }
+            },
+            "Parse_Token_Response": {
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@if(empty(body('Generate_Direct_Line_Token_From_Endpoint')), body('Generate_Direct_Line_Token_From_Secret'), body('Generate_Direct_Line_Token_From_Endpoint'))",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "expires_in": {
+                      "type": "integer"
+                    },
+                    "conversationId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Condition:_If_Direct_Line_Channel_Security_Is_Enabled": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "62eab454-2998-4e1f-8761-f53fec066472"
+              }
+            },
+            "Send_Test_Utterance": {
+              "type": "Http",
+              "inputs": {
+                "uri": "@{variables('Bot Framework URI')}/v3/directline/conversations/@{body('Parse_Token_Response')?['conversationId']}/activities",
+                "method": "POST",
+                "body": {
+                  "type": "message",
+                  "from": {
+                    "id": "CopilotStudioAccelerator"
+                  },
+                  "text": "@{items('Apply_to_each_Copilot_Test')?['cat_testutterance']}",
+                  "value": "@{if(not(empty(items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson'])), items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson'], json('null'))}"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "Bearer @{body('Parse_Token_Response')?['token']}"
+                }
+              },
+              "runAfter": {
+                "Condition:_If_Send_startConversation_Event": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "aff72f26-ed75-4a32-af8e-6e96b5163e8f"
+              }
+            },
+            "Get_Activities": {
+              "type": "Http",
+              "inputs": {
+                "uri": "@{variables('Bot Framework URI')}/v3/directline/conversations/@{body('Parse_Token_Response')?['conversationId']}/activities",
+                "method": "GET",
+                "authentication": {
+                  "type": "Raw",
+                  "value": "Bearer @{body('Parse_Token_Response')?['token']}"
+                }
+              },
+              "runAfter": {
+                "Delay_before_fetching_responses": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "fd1874d1-441b-424d-af46-92ff60e2b790"
+              }
+            },
+            "Delay_before_fetching_responses": {
+              "type": "Wait",
+              "inputs": {
+                "interval": {
+                  "count": "@items('Apply_to_each_Copilot_Test')?['cat_secondsbeforegettinganswer']",
+                  "unit": "Second"
+                }
+              },
+              "runAfter": {
+                "Send_Test_Utterance": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "4c00dfa0-1ae9-4896-a472-0546a41ffdc8"
+              }
+            },
+            "Parse_Activities_Response": {
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@body('Get_Activities')",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "type": {
+                            "type": "string"
+                          },
+                          "from": {
+                            "type": "object",
+                            "properties": {
+                              "role": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "timestamp": {
+                            "type": "string"
+                          },
+                          "attachments": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "contentType": {
+                                  "type": "string"
+                                },
+                                "content": {
+                                  "type": "object"
+                                }
+                              }
+                            }
+                          },
+                          "suggestedActions": {
+                            "type": "object",
+                            "properties": {
+                              "to": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                }
+                              },
+                              "actions": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "text": {
+                                      "type": "string"
+                                    },
+                                    "value": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Get_Activities": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "488c476d-25f0-40c4-af46-e09b56f26102"
+              }
+            },
+            "Create_Copilot_Test_Result": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilottestresults",
+                  "item/cat_name": "@body('Parse_Token_Response')?['conversationId']",
+                  "item/cat_CopilotTestId@odata.bind": "cat_copilottests(@{items('Apply_to_each_Copilot_Test')?['cat_copilottestid']})",
+                  "item/cat_CopilotTestRunId@odata.bind": "cat_copilottestruns(@{triggerOutputs()?['body/cat_copilottestrunid']})",
+                  "item/cat_resultcode": "@if(\n    equals(body('Filter_array:_Messages_from_Bot'), null),\n    4,\n    if(\n        equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 3),\n        if(\n            equals(\n                json(string(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments'])),\n                json(string(items('Apply_to_each_Copilot_Test')?['cat_expectedattachmentsjson']))\n            ),\n            1,\n            2\n        ),\n        if(\n            not(equals(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], null)),\n            if(\n                or(\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'ContentError'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'DataLossPreventionViolation'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionException'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionBadRequest'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionTimedOut'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InvalidContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InfiniteLoopInBotContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'LatestPublishedVersionNotFound'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToDisabledDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToNonExistentDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'SystemError')\n                ),\n                4,\n                if(\n                    equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 1),\n                    if(\n                        equals(\n                            items('Apply_to_each_Copilot_Test')?['cat_expectedresponse'],\n                            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']\n                        ),\n                        1,\n                        2\n                    ),\n                    5\n                )\n            ),\n            3\n        )\n    )\n)\n",
+                  "item/cat_attachmentsjson": "@{if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    null,\r\n    if(\r\n        empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments']),\r\n        null,\r\n        string(\r\n            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments']\r\n        )\r\n    )\r\n)\r\n}",
+                  "item/cat_latencyms": "@if(\r\n    or(\r\n        empty(body('Filter_array:_Messages_from_Bot')),\r\n        empty(body('Filter_array:_Messages_from_User'))\r\n    ),\r\n    null,\r\n    div(\r\n        sub(\r\n            ticks(\r\n                body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n            ),\r\n            ticks(\r\n                body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n            )\r\n        ),\r\n        10000\r\n    )\r\n)",
+                  "item/cat_messagesenttimestamp": "@if(\r\n    empty(body('Filter_array:_Messages_from_User')),\r\n    null,\r\n    body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n)",
+                  "item/ownerid@odata.bind": "@{triggerOutputs()?['body/_ownerid_type']}(@{triggerOutputs()?['body/_ownerid_value']})",
+                  "item/cat_response": "@if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    'No response',\r\n    if(\r\n        empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']),\r\n        if(\r\n            not(empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments'])),\r\n            'No response, but attachments (Adaptive Cards, etc.)',\r\n            'No response'\r\n        ),\r\n        body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']\r\n    )\r\n)\r\n",
+                  "item/cat_responsereceivedtimestamp": "@if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    null,\r\n    body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n)\r\n",
+                  "item/cat_resultreason": "@{if(\n    empty(body('Filter_array:_Messages_from_Bot')),\n    'No response from bot',\n    if(\n        equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 3),\n        if(\n            equals(\n                json(string(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments'])),\n                json(string(items('Apply_to_each_Copilot_Test')?['cat_expectedattachmentsjson']))\n            ),\n            'Exact match between the expected attachment(s) JSON and the received attachment(s) JSON',\n            'Not an exact match between the expected attachment(s) JSON and the received attachment(s) JSON'\n         ),\n        if(\n            not(empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'])),\n            if(\n                or(\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'ContentError'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'DataLossPreventionViolation'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionException'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionBadRequest'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionTimedOut'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InvalidContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InfiniteLoopInBotContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'LatestPublishedVersionNotFound'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToDisabledDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToNonExistentDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'SystemError')\n                ),\n                'The bot returned an error (https://learn.microsoft.com/microsoft-copilot-studio/error-codes)',\n                if(\n                    equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 1),\n                    if(\n                        equals(\n                            items('Apply_to_each_Copilot_Test')?['cat_expectedresponse'],\n                            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']\n                        ),\n                        'Exact match between the expected message and the received message',\n                        'Not an exact match between the expected response and received message'\n                     ),\n                    'Result has not been evaluated yet'\n                )\n            ),\n            'Result may be further refined with enrichment'\n        )\n    )\n)\n}",
+                  "item/cat_suggestedactionsjson": "@if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    null,\r\n    if(\r\n        empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['suggestedActions']),\r\n        null,\r\n        string(\r\n            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['suggestedActions']\r\n        )\r\n    )\r\n)\r\n"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "runAfter": {
+                "Message_Position": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0b9c4307-ba2a-4da1-a0db-31ea0b0ca541"
+              }
+            },
+            "Condition:_If_Direct_Line_Channel_Security_Is_Enabled": {
+              "type": "If",
+              "expression": {
+                "equals": [
+                  "@outputs('Get_Copilot_Configuration')?['body/cat_isdirectlinechannelsecurityenabled']",
+                  true
+                ]
+              },
+              "actions": {
+                "Generate_Direct_Line_Token_From_Secret": {
+                  "type": "Http",
+                  "inputs": {
+                    "uri": "@{variables('Bot Framework URI')}/v3/directline/tokens/generate",
+                    "method": "POST",
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "Bearer @{if(equals(outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecretlocationcode'], 1),\r\n   outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecuritysecret'],\r\n   outputs('Get_Direct_Line_Secret')?['body/EnvironmentVariableSecretValue'])}"
+                    }
+                  },
+                  "runtimeConfiguration": {
+                    "secureData": {
+                      "properties": [
+                        "inputs"
+                      ]
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "6c125c5b-3f6e-4374-9557-c54a92eab40a"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Generate_Direct_Line_Token_From_Endpoint": {
+                    "type": "Http",
+                    "inputs": {
+                      "uri": "@outputs('Get_Copilot_Configuration')?['body/cat_tokenendpoint']",
+                      "method": "GET"
+                    },
+                    "metadata": {
+                      "operationMetadataId": "6c125c5b-3f6e-4374-9557-c54a92eab40a"
+                    }
+                  }
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "7bb9bd83-6492-4886-b33a-cf61981f9e52"
+              }
+            },
+            "Condition:_If_Send_startConversation_Event": {
+              "type": "If",
+              "expression": {
+                "equals": [
+                  "@items('Apply_to_each_Copilot_Test')?['cat_isstartconversationeventsent']",
+                  true
+                ]
+              },
+              "actions": {
+                "Send_startConversation_Event": {
+                  "type": "Http",
+                  "inputs": {
+                    "uri": "@{variables('Bot Framework URI')}/v3/directline/conversations/@{body('Parse_Token_Response')?['conversationId']}/activities",
+                    "method": "POST",
+                    "body": {
+                      "type": "event",
+                      "from": {
+                        "id": "CopilotStudioAccelerator"
+                      },
+                      "name": "startConversation"
+                    },
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "Bearer @{body('Parse_Token_Response')?['token']}"
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "aff72f26-ed75-4a32-af8e-6e96b5163e8f"
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              },
+              "runAfter": {
+                "Initiate_Conversation": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "550099ac-1e76-48c1-826c-bdfdcd6a2582"
+              }
+            },
+            "Filter_array:_Activities_of_type_Message": {
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Parse_Activities_Response')?['activities']",
+                "where": "@equals(item()?['type'], 'message')"
+              },
+              "runAfter": {
+                "Parse_Activities_Response": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "83d3803e-42d9-4d1b-8963-78732c59190a"
+              }
+            },
+            "Filter_array:_Messages_from_Bot": {
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Filter_array:_Activities_of_type_Message')",
+                "where": "@equals(item()?['from']?['role'], 'bot')"
+              },
+              "runAfter": {
+                "Filter_array:_Activities_of_type_Message": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2e772575-37e2-42f7-ba6d-e3e5c92a5136"
+              }
+            },
+            "Filter_array:_Messages_from_User": {
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Filter_array:_Activities_of_type_Message')",
+                "where": "@not(equals(item()?['from']?['role'], 'bot'))"
+              },
+              "runAfter": {
+                "Filter_array:_Messages_from_Bot": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2e772575-37e2-42f7-ba6d-e3e5c92a5136"
+              }
+            },
+            "Message_Position": {
+              "type": "Compose",
+              "inputs": "@if(\r\n    not(equals(items('Apply_to_each_Copilot_Test')?['cat_expectedpositionoftheresponseactivity'], null)),\r\n    int(items('Apply_to_each_Copilot_Test')?['cat_expectedpositionoftheresponseactivity']),\r\n    if(\r\n        equals(items('Apply_to_each_Copilot_Test')?['cat_isstartconversationeventsent'], true),\r\n        1,\r\n        0\r\n    )\r\n)",
+              "runAfter": {
+                "Filter_array:_Messages_from_User": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1cb65d3c-ed22-42f2-b6c4-dab6e07bd180"
+              }
+            }
+          },
+          "runAfter": {
+            "Condition:_If_Direct_Line_Environment_Variable_Secret": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "concurrency": {
+              "repetitions": 50
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "dc0383b1-4bed-4bc5-bed6-6910c9be8942"
+          }
+        },
+        "Get_Copilot_Tests": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottests",
+              "$select": "cat_testutterance, cat_copilottestid, cat_expectedresponse, cat_secondsbeforegettinganswer, cat_testtypecode, cat_generativeansweroutcomecode, cat_expectedpositionoftheresponseactivity, cat_expectedtopicname, cat_isstartconversationeventsent, cat_externalvariablesjson, cat_expectedattachmentsjson",
+              "$filter": "_cat_copilottestsetid_value eq '@{triggerOutputs()?['body/_cat_copilottestsetid_value']}' and statecode eq 0",
+              "$orderby": "cat_name"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "runAfter": {
+            "Get_Copilot_Configuration": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cdcb622c-426b-4061-baaa-588823dbeca1"
+          }
+        },
+        "Update_Copilot_Test_Run:_Complete": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+              "item/cat_appinsightsenrichmentstatuscode": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_isazureapplicationinsightsenabled'], true), 5, 4)",
+              "item/cat_dataverseenrichmentstatuscode": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_isenrichedwithconversationtranscripts'], true), 5, 4)",
+              "item/cat_generatedanswersanalysiscode": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true), 5, 4)",
+              "item/cat_runstatuscode": 3
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "runAfter": {
+            "Perform_a_bound_action:_Update_Rollup_Columns": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bc00c2ac-f457-48e7-902f-8d36733a2d6d"
+          }
+        },
+        "Initialize_Bot_Framework_URI": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Bot Framework URI",
+                "type": "string",
+                "value": "@{if(equals(outputs('Get_Copilot_Configuration')?['body/cat_regioncode'], 2), 'https://europe.directline.botframework.com',\r\n   if(equals(outputs('Get_Copilot_Configuration')?['body/cat_regioncode'], 3), 'https://india.directline.botframework.com',\r\n      'https://directline.botframework.com'\r\n   )\r\n)}"
+              }
+            ]
+          },
+          "runAfter": {
+            "Get_Copilot_Tests": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d7f3adeb-82f8-4531-93d5-6ebac08f7eae"
+          }
+        },
+        "Update_Copilot_Test_Run:_Running": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+              "item/cat_runstatuscode": 2
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "ffc0b3d5-d551-41ac-b1a5-710107a5eee9"
+          }
+        },
+        "Condition:_If_Dataverse_enrichment_is_configured": {
+          "type": "If",
+          "expression": {
+            "equals": [
+              "@outputs('Get_Copilot_Configuration')?['body/cat_isenrichedwithconversationtranscripts']",
+              true
+            ]
+          },
+          "actions": {
+            "Perform_a_bound_action:_Run_Dataverse_Conversation_Transcripts_Enrichment": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilottestruns",
+                  "actionName": "Microsoft.Dynamics.CRM.cat_RunDataverseConversationTranscriptsEnrichment",
+                  "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                  "item/CopilotConfigurationId": "@triggerOutputs()?['body/_cat_copilotconfigurationid_value']",
+                  "item/CopilotTestRunId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                  "item/CopilotTestSetId": "@triggerOutputs()?['body/_cat_copilottestsetid_value']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "PerformBoundAction",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "af5864d2-de47-42db-8156-f875068d4fd9"
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Complete": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f33de582-e2c6-4dc8-85f9-ef842d483978"
+          }
+        },
+        "Condition:_If_Azure_App_Insights_enrichment_is_configured": {
+          "type": "If",
+          "expression": {
+            "equals": [
+              "@outputs('Get_Copilot_Configuration')?['body/cat_isazureapplicationinsightsenabled']",
+              true
+            ]
+          },
+          "actions": {
+            "Perform_a_bound_action:_Run_Azure_Application_Insights_Enrichment": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilottestruns",
+                  "actionName": "Microsoft.Dynamics.CRM.cat_RunAzureApplicationInsightsEnrichment",
+                  "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                  "item/CopilotConfigurationId": "@triggerOutputs()?['body/_cat_copilotconfigurationid_value']",
+                  "item/CopilotTestRunId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                  "item/CopilotTestSetId": "@triggerOutputs()?['body/_cat_copilottestsetid_value']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "PerformBoundAction",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "d73f6a88-a6a9-4b4c-9a0b-a730bc7ea127"
+              }
+            }
+          },
+          "else": {
+            "actions": {
+              "Condition:_If_Analyze_Generative_Answers_is_enabled": {
+                "type": "If",
+                "expression": {
+                  "equals": [
+                    "@outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled']",
+                    true
+                  ]
+                },
+                "actions": {
+                  "Perform_a_bound_action:_Run_AI_Builder_Analysis": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "entityName": "cat_copilottestruns",
+                        "actionName": "Microsoft.Dynamics.CRM.cat_RunAIBuilderAnalysis",
+                        "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                        "item/CopilotTestRunId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                        "item/CopilotTestSetId": "@triggerOutputs()?['body/_cat_copilottestsetid_value']"
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "operationId": "PerformBoundAction",
+                        "connectionName": "shared_commondataserviceforapps_1"
+                      }
+                    },
+                    "metadata": {
+                      "operationMetadataId": "cc622639-9ae0-4c18-aa8a-0dfcd7171aff"
+                    }
+                  }
+                },
+                "else": {
+                  "actions": {}
+                },
+                "metadata": {
+                  "operationMetadataId": "f22b2c02-c748-4811-a288-27eaa317f400"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Complete": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "26527b71-5d0b-4793-a187-b240ec4c2487"
+          }
+        },
+        "Condition:_If_Direct_Line_Environment_Variable_Secret": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@outputs('Get_Copilot_Configuration')?['body/cat_isdirectlinechannelsecurityenabled']",
+                  true
+                ]
+              },
+              {
+                "equals": [
+                  "@outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecretlocationcode']",
+                  2
+                ]
+              }
+            ]
+          },
+          "actions": {
+            "Get_Direct_Line_Secret": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "actionName": "RetrieveEnvironmentVariableSecretValue",
+                  "item/EnvironmentVariableName": "@outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecurityenvironmentvariable']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "runtimeConfiguration": {
+                "secureData": {
+                  "properties": [
+                    "outputs"
+                  ]
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "d21e8d39-3956-4a27-b023-35072c64d912"
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Initialize_Bot_Framework_URI": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b8fa7220-e752-4f2e-bb11-59f375754a8c"
+          }
+        },
+        "Update_Copilot_Test_Run:_Error": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+              "item/cat_appinsightsenrichmentstatuscode": 4,
+              "item/cat_dataverseenrichmentstatuscode": 4,
+              "item/cat_generatedanswersanalysiscode": 4,
+              "item/cat_runstatuscode": 6
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "runAfter": {
+            "Apply_to_each_Copilot_Test": [
+              "Failed",
+              "TimedOut",
+              "Skipped"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bc00c2ac-f457-48e7-902f-8d36733a2d6d"
+          }
+        },
+        "Get_Copilot_Configuration": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilotconfigurations",
+              "recordId": "@triggerOutputs()?['body/_cat_copilotconfigurationid_value']",
+              "$select": "cat_tokenendpoint, cat_regioncode, cat_isdirectlinechannelsecurityenabled, cat_directlinechannelsecuritysecret, cat_isazureapplicationinsightsenabled, cat_isenrichedwithconversationtranscripts, cat_directlinechannelsecretlocationcode, cat_directlinechannelsecurityenvironmentvariable, cat_isgeneratedanswersanalysisenabled"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Running": [
+              "Succeeded"
+            ]
+          },
+          "runtimeConfiguration": {
+            "secureData": {
+              "properties": [
+                "outputs"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "355f2919-7c01-47a8-b3bb-f6635b01f3ec"
+          }
+        },
+        "Perform_a_bound_action:_Update_Rollup_Columns": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "actionName": "Microsoft.Dynamics.CRM.cat_RunRollupColumnsUpdates",
+              "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+              "item/DataverseUriHost": "@uriHost(outputs('Get_Copilot_Configuration')?['body/@odata.id'])",
+              "item/CopilotTestRunId": "@triggerOutputs()?['body/cat_copilottestrunid']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Apply_to_each_Copilot_Test": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1f8aed5e-d876-4aee-aa8f-48d1fec0a7a0"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,230 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_webcontents_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorHTTPwithMicrosoftEntraID"
+        },
+        "api": {
+          "name": "shared_webcontents"
+        }
+      },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_an_action_is_performed": {
+          "metadata": {
+            "operationMetadataId": "bd8c5cbc-9725-440d-80bd-e1b0ee675458"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "BusinessEventsTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "catalog": "allcatalog",
+              "category": "allcategory",
+              "subscriptionRequest/entityname": "cat_copilottestrun",
+              "subscriptionRequest/sdkmessagename": "cat_RunRollupColumnsUpdates"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Scope:_Calculate_Rollup_Columns": {
+          "actions": {
+            "Calculate_Rollup_Column_-_#_Tests": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents_1",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_tests'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Calculate_Rollup_Column_-_#_Success": {
+              "runAfter": {
+                "Calculate_Rollup_Column_-_#_Tests": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents_1",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_success'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Calculate_Rollup_Column_-_#_Failed": {
+              "runAfter": {
+                "Calculate_Rollup_Column_-_#_Success": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents_1",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_failed'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Calculate_Rollup_Column_-_#_Unknown": {
+              "runAfter": {
+                "Calculate_Rollup_Column_-_#_Failed": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents_1",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_unknown'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Calculate_Rollup_Column_-_#_Error": {
+              "runAfter": {
+                "Calculate_Rollup_Column_-_#_Unknown": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents_1",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_error'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Calculate_Rollup_Column_-_#_Pending": {
+              "runAfter": {
+                "Calculate_Rollup_Column_-_#_Error": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents_1",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_pending'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Calculate_Rollup_Column_-_Average_Latency": {
+              "runAfter": {
+                "Calculate_Rollup_Column_-_#_Pending": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_webcontents_1",
+                  "operationId": "InvokeHttp",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                },
+                "parameters": {
+                  "request/method": "GET",
+                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_averagelatencyms'"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "d0c74f29-082a-4c7e-b0da-1a65fd39c8fd"
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <WebResources />
+  <CustomControls />
+  <AppModuleSiteMaps />
+  <AppModules />
+  <EntityDataProviders />
+  <CanvasApps />
+  <AIModels>
+    <AIModel>
+      <msdyn_aimodelid>{0ebe7217-deac-4d24-8ea1-67237f416b1b}</msdyn_aimodelid>
+      <msdyn_name>AI Generative Answer Match</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{d58444fa-d217-ef11-9f89-0022483374d8}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{d58444fa-d217-ef11-9f89-0022483374d8}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"**Task: Evaluate a Response Against Provided Guidelines and Sample Answer**\n\n### Task Description\nEvaluate whether a model's response aligns with the user's question and adheres to the provided Sample Answer or Guidelines. Guidelines may specify conditions such as \"no response required\" or \"any answer acceptable,\" which should direct your accuracy assessment.\n\n### Scoring Criteria:\n- **1 (SUCCESS)**: The response fully aligns with the Sample Answer/Guidelines and meets all conditions.\n- **2 (FAILURE)**: The response contradicts or fails to meet the conditions outlined in the Sample Answer/Guidelines.\n- **3 (UNKNOWN)**: This score applies when the relevance of the response to the Sample Answer/Guidelines is ambiguous.\n\n### Specific Output Format Requirement\nEvaluations must be expressed as a single whole number, strictly containing no prefixes, labels, or additional text.\n\n### Example Evaluations\n- **Example #1:**\n  - **Instruction**: \"Can Copilot Studio be isolated in a VNET?\"\n  - **Sample Answer/Guidelines**: \"No answer.\"\n  - **Bot’s Response**: \"I'm sorry, I'm not sure how to help with that. Can you try rephrasing?\"\n  - **Expected Validation Outcome**: `1` (SUCCESS) – The response implies no answer can be provided, aligning with the guideline.\n\n- **Example #2:**\n  - **Instruction**: \"Does Copilot Studio support SSO with SharePoint?\"\n  - **Sample Answer/Guidelines**: \"Yes, a Copilot Studio bot can be deployed to SharePoint with SSO.\"\n  - **Bot’s Response**: \"SSO is currently not supported when a copilot has been published to a SharePoint website.\"\n  - **Expected Validation Outcome**: `2` (FAILURE) – The response contradicts the affirmative guideline.\n\n- **Example #3:**\n  - **Instruction**: \"Can I deploy Copilot Studio to a mobile Android app?\"\n  - **Sample Answer/Guidelines**: \"Any answer.\"\n  - **Bot’s Response**: \"Yes, you can connect your Copilot Studio to a mobile Android app. The process involves copying a code snippet into your app. Please note that integration requires developer expertise.\"\n  - **Expected Validation Outcome**: `1` (SUCCESS) – The response directly addresses the question with sufficient detail, satisfying the \"Any answer\" guideline.\n\n### Specific instructions for \"No Answer\" Sample Answer/Guidelines\n- When it is expected that the bot doesn't answer (e.g. \"No Answer\" as a Sample Answer/Guidelines), if the bot declines to help or to provide an answer, then it is a success  `1` (SUCCESS) \n- When the instruction says that any attempt at answering the question is a success, then \"No response, but attachments (Adaptive Cards, etc.)\" should be considered a success  `1` (SUCCESS).\n\n### Instructions to Evaluate\n- **Instruction**: "},{"type":"inputVariable","id":"instruction"},{"type":"literal","text":"\n- **Sample Answer/Guidelines**: "},{"type":"inputVariable","id":"reference_20answer"},{"type":"literal","text":"\n- **Response to evaluate**: "},{"type":"inputVariable","id":"response"},{"type":"literal","text":"\n\n"}],"definitions":{"inputs":[{"id":"instruction","text":"instruction","quickTestValue":"Where do cruises go?"},{"id":"response","text":"response","quickTestValue":"No response, but attachments (Adaptive Cards, etc.)"},{"id":"reference_20answer","text":"reference answer","quickTestValue":"Any attempt at answering the question is a success."}],"data":[],"output":{"formats":["text"]}},"modelParameters":{"modelType":"gpt-35-turbo","gptParameters":{"temperature":0}}}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>42</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>0ebe7217-deac-4d24-8ea1-67237f416b1b_2024-05-22T00:33:58.764Z</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWRTWvCQBCG/4rMeQ9tKT3kZm0FLwoaei3TOLELyeyyM0FD8L830diGbg7xtvA+8+x8NLDzlC1dKFE/KIh1DMmjgRX7SrfO6Tur1RqSBt6s+ALrNZYECYCBuWqwX5WSdLFl0VBlejH8p4ehgY3vHlhAkmMhZCCtfUftWh8f4GwgkHjHQrHpN5mmySkQZ/T59IAsRwpjwp6Z9cQUMe739sosHCudNPbOI2Qobrfx531FoZfnm/3c+jeV3rv/8S7S68fRALllK99bQhk71/KSzvo4Km9b/AECLdSeOAIAAA==</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{0ebe7217-deac-4d24-8ea1-67237f416b1b}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{c1bc1272-f001-ef11-a1fd-000d3a5a66f7}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{c1bc1272-f001-ef11-a1fd-000d3a5a66f7}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>e0a39f15-8a5e-439b-9cc2-53dd52a1c969</msdyn_modeldata>
+          <msdyn_name>0ebe7217-deac-4d24-8ea1-67237f416b1b_2024-04-24T04:09:30.744Z</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{0ebe7217-deac-4d24-8ea1-67237f416b1b}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+  </AIModels>
+  <connectionreferences>
+    <connectionreference connectionreferencelogicalname="cat_CopilotStudioAcceleratorAzureApplicationInsights">
+      <connectionreferencedisplayname>Copilot Studio Accelerator - Azure Application Insights</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_applicationinsights</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="cat_CopilotStudioAcceleratorDataverse">
+      <connectionreferencedisplayname>Copilot Studio Accelerator - Dataverse</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+      <description>Microsoft Dataverse connection reference for Copilot Studio Accelerator</description>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="cat_CopilotStudioAcceleratorHTTPwithMicrosoftEntraID">
+      <connectionreferencedisplayname>Copilot Studio Accelerator - HTTP with Microsoft Entra ID</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_webcontents</connectorid>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+  </connectionreferences>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

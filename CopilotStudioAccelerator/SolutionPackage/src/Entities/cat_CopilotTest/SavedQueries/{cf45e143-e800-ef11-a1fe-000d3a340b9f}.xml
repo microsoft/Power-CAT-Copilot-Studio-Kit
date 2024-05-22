@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{cf45e143-e800-ef11-a1fe-000d3a340b9f}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilottestid">
+          <cell name="cat_name" width="117" />
+          <cell name="cat_testtypecode" width="125" />
+          <cell name="cat_testutterance" width="281" />
+          <cell name="cat_expectedresponse" width="300" />
+          <cell name="cat_secondsbeforegettinganswer" width="97" />
+          <cell name="cat_generativeansweroutcomecode" width="114" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical">
+        <entity name="cat_copilottest">
+          <attribute name="cat_copilottestid" />
+          <attribute name="cat_testutterance" />
+          <attribute name="cat_name" />
+          <attribute name="cat_testtypecode" />
+          <attribute name="cat_expectedresponse" />
+          <order attribute="cat_name" descending="false" />
+          <attribute name="cat_generativeansweroutcomecode" />
+          <attribute name="cat_secondsbeforegettinganswer" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.2</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Tests" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Subgrid view" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

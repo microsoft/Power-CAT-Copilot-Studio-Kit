@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{617d7e56-8711-ef11-9f89-0022480b09c2}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilotconfigurationid">
+          <cell name="cat_name" width="285" />
+          <cell name="cat_regioncode" width="114" />
+          <cell name="cat_tokenendpoint" width="130" />
+          <cell name="cat_isdirectlinechannelsecurityenabled" width="205" />
+          <cell name="cat_directlinechannelsecretlocationcode" width="247" />
+          <cell name="cat_directlinechannelsecuritysecret" width="243" />
+          <cell name="cat_directlinechannelsecurityenvironmentvariable" width="332" />
+          <cell name="cat_isazureapplicationinsightsenabled" width="264" />
+          <cell name="cat_delayforazureapplicationinsightsenrichment" width="318" />
+          <cell name="cat_isenrichedwithconversationtranscripts" width="253" />
+          <cell name="cat_dataverseurl" width="128" />
+          <cell name="cat_iscopyfulltranscriptenabled" width="157" />
+          <cell name="cat_delayforconversationtranscriptsenrichment" width="307" />
+          <cell name="cat_isgeneratedanswersanalysisenabled" width="201" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_copilotconfiguration">
+          <attribute name="cat_copilotconfigurationid" />
+          <attribute name="cat_name" />
+          <order attribute="cat_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cat_regioncode" />
+          <attribute name="cat_isdirectlinechannelsecurityenabled" />
+          <attribute name="cat_directlinechannelsecretlocationcode" />
+          <attribute name="cat_directlinechannelsecuritysecret" />
+          <attribute name="cat_directlinechannelsecurityenvironmentvariable" />
+          <attribute name="cat_isazureapplicationinsightsenabled" />
+          <attribute name="cat_isenrichedwithconversationtranscripts" />
+          <attribute name="cat_dataverseurl" />
+          <attribute name="cat_tokenendpoint" />
+          <attribute name="cat_delayforazureapplicationinsightsenrichment" />
+          <attribute name="cat_delayforconversationtranscriptsenrichment" />
+          <attribute name="cat_isgeneratedanswersanalysisenabled" />
+          <attribute name="cat_iscopyfulltranscriptenabled" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.2.0.15</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Export/Import View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

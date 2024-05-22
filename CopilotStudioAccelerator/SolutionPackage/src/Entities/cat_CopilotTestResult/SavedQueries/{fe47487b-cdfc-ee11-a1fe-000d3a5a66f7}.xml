@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{fe47487b-cdfc-ee11-a1fe-000d3a5a66f7}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilottestresultid">
+          <cell name="cat_copilottestid" width="97" />
+          <cell name="cat_name" width="136" />
+          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_testutterance" width="202" />
+          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_testtypecode" width="131" />
+          <cell name="cat_response" width="267" />
+          <cell name="cat_latencyms" width="99" />
+          <cell name="cat_resultcode" width="79" />
+          <cell name="cat_resultreason" width="121" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+        <entity name="cat_copilottestresult">
+          <attribute name="cat_copilottestresultid" />
+          <attribute name="cat_response" />
+          <attribute name="cat_resultcode" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity alias="a_11c43379b03342349c835ebb85a49d36" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
+            <attribute name="cat_testutterance" />
+            <attribute name="cat_testtypecode" />
+          </link-entity>
+          <attribute name="cat_name" />
+          <attribute name="cat_copilottestid" />
+          <order attribute="cat_copilottestid" descending="false" />
+          <attribute name="cat_latencyms" />
+          <attribute name="cat_resultreason" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Results" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Subgrid view" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{ae6721bf-eb90-4f0a-8325-68a796a72fa9}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilottestresultid">
+          <cell name="cat_copilottestrunid" width="140" />
+          <cell name="cat_copilottestid" width="125" />
+          <cell name="cat_name" width="133" />
+          <cell name="a_0e6cff8d1ff14a0f871ecbace9ab6081.cat_testutterance" width="203" />
+          <cell name="cat_response" width="271" />
+          <cell name="a_0e6cff8d1ff14a0f871ecbace9ab6081.cat_testtypecode" width="169" />
+          <cell name="cat_recognizedtopicname" width="115" />
+          <cell name="cat_latencyms" width="102" />
+          <cell name="cat_resultcode" width="79" />
+          <cell name="cat_resultreason" width="171" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical" distinct="true">
+        <entity name="cat_copilottestresult">
+          <attribute name="cat_copilottestresultid" />
+          <attribute name="cat_copilottestid" />
+          <attribute name="cat_copilottestrunid" />
+          <attribute name="cat_response" />
+          <attribute name="cat_resultcode" />
+          <order attribute="cat_copilottestrunid" descending="false" />
+          <order attribute="cat_copilottestid" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity alias="a_0e6cff8d1ff14a0f871ecbace9ab6081" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
+            <attribute name="cat_testtypecode" />
+            <attribute name="cat_testutterance" />
+          </link-entity>
+          <attribute name="cat_name" />
+          <attribute name="cat_latencyms" />
+          <attribute name="cat_recognizedtopicname" />
+          <attribute name="cat_resultreason" />
+          <link-entity name="cat_copilottestrun" alias="ab" link-type="inner" from="cat_copilottestrunid" to="cat_copilottestrunid">
+            <filter type="and">
+              <condition attribute="statecode" operator="eq" value="0" />
+            </filter>
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="All Test Results" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

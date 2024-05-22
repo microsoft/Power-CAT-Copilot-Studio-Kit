@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AppModuleSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SiteMapUniqueName>cat_CopilotStudioAccelerator</SiteMapUniqueName>
+  <EnableCollapsibleGroups>False</EnableCollapsibleGroups>
+  <ShowHome>False</ShowHome>
+  <ShowPinned>False</ShowPinned>
+  <ShowRecents>False</ShowRecents>
+  <SiteMap IntroducedVersion="7.0.0.0">
+    <Area Id="area_teststudio" ResourceId="SitemapDesigner.NewTitle" DescriptionResourceId="SitemapDesigner.NewTitle" ShowGroups="true" IntroducedVersion="7.0.0.0">
+      <Titles>
+        <Title LCID="1033" Title="Test Studio" />
+      </Titles>
+      <Group Id="group_accelerator" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+        <Titles>
+          <Title LCID="1033" Title="Accelerator" />
+        </Titles>
+        <SubArea Id="subarea_home" VectorIcon="/WebResources/cat_/powercat/img/home.svg" Icon="/WebResources/cat_/powercat/img/home.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_home_c8017">
+          <Titles>
+            <Title LCID="1033" Title="Home" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="group_configure" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+        <Titles>
+          <Title LCID="1033" Title="Configure" />
+        </Titles>
+        <SubArea Id="subarea_copilotconfigurations" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilotconfiguration" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Copilots" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="subarea_copilottestset" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottestset" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Test Sets" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="subarea_copilottest" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottest" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Tests" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="group_test" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+        <Titles>
+          <Title LCID="1033" Title="Test" />
+        </Titles>
+        <SubArea Id="subarea_copilottestruns" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottestrun" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Test Runs" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="subarea_copilottestresults" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottestresult" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Test Results" />
+          </Titles>
+        </SubArea>
+      </Group>
+    </Area>
+    <Area Id="area_copilotstudio" ResourceId="SitemapDesigner.NewTitle" DescriptionResourceId="SitemapDesigner.NewTitle" ShowGroups="true" IntroducedVersion="7.0.0.0">
+      <Titles>
+        <Title LCID="1033" Title="Copilot Studio" />
+      </Titles>
+      <Group Id="group_transcripts" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+        <Titles>
+          <Title LCID="1033" Title="Transcripts" />
+        </Titles>
+        <SubArea Id="subarea_conversationtranscript" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="conversationtranscript" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Conversation Transcripts" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="group_configurationtables" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+        <Titles>
+          <Title LCID="1033" Title="Configuration Tables" />
+        </Titles>
+        <SubArea Id="subarea_bot" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="bot" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+        <SubArea Id="subarea_botcomponent" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="botcomponent" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+        <SubArea Id="subarea_botcomponentcollection" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="botcomponentcollection" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" />
+      </Group>
+    </Area>
+  </SiteMap>
+  <LocalizedNames>
+    <LocalizedName description="Copilot Studio Accelerator" languagecode="1033" />
+  </LocalizedNames>
+</AppModuleSiteMap>

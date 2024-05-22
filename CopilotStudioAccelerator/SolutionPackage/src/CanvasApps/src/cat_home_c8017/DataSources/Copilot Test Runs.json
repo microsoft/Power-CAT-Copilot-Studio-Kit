@@ -1,0 +1,156 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cat_copilottestruns",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cat_copilottestrun",
+    "MaxGetRowsCount": 500,
+    "Name": "Copilot Test Runs",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cat_appinsightsenrichmentstatuscode": "App Insights Enrichment Status",
+      "cat_averagelatencyms": "Average Latency (ms)",
+      "cat_averagelatencyms_count": "cat_AverageLatencyMs (CountAverage)",
+      "cat_averagelatencyms_date": "Average Latency (ms) (Last Updated On)",
+      "cat_averagelatencyms_state": "Average Latency (ms) (State)",
+      "cat_averagelatencyms_sum": "cat_AverageLatencyMs (SumAverage)",
+      "cat_blank": "# Blank",
+      "cat_blank_date": "# Blank (Last Updated On)",
+      "cat_blank_state": "# Blank (State)",
+      "cat_copilottestresult_CopilotTestRunId_cat_co": "Copilot Test Results",
+      "cat_copilottestrun_AsyncOperations": "System Jobs",
+      "cat_copilottestrun_BulkDeleteFailures": "Bulk Delete Failures",
+      "cat_copilottestrun_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cat_copilottestrun_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cat_copilottestrun_ProcessSession": "Process Sessions",
+      "cat_copilottestrun_SyncErrors": "Sync Errors",
+      "cat_copilottestrunid": "Copilot Test Run",
+      "cat_CopilotTestSetId": "Copilot Test Set",
+      "cat_dataverseenrichmentstatuscode": "Dataverse Enrichment Status",
+      "cat_error": "# Error",
+      "cat_error_date": "# Error (Last Updated On)",
+      "cat_error_state": "# Error (State)",
+      "cat_failed": "# Failed",
+      "cat_failed_date": "# Failed (Last Updated On)",
+      "cat_failed_state": "# Failed (State)",
+      "cat_name": "Name",
+      "cat_runstatuscode": "Run Status",
+      "cat_success": "# Success",
+      "cat_success_date": "# Success (Last Updated On)",
+      "cat_success_state": "# Success (State)",
+      "cat_successrate": "Success Rate",
+      "cat_tests": "# Tests",
+      "cat_tests_date": "# Tests (Last Updated On)",
+      "cat_tests_state": "# Tests (State)",
+      "cat_unknown": "# Unknown",
+      "cat_unknown_date": "# Unknown (Last Updated On)",
+      "cat_unknown_state": "# Unknown (State)",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Copilot Test Runs",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Copilot Test Runs (Views)",
+    "Name": "_cat_copilottestrun_views",
+    "RelatedEntityName": "Copilot Test Runs",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0f941216-8311-ef11-9f8a-000d3a5a66f7": "Detailed Test Runs Results",
+      "1881843e-c60e-41a4-b6c2-3e205d201fe7": "Copilot Test Run Associated View",
+      "1cd9fdde-dc81-4841-94be-da858ebe120b": "Copilot Test Run Lookup View",
+      "2222ef29-8ec0-48ec-9b99-d661a205c38e": "Copilot Test Run Advanced Find View",
+      "8c2bb65c-f794-4c75-b7d6-9efccf0ea9d7": "Inactive Test Runs",
+      "e6f7d240-e2b0-406a-b6aa-3a32c1812d23": "All Test Runs"
+    }
+  },
+  {
+    "DisplayName": "Status (Copilot Test Runs)",
+    "Name": "cat_copilottestrun_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Copilot Test Runs"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Copilot Test Runs",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Copilot Test Runs)",
+    "Name": "cat_copilottestrun_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Copilot Test Runs"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Copilot Test Runs",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Run Status",
+    "Name": "cat_runstatus",
+    "OptionSetInfoNameMapping": {
+      "1": "Not Run",
+      "2": "Running",
+      "3": "Complete",
+      "4": "Not Available",
+      "5": "Pending"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_appinsightsenrichmentstatuscode",
+        "OptionSetReferenceEntityName": "Copilot Test Runs"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "cat_dataverseenrichmentstatuscode",
+        "OptionSetReferenceEntityName": "Copilot Test Runs"
+      },
+      "OptionSetReferenceItem2": {
+        "OptionSetReferenceColumnName": "cat_runstatuscode",
+        "OptionSetReferenceEntityName": "Copilot Test Runs"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_appinsightsenrichmentstatuscode",
+    "RelatedEntityName": "Copilot Test Runs",
+    "Type": "OptionSetInfo"
+  }
+]

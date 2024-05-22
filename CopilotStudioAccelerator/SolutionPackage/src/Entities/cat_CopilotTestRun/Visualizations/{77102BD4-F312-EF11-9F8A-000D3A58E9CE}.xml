@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<visualization xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedqueryvisualizationid>{77102BD4-F312-EF11-9F8A-000D3A58E9CE}</savedqueryvisualizationid>
+  <datadescription>
+    <datadefinition>
+      <fetchcollection>
+        <fetch mapping="logical" aggregate="true">
+          <entity name="cat_copilottestrun">
+            <attribute name="cat_copilottestrunid" groupby="true" alias="_CRMAutoGen_groupby_column_Num_0" />
+            <attribute name="cat_successrate" aggregate="avg" alias="_CRMAutoGen_aggregate_column_Num_0" />
+            <attribute name="cat_averagelatencyms" aggregate="avg" alias="_CRMAutoGen_aggregate_column_Num_16" />
+          </entity>
+        </fetch>
+      </fetchcollection>
+      <categorycollection>
+        <category alias="_CRMAutoGen_groupby_column_Num_0">
+          <measurecollection>
+            <measure alias="_CRMAutoGen_aggregate_column_Num_0" />
+          </measurecollection>
+          <measurecollection>
+            <measure alias="_CRMAutoGen_aggregate_column_Num_16" />
+          </measurecollection>
+        </category>
+      </categorycollection>
+    </datadefinition>
+  </datadescription>
+  <presentationdescription>
+    <Chart Palette="None" PaletteCustomColors="58,150,221; 104,153,32; 215,116,64; 195,107,209; 87,129,27; 119,141,241; 202,80,16; 79,107,237; 238,95,183; 0,165,175; 230,28,153; 178,124,0; 177,70,194; 0,115,81; 99,124,239; 0,139,148; 52,135,199; 148,112,189; 227,0,140; 208,98,40;">
+      <Series>
+        <Series ChartType="Column" IsValueShownAsLabel="True" Font="{0}, 14px" LabelForeColor="36, 36, 36" CustomProperties="PointWidth=0.75, MaxPixelPointWidth=40" LegendText="Success Rate (%)" />
+        <Series ChartType="Column" IsValueShownAsLabel="True" Font="{0}, 14px" LabelForeColor="36, 36, 36" CustomProperties="PointWidth=0.75, MaxPixelPointWidth=40" YAxisType="Secondary" LegendText="Average Latency (ms)" />
+      </Series>
+      <ChartAreas>
+        <ChartArea BorderColor="White" BorderDashStyle="Solid">
+          <AxisY LabelAutoFitMinFontSize="8" TitleForeColor="36, 36, 36" TitleFont="{0}, 14px" LineColor="209, 209, 209" IntervalAutoMode="VariableCount">
+            <MajorGrid LineColor="240, 240, 240" />
+            <MajorTickMark LineColor="209, 209, 209" />
+            <LabelStyle Font="{0}, 14px" ForeColor="36, 36, 36" />
+          </AxisY>
+          <AxisX LabelAutoFitMinFontSize="8" TitleForeColor="36, 36, 36" TitleFont="{0}, 14px" LineColor="209, 209, 209" IntervalAutoMode="VariableCount">
+            <MajorTickMark LineColor="209, 209, 209" />
+            <MajorGrid LineColor="Transparent" />
+            <LabelStyle Font="{0}, 14px" ForeColor="36, 36, 36" />
+          </AxisX>
+          <AxisY2 LabelAutoFitMinFontSize="8" TitleForeColor="36, 36, 36" TitleFont="{0}, 14px" LineColor="209, 209, 209" IntervalAutoMode="VariableCount">
+            <MajorGrid LineColor="240, 240, 240" />
+            <MajorTickMark LineColor="209, 209, 209" />
+            <LabelStyle Font="{0}, 14px" ForeColor="36, 36, 36" Format="N0" />
+          </AxisY2>
+        </ChartArea>
+      </ChartAreas>
+      <Titles>
+        <Title Alignment="TopLeft" DockingOffset="-3" Font="{0}, 14px" ForeColor="214, 214, 214" />
+      </Titles>
+      <Legends>
+        <Legend Alignment="Center" LegendStyle="Table" Docking="right" IsEquallySpacedItems="True" Font="{0}, 12px" ShadowColor="0, 0, 0, 0" ForeColor="36, 36, 36" />
+      </Legends>
+    </Chart>
+  </presentationdescription>
+  <isdefault>0</isdefault>
+  <LocalizedNames>
+    <LocalizedName description="Success Rate and Latency" languagecode="1033" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description description="Copilot Test Runs and their success rates and latencies" languagecode="1033" />
+  </Descriptions>
+  <IsCustomizable>1</IsCustomizable>
+  <IntroducedVersion>1.2.0.28</IntroducedVersion>
+  <CanBeDeleted>1</CanBeDeleted>
+</visualization>

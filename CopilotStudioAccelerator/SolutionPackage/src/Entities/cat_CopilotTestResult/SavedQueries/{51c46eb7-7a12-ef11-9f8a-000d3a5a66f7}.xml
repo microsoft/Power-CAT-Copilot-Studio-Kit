@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{51c46eb7-7a12-ef11-9f8a-000d3a5a66f7}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilottestresultid">
+          <cell name="cat_copilottestid" width="109" />
+          <cell name="cat_name" width="171" />
+          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_testutterance" width="203" />
+          <cell name="a_9218d831c0cb4f879f1a1556cdbf05a5.cat_expectedattachmentsjson" width="164" />
+          <cell name="cat_response" width="132" />
+          <cell name="cat_attachmentsjson" width="148" />
+          <cell name="cat_resultcode" width="75" />
+          <cell name="cat_resultreason" width="121" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+        <entity name="cat_copilottestresult">
+          <attribute name="cat_copilottestresultid" />
+          <attribute name="cat_response" />
+          <attribute name="cat_resultcode" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity alias="a_11c43379b03342349c835ebb85a49d36" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="inner">
+            <attribute name="cat_testutterance" />
+            <filter type="and">
+              <condition attribute="cat_testtypecode" operator="eq" value="3" />
+            </filter>
+          </link-entity>
+          <attribute name="cat_name" />
+          <attribute name="cat_copilottestid" />
+          <order attribute="cat_copilottestid" descending="false" />
+          <attribute name="cat_attachmentsjson" />
+          <link-entity alias="a_9218d831c0cb4f879f1a1556cdbf05a5" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
+            <attribute name="cat_expectedattachmentsjson" />
+          </link-entity>
+          <attribute name="cat_resultreason" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.2.0.27</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Attachments Results" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Subgrid view" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>
