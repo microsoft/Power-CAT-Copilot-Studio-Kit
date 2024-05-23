@@ -54,7 +54,7 @@ steps:
     New-Item -Path $(Pipeline.Workspace)\releaseassets -ItemType Directory
     New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory
     Copy-Item '$(Pipeline.Workspace)\drop\*managed.zip' -Destination '$(Pipeline.Workspace)\assetstaging'
-    Copy-Item '$(Build.SourcesDirectory)\Powercat-Copilotstudio-Accelerator\CopilotstudioAcceleratorResources\Release\Collateral\ApprovalsKit\*.*' -Destination '$(Pipeline.Workspace)\assetstaging'
+    Copy-Item '$(Build.SourcesDirectory)\Powercat-Copilotstudio-Accelerator\CopilotstudioAcceleratorResources\Release\Collateral\CopilotstudioAccelerator\*.*' -Destination '$(Pipeline.Workspace)\assetstaging'
 
     $compress = @{
       Path = '$(Pipeline.Workspace)\assetstaging\*.*'
