@@ -178,8 +178,8 @@
           "runAfter": {
             "Apply_to_each_Generative_Answers_Result": [
               "Failed",
-              "Skipped",
-              "TimedOut"
+              "SKIPPED",
+              "TIMEDOUT"
             ]
           },
           "metadata": {
@@ -228,9 +228,7 @@
           "runAfter": {
             "Perform_a_bound_action:_Update_Rollup_Columns": [
               "Succeeded",
-              "Failed",
-              "Skipped",
-              "TimedOut"
+              "Failed"
             ]
           },
           "metadata": {

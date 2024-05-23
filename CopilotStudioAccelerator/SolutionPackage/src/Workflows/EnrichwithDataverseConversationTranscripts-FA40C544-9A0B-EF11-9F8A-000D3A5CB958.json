@@ -113,75 +113,310 @@
                 "operationMetadataId": "70031cec-f284-4b6b-931d-2e6b8593896e"
               }
             },
-            "Parse_Content_JSON": {
-              "type": "ParseJson",
-              "inputs": {
-                "content": "@outputs('Get_Conversation_Transcripts')['body/value'][0]['content']",
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "activities": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "valueType": {
-                            "type": "string"
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "type": "string"
-                          },
-                          "timestamp": {
-                            "type": "number"
-                          },
-                          "from": {
+            "Condition_-_Existing_Conversation_Transcript": {
+              "type": "If",
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@not(empty(outputs('Get_Conversation_Transcripts')['body/value']))",
+                      true
+                    ]
+                  }
+                ]
+              },
+              "actions": {
+                "Parse_Content_JSON": {
+                  "type": "ParseJson",
+                  "inputs": {
+                    "content": "@outputs('Get_Conversation_Transcripts')['body/value'][0]['content']",
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "activities": {
+                          "type": "array",
+                          "items": {
                             "type": "object",
                             "properties": {
+                              "valueType": {
+                                "type": "string"
+                              },
                               "id": {
                                 "type": "string"
                               },
-                              "role": {
-                                "type": "integer"
-                              }
-                            }
-                          },
-                          "replyToId": {
-                            "type": "string"
-                          },
-                          "value": {
-                            "oneOf": [
-                              {
+                              "type": {
+                                "type": "string"
+                              },
+                              "timestamp": {
+                                "type": "number"
+                              },
+                              "from": {
                                 "type": "object",
                                 "properties": {
-                                  "intentTitle": {
+                                  "id": {
                                     "type": "string"
                                   },
-                                  "intentId": {
-                                    "type": "string"
-                                  },
-                                  "intentScore": {
-                                    "type": "object",
-                                    "properties": {
-                                      "score": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "targetDialogId": {
-                                    "type": "string"
+                                  "role": {
+                                    "type": "integer"
                                   }
                                 }
                               },
-                              {
+                              "replyToId": {
                                 "type": "string"
+                              },
+                              "value": {
+                                "oneOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "intentTitle": {
+                                        "type": "string"
+                                      },
+                                      "intentId": {
+                                        "type": "string"
+                                      },
+                                      "intentScore": {
+                                        "type": "object",
+                                        "properties": {
+                                          "score": {
+                                            "type": "number"
+                                          }
+                                        }
+                                      },
+                                      "targetDialogId": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "type": "string"
+                                  }
+                                ]
                               }
-                            ]
+                            }
                           }
                         }
                       }
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "f824dddf-b4f0-44d3-8e4a-d0123533eb22"
+                  }
+                },
+                "Filter_array_with_valueType_IntentRecognition": {
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Parse_Content_JSON')?['activities']",
+                    "where": "@equals(item()?['valueType'], 'IntentRecognition')"
+                  },
+                  "runAfter": {
+                    "Parse_Content_JSON": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
+                  }
+                },
+                "Filter_array_with_valueType_UnknownIntent": {
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Parse_Content_JSON')?['activities']",
+                    "where": "@equals(item()?['valueType'], 'UnknownIntent')"
+                  },
+                  "runAfter": {
+                    "Filter_array_with_valueType_IntentRecognition": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
+                  }
+                },
+                "Filter_array_with_valueType_IntentCandidates": {
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Parse_Content_JSON')?['activities']",
+                    "where": "@equals(item()?['valueType'], 'IntentCandidates')"
+                  },
+                  "runAfter": {
+                    "Filter_array_with_valueType_UnknownIntent": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
+                  }
+                },
+                "Filter_array_with_valueType_DialogRedirect": {
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Parse_Content_JSON')?['activities']",
+                    "where": "@equals(item()?['valueType'], 'DialogRedirect')"
+                  },
+                  "runAfter": {
+                    "Filter_array_with_valueType_IntentCandidates": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
+                  }
+                },
+                "Condition:_If_only_a_DialogRedirect_is_available": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])",
+                          true
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])",
+                          true
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])",
+                          true
+                        ]
+                      },
+                      {
+                        "equals": [
+                          "@empty(first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'])",
+                          false
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Get_Topic_Name": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "organization": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']",
+                          "entityName": "botcomponents",
+                          "recordId": "@first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId']",
+                          "$select": "name"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "GetItemWithOrganization",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "efaf9c9a-0c22-4241-9926-591e2ddf1ce3"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "runAfter": {
+                    "Filter_array_with_valueType_DialogRedirect": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "584d85f8-d488-4f10-9562-960b41f0a4e2"
+                  }
+                },
+                "Condition:_If_Copy_Full_Transcript_is_enabled": {
+                  "type": "If",
+                  "expression": {
+                    "equals": [
+                      "@outputs('Get_Copilot_Configuration')?['body/cat_iscopyfulltranscriptenabled']",
+                      true
+                    ]
+                  },
+                  "actions": {
+                    "Upload_Conversation_Transcript": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "x-ms-file-name": "ConversationTranscript_@{items('Apply_to_each_Result')?['cat_name']}.json",
+                          "entityName": "cat_copilottestresults",
+                          "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
+                          "fileImageFieldName": "cat_conversationtranscriptfile",
+                          "item": "@body('Parse_Content_JSON')"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "UpdateEntityFileImageFieldContent",
+                          "connectionName": "shared_commondataserviceforapps"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "802f4608-b537-4ca1-86bd-eebd6a90e33a"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "runAfter": {
+                    "Condition:_If_only_a_DialogRedirect_is_available": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "4658e507-236f-4b5e-a91d-6c7da53016ff"
+                  }
+                },
+                "Update_Copilot_Test_Result": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "cat_copilottestresults",
+                      "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
+                      "item/cat_name": "@items('Apply_to_each_Result')?['cat_name']",
+                      "item/cat_resultcode": "@if(\r\n    equals(\r\n        items('Apply_to_each_Result')?['cat_copilottestid/cat_testtypecode'], \r\n        2\r\n    ),\r\n    if(\r\n        equals(\r\n            if(\r\n                not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n                first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n                if(\r\n                    not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n                    first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n                    if(\r\n                        not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n                        first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n                        if(\r\n                            not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                            outputs('Get_Topic_Name')?['body']?['name'],\r\n                            ''\r\n                        )\r\n                    )\r\n                )\r\n            ), \r\n            items('Apply_to_each_Result')?['cat_copilottestid/cat_expectedtopicname']\r\n        ), \r\n        1, \r\n        2\r\n    ), \r\n    items('Apply_to_each_Result')?['cat_resultcode']\r\n)\r\n",
+                      "item/cat_recognizedintentscore": "@first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentScore']?['score']\n",
+                      "item/cat_resultreason": "@if(\r\n    equals(\r\n        items('Apply_to_each_Result')?['cat_copilottestid/cat_testtypecode'], \r\n        2\r\n    ),\r\n    if(\r\n        equals(\r\n            if(\r\n                not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n                first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n                if(\r\n                    not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n                    first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n                    if(\r\n                        not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n                        first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n                        if(\r\n                            not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                            outputs('Get_Topic_Name')?['body']?['name'],\r\n                            ''\r\n                        )\r\n                    )\r\n                )\r\n            ), \r\n            items('Apply_to_each_Result')?['cat_copilottestid/cat_expectedtopicname']\r\n        ), \r\n        'Exact match on the triggered topic or event name', \r\n        'Not an exact match on the triggered topic or event name' \r\n    ), \r\n    items('Apply_to_each_Result')?['cat_resultreason']\r\n)",
+                      "item/cat_recognizedtopicname": "@if(\r\n    not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n    first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n    if(\r\n        not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n        first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n        if(\r\n            not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n            first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n            if(\r\n                not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                outputs('Get_Topic_Name')?['body']?['name'],\r\n                ''\r\n            )\r\n        )\r\n    )\r\n)",
+                      "item/cat_recognizedtopicid": "@if(\r\n    not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentId'])),\r\n    first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentId'],\r\n    if(\r\n        not(empty(first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'])),\r\n        first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'],\r\n        ''\r\n    )\r\n)"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord",
+                      "connectionName": "shared_commondataserviceforapps"
+                    }
+                  },
+                  "runAfter": {
+                    "Condition:_If_Copy_Full_Transcript_is_enabled": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Update_Copilot_Test_Result_-_Missing_Transcript": {
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "entityName": "cat_copilottestresults",
+                        "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
+                        "item/cat_name": "@items('Apply_to_each_Result')?['cat_name']",
+                        "item/cat_resultcode": 4,
+                        "item/cat_resultreason": "Conversation Transcript could not be retrieved"
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                        "operationId": "UpdateRecord",
+                        "connectionName": "shared_commondataserviceforapps"
+                      }
+                    },
+                    "metadata": {
+                      "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
                     }
                   }
                 }
@@ -192,200 +427,7 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "f824dddf-b4f0-44d3-8e4a-d0123533eb22"
-              }
-            },
-            "Filter_array_with_valueType_IntentRecognition": {
-              "type": "Query",
-              "inputs": {
-                "from": "@body('Parse_Content_JSON')?['activities']",
-                "where": "@equals(item()?['valueType'], 'IntentRecognition')"
-              },
-              "runAfter": {
-                "Parse_Content_JSON": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
-              }
-            },
-            "Update_Copilot_Test_Result": {
-              "type": "OpenApiConnection",
-              "inputs": {
-                "parameters": {
-                  "entityName": "cat_copilottestresults",
-                  "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
-                  "item/cat_name": "@items('Apply_to_each_Result')?['cat_name']",
-                  "item/cat_resultcode": "@if(\r\n    equals(\r\n        items('Apply_to_each_Result')?['cat_copilottestid/cat_testtypecode'], \r\n        2\r\n    ),\r\n    if(\r\n        equals(\r\n            if(\r\n                not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n                first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n                if(\r\n                    not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n                    first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n                    if(\r\n                        not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n                        first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n                        if(\r\n                            not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                            outputs('Get_Topic_Name')?['body']?['name'],\r\n                            ''\r\n                        )\r\n                    )\r\n                )\r\n            ), \r\n            items('Apply_to_each_Result')?['cat_copilottestid/cat_expectedtopicname']\r\n        ), \r\n        1, \r\n        2\r\n    ), \r\n    items('Apply_to_each_Result')?['cat_resultcode']\r\n)\r\n",
-                  "item/cat_recognizedintentscore": "@first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentScore']?['score']\n",
-                  "item/cat_resultreason": "@if(\r\n    equals(\r\n        items('Apply_to_each_Result')?['cat_copilottestid/cat_testtypecode'], \r\n        2\r\n    ),\r\n    if(\r\n        equals(\r\n            if(\r\n                not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n                first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n                if(\r\n                    not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n                    first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n                    if(\r\n                        not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n                        first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n                        if(\r\n                            not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                            outputs('Get_Topic_Name')?['body']?['name'],\r\n                            ''\r\n                        )\r\n                    )\r\n                )\r\n            ), \r\n            items('Apply_to_each_Result')?['cat_copilottestid/cat_expectedtopicname']\r\n        ), \r\n        'Exact match on the triggered topic or event name', \r\n        'Not an exact match on the triggered topic or event name' \r\n    ), \r\n    items('Apply_to_each_Result')?['cat_resultreason']\r\n)",
-                  "item/cat_recognizedtopicname": "@if(\r\n    not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n    first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n    if(\r\n        not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n        first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n        if(\r\n            not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n            first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n            if(\r\n                not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                outputs('Get_Topic_Name')?['body']?['name'],\r\n                ''\r\n            )\r\n        )\r\n    )\r\n)",
-                  "item/cat_recognizedtopicid": "@if(\r\n    not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentId'])),\r\n    first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentId'],\r\n    if(\r\n        not(empty(first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'])),\r\n        first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'],\r\n        ''\r\n    )\r\n)"
-                },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                  "operationId": "UpdateRecord",
-                  "connectionName": "shared_commondataserviceforapps"
-                }
-              },
-              "runAfter": {
-                "Condition:_If_Copy_Full_Transcript_is_enabled": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
-              }
-            },
-            "Filter_array_with_valueType_UnknownIntent": {
-              "type": "Query",
-              "inputs": {
-                "from": "@body('Parse_Content_JSON')?['activities']",
-                "where": "@equals(item()?['valueType'], 'UnknownIntent')"
-              },
-              "runAfter": {
-                "Filter_array_with_valueType_IntentRecognition": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
-              }
-            },
-            "Filter_array_with_valueType_IntentCandidates": {
-              "type": "Query",
-              "inputs": {
-                "from": "@body('Parse_Content_JSON')?['activities']",
-                "where": "@equals(item()?['valueType'], 'IntentCandidates')"
-              },
-              "runAfter": {
-                "Filter_array_with_valueType_UnknownIntent": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
-              }
-            },
-            "Filter_array_with_valueType_DialogRedirect": {
-              "type": "Query",
-              "inputs": {
-                "from": "@body('Parse_Content_JSON')?['activities']",
-                "where": "@equals(item()?['valueType'], 'DialogRedirect')"
-              },
-              "runAfter": {
-                "Filter_array_with_valueType_IntentCandidates": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
-              }
-            },
-            "Condition:_If_only_a_DialogRedirect_is_available": {
-              "type": "If",
-              "expression": {
-                "and": [
-                  {
-                    "equals": [
-                      "@empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])",
-                      true
-                    ]
-                  },
-                  {
-                    "equals": [
-                      "@empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])",
-                      true
-                    ]
-                  },
-                  {
-                    "equals": [
-                      "@empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])",
-                      true
-                    ]
-                  },
-                  {
-                    "equals": [
-                      "@empty(first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'])",
-                      false
-                    ]
-                  }
-                ]
-              },
-              "actions": {
-                "Get_Topic_Name": {
-                  "type": "OpenApiConnection",
-                  "inputs": {
-                    "parameters": {
-                      "organization": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']",
-                      "entityName": "botcomponents",
-                      "recordId": "@first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId']",
-                      "$select": "name"
-                    },
-                    "host": {
-                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                      "operationId": "GetItemWithOrganization",
-                      "connectionName": "shared_commondataserviceforapps"
-                    }
-                  },
-                  "metadata": {
-                    "operationMetadataId": "efaf9c9a-0c22-4241-9926-591e2ddf1ce3"
-                  }
-                }
-              },
-              "else": {
-                "actions": {}
-              },
-              "runAfter": {
-                "Filter_array_with_valueType_DialogRedirect": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "584d85f8-d488-4f10-9562-960b41f0a4e2"
-              }
-            },
-            "Condition:_If_Copy_Full_Transcript_is_enabled": {
-              "type": "If",
-              "expression": {
-                "equals": [
-                  "@outputs('Get_Copilot_Configuration')?['body/cat_iscopyfulltranscriptenabled']",
-                  true
-                ]
-              },
-              "actions": {
-                "Upload_Conversation_Transcript": {
-                  "type": "OpenApiConnection",
-                  "inputs": {
-                    "parameters": {
-                      "x-ms-file-name": "ConversationTranscript_@{items('Apply_to_each_Result')?['cat_name']}.json",
-                      "entityName": "cat_copilottestresults",
-                      "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
-                      "fileImageFieldName": "cat_conversationtranscriptfile",
-                      "item": "@body('Parse_Content_JSON')"
-                    },
-                    "host": {
-                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                      "operationId": "UpdateEntityFileImageFieldContent",
-                      "connectionName": "shared_commondataserviceforapps"
-                    }
-                  },
-                  "metadata": {
-                    "operationMetadataId": "802f4608-b537-4ca1-86bd-eebd6a90e33a"
-                  }
-                }
-              },
-              "else": {
-                "actions": {}
-              },
-              "runAfter": {
-                "Condition:_If_only_a_DialogRedirect_is_available": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "4658e507-236f-4b5e-a91d-6c7da53016ff"
+                "operationMetadataId": "8b3c79f8-bbb7-4c68-9c78-078afd27ca17"
               }
             }
           },
@@ -442,7 +484,8 @@
           },
           "runAfter": {
             "Perform_a_bound_action:_Update_Rollup_Columns": [
-              "Succeeded"
+              "Succeeded",
+              "FAILED"
             ]
           },
           "metadata": {
