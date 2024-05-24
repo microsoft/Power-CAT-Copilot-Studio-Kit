@@ -10,8 +10,7 @@ To leverage the new features in Copilot Studio Accelerator 1.0.0, ensure the fol
 1. **Direct Line Secret**:
    - Valid subscription to Copilot Studio.
    - Secure storage setup for Direct Line secret in Dataverse or Azure Key Vault.
-     ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/29349597/d08cbc9b-02d0-4dc0-b0fa-a808086bf904)
-
+   ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/29349597/986f3b4d-21d3-45b5-b5e0-ac027af56812)
 
 2. **Region Availability**:
    - Select the appropriate region (Default, Europe, India) for your deployment.
@@ -19,7 +18,7 @@ To leverage the new features in Copilot Studio Accelerator 1.0.0, ensure the fol
 3. **Azure Application Insights**:
    - Active Azure account with permissions to access Application Insights.
    - Properly configured Application Insights resource to monitor and log generative answer tests. Refer to [Advanced Bot Framework Composer Capture Telemetry](https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry?tabs=webApp) for detailed setup instructions.
-   ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/29349597/d1a12c2f-cad3-4250-be53-b56ee6e8c288)
+   ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/29349597/15433968-151c-47dc-833a-2473ae736e86)
 
 4. **Dataverse**:
    - A fully operational Dataverse environment.
