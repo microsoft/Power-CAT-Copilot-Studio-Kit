@@ -14,6 +14,22 @@
           <columns>
             <column width="100%">
               <sections>
+                <section name="tab_general_section_errordetails" id="82963d60-01ef-4b05-961c-0850f69bdddb" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Error Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{e07ae2f0-a196-4475-b264-3eabf1347e8a}" locklevel="0" colspan="1" rowspan="1" showlabel="false" auto="true" visible="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_errordetails" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_errordetails" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
                 <section showlabel="false" showbar="false" IsUserDefined="0" id="{d7106cf3-9809-4099-a3aa-87fb82891f07}" columns="11" name="tab_general_section_general">
                   <labels>
                     <label description="General" languagecode="1033" />
@@ -39,7 +55,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{3d1ac461-e220-40b1-9837-ab907e122fd3}" showlabel="false">
+                      <cell locklevel="0" id="{224f64fc-1982-48ec-a40d-c57afe4ea003}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -310,13 +326,13 @@
               <labels>
                 <label description="App Insights Enrichment Status" languagecode="1033" />
               </labels>
-              <control id="header_cat_appinsightsenrichmentstatuscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_appinsightsenrichmentstatuscode" disabled="false" />
+              <control id="header_cat_appinsightsenrichmentstatuscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_appinsightsenrichmentstatuscode" disabled="true" />
             </cell>
             <cell id="{84df76c5-7ba4-4399-81ac-53b4ce0f3192}" locklevel="0" colspan="1" rowspan="1">
               <labels>
                 <label description="Generated Answers Analysis" languagecode="1033" />
               </labels>
-              <control id="header_cat_generatedanswersanalysiscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_generatedanswersanalysiscode" disabled="false" />
+              <control id="header_cat_generatedanswersanalysiscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_generatedanswersanalysiscode" disabled="true" />
             </cell>
             <cell locklevel="0" id="{c24f1815-85f1-4799-8b71-1e51631cfad7}" showlabel="false">
               <labels>
@@ -327,7 +343,7 @@
               <labels>
                 <label description="Dataverse Enrichment Status" languagecode="1033" />
               </labels>
-              <control id="header_cat_dataverseenrichmentstatuscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_dataverseenrichmentstatuscode" disabled="false" />
+              <control id="header_cat_dataverseenrichmentstatuscode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_dataverseenrichmentstatuscode" disabled="true" />
             </cell>
           </row>
         </rows>

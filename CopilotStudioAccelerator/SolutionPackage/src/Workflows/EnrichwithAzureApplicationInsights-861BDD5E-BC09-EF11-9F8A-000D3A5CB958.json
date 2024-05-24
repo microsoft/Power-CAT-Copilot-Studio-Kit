@@ -209,7 +209,7 @@
           "runAfter": {
             "Perform_a_bound_action:_Update_Rollup_Columns": [
               "Succeeded",
-              "FAILED"
+              "Failed"
             ]
           },
           "metadata": {
@@ -223,6 +223,7 @@
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
               "item/cat_appinsightsenrichmentstatuscode": 6,
+              "item/cat_errordetails": "@{concat(\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\n  '<br/>',\n  'Failed <strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"https://make.powerautomate.com/environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)\n}",
               "item/cat_generatedanswersanalysiscode": 4
             },
             "host": {
