@@ -7,25 +7,17 @@ The Copilot Studio Accelerator is a Power Platform-based solution that helps aut
 
 To leverage the new features in Copilot Studio Accelerator 1.0.0, ensure the following prerequisites are met:
 
-1. **Direct Line Secret**:
-   - Valid subscription to Copilot Studio.
-   - Secure storage setup for Direct Line secret in Dataverse or Azure Key Vault.
-   ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/29349597/986f3b4d-21d3-45b5-b5e0-ac027af56812)
-
-2. **Region Availability**:
-   - Select the appropriate region (Default, Europe, India) for your deployment.
-
-3. **Azure Application Insights**:
+1. **Azure Application Insights**:
    - Active Azure account with permissions to access Application Insights.
    - Properly configured Application Insights resource to monitor and log generative answer tests. Refer to [Advanced Bot Framework Composer Capture Telemetry](https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry?tabs=webApp) for detailed setup instructions.
    ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/29349597/15433968-151c-47dc-833a-2473ae736e86)
 
-4. **Dataverse**:
+2. **Dataverse**:
    - A fully operational Dataverse environment.
    - Permissions to access and manage Conversation Transcript records within Dataverse. Refer to [Work with conversation transcripts](https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-sessions-transcripts) for detailed setup instructions.
    - Proper setup for data enrichment processes to utilize full conversation transcripts.
 
-5. **AI Builder**:
+3. **AI Builder**:
    - Access to AI Builder within your Microsoft Power Platform.
    - AI Builder credits to utilize the generative AI capabilities.
 
