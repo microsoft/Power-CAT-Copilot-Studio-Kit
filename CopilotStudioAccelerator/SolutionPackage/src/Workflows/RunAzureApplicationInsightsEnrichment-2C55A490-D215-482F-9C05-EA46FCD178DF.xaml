@@ -2,6 +2,15 @@
   <x:Members>
     <x:Property Name="InputEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
     <x:Property Name="CreatedEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
+    <x:Property Name="SkipDelay" Type="InArgument(x:Boolean)">
+      <x:Property.Attributes>
+        <mxsw:ArgumentRequiredAttribute Value="True" />
+        <mxsw:ArgumentTargetAttribute Value="False" />
+        <mxsw:ArgumentDescriptionAttribute Value="Skip Delay Before Getting Azure Application Insights Results" />
+        <mxsw:ArgumentDirectionAttribute Value="Input" />
+        <mxsw:ArgumentEntityAttribute Value="" />
+      </x:Property.Attributes>
+    </x:Property>
     <x:Property Name="CopilotConfigurationId" Type="InArgument(x:String)">
       <x:Property.Attributes>
         <mxsw:ArgumentRequiredAttribute Value="True" />

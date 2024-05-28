@@ -68,12 +68,23 @@
                     </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_test" id="88bbdcfc-547e-420a-8780-a1c5b53fb55e" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="11" labelwidth="115">
+                <section name="tab_general_section_test" id="88bbdcfc-547e-420a-8780-a1c5b53fb55e" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="11" labelwidth="115" height="auto">
                   <labels>
                     <label description="Test" languagecode="1033" />
                   </labels>
                   <rows>
-                    <row />
+                    <row>
+                      <cell id="{67874dee-44d4-4ea0-9b11-2d2262079a7a}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{00932949-9bcb-4f5a-858e-98c7eae3f8ee}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
                     <row>
                       <cell id="{3e48999b-84aa-4f88-bf87-f3ae16735dd2}" locklevel="0" colspan="1" rowspan="5" auto="true">
                         <labels>
@@ -91,7 +102,7 @@
                     <row />
                     <row />
                     <row />
-                    <row />
+                    <row height="auto" />
                     <row>
                       <cell id="{c160649a-f19f-4109-957e-98d6662a7636}" locklevel="0" colspan="1" rowspan="5" auto="true">
                         <labels>
@@ -115,28 +126,28 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{03ee7af8-63a1-4824-b0bf-57d15fd4a3dc}">
+                      <cell locklevel="0" id="{03ee7af8-63a1-4824-b0bf-57d15fd4a3dc}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{26dda93e-556e-4c2f-9081-552dccf1bdfa}">
+                      <cell locklevel="0" id="{26dda93e-556e-4c2f-9081-552dccf1bdfa}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row height="auto">
+                      <cell locklevel="0" id="{619cd007-1374-4756-bff1-950526cdbf95}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{619cd007-1374-4756-bff1-950526cdbf95}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{0e995dc6-909b-47e3-9c90-0f6d92c922b1}">
+                      <cell locklevel="0" id="{0e995dc6-909b-47e3-9c90-0f6d92c922b1}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -148,10 +159,82 @@
                         <control id="cat_expectedattachmentsjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedattachmentsjson" disabled="false" />
                       </cell>
                     </row>
+                    <row>
+                      <cell id="{cc057886-4fa8-443a-b510-08c966e32660}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c23e310f-3801-49d1-857b-08ae22b9bc48}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1d16e25a-0c29-4622-83e8-2f8f6070cdde}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row height="auto">
+                      <cell id="{cc95c523-cf4c-466c-93cb-6cd9a9c0537f}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_results" id="c260758a-8c6f-4112-a640-874f4d48961c" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Results" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_results_section_results" id="5baf7785-a0d3-4b8b-af6d-004312acb3ae" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" height="auto">
+                  <labels>
+                    <label description="Test Results" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{69822ee6-ffc4-4a64-8519-6959c41d5f22}" rowspan="5" colspan="1" auto="true" showlabel="true">
+                        <labels>
+                          <label description="Test Results" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="subgrid_testresults" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{ec04b5bb-67b0-44ea-30d6-479160892d81}">
+                          <parameters>
+                            <RecordsPerPage>50</RecordsPerPage>
+                            <AutoExpand>Auto</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>true</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                            <ViewId>{F0244B6A-771C-EF11-840A-0022483374D8}</ViewId>
+                            <ViewIds>{51C46EB7-7A12-EF11-9F8A-000D3A5A66F7},{4D58072B-8A0B-EF11-9F89-0022480B09C2},{771443E8-561C-EF11-840A-0022483374D8},{AC5D1644-8A11-EF11-9F8A-000D3A5A66F7},{F0244B6A-771C-EF11-840A-0022483374D8},{D91B3192-8A11-EF11-9F8A-000D3A5A66F7}</ViewIds>
+                            <RelationshipName>cat_copilottestresult_CopilotTestId_cat_copil</RelationshipName>
+                            <HeaderColorCode>#F3F3F3</HeaderColorCode>
+                            <IsUserView>false</IsUserView>
+                            <EnableJumpBar>false</EnableJumpBar>
+                            <VisualizationId />
+                            <IsUserChart>false</IsUserChart>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row></row>
                     <row />
                     <row />
-                    <row />
-                    <row />
+                    <row height="auto" />
                   </rows>
                 </section>
               </sections>
@@ -171,29 +254,29 @@
                   </labels>
                   <rows>
                     <row>
-                      <cell locklevel="0" id="{53f1dc58-bbd0-4407-91c1-2902a7c7c6d6}">
+                      <cell locklevel="0" id="{53f1dc58-bbd0-4407-91c1-2902a7c7c6d6}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell locklevel="0" id="{356625e8-94c7-4487-940f-0f6d147854d8}">
+                      <cell locklevel="0" id="{356625e8-94c7-4487-940f-0f6d147854d8}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell locklevel="0" id="{a43d70a0-3c0e-4806-be5c-490532a84419}">
+                      <cell locklevel="0" id="{a43d70a0-3c0e-4806-be5c-490532a84419}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{e76b1e00-6b9c-4463-94ca-85dda3dd49ec}">
+                      <cell locklevel="0" id="{e76b1e00-6b9c-4463-94ca-85dda3dd49ec}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell locklevel="0" id="{56c23853-4c30-4dca-86d6-2d1b1232f17d}">
+                      <cell locklevel="0" id="{56c23853-4c30-4dca-86d6-2d1b1232f17d}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -314,9 +397,6 @@
           </row>
         </rows>
       </footer>
-      <DisplayConditions Order="0" FallbackForm="true">
-        <Everyone />
-      </DisplayConditions>
       <controlDescriptions>
         <controlDescription forControl="{b7740077-526d-48d0-9ed8-209b2415b4e3}">
           <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
@@ -340,7 +420,144 @@
             </parameters>
           </customControl>
         </controlDescription>
+        <controlDescription forControl="{ec04b5bb-67b0-44ea-30d6-479160892d81}">
+          <customControl id="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+            <parameters />
+          </customControl>
+          <customControl formFactor="0" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{F0244B6A-771C-EF11-840A-0022483374D8}</ViewId>
+                <columnsDefaultView />
+                <IsUserView>false</IsUserView>
+                <RelationshipName>cat_copilottestresult_CopilotTestId_cat_copil</RelationshipName>
+                <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                <EnableViewPicker>true</EnableViewPicker>
+                <FilteredViewIds>{51C46EB7-7A12-EF11-9F8A-000D3A5A66F7},{4D58072B-8A0B-EF11-9F89-0022480B09C2},{771443E8-561C-EF11-840A-0022483374D8},{AC5D1644-8A11-EF11-9F8A-000D3A5A66F7},{F0244B6A-771C-EF11-840A-0022483374D8},{D91B3192-8A11-EF11-9F8A-000D3A5A66F7}</FilteredViewIds>
+              </data-set>
+              <EnableEditing static="true" type="Enum">yes</EnableEditing>
+              <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
+              <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+              <EnableSorting static="true" type="Enum">yes</EnableSorting>
+              <EnableGrouping static="true" type="Enum">no</EnableGrouping>
+              <EnableAggregation static="true" type="Enum">no</EnableAggregation>
+              <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
+              <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
+              <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
+              <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
+              <EnablePagination static="true" type="Enum">no</EnablePagination>
+              <EnableDropdownColor static="true" type="Enum">yes</EnableDropdownColor>
+              <EnableStatusIcons static="true" type="Enum">yes</EnableStatusIcons>
+              <EnableTypeIcons static="true" type="Enum">no</EnableTypeIcons>
+              <NavigationTypesAllowed static="true" type="Enum">all</NavigationTypesAllowed>
+              <ReflowBehavior static="true" type="Enum">Reflow</ReflowBehavior>
+              <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
+              <ShowFooter static="true" type="Enum">yes</ShowFooter>
+              <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+              <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{F0244B6A-771C-EF11-840A-0022483374D8}</ViewId>
+                <columnsDefaultView />
+                <IsUserView>false</IsUserView>
+                <RelationshipName>cat_copilottestresult_CopilotTestId_cat_copil</RelationshipName>
+                <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                <EnableViewPicker>true</EnableViewPicker>
+                <FilteredViewIds>{51C46EB7-7A12-EF11-9F8A-000D3A5A66F7},{4D58072B-8A0B-EF11-9F89-0022480B09C2},{771443E8-561C-EF11-840A-0022483374D8},{AC5D1644-8A11-EF11-9F8A-000D3A5A66F7},{F0244B6A-771C-EF11-840A-0022483374D8},{D91B3192-8A11-EF11-9F8A-000D3A5A66F7}</FilteredViewIds>
+              </data-set>
+              <EnableEditing static="true" type="Enum">yes</EnableEditing>
+              <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
+              <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+              <EnableSorting static="true" type="Enum">yes</EnableSorting>
+              <EnableGrouping static="true" type="Enum">no</EnableGrouping>
+              <EnableAggregation static="true" type="Enum">no</EnableAggregation>
+              <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
+              <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
+              <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
+              <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
+              <EnablePagination static="true" type="Enum">no</EnablePagination>
+              <EnableDropdownColor static="true" type="Enum">yes</EnableDropdownColor>
+              <EnableStatusIcons static="true" type="Enum">yes</EnableStatusIcons>
+              <EnableTypeIcons static="true" type="Enum">no</EnableTypeIcons>
+              <NavigationTypesAllowed static="true" type="Enum">all</NavigationTypesAllowed>
+              <ReflowBehavior static="true" type="Enum">Reflow</ReflowBehavior>
+              <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
+              <ShowFooter static="true" type="Enum">yes</ShowFooter>
+              <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+              <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{F0244B6A-771C-EF11-840A-0022483374D8}</ViewId>
+                <columnsDefaultView />
+                <IsUserView>false</IsUserView>
+                <RelationshipName>cat_copilottestresult_CopilotTestId_cat_copil</RelationshipName>
+                <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                <EnableViewPicker>true</EnableViewPicker>
+                <FilteredViewIds>{51C46EB7-7A12-EF11-9F8A-000D3A5A66F7},{4D58072B-8A0B-EF11-9F89-0022480B09C2},{771443E8-561C-EF11-840A-0022483374D8},{AC5D1644-8A11-EF11-9F8A-000D3A5A66F7},{F0244B6A-771C-EF11-840A-0022483374D8},{D91B3192-8A11-EF11-9F8A-000D3A5A66F7}</FilteredViewIds>
+              </data-set>
+              <EnableEditing static="true" type="Enum">yes</EnableEditing>
+              <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
+              <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
+              <EnableSorting static="true" type="Enum">yes</EnableSorting>
+              <EnableGrouping static="true" type="Enum">no</EnableGrouping>
+              <EnableAggregation static="true" type="Enum">no</EnableAggregation>
+              <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
+              <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
+              <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
+              <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
+              <EnablePagination static="true" type="Enum">no</EnablePagination>
+              <EnableDropdownColor static="true" type="Enum">yes</EnableDropdownColor>
+              <EnableStatusIcons static="true" type="Enum">yes</EnableStatusIcons>
+              <EnableTypeIcons static="true" type="Enum">no</EnableTypeIcons>
+              <NavigationTypesAllowed static="true" type="Enum">all</NavigationTypesAllowed>
+              <ReflowBehavior static="true" type="Enum">Reflow</ReflowBehavior>
+              <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
+              <ShowFooter static="true" type="Enum">yes</ShowFooter>
+              <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+              <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
       </controlDescriptions>
+      <Navigation>
+        <NavBar></NavBar>
+        <NavBarAreas>
+          <NavBarArea Id="Info">
+            <Titles>
+              <Title LCID="1033" Text="Common" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Sales">
+            <Titles>
+              <Title LCID="1033" Text="Sales" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Service">
+            <Titles>
+              <Title LCID="1033" Text="Service" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Marketing">
+            <Titles>
+              <Title LCID="1033" Text="Marketing" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="ProcessCenter">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarArea>
+        </NavBarAreas>
+      </Navigation>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

@@ -2,11 +2,11 @@
 <savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <savedquery>
     <IsCustomizable>1</IsCustomizable>
-    <CanBeDeleted>0</CanBeDeleted>
+    <CanBeDeleted>1</CanBeDeleted>
     <isquickfindquery>0</isquickfindquery>
     <isprivate>0</isprivate>
     <isdefault>0</isdefault>
-    <savedqueryid>{ae6721bf-eb90-4f0a-8325-68a796a72fa9}</savedqueryid>
+    <savedqueryid>{d8ccb342-571c-ef11-840b-6045bdd6c0ee}</savedqueryid>
     <layoutxml>
       <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
         <row name="result" id="cat_copilottestresultid">
@@ -14,12 +14,12 @@
           <cell name="cat_copilottestid" width="125" />
           <cell name="cat_name" width="133" />
           <cell name="a_0e6cff8d1ff14a0f871ecbace9ab6081.cat_testutterance" width="203" />
+          <cell name="a_acc8931fad37422795433aa87e732f7c.cat_expectedtopicname" width="130" />
           <cell name="cat_response" width="271" />
-          <cell name="a_0e6cff8d1ff14a0f871ecbace9ab6081.cat_testtypecode" width="169" />
-          <cell name="cat_recognizedtopicname" width="115" />
-          <cell name="cat_latencyms" width="102" />
-          <cell name="cat_resultcode" width="79" />
-          <cell name="cat_resultreason" width="171" />
+          <cell name="cat_recognizedtopicname" width="131" />
+          <cell name="cat_recognizedintentscore" width="121" />
+          <cell name="cat_resultcode" width="125" />
+          <cell name="cat_resultreason" width="121" />
         </row>
       </grid>
     </layoutxml>
@@ -36,16 +36,22 @@
           <order attribute="cat_copilottestid" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="ownerid" operator="eq-userid" />
           </filter>
-          <link-entity alias="a_0e6cff8d1ff14a0f871ecbace9ab6081" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
-            <attribute name="cat_testtypecode" />
+          <link-entity alias="a_0e6cff8d1ff14a0f871ecbace9ab6081" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="inner">
             <attribute name="cat_testutterance" />
+            <filter type="and">
+              <condition attribute="cat_testtypecode" operator="eq" value="2" />
+            </filter>
           </link-entity>
           <attribute name="cat_name" />
-          <attribute name="cat_latencyms" />
           <attribute name="cat_recognizedtopicname" />
+          <attribute name="cat_recognizedintentscore" />
+          <link-entity alias="a_acc8931fad37422795433aa87e732f7c" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
+            <attribute name="cat_expectedtopicname" />
+          </link-entity>
           <attribute name="cat_resultreason" />
-          <link-entity name="cat_copilottestrun" alias="ab" link-type="inner" from="cat_copilottestrunid" to="cat_copilottestrunid">
+          <link-entity name="cat_copilottestrun" alias="af" link-type="inner" from="cat_copilottestrunid" to="cat_copilottestrunid">
             <filter type="and">
               <condition attribute="statecode" operator="eq" value="0" />
             </filter>
@@ -53,9 +59,9 @@
         </entity>
       </fetch>
     </fetchxml>
-    <IntroducedVersion>1.0</IntroducedVersion>
+    <IntroducedVersion>1.3.0.14</IntroducedVersion>
     <LocalizedNames>
-      <LocalizedName description="All Test Results" languagecode="1033" />
+      <LocalizedName description="My Topic Match Results" languagecode="1033" />
     </LocalizedNames>
   </savedquery>
 </savedqueries>

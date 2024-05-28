@@ -184,7 +184,7 @@
             }
           },
           "runAfter": {
-            "Delay": [
+            "Condition_Skip_Delay": [
               "Succeeded"
             ]
           },
@@ -241,23 +241,6 @@
           },
           "metadata": {
             "operationMetadataId": "46100016-2f1b-4e28-9ef7-90648debe3d9"
-          }
-        },
-        "Delay": {
-          "type": "Wait",
-          "inputs": {
-            "interval": {
-              "count": "@outputs('Get_Copilot_Configuration')?['body/cat_delayforazureapplicationinsightsenrichment']",
-              "unit": "Minute"
-            }
-          },
-          "runAfter": {
-            "Get_Copilot_Configuration": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "4d599376-4b60-4b5b-a3d0-f167ef6bc4ec"
           }
         },
         "Perform_a_bound_action:_Update_Rollup_Columns": {
@@ -325,6 +308,41 @@
           },
           "metadata": {
             "operationMetadataId": "653f3f78-5dfe-462a-a3ab-291541720e2d"
+          }
+        },
+        "Condition_Skip_Delay": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@triggerBody()?['InputParameters']?['SkipDelay']",
+                  "@true"
+                ]
+              }
+            ]
+          },
+          "actions": {},
+          "else": {
+            "actions": {
+              "Delay": {
+                "type": "Wait",
+                "inputs": {
+                  "interval": {
+                    "count": "@outputs('Get_Copilot_Configuration')?['body/cat_delayforazureapplicationinsightsenrichment']",
+                    "unit": "Minute"
+                  }
+                },
+                "metadata": {
+                  "operationMetadataId": "4d599376-4b60-4b5b-a3d0-f167ef6bc4ec"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Get_Copilot_Configuration": [
+              "Succeeded"
+            ]
           }
         }
       }
