@@ -565,6 +565,7 @@
                   "entityName": "cat_copilottestruns",
                   "actionName": "Microsoft.Dynamics.CRM.cat_RunDataverseConversationTranscriptsEnrichment",
                   "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                  "item/SkipDelay": false,
                   "item/CopilotConfigurationId": "@triggerOutputs()?['body/_cat_copilotconfigurationid_value']",
                   "item/CopilotTestRunId": "@triggerOutputs()?['body/cat_copilottestrunid']",
                   "item/CopilotTestSetId": "@triggerOutputs()?['body/_cat_copilottestsetid_value']"
@@ -608,6 +609,7 @@
                   "entityName": "cat_copilottestruns",
                   "actionName": "Microsoft.Dynamics.CRM.cat_RunAzureApplicationInsightsEnrichment",
                   "recordId": "@triggerOutputs()?['body/cat_copilottestrunid']",
+                  "item/SkipDelay": false,
                   "item/CopilotConfigurationId": "@triggerOutputs()?['body/_cat_copilotconfigurationid_value']",
                   "item/CopilotTestRunId": "@triggerOutputs()?['body/cat_copilottestrunid']",
                   "item/CopilotTestSetId": "@triggerOutputs()?['body/_cat_copilottestsetid_value']"
