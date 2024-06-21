@@ -5,7 +5,7 @@
 1. Download the latest version of the Copilot Studio Accelerator **managed** solution here: <br>
    [aka.ms/DownloadCopilotStudioAccelerator](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/releases/) 
 2. (Optional) Download the latest version of the Azure Application Insights add-on **managed** solution here: <br>
-   [aka.ms/DownloadCopilotStudioAccelerator_AppInsights.zip](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/releases/) 
+   [aka.ms/DownloadCopilotStudioAccelerator_AppInsights](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/releases/) 
 
 ## Install CopilotStudioAccelerator.zip
 
