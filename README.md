@@ -24,8 +24,8 @@ The Copilot Studio Accelerator GitHub Repo contains the source, releases, issues
 
 # Setup instructions and documentation
 
-- **Prerequisites**
-- **Setup instructions**
+- **[Prerequisites](./PREREQUISITES.md)**
+- **Installation instructions**
 - **Configure copilots**
 - **Configure tests**
 - **Run tests**
