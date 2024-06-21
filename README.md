@@ -3,10 +3,13 @@
 The **Copilot Studio Accelerator** is a Power Platform-based solution that helps automate testing of custom copilots created with [Microsoft Copilot Studio](https://aka.ms/CopilotStudio).
 The main use cases are **intent recognition accuracy** and **AI-generated answers testing**.  
 
-The Copilot Studio Accelerator lets copilot testers configure copilots and tests sets.
-By running individual tests against the Direct Line API, results such as the copilot response, attachments such as Adaptive Cards are captured and compared with expected results.
-To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact topic name, intent recognition scores, etc.).
+The Copilot Studio Accelerator is a user-friendly application allows testers to configure copilots and tests sets. It has native capabilities such as Excel export or import for bulk creation and updates.
+
+By running individual tests against the Direct Line API, the copilot responses are evaluated against expected results.
+To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact triggered topic name, intent recognition scores, etc.).
 For AI-generated answers, that are by nature non-deterministic, AI Builder prompts are used to compare the generated answer with a sample answser or with validation instructions.
+
+
 
 # About this GitHub repo
 
