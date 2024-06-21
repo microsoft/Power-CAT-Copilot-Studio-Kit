@@ -65,7 +65,7 @@ That way users can inherit security roles automatically, simply by being member 
 
 ## Setup column security profile (optional)
 
-**Column security profiles **are used to provide users or teams that are don't have the System Administrator role to access specific secured columns that typically contain secrets, such as **Direct Line Channel Security Secret**.
+**Column security profiles** are used to provide users or teams that are don't have the System Administrator role to access specific secured columns that typically contain secrets, such as **Direct Line Channel Security Secret**.
 
 _Note: if you don't store secrets in these columns, this step isn't required._
 
