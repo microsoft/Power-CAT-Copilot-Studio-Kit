@@ -44,9 +44,9 @@ Because each copilot configuration may target a different copilot and use a diff
 3. Select to the **environment** in which you want to install the Copilot Studio Accelerator.
 4. Go to **Solutions**
 5. Select **Common Data Services Default Solution** <br>
-   Note: you can choose to create your own solution as well. The idea here is to create environment variables that will be used by Copilot Studio Accelerator to retrieve secrets from the Azure Key Vault.
+   _Note: you can choose to create or use your own custom solution as well. The idea here is to create environment variables that will be used by Copilot Studio Accelerator to retrieve secrets from the Azure Key Vault._
 6. Follow the steps in: [Create a new environment variable for the Key Vault secret](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#create-a-new-environment-variable-for-the-key-vault-secret)
-7. Once created use the environment variable schema name (e.g., cr42e_Copilot1DirectLineSecret) in the Copilot Configuration record.
+7. Once created, use the environment variable **schema name** (e.g., cr42e_Copilot1DirectLineSecret) in the Copilot Configuration record.
 
 
 
