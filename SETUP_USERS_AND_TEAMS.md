@@ -62,3 +62,15 @@ That way users can inherit security roles automatically, simply by being member 
 
 > [!NOTE]
 > More informartion: [Control user access to environments](https://learn.microsoft.com/power-platform/admin/control-user-access)
+
+## Setup column security profile (optional)
+
+**Column security profiles **are used to provide users or teams that are don't have the System Administrator role to access specific secured columns that typically contain secrets, such as **Direct Line Channel Security Secret**.
+
+_Note: if you don't store secrets in these columns, this step isn't required._
+
+1. From the **environment** overview page
+2. Go **Settings**
+3. Under **Users + permissions**, select **Column security profiles**
+4. Select **Copilot Studio Accelerator Column Security Profile**
+5. Navigate to the **Teams** or **Users** tab and add the relevant **teams** and/or **users** that should have access to these secured columns.
