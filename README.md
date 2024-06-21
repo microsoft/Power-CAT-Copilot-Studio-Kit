@@ -15,6 +15,8 @@ Today, the tool supports these types of tests:
 - Topic match (requires Dataverse enrichment)
 - Generative answsers (requires AI Builder for reponse analysis, and Azure Application Insights for details on why an answer was or was not generated)
 
+![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/2538026b-9c8e-4b2c-95f0-073239fd51af)
+
 # About this GitHub repo
 
 The Copilot Studio Accelerator GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Copilot Studio Accelerator.
