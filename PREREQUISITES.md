@@ -6,6 +6,7 @@ The Copilot Studio Accelerator is built using Power Platform and requires adequa
 
 - A [**Power Platform environment with Dataverse as a data store**](https://learn.microsoft.com/power-platform/admin/create-environment). <br>
   Microsoft Dataverse is used to store the Copilot Studio Accelerator configuration and test tables data. <br>
+  The user performing the installation of the Copilot Studio Accelerator must have the **system administrator** security role on the environment.
 - Adequate licensing to run a **Power Apps model-driven application**.
 - Adequate licensing to run **Power Automate cloud flows** using **Premium** connectors.
 
