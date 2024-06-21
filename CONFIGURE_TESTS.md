@@ -50,7 +50,7 @@ After creating a test set, you may use Excel to bulk create or update tests.
 4. Make sure you set the same **Copilot Test Set** name (must be unique for the import to succeed).
 5. **Fill out** the required columns.
 6. Navigate to **Tests** in the left-hand navigation bar.
-7. Select** Import from Excel**
+7. Select **Import from Excel**
 8. Select your **file** and select **Next**.
 9. **Submit** for import.
 10. **Wait** for the import to complete and succeed.
