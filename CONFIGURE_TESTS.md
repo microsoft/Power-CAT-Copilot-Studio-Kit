@@ -40,3 +40,21 @@ From the Tests subgrid, select **New Copilot Test**
 | **Expected Generative Answers Outcome** | Depends | Mandatory for the Generative Answers type of test. Should be either _Answered_ or _Not Answered_. <br> When Azure Application Insights enrichment is enabled, you may choose _Moderated_ or _No Search Results_. |
 | **Expected Topic Name** | Depends | Mandatory for Topic Match type of test. <br> Name of the topic that is expected to be triggered |
 | **Expected Attachments JSON** | Depends | Mandatory for Attachments (Adaptive Cards, etc.) type of test. <br> Full attachments JSON array that is expected from the copilot response. |
+
+## Use Excel to bulk create or update tests
+
+After creating a test set, you may use Excel to bulk create or update tests.
+1. From your **test set** record
+2. Switch the subgrid view from **Tests** to **Export/Import View**.
+3. In the subgrid commands, select **Export Copilot Tests**.
+4. Make sure you set the same **Copilot Test Set** name (must be unique for the import to succeed).
+5. **Fill out** the required columns.
+6. Navigate to **Tests** in the left-hand navigation bar.
+7. Select** Import from Excel**
+8. Select your **file** and select **Next**.
+9. **Submit** for import.
+10. **Wait** for the import to complete and succeed.
+
+> [!NOTE]
+> Learn more about Excel import and export in Power Apps model-driven apps here: [How to import data
+](https://learn.microsoft.com/power-apps/user/import-data)
