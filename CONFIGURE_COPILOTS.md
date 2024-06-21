@@ -1,9 +1,11 @@
 # Configure copilots in Copilot Studio Accelerator
 
-## Configure a new copilot 
-
 The custom copilots you create and configure in Microsoft Copilot Studio can be tested from the Copilot Studio Accelerator.
 For this, you need to create a **Copilot Configuration** record taht will contain the required information to connect to these copilots and run tests against them.
+
+![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/966503f4-bc93-4914-81e0-59b7be9df25f)
+
+## Configure a new copilot 
 
 1. Open the Copilot Studio Accelerator application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
 2. Navigate to **Copilots**.
