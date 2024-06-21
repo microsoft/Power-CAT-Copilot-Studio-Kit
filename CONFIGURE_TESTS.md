@@ -13,4 +13,7 @@
 ## Create a new test
 
 After you've created a Test Set, you can add Tests to it.
+From the Tests subgrid, select **New Copilot Test**
+
+![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/689cfa4a-2c4b-4cc2-be94-4484b00e8c71)
 
