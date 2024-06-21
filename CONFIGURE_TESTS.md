@@ -58,3 +58,10 @@ After creating a test set, you may use Excel to bulk create or update tests.
 > [!NOTE]
 > Learn more about Excel import and export in Power Apps model-driven apps here: [How to import data
 ](https://learn.microsoft.com/power-apps/user/import-data)
+
+## Duplicating a Test Set
+
+Users may duplicate a full test set by selecting the **Duplicate Test Set** command.
+
+![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/a31e9c83-1321-46e3-a887-defa47521a9d)
+
