@@ -9,6 +9,7 @@ By running individual tests against the Direct Line API, the copilot responses a
 To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact triggered topic name, intent recognition scores, etc.).
 For AI-generated answers, that are by nature non-deterministic, AI Builder prompts are used to compare the generated answer with a sample answser or with validation instructions.
 
+![2024-06-21 14-58-06-799](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/d800d716-9942-421f-bfcf-32e00488c34c)
 
 
 # About this GitHub repo
