@@ -31,6 +31,8 @@ The Copilot Studio Accelerator GitHub Repo contains the source, releases, issues
 - [Configure copilots](./CONFIGURE_COPILOTS.md)
 - [Configure tests](./CONFIGURE_TESTS.md)
 - [Run tests](./RUN_TESTS.md)
+- [Analyze test results](./ANALYZE_TEST_RESULTS.md)
+- [Troubleshooting](./TROUBLESHOOT.md)
 
 ## Latest release
 
