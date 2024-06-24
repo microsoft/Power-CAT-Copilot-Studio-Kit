@@ -21,7 +21,7 @@ After a cloud flow runs, aggregated results are calculated.
 | --- | --- | 
 | **# Tests** | Number of test results. | 
 | **Success Rate (%)** | Percentage of the number of Test Result records with a Success result compared to the total number of Tests Results. | 
-| **Average Latency (ms)** | Average time it took for the copilot to send the message after it recieved the test utterance, in milliseconds. | 
+| **Average Latency (ms)** | Average time it took for the copilot to send the message after it received the test utterance, in milliseconds. | 
 | **# Success** | Number of Test Result records with a Success result. | 
 | **# Failed** | Number of Test Result records with a Failed result. | 
 | **# Pending** | Number of Test Result records with a Pending result. | 
@@ -51,9 +51,25 @@ For different kinds of tests, different subgrid views may be leveraged:
 
 ## Copilot Test Result form details
 
-The Copilot Test Result form offers additional details on an individual test execution.
+The Copilot Test Result form offers additional details on an individual test execution. <br>
+These records are automatically created.
 
-
-
-
-
+| Column Name |  Description | 
+| --- | --- |
+| **Conversation ID** | Identifier of the conversation provided by the Direct Line API. |
+| **Copilot Test Run** | Related test run. |
+| **Copilot Test** | Related test. The details of the test are displayed in a Quick View form. |
+| **Result** | Result: `Success`, `Failed`, `Unknown`, `Error`, `Pending`.  |
+| **Result** | Auto-generated explaination of the Result. |
+| **Latency (ms)** | Time it took for the copilot to send the message back after it received the test utterance, in milliseconds. |
+| **Message Sent** | Timestamp of the message sent by the user. |
+| **Response Received** | Timestamp of the message sent by the copilot. |
+| **Response** | Text message received from the copilot |
+| **App Insights Result** | Generative answer results from Azure Application Insights (when _Enrich With Azure Application Insights_ is enabled) |
+| **Triggered Topic ID** | Unique identifier of the Chatbot Subcomponent record corresponding to the triggered topic in Dataverse (when _Enrich With Conversation Transcripts_ is enabled) |
+| **Triggered Topic / Event** | Name of the triggered topic (when _Enrich With Conversation Transcripts_ is enabled). <br > In case of multiple topics matched, `IntentCandidates`. For Conversational Boosting and Fallback, `UnknownIntent`. |
+| **Recognized Intent Score** | In case of intent recognition, score of the top intent. |
+| **Conversation Transcript** | File attachment of the full conversation transcript JSON (when _Enrich With Conversation Transcripts_ is enabled and _Copy Full Transcript_ is set to yes.|
+| **Suggested Actions** | When available, JSON of the suggested actions returned by the copilot and associated to its reponse. |
+| **Attachments** |  When available, JSON of the attachmets array returned by the copilot and associated to its reponse. |
+| **Citations** | For generated answers, JSON array of the citations that were used to generate the answer (when _Enrich With Conversation Transcripts_ is enabled ) |
