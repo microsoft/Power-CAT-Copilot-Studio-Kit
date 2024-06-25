@@ -32,6 +32,12 @@ For this, you need to create a **Copilot Configuration** record taht will contai
 
 5. **Save**
 
+## Note about results enrichment with Dataverse Conversation Transcripts
+
+> [!WARNING]
+> - For the accelerator to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
+> - Only environments within the same tenant can be targetted.
+
 ## Configure secrets in Azure Key Vault
 
 > [!NOTE]
