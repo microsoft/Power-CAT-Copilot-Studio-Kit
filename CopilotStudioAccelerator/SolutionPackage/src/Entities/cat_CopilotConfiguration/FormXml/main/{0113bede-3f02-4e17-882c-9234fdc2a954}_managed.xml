@@ -32,7 +32,20 @@
                         </labels>
                         <control id="cat_regioncode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_regioncode" disabled="false" />
                       </cell>
-                      <cell id="{1c366e61-1e39-46f3-97c2-9c1fbdee7bc5}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{5df4c7c6-98ce-411f-9027-767afeb17747}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false">
+                          <parameters>
+                            <useMainFormDialogForCreate>true</useMainFormDialogForCreate>
+                            <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1c366e61-1e39-46f3-97c2-9c1fbdee7bc5}" locklevel="0" colspan="3" rowspan="1">
                         <labels>
                           <label description="Token Endpoint" languagecode="1033" />
                         </labels>
@@ -265,6 +278,50 @@
             </column>
           </columns>
         </tab>
+        <tab name="tab_runs" id="b6e7f255-5a99-4fd4-94ed-ca3eb7c7d1cf" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Runs" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_runs_section_runs" id="142a4a5f-8a88-481c-b485-535f8c135da5" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Test Runs" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{d6ca9d12-743d-4e8e-9691-383bd74745ec}" rowspan="4" colspan="1" auto="true">
+                        <labels>
+                          <label description="Test Runs" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="subgrid_testruns" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>50</RecordsPerPage>
+                            <AutoExpand>Auto</AutoExpand>
+                            <EnableQuickFind>true</EnableQuickFind>
+                            <EnableViewPicker>true</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <TargetEntityType>cat_copilottestrun</TargetEntityType>
+                            <ViewId>{E6F7D240-E2B0-406A-B6AA-3A32C1812D23}</ViewId>
+                            <ViewIds>{4F2A62AB-561C-EF11-840B-6045BDD6C0EE},{E6F7D240-E2B0-406A-B6AA-3A32C1812D23},{0F941216-8311-EF11-9F8A-000D3A5A66F7},{2C9C95C4-561C-EF11-840B-6045BDA6DD55}</ViewIds>
+                            <RelationshipName>cat_copilottestrun_CopilotConfigurationId_cat</RelationshipName>
+                            <VisualizationId>{77102BD4-F312-EF11-9F8A-000D3A58E9CE}</VisualizationId>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
         <tab name="tab_admin" id="07b93264-f488-4f18-b6e4-8c72001e3b5d" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
             <label description="Admin" languagecode="1033" />
@@ -290,11 +347,10 @@
                         </labels>
                         <control id="modifiedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedby" disabled="false" />
                       </cell>
-                      <cell id="{f4e8a3c0-127f-4cdc-8362-01289c83ff05}" colspan="1" rowspan="1">
+                      <cell locklevel="0" id="{fb4015bc-bcdb-43d6-b512-6ce9d8f92af0}">
                         <labels>
-                          <label description="Owner" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
                       </cell>
                     </row>
                     <row>
@@ -303,6 +359,25 @@
                           <label description="Created By (Delegate)" languagecode="1033" />
                         </labels>
                         <control id="createdonbehalfby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdonbehalfby" disabled="false" />
+                      </cell>
+                      <cell id="{f4e8a3c0-127f-4cdc-8362-01289c83ff05}" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                      <cell locklevel="0" id="{ed753e27-e54a-469e-b0f2-85a2f0781eb3}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{77fa4b8c-badb-4d10-904a-839fa48ae4b0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Created On" languagecode="1033" />
+                        </labels>
+                        <control id="createdon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
                       </cell>
                       <cell id="{f13224da-389b-4ee6-941f-25efe9200aa2}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
@@ -318,25 +393,6 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{77fa4b8c-badb-4d10-904a-839fa48ae4b0}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Created On" languagecode="1033" />
-                        </labels>
-                        <control id="createdon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
-                      </cell>
-                      <cell locklevel="0" id="{e3cdb85e-08e0-43f3-87dc-ee91ddc3164e}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell id="{cd5a2db9-e0fe-4a00-9e50-9ebf5d8f345c}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Status" languagecode="1033" />
-                        </labels>
-                        <control id="statecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
                       <cell locklevel="0" id="{5eb62b85-6e13-457a-ac24-bbdbc691d53b}">
                         <labels>
                           <label description="" languagecode="1033" />
@@ -347,6 +403,24 @@
                           <label description="Modified On" languagecode="1033" />
                         </labels>
                         <control id="modifiedon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="false" />
+                      </cell>
+                      <cell id="{cd5a2db9-e0fe-4a00-9e50-9ebf5d8f345c}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Status" languagecode="1033" />
+                        </labels>
+                        <control id="statecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{9358f55e-5326-4dd5-8616-a83f3686e811}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{011418fd-3a20-4873-8a1a-6d812ef59329}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                       <cell id="{21671aa5-d459-4a9d-9ede-dd16f2fed252}" locklevel="0" colspan="1" rowspan="1">
                         <labels>

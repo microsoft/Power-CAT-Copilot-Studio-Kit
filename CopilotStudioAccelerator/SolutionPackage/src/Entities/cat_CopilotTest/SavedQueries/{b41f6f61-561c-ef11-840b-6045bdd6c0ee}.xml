@@ -36,7 +36,7 @@
           <attribute name="cat_expectedtopicname" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
-            <condition attribute="ownerid" operator="eq-userid" />
+            <condition attribute="ownerid" operator="eq-useroruserteams" />
           </filter>
           <link-entity name="cat_copilottestset" alias="aa" link-type="inner" from="cat_copilottestsetid" to="cat_copilottestsetid">
             <filter type="and">

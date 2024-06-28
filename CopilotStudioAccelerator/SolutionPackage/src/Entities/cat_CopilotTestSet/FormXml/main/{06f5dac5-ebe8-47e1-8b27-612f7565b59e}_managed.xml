@@ -14,7 +14,7 @@
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{9a462f08-43e4-4771-97c9-4c8a36254189}" name="tab_general_section_general" columns="1">
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{9a462f08-43e4-4771-97c9-4c8a36254189}" name="tab_general_section_general" columns="11">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
@@ -25,6 +25,17 @@
                           <label description="Name" languagecode="1033" />
                         </labels>
                         <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
+                      </cell>
+                      <cell id="{81a4daa9-15f5-42a0-bcf0-7a5733d1824a}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false">
+                          <parameters>
+                            <useMainFormDialogForCreate>true</useMainFormDialogForCreate>
+                            <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
+                          </parameters>
+                        </control>
                       </cell>
                     </row>
                   </rows>
@@ -52,6 +63,50 @@
                             <ViewId>{CF45E143-E800-EF11-A1FE-000D3A340B9F}</ViewId>
                             <ViewIds>{CF45E143-E800-EF11-A1FE-000D3A340B9F},{594824C5-8811-EF11-9F89-0022480B09C2}</ViewIds>
                             <RelationshipName>cat_copilottest_CopilotTestSetId_cat_copilott</RelationshipName>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_runs" id="58e49e06-9285-41a7-9054-0f3e7b0e015f" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Runs" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_runs_section_runs" id="c52df311-0228-4fc6-9cea-68c5639fbcc8" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Test Runs" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{f2b7a865-60bb-4f4d-a2a8-c8b40e49d878}" rowspan="4" colspan="1" auto="false" showlabel="true">
+                        <labels>
+                          <label description="Test Runs" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="subgrid_testruns" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>true</EnableQuickFind>
+                            <EnableViewPicker>true</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <TargetEntityType>cat_copilottestrun</TargetEntityType>
+                            <ViewId>{E6F7D240-E2B0-406A-B6AA-3A32C1812D23}</ViewId>
+                            <ViewIds>{4F2A62AB-561C-EF11-840B-6045BDD6C0EE},{E6F7D240-E2B0-406A-B6AA-3A32C1812D23},{0F941216-8311-EF11-9F8A-000D3A5A66F7},{2C9C95C4-561C-EF11-840B-6045BDA6DD55}</ViewIds>
+                            <RelationshipName>cat_copilottestrun_CopilotTestSetId_cat_copil</RelationshipName>
+                            <VisualizationId>{77102BD4-F312-EF11-9F8A-000D3A58E9CE}</VisualizationId>
                           </parameters>
                         </control>
                       </cell>

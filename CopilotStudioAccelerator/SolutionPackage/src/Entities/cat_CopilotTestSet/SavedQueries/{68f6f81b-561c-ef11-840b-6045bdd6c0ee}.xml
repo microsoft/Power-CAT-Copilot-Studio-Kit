@@ -22,11 +22,11 @@
           <attribute name="cat_copilottestsetid" />
           <attribute name="cat_name" />
           <attribute name="createdon" />
+          <order attribute="createdon" descending="true" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
-            <condition attribute="ownerid" operator="eq-userid" />
+            <condition attribute="ownerid" operator="eq-useroruserteams" />
           </filter>
-          <order attribute="createdon" descending="true" />
         </entity>
       </fetch>
     </fetchxml>

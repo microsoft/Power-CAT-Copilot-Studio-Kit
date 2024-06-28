@@ -12,6 +12,7 @@
         <row name="result" id="cat_copilotconfigurationid">
           <cell name="cat_name" width="285" />
           <cell name="cat_regioncode" width="114" />
+          <cell name="ownerid" width="152" />
           <cell name="createdon" width="179" />
         </row>
       </grid>
@@ -27,8 +28,9 @@
           <attribute name="createdon" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
-            <condition attribute="ownerid" operator="eq-userid" />
+            <condition attribute="ownerid" operator="eq-useroruserteams" />
           </filter>
+          <attribute name="ownerid" />
         </entity>
       </fetch>
     </fetchxml>

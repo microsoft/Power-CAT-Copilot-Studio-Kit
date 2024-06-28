@@ -39,11 +39,10 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{9ef5f065-2e75-4122-93e2-857f14b278f0}" locklevel="0" colspan="1" rowspan="1">
+                      <cell locklevel="0" id="{12d4542c-c95e-41e4-8ac8-f59cb90903d1}">
                         <labels>
-                          <label description="Test Type" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_testtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_testtypecode" disabled="false" />
                       </cell>
                       <cell id="{8223aa38-6407-41e7-84db-b4b677e19685}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
@@ -53,17 +52,30 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{0aaad5a3-1657-4b3d-a009-af90a88646b8}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{9ef5f065-2e75-4122-93e2-857f14b278f0}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Send startConversation Event" languagecode="1033" />
+                          <label description="Test Type" languagecode="1033" />
                         </labels>
-                        <control id="cat_isstartconversationeventsent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isstartconversationeventsent" disabled="false" uniqueid="{b7740077-526d-48d0-9ed8-209b2415b4e3}" />
+                        <control id="cat_testtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_testtypecode" disabled="false" />
                       </cell>
                       <cell id="{06a83a91-236e-4fd3-b7be-8bffd4084279}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Expected Position of the Response Message" languagecode="1033" />
                         </labels>
                         <control id="cat_expectedpositionoftheresponseactivity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_expectedpositionoftheresponseactivity" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0aaad5a3-1657-4b3d-a009-af90a88646b8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Send startConversation Event" languagecode="1033" />
+                        </labels>
+                        <control id="cat_isstartconversationeventsent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isstartconversationeventsent" disabled="false" uniqueid="{b7740077-526d-48d0-9ed8-209b2415b4e3}" />
+                      </cell>
+                      <cell locklevel="0" id="{460d8636-83e4-4d23-aad5-14ecab2d8cbb}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
                   </rows>
@@ -74,12 +86,12 @@
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{67874dee-44d4-4ea0-9b11-2d2262079a7a}">
+                      <cell id="{67874dee-44d4-4ea0-9b11-2d2262079a7a}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell id="{00932949-9bcb-4f5a-858e-98c7eae3f8ee}">
+                      <cell id="{00932949-9bcb-4f5a-858e-98c7eae3f8ee}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -104,17 +116,87 @@
                     <row />
                     <row height="auto" />
                     <row>
-                      <cell id="{c160649a-f19f-4109-957e-98d6662a7636}" locklevel="0" colspan="1" rowspan="5" auto="true">
+                      <cell id="{c160649a-f19f-4109-957e-98d6662a7636}" locklevel="0" colspan="1" rowspan="15" auto="false" showlabel="true">
                         <labels>
                           <label description="External Variables JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_externalvariablesjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_externalvariablesjson" disabled="false" />
+                        <control id="cat_externalvariablesjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_externalvariablesjson" disabled="false" uniqueid="{d59ceaf2-3c5f-4474-9658-880311f92047}" />
                       </cell>
                       <cell id="{d1ba6355-fcb7-4e3b-a885-f7f518e4defb}" locklevel="0" colspan="1" rowspan="1" showlabel="true" visible="true">
                         <labels>
                           <label description="Expected Generative Answers Outcome" languagecode="1033" />
                         </labels>
                         <control id="cat_generativeansweroutcomecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_generativeansweroutcomecode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{79668b73-c761-41c0-887a-1824e3d40cba}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{65b6c8ea-2523-4f07-984f-4c0fcac2cb63}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{e23f6735-16de-4705-a821-35906329e8e5}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ac5d235a-5e83-499b-ad74-9968f5203832}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2c27504b-6788-4964-b7ef-ca59649e6749}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8cbcbd2e-ebbd-471b-8a64-aba4a6e9ab57}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{25faf203-2ace-4264-9206-946ed44abce7}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8dae7d00-2f70-4f90-90e9-39e79780d77c}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{abc3e906-01cb-468d-9682-26db8b6454c4}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{96930749-2f31-478b-93a9-b52e814af315}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
                     <row>
@@ -152,36 +234,36 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell id="{a21532b9-03df-4476-aa11-1656c0035d3f}" locklevel="0" colspan="1" rowspan="5" auto="true">
+                      <cell id="{a21532b9-03df-4476-aa11-1656c0035d3f}" locklevel="0" colspan="1" rowspan="5" auto="false" showlabel="true">
                         <labels>
                           <label description="Expected Attachments JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_expectedattachmentsjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedattachmentsjson" disabled="false" />
+                        <control id="cat_expectedattachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_expectedattachmentsjson" disabled="false" uniqueid="{3c16e7df-46ef-4505-9311-9be8fbe81b83}" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{cc057886-4fa8-443a-b510-08c966e32660}">
+                      <cell id="{cc057886-4fa8-443a-b510-08c966e32660}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell id="{c23e310f-3801-49d1-857b-08ae22b9bc48}">
+                      <cell id="{c23e310f-3801-49d1-857b-08ae22b9bc48}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell id="{1d16e25a-0c29-4622-83e8-2f8f6070cdde}">
+                      <cell id="{1d16e25a-0c29-4622-83e8-2f8f6070cdde}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
-                    <row height="auto">
-                      <cell id="{cc95c523-cf4c-466c-93cb-6cd9a9c0537f}">
+                    <row>
+                      <cell id="{cc95c523-cf4c-466c-93cb-6cd9a9c0537f}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -214,7 +296,7 @@
                           <parameters>
                             <RecordsPerPage>50</RecordsPerPage>
                             <AutoExpand>Auto</AutoExpand>
-                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableQuickFind>true</EnableQuickFind>
                             <EnableViewPicker>true</EnableViewPicker>
                             <EnableChartPicker>true</EnableChartPicker>
                             <ChartGridMode>All</ChartGridMode>
@@ -231,7 +313,7 @@
                         </control>
                       </cell>
                     </row>
-                    <row></row>
+                    <row />
                     <row />
                     <row />
                     <row height="auto" />
@@ -372,6 +454,17 @@
               <labels>
                 <label description="" languagecode="1033" />
               </labels>
+            </cell>
+            <cell id="{f3a51af2-7baf-4176-99fd-5d122b62eaaf}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false">
+                <parameters>
+                  <useMainFormDialogForCreate>true</useMainFormDialogForCreate>
+                  <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
+                </parameters>
+              </control>
             </cell>
           </row>
         </rows>
@@ -524,9 +617,71 @@
             </parameters>
           </customControl>
         </controlDescription>
+        <controlDescription forControl="{3c16e7df-46ef-4505-9311-9be8fbe81b83}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_expectedattachmentsjson</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_expectedattachmentsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_expectedattachmentsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_expectedattachmentsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{d59ceaf2-3c5f-4474-9658-880311f92047}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_externalvariablesjson</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_externalvariablesjson</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_externalvariablesjson</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_externalvariablesjson</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+        </controlDescription>
       </controlDescriptions>
       <Navigation>
-        <NavBar></NavBar>
+        <NavBar />
         <NavBarAreas>
           <NavBarArea Id="Info">
             <Titles>

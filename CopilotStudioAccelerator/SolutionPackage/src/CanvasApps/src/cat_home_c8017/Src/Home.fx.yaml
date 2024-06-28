@@ -38,7 +38,7 @@
                 RadiusTopRight: =4
                 ZIndex: =1
 
-                ImgBanner As image:
+                imgBanner As image:
                     BorderColor: =RGBA(0, 0, 0, 0)
                     BorderStyle: =BorderStyle.None
                     BorderThickness: =2
@@ -68,7 +68,7 @@
                     Width: =Parent.Width
                     ZIndex: =2
 
-                    HeroContainer As groupContainer.verticalAutoLayoutContainer:
+                    CopilotContainer As groupContainer.verticalAutoLayoutContainer:
                         LayoutDirection: =LayoutDirection.Vertical
                         LayoutMinHeight: =100
                         LayoutMinWidth: =250
@@ -80,6 +80,7 @@
                         ZIndex: =1
 
                         TitleContainer As groupContainer.horizontalAutoLayoutContainer:
+                            AlignInContainer: =AlignInContainer.SetByContainer
                             FillPortions: =0
                             Height: =43
                             LayoutMinHeight: =100
@@ -87,7 +88,7 @@
                             LayoutMode: =LayoutMode.Auto
                             ZIndex: =1
 
-                            HeroTitle As Label:
+                            lblCopilotTitle As Label:
                                 AutoHeight: =true
                                 Color: =
                                 DisplayMode: =DisplayMode.Edit
@@ -106,22 +107,7 @@
                                 Y: =0
                                 ZIndex: =1
 
-                            "AutoWidthLabel1 As 'Auto Width Label (1.1.29)'":
-                                AlignInContainer: =AlignInContainer.Center
-                                DisplayMode: =DisplayMode.Edit
-                                FontWeight: ="800"
-                                Height: =30
-                                LayoutMinHeight: =200
-                                LayoutMinWidth: =200
-                                Text: =""
-                                Visible: =false
-                                Width: =200
-                                X: =0
-                                Y: =0
-                                ZIndex: =2
-
                         lblSubtext As Label:
-                            AlignInContainer: =AlignInContainer.Start
                             Alignment: =Align.Left
                             AutoHeight: =true
                             Color: |-
@@ -148,8 +134,8 @@
                 LayoutMinWidth: =250
                 LayoutMode: =LayoutMode.Auto
                 PaddingBottom: =25
-                PaddingLeft: =68
-                PaddingRight: =68
+                PaddingLeft: =30
+                PaddingRight: =30
                 PaddingTop: =16
                 RadiusBottomLeft: =4
                 RadiusBottomRight: =4
@@ -159,7 +145,7 @@
 
                 CardHeaderContainer As groupContainer.verticalAutoLayoutContainer:
                     FillPortions: =0
-                    Height: =250
+                    Height: =210
                     LayoutDirection: =LayoutDirection.Vertical
                     LayoutMinHeight: =100
                     LayoutMinWidth: =250
@@ -170,7 +156,7 @@
                     RadiusTopRight: =4
                     ZIndex: =1
 
-                    HomePluginTitleLabel As Label:
+                    lblFeatures As Label:
                         AlignInContainer: =AlignInContainer.Stretch
                         AutoHeight: =false
                         Color: =
@@ -183,7 +169,7 @@
                         LayoutMinWidth: =320
                         OnChange: =false
                         PaddingStart: =0
-                        Text: ="Features" //PluginTitle
+                        Text: ="Features"
                         TextRole: ='Label.TextRole'.Heading1
                         Width: =320
                         Wrap: =false
@@ -193,7 +179,7 @@
 
                     cFeatureCards As groupContainer.horizontalAutoLayoutContainer:
                         FillPortions: =
-                        Height: =cPluginMonitoringCard.Y + cPluginMonitoringCard.Height + 20 //If(Self.LayoutWrap, 270, NewInstantPluginCard.Height +24)
+                        Height: =cTestRunsCard.Y + cTestRunsCard.Height + 20
                         LayoutGap: =16//gutterWidth
                         LayoutMinHeight: =100
                         LayoutMinWidth: =320
@@ -207,7 +193,7 @@
                         Y: =160
                         ZIndex: =2
 
-                        cInstantPluginCard As groupContainer.manualLayoutContainer:
+                        cConfigureCard As groupContainer.manualLayoutContainer:
                             AlignInContainer: =AlignInContainer.SetByContainer
                             DropShadow: =DropShadow.Light
                             Fill: =RGBA(255, 255, 255, 1)
@@ -255,7 +241,7 @@
 
                                 cCardTextInstant As groupContainer.verticalAutoLayoutContainer:
                                     AlignInContainer: =AlignInContainer.Start
-                                    Height: =txtCardTitleInstant.Height + txtCardSubInstant.Height
+                                    Height: =lblCardTitleConfigure.Height + lblCardSubConfigure.Height
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutMinHeight: =100
                                     LayoutMinWidth: =200
@@ -267,7 +253,7 @@
                                     RadiusTopRight: =4
                                     ZIndex: =2
 
-                                    txtCardTitleInstant As Label:
+                                    lblCardTitleConfigure As Label:
                                         AlignInContainer: =AlignInContainer.Stretch
                                         AutoHeight: =false
                                         Color: =
@@ -287,7 +273,7 @@
                                         Y: =0
                                         ZIndex: =1
 
-                                    txtCardSubInstant As Label:
+                                    lblCardSubConfigure As Label:
                                         AlignInContainer: =AlignInContainer.Stretch
                                         AutoHeight: =true
                                         Color: =RGBA(97, 97, 97, 1)
@@ -304,19 +290,43 @@
                                         Y: =0
                                         ZIndex: =2
 
-                        cPluginMonitoringCard As groupContainer.manualLayoutContainer:
+                            imgConfigureOverlayButton As image:
+                                AccessibleLabel: =lblCardTitleConfigure.Text
+                                BorderColor: =RGBA(0, 0, 0, 0)
+                                BorderThickness: =1
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                DisabledFill: =RGBA(0, 0, 0, 0)
+                                FocusedBorderColor: =Color.Black
+                                FocusedBorderThickness: =1
+                                Height: =Parent.Height
+                                HoverBorderColor: =RGBA(230, 230, 230, 1)
+                                HoverFill: =RGBA(0, 0, 0, 0)
+                                Image: =
+                                OnSelect: =Navigate('Copilot Configurations (Views)'.'Copilot Configurations')
+                                PressedBorderColor: =RGBA(0, 0, 0, 1)
+                                PressedFill: =RGBA(0, 0, 0, 0)
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                TabIndex: =0
+                                Tooltip: =Self.AccessibleLabel
+                                Width: =Parent.Width
+                                ZIndex: =2
+
+                        cTestRunsCard As groupContainer.manualLayoutContainer:
                             AlignInContainer: =AlignInContainer.SetByContainer
                             DropShadow: =DropShadow.Light
                             Fill: =RGBA(255, 255, 255, 1)
                             FillPortions: =1 //If( Self.Y = 0, 1, 0)
-                            Height: =cInstantPluginCard.Height
+                            Height: =cConfigureCard.Height
                             LayoutMinHeight: =100
                             LayoutMinWidth: =350
                             RadiusBottomLeft: =8
                             RadiusBottomRight: =8
                             RadiusTopLeft: =8
                             RadiusTopRight: =8
-                            Width: =cInstantPluginCard.Width 
+                            Width: =cConfigureCard.Width 
                             X: =-9
                             ZIndex: =3
 
@@ -334,7 +344,7 @@
                                 Y: =(Parent.Height - Self.Height)/2
                                 ZIndex: =1
 
-                                CardImage_2 As image:
+                                imgTestRuns As image:
                                     BorderColor: =RGBA(0, 0, 0, 0)
                                     BorderStyle: =BorderStyle.None
                                     BorderThickness: =2
@@ -352,7 +362,7 @@
 
                                 CardContentContainer_5 As groupContainer.verticalAutoLayoutContainer:
                                     AlignInContainer: =AlignInContainer.Start
-                                    Height: =CardTitleLabel_5.Height + CardSubtextLabel_5.Height
+                                    Height: =lblCardTitleTestRuns.Height + lblCardSubTestRuns.Height
                                     LayoutDirection: =LayoutDirection.Vertical
                                     LayoutMinHeight: =100
                                     LayoutMinWidth: =250
@@ -364,7 +374,7 @@
                                     RadiusTopRight: =4
                                     ZIndex: =2
 
-                                    CardTitleLabel_5 As Label:
+                                    lblCardTitleTestRuns As Label:
                                         AlignInContainer: =AlignInContainer.Stretch
                                         AutoHeight: =false
                                         Color: =
@@ -384,7 +394,7 @@
                                         Y: =0
                                         ZIndex: =1
 
-                                    CardSubtextLabel_5 As Label:
+                                    lblCardSubTestRuns As Label:
                                         AlignInContainer: =AlignInContainer.Stretch
                                         AutoHeight: =true
                                         Color: =RGBA(97, 97, 97, 1)
@@ -401,18 +411,42 @@
                                         Y: =0
                                         ZIndex: =2
 
+                            imgTestRunsOverlayButton As image:
+                                AccessibleLabel: =lblCardTitleTestRuns.Text
+                                BorderColor: =RGBA(0, 0, 0, 0)
+                                BorderThickness: =1
+                                DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                                DisabledFill: =RGBA(0, 0, 0, 0)
+                                FocusedBorderColor: =Color.Black
+                                FocusedBorderThickness: =1
+                                Height: =Parent.Height
+                                HoverBorderColor: =RGBA(230, 230, 230, 1)
+                                HoverFill: =RGBA(0, 0, 0, 0)
+                                Image: =
+                                OnSelect: =Navigate('Copilot Test Runs (Views)'.'All Test Runs')
+                                PressedBorderColor: =RGBA(0, 0, 0, 1)
+                                PressedFill: =RGBA(0, 0, 0, 0)
+                                RadiusBottomLeft: =8
+                                RadiusBottomRight: =8
+                                RadiusTopLeft: =8
+                                RadiusTopRight: =8
+                                TabIndex: =0
+                                Tooltip: =Self.AccessibleLabel
+                                Width: =Parent.Width
+                                ZIndex: =2
+
                         cSpacerFeatureCard As groupContainer.manualLayoutContainer:
                             AlignInContainer: =AlignInContainer.SetByContainer
                             FillPortions: =1 //If( Self.Y = 0, 1, 0)
                             Height: =100
                             LayoutMinHeight: =100
                             LayoutMinWidth: =350
-                            Visible: =(cPluginMonitoringCard.Y > cInstantPluginCard.Height) //&& (cPluginMonitoringCard.Y < cInstantPluginCard.Height * 2)
-                            Width: =cInstantPluginCard.Width 
+                            Visible: =(cTestRunsCard.Y > cConfigureCard.Height)
+                            Width: =cConfigureCard.Width 
                             X: =-9
                             ZIndex: =4
 
-                    HomePluginTitleLabel_1 As Label:
+                    lblTestRuns As Label:
                         AutoHeight: =false
                         Color: =
                         DisplayMode: =DisplayMode.Edit
@@ -424,7 +458,7 @@
                         LayoutMinWidth: =320
                         OnChange: =false
                         PaddingStart: =0
-                        Text: ="Latest test runs"
+                        Text: ="Latest Test Runs"
                         TextRole: ='Label.TextRole'.Heading1
                         Width: =320
                         Wrap: =false
@@ -444,11 +478,11 @@
                     RadiusTopRight: =4
                     ZIndex: =2
 
-                    Table1 As Table.pcfdataset:
+                    tabTestRuns As Table.pcfdataset:
                         AlignInContainer: =AlignInContainer.Stretch
                         DisplayMode: =DisplayMode.Edit
                         Height: =If(Self.Y + 500 > Parent.Height, Parent.Height - Self.Y, 500)
-                        Items: =Filter('Copilot Test Runs', 'Copilot Test Runs (Views)'.'All Test Runs')
+                        Items: =SortByColumns(Filter('Copilot Test Runs', ThisRecord.Status = 'Status (Copilot Test Runs)'.Active), "createdon" , SortOrder.Descending)
                         LayoutMinHeight: =If(Self.Y + 500 > Parent.Height, Parent.Height - Self.Y, 500)
                         LayoutMinWidth: =Parent.Width
                         NoDataText: ="No copilot test run to show"
@@ -472,20 +506,12 @@
                             Order: =1
                             ZIndex: =5
 
-                        "'Run Status1' As pcfDataField.textualColumn":
-                            FieldDisplayName: ="Run Status"
-                            FieldName: ="cat_runstatuscode"
-                            FieldType: ="l"
-                            FieldVariantName: ="textualColumn"
-                            Order: =4
-                            ZIndex: =6
-
                         "'Success Rate1' As pcfDataField.textualColumn":
                             FieldDisplayName: ="Success Rate"
                             FieldName: ="cat_successrate"
                             FieldType: ="n"
                             FieldVariantName: ="textualColumn"
-                            Order: =6
+                            Order: =5
                             ZIndex: =10
 
                         "'# Tests1' As pcfDataField.textualColumn":
@@ -496,4 +522,12 @@
                             FieldVariantName: ="textualColumn"
                             Order: =5
                             ZIndex: =11
+
+                        "'Run Status1' As pcfDataField.textualColumn":
+                            FieldDisplayName: ="Run Status"
+                            FieldName: ="cat_runstatuscode"
+                            FieldType: ="l"
+                            FieldVariantName: ="textualColumn"
+                            Order: =4
+                            ZIndex: =12
 

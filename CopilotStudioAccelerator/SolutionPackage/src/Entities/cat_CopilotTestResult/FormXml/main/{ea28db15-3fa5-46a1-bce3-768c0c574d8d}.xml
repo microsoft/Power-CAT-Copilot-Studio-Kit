@@ -196,7 +196,7 @@
                         <labels>
                           <label description="Suggested Actions JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_suggestedactionsjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_suggestedactionsjson" disabled="false" />
+                        <control id="cat_suggestedactionsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_suggestedactionsjson" disabled="false" uniqueid="{16647046-041a-4163-a602-f767e6abfa3b}" />
                       </cell>
                     </row>
                     <row />
@@ -216,7 +216,7 @@
                         <labels>
                           <label description="Attachments JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_attachmentsjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_attachmentsjson" disabled="false" />
+                        <control id="cat_attachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_attachmentsjson" disabled="false" uniqueid="{741ccb8f-1bc9-4098-a45b-d8f1485988b0}" />
                       </cell>
                     </row>
                     <row />
@@ -236,7 +236,7 @@
                         <labels>
                           <label description="Citations" languagecode="1033" />
                         </labels>
-                        <control id="cat_citations" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_citations" disabled="false" />
+                        <control id="cat_citations" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_citations" disabled="false" uniqueid="{5e459329-ad3b-43c0-9b14-70f53ca0b52b}" />
                       </cell>
                     </row>
                     <row />
@@ -248,6 +248,33 @@
                     <row />
                     <row />
                     <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_transcript" id="6b65f76b-2986-4189-8aab-8f1b32e6c3ca" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Transcript" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_transcript_section_transcript" id="a173aa1a-39c6-4675-bdec-696100bfd4ef" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" availableforphone="true">
+                  <labels>
+                    <label description="Transcript" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{5f74551b-b03f-4d25-b4ba-0881f3c4b4af}" locklevel="0" colspan="1" rowspan="1" showlabel="false">
+                        <labels>
+                          <label description="Conversation ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_name" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_name" disabled="false" uniqueid="{37606263-c8e5-4f2e-92eb-5287298a0824}" />
+                      </cell>
+                    </row>
                   </rows>
                 </section>
               </sections>
@@ -369,6 +396,18 @@
                 <label description="" languagecode="1033" />
               </labels>
             </cell>
+            <cell id="{78e16e6a-9c28-4810-aa65-d2895ac468b8}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Owner" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false">
+                <parameters>
+                  <DisableMru>false</DisableMru>
+                  <useMainFormDialogForCreate>true</useMainFormDialogForCreate>
+                  <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
+                </parameters>
+              </control>
+            </cell>
           </row>
         </rows>
       </header>
@@ -426,6 +465,132 @@
       <DisplayConditions Order="0" FallbackForm="true">
         <Everyone />
       </DisplayConditions>
+      <controlDescriptions>
+        <controlDescription forControl="{37606263-c8e5-4f2e-92eb-5287298a0824}">
+          <customControl id="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}">
+            <parameters>
+              <datafieldname>cat_name</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_name</Value>
+              <Height type="Whole.None" static="true">70</Height>
+              <FileColumn type="Enum" static="true">True</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_name</Value>
+              <Height type="Whole.None" static="true">70</Height>
+              <FileColumn type="Enum" static="true">True</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_name</Value>
+              <Height type="Whole.None" static="true">70</Height>
+              <FileColumn type="Enum" static="true">True</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{16647046-041a-4163-a602-f767e6abfa3b}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_suggestedactionsjson</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_suggestedactionsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_suggestedactionsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_suggestedactionsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{741ccb8f-1bc9-4098-a45b-d8f1485988b0}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_attachmentsjson</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_attachmentsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_attachmentsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_attachmentsjson</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{5e459329-ad3b-43c0-9b14-70f53ca0b52b}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_citations</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_citations</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_citations</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_citations</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

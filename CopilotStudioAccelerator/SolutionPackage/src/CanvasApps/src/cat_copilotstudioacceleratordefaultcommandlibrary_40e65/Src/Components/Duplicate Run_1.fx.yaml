@@ -1,0 +1,40 @@
+"'Duplicate Run_1' As CommandComponent":
+    AutoSave: =true
+    DataSource: ='Copilot Test Runs'
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =0
+    Icon: =SampleImage
+    OnSelect: |-
+        =IfError(
+            Navigate(
+                Patch(
+                    'Copilot Test Runs',
+                    Defaults('Copilot Test Runs'),
+                    {
+                        Name: Self.Selected.Item.Name & " (Copy)",
+                        'Copilot Test Set': Self.Selected.Item.'Copilot Test Set',
+                        'Copilot Configuration': Self.Selected.Item.'Copilot Configuration'
+                    }
+                )
+            ),
+            Notify(
+                "An error occurred while copying test run record. Please try again.",
+                NotificationType.Error
+            ),
+            Notify(
+                "Copilot test run record has been copied successfully.",
+                NotificationType.Success
+            )
+        )
+    Selected: |-
+        ={ Item: {}, AllItems:[], Unsaved: false, State: SelectedState.Edit }
+    SelectionMax: =100
+    SelectionMin: =100
+    Title: = 
+    Tooltip: = 
+    Visible: =Self.Selected.State <> FormMode.New
+    Width: =0
+    X: =0
+    Y: =0
+    ZIndex: =1
+

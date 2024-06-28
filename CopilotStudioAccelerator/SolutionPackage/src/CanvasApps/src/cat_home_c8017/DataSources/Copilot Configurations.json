@@ -1,0 +1,298 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "cat_copilotconfigurations",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "cat_copilotconfiguration",
+    "Name": "Copilot Configurations",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cat_clientid": "Client ID",
+      "cat_clientsecret": "Client Secret",
+      "cat_copilotconfiguration_AsyncOperations": "System Jobs",
+      "cat_copilotconfiguration_BulkDeleteFailures": "Bulk Delete Failures",
+      "cat_copilotconfiguration_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "cat_copilotconfiguration_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "cat_copilotconfiguration_ProcessSession": "Process Sessions",
+      "cat_copilotconfiguration_SyncErrors": "Sync Errors",
+      "cat_copilotconfigurationid": "Copilot Configuration",
+      "cat_copilottestrun_CopilotConfigurationId_cat": "Copilot Test Runs",
+      "cat_dataverseurl": "Dataverse URL",
+      "cat_delayforazureapplicationinsightsenrichment": "Delay for Azure Application Insights Enrichment",
+      "cat_delayforconversationtranscriptsenrichment": "Delay for Conversation Transcripts Enrichment",
+      "cat_directlinechannelsecretlocationcode": "Direct Line Channel Secret Location",
+      "cat_directlinechannelsecurityenvironmentvariable": "Direct Line Channel Security Environment Variable",
+      "cat_directlinechannelsecuritysecret": "Direct Line Channel Security Secret",
+      "cat_generativeaiprovidercode": "Generative AI Provider",
+      "cat_isazureapplicationinsightsenabled": "Enrich With Azure Application Insights",
+      "cat_iscopyfulltranscriptenabled": "Copy Full Transcript",
+      "cat_isdirectlinechannelsecurityenabled": "Direct Line Channel Security",
+      "cat_isenrichedwithconversationtranscripts": "Enrich With Conversation Transcripts",
+      "cat_isgeneratedanswersanalysisenabled": "Analyze Generated Answers",
+      "cat_name": "Name",
+      "cat_regioncode": "Region",
+      "cat_scope": "Scope",
+      "cat_tenantid": "Tenant ID",
+      "cat_tokenendpoint": "Token Endpoint",
+      "cat_userauthenticationcode": "User Authentication",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number"
+    },
+    "PreferredName": "Copilot Configurations",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Copilot Configurations (Views)",
+    "Name": "_cat_copilotconfiguration_views",
+    "RelatedEntityName": "Copilot Configurations",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "24ef638e-719c-4ccd-9e96-4ea7685410bd": "Copilot Configuration Lookup View",
+      "617d7e56-8711-ef11-9f89-0022480b09c2": "Export/Import View",
+      "77dec5f3-551c-ef11-840b-6045bdd6c0ee": "My Copilot Configurations",
+      "a2bfe9d8-80a8-4710-9ca9-a1b9d4d14119": "Copilot Configuration Associated View",
+      "a4f0d63f-baa0-4eac-9ee4-fb50cc077094": "Copilot Configuration Advanced Find View",
+      "ad88f59d-8353-4e43-bb6b-15393fc09365": "Inactive Copilot Configurations",
+      "dd794d56-5865-408d-8eae-71b69a4980fa": "Copilot Configurations"
+    }
+  },
+  {
+    "DisplayName": "Enrich With Azure Application Insights (Copilot Configurations)",
+    "Name": "cat_copilotconfiguration_cat_isazureapplicationinsightsenabled",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_isazureapplicationinsightsenabled",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cat_isazureapplicationinsightsenabled",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Copy Full Transcript (Copilot Configurations)",
+    "Name": "cat_copilotconfiguration_cat_iscopyfulltranscriptenabled",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_iscopyfulltranscriptenabled",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cat_iscopyfulltranscriptenabled",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Direct Line Channel Security (Copilot Configurations)",
+    "Name": "cat_copilotconfiguration_cat_isdirectlinechannelsecurityenabled",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_isdirectlinechannelsecurityenabled",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cat_isdirectlinechannelsecurityenabled",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Enrich With Conversation Transcripts (Copilot Configurations)",
+    "Name": "cat_copilotconfiguration_cat_isenrichedwithconversationtranscripts",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_isenrichedwithconversationtranscripts",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cat_isenrichedwithconversationtranscripts",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Analyze Generated Answers (Copilot Configurations)",
+    "Name": "cat_copilotconfiguration_cat_isgeneratedanswersanalysisenabled",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_isgeneratedanswersanalysisenabled",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "cat_isgeneratedanswersanalysisenabled",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Copilot Configurations)",
+    "Name": "cat_copilotconfiguration_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Copilot Configurations)",
+    "Name": "cat_copilotconfiguration_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Generative AI Provider",
+    "Name": "cat_generativeaiprovider",
+    "OptionSetInfoNameMapping": {
+      "1": "AI Builder"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_generativeaiprovidercode",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_generativeaiprovidercode",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Region",
+    "Name": "cat_region",
+    "OptionSetInfoNameMapping": {
+      "1": "Default",
+      "2": "Europe",
+      "3": "India"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_regioncode",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_regioncode",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Secret Location",
+    "Name": "cat_secretlocation",
+    "OptionSetInfoNameMapping": {
+      "1": "Dataverse",
+      "2": "Key Vault"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_directlinechannelsecretlocationcode",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_directlinechannelsecretlocationcode",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "User Authentication",
+    "Name": "cat_userauthentication",
+    "OptionSetInfoNameMapping": {
+      "1": "No Authentication",
+      "2": "Entra ID v1",
+      "3": "Entra ID v2",
+      "4": "Generic OAuth 2"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cat_userauthenticationcode",
+        "OptionSetReferenceEntityName": "Copilot Configurations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cat_userauthenticationcode",
+    "RelatedEntityName": "Copilot Configurations",
+    "Type": "OptionSetInfo"
+  }
+]
