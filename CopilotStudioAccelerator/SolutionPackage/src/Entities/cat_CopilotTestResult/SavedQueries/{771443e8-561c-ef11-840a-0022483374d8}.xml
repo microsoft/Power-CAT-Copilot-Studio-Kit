@@ -36,7 +36,7 @@
           <order attribute="cat_copilottestid" descending="false" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
-            <condition attribute="ownerid" operator="eq-userid" />
+            <condition attribute="ownerid" operator="eq-useroruserteams" />
           </filter>
           <link-entity alias="a_0e6cff8d1ff14a0f871ecbace9ab6081" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
             <attribute name="cat_testtypecode" />

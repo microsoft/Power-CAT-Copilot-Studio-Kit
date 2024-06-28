@@ -42,7 +42,8 @@
               "subscriptionRequest/entityname": "cat_copilottestrun",
               "subscriptionRequest/scope": 4,
               "subscriptionRequest/filterexpression": "cat_runstatuscode eq 1",
-              "subscriptionRequest/runas": 3
+              "subscriptionRequest/runas": 3,
+              "subscriptionRequest/name": "296c3eb2-55db-ee11-904d-6045bd057afd"
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -118,7 +119,7 @@
                     "id": "CopilotStudioAccelerator"
                   },
                   "text": "@{items('Apply_to_each_Copilot_Test')?['cat_testutterance']}",
-                  "value": "@{if(not(empty(items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson'])), items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson'], json('null'))}"
+                  "value": "@if(\r\n  not(empty(items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson'])),\r\n  json(items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson']),\r\n  json('null')\r\n)"
                 },
                 "authentication": {
                   "type": "Raw",
@@ -211,7 +212,124 @@
                                   "type": "string"
                                 },
                                 "content": {
-                                  "type": "object"
+                                  "oneOf": [
+                                    {
+                                      "type": "object"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "type": {
+                                            "type": "string"
+                                          },
+                                          "id": {
+                                            "type": "string"
+                                          },
+                                          "timestamp": {
+                                            "type": "string"
+                                          },
+                                          "serviceUrl": {
+                                            "type": "string"
+                                          },
+                                          "channelId": {
+                                            "type": "string"
+                                          },
+                                          "from": {
+                                            "type": "object",
+                                            "properties": {
+                                              "id": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "conversation": {
+                                            "type": "object",
+                                            "properties": {
+                                              "id": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "recipient": {
+                                            "type": "object",
+                                            "properties": {
+                                              "id": {
+                                                "type": "string"
+                                              },
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "role": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "membersAdded": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object"
+                                            }
+                                          },
+                                          "membersRemoved": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object"
+                                            }
+                                          },
+                                          "reactionsAdded": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object"
+                                            }
+                                          },
+                                          "reactionsRemoved": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object"
+                                            }
+                                          },
+                                          "text": {
+                                            "type": "string"
+                                          },
+                                          "attachments": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object"
+                                            }
+                                          },
+                                          "entities": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object"
+                                            }
+                                          },
+                                          "replyToId": {
+                                            "type": "string"
+                                          },
+                                          "value": {
+                                            "type": "object"
+                                          },
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "listenFor": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string"
+                                            }
+                                          },
+                                          "textHighlights": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "object"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
                                 }
                               }
                             }

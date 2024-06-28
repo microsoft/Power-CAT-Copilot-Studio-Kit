@@ -1,15 +1,6 @@
 {
   "properties": {
     "connectionReferences": {
-      "shared_webcontents_1": {
-        "runtimeSource": "embedded",
-        "connection": {
-          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorHTTPwithMicrosoftEntraID"
-        },
-        "api": {
-          "name": "shared_webcontents"
-        }
-      },
       "shared_commondataserviceforapps": {
         "runtimeSource": "embedded",
         "connection": {
@@ -66,13 +57,15 @@
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_webcontents_1",
-                  "operationId": "InvokeHttp",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "parameters": {
-                  "request/method": "GET",
-                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_tests'"
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetEntityName": "cat_copilottestrun",
+                  "item/cat_TargetFieldName": "cat_tests"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -84,18 +77,20 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+                "operationMetadataId": "f7c9d479-32dd-48d7-9170-2dd9240e204c"
               },
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_webcontents_1",
-                  "operationId": "InvokeHttp",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "parameters": {
-                  "request/method": "GET",
-                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_success'"
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetEntityName": "cat_copilottestrun",
+                  "item/cat_TargetFieldName": "cat_success"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -107,18 +102,20 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+                "operationMetadataId": "d740f6a7-dc8b-4cf5-b7ba-095d2f0f1a0d"
               },
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_webcontents_1",
-                  "operationId": "InvokeHttp",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "parameters": {
-                  "request/method": "GET",
-                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_failed'"
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetEntityName": "cat_copilottestrun",
+                  "item/cat_TargetFieldName": "cat_failed"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -130,18 +127,20 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+                "operationMetadataId": "24e830f0-fe0a-4f5b-8259-e32ccd0a4462"
               },
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_webcontents_1",
-                  "operationId": "InvokeHttp",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "parameters": {
-                  "request/method": "GET",
-                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_unknown'"
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetEntityName": "cat_copilottestrun",
+                  "item/cat_TargetFieldName": "cat_unknown"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -153,18 +152,20 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+                "operationMetadataId": "6d457f5e-bd16-4746-a8e7-17e03915caf9"
               },
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_webcontents_1",
-                  "operationId": "InvokeHttp",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "parameters": {
-                  "request/method": "GET",
-                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_error'"
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetEntityName": "cat_copilottestrun",
+                  "item/cat_TargetFieldName": "cat_error"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -176,18 +177,20 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+                "operationMetadataId": "ddd51e2e-e159-486c-8c10-53af0cc22c45"
               },
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_webcontents_1",
-                  "operationId": "InvokeHttp",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "parameters": {
-                  "request/method": "GET",
-                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_pending'"
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetEntityName": "cat_copilottestrun",
+                  "item/cat_TargetFieldName": "cat_pending"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -199,18 +202,20 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "2cd7a00e-dee4-4448-bc36-3e2df7600f44"
+                "operationMetadataId": "9c1eab88-1c4e-4001-9c34-f7c579b8878e"
               },
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_webcontents_1",
-                  "operationId": "InvokeHttp",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_webcontents"
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "parameters": {
-                  "request/method": "GET",
-                  "request/url": "https://@{triggerOutputs()?['body/InputParameters/DataverseUriHost']}/api/data/v9.2/CalculateRollupField(Target=@EntitySetName,FieldName=@FieldName)?@EntitySetName={'@odata.id':'cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})'}&@FieldName='cat_averagelatencyms'"
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetEntityName": "cat_copilottestrun",
+                  "item/cat_TargetFieldName": "cat_averagelatencyms"
                 },
                 "authentication": "@parameters('$authentication')"
               }
