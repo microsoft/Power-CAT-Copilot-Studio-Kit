@@ -1,17 +1,17 @@
-# Copilot Studio Accelerator prerequisites
+# Power CAT Copilot Studio Kit prerequisites
 
-The Copilot Studio Accelerator is built using Power Platform and requires adequate licensing and capacity.
+The Power CAT Copilot Studio Kit is built using Power Platform and requires adequate licensing and capacity.
 
 ## Mandatory requirements
 
 - A [**Power Platform environment with Dataverse as a data store**](https://learn.microsoft.com/power-platform/admin/create-environment). <br>
-  Microsoft Dataverse is used to store the Copilot Studio Accelerator configuration and test tables data. <br>
-  The user performing the installation of the Copilot Studio Accelerator must have the **system administrator** security role on the environment.
+  Microsoft Dataverse is used to store the Power CAT Copilot Studio Kit configuration and test tables data. <br>
+  The user performing the installation of the Power CAT Copilot Studio Kit must have the **system administrator** security role on the environment.
 - Adequate licensing to run a **Power Apps model-driven application**.
 - Adequate licensing to run **Power Automate cloud flows** using **Premium** connectors.
 
 > [!NOTE]
-> Copilot Studio Accelerator can be installed in the same environment where you host your custom copilots, but this isn't mandatory. <br>
+> Power CAT Copilot Studio Kit can be installed in the same environment where you host your custom copilots, but this isn't mandatory. <br>
 > On licensing:
 > - If installed as part of Power Platform, refer to [Microsoft Power Platform Licensing Guide](https://go.microsoft.com/fwlink/?linkid=2085130).
 > - If installed as part of Dynamics 365, refer to  [Dynamics 365 Licensing Guide](https://go.microsoft.com/fwlink/p/?LinkId=866544)
