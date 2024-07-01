@@ -1,9 +1,9 @@
-# Copilot Studio Accelerator
+# Power CAT Copilot Studio Kit
 
-The **Copilot Studio Accelerator** is a Power Platform-based solution that helps automate testing of custom copilots created with [Microsoft Copilot Studio](https://aka.ms/CopilotStudio).
-The main use cases are **intent recognition accuracy** and **AI-generated answers testing**.  
+The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers test custom copilots, use large language model to validate AI-generated content, track aggregated key performance indicators, and design advanced functionalities through a user-friendly interface. 
 
-The Copilot Studio Accelerator is a user-friendly application allows testers to configure copilots and tests sets. It has native capabilities such as Excel export or import for bulk creation and updates.
+## Testing capabilities  
+The Power CAT Copilot Studio Kit is a user-friendly application allows testers to configure copilots and tests sets. It has native capabilities such as Excel export or import for bulk creation and updates.
 
 By running individual tests against the Direct Line API, the copilot responses are evaluated against expected results.
 To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact triggered topic name, intent recognition scores, etc.).
@@ -19,9 +19,15 @@ Today, the tool supports these types of tests:
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/2538026b-9c8e-4b2c-95f0-073239fd51af)
 
+## Copilot KPIs
+Coming soon: agreggate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
+
+## Advanced Designer
+Coming soon: design Power Fx adaptive cards for use in your custom copillots.
+
 # About this GitHub repo
 
-The Copilot Studio Accelerator GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Copilot Studio Accelerator.
+The Power CAT Copilot Studio Kitr GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
 
 # Setup instructions and documentation
 
@@ -44,11 +50,11 @@ Stay up to date with our releases by **subscribing** to them:
 
 ## Support
 
-Although the underlying features and components used to build the Copilot Studio Accelerator are fully supported (such as Power Apps, Power Automate, Dataverse, Copilot Studio endpoints etc.), the accelerator itself represents an example implementation of these features. Our customers, partners, and community can use and customize these features to implement capabilities in their organizations.
+Although the underlying features and components used to build the Power CAT Copilot Studio Kit are fully supported (such as Power Apps, Power Automate, Dataverse, Copilot Studio endpoints etc.), the accelerator itself represents an example implementation of these features. Our customers, partners, and community can use and customize these features to implement capabilities in their organizations.
 
 If you face issues with:
 
-- **Using the Copilot Studio Accelerator**: Report your issue here https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/issues. Microsoft Support won't help you with issues related to the accelerator, but they will help with related, underlying platform and feature issues.
+- **Using the Power CAT Copilot Studio Kit**: Report your issue here https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/issues. Microsoft Support won't help you with issues related to the accelerator, but they will help with related, underlying platform and feature issues.
 - **The core Microsoft features**: Use your standard channel to contact Microsoft Support: [Get Help + Support](https://learn.microsoft.com/en-us/power-platform/admin/get-help-support)
 
 ## Submit a feature request
