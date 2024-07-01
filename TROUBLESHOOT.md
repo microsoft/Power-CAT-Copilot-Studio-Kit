@@ -1,4 +1,4 @@
-# Troubleshoot errors in Copilot Studio Accelerator
+# Troubleshoot errors in Power CAT Copilot Studio Kit
 
 ## Test Run Errors
 
