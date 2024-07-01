@@ -1,4 +1,4 @@
-# Analyzing test results in Copilot Studio Accelerator
+# Analyzing test results in Power CAT Copilot Studio Kit
 
 ## Test run details
 
