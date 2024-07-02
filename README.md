@@ -23,7 +23,7 @@ Today, the tool supports these types of tests:
 Coming soon: agreggate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
 
 ## Advanced Designer
-Coming soon: design Power Fx adaptive cards for use in your custom copillots.
+Coming soon: design Power Fx adaptive cards for use in your custom copilots.
 
 # About this GitHub repo
 
