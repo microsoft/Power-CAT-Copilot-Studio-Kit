@@ -44,7 +44,7 @@ steps:
 - task: DownloadPipelineArtifact@2
   inputs:
     source: 'specific'
-    project: 'Powercat-Copilotstudio-Accelerator'
+    project: 'Power-CAT-Copilot-Studio-Kit'
     pipeline: '2359' #Production buildId
     runVersion: 'latest'
     patterns: '**/CopilotStudioAccelerator*.zip'
@@ -54,7 +54,7 @@ steps:
     New-Item -Path $(Pipeline.Workspace)\releaseassets -ItemType Directory
     New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory
     Copy-Item '$(Pipeline.Workspace)\drop\*managed.zip' -Destination '$(Pipeline.Workspace)\assetstaging'
-    Copy-Item '$(Build.SourcesDirectory)\Powercat-Copilotstudio-Accelerator\CopilotstudioAcceleratorResources\Release\Collateral\CopilotstudioAccelerator\*.*' -Destination '$(Pipeline.Workspace)\assetstaging'
+    Copy-Item '$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\Collateral\CopilotstudioAccelerator\*.*' -Destination '$(Pipeline.Workspace)\assetstaging'
 
     $compress = @{
       Path = '$(Pipeline.Workspace)\assetstaging\*.*'
@@ -89,13 +89,13 @@ steps:
 
 - template: Pipelines\Templates\create-release-github.yml@PipelineRepo
   parameters:
-    gitHubApiUrl: 'microsoft/Powercat-Copilotstudio-Accelerator'
+    gitHubApiUrl: 'microsoft/Power-CAT-Copilot-Studio-Kit'
     solutionName: 'CopilotStudioAccelerator'
     solutionDisplayName: 'Copilot Studio Accelerator'
     releaseMonth: ${{parameters.ReleaseMonthNumber}}
     releaseYear: ${{parameters.ReleaseYearNumber}}
     connectionName: 'powercat-alm'
-    releaseNotesPath: 'Powercat-Copilotstudio-Accelerator/CopilotstudioAcceleratorResources/Release/Notes/'
+    releaseNotesPath: 'Power-CAT-Copilot-Studio-Kit/CopilotstudioAcceleratorResources/Release/Notes/'
     issueClosingComment: 'This has been fixed in the latest release.'
     closeIssues: ${{parameters.CloseMilestoneIssues}}
     isDraft: ${{parameters.DraftRelease}}
@@ -104,5 +104,5 @@ steps:
     queryHeadingDelimited: ""
     prepareAppSourcePackage: ${{parameters.PrepareAppSourcePackage}}
     preparePackageDeployerPackage: ${{parameters.PreparePackageDeployerPackage}}
-    projectName: "Powercat-Copilotstudio-Accelerator"
-    packageConfigurationFilePath: "Powercat-Copilotstudio-Accelerator/PowerCAT.PackageDeployer.Package/PowerCAT.Package.Settings.json"
+    projectName: "Power-CAT-Copilot-Studio-Kit"
+    packageConfigurationFilePath: "Power-CAT-Copilot-Studio-Kit/PowerCAT.PackageDeployer.Package/PowerCAT.Package.Settings.json"
