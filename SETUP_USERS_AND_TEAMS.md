@@ -1,22 +1,22 @@
-# Setup users and teams in Copilot Studio Accelerator
+# Setup users and teams in Power CAT Copilot Studio Kit
 
-After completing the installation of Copilot Studio Accelerator, you can grant security roles to your users so that they can configure new copilots and tests.
+After completing the installation of Power CAT Copilot Studio Kit, you can grant security roles to your users so that they can configure new copilots and tests.
 
 It's a best practice to security assign roles via Entra ID group and team memberships, but you can also assign them manually and individually to users.
 
-## Copilot Studio Accelerator security roles
+## Power CAT Copilot Studio Kit security roles
 
 | Security role | Description |
 | --- | --- |
-| Copilot Studio Accelerator Administrator | Full permissions on the Copilot Studio Accelerator tables as well on the standard Copilot Studio tables, such as Conversation Transcripts. |
-| Copilot Studio Accelerator Configurator | Full permissions permissions for user-owned Copilot Studio Accelerator tables and Copilot Studio tables. |
-| Copilot Studio Accelerator Tester | Permissions to create and run tests. |
+| Power CAT Copilot Studio Kit Administrator | Full permissions on the Power CAT Copilot Studio Kit tables as well on the standard Copilot Studio tables, such as Conversation Transcripts. |
+| Power CAT Copilot Studio Kit Configurator | Full permissions permissions for user-owned Power CAT Copilot Studio Kit tables and Copilot Studio tables. |
+| Power CAT Copilot Studio Kit Tester | Permissions to create and run tests. |
 
 ## Navigate to the Power Platform Admin Center
 
 1. Go to the [Power Platform Admin Center](https://admin.powerplatform.microsoft.com/).
 2. Navigate to **Environments**
-3. Select the environments where you have installed the Copilot Studio Accelerator on.
+3. Select the environments where you have installed the Power CAT Copilot Studio Kit on.
 
 ## Assign security roles to users
 
@@ -31,7 +31,7 @@ That way users can inherit security roles automatically, simply by being member 
 4. Set the required properties, and in **Team type**, select either **Microsoft Entra ID Security Group** or **Microsoft Entra ID Office Group**.
 5. Search and select the desired **group**.
 6. Select **Next**
-7. Select the desired Copilot Studio Accelerator **security role**.
+7. Select the desired Power CAT Copilot Studio Kit **security role**.
 8. **Save**
 
 > [!NOTE]
@@ -47,7 +47,7 @@ That way users can inherit security roles automatically, simply by being member 
 3. If the user isn't present in the list, select** Add user** and add them.
 4. Select the **user**.
 5. Select **Manage roles**.
-6. Select the desired Copilot Studio Accelerator **security role**.
+6. Select the desired Power CAT Copilot Studio Kit **security role**.
 7. **Save**
 
 > [!NOTE]
@@ -72,5 +72,5 @@ _Note: if you don't store secrets in these columns, this step isn't required._
 1. From the **environment** overview page
 2. Go **Settings**
 3. Under **Users + permissions**, select **Column security profiles**
-4. Select **Copilot Studio Accelerator Column Security Profile**
+4. Select **Power CAT Copilot Studio Kit Column Security Profile**
 5. Navigate to the **Teams** or **Users** tab and add the relevant **teams** and/or **users** that should have access to these secured columns.

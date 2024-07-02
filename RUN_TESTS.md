@@ -1,10 +1,10 @@
-# Running tests in Copilot Studio Accelerator
+# Running tests in Power CAT Copilot Studio Kit
 
 **Test Runs** allow to execute multiple **Tests** contained in a single test set against a specific **Copilot Configuration**.
 
 ## Creating a Test Run
 
-1. Open the Copilot Studio Accelerator application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
+1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
 2. Navigate to **Test Runs**.
 3. Create a **New** Copilot Test Run record.
 4. Provide a **Name**.

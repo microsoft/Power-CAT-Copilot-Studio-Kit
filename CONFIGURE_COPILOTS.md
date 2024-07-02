@@ -1,13 +1,13 @@
-# Configure copilots in Copilot Studio Accelerator
+# Configure copilots in Power CAT Copilot Studio Kit
 
-The custom copilots you create and configure in Microsoft Copilot Studio can be tested from the Copilot Studio Accelerator.
+The custom copilots you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
 For this, you need to create a **Copilot Configuration** record taht will contain the required information to connect to these copilots and run tests against them.
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/966503f4-bc93-4914-81e0-59b7be9df25f)
 
 ## Configure a new copilot 
 
-1. Open the Copilot Studio Accelerator application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
+1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
 2. Navigate to **Copilots**.
 3. Create a **New** Copilot Configuration record.
 4. Fill in the below **information**.
@@ -44,15 +44,15 @@ For this, you need to create a **Copilot Configuration** record taht will contai
 > Configurating this requires at least the System Administrator security role on the environment, as well as specific permissions in the Azure Key Vault.
 
 If you don't want to store secrets directly in Dataverse, you can choose to store them in Azure Key Vault.
-If you choose to do so, you then need to use environment variables of type secrets so that the Copilot Studio Accelerator can fetch secrets from the key vault when running tests.
+If you choose to do so, you then need to use environment variables of type secrets so that the Power CAT Copilot Studio Kit can fetch secrets from the key vault when running tests.
 Because each copilot configuration may target a different copilot and use a different secret, you need to create individual environment variables for each secret.
 
 1. Configure your Azure Key Vault by following this documentation: [Configure Azure Key Vault](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#configure-azure-key-vault).
 2. Go to **[make.powerapps.com](https://make.powerapps.com/)**
-3. Select to the **environment** in which you want to install the Copilot Studio Accelerator.
+3. Select to the **environment** in which you want to install the Power CAT Copilot Studio Kit.
 4. Go to **Solutions**
 5. Select **Common Data Services Default Solution** <br>
-   _Note: you can choose to create or use your own custom solution as well. The idea here is to create environment variables that will be used by Copilot Studio Accelerator to retrieve secrets from the Azure Key Vault._
+   _Note: you can choose to create or use your own custom solution as well. The idea here is to create environment variables that will be used by Power CAT Copilot Studio Kit to retrieve secrets from the Azure Key Vault._
 6. Follow the steps in: [Create a new environment variable for the Key Vault secret](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#create-a-new-environment-variable-for-the-key-vault-secret)
 7. Once created, use the environment variable **schema name** (e.g., cr42e_Copilot1DirectLineSecret) in the Copilot Configuration record.
 
