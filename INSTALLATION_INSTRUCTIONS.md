@@ -3,7 +3,7 @@
 ## Download
 
 1. Download the latest version of the Power CAT Copilot Studio Kit **managed** solution here: <br>
-   [aka.ms/DownloadCopilotStudioKit](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/releases/) 
+   [aka.ms/DownloadCopilotStudioKit](https://aka.ms/DownloadCopilotStudioKit) 
 
 ## Install CopilotStudioAccelerator.zip
 
