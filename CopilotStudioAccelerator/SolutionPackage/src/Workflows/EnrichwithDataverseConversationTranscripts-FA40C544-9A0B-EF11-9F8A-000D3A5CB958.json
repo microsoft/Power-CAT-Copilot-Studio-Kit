@@ -32,7 +32,8 @@
               "catalog": "allcatalog",
               "category": "allcategory",
               "subscriptionRequest/entityname": "cat_copilottestrun",
-              "subscriptionRequest/sdkmessagename": "cat_RunDataverseConversationTranscriptsEnrichment"
+              "subscriptionRequest/sdkmessagename": "cat_RunDataverseConversationTranscriptsEnrichment",
+              "subscriptionRequest/name": "fa40c544-9a0b-ef11-9f8a-000d3a5cb958"
             },
             "host": {
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -194,21 +195,25 @@
                                 ]
                               },
                               "channelData": {
-                                "type": "object",
-                                "properties": {
-                                  "pva:gpt-feedback": {
+                                "oneOf": [
+                                  {
                                     "type": "object",
                                     "properties": {
-                                      "summarizationOpenAIResponse": {
+                                      "pva:gpt-feedback": {
                                         "type": "object",
                                         "properties": {
-                                          "result": {
+                                          "summarizationOpenAIResponse": {
                                             "type": "object",
                                             "properties": {
-                                              "textCitations": {
-                                                "type": "array",
-                                                "items": {
-                                                  "type": "object"
+                                              "result": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "textCitations": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  }
                                                 }
                                               }
                                             }
@@ -216,8 +221,11 @@
                                         }
                                       }
                                     }
+                                  },
+                                  {
+                                    "type": "string"
                                   }
-                                }
+                                ]
                               }
                             }
                           }
@@ -398,7 +406,7 @@
                   "type": "Query",
                   "inputs": {
                     "from": "@body('Parse_Content_JSON')?['activities']",
-                    "where": "@not(equals(item()?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['textCitations'],null))"
+                    "where": "@or(\r\n    and(\r\n        not(equals(item()?['channelData'], null)),\r\n        not(equals(item()?['channelData'], '')),\r\n        contains(string(item()?['channelData']), '\"pva:gpt-feedback\"'),\r\n        not(equals(item()?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['textCitations'], null))\r\n    )\r\n)\r\n"
                   },
                   "runAfter": {
                     "Filter_array_with_valueType_DialogRedirect": [
@@ -417,7 +425,7 @@
                       "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
                       "item/cat_name": "@items('Apply_to_each_Result')?['cat_name']",
                       "item/cat_resultcode": "@if(\r\n    equals(\r\n        items('Apply_to_each_Result')?['cat_copilottestid/cat_testtypecode'], \r\n        2\r\n    ),\r\n    if(\r\n        equals(\r\n            if(\r\n                not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n                first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n                if(\r\n                    not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n                    first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n                    if(\r\n                        not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n                        first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n                        if(\r\n                            not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                            outputs('Get_Topic_Name')?['body']?['name'],\r\n                            ''\r\n                        )\r\n                    )\r\n                )\r\n            ), \r\n            items('Apply_to_each_Result')?['cat_copilottestid/cat_expectedtopicname']\r\n        ), \r\n        1, \r\n        2\r\n    ), \r\n    items('Apply_to_each_Result')?['cat_resultcode']\r\n)\r\n",
-                      "item/cat_citations": "@{if(\n    not(empty(first(body('Filter_array_with_pva-gpt-feedback_not_null'))?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['textCitations'])),\n    first(body('Filter_array_with_pva-gpt-feedback_not_null'))?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['textCitations'],\n    null\n)}",
+                      "item/cat_citations": "@{first(body('Filter_array_with_pva-gpt-feedback_not_null'))?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['textCitations']}",
                       "item/cat_recognizedintentscore": "@first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentScore']?['score']\n",
                       "item/cat_resultreason": "@if(\r\n    equals(\r\n        items('Apply_to_each_Result')?['cat_copilottestid/cat_testtypecode'], \r\n        2\r\n    ),\r\n    if(\r\n        equals(\r\n            if(\r\n                not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n                first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n                if(\r\n                    not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n                    first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n                    if(\r\n                        not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n                        first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n                        if(\r\n                            not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                            outputs('Get_Topic_Name')?['body']?['name'],\r\n                            ''\r\n                        )\r\n                    )\r\n                )\r\n            ), \r\n            items('Apply_to_each_Result')?['cat_copilottestid/cat_expectedtopicname']\r\n        ), \r\n        'Exact match on the triggered topic or event name', \r\n        'Not an exact match on the triggered topic or event name' \r\n    ), \r\n    items('Apply_to_each_Result')?['cat_resultreason']\r\n)",
                       "item/cat_recognizedtopicname": "@if(\r\n    not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n    first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n    if(\r\n        not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n        first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n        if(\r\n            not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n            first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n            if(\r\n                not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                outputs('Get_Topic_Name')?['body']?['name'],\r\n                ''\r\n            )\r\n        )\r\n    )\r\n)",
