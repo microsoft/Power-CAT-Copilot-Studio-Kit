@@ -48,15 +48,6 @@ Stay up to date with our releases by **subscribing** to them:
 1. Select **Watch**
 2. Select **Custom** > **Releases** > **Apply** to receive notifications about our releases
 
-## Support
-
-Although the underlying features and components used to build the Power CAT Copilot Studio Kit are fully supported (such as Power Apps, Power Automate, Dataverse, Copilot Studio endpoints etc.), the accelerator itself represents an example implementation of these features. Our customers, partners, and community can use and customize these features to implement capabilities in their organizations.
-
-If you face issues with:
-
-- **Using the Power CAT Copilot Studio Kit**: Report your issue here https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/issues. Microsoft Support won't help you with issues related to the accelerator, but they will help with related, underlying platform and feature issues.
-- **The core Microsoft features**: Use your standard channel to contact Microsoft Support: [Get Help + Support](https://learn.microsoft.com/en-us/power-platform/admin/get-help-support)
-
 ## Submit a feature request
 
 Let us now by filing an issue. 
@@ -78,7 +69,7 @@ Resources:
 
 ## Trademarks 
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow Microsoft's Trademark & Brand Guidelines. Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party's policies.
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft trademarks or logos is subject to and must follow [Microsoft’s Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general). Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship. Any use of third-party trademarks or logos are subject to those third-party’s policies.
 
 ## Security
 
