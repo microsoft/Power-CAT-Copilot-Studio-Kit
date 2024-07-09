@@ -27,7 +27,7 @@ Coming soon: design Power Fx adaptive cards for use in your custom copilots.
 
 # About this GitHub repo
 
-The Power CAT Copilot Studio Kitr GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
+The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
 
 # Setup instructions and documentation
 
