@@ -17,7 +17,7 @@ Today, the tool supports these types of tests:
 
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/33496e94-0c7a-4e63-9291-9e461aa9b9e7)
 
-![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/2538026b-9c8e-4b2c-95f0-073239fd51af)
+![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
 
 ## Copilot KPIs
 Coming soon: agreggate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
