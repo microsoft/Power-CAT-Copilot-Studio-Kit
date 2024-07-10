@@ -13,7 +13,7 @@ Today, the tool supports these types of tests:
 - Response exact match.
 - Attachments match.
 - Topic match (requires Dataverse enrichment)
-- Generative answsers (requires AI Builder for reponse analysis, and Azure Application Insights for details on why an answer was or was not generated)
+- Generative answers (requires AI Builder for response analysis, and Azure Application Insights for details on why an answer was or was not generated)
 
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/33496e94-0c7a-4e63-9291-9e461aa9b9e7)
 
