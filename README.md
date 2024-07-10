@@ -25,7 +25,7 @@ _Coming soon:_ agreggate and retain key performance indicators from your custom 
 
 # About this GitHub repo
 
-The Power CAT Copilot Studio Kitr GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
+The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
 
 # Setup instructions and documentation
 
