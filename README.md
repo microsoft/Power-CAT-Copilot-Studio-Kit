@@ -20,7 +20,7 @@ Today, the tool supports these types of tests:
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
 
 ## Copilot KPIs
-_Coming soon:_ agreggate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
+_Coming soon:_ aggregate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
 
 
 # About this GitHub repo
@@ -48,7 +48,7 @@ Stay up to date with our releases by **subscribing** to them:
 
 ## Submit a feature request
 
-Let us now by filing an issue. 
+Let us know by filing an issue. 
 Before submitting your issue please search the [issues](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/issues) to ensure your issue has not already been reported
 
 If your bug or feature request has already been reported, join the conversation by commenting and adding your reaction. Please use reactions to vote and not "+1" comments.
