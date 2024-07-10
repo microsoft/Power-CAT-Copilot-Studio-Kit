@@ -1,33 +1,31 @@
 # Power CAT Copilot Studio Kit
 
-The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers automatically test copilots, use large language models to validate AI-generated content, and will soon help business users easily track aggregated key performance indicators and empower citizen developers with exciting capabilities.
+The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers test custom copilots, use large language model to validate AI-generated content, and track aggregated key performance indicators (_coming soon_).
 
 ## Testing capabilities  
 The Power CAT Copilot Studio Kit is a user-friendly application that empowers makers to configure copilots and tests sets. It has native capabilities such as Excel export or import for bulk creation and updates.
 
 By running individual tests against the Copilot Studio APIs (Direct Line), the copilot responses are evaluated against expected results.
 To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact triggered topic name, intent recognition scores, etc.).
-For AI-generated answers, that are by nature non-deterministic, AI Builder prompts are used to compare the generated answer with a sample answser or with validation instructions.
+For AI-generated answers, that are by nature non-deterministic, AI Builder prompts are used to compare the generated answer with a sample answer or with validation instructions.
 
 Today, the tool supports these types of tests:
 - Response exact match.
 - Attachments match.
 - Topic match (requires Dataverse enrichment)
-- Generative answsers (requires AI Builder for reponse analysis, and Azure Application Insights for details on why an answer was or was not generated)
+- Generative answers (requires AI Builder for response analysis, and Azure Application Insights for details on why an answer was or was not generated)
 
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/33496e94-0c7a-4e63-9291-9e461aa9b9e7)
 
-![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/2538026b-9c8e-4b2c-95f0-073239fd51af)
+![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
 
 ## Copilot KPIs
-Coming soon: agreggate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
+_Coming soon:_ aggregate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
 
-## Advanced Designer
-Coming soon: design Power Fx adaptive cards for use in your custom copilots.
 
 # About this GitHub repo
 
-The Power CAT Copilot Studio Kitr GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
+The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
 
 # Setup instructions and documentation
 
@@ -50,7 +48,7 @@ Stay up to date with our releases by **subscribing** to them:
 
 ## Submit a feature request
 
-Let us now by filing an issue. 
+Let us know by filing an issue. 
 Before submitting your issue please search the [issues](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/issues) to ensure your issue has not already been reported
 
 If your bug or feature request has already been reported, join the conversation by commenting and adding your reaction. Please use reactions to vote and not "+1" comments.
