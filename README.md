@@ -3,9 +3,9 @@
 The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers test custom copilots, use large language model to validate AI-generated content, and track aggregated key performance indicators (_coming soon_).
 
 ## Testing capabilities  
-The Power CAT Copilot Studio Kit is a user-friendly application allows testers to configure copilots and tests sets. It has native capabilities such as Excel export or import for bulk creation and updates.
+The Power CAT Copilot Studio Kit is a user-friendly application that empowers makers to configure copilots and tests sets. It has native capabilities such as Excel export or import for bulk creation and updates.
 
-By running individual tests against the Direct Line API, the copilot responses are evaluated against expected results.
+By running individual tests against the Copilot Studio APIs (Direct Line), the copilot responses are evaluated against expected results.
 To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact triggered topic name, intent recognition scores, etc.).
 For AI-generated answers, that are by nature non-deterministic, AI Builder prompts are used to compare the generated answer with a sample answer or with validation instructions.
 
