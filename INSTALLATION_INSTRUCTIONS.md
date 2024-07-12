@@ -13,7 +13,10 @@
 4. Select **CopilotStudioAccelerator.zip**
 5. Select **Next**
 6. If prompted, create the required **connections**, and select **Import**.
-7. Wait for the import operation to successfully complete.
+   - This is the Azure Application Insights instance that you've configured your copilot to send telemetry to.
+   - You can get the Application ID and generate a secret from Azure Application Insights > Configure > API Access.
+   - We're looking at removing that requirement and connecting to Azure Application Insights differently.
+8. Wait for the import operation to successfully complete.
 
 ## Access the Power CAT Copilot Studio Kit app
 
