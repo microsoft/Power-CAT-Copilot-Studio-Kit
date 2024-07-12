@@ -22,7 +22,6 @@ Today, the tool supports these types of tests:
 ## Copilot KPIs
 _Coming soon:_ aggregate and retain key performance indicators from your custom copilots without having to parse complex conversation transcripts.
 
-
 # About this GitHub repo
 
 The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
@@ -37,6 +36,12 @@ The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issu
 - [Run tests](./RUN_TESTS.md)
 - [Analyze test results](./ANALYZE_TEST_RESULTS.md)
 - [Troubleshooting](./TROUBLESHOOT.md)
+
+# Known limitations
+
+As of the latest release:
+- Copilots need to have their authentication setting set to "No authentication".
+- Multi-turn conversations are not supported.
 
 ## Latest release
 
