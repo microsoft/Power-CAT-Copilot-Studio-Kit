@@ -33,7 +33,7 @@ After a cloud flow runs, aggregated results are calculated.
 Results should be analyzed after each step has completed, as some results will only be available after these steps complete.
 For example, Topic Match tests need Dataverse Enrichment to fully run, as only this step provides information on the topic name that was triggered.
 
-The results view is editable, so that results can be adjuted invididually.
+The results view is editable, so that results can be adjusted invididually.
 
 Each result has a **Result Reason** that's automatically populated. It will contain an explaination for the Result. <br>
 For AI-generated assessments, it will recommend a human review: `AI-generated assessment of the response. Please review`. <br>
