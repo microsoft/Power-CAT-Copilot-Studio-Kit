@@ -23,15 +23,15 @@ For this, you need to create a **Copilot Configuration** record that will contai
 | **Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the Direct Line channel secret. |
 | **Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the Azure Key Vault secret. <br> See [Configure secrets in Azure Key Vault](./CONFIGURE_COPILOTS.md#configure-secrets-in-azure-key-vault)|
 | **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this Copilot. |
-| **Client ID** | Yes | Enter the application (client) ID of the application created to enable the  end user authentication for custom Copilot (https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad) |
-| **Tenant ID** | Yes | Enter the tenant ID of the application created to enable end user authentication for custom Copilot |
+| **Client ID** | Depends | Enter the application (client) ID of the application created to enable the  end user authentication for custom Copilot (https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad) |
+| **Tenant ID** | Depends | Enter the tenant ID of the application created to enable end user authentication for custom Copilot |
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
-| **Azure App Insights Client ID** | Yes | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
-| **Azure App Insights Application ID** | Yes | Enter the **AppId** of your Application Insights resource |
-| **Azure App Insights Secret Location** | Yes | Choose where you prefer to store the App Insights application secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
-| **Azure App Insights Tenant ID** | Yes | Enter the tenant ID of the Application Insights resource and the application |
-| **Azure App Insights Secret** | Yes | When _Dataverse_ is selected as the _Secret Location_, this column stores the App Insights application secret. |
-| **Azure App Insights Environment Variable** | Yes | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the App Insights application secret. |
+| **Azure App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
+| **Azure App Insights Application ID** | Depends | Enter the **AppId** of your Application Insights resource |
+| **Azure App Insights Secret Location** | Depends | Choose where you prefer to store the App Insights application secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
+| **Azure App Insights Tenant ID** | Depends | Enter the tenant ID of the Application Insights resource and the application |
+| **Azure App Insights Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the App Insights application secret. |
+| **Azure App Insights Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the App Insights application secret. |
 | **Enrich With Conversation Transcripts** |  | Enable this option to enrich test results with data from Conversation Transcripts stored in Dataverse. |
 | **Dataverse URL** | Depends | When _Enrich With Conversation Transcripts_ is enabled, URL of Dataverse environment (e.g., https://org123.crm.dynamics.com) <br> The URL can be obtained from Microsoft Copilot Studio settings (⚙️), in session details > instance url. |
 | **Copy Full Transcript** | No | When _Enrich With Conversation Transcripts_ is enabled, copies the full Conversation Transcript JSON as an attachment to the test result record for further analysis. |
