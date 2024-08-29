@@ -20,12 +20,12 @@ After a cloud flow runs, aggregated results are calculated.
 | Aggregated Result | Description | 
 | --- | --- | 
 | **# Tests** | Number of test results. | 
-| **Success Rate (%)** | Percentage of the number of Test Result records with a Success result compared to the total number of Tests Results. | 
+| **Success Rate (%)** | Percentage of the number of Test Result records with a Success result compared to the total number of test results. | 
 | **Average Latency (ms)** | Average time it took for the copilot to send the message after it received the test utterance, in milliseconds. | 
 | **# Success** | Number of Test Result records with a Success result. | 
 | **# Failed** | Number of Test Result records with a Failed result. | 
 | **# Pending** | Number of Test Result records with a Pending result. | 
-| **# Unknown** | Number of Test Result records with an Unkown result. | 
+| **# Unknown** | Number of Test Result records with an Unknown result. | 
 | **# Error** | Number of Test Result records with an error result. | 
 
 ## Detailed results
@@ -33,9 +33,9 @@ After a cloud flow runs, aggregated results are calculated.
 Results should be analyzed after each step has completed, as some results will only be available after these steps complete.
 For example, Topic Match tests need Dataverse Enrichment to fully run, as only this step provides information on the topic name that was triggered.
 
-The results view is editable, so that results can be adjusted invididually.
+The results view is editable, so that results can be adjusted individually.
 
-Each result has a **Result Reason** that's automatically populated. It will contain an explaination for the Result. <br>
+Each result has a **Result Reason** that's automatically populated. It will contain an explanation for the Result. <br>
 For AI-generated assessments, it will recommend a human review: `AI-generated assessment of the response. Please review`. <br>
 This attribute can be used by testers to add their own comments and notes on a test.
 
@@ -60,7 +60,7 @@ These records are automatically created.
 | **Copilot Test Run** | Related test run. |
 | **Copilot Test** | Related test. The details of the test are displayed in a Quick View form. |
 | **Result** | Result: `Success`, `Failed`, `Unknown`, `Error`, `Pending`.  |
-| **Result** | Auto-generated explaination of the Result. |
+| **Result** | Auto-generated explanation of the Result. |
 | **Latency (ms)** | Time it took for the copilot to send the message back after it received the test utterance, in milliseconds. |
 | **Message Sent** | Timestamp of the message sent by the user. |
 | **Response Received** | Timestamp of the message sent by the copilot. |
@@ -71,5 +71,5 @@ These records are automatically created.
 | **Recognized Intent Score** | In case of intent recognition, score of the top intent. |
 | **Conversation Transcript** | File attachment of the full conversation transcript JSON (when _Enrich With Conversation Transcripts_ is enabled and _Copy Full Transcript_ is set to yes.|
 | **Suggested Actions** | When available, JSON of the suggested actions returned by the copilot and associated to its reponse. |
-| **Attachments** |  When available, JSON of the attachmets array returned by the copilot and associated to its reponse. |
+| **Attachments** |  When available, JSON of the attachments array returned by the copilot and associated to its response. |
 | **Citations** | For generated answers, JSON array of the citations that were used to generate the answer (when _Enrich With Conversation Transcripts_ is enabled ) |
