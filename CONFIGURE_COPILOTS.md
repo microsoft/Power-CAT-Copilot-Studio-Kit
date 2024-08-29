@@ -8,9 +8,6 @@ For this, you need to create a **Copilot Configuration** record that will contai
 
 ## Configure a new Copilot 
 
-> [!NOTE]
-> Copilot Studio Kit supports testing custom Copilots with no end user authentication, or are using Entra ID v2 (Azure Active Directory v2) service provider for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
-
 1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
 2. Navigate to **Copilots**.
 3. Create a **New** Copilot Configuration record.
@@ -29,26 +26,37 @@ For this, you need to create a **Copilot Configuration** record that will contai
 | **Client ID** | Yes | Enter the application (client) ID of the application created to enable the  end user authentication for custom Copilot (https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad) |
 | **Tenant ID** | Yes | Enter the tenant ID of the application created to enable end user authentication for custom Copilot |
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
-| **Azure App Insights Client ID** | Yes | |
-| **Azure App Insights Application ID** | Yes | |
-| **Azure App Insights Secret Location** | Yes | |
-| **Azure App Insights Tenant ID** | Yes | |
-| **Azure App Insights Secret** | Yes | |
-| **Azure App Insights Environment Variable** | Yes | |
-| **Enrich With Conversation Transcripts** | No | Option to enrich test results with Conversation Transcripts data stored in Dataverse. |
-| **Delay for Conversation Transcripts Enrichment** | Depends | When _Enrich With Conversation Transcripts_ is enabled, delay in minutes before trying to fetch data from Conversation Transcripts in Dataverse. <br> Recommended value: 60 |
+| **Azure App Insights Client ID** | Yes | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
+| **Azure App Insights Application ID** | Yes | Enter the **AppId** of your Application Insights resource |
+| **Azure App Insights Secret Location** | Yes | Choose where you prefer to store the App Insights application secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
+| **Azure App Insights Tenant ID** | Yes | Enter the tenant ID of the Application Insights resource and the application |
+| **Azure App Insights Secret** | Yes | When _Dataverse_ is selected as the _Secret Location_, this column stores the App Insights application secret. |
+| **Azure App Insights Environment Variable** | Yes | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the App Insights application secret. |
+| **Enrich With Conversation Transcripts** |  | Enable this option to enrich test results with data from Conversation Transcripts stored in Dataverse. |
 | **Dataverse URL** | Depends | When _Enrich With Conversation Transcripts_ is enabled, URL of Dataverse environment (e.g., https://org123.crm.dynamics.com) <br> The URL can be obtained from Microsoft Copilot Studio settings (⚙️), in session details > instance url. |
-| **Copy Full Transcript** | No | When _Enrich With Conversation Transcripts_ is enabled, copies the full Conversation Transcript JSON as an attachment to the test result record. |
-| **Analyze Generated Answers** | No | When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answer or validation instructions. |
-| **Generative AI Provider** | Depends | When _Analyze Generated Answers_ is enabled, LLM model that is used to do the analysis. Not configurable today, only AI Builder is supported |
+| **Copy Full Transcript** | No | When _Enrich With Conversation Transcripts_ is enabled, copies the full Conversation Transcript JSON as an attachment to the test result record for further analysis. |
+| **Analyze Generated Answers** |  | When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answer or validation instructions. |
+| **Generative AI Provider** | Depends | When _Analyze Generated Answers_ is enabled, LLM model that is used to do the analysis. Only **AI Builder** is supported at the moment |
 
 5. **Save**
+
+## Note about end user authentication
+
+> [!NOTE]
+> Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Active Directory v2) service provider for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
 
 ## Note about results enrichment with Dataverse Conversation Transcripts
 
 > [!WARNING]
-> - For the accelerator to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
+> - For the Copilot Studio Kit to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
 > - Only environments within the same tenant can be targeted.
+
+## Note about results enrichment with Application Insights
+
+* For enriching test results from Application Insights, app registration is required within the same tenant as the Application Insights resource
+* Application Insights resource and the application can reside in a different tenant than the custom Copilot being tested
+* For detailed instructions on how to register the application and get the required information for the Application Insights resource, please see [here](./ENABLE-APPINSIGHTS.md).
+* Make sure that the custom Copilot is configured to send telemetry to Application Insights resource and that it is the same as in the Copilot configuration in the Copilot Studio Kit
 
 ## Configure secrets in Azure Key Vault
 
