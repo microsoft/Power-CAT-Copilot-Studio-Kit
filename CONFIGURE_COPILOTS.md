@@ -1,11 +1,15 @@
 # Configure copilots in Power CAT Copilot Studio Kit
 
-The custom copilots you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
-For this, you need to create a **Copilot Configuration** record taht will contain the required information to connect to these copilots and run tests against them.
+The custom Copilots you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
+For this, you need to create a **Copilot Configuration** record that will contain the required information to connect to these copilots and run tests against them.
 
-![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/966503f4-bc93-4914-81e0-59b7be9df25f)
+![copilot-configuration](https://github.com/user-attachments/assets/e996f1c4-71d8-4c4e-8538-7ebed18b10d4)
 
-## Configure a new copilot 
+
+## Configure a new Copilot 
+
+> [!NOTE]
+> Copilot Studio Kit supports testing custom Copilots with no end user authentication, or are using Entra ID v2 (Azure Active Directory v2) service provider for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
 
 1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
 2. Navigate to **Copilots**.
@@ -15,19 +19,27 @@ For this, you need to create a **Copilot Configuration** record taht will contai
 | Column Name | Required | Description | 
 | --- | --- | --- |
 | **Name** | Yes | Name of the copilot configuration. <br> The name doesn't have to be the same as the copilot you target. |
-| **Region** | Yes | Region where the copilot is deployed. <br> This is required to target the appropriate [Direct Line enpoint](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-api-reference?view=azure-bot-service-4.0). |
+| **Region** | Yes | Region where the copilot is deployed. <br> This is required to target the appropriate [Direct Line endpoint](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-api-reference?view=azure-bot-service-4.0). |
 | **Token Endpoint** | Depends | If _Channel Security_ isn't used or enforced, use the [token endpoint](https://learn.microsoft.com/microsoft-copilot-studio/publication-connect-bot-to-custom-application#retrieve-your-copilot-studio-copilot-parameters) that's available in the Mobile app channel. |
-| **Channel Security** | No |  Check this option if [web and Direct Line channel security](https://learn.microsoft.com/microsoft-copilot-studio/configure-web-security) is enabled. <br> That way, a token can be obtained in exchange of a secret. |
+| **Channel Security** |  |  Enable this option if [web and Direct Line channel security](https://learn.microsoft.com/microsoft-copilot-studio/configure-web-security) is enabled. <br> That way, a token can be obtained in exchange for a secret. |
 | **Secret Location** | Depends | When _Channel Security_ is checked, choose where you prefer to store the Direct Line channel secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
 | **Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the Direct Line channel secret. |
 | **Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the Azure Key Vault secret. <br> See [Configure secrets in Azure Key Vault](./CONFIGURE_COPILOTS.md#configure-secrets-in-azure-key-vault)|
-| **Enrich With Azure Application Insights** | No | Option to enrich test results for Generative Answsers tests with Azure Application Insights telemetry data. |
-| **Delay for Azure Application Insights Enrichment** | Depends | When _Enrich With Azure Application Insights_ is enabled, delay in minutes before trying to fetch data from Azure Application Insights. <br> Recommended value: 5 |
+| **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this Copilot. |
+| **Client ID** | Yes | Enter the application (client) ID of the application created to enable the  end user authentication for custom Copilot (https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad) |
+| **Tenant ID** | Yes | Enter the tenant ID of the application created to enable end user authentication for custom Copilot |
+| **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
+| **Azure App Insights Client ID** | Yes | |
+| **Azure App Insights Application ID** | Yes | |
+| **Azure App Insights Secret Location** | Yes | |
+| **Azure App Insights Tenant ID** | Yes | |
+| **Azure App Insights Secret** | Yes | |
+| **Azure App Insights Environment Variable** | Yes | |
 | **Enrich With Conversation Transcripts** | No | Option to enrich test results with Conversation Transcripts data stored in Dataverse. |
 | **Delay for Conversation Transcripts Enrichment** | Depends | When _Enrich With Conversation Transcripts_ is enabled, delay in minutes before trying to fetch data from Conversation Transcripts in Dataverse. <br> Recommended value: 60 |
 | **Dataverse URL** | Depends | When _Enrich With Conversation Transcripts_ is enabled, URL of Dataverse environment (e.g., https://org123.crm.dynamics.com) <br> The URL can be obtained from Microsoft Copilot Studio settings (⚙️), in session details > instance url. |
 | **Copy Full Transcript** | No | When _Enrich With Conversation Transcripts_ is enabled, copies the full Conversation Transcript JSON as an attachment to the test result record. |
-| **Analyze Generated Answers** | No | When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answser or validation instructions. |
+| **Analyze Generated Answers** | No | When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answer or validation instructions. |
 | **Generative AI Provider** | Depends | When _Analyze Generated Answers_ is enabled, LLM model that is used to do the analysis. Not configurable today, only AI Builder is supported |
 
 5. **Save**
@@ -36,12 +48,12 @@ For this, you need to create a **Copilot Configuration** record taht will contai
 
 > [!WARNING]
 > - For the accelerator to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
-> - Only environments within the same tenant can be targetted.
+> - Only environments within the same tenant can be targeted.
 
 ## Configure secrets in Azure Key Vault
 
 > [!NOTE]
-> Configurating this requires at least the System Administrator security role on the environment, as well as specific permissions in the Azure Key Vault.
+> Configuring this requires at least the System Administrator security role on the environment, as well as specific permissions in the Azure Key Vault.
 
 If you don't want to store secrets directly in Dataverse, you can choose to store them in Azure Key Vault.
 If you choose to do so, you then need to use environment variables of type secrets so that the Power CAT Copilot Studio Kit can fetch secrets from the key vault when running tests.
@@ -49,7 +61,7 @@ Because each copilot configuration may target a different copilot and use a diff
 
 1. Configure your Azure Key Vault by following this documentation: [Configure Azure Key Vault](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#configure-azure-key-vault).
 2. Go to **[make.powerapps.com](https://make.powerapps.com/)**
-3. Select to the **environment** in which you want to install the Power CAT Copilot Studio Kit.
+3. Select the **environment** in which you want to install the Power CAT Copilot Studio Kit.
 4. Go to **Solutions**
 5. Select **Common Data Services Default Solution** <br>
    _Note: you can choose to create or use your own custom solution as well. The idea here is to create environment variables that will be used by Power CAT Copilot Studio Kit to retrieve secrets from the Azure Key Vault._
