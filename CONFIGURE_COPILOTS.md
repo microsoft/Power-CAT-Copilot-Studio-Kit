@@ -56,7 +56,7 @@ For this, you need to create a **Copilot Configuration** record that will contai
 * For enriching test results from Application Insights, app registration is required within the same tenant as the Application Insights resource
 * Application Insights resource and the application can reside in a different tenant than the custom Copilot being tested
 * For detailed instructions on how to register the application and get the required information for the Application Insights resource, please see [here](./ENABLE-APPINSIGHTS.md).
-* Make sure that the custom Copilot is configured to send telemetry to Application Insights resource and that it is the same as in the Copilot configuration in the Copilot Studio Kit
+* Make sure that the custom Copilot is configured to send telemetry to Application Insights resource and that it is the same as in the Copilot configuration in the Copilot Studio Kit. For information on how to connect your custom Copilot to Application Insights, please see [here](./ENABLE-APPINSIGHTS.md)
 
 ## Configure secrets in Azure Key Vault
 
