@@ -3,8 +3,7 @@
 The custom Copilots you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
 For this, you need to create a **Copilot Configuration** record that will contain the required information to connect to these copilots and run tests against them.
 
-![copilot-configuration](https://github.com/user-attachments/assets/e996f1c4-71d8-4c4e-8538-7ebed18b10d4)
-
+![copilot-configuration-new](https://github.com/user-attachments/assets/93e0602e-302d-4371-9a0f-f30d395da719)
 
 ## Configure a new Copilot 
 
@@ -26,12 +25,12 @@ For this, you need to create a **Copilot Configuration** record that will contai
 | **Client ID** | Depends | Enter the application (client) ID of the application created to enable the  end user authentication for custom Copilot (https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad) |
 | **Tenant ID** | Depends | Enter the tenant ID of the application created to enable end user authentication for custom Copilot |
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
-| **Azure App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
-| **Azure App Insights Application ID** | Depends | Enter the **AppId** of your Application Insights resource |
-| **Azure App Insights Secret Location** | Depends | Choose where you prefer to store the App Insights application secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
-| **Azure App Insights Tenant ID** | Depends | Enter the tenant ID of the Application Insights resource and the application |
-| **Azure App Insights Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the App Insights application secret. |
-| **Azure App Insights Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the App Insights application secret. |
+| **App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
+| **App Insights Application ID** | Depends | Enter the **AppId** of your Application Insights resource |
+| **App Insights Secret Location** | Depends | Choose where you prefer to store the App Insights application secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
+| **App Insights Tenant ID** | Depends | Enter the tenant ID of the Application Insights resource and the application |
+| **App Insights Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the App Insights application secret. |
+| **App Insights Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the App Insights application secret. |
 | **Enrich With Conversation Transcripts** |  | Enable this option to enrich test results with data from Conversation Transcripts stored in Dataverse. |
 | **Dataverse URL** | Depends | When _Enrich With Conversation Transcripts_ is enabled, URL of Dataverse environment (e.g., https://org123.crm.dynamics.com) <br> The URL can be obtained from Microsoft Copilot Studio settings (⚙️), in session details > instance url. |
 | **Copy Full Transcript** | No | When _Enrich With Conversation Transcripts_ is enabled, copies the full Conversation Transcript JSON as an attachment to the test result record for further analysis. |
