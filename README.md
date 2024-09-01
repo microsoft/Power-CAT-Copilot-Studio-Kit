@@ -37,6 +37,10 @@ The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issu
 - [Analyze test results](./ANALYZE_TEST_RESULTS.md)
 - [Troubleshooting](./TROUBLESHOOT.md)
 
+Optionally
+- [Enable user authentication support](./ENABLE-AUTHENTICATION.md)
+- [Enable Application Insights support](./ENABLE-APPINSIGHTS.md)
+
 # Known limitations
 
 As of the latest release:
