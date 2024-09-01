@@ -40,7 +40,6 @@ The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issu
 # Known limitations
 
 As of the latest release:
-- Copilots need to have their authentication setting set to "No authentication".
 - Multi-turn conversations are not supported.
 
 ## Latest release
