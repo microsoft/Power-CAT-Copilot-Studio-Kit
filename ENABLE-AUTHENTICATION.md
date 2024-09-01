@@ -21,7 +21,12 @@ Please note that user authentication has to be enabled in **Microsoft Copilot St
 
 ## Enable user authentication on your Copilot configuration
 
-Install Copilot Studio Kit 
+Before following these steps, make sure you have installed Copilot Studio Kit following the [installation instructions](./INSTALLATION_INSTRUCTIONS.md)
 
-1. Navigate to **Copilot Studio Kit**
-2. 
+1. Navigate to **Copilot Studio Kit**.
+1. Select **Copilots** to view the Copilot Configurations.
+1. Create new configuration by pressing **New** or open existing Copilot configuration
+1. From **User Authentication** drop-down list, select **Entra ID v2**
+1. Enter the **Client ID** and **Tenant ID** of your user authentication application registration (as noted earlier)
+1. Fill other required values as required
+1. Save
