@@ -1,12 +1,12 @@
-# Enable end user authentication
+# Enable user authentication
 
-Copilot Studio Kit supports testing custom Copilots with end user authentication enabled using Entra ID v2 (Azure Active Directory v2) as the service provider.
+Copilot Studio Kit supports testing custom Copilots with user authentication enabled using Entra ID v2 (Azure Active Directory v2) as the service provider.
 
 For more information on how to enable user authentication for custom Copilot in **Microsoft Copilot Studio**, please see https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad
 
 ## Modify the user authentication application
 
-To enable end user authentication support on **Copilot Studio Kit**, dataverse environment URL has to be added as Single-page application redirect URI on the application registration used for user authentication.
+To enable user authentication support on **Copilot Studio Kit**, dataverse environment URL has to be added as single-page application redirect URI on the application registration used for the user authentication.
 
 Please note that user authentication has to be enabled in **Microsoft Copilot Studio** and application registration created before proceeding with these steps.
 
