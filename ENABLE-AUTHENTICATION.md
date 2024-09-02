@@ -30,3 +30,6 @@ Before following these steps, make sure you have installed Copilot Studio Kit fo
 1. Enter the **Client ID** and **Tenant ID** of your user authentication application registration (as noted earlier)
 1. Fill other required values as required
 1. Save
+
+> [!NOTE]  
+> If you are planning to test Copilots using Sharepoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
