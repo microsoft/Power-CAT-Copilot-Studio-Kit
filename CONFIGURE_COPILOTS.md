@@ -41,14 +41,12 @@ For this, you need to create a **Copilot Configuration** record that will contai
 
 ## Note about end user authentication
 
-> [!NOTE]
-> Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Active Directory v2) service provider for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
+Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Active Directory v2) service provider for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
 
 ## Note about results enrichment with Dataverse Conversation Transcripts
 
-> [!WARNING]
-> - For the Copilot Studio Kit to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
-> - Only environments within the same tenant can be targeted.
+- For the Copilot Studio Kit to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
+- Only environments within the same tenant can be targeted.
 
 ## Note about results enrichment with Application Insights
 
