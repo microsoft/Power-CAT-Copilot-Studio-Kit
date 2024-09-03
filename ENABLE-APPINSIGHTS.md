@@ -20,7 +20,7 @@ To enable Application Insights support in Copilot Studio Kit, new application re
 
 And finally, you need to grant this application access to your Application Insights resource
 
-1. Navigate to the Application Insights resource in Azure Portal.
+1. Navigate to the Application Insights resource in the Azure Portal.
 1. Select **Access control (IAM)**.
 1. Select **Add role assignment**.
 1. Select **Reader** from the list and click **Next**.
