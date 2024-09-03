@@ -1,16 +1,16 @@
 # Configure copilots in Power CAT Copilot Studio Kit
 
 The custom Copilots you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
-For this, you need to create a **Copilot Configuration** record that will contain the required information to connect to these copilots and run tests against them.
+To do this, you need to create a **Copilot Configuration** record that will contain the required information to connect to these copilots and run tests against them.
 
 ![copilot-configuration-new](https://github.com/user-attachments/assets/93e0602e-302d-4371-9a0f-f30d395da719)
 
 ## Configure a new Copilot 
 
-1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
+1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app)).
 2. Navigate to **Copilots**.
 3. Create a **New** Copilot Configuration record.
-4. Fill in the below **information**.
+4. Fill in the following  **information**.
 
 | Column Name | Required | Description | 
 | --- | --- | --- |
@@ -60,7 +60,7 @@ Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Acti
 > [!NOTE]
 > Configuring this requires at least the System Administrator security role on the environment, as well as specific permissions in the Azure Key Vault.
 
-If you don't want to store secrets directly in Dataverse, you can choose to store them in Azure Key Vault.
+If you do not want to store secrets directly in Dataverse, you can choose to store them in Azure Key Vault.
 If you choose to do so, you then need to use environment variables of type secrets so that the Power CAT Copilot Studio Kit can fetch secrets from the key vault when running tests.
 Because each copilot configuration may target a different copilot and use a different secret, you need to create individual environment variables for each secret.
 
