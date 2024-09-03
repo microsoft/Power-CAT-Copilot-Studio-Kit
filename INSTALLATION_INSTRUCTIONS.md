@@ -34,7 +34,7 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 > [!NOTE]  
 > While upgrading the Copilot Studio Kit, you might encounter the following error: "*Solution "Power CAT Copilot Studio Kit" failed to import: ImportAsHolding failed with exception: Cannot delete attribute: cat_copilottestrunid from Entity: cat_CopilotTestRun since the attribute is not a custom field.*".
 >
-> This is a known issue that is being investigated. As a workaround, stage the upgrade before applying it. Second workaround is to update the solution instead of upgrading it. For detailed instructions, please see [here](https://learn.microsoft.com/power-apps/maker/data-platform/update-solutions).
+> This is a known issue that is being investigated. As a workaround, stage the upgrade before applying it. Another workaround is to update the solution instead of upgrading it. For detailed instructions, please see [here](https://learn.microsoft.com/power-apps/maker/data-platform/update-solutions).
 
 ## Access the Power CAT Copilot Studio Kit app
 
