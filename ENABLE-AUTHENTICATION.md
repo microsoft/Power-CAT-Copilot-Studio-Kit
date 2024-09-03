@@ -2,7 +2,7 @@
 
 Copilot Studio Kit supports testing custom Copilots with user authentication enabled using Entra ID v2 (Azure Active Directory v2) as the service provider.
 
-For more information on how to enable user authentication for custom Copilot in **Microsoft Copilot Studio**, please see https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad
+For more information on how to enable user authentication for custom Copilot in **Microsoft Copilot Studio**, please see https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad
 
 ## Modify the user authentication application
 
@@ -32,4 +32,4 @@ Before following these steps, make sure you have installed Copilot Studio Kit fo
 1. Save
 
 > [!NOTE]  
-> If you are planning to test Copilots using Sharepoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/en-us/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
+> If you are planning to test Copilots using Sharepoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
