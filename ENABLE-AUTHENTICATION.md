@@ -6,7 +6,7 @@ For more information on how to enable user authentication for custom Copilot in 
 
 ## Modify the user authentication application
 
-To enable user authentication support on **Copilot Studio Kit**, dataverse environment URL has to be added as single-page application redirect URI on the application registration used for the user authentication.
+To enable user authentication support on **Copilot Studio Kit**, Dataverse environment URL has to be added as single-page application redirect URI on the application registration used for the user authentication.
 
 Please note that user authentication has to be enabled in **Microsoft Copilot Studio** and application registration created before proceeding with these steps.
 
@@ -32,4 +32,4 @@ Before following these steps, make sure you have installed Copilot Studio Kit fo
 1. Save
 
 > [!NOTE]  
-> If you are planning to test Copilots using Sharepoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
+> If you are planning to test Copilots using SharePoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
