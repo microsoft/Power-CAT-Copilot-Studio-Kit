@@ -514,6 +514,16 @@
       <DisplayConditions Order="0" FallbackForm="true">
         <Everyone />
       </DisplayConditions>
+      <formLibraries>
+        <Library name="cat_/powercat/js/testrunexecutorservice.js" libraryUniqueId="{10da1e62-ec82-44b5-8eaa-4607b1586eab}" />
+      </formLibraries>
+      <events>
+        <event name="onsave" application="false" active="false">
+          <Handlers>
+            <Handler functionName="TestRunExecutorService.onSave" libraryName="cat_/powercat/js/testrunexecutorservice.js" handlerUniqueId="{1abcd5ac-2bcb-4076-9327-63cc876656e9}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

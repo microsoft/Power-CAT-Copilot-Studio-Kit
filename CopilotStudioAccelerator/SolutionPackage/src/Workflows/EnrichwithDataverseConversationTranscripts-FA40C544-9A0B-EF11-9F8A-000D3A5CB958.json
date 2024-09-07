@@ -2,67 +2,60 @@
   "properties": {
     "connectionReferences": {
       "shared_commondataserviceforapps": {
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        },
+        "runtimeSource": "embedded",
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "runtimeSource": "embedded"
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
       }
     },
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
         },
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
+        "Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)": {
+          "defaultValue": 60,
+          "type": "Int",
+          "metadata": {
+            "schemaName": "cat_DelayforConversationTranscriptsEnrichment",
+            "description": "Delay for Conversation Transcripts Enrichment"
+          }
         }
       },
       "triggers": {
         "When_an_action_is_performed": {
+          "metadata": {
+            "operationMetadataId": "c3ef1c40-f207-4461-9984-3645bf1dc771"
+          },
           "type": "OpenApiConnectionWebhook",
           "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "BusinessEventsTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
             "parameters": {
               "catalog": "allcatalog",
               "category": "allcategory",
               "subscriptionRequest/entityname": "cat_copilottestrun",
-              "subscriptionRequest/sdkmessagename": "cat_RunDataverseConversationTranscriptsEnrichment",
-              "subscriptionRequest/name": "fa40c544-9a0b-ef11-9f8a-000d3a5cb958"
+              "subscriptionRequest/sdkmessagename": "cat_RunDataverseConversationTranscriptsEnrichment"
             },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-              "operationId": "BusinessEventsTrigger",
-              "connectionName": "shared_commondataserviceforapps"
-            }
-          },
-          "metadata": {
-            "operationMetadataId": "c3ef1c40-f207-4461-9984-3645bf1dc771"
+            "authentication": "@parameters('$authentication')"
           }
         }
       },
       "actions": {
         "Get_Copilot_Test_Results": {
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "entityName": "cat_copilottestresults",
-              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_resultcode, cat_resultreason",
-              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  and statecode eq 0 and cat_resultcode ne 4",
-              "$orderby": "createdon asc",
-              "$expand": "cat_CopilotTestId($select=cat_testtypecode, cat_expectedtopicname)"
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-              "operationId": "ListRecords",
-              "connectionName": "shared_commondataserviceforapps"
-            }
-          },
           "runAfter": {
             "Update_Copilot_Test_Run:_Running": [
               "Succeeded"
@@ -70,64 +63,75 @@
           },
           "metadata": {
             "operationMetadataId": "6076da45-72f2-4ca7-bc39-244924e64238"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestresults",
+              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_resultcode, cat_resultreason",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  and statecode eq 0 and cat_resultcode ne 4",
+              "$orderby": "createdon asc",
+              "$expand": "cat_CopilotTestId($select=cat_testtypecode, cat_expectedtopicname)"
+            },
+            "authentication": "@parameters('$authentication')"
           }
         },
         "Get_Copilot_Configuration": {
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "entityName": "cat_copilotconfigurations",
-              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
-              "$select": "cat_delayforconversationtranscriptsenrichment, cat_dataverseurl, cat_iscopyfulltranscriptenabled"
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-              "operationId": "GetItem",
-              "connectionName": "shared_commondataserviceforapps"
-            }
-          },
           "runAfter": {},
           "metadata": {
             "operationMetadataId": "25599a62-4e1c-487d-84bb-d087bb11b867"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilotconfigurations",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
+              "$select": "cat_dataverseurl, cat_iscopyfulltranscriptenabled"
+            },
+            "authentication": "@parameters('$authentication')"
           }
         },
         "Apply_to_each_Result": {
-          "type": "Foreach",
           "foreach": "@outputs('Get_Copilot_Test_Results')?['body/value']",
           "actions": {
             "Get_Conversation_Transcripts": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "70031cec-f284-4b6b-931d-2e6b8593896e"
+              },
               "type": "OpenApiConnection",
               "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecordsWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
                 "parameters": {
                   "organization": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']",
                   "entityName": "conversationtranscripts",
                   "$select": "content",
                   "$filter": "startswith(name, '@{items('Apply_to_each_Result')?['cat_name']}')"
                 },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                  "operationId": "ListRecordsWithOrganization",
-                  "connectionName": "shared_commondataserviceforapps"
-                }
-              },
-              "metadata": {
-                "operationMetadataId": "70031cec-f284-4b6b-931d-2e6b8593896e"
+                "authentication": "@parameters('$authentication')"
               }
             },
             "Condition_-_Existing_Conversation_Transcript": {
-              "type": "If",
-              "expression": {
-                "and": [
-                  {
-                    "equals": [
-                      "@not(empty(outputs('Get_Conversation_Transcripts')['body/value']))",
-                      true
-                    ]
-                  }
-                ]
-              },
               "actions": {
                 "Parse_Content_JSON": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "f824dddf-b4f0-44d3-8e4a-d0123533eb22"
+                  },
                   "type": "ParseJson",
                   "inputs": {
                     "content": "@outputs('Get_Conversation_Transcripts')['body/value'][0]['content']",
@@ -232,17 +236,9 @@
                         }
                       }
                     }
-                  },
-                  "metadata": {
-                    "operationMetadataId": "f824dddf-b4f0-44d3-8e4a-d0123533eb22"
                   }
                 },
                 "Filter_array_with_valueType_IntentRecognition": {
-                  "type": "Query",
-                  "inputs": {
-                    "from": "@body('Parse_Content_JSON')?['activities']",
-                    "where": "@equals(item()?['valueType'], 'IntentRecognition')"
-                  },
                   "runAfter": {
                     "Parse_Content_JSON": [
                       "Succeeded"
@@ -250,14 +246,14 @@
                   },
                   "metadata": {
                     "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
-                  }
-                },
-                "Filter_array_with_valueType_UnknownIntent": {
+                  },
                   "type": "Query",
                   "inputs": {
                     "from": "@body('Parse_Content_JSON')?['activities']",
-                    "where": "@equals(item()?['valueType'], 'UnknownIntent')"
-                  },
+                    "where": "@equals(item()?['valueType'], 'IntentRecognition')"
+                  }
+                },
+                "Filter_array_with_valueType_UnknownIntent": {
                   "runAfter": {
                     "Filter_array_with_valueType_IntentRecognition": [
                       "Succeeded"
@@ -265,14 +261,14 @@
                   },
                   "metadata": {
                     "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
-                  }
-                },
-                "Filter_array_with_valueType_IntentCandidates": {
+                  },
                   "type": "Query",
                   "inputs": {
                     "from": "@body('Parse_Content_JSON')?['activities']",
-                    "where": "@equals(item()?['valueType'], 'IntentCandidates')"
-                  },
+                    "where": "@equals(item()?['valueType'], 'UnknownIntent')"
+                  }
+                },
+                "Filter_array_with_valueType_IntentCandidates": {
                   "runAfter": {
                     "Filter_array_with_valueType_UnknownIntent": [
                       "Succeeded"
@@ -280,14 +276,14 @@
                   },
                   "metadata": {
                     "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
-                  }
-                },
-                "Filter_array_with_valueType_DialogRedirect": {
+                  },
                   "type": "Query",
                   "inputs": {
                     "from": "@body('Parse_Content_JSON')?['activities']",
-                    "where": "@equals(item()?['valueType'], 'DialogRedirect')"
-                  },
+                    "where": "@equals(item()?['valueType'], 'IntentCandidates')"
+                  }
+                },
+                "Filter_array_with_valueType_DialogRedirect": {
                   "runAfter": {
                     "Filter_array_with_valueType_IntentCandidates": [
                       "Succeeded"
@@ -295,10 +291,42 @@
                   },
                   "metadata": {
                     "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
+                  },
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Parse_Content_JSON')?['activities']",
+                    "where": "@equals(item()?['valueType'], 'DialogRedirect')"
                   }
                 },
                 "Condition:_If_only_a_DialogRedirect_is_available": {
-                  "type": "If",
+                  "actions": {
+                    "Get_Topic_Name": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "efaf9c9a-0c22-4241-9926-591e2ddf1ce3"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "GetItemWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']",
+                          "entityName": "botcomponents",
+                          "recordId": "@first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId']",
+                          "$select": "name"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Filter_array_with_pva-gpt-feedback_not_null": [
+                      "Succeeded"
+                    ]
+                  },
                   "expression": {
                     "and": [
                       {
@@ -327,87 +355,53 @@
                       }
                     ]
                   },
-                  "actions": {
-                    "Get_Topic_Name": {
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "parameters": {
-                          "organization": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']",
-                          "entityName": "botcomponents",
-                          "recordId": "@first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId']",
-                          "$select": "name"
-                        },
-                        "host": {
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                          "operationId": "GetItemWithOrganization",
-                          "connectionName": "shared_commondataserviceforapps"
-                        }
-                      },
-                      "metadata": {
-                        "operationMetadataId": "efaf9c9a-0c22-4241-9926-591e2ddf1ce3"
-                      }
-                    }
-                  },
-                  "else": {
-                    "actions": {}
-                  },
-                  "runAfter": {
-                    "Filter_array_with_pva-gpt-feedback_not_null": [
-                      "Succeeded"
-                    ]
-                  },
                   "metadata": {
                     "operationMetadataId": "584d85f8-d488-4f10-9562-960b41f0a4e2"
-                  }
+                  },
+                  "type": "If"
                 },
                 "Condition:_If_Copy_Full_Transcript_is_enabled": {
-                  "type": "If",
-                  "expression": {
-                    "equals": [
-                      "@outputs('Get_Copilot_Configuration')?['body/cat_iscopyfulltranscriptenabled']",
-                      true
-                    ]
-                  },
                   "actions": {
                     "Upload_Conversation_Transcript": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "802f4608-b537-4ca1-86bd-eebd6a90e33a"
+                      },
                       "type": "OpenApiConnection",
                       "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateEntityFileImageFieldContent",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
                         "parameters": {
-                          "x-ms-file-name": "ConversationTranscript_@{items('Apply_to_each_Result')?['cat_name']}.json",
                           "entityName": "cat_copilottestresults",
                           "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
                           "fileImageFieldName": "cat_conversationtranscriptfile",
-                          "item": "@body('Parse_Content_JSON')"
+                          "item": "@body('Parse_Content_JSON')",
+                          "x-ms-file-name": "ConversationTranscript_@{items('Apply_to_each_Result')?['cat_name']}.json"
                         },
-                        "host": {
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                          "operationId": "UpdateEntityFileImageFieldContent",
-                          "connectionName": "shared_commondataserviceforapps"
-                        }
-                      },
-                      "metadata": {
-                        "operationMetadataId": "802f4608-b537-4ca1-86bd-eebd6a90e33a"
+                        "authentication": "@parameters('$authentication')"
                       }
                     }
-                  },
-                  "else": {
-                    "actions": {}
                   },
                   "runAfter": {
                     "Condition:_If_only_a_DialogRedirect_is_available": [
                       "Succeeded"
                     ]
                   },
+                  "expression": {
+                    "equals": [
+                      "@outputs('Get_Copilot_Configuration')?['body/cat_iscopyfulltranscriptenabled']",
+                      true
+                    ]
+                  },
                   "metadata": {
                     "operationMetadataId": "4658e507-236f-4b5e-a91d-6c7da53016ff"
-                  }
+                  },
+                  "type": "If"
                 },
                 "Filter_array_with_pva-gpt-feedback_not_null": {
-                  "type": "Query",
-                  "inputs": {
-                    "from": "@body('Parse_Content_JSON')?['activities']",
-                    "where": "@or(\r\n    and(\r\n        not(equals(item()?['channelData'], null)),\r\n        not(equals(item()?['channelData'], '')),\r\n        contains(string(item()?['channelData']), '\"pva:gpt-feedback\"'),\r\n        not(equals(item()?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['textCitations'], null))\r\n    )\r\n)\r\n"
-                  },
                   "runAfter": {
                     "Filter_array_with_valueType_DialogRedirect": [
                       "Succeeded"
@@ -415,11 +409,29 @@
                   },
                   "metadata": {
                     "operationMetadataId": "8adf6b7d-935f-45f3-bc67-6aea8c10d410"
+                  },
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Parse_Content_JSON')?['activities']",
+                    "where": "@or(\r\n    and(\r\n        not(equals(item()?['channelData'], null)),\r\n        not(equals(item()?['channelData'], '')),\r\n        contains(string(item()?['channelData']), '\"pva:gpt-feedback\"'),\r\n        not(equals(item()?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['textCitations'], null))\r\n    )\r\n)\r\n"
                   }
                 },
                 "Update_Copilot_Test_Result": {
+                  "runAfter": {
+                    "Condition:_If_Copy_Full_Transcript_is_enabled": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                  },
                   "type": "OpenApiConnection",
                   "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
                     "parameters": {
                       "entityName": "cat_copilottestresults",
                       "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
@@ -431,43 +443,7 @@
                       "item/cat_recognizedtopicname": "@if(\r\n    not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'])),\r\n    first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentTitle'],\r\n    if(\r\n        not(empty(first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'])),\r\n        first(body('Filter_array_with_valueType_UnknownIntent'))?['valueType'],\r\n        if(\r\n            not(empty(first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'])),\r\n            first(body('Filter_array_with_valueType_IntentCandidates'))?['valueType'],\r\n            if(\r\n                not(empty(outputs('Get_Topic_Name')?['body']?['name'])),\r\n                outputs('Get_Topic_Name')?['body']?['name'],\r\n                ''\r\n            )\r\n        )\r\n    )\r\n)",
                       "item/cat_recognizedtopicid": "@if(\r\n    not(empty(first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentId'])),\r\n    first(body('Filter_array_with_valueType_IntentRecognition'))?['value']?['intentId'],\r\n    if(\r\n        not(empty(first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'])),\r\n        first(body('Filter_array_with_valueType_DialogRedirect'))?['value']?['targetDialogId'],\r\n        ''\r\n    )\r\n)"
                     },
-                    "host": {
-                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                      "operationId": "UpdateRecord",
-                      "connectionName": "shared_commondataserviceforapps"
-                    }
-                  },
-                  "runAfter": {
-                    "Condition:_If_Copy_Full_Transcript_is_enabled": [
-                      "Succeeded"
-                    ]
-                  },
-                  "metadata": {
-                    "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
-                  }
-                }
-              },
-              "else": {
-                "actions": {
-                  "Update_Copilot_Test_Result_-_Missing_Transcript": {
-                    "type": "OpenApiConnection",
-                    "inputs": {
-                      "parameters": {
-                        "entityName": "cat_copilottestresults",
-                        "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
-                        "item/cat_name": "@items('Apply_to_each_Result')?['cat_name']",
-                        "item/cat_resultcode": "@if(\n    equals(\n        items('Apply_to_each_Result')?['cat_resultcode'], \n        5\n    ), \n    4, \n    items('Apply_to_each_Result')?['cat_resultcode']\n)",
-                        "item/cat_resultreason": "@{if(\n    equals(\n        items('Apply_to_each_Result')?['cat_resultcode'], \n        5\n    ), \n    'Conversation Transcript could not be retrieved', \n    items('Apply_to_each_Result')?['cat_resultcode']\n)}"
-                      },
-                      "host": {
-                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                        "operationId": "UpdateRecord",
-                        "connectionName": "shared_commondataserviceforapps"
-                      }
-                    },
-                    "metadata": {
-                      "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
-                    }
+                    "authentication": "@parameters('$authentication')"
                   }
                 }
               },
@@ -476,9 +452,46 @@
                   "Succeeded"
                 ]
               },
+              "else": {
+                "actions": {
+                  "Update_Copilot_Test_Result_-_Missing_Transcript": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "UpdateRecord",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "cat_copilottestresults",
+                        "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
+                        "item/cat_name": "@items('Apply_to_each_Result')?['cat_name']",
+                        "item/cat_resultcode": "@if(\n    equals(\n        items('Apply_to_each_Result')?['cat_resultcode'], \n        5\n    ), \n    4, \n    items('Apply_to_each_Result')?['cat_resultcode']\n)",
+                        "item/cat_resultreason": "@{if(\n    equals(\n        items('Apply_to_each_Result')?['cat_resultcode'], \n        5\n    ), \n    'Conversation Transcript could not be retrieved', \n    items('Apply_to_each_Result')?['cat_resultcode']\n)}"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@not(empty(outputs('Get_Conversation_Transcripts')['body/value']))",
+                      true
+                    ]
+                  }
+                ]
+              },
               "metadata": {
                 "operationMetadataId": "8b3c79f8-bbb7-4c68-9c78-078afd27ca17"
-              }
+              },
+              "type": "If"
             }
           },
           "runAfter": {
@@ -486,29 +499,17 @@
               "Succeeded"
             ]
           },
+          "metadata": {
+            "operationMetadataId": "fdd67cc2-01c6-4669-beb8-4a8c089f6504"
+          },
+          "type": "Foreach",
           "runtimeConfiguration": {
             "concurrency": {
               "repetitions": 50
             }
-          },
-          "metadata": {
-            "operationMetadataId": "fdd67cc2-01c6-4669-beb8-4a8c089f6504"
           }
         },
         "Update_Copilot_Test_Run:_Running": {
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "entityName": "cat_copilottestruns",
-              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/cat_dataverseenrichmentstatuscode": 2
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-              "operationId": "UpdateRecord",
-              "connectionName": "shared_commondataserviceforapps"
-            }
-          },
           "runAfter": {
             "Condition_Skip_Delay": [
               "Succeeded"
@@ -516,22 +517,23 @@
           },
           "metadata": {
             "operationMetadataId": "21161f7d-523c-4f20-9512-5bee0d756282"
-          }
-        },
-        "Update_Copilot_Test_Run:_Complete": {
+          },
           "type": "OpenApiConnection",
           "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
             "parameters": {
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/cat_dataverseenrichmentstatuscode": 3
+              "item/cat_dataverseenrichmentstatuscode": 2
             },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-              "operationId": "UpdateRecord",
-              "connectionName": "shared_commondataserviceforapps"
-            }
-          },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Update_Copilot_Test_Run:_Complete": {
           "runAfter": {
             "Perform_a_bound_action:_Update_Rollup_Columns": [
               "Succeeded",
@@ -540,23 +542,23 @@
           },
           "metadata": {
             "operationMetadataId": "b3db844b-bc92-4bd3-9d3e-8faf99619c22"
-          }
-        },
-        "Update_Copilot_Test_Run:_Error": {
+          },
           "type": "OpenApiConnection",
           "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
             "parameters": {
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/cat_dataverseenrichmentstatuscode": 6,
-              "item/cat_errordetails": "@{concat(\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\n  '<br/>',\n  'Failed <strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"https://make.powerautomate.com/environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)\n}"
+              "item/cat_dataverseenrichmentstatuscode": 3
             },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-              "operationId": "UpdateRecord",
-              "connectionName": "shared_commondataserviceforapps"
-            }
-          },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Update_Copilot_Test_Run:_Error": {
           "runAfter": {
             "Apply_to_each_Result": [
               "Failed",
@@ -566,24 +568,24 @@
           },
           "metadata": {
             "operationMetadataId": "b3db844b-bc92-4bd3-9d3e-8faf99619c22"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_dataverseenrichmentstatuscode": 6,
+              "item/cat_errordetails": "@{concat(\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\n  '<br/>',\n  'Failed <strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"https://make.powerautomate.com/environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)\n}"
+            },
+            "authentication": "@parameters('$authentication')"
           }
         },
         "Perform_a_bound_action:_Update_Rollup_Columns": {
-          "type": "OpenApiConnection",
-          "inputs": {
-            "parameters": {
-              "entityName": "cat_copilottestruns",
-              "actionName": "Microsoft.Dynamics.CRM.cat_RunRollupColumnsUpdates",
-              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/DataverseUriHost": "@uriHost(outputs('Get_Copilot_Configuration')?['body/@odata.id'])",
-              "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
-            },
-            "host": {
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-              "operationId": "PerformBoundAction",
-              "connectionName": "shared_commondataserviceforapps"
-            }
-          },
           "runAfter": {
             "Apply_to_each_Result": [
               "Succeeded"
@@ -591,10 +593,48 @@
           },
           "metadata": {
             "operationMetadataId": "b7372c79-e753-42a3-b135-93416554f78c"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "actionName": "Microsoft.Dynamics.CRM.cat_RunRollupColumnsUpdates",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/DataverseUriHost": "@uriHost(outputs('Get_Copilot_Configuration')?['body/@odata.id'])",
+              "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
+            },
+            "authentication": "@parameters('$authentication')"
           }
         },
         "Condition_Skip_Delay": {
-          "type": "If",
+          "actions": {},
+          "runAfter": {
+            "Get_Copilot_Configuration": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Delay": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "c6d43a05-1b9a-4c95-b752-4f75228376a1"
+                },
+                "type": "Wait",
+                "inputs": {
+                  "interval": {
+                    "count": "@if(equals(parameters('Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)'), null), 60, parameters('Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)'))",
+                    "unit": "Minute"
+                  }
+                }
+              }
+            }
+          },
           "expression": {
             "and": [
               {
@@ -605,32 +645,14 @@
               }
             ]
           },
-          "actions": {},
-          "else": {
-            "actions": {
-              "Delay": {
-                "type": "Wait",
-                "inputs": {
-                  "interval": {
-                    "count": "@outputs('Get_Copilot_Configuration')?['body/cat_delayforconversationtranscriptsenrichment']",
-                    "unit": "Minute"
-                  }
-                },
-                "metadata": {
-                  "operationMetadataId": "c6d43a05-1b9a-4c95-b752-4f75228376a1"
-                }
-              }
-            }
+          "metadata": {
+            "operationMetadataId": "61ee724a-e74a-4dc7-a201-e90877f8a26f"
           },
-          "runAfter": {
-            "Get_Copilot_Configuration": [
-              "Succeeded"
-            ]
-          }
+          "type": "If"
         }
       }
     },
-    "templateName": null
+    "templateName": ""
   },
   "schemaVersion": "1.0.0.0"
 }

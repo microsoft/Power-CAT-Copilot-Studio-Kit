@@ -39,40 +39,13 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{12d4542c-c95e-41e4-8ac8-f59cb90903d1}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell id="{8223aa38-6407-41e7-84db-b4b677e19685}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Seconds Before Getting Answer" languagecode="1033" />
-                        </labels>
-                        <control id="cat_secondsbeforegettinganswer" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_secondsbeforegettinganswer" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
                       <cell id="{9ef5f065-2e75-4122-93e2-857f14b278f0}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Test Type" languagecode="1033" />
                         </labels>
                         <control id="cat_testtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_testtypecode" disabled="false" />
                       </cell>
-                      <cell id="{06a83a91-236e-4fd3-b7be-8bffd4084279}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Expected Position of the Response Message" languagecode="1033" />
-                        </labels>
-                        <control id="cat_expectedpositionoftheresponseactivity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_expectedpositionoftheresponseactivity" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{0aaad5a3-1657-4b3d-a009-af90a88646b8}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Send startConversation Event" languagecode="1033" />
-                        </labels>
-                        <control id="cat_isstartconversationeventsent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isstartconversationeventsent" disabled="false" uniqueid="{b7740077-526d-48d0-9ed8-209b2415b4e3}" />
-                      </cell>
-                      <cell locklevel="0" id="{460d8636-83e4-4d23-aad5-14ecab2d8cbb}">
+                      <cell locklevel="0" id="{1ec52e02-fa4b-485d-b0b0-64c358258b50}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -80,23 +53,11 @@
                     </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_test" id="88bbdcfc-547e-420a-8780-a1c5b53fb55e" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="11" labelwidth="115" height="auto">
+                <section name="tab_general_section_test" id="88bbdcfc-547e-420a-8780-a1c5b53fb55e" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="11" labelwidth="115" height="auto">
                   <labels>
                     <label description="Test" languagecode="1033" />
                   </labels>
                   <rows>
-                    <row>
-                      <cell id="{67874dee-44d4-4ea0-9b11-2d2262079a7a}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell id="{00932949-9bcb-4f5a-858e-98c7eae3f8ee}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
                     <row>
                       <cell id="{3e48999b-84aa-4f88-bf87-f3ae16735dd2}" locklevel="0" colspan="1" rowspan="5" auto="true">
                         <labels>
@@ -104,128 +65,22 @@
                         </labels>
                         <control id="cat_testutterance" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_testutterance" disabled="false" />
                       </cell>
-                      <cell id="{6c4a4f66-872e-40dd-adc2-26491fb20d59}" locklevel="0" colspan="1" rowspan="5" auto="true" visible="true">
-                        <labels>
-                          <label description="Expected Response" languagecode="1033" />
-                        </labels>
-                        <control id="cat_expectedresponse" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedresponse" disabled="false" />
-                      </cell>
                     </row>
                     <row />
                     <row />
                     <row />
                     <row height="auto" />
                     <row>
-                      <cell id="{c160649a-f19f-4109-957e-98d6662a7636}" locklevel="0" colspan="1" rowspan="15" auto="false" showlabel="true">
-                        <labels>
-                          <label description="External Variables JSON" languagecode="1033" />
-                        </labels>
-                        <control id="cat_externalvariablesjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_externalvariablesjson" disabled="false" uniqueid="{d59ceaf2-3c5f-4474-9658-880311f92047}" />
-                      </cell>
-                      <cell id="{d1ba6355-fcb7-4e3b-a885-f7f518e4defb}" locklevel="0" colspan="1" rowspan="1" showlabel="true" visible="true">
-                        <labels>
-                          <label description="Expected Generative Answers Outcome" languagecode="1033" />
-                        </labels>
-                        <control id="cat_generativeansweroutcomecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_generativeansweroutcomecode" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{79668b73-c761-41c0-887a-1824e3d40cba}">
+                      <cell locklevel="0" id="{6aed9aba-96d5-44e6-9229-1f46f91a375d}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                    </row>
-                    <row>
-                      <cell id="{65b6c8ea-2523-4f07-984f-4c0fcac2cb63}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{e23f6735-16de-4705-a821-35906329e8e5}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{ac5d235a-5e83-499b-ad74-9968f5203832}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{2c27504b-6788-4964-b7ef-ca59649e6749}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{8cbcbd2e-ebbd-471b-8a64-aba4a6e9ab57}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{25faf203-2ace-4264-9206-946ed44abce7}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{8dae7d00-2f70-4f90-90e9-39e79780d77c}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{abc3e906-01cb-468d-9682-26db8b6454c4}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{96930749-2f31-478b-93a9-b52e814af315}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{c25d2ae6-6115-4cae-8eaf-ae9c16f2b191}" locklevel="0" colspan="1" rowspan="1" visible="true">
+                      <cell id="{c25d2ae6-6115-4cae-8eaf-ae9c16f2b191}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Expected Topic Name" languagecode="1033" />
                         </labels>
                         <control id="cat_expectedtopicname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_expectedtopicname" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{03ee7af8-63a1-4824-b0bf-57d15fd4a3dc}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{26dda93e-556e-4c2f-9081-552dccf1bdfa}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row height="auto">
-                      <cell locklevel="0" id="{619cd007-1374-4756-bff1-950526cdbf95}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
                       </cell>
                     </row>
                     <row>
@@ -234,11 +89,11 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell id="{a21532b9-03df-4476-aa11-1656c0035d3f}" locklevel="0" colspan="1" rowspan="5" auto="false" showlabel="true">
+                      <cell id="{d1ba6355-fcb7-4e3b-a885-f7f518e4defb}" locklevel="0" colspan="1" rowspan="1" showlabel="true" visible="false">
                         <labels>
-                          <label description="Expected Attachments JSON" languagecode="1033" />
+                          <label description="Expected Generative Answers Outcome" languagecode="1033" />
                         </labels>
-                        <control id="cat_expectedattachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_expectedattachmentsjson" disabled="false" uniqueid="{3c16e7df-46ef-4505-9311-9be8fbe81b83}" />
+                        <control id="cat_generativeansweroutcomecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_generativeansweroutcomecode" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -246,6 +101,12 @@
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
+                      </cell>
+                      <cell id="{a21532b9-03df-4476-aa11-1656c0035d3f}" locklevel="0" colspan="1" rowspan="5" auto="false" showlabel="true" visible="false">
+                        <labels>
+                          <label description="Expected Attachments JSON" languagecode="1033" />
+                        </labels>
+                        <control id="cat_expectedattachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_expectedattachmentsjson" disabled="false" uniqueid="{3c16e7df-46ef-4505-9311-9be8fbe81b83}" />
                       </cell>
                     </row>
                     <row>
@@ -264,6 +125,101 @@
                     </row>
                     <row>
                       <cell id="{cc95c523-cf4c-466c-93cb-6cd9a9c0537f}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{6da14975-91fe-48b6-9018-a46f3ec59331}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{f4054efa-eb78-4b0e-b34a-820274317e20}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{6c4a4f66-872e-40dd-adc2-26491fb20d59}" locklevel="0" colspan="1" rowspan="5" auto="true" visible="true">
+                        <labels>
+                          <label description="Expected Response" languagecode="1033" />
+                        </labels>
+                        <control id="cat_expectedresponse" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedresponse" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_advanced" id="6b8ad25f-cc34-446d-8ad8-8b8fd0350f40" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Advanced" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_advanced_section_parameters" id="d5567df6-b363-41a7-88f9-da1032f7e29d" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Parameters" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{2a2f8393-0d50-43a3-8450-f7d80b665423}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{d7f2fc87-3763-436c-8705-c3cde2537537}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0aaad5a3-1657-4b3d-a009-af90a88646b8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Send startConversation Event" languagecode="1033" />
+                        </labels>
+                        <control id="cat_isstartconversationeventsent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isstartconversationeventsent" disabled="false" uniqueid="{b7740077-526d-48d0-9ed8-209b2415b4e3}" />
+                      </cell>
+                      <cell id="{c160649a-f19f-4109-957e-98d6662a7636}" locklevel="0" colspan="1" rowspan="15" auto="false" showlabel="true">
+                        <labels>
+                          <label description="External Variables JSON" languagecode="1033" />
+                        </labels>
+                        <control id="cat_externalvariablesjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_externalvariablesjson" disabled="false" uniqueid="{d59ceaf2-3c5f-4474-9658-880311f92047}" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row>
+                      <cell id="{06a83a91-236e-4fd3-b7be-8bffd4084279}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Expected Position of the Response Message" languagecode="1033" />
+                        </labels>
+                        <control id="cat_expectedpositionoftheresponseactivity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_expectedpositionoftheresponseactivity" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{55728c67-36b7-4a92-a715-54e1ca658936}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
