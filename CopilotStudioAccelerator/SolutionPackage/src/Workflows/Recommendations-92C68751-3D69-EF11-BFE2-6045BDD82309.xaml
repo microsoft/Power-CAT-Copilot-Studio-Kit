@@ -1,0 +1,401 @@
+<Activity x:Class="XrmWorkflow92c687513d69ef11bfe26045bdd82309" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mcwc="clr-namespace:Microsoft.Crm.Workflow.ClientActivities;assembly=Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mcwo="clr-namespace:Microsoft.Crm.Workflow.ObjectModel;assembly=Microsoft.Crm, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxs="clr-namespace:Microsoft.Xrm.Sdk;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxsq="clr-namespace:Microsoft.Xrm.Sdk.Query;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxswa="clr-namespace:Microsoft.Xrm.Sdk.Workflow.Activities;assembly=Microsoft.Xrm.Sdk.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:s="clr-namespace:System;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:srs="clr-namespace:System.Runtime.Serialization;assembly=System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:this="clr-namespace:" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="InputEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
+    <x:Property Name="CreatedEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
+  </x:Members>
+  <this:XrmWorkflow92c687513d69ef11bfe26045bdd82309.InputEntities>
+    <InArgument x:TypeArguments="scg:IDictionary(x:String, mxs:Entity)" />
+  </this:XrmWorkflow92c687513d69ef11bfe26045bdd82309.InputEntities>
+  <this:XrmWorkflow92c687513d69ef11bfe26045bdd82309.CreatedEntities>
+    <InArgument x:TypeArguments="scg:IDictionary(x:String, mxs:Entity)" />
+  </this:XrmWorkflow92c687513d69ef11bfe26045bdd82309.CreatedEntities>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <mxswa:Workflow>
+    <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionSequence, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionStep1">
+      <mxswa:ActivityReference.Arguments>
+        <InArgument x:TypeArguments="x:Boolean" x:Key="Wait">False</InArgument>
+      </mxswa:ActivityReference.Arguments>
+      <mxswa:ActivityReference.Properties>
+        <sco:Collection x:TypeArguments="Variable" x:Key="Variables">
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_condition" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_1" />
+        </sco:Collection>
+        <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+          <mxswa:GetEntityProperty Attribute="statecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Value="[ConditionBranchStep2_1]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">NotNull</InArgument>
+              <x:Null x:Key="Parameters" />
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_1]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_condition]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep2">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[ConditionBranchStep2_condition]</InArgument>
+            </mxswa:ActivityReference.Arguments>
+            <mxswa:ActivityReference.Properties>
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep2">
+                <mxswa:ActivityReference.Properties>
+                  <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                  <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                    <Sequence DisplayName="SetMessageStep1: Name">
+                      <mcwc:SetMessage ControlId="cat_name" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep1: Set Name">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilotconfiguration&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "My Copilot", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep1_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_name" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep1_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="The name doesn't have to be the same as the copilot you target. E.g. &quot;My Copilot&quot;" LabelId="28bd489a-a96e-4384-a849-51cab71b7884" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">2dcf6155-3124-4fd7-b822-9fac3411decf</s:Guid>
+                              <x:String x:Key="UniqueName">id_3f9973c903e5428db4f07ae8059b26ebActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Name of the copilot configuration." LabelId="19e94d51-f911-41bc-87e2-0206877d2e70" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep2: Region">
+                      <mcwc:SetMessage ControlId="cat_regioncode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep1606: Set Region">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1606_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilotconfiguration&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:GetEntityProperty Attribute="cat_regioncode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep1606_1]">
+                                    <mxswa:GetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:GetEntityProperty.TargetType>
+                                  </mxswa:GetEntityProperty>
+                                  <mxswa:SetEntityProperty Attribute="cat_regioncode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep1606_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1606" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="This is required to target the appropriate Direct Line endpoint. This is the same region as your Power Platform environment where your copilot is deployed." LabelId="a3976d77-08f3-4abc-bdf0-bccc8c558d7e" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">1b200c3c-1de4-4171-9042-93a3d55fd033</s:Guid>
+                              <x:String x:Key="UniqueName">id_cbd647c18b0a4384a71d858d25e17e99ActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Region where the copilot is deployed." LabelId="af773ee6-695b-4944-af1e-5458364dcd45" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep3: Channel Security">
+                      <mcwc:SetMessage ControlId="cat_isdirectlinechannelsecurityenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep1870: Set Channel Security">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1870_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilotconfiguration&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:GetEntityProperty Attribute="cat_isdirectlinechannelsecurityenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep1870_1]">
+                                    <mxswa:GetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:GetEntityProperty.TargetType>
+                                  </mxswa:GetEntityProperty>
+                                  <mxswa:SetEntityProperty Attribute="cat_isdirectlinechannelsecurityenabled" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep1870_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1870" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="Check this option if web and Direct Line channel security is enabled.&#xA;That way, a token for the conversation can be obtained in exchange of a secret, instead of using the public Token Endpoint." LabelId="bd30e556-2909-4d1f-8fad-0c6018739b92" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">8c7df22a-64fa-4642-a75f-b5b881c99cab</s:Guid>
+                              <x:String x:Key="UniqueName">id_190afa821d224ab5a9aec45eaddb04f2ActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Web channel security" LabelId="c5380e0a-4cfd-4511-b837-65c21421dbe7" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep4: User Authentication">
+                      <mcwc:SetMessage ControlId="cat_userauthenticationcode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep1870306: Set User Authentication">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1870306_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilotconfiguration&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:GetEntityProperty Attribute="cat_userauthenticationcode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep1870306_1]">
+                                    <mxswa:GetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:GetEntityProperty.TargetType>
+                                  </mxswa:GetEntityProperty>
+                                  <mxswa:SetEntityProperty Attribute="cat_userauthenticationcode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep1870306_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1870306" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="Check this option if the copilot requires the user to sign in, using Microsoft Entra ID (manual authentication)" LabelId="ee3e8220-73a8-442e-af4b-d070160690e7" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">3ad29c1b-03a2-4161-b6b3-17b7c571774f</s:Guid>
+                              <x:String x:Key="UniqueName">id_d5ce03f7f5194604982c97ec83f121eeActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="End-user authentication" LabelId="ddd87b3e-f895-4c39-99ca-5ca024398f59" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep5: Enrich With Azure Application Insights&#x9;">
+                      <mcwc:SetMessage ControlId="cat_isazureapplicationinsightsenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep187035: Set Enrich with Azure Application Insights">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep187035_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilotconfiguration&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:GetEntityProperty Attribute="cat_isazureapplicationinsightsenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep187035_1]">
+                                    <mxswa:GetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:GetEntityProperty.TargetType>
+                                  </mxswa:GetEntityProperty>
+                                  <mxswa:SetEntityProperty Attribute="cat_isazureapplicationinsightsenabled" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep187035_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep187035" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="Option to enrich test results for Generative Answers tests with Azure Application Insights telemetry data, for example to capture the reason a reason wasn't returned (e.g. moderation, no search results, etc.). Only enable if you have configured Azure Application Insights on your copilot. This requires setting a custom app registration to access Azure Application Insights. Refer to the Copilot Studio Kit documentation to learn how to set it up." LabelId="ce65d222-9747-4c3a-8439-fe2e1186ef4f" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">0e088029-83e3-42ab-8af9-3cdf50457ab1</s:Guid>
+                              <x:String x:Key="UniqueName">id_c542fbe41c384959a5254168ca0ff96aActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Azure Application Insights" LabelId="7ba98383-dd77-4970-94bd-125ec2521797" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep6: Enrich With Conversation Transcripts&#x9;">
+                      <mcwc:SetMessage ControlId="cat_isenrichedwithconversationtranscripts" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep187035304: Set Enrich with Conversation Transcripts">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep187035304_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilotconfiguration&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:GetEntityProperty Attribute="cat_isenrichedwithconversationtranscripts" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep187035304_1]">
+                                    <mxswa:GetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:GetEntityProperty.TargetType>
+                                  </mxswa:GetEntityProperty>
+                                  <mxswa:SetEntityProperty Attribute="cat_isenrichedwithconversationtranscripts" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep187035304_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep187035304" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="Option to enrich test results with Conversation Transcripts data stored in Dataverse. This is useful to do &quot;Topic Match&quot; testing and to get additional details, such as intent recognition score. This requires the Dataverse environment where the copilot is deployed to be in the same tenant as the Copilot Studio Kit." LabelId="125a83f3-c2de-45e1-98a1-ff383655a559" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">428c0203-cdb2-495d-bda5-3c7c28219139</s:Guid>
+                              <x:String x:Key="UniqueName">id_baf91b83ae2d4218bec1ec3befceb4e4ActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Azure Application Insights" LabelId="956ae9ab-9ad8-4c42-a79d-93b810fa6e52" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep7: Analyze Generated Answer">
+                      <mcwc:SetMessage ControlId="cat_isgeneratedanswersanalysisenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep187035441: Set Enrich with Conversation Transcripts">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep187035441_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilotconfiguration&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:GetEntityProperty Attribute="cat_isenrichedwithconversationtranscripts" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep187035441_1]">
+                                    <mxswa:GetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:GetEntityProperty.TargetType>
+                                  </mxswa:GetEntityProperty>
+                                  <mxswa:SetEntityProperty Attribute="cat_isenrichedwithconversationtranscripts" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" Value="[SetAttributeValueStep187035441_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep187035441" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilotconfiguration" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answers or validation instructions." LabelId="67cfdc17-6adb-4dc9-89c7-9e2fc6eb4db6" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">3c07e2c0-942b-49d0-8883-7dfc0091a4f3</s:Guid>
+                              <x:String x:Key="UniqueName">id_12bf4df48c0b48ba920898f49bd000a7ActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Analyze Generated Answer" LabelId="cfe51d40-ab34-4ea0-8f8a-087a30040c5c" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                  </sco:Collection>
+                </mxswa:ActivityReference.Properties>
+              </mxswa:ActivityReference>
+              <x:Null x:Key="Else" />
+              <x:String x:Key="Description">Always true</x:String>
+            </mxswa:ActivityReference.Properties>
+          </mxswa:ActivityReference>
+        </sco:Collection>
+        <x:Boolean x:Key="ContainsElseBranch">False</x:Boolean>
+      </mxswa:ActivityReference.Properties>
+    </mxswa:ActivityReference>
+  </mxswa:Workflow>
+</Activity>

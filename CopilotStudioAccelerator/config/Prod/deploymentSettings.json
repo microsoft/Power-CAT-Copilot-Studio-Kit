@@ -1,19 +1,26 @@
 {
     "EnvironmentVariables":  [
-
+                                 {
+                                     "SchemaName":  "cat_DelayforConversationTranscriptsEnrichment",
+                                     "Value":  "#{environmentvariable.cat_DelayforConversationTranscriptsEnrichment}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_DelayforAzureApplicationInsightsEnrichment",
+                                     "Value":  "#{environmentvariable.cat_DelayforAzureApplicationInsightsEnrichment}#"
+                                 }
                              ],
     "ConnectionReferences":  [
-                                 {
-                                     "LogicalName":  "cat_CopilotStudioAcceleratorAzureApplicationInsights",
-                                     "ConnectionId":  "#{connectionreference.cat_CopilotStudioAcceleratorAzureApplicationInsights}#",
-                                     "ConnectorId":  "/providers/Microsoft.PowerApps/apis/shared_applicationinsights",
-                                     "ConnectionOwner":  "#{connectionreference.user.cat_CopilotStudioAcceleratorAzureApplicationInsights}#"
-                                 },
                                  {
                                      "LogicalName":  "cat_CopilotStudioAcceleratorDataverse",
                                      "ConnectionId":  "#{connectionreference.cat_CopilotStudioAcceleratorDataverse}#",
                                      "ConnectorId":  "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
                                      "ConnectionOwner":  "#{connectionreference.user.cat_CopilotStudioAcceleratorDataverse}#"
+                                 },
+                                 {
+                                     "LogicalName":  "new_sharedcommondataserviceforapps_7d711",
+                                     "ConnectionId":  "#{connectionreference.new_sharedcommondataserviceforapps_7d711}#",
+                                     "ConnectorId":  "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                     "ConnectionOwner":  "#{connectionreference.user.new_sharedcommondataserviceforapps_7d711}#"
                                  }
                              ]
 }

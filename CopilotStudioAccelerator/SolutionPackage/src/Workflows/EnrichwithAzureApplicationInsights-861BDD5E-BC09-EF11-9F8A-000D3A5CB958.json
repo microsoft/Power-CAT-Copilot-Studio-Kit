@@ -10,15 +10,6 @@
           "name": "shared_commondataserviceforapps"
         }
       },
-      "shared_applicationinsights_1": {
-        "runtimeSource": "embedded",
-        "connection": {
-          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorAzureApplicationInsights"
-        },
-        "api": {
-          "name": "shared_applicationinsights"
-        }
-      },
       "shared_commondataserviceforapps_1": {
         "runtimeSource": "embedded",
         "connection": {
@@ -40,6 +31,14 @@
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
+        },
+        "Delay for Azure Application Insights Enrichment (Minutes) (cat_DelayforAzureApplicationInsightsEnrichment)": {
+          "defaultValue": 5,
+          "type": "Int",
+          "metadata": {
+            "schemaName": "cat_DelayforAzureApplicationInsightsEnrichment",
+            "description": "Delay for Azure Application Insights Enrichment"
+          }
         }
       },
       "triggers": {
@@ -49,17 +48,16 @@
           },
           "type": "OpenApiConnectionWebhook",
           "inputs": {
-            "parameters": {
-              "catalog": "allcatalog",
-              "category": "allcategory",
-              "subscriptionRequest/entityname": "cat_copilottestrun",
-              "subscriptionRequest/sdkmessagename": "cat_RunAzureApplicationInsightsEnrichment",
-              "subscriptionRequest/name": "861bdd5e-bc09-ef11-9f8a-000d3a5cb958"
-            },
             "host": {
               "connectionName": "shared_commondataserviceforapps",
               "operationId": "BusinessEventsTrigger",
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "catalog": "allcatalog",
+              "category": "allcategory",
+              "subscriptionRequest/entityname": "cat_copilottestrun",
+              "subscriptionRequest/sdkmessagename": "cat_RunAzureApplicationInsightsEnrichment"
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -68,7 +66,7 @@
       "actions": {
         "Get_Generative_Answers_Copilot_Test_Results": {
           "runAfter": {
-            "Update_Copilot_Test_Run:_Running": [
+            "Generate_Azure_App_Insights_Access_Token": [
               "Succeeded"
             ]
           },
@@ -77,17 +75,17 @@
           },
           "type": "OpenApiConnection",
           "inputs": {
-            "parameters": {
-              "entityName": "cat_copilottestresults",
-              "$select": "cat_name, cat_copilottestresultid, cat_response",
-              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  and statecode eq 0 and cat_resultcode ne 4 and cat_CopilotTestId/cat_testtypecode eq 4",
-              "$orderby": "createdon asc",
-              "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance)"
-            },
             "host": {
               "connectionName": "shared_commondataserviceforapps",
               "operationId": "ListRecords",
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestresults",
+              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_responsereceivedtimestamp",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  and statecode eq 0 and cat_resultcode ne 4 and cat_CopilotTestId/cat_testtypecode eq 4",
+              "$orderby": "createdon asc",
+              "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance)"
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -99,15 +97,15 @@
           },
           "type": "OpenApiConnection",
           "inputs": {
-            "parameters": {
-              "entityName": "cat_copilotconfigurations",
-              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
-              "$select": "cat_delayforazureapplicationinsightsenrichment, cat_isgeneratedanswersanalysisenabled"
-            },
             "host": {
               "connectionName": "shared_commondataserviceforapps",
               "operationId": "GetItem",
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilotconfigurations",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
+              "$select": "cat_delayforazureapplicationinsightsenrichment, cat_isgeneratedanswersanalysisenabled, cat_azureappinsightsapplicationid, cat_azureappinsightstenantid, cat_azureappinsightsclientid, cat_azureappinsightssecretlocationcode, cat_azureappinsightssecret, cat_azureappinsightsenvironmentvariable"
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -115,28 +113,9 @@
         "Apply_to_each_Generative_Answers_Result": {
           "foreach": "@outputs('Get_Generative_Answers_Copilot_Test_Results')?['body/value']",
           "actions": {
-            "Run_Analytics_query": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "720c77ea-3bf0-4eca-a91d-5cb9b6e3555a"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_applicationinsights_1",
-                  "operationId": "RunQuery",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_applicationinsights"
-                },
-                "parameters": {
-                  "query": "customEvents\n| where name == \"GenerativeAnswers\"\n| where tostring(todynamic(customDimensions).conversationId) == \"@{items('Apply_to_each_Generative_Answers_Result')?['cat_name']}\"\n| extend cd = todynamic(customDimensions)\n| extend result = tostring(cd.Result)\n| project result",
-                  "timerange": "Last hour"
-                },
-                "authentication": "@parameters('$authentication')"
-              }
-            },
             "Update_Copilot_Test_Result": {
               "runAfter": {
-                "Run_Analytics_query": [
+                "Parse_Query_Response": [
                   "Succeeded"
                 ]
               },
@@ -145,19 +124,102 @@
               },
               "type": "OpenApiConnection",
               "inputs": {
-                "parameters": {
-                  "entityName": "cat_copilottestresults",
-                  "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
-                  "item/cat_resultcode": "@if(\n    empty(body('Run_Analytics_query')?['value']),\n    if(\n        or(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        3,\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            5,\n            3\n        )\n    ),\n    if(\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n            startsWith(first(body('Run_Analytics_query')?['value'])['result'], 'Filtered'),\n            1,\n            2\n        ),\n        if(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'No Search Results'),\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'Answer not Found in Search Results')\n                ),\n                1,\n                2\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n                5,\n                3\n            )\n        )\n    )\n)\n",
-                  "item/cat_appinsightsresult": "@if(\r\n    greater(\r\n        length(body('Run_Analytics_query')?['value']), \r\n        0\r\n    ), \r\n    first(\r\n        body('Run_Analytics_query')?['value']\r\n    )['result'], \r\n    'No Azure Application Insights Result'\r\n)",
-                  "item/cat_resultreason": "@{if(\n    empty(body('Run_Analytics_query')?['value']),\n    if(\n        or(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        'Impossible to evaluate: no Azure Application Insights result',\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            'No Azure Application Insights result, but result can still be assessed with AI Builder',\n            'Impossible to evaluate: no Azure Application Insights result'\n        )\n    ),\n    if(\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n            startsWith(first(body('Run_Analytics_query')?['value'])['result'], 'Filtered'),\n            'Answer was moderated',\n            'Moderation was expected'\n        ),\n        if(\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'No Search Results'),\n                    equals(first(body('Run_Analytics_query')?['value'])['result'], 'Answer not Found in Search Results')\n                ),\n                'Answer was not generated because of no search results',\n                'No search results were expected'\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n               'Result still needs to be assessed by AI Builder',\n               'Could not assess the answer'\n            )\n        )\n    )\n)\n}"
-                },
                 "host": {
                   "connectionName": "shared_commondataserviceforapps",
                   "operationId": "UpdateRecord",
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
+                "parameters": {
+                  "entityName": "cat_copilottestresults",
+                  "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
+                  "item/cat_resultcode": "@if(\r\n    empty(body('Parse_Query_Response')?['tables'][0]['rows']),\r\n    if(\r\n        or(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\r\n        ),\r\n        3,\r\n        if(\r\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n            5,\r\n            3\r\n        )\r\n    ),\r\n    if(\r\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n        if(\r\n            startsWith(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Filtered'),\r\n            1,\r\n            2\r\n        ),\r\n        if(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\r\n            if(\r\n                or(\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'No Search Results'),\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Answer not Found in Search Results')\r\n                ),\r\n                1,\r\n                2\r\n            ),\r\n            if(\r\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n                5,\r\n                3\r\n            )\r\n        )\r\n    )\r\n)",
+                  "item/cat_appinsightsresult": "@if(\r\n    greater(\r\n        length(body('Parse_Query_Response')?['tables'][0]['rows']), \r\n        0\r\n    ), \r\n    body('Parse_Query_Response')?['tables'][0]['rows'][0][0], \r\n    'No Azure Application Insights Result'\r\n)",
+                  "item/cat_resultreason": "@if(\r\n    empty(body('Parse_Query_Response')?['tables'][0]['rows']),\r\n    if(\r\n        or(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\r\n        ),\r\n        'Impossible to evaluate: no Azure Application Insights result',\r\n        if(\r\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n            'No Azure Application Insights result, but result can still be assessed with AI Builder',\r\n            'Impossible to evaluate: no Azure Application Insights result'\r\n        )\r\n    ),\r\n    if(\r\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n        if(\r\n            startsWith(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Filtered'),\r\n            'Answer was moderated',\r\n            'Moderation was expected'\r\n        ),\r\n        if(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\r\n            if(\r\n                or(\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'No Search Results'),\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Answer not Found in Search Results')\r\n                ),\r\n                'Answer was not generated because of no search results',\r\n                'No search results were expected'\r\n            ),\r\n            if(\r\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n               'Result still needs to be assessed by AI Builder',\r\n               'Could not assess the answer'\r\n            )\r\n        )\r\n    )\r\n)"
+                },
                 "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Get_Azure_App_Insights_Query_Response": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "b72d6acb-f159-4763-8248-69b904edf7ae"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "cat_ExecuteAppInsightsQuery",
+                  "item/cat_AppInsightsApplicationId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsapplicationid']",
+                  "item/cat_AppInsightsAccessToken": "@outputs('Generate_Azure_App_Insights_Access_Token')?['body/cat_AppInsightsResponse']",
+                  "item/cat_AppInsightsQuery": "customEvents\n| where name == \"GenerativeAnswers\"\n| where tostring(todynamic(customDimensions).conversationId) == \"@{items('Apply_to_each_Generative_Answers_Result')?['cat_name']}\"\n| where timestamp between ((datetime(@{items('Apply_to_each_Generative_Answers_Result')?['cat_responsereceivedtimestamp']}) - 1h) .. (datetime(@{items('Apply_to_each_Generative_Answers_Result')?['cat_responsereceivedtimestamp']}) + 1h))\n| extend cd = todynamic(customDimensions)\n| extend result = tostring(cd.Result)\n| project result"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Parse_Query_Response": {
+              "runAfter": {
+                "Get_Azure_App_Insights_Query_Response": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0d04fbdb-4520-4b70-8d58-1c7b933092fe"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@outputs('Get_Azure_App_Insights_Query_Response')?['body/cat_AppInsightsResponse']",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tables": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "columns": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "type": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "type"
+                              ]
+                            }
+                          },
+                          "rows": {
+                            "type": "array",
+                            "items": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "name",
+                          "columns",
+                          "rows"
+                        ]
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -187,15 +249,15 @@
           },
           "type": "OpenApiConnection",
           "inputs": {
-            "parameters": {
-              "entityName": "cat_copilottestruns",
-              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/cat_appinsightsenrichmentstatuscode": 2
-            },
             "host": {
               "connectionName": "shared_commondataserviceforapps",
               "operationId": "UpdateRecord",
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 2
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -212,15 +274,15 @@
           },
           "type": "OpenApiConnection",
           "inputs": {
-            "parameters": {
-              "entityName": "cat_copilottestruns",
-              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/cat_appinsightsenrichmentstatuscode": 3
-            },
             "host": {
               "connectionName": "shared_commondataserviceforapps",
               "operationId": "UpdateRecord",
               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 3
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -238,17 +300,17 @@
           },
           "type": "OpenApiConnection",
           "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
             "parameters": {
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
               "item/cat_appinsightsenrichmentstatuscode": 6,
               "item/cat_errordetails": "@{concat(\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\n  '<br/>',\n  'Failed <strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"https://make.powerautomate.com/environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)\n}",
               "item/cat_generatedanswersanalysiscode": 4
-            },
-            "host": {
-              "connectionName": "shared_commondataserviceforapps",
-              "operationId": "UpdateRecord",
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -264,17 +326,17 @@
           },
           "type": "OpenApiConnection",
           "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
             "parameters": {
               "entityName": "cat_copilottestruns",
               "actionName": "Microsoft.Dynamics.CRM.cat_RunRollupColumnsUpdates",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
               "item/DataverseUriHost": "@uriHost(outputs('Get_Copilot_Configuration')?['body/@odata.id'])",
               "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
-            },
-            "host": {
-              "connectionName": "shared_commondataserviceforapps",
-              "operationId": "PerformBoundAction",
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -288,17 +350,17 @@
               },
               "type": "OpenApiConnection",
               "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "PerformBoundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
                 "parameters": {
                   "entityName": "cat_copilottestruns",
                   "actionName": "Microsoft.Dynamics.CRM.cat_RunAIBuilderAnalysis",
                   "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
                   "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
                   "item/CopilotTestSetId": "@triggerOutputs()?['body/InputParameters/CopilotTestSetId']"
-                },
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "PerformBoundAction",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -337,7 +399,7 @@
                 "type": "Wait",
                 "inputs": {
                   "interval": {
-                    "count": "@outputs('Get_Copilot_Configuration')?['body/cat_delayforazureapplicationinsightsenrichment']",
+                    "count": "@if(equals(parameters('Delay for Azure Application Insights Enrichment (Minutes) (cat_DelayforAzureApplicationInsightsEnrichment)'), null), 5, parameters('Delay for Azure Application Insights Enrichment (Minutes) (cat_DelayforAzureApplicationInsightsEnrichment)'))",
                     "unit": "Minute"
                   }
                 }
@@ -358,6 +420,84 @@
             "operationMetadataId": "90c95f0e-82b3-45b9-8beb-4995df28e587"
           },
           "type": "If"
+        },
+        "Condition:_If_Azure_App_Insights_Environment_Variable_Secret": {
+          "actions": {
+            "Get_Azure_App_Insights_Secret": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "c48d1c4b-2831-4036-9ce5-579781ffd80f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "RetrieveEnvironmentVariableSecretValue",
+                  "item/EnvironmentVariableName": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsenvironmentvariable']"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "secureData": {
+                  "properties": [
+                    "outputs"
+                  ]
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Running": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightssecretlocationcode']",
+              2
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "560816de-2f95-4f45-9c92-9685a53d27b5"
+          },
+          "type": "If"
+        },
+        "Generate_Azure_App_Insights_Access_Token": {
+          "runAfter": {
+            "Condition:_If_Azure_App_Insights_Environment_Variable_Secret": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d879d350-e327-4387-b544-f6dd4e3a20d7"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformUnboundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "actionName": "cat_GenerateAppInsightsAccessToken",
+              "item/cat_AppInsightsTenantId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightstenantid']",
+              "item/cat_AppInsightsClientId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsclientid']",
+              "item/cat_AppInsightsClientSecret": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightssecretlocationcode'], 1),\r\n   outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightssecret'],\r\n   outputs('Get_Azure_App_Insights_Secret')?['body/EnvironmentVariableSecretValue'])"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "secureData": {
+              "properties": [
+                "inputs",
+                "outputs"
+              ]
+            }
+          }
         }
       }
     },

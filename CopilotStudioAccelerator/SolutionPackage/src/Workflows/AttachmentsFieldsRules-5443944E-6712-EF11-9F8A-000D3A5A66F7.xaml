@@ -1,4 +1,4 @@
-<Activity x:Class="XrmWorkflow5443944e6712ef119f8a000d3a5a66f7" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mcwc="clr-namespace:Microsoft.Crm.Workflow.ClientActivities;assembly=Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxs="clr-namespace:Microsoft.Xrm.Sdk;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxsq="clr-namespace:Microsoft.Xrm.Sdk.Query;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxswa="clr-namespace:Microsoft.Xrm.Sdk.Workflow.Activities;assembly=Microsoft.Xrm.Sdk.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:s="clr-namespace:System;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:srs="clr-namespace:System.Runtime.Serialization;assembly=System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:this="clr-namespace:" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity x:Class="XrmWorkflow5443944e6712ef119f8a000d3a5a66f7" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mcwc="clr-namespace:Microsoft.Crm.Workflow.ClientActivities;assembly=Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mcwo="clr-namespace:Microsoft.Crm.Workflow.ObjectModel;assembly=Microsoft.Crm, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxs="clr-namespace:Microsoft.Xrm.Sdk;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxsq="clr-namespace:Microsoft.Xrm.Sdk.Query;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxswa="clr-namespace:Microsoft.Xrm.Sdk.Workflow.Activities;assembly=Microsoft.Xrm.Sdk.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:s="clr-namespace:System;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:srs="clr-namespace:System.Runtime.Serialization;assembly=System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:this="clr-namespace:" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="InputEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
     <x:Property Name="CreatedEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
@@ -65,6 +65,102 @@
                       <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
                       <mcwc:SetFieldRequiredLevel ControlId="cat_expectedattachmentsjson" ControlType="standard" DisplayName="SetFieldRequiredLevelStep1" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
                     </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep3: Show Expected Attachments JSON">
+                      <mcwc:SetVisibility ControlId="cat_expectedattachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep5: External Attachments JSON">
+                      <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep1: Set Attachments JSON">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters" xml:space="preserve">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "[     {         &amp;#34;&amp;#34;contentType&amp;#34;&amp;#34;: &amp;#34;&amp;#34;application/vnd.microsoft.card.adaptive&amp;#34;&amp;#34;&amp;#44;         &amp;#34;&amp;#34;content&amp;#34;&amp;#34;: {             &amp;#34;&amp;#34;type&amp;#34;&amp;#34;: &amp;#34;&amp;#34;AdaptiveCard&amp;#34;&amp;#34;&amp;#44;             &amp;#34;&amp;#34;version&amp;#34;&amp;#34;: &amp;#34;&amp;#34;1.5&amp;#34;&amp;#34;&amp;#44;             &amp;#34;&amp;#34;body&amp;#34;&amp;#34;: [                 {                     &amp;#34;&amp;#34;type&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Container&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;items&amp;#34;&amp;#34;: [                         {                             &amp;#34;&amp;#34;type&amp;#34;&amp;#34;: &amp;#34;&amp;#34;TextBlock&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;color&amp;#34;&amp;#34;: &amp;#34;&amp;#34;accent&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;text&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Feedback Form&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;wrap&amp;#34;&amp;#34;: true&amp;#44;                             &amp;#34;&amp;#34;style&amp;#34;&amp;#34;: &amp;#34;&amp;#34;heading&amp;#34;&amp;#34;                         }                     ]                 }&amp;#44;                 {                     &amp;#34;&amp;#34;type&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Input.ChoiceSet&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;id&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Rating&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;style&amp;#34;&amp;#34;: &amp;#34;&amp;#34;expanded&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;isMultiSelect&amp;#34;&amp;#34;: false&amp;#44;                     &amp;#34;&amp;#34;choices&amp;#34;&amp;#34;: [                         {                             &amp;#34;&amp;#34;title&amp;#34;&amp;#34;: &amp;#34;&amp;#34;&amp;#11088;&amp;#9898;&amp;#9898;&amp;#9898;&amp;#9898;&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;value&amp;#34;&amp;#34;: &amp;#34;&amp;#34;1&amp;#34;&amp;#34;                         }&amp;#44;                         {                             &amp;#34;&amp;#34;title&amp;#34;&amp;#34;: &amp;#34;&amp;#34;&amp;#11088;&amp;#11088;&amp;#9898;&amp;#9898;&amp;#9898;&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;value&amp;#34;&amp;#34;: &amp;#34;&amp;#34;2&amp;#34;&amp;#34;                         }&amp;#44;                         {                             &amp;#34;&amp;#34;title&amp;#34;&amp;#34;: &amp;#34;&amp;#34;&amp;#11088;&amp;#11088;&amp;#11088;&amp;#9898;&amp;#9898;&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;value&amp;#34;&amp;#34;: &amp;#34;&amp;#34;3&amp;#34;&amp;#34;                         }&amp;#44;                         {                             &amp;#34;&amp;#34;title&amp;#34;&amp;#34;: &amp;#34;&amp;#34;&amp;#11088;&amp;#11088;&amp;#11088;&amp;#11088;&amp;#9898;&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;value&amp;#34;&amp;#34;: &amp;#34;&amp;#34;4&amp;#34;&amp;#34;                         }&amp;#44;                         {                             &amp;#34;&amp;#34;title&amp;#34;&amp;#34;: &amp;#34;&amp;#34;&amp;#11088;&amp;#11088;&amp;#11088;&amp;#11088;&amp;#11088;&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;value&amp;#34;&amp;#34;: &amp;#34;&amp;#34;5&amp;#34;&amp;#34;                         }                     ]&amp;#44;                     &amp;#34;&amp;#34;placeholder&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Placeholder text&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;isRequired&amp;#34;&amp;#34;: true&amp;#44;                     &amp;#34;&amp;#34;label&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Please rate your experience&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;errorMessage&amp;#34;&amp;#34;: &amp;#34;&amp;#34;You need to provide a rating&amp;#34;&amp;#34;                 }&amp;#44;                 {                     &amp;#34;&amp;#34;type&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Input.Text&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;id&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Feedback&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;placeholder&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Add any detail here&amp;#34;&amp;#34;                 }&amp;#44;                 {                     &amp;#34;&amp;#34;type&amp;#34;&amp;#34;: &amp;#34;&amp;#34;ActionSet&amp;#34;&amp;#34;&amp;#44;                     &amp;#34;&amp;#34;actions&amp;#34;&amp;#34;: [                         {                             &amp;#34;&amp;#34;type&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Action.Submit&amp;#34;&amp;#34;&amp;#44;                             &amp;#34;&amp;#34;data&amp;#34;&amp;#34;: {                                 &amp;#34;&amp;#34;actionSubmitId&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Submit&amp;#34;&amp;#34;                             }&amp;#44;                             &amp;#34;&amp;#34;title&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Submit&amp;#34;&amp;#34;                         }                     ]                 }             ]         }     } ]", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep1_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_expectedattachmentsjson" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep1_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                                <Sequence DisplayName="SetAttributeValueStep_SetMessageStep5_Action_3: Set Test Utterance">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep_SetMessageStep5_Action_3_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "I want to provide feedback on this copilot", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep_SetMessageStep5_Action_3_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_testutterance" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep_SetMessageStep5_Action_3_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep_SetMessageStep5_Action_3" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                                <Sequence DisplayName="SetAttributeValueStep_SetMessageStep5_Action_2: Clear Expected Response">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep_SetMessageStep5_Action_2_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:SetEntityProperty Attribute="cat_expectedresponse" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep_SetMessageStep5_Action_2_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep_SetMessageStep5_Action_2" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="Describe the array of attachments the copilot is expected to return that will contain the JSON records for the Adaptive Cards or Basic Cards. Select Apply to see an example (existing values will be overwritten)." LabelId="07a78f20-5db0-43d7-b8ce-bed5b1be0c9c" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">2f46c6fc-e8f0-4d90-8eaa-9ea186d483fa</s:Guid>
+                              <x:String x:Key="UniqueName">id_4b2c302d591b489ebc491b2036ea5e2eActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Attachments (Adaptive Cards, Basic Cards, etc.)" LabelId="9c31c524-6da3-474f-bfba-225bc8da06da" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>
               </mxswa:ActivityReference>
@@ -75,7 +171,7 @@
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "True" }]</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "true" }]</InArgument>
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
               </InArgument>
@@ -95,6 +191,9 @@
                       <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                       <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
                       <mcwc:SetFieldRequiredLevel ControlId="cat_expectedattachmentsjson" ControlType="standard" DisplayName="SetFieldRequiredLevelStep2" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep4: Hide Expected Attachments JSON">
+                      <mcwc:SetVisibility ControlId="cat_expectedattachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>

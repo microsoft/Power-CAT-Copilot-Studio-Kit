@@ -26,11 +26,11 @@
                         </labels>
                         <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
                       </cell>
-                      <cell id="{f4cde77a-32f6-429f-b308-0c3213d95034}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{721fe5fe-d1fc-460b-a42c-f96bf4dc7012}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Region" languagecode="1033" />
+                          <label description="Configuration Type" languagecode="1033" />
                         </labels>
-                        <control id="cat_regioncode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_regioncode" disabled="false" />
+                        <control id="cat_configurationtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_configurationtypecode" disabled="false" />
                       </cell>
                       <cell id="{5df4c7c6-98ce-411f-9027-767afeb17747}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
@@ -44,35 +44,83 @@
                         </control>
                       </cell>
                     </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_conversationkpissettings" id="7c647872-adb8-4597-af50-8a0f2e3eafce" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
+                  <labels>
+                    <label description="Conversation KPIs Settings" languagecode="1033" />
+                  </labels>
+                  <rows>
                     <row>
-                      <cell id="{1c366e61-1e39-46f3-97c2-9c1fbdee7bc5}" locklevel="0" colspan="3" rowspan="1">
+                      <cell id="{be1cc71e-91b6-4bed-94ad-abf4f0898e44}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Dataverse URL" languagecode="1033" />
+                        </labels>
+                        <control id="cat_dataverseurl" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_dataverseurl" disabled="false" />
+                      </cell>
+                      <cell id="{ee6950e6-ee57-4e8f-86a6-bd2395db547b}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Copilot ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{adffd3e0-6da0-4599-abbc-113e47d26098}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{f10eae4b-bcfb-4029-bd29-06387d2d5a75}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{b4ee1cc6-fe96-4ded-9e38-1221cc949cc1}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Copy Full Transcript" languagecode="1033" />
+                        </labels>
+                        <control id="cat_iscopyfulltranscriptenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_iscopyfulltranscriptenabled" disabled="false" uniqueid="{95fbe6ef-90dd-4045-bfb1-8426cca3cdda}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_directlinesettings" id="358faf45-0bac-46c6-9d74-f8021a17faf6" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
+                  <labels>
+                    <label description="Direct Line Settings" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{f4cde77a-32f6-429f-b308-0c3213d95034}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Region" languagecode="1033" />
+                        </labels>
+                        <control id="cat_regioncode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_regioncode" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{5d161654-1667-4fa8-89fd-13c94f015a54}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{57e33f9c-d1cd-466b-b781-d1d5a4474cbc}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{76c8b136-f467-408e-a36e-646eeea3c0e3}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{1c366e61-1e39-46f3-97c2-9c1fbdee7bc5}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Token Endpoint" languagecode="1033" />
                         </labels>
                         <control id="cat_tokenendpoint" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_tokenendpoint" disabled="false" />
                       </cell>
-                    </row>
-                  </rows>
-                </section>
-                <section name="tab_general_section_directlinechannelsecurity" id="358faf45-0bac-46c6-9d74-f8021a17faf6" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
-                  <labels>
-                    <label description="Direct Line Channel Security" languagecode="1033" />
-                  </labels>
-                  <rows>
-                    <row>
-                      <cell id="{eba5a47f-0f4c-42a1-9d0b-371a1b8d6067}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Channel Security" languagecode="1033" />
-                        </labels>
-                        <control id="cat_isdirectlinechannelsecurityenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isdirectlinechannelsecurityenabled" disabled="false" uniqueid="{a8c1548d-4086-4bfa-b1bb-8c6ec4b3683d}" />
-                      </cell>
-                      <cell id="{31e0b14c-e576-41d6-8e10-e7c690ddaa06}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Secret Location" languagecode="1033" />
-                        </labels>
-                        <control id="cat_directlinechannelsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_directlinechannelsecretlocationcode" disabled="false" />
-                      </cell>
-                      <cell id="{d956ddd2-62ba-4724-954b-0dd98cc2bbdf}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{d956ddd2-62ba-4724-954b-0dd98cc2bbdf}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Secret" languagecode="1033" />
                         </labels>
@@ -80,21 +128,50 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{c0726933-a543-491c-8c42-ee534433835a}">
+                      <cell id="{eba5a47f-0f4c-42a1-9d0b-371a1b8d6067}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Channel Security" languagecode="1033" />
                         </labels>
+                        <control id="cat_isdirectlinechannelsecurityenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isdirectlinechannelsecurityenabled" disabled="false" uniqueid="{a8c1548d-4086-4bfa-b1bb-8c6ec4b3683d}" />
                       </cell>
-                      <cell locklevel="0" id="{397244d0-7699-4074-a5b4-061cd4cd59cd}">
+                      <cell id="{31e0b14c-e576-41d6-8e10-e7c690ddaa06}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Secret Location" languagecode="1033" />
                         </labels>
+                        <control id="cat_directlinechannelsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_directlinechannelsecretlocationcode" disabled="false" />
                       </cell>
-                      <cell id="{d891b5ad-590b-417b-974e-078872eb98b9}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{d891b5ad-590b-417b-974e-078872eb98b9}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Environment Variable" languagecode="1033" />
                         </labels>
                         <control id="cat_directlinechannelsecurityenvironmentvariable" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_directlinechannelsecurityenvironmentvariable" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_userauthentication" id="bc8fdbd0-1c5b-496a-bc64-c3704c680972" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="true">
+                  <labels>
+                    <label description="User Authentication" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a02d38ed-b353-45cf-9bd7-6bd8e6203926}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="User Authentication" languagecode="1033" />
+                        </labels>
+                        <control id="cat_userauthenticationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_userauthenticationcode" disabled="false" />
+                      </cell>
+                      <cell id="{044014e2-ced0-4487-8348-66271f4dbd16}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Client ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_clientid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientid" disabled="false" />
+                      </cell>
+                      <cell id="{b004fda3-0f0c-43bc-9037-c96674369acd}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Tenant ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_tenantid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_tenantid" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -111,20 +188,71 @@
                         </labels>
                         <control id="cat_isazureapplicationinsightsenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isazureapplicationinsightsenabled" disabled="false" uniqueid="{b2a46c22-29be-4c7f-85dc-831ee7b46490}" />
                       </cell>
-                      <cell id="{35703e1d-3072-4213-b83c-9493ddf4e517}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Delay for Azure Application Insights Enrichment" languagecode="1033" />
-                        </labels>
-                        <control id="cat_delayforazureapplicationinsightsenrichment" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_delayforazureapplicationinsightsenrichment" disabled="false" />
-                      </cell>
-                      <cell locklevel="0" id="{492585aa-6d7d-4bf0-9781-fc117afc7c07}">
+                      <cell locklevel="0" id="{fe5b5509-f329-4419-9ced-0ebc5f2d4fae}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{e5026fec-30ce-4634-81d8-f9f530fbeab8}">
+                      <cell locklevel="0" id="{8c18fd85-ee49-49c7-98f2-d22a6a1b4aea}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{ac97b6a7-49e6-4c68-9403-7ff21442f8cc}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{9abd45df-ee47-439b-b047-fa48b09d0fe3}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="App Insights Tenant ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_azureappinsightstenantid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_azureappinsightstenantid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{11cb3f1b-2e8f-47a2-b4c3-d043d595f4aa}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="App Insights Client ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_azureappinsightsclientid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_azureappinsightsclientid" disabled="false" />
+                      </cell>
+                      <cell id="{7e0bc79b-3066-48d1-a6b1-ac1a2de05ab6}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="App Insights Application ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_azureappinsightsapplicationid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_azureappinsightsapplicationid" disabled="false" />
+                      </cell>
+                      <cell id="{3cf0e967-f700-4966-abe3-cb65e99fb159}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="App Insights Secret" languagecode="1033" />
+                        </labels>
+                        <control id="cat_azureappinsightssecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_azureappinsightssecret" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{c88b8ae2-aa54-44b7-9302-14a10c14ce79}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{ff4128c9-5d98-4ef1-a154-db4d200a773c}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="App Insights Secret Location" languagecode="1033" />
+                        </labels>
+                        <control id="cat_azureappinsightssecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_azureappinsightssecretlocationcode" disabled="false" />
+                      </cell>
+                      <cell id="{2ba57f7d-4f7e-457f-a08c-a52fd947e14f}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="App Insights Environment Variable" languagecode="1033" />
+                        </labels>
+                        <control id="cat_azureappinsightsenvironmentvariable" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_azureappinsightsenvironmentvariable" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{d6ba1cf2-5312-4b82-8954-0305e71d0c51}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -134,7 +262,7 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell locklevel="0" id="{38e7baae-eaf3-4e6f-a9b5-2eca5e10a2b7}">
+                      <cell locklevel="0" id="{fed82a85-578b-448e-b50f-3b7b64fa397d}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -154,13 +282,7 @@
                         </labels>
                         <control id="cat_isenrichedwithconversationtranscripts" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isenrichedwithconversationtranscripts" disabled="false" uniqueid="{90c83743-1187-476c-9fac-2849a7634cb6}" />
                       </cell>
-                      <cell id="{02ce5824-e6a2-4b09-b1fe-0c6accfbe4ed}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Delay for Conversation Transcripts Enrichment" languagecode="1033" />
-                        </labels>
-                        <control id="cat_delayforconversationtranscriptsenrichment" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_delayforconversationtranscriptsenrichment" disabled="false" />
-                      </cell>
-                      <cell id="{bd451d04-8da3-4af4-baa0-9f1db323db60}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{bd451d04-8da3-4af4-baa0-9f1db323db60}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Dataverse URL" languagecode="1033" />
                         </labels>
@@ -178,7 +300,7 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell id="{9bd4b4d1-3fec-4b9e-9f1b-dea543296876}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{9bd4b4d1-3fec-4b9e-9f1b-dea543296876}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Copy Full Transcript" languagecode="1033" />
                         </labels>
@@ -216,7 +338,7 @@
                         </labels>
                         <control id="cat_isgeneratedanswersanalysisenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isgeneratedanswersanalysisenabled" disabled="false" uniqueid="{a9904680-f428-407e-a9ea-55aadabfb2b3}" />
                       </cell>
-                      <cell id="{6ef2136e-bb81-4fe1-900d-c77154138fdf}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{6ef2136e-bb81-4fe1-900d-c77154138fdf}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Generative AI Provider" languagecode="1033" />
                         </labels>
@@ -230,57 +352,13 @@
                     </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_userauthentication" id="bc8fdbd0-1c5b-496a-bc64-c3704c680972" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" visible="false">
-                  <labels>
-                    <label description="User Authentication" languagecode="1033" />
-                  </labels>
-                  <rows>
-                    <row />
-                    <row>
-                      <cell id="{a02d38ed-b353-45cf-9bd7-6bd8e6203926}" locklevel="0" colspan="2" rowspan="1">
-                        <labels>
-                          <label description="User Authentication" languagecode="1033" />
-                        </labels>
-                        <control id="cat_userauthenticationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_userauthenticationcode" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{044014e2-ced0-4487-8348-66271f4dbd16}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Client ID" languagecode="1033" />
-                        </labels>
-                        <control id="cat_clientid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientid" disabled="false" />
-                      </cell>
-                      <cell id="{b7444ba3-9397-43c9-b46a-fdece941fdd3}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Client Secret" languagecode="1033" />
-                        </labels>
-                        <control id="cat_clientsecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientsecret" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{b004fda3-0f0c-43bc-9037-c96674369acd}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Tenant ID" languagecode="1033" />
-                        </labels>
-                        <control id="cat_tenantid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_tenantid" disabled="false" />
-                      </cell>
-                      <cell id="{6dfdb7d8-fa55-43a4-bac7-9459f2bfa01a}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Scope" languagecode="1033" />
-                        </labels>
-                        <control id="cat_scope" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_scope" disabled="false" />
-                      </cell>
-                    </row>
-                  </rows>
-                </section>
               </sections>
             </column>
           </columns>
         </tab>
-        <tab name="tab_runs" id="b6e7f255-5a99-4fd4-94ed-ca3eb7c7d1cf" IsUserDefined="0" locklevel="0" showlabel="true">
+        <tab name="tab_testruns" id="b6e7f255-5a99-4fd4-94ed-ca3eb7c7d1cf" IsUserDefined="0" locklevel="0" showlabel="true">
           <labels>
-            <label description="Runs" languagecode="1033" />
+            <label description="Test Runs" languagecode="1033" />
           </labels>
           <columns>
             <column width="100%">
@@ -571,6 +649,28 @@
           </customControl>
         </controlDescription>
         <controlDescription forControl="{29f3c5c5-c9dc-479a-9d2f-0134957fd5ca}">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>cat_iscopyfulltranscriptenabled</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{95fbe6ef-90dd-4045-bfb1-8426cca3cdda}">
           <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
             <parameters>
               <datafieldname>cat_iscopyfulltranscriptenabled</datafieldname>
