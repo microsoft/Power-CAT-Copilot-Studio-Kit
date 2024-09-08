@@ -74,3 +74,6 @@ _Note: if you don't store secrets in these columns, this step isn't required._
 3. Under **Users + permissions**, select **Column security profiles**
 4. Select **Power CAT Copilot Studio Kit Column Security Profile**
 5. Navigate to the **Teams** or **Users** tab and add the relevant **teams** and/or **users** that should have access to these secured columns.
+
+## Next step
+- [Configure Copilots](./CONFIGURE_COPILOTS.md)
