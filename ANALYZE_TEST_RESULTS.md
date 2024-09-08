@@ -73,3 +73,8 @@ These records are automatically created.
 | **Suggested Actions** | When available, JSON of the suggested actions returned by the copilot and associated to its reponse. |
 | **Attachments** |  When available, JSON of the attachments array returned by the copilot and associated to its response. |
 | **Citations** | For generated answers, JSON array of the citations that were used to generate the answer (when _Enrich With Conversation Transcripts_ is enabled ) |
+
+## Next
+Should you experience any issues, please see:
+- [Troubleshooting](./TROUBLESHOOT.md)
+- [Support](./SUPPORT.md)
