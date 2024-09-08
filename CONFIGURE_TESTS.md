@@ -65,3 +65,5 @@ Users may duplicate a full test set by selecting the **Duplicate Test Set** comm
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/a31e9c83-1321-46e3-a887-defa47521a9d)
 
+## Next step
+- [Run tests](./RUN_TESTS.md)
