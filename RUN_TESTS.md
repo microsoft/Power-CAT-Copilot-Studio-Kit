@@ -43,6 +43,7 @@ Users may rerun a specific child flow (for example if the delay was too short, i
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/cd8cd44a-5e77-4a49-8c7b-cedfd0273153)
 
-
+## Next step
+- [Analyze test results](./ANALYZE_TEST_RESULTS.md)
 
 
