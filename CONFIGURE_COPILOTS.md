@@ -73,5 +73,6 @@ Because each copilot configuration may target a different copilot and use a diff
 6. Follow the steps in: [Create a new environment variable for the Key Vault secret](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#create-a-new-environment-variable-for-the-key-vault-secret)
 7. Once created, use the environment variable **schema name** (e.g., cr42e_Copilot1DirectLineSecret) in the Copilot Configuration record.
 
-
+## Next step
+- [Configure tests](./CONFIGURE_TESTS.md)
 
