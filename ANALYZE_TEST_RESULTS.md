@@ -74,6 +74,12 @@ These records are automatically created.
 | **Attachments** |  When available, JSON of the attachments array returned by the copilot and associated to its response. |
 | **Citations** | For generated answers, JSON array of the citations that were used to generate the answer (when _Enrich With Conversation Transcripts_ is enabled ) |
 
+## Inspecting the transcript
+
+If _Enrich With Conversation Transcripts_ is enabled and _Copy Full Transcript_ is set to yes, full transcript is copied on the test result. When analyzing a test result, navigating to the **Transcript**-tab will provide a detailed transcript view on the left side and easy-to-read visualization on the right side.
+
+![copilot-studio-transcript-visualizer](https://github.com/user-attachments/assets/8f586ceb-ef2e-47ab-9f48-85543e4bd9e8)
+
 ## Next
 Should you experience any issues, please see:
 - [Troubleshooting](./TROUBLESHOOT.md)
