@@ -44,3 +44,6 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 1. Locate and select **Power CAT Copilot Studio Kit**.
 1. Select **Play**.
 1. **Bookmark** the app (optional)
+
+## Next step
+[Configure users and teams](/SETUP_USERS_AND_TEAMS.md)
