@@ -1,0 +1,2011 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_7d711"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "timeZone": "India Standard Time",
+            "schedule": {
+              "hours": [
+                "13"
+              ],
+              "minutes": [
+                0
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "96e2c839-c2bf-4e0c-b6f1-aa5bcef33ef8"
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "Initialize_variable:_GlobalOutcome": {
+          "runAfter": {
+            "Initialize_variable:_SumTurnCount": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "4a2555b5-793e-4f03-aa6c-e4df951962f6"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "GlobalOutcome",
+                "type": "integer"
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_IsEscalated": {
+          "runAfter": {
+            "Initialize_variable:_GlobalOutcome": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "029665fe-1402-42c6-9fd7-dcc6c6457af0"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IsEscalated",
+                "type": "boolean",
+                "value": false
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_IsAbandoned": {
+          "runAfter": {
+            "Initialize_variable:_IsEscalated": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c3a6e69f-8ccd-4d0b-9ae2-df7651289652"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IsAbandoned",
+                "type": "boolean",
+                "value": false
+              }
+            ]
+          }
+        },
+        "Scope:_Set_Conversation_Detailed_Outcome_and_Average_CSAT_and_TurnCount": {
+          "actions": {
+            "Apply_to_each:_SessionInfo": {
+              "foreach": "@body('Filter_array:_SessionInfo')",
+              "actions": {
+                "Condition:_Is_Escalated": {
+                  "actions": {
+                    "Set_variable:_IsEscalated": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "7d219f9b-b852-4959-a121-8b83f3a1b3f6"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "IsEscalated",
+                        "value": true
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@items('Apply_to_each:_SessionInfo')?['value']?['outcome']",
+                      "Escalated"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "923e0800-be4b-442b-ad4f-86e7b7a8a83b"
+                  },
+                  "type": "If"
+                },
+                "Condition:_Is_Abandoned": {
+                  "actions": {
+                    "Set_variable:_IsAbandoned": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "f95fa956-1d30-4f0a-be29-9d31e4350fa4"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "IsAbandoned",
+                        "value": true
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Condition:_Is_Escalated": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@items('Apply_to_each:_SessionInfo')?['value']?['outcome']",
+                      "Abandoned"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "02628813-089e-4f4e-89c5-8f068761e765"
+                  },
+                  "type": "If"
+                },
+                "Append_to_array_variable:_SessionsDetails": {
+                  "runAfter": {
+                    "Condition:_Is_Resolved": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "ef3a775a-73b1-48dc-9d35-c497ae7b3558"
+                  },
+                  "type": "AppendToArrayVariable",
+                  "inputs": {
+                    "name": "SessionsDetails",
+                    "value": {
+                      "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{items('Apply_to_each:_SessionInfo')?['timestamp']}",
+                      "Engagement": "@{items('Apply_to_each:_SessionInfo')?['value']?['type']}",
+                      "Outcome": "@{items('Apply_to_each:_SessionInfo')?['value']?['outcome']}",
+                      "CSAT": "@if(contains(items('Apply_to_each:_SessionInfo')?['value'], 'csatScore'), items('Apply_to_each:_SessionInfo')?['value']?['csatScore'], null)",
+                      "Turn Count": "@items('Apply_to_each:_SessionInfo')?['value']?['turnCount']",
+                      "Implied Success": "@items('Apply_to_each:_SessionInfo')?['value']?['impliedSuccess']"
+                    }
+                  }
+                },
+                "Condition:_CSAT_Score_Exists_": {
+                  "actions": {
+                    "Increment_variable:_TotalCSat": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "d129839a-b73a-4070-91f8-e5c6e65f79c1"
+                      },
+                      "type": "IncrementVariable",
+                      "inputs": {
+                        "name": "TotalCsat",
+                        "value": "@items('Apply_to_each:_SessionInfo')?['value']?['csatScore']"
+                      }
+                    },
+                    "Increment_variable:_CsatCount": {
+                      "runAfter": {
+                        "Increment_variable:_TotalCSat": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "79ac3d98-f7d1-4933-919c-fb3f805dbc2d"
+                      },
+                      "type": "IncrementVariable",
+                      "inputs": {
+                        "name": "CsatCount",
+                        "value": 1
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Append_to_array_variable:_SessionsDetails": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@contains(items('Apply_to_each:_SessionInfo')?['value'], 'csatScore')",
+                      true
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "b4f1d64a-90b7-40ea-a1af-72bbb9d63833"
+                  },
+                  "type": "If"
+                },
+                "Condition:_Is_Resolved": {
+                  "actions": {
+                    "Set_variable:_IsResolved": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "7d219f9b-b852-4959-a121-8b83f3a1b3f6"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "IsResolved",
+                        "value": false
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Condition:_Is_Abandoned": [
+                      "Succeeded"
+                    ]
+                  },
+                  "else": {
+                    "actions": {
+                      "Set_variable:_IsPartiallyResolved": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "e36a7fa0-a42c-4187-9d0d-3f6cf4d998d1"
+                        },
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "IsPartiallyResolved",
+                          "value": true
+                        }
+                      }
+                    }
+                  },
+                  "expression": {
+                    "not": {
+                      "equals": [
+                        "@items('Apply_to_each:_SessionInfo')?['value']?['outcome']",
+                        "Resolved"
+                      ]
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "923e0800-be4b-442b-ad4f-86e7b7a8a83b"
+                  },
+                  "type": "If"
+                },
+                "Increment_variable:_SumTurnCount": {
+                  "runAfter": {
+                    "Condition:_CSAT_Score_Exists_": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "3bfd8d82-19a0-456a-ad6f-b42142427325"
+                  },
+                  "type": "IncrementVariable",
+                  "inputs": {
+                    "name": "SumTurnCount",
+                    "value": "@items('Apply_to_each:_SessionInfo')?['value']?['turnCount']"
+                  }
+                }
+              },
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "e58844ab-e149-4c1c-9b4b-41a27511dde2"
+              },
+              "type": "Foreach"
+            },
+            "Condition:_Check_Csat_count": {
+              "actions": {
+                "Set_variable:_Average_CSAT": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "676135f4-2b69-4bdf-94b1-4f868504e157"
+                  },
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "Average Csat",
+                    "value": "@div(float(variables('TotalCsat')), float(variables('CsatCount')))"
+                  }
+                }
+              },
+              "runAfter": {
+                "Condition:_Resolved": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Set_variable:_Average_CSAT_to_0": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "31f81aca-9c6d-4444-8190-d761d98c38f5"
+                    },
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "Average Csat",
+                      "value": 0
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "greater": [
+                  "@variables('CsatCount')",
+                  0
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0ccdec6f-08fd-483f-b5c0-2da5616542c3"
+              },
+              "type": "If"
+            },
+            "Condition:_Resolved": {
+              "actions": {
+                "Set_variable:_Global_Outcome_Resolved": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "110f7039-2afd-42f6-8537-7c357abb1f70"
+                  },
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "GlobalOutcome",
+                    "value": 2
+                  }
+                }
+              },
+              "runAfter": {
+                "Apply_to_each:_SessionInfo": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Condition:_Escalated": {
+                    "actions": {
+                      "Set_variable:_Global_Outcome_Escalated": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "110f7039-2afd-42f6-8537-7c357abb1f70"
+                        },
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "GlobalOutcome",
+                          "value": 4
+                        }
+                      }
+                    },
+                    "runAfter": {},
+                    "else": {
+                      "actions": {
+                        "Condition:_Partially_Resolved": {
+                          "actions": {
+                            "Set_variable:_Global_Outcome_Partially_Resolved": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "976c3c95-2e11-4cf1-b9e2-9708bad38a3c"
+                              },
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "GlobalOutcome",
+                                "value": 3
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "else": {
+                            "actions": {
+                              "Condition:_Abandoned": {
+                                "actions": {
+                                  "Set_variable:_Global_Outcome_Abandoned": {
+                                    "runAfter": {},
+                                    "metadata": {
+                                      "operationMetadataId": "2a6ebe0a-1872-48ac-a6b8-3651887212ed"
+                                    },
+                                    "type": "SetVariable",
+                                    "inputs": {
+                                      "name": "GlobalOutcome",
+                                      "value": 5
+                                    }
+                                  }
+                                },
+                                "runAfter": {},
+                                "else": {
+                                  "actions": {
+                                    "Set_variable:_Global_Outcome_Unengaged": {
+                                      "runAfter": {},
+                                      "metadata": {
+                                        "operationMetadataId": "574b2796-ce44-4675-8d3e-837c2a3c4681"
+                                      },
+                                      "type": "SetVariable",
+                                      "inputs": {
+                                        "name": "GlobalOutcome",
+                                        "value": 1
+                                      }
+                                    }
+                                  }
+                                },
+                                "expression": {
+                                  "equals": [
+                                    "@variables('IsAbandoned')",
+                                    true
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "627344d9-a8e2-49fa-b517-f2b0ab630157"
+                                },
+                                "type": "If"
+                              }
+                            }
+                          },
+                          "expression": {
+                            "equals": [
+                              "@variables('IsPartiallyResolved')",
+                              true
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "9939a05b-6012-4bb4-9b09-b5ca63337007"
+                          },
+                          "type": "If"
+                        }
+                      }
+                    },
+                    "expression": {
+                      "equals": [
+                        "@variables('IsEscalated')",
+                        true
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "9f2d508e-60ba-4856-a3f8-a2cb074154ae"
+                    },
+                    "type": "If"
+                  }
+                }
+              },
+              "expression": {
+                "equals": [
+                  "@variables('IsResolved')",
+                  true
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "0b94329f-c31a-4a3c-8df2-d01688ee573b"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_ConversationTranscriptsNameArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c2694217-8776-494e-9b40-158662ada42d"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable:_SessionsDetails": {
+          "runAfter": {
+            "Initialize_variable:_IsPartiallyResolved": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "9d7c375e-ff6e-412e-9578-c8be9d1ccbaf"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "SessionsDetails",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_TotalCsat": {
+          "runAfter": {
+            "Initialize_variable:_SessionsDetails": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e3a1174b-a9a5-42f5-9faf-4830e09298f3"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "TotalCsat",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_CsatCount": {
+          "runAfter": {
+            "Initialize_variable:_TotalCsat": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a7eccf26-1a39-43fb-8f1c-03dc236b4464"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "CsatCount",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_Average_Csat": {
+          "runAfter": {
+            "Initialize_variable:_CsatCount": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "46581d97-6557-4c4b-8c95-0437a8e6509a"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Average Csat",
+                "type": "float",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_SumTurnCount": {
+          "runAfter": {
+            "Scope:_Parse_Json_And_Filter_Array": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "acb656a8-3e57-4104-a608-490342b20764"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "SumTurnCount",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          }
+        },
+        "Scope:_Insert_KPIs": {
+          "actions": {
+            "Add_a_new_row:_Conversation_KPI": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "8a165561-8aa6-40c8-9a4d-1c388e62bdcb"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotkpis",
+                  "item/cat_name": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_ConversationInfo'))?['timestamp']}",
+                  "item/cat_ambiguousutterances": "@variables('AmbiguousUtterancesArray')",
+                  "item/cat_conversationdate": "@outputs('Get_a_row_by_ID:_Conversation_Transcripts')?['body/conversationstarttime']",
+                  "item/cat_conversationduration": "@sub(last(body('Parse_JSON')?['activities'])?['timestamp'], first(body('Parse_JSON')?['activities'])?['timestamp'])",
+                  "item/cat_conversationid": "@variables('ConversationTranscriptsNameArray')[0]",
+                  "item/cat_CopilotConfigurationId@odata.bind": "/cat_copilotconfigurations(d03a8672-4144-ef11-8409-0022481f3bb5)",
+                  "item/cat_copilotid": "@outputs('Get_a_row_by_ID:_Conversation_Transcripts')?['body/_bot_conversationtranscriptid_value']",
+                  "item/cat_csat": "@if(equals(variables('Average Csat'), 0), null, variables('Average Csat'))",
+                  "item/cat_generativeanswers": "@variables('GenerativeAnswersArray')",
+                  "item/cat_globaloutcomecode": "@variables('GlobalOutcome')",
+                  "item/cat_sessions": "@length(body('Filter_array:_SessionInfo'))",
+                  "item/cat_sessionsdetails": "@variables('SessionsDetails')",
+                  "item/cat_trackedvariables": "@variables('TrackedVariablesArray')",
+                  "item/cat_traversedcomponents": "@variables('TraversedComponentsArray')",
+                  "item/cat_turns": "@variables('SumTurnCount')",
+                  "item/cat_unrecognizedutterances": "@variables('UnrecognizedUtterencesArray')",
+                  "item/cat_userid": "@first(body('Filter_array:_User'))?['from']?['id']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Upload_a_file_or_an_image:_Conversation_Transcripts": {
+              "runAfter": {
+                "Add_a_new_row:_Conversation_KPI": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2022fd3a-0fd4-4fb9-9907-36720d66a1bc"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateEntityFileImageFieldContent",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotkpis",
+                  "recordId": "@outputs('Add_a_new_row:_Conversation_KPI')?['body/cat_copilotkpiid']",
+                  "fileImageFieldName": "cat_conversationtranscriptfile",
+                  "item": "@base64(outputs('Get_a_row_by_ID:_Conversation_Transcripts')?['body/content'])",
+                  "x-ms-file-name": "ConversationTranscript_@{outputs('Add_a_new_row:_Conversation_KPI')?['body/cat_conversationid']}.json"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Generative_Answers": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "85cea1cd-0252-4c5c-a8d0-7dc52dbcc6dd"
+          },
+          "type": "Scope"
+        },
+        "Scope:_Parse_Json_And_Filter_Array": {
+          "actions": {
+            "Parse_JSON": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "c4cbf9a2-d3a9-4967-a643-929acb91b1f6"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@outputs('Get_a_row_by_ID:_Conversation_Transcripts')?['body/content']",
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "activities": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "valueType": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "timestamp": {
+                            "type": "integer"
+                          },
+                          "from": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "role": {
+                                "type": "integer"
+                              }
+                            }
+                          },
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "isDesignMode": {
+                                "type": "boolean"
+                              },
+                              "locale": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "channelId": {
+                            "type": "string"
+                          },
+                          "attachments": {
+                            "type": "array"
+                          },
+                          "replyToId": {
+                            "type": "string"
+                          },
+                          "textFormat": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "speak": {
+                            "type": "string"
+                          },
+                          "channelData": {
+                            "type": "object",
+                            "properties": {
+                              "attachmentSizes": {
+                                "type": "array"
+                              },
+                              "enableDiagnostics": {
+                                "type": "boolean"
+                              },
+                              "testMode": {
+                                "type": "string"
+                              },
+                              "clientActivityID": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "type",
+                          "timestamp",
+                          "from"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "Filter_array:_User": {
+              "runAfter": {
+                "Filter_array:_ConversationInfo": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "78f5ca6a-2a7c-4ccb-a8bc-53eb8efb29cf"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Parse_JSON')?['activities']",
+                "where": "@and(equals(item()?['type'], 'message'), equals(item()?['from']?['role'], 1))"
+              }
+            },
+            "Filter_array:_SessionInfo": {
+              "runAfter": {
+                "Filter_array:_User": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9c61e876-b8f2-417e-bb1f-b317aa77af2f"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Parse_JSON')?['activities']",
+                "where": "@equals(item()?['valueType'], 'SessionInfo')"
+              }
+            },
+            "Select:_Add_Index_Property_To_Each_Element": {
+              "runAfter": {
+                "Parse_JSON": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "eb3c03a1-3206-4808-b0b5-b4cbbb48df33"
+              },
+              "type": "Select",
+              "inputs": {
+                "from": "@range(0, length(body('Parse_JSON')?['activities']))",
+                "select": "@addProperty(body('Parse_JSON')?['activities']?[item()], 'Index', item())"
+              }
+            },
+            "Filter_array:_ConversationInfo": {
+              "runAfter": {
+                "Select:_Add_Index_Property_To_Each_Element": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "c5f22f92-938f-4a21-b79b-9850d1f9f358"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select:_Add_Index_Property_To_Each_Element')",
+                "where": "@equals(item()?['valueType'], 'ConversationInfo')"
+              }
+            }
+          },
+          "runAfter": {
+            "Get_a_row_by_ID:_Conversation_Transcripts": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e2b6c48b-b1d6-4873-91c3-93d7c67008e6"
+          },
+          "type": "Scope"
+        },
+        "Get_a_row_by_ID:_Conversation_Transcripts": {
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cabedc18-7275-4b81-9e1e-e1b56926bd51"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItemWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "https://copilotstudioaccelerator-dev.crm.dynamics.com",
+              "entityName": "conversationtranscripts",
+              "recordId": "ddf7b521-2562-4406-9b82-050aa532efb2",
+              "$select": "name, content, conversationstarttime, _bot_conversationtranscriptid_value"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Initialize_variable:_IsResolved": {
+          "runAfter": {
+            "Initialize_variable:_IsAbandoned": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "62122892-b5bc-4218-a2e2-1464ec631d27"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IsResolved",
+                "type": "boolean",
+                "value": true
+              }
+            ]
+          }
+        },
+        "Scope:_Unrecognized_Utterances_And_Ambiguous_Utterances": {
+          "actions": {
+            "Filter_array:_Unrecognized_Utterances": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "9c61e876-b8f2-417e-bb1f-b317aa77af2f"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select:_Add_Index_Property_To_Each_Element')",
+                "where": "@or(equals(item()?['valueType'], 'UnknownIntent'), equals(item()?['valueType'], 'SessionInfo'))"
+              }
+            },
+            "Apply_to_each:_Unrecognized_Utterances": {
+              "foreach": "@body('Filter_array:_Unrecognized_Utterances')",
+              "actions": {
+                "Condition:_Is_UnknownIntent": {
+                  "actions": {
+                    "Filter_array:_Get_Next_SessionInfo_Elements_After_UnknownIntent": {
+                      "runAfter": {
+                        "Set_variable:_CurrrentElement_Of_UnknownIntent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "1c1f03e5-2355-4d10-afec-0e64d7a41a8c"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Unrecognized_Utterances')",
+                        "where": "@and(equals(item()?['valueType'], 'SessionInfo'), greater(item()?['Index'], variables('CurrentElement')?['Index']))"
+                      }
+                    },
+                    "Set_variable:_CurrrentElement_Of_UnknownIntent": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "4e327e71-7705-4a86-bbc1-8aefa29b98ce"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "CurrentElement",
+                        "value": "@item()"
+                      }
+                    },
+                    "Append_to_array_variable:_UnrecognizedIntentTopicArray": {
+                      "runAfter": {
+                        "Filter_array:_Get_Next_SessionInfo_Elements_After_UnknownIntent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8948944a-730c-4cee-9549-bb86d02e0cc7"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "UnrecognizedUtterencesArray",
+                        "value": {
+                          "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_Get_Next_SessionInfo_Elements_After_UnknownIntent'))?['timestamp']}",
+                          "Unrecognized Utterance": "@{variables('CurrentElement')?['value']?['userQuery']}"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@item()?['valueType']",
+                      "UnknownIntent"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "536c7404-bfab-4e41-91fd-1401291a8a61"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Filter_array:_Unrecognized_Utterances": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d71106e0-4928-450a-9159-7fa424694f01"
+              },
+              "type": "Foreach"
+            },
+            "Filter_array:_AmbiguousUtterances": {
+              "runAfter": {
+                "Apply_to_each:_Unrecognized_Utterances": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9c61e876-b8f2-417e-bb1f-b317aa77af2f"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select:_Add_Index_Property_To_Each_Element')",
+                "where": "@or(equals(item()?['valueType'], 'IntentCandidates'), equals(item()?['valueType'], 'SessionInfo'))"
+              }
+            },
+            "Apply_to_each:_AmbiguousUtterances": {
+              "foreach": "@body('Filter_array:_AmbiguousUtterances')",
+              "actions": {
+                "Condition:_Is_IntentCandidates": {
+                  "actions": {
+                    "Filter_array:_Get_Next_SessionInfo_Elements_After_IntentCandidates": {
+                      "runAfter": {
+                        "Set_variable:_CurrentElement_Of_IntentCandidates": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "e2484352-61ce-4564-a0d5-96da792390e1"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_AmbiguousUtterances')",
+                        "where": "@and(equals(item()?['valueType'], 'SessionInfo'), greater(item()?['Index'], variables('CurrentElement')?['Index']))"
+                      }
+                    },
+                    "Set_variable:_CurrentElement_Of_IntentCandidates": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "4ad5b38a-ebdb-45f1-99eb-6bba6dfa3811"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "CurrentElement",
+                        "value": "@item()"
+                      }
+                    },
+                    "Append_to_array_variable:_AmbiguousUtterancesArray": {
+                      "runAfter": {
+                        "Apply_to_each:_Intents": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "9693cb2b-f890-4c27-9f6c-c4bc842ee698"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "AmbiguousUtterancesArray",
+                        "value": {
+                          "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_Get_Next_SessionInfo_Elements_After_IntentCandidates'))?['timestamp']}",
+                          "Intent Candidates ID": "@{variables('CurrentElement')?['id']}",
+                          "Ambiguous Utterance": "@{variables('CurrentElement')?['value']?['triggerUtterance']}",
+                          "Intent Candidates": "@variables('IntentsArray')"
+                        }
+                      }
+                    },
+                    "Apply_to_each:_Intents": {
+                      "foreach": "@variables('CurrentElement')?['value']?['intents']",
+                      "actions": {
+                        "Append_to_array_variable:_IntentsArray": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "8483c1e0-c801-46d3-b3be-3c2fc630ec32"
+                          },
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "IntentsArray",
+                            "value": {
+                              "Intent Id": "@{items('Apply_to_each:_Intents')?['intentId']}",
+                              "Intent Score": "@items('Apply_to_each:_Intents')?['intentScore']?['score']",
+                              "Title": "@{items('Apply_to_each:_Intents')?['intentScore']?['properties']?['Title']}"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Set_variable:_IntentArray": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "bb6ec329-438f-4cb6-9f24-c9d9bb8a069c"
+                      },
+                      "type": "Foreach"
+                    },
+                    "Set_variable:_IntentArray": {
+                      "runAfter": {
+                        "Filter_array:_Get_Next_SessionInfo_Elements_After_IntentCandidates": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "903e57a2-2740-4c28-a6c6-e4b81b18ef46"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "IntentsArray",
+                        "value": []
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@item()?['valueType']",
+                      "IntentCandidates"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "536c7404-bfab-4e41-91fd-1401291a8a61"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Filter_array:_AmbiguousUtterances": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d71106e0-4928-450a-9159-7fa424694f01"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_AmbiguousUtterancesArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c04b8f42-f3a8-4aec-8791-e2c60992638b"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable:_IntentsArray": {
+          "runAfter": {
+            "Initialize_variable:_CurrentElement": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "dc75d6ac-181b-413e-b368-372b0f2ba0b1"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IntentsArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_UnrecognizedUtterencesArray": {
+          "runAfter": {
+            "Initialize_variable:_IntentsArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "8a86b900-7bc7-4d73-982c-223fb3e7005c"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "UnrecognizedUtterencesArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_AmbiguousUtterancesArray": {
+          "runAfter": {
+            "Initialize_variable:_UnrecognizedUtterencesArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c25c6599-11c0-4aeb-89d4-b34ac069e154"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "AmbiguousUtterancesArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Scope:_Tracked_Variables": {
+          "actions": {
+            "Apply_to_each:_TranscriptVariablesArray": {
+              "foreach": "@variables('TranscriptVariablesArray')",
+              "actions": {
+                "Condition:_Is_VariableAssignment": {
+                  "actions": {
+                    "Filter_array:_Get_Next_SessionInfo_Elements_After_VariableAssignment": {
+                      "runAfter": {
+                        "Set_variable:_CurrrentElement_Of_VariableAssignment": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "1c1f03e5-2355-4d10-afec-0e64d7a41a8c"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@variables('TranscriptVariablesArray')",
+                        "where": "@and(equals(item()?['valueType'], 'SessionInfo'), greater(item()?['Index'], variables('CurrentElement')?['Index']))"
+                      }
+                    },
+                    "Set_variable:_CurrrentElement_Of_VariableAssignment": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "4e327e71-7705-4a86-bbc1-8aefa29b98ce"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "CurrentElement",
+                        "value": "@items('Apply_to_each:_TranscriptVariablesArray')"
+                      }
+                    },
+                    "Append_to_array_variable:_TrackedVariablesArray": {
+                      "runAfter": {
+                        "Filter_array:_Get_Next_SessionInfo_Elements_After_VariableAssignment": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8948944a-730c-4cee-9549-bb86d02e0cc7"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "TrackedVariablesArray",
+                        "value": {
+                          "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_Get_Next_SessionInfo_Elements_After_VariableAssignment'))?['timestamp']}",
+                          "Name": "@{variables('CurrentElement')?['value']?['id']}",
+                          "Value": "@{variables('CurrentElement')?['value']?['newValue']}"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@items('Apply_to_each:_TranscriptVariablesArray')?['valueType']",
+                      "VariableAssignment"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "536c7404-bfab-4e41-91fd-1401291a8a61"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Apply_to_each:_TranscriptVariablesArray_with_VariableAssignment_and_SessionInfo": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d71106e0-4928-450a-9159-7fa424694f01"
+              },
+              "type": "Foreach"
+            },
+            "Filter_array:_TranscriptVariablesArray_For_VariableAssignment_and_SessionInfo": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "7f5d301f-505e-42ea-ad11-b5b2209d1ff8"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select:_Add_Index_Property_To_Each_Element')",
+                "where": "@or(equals(item()?['valueType'], 'VariableAssignment'), equals(item()?['valueType'], 'SessionInfo'))"
+              }
+            },
+            "Apply_to_each:_TranscriptVariablesArray_with_VariableAssignment_and_SessionInfo": {
+              "foreach": "@body('Filter_array:_TranscriptVariablesArray_For_VariableAssignment_and_SessionInfo')",
+              "actions": {
+                "Condition:_SessionInfo": {
+                  "actions": {
+                    "Append_to_array_variable:_TrackedVariablesArray_2": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "62eb92da-6bcf-4949-a47d-38c8ddf2ec5c"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "TranscriptVariablesArray",
+                        "value": "@items('Apply_to_each:_TranscriptVariablesArray_with_VariableAssignment_and_SessionInfo')"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Condition:_VariableAssignment": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "equals": [
+                      "@items('Apply_to_each:_TranscriptVariablesArray_with_VariableAssignment_and_SessionInfo')?['valueType']",
+                      "SessionInfo"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "9a3285a2-b721-4557-a164-66c9a9e269dc"
+                  },
+                  "type": "If"
+                },
+                "Condition:_VariableAssignment": {
+                  "actions": {
+                    "Apply_to_each:_InputVariablesArray": {
+                      "foreach": "@variables('InputVariablesArray')",
+                      "actions": {
+                        "Condition:_Check_for_Variables": {
+                          "actions": {
+                            "Append_to_array_variable:_TranscriptVariablesArray": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "3666228c-a629-482c-97c3-dc3cce76c222"
+                              },
+                              "type": "AppendToArrayVariable",
+                              "inputs": {
+                                "name": "TranscriptVariablesArray",
+                                "value": "@items('Apply_to_each:_TranscriptVariablesArray_with_VariableAssignment_and_SessionInfo')"
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "expression": {
+                            "equals": [
+                              "@items('Apply_to_each:_TranscriptVariablesArray_with_VariableAssignment_and_SessionInfo')?['value']?['id']",
+                              "@items('Apply_to_each:_InputVariablesArray')"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "3e789568-35e4-44db-a322-262670049fd3"
+                          },
+                          "type": "If"
+                        }
+                      },
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "8bacb9d3-04af-4e98-a45e-23c7614a559b"
+                      },
+                      "type": "Foreach"
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@items('Apply_to_each:_TranscriptVariablesArray_with_VariableAssignment_and_SessionInfo')?['valueType']",
+                      "VariableAssignment"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "59d49e72-9886-46f7-866c-8e0046b10c82"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Filter_array:_TranscriptVariablesArray_For_VariableAssignment_and_SessionInfo": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d71106e0-4928-450a-9159-7fa424694f01"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_TrackedVariablesArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a281bb4b-a123-4520-ba8c-f74f8dcc4cde"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable:_TranscriptVariablesArray": {
+          "runAfter": {
+            "Initialize_variable:_InputVariablesArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c25c6599-11c0-4aeb-89d4-b34ac069e154"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "TranscriptVariablesArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_TrackedVariablesArray": {
+          "runAfter": {
+            "Initialize_variable:_TranscriptVariablesArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "303f7957-7378-4310-8287-7fefac730069"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "TrackedVariablesArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Scope:_Generative_Answers": {
+          "actions": {
+            "Filter_array:_Generative_Answers": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "9c61e876-b8f2-417e-bb1f-b317aa77af2f"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select:_Add_Index_Property_To_Each_Element')",
+                "where": "@or(not(empty(item()?['channelData']?['pva:gpt-feedback'])), equals(item()?['valueType'], 'SessionInfo'))"
+              }
+            },
+            "Apply_to_each:_Generative_Answers": {
+              "foreach": "@body('Filter_array:_Generative_Answers')",
+              "actions": {
+                "Condition:_Is_Generative_Answer": {
+                  "actions": {
+                    "Filter_array:_Get_Next_SessionInfo_Elements_After_Generative_Answers": {
+                      "runAfter": {
+                        "Set_variable:_CurrrentElement_Of_Generative_Answers": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "1c1f03e5-2355-4d10-afec-0e64d7a41a8c"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Generative_Answers')",
+                        "where": "@and(equals(item()?['valueType'], 'SessionInfo'), greater(item()?['Index'], variables('CurrentElement')?['Index']))"
+                      }
+                    },
+                    "Set_variable:_CurrrentElement_Of_Generative_Answers": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "4e327e71-7705-4a86-bbc1-8aefa29b98ce"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "CurrentElement",
+                        "value": "@items('Apply_to_each:_Generative_Answers')"
+                      }
+                    },
+                    "Append_to_array_variable:_GenerativeAnswersArray": {
+                      "runAfter": {
+                        "Filter_array:_Get_Next_SessionInfo_Elements_After_Generative_Answers": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8948944a-730c-4cee-9549-bb86d02e0cc7"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "GenerativeAnswersArray",
+                        "value": {
+                          "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_Get_Next_SessionInfo_Elements_After_Generative_Answers'))?['timestamp']}",
+                          "User Query": "@{variables('CurrentElement')?['channelData']?['pva:gpt-feedback']?['message']}",
+                          "Generated Answer": "@{variables('CurrentElement')?['channelData']?['pva:gpt-feedback']?['summarizationOpenAIResponse']?['result']?['summary']}",
+                          "Status": "@{variables('CurrentElement')?['channelData']?['pva:gpt-feedback']?['gptAnswerState']}"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@empty(item()?['channelData']?['pva:gpt-feedback'])",
+                      false
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "536c7404-bfab-4e41-91fd-1401291a8a61"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Filter_array:_Generative_Answers": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d71106e0-4928-450a-9159-7fa424694f01"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_GenerativeAnswersArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c43a845a-ebef-4c46-a8fb-42816ffe5b87"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable:_GenerativeAnswersArray": {
+          "runAfter": {
+            "Scope:_Traversed_Components": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3fd089e2-0c0c-46e8-b175-8724be6473fd"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "GenerativeAnswersArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_IsPartiallyResolved": {
+          "runAfter": {
+            "Initialize_variable:_IsResolved": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5ef93059-3e35-4dfe-a481-789a22e77c71"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IsPartiallyResolved",
+                "type": "boolean",
+                "value": false
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_ConversationTranscriptsNameArray": {
+          "runAfter": {
+            "Initialize_variable:_Average_Csat": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5a287745-06a4-4588-92d3-1da942fd1d2c"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ConversationTranscriptsNameArray",
+                "type": "array",
+                "value": "@split(outputs('Get_a_row_by_ID:_Conversation_Transcripts')?['body/name'], '_')"
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_CurrentElement": {
+          "runAfter": {
+            "Scope:_Set_Conversation_Detailed_Outcome_and_Average_CSAT_and_TurnCount": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "18ac6596-0690-4cff-8c41-059b38cf78ab"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "CurrentElement",
+                "type": "object"
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_InputVariablesArray": {
+          "runAfter": {
+            "Scope:_Unrecognized_Utterances_And_Ambiguous_Utterances": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d748f4f6-e7ac-4e42-92af-648280e2852f"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "InputVariablesArray",
+                "type": "array",
+                "value": "@split(trim('Topic.npsScore,Topic.CustomerID'), ',')"
+              }
+            ]
+          }
+        },
+        "Scope:_Traversed_Components": {
+          "actions": {
+            "Filter_array:_Traversed_Components": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "b7f5945e-2c75-4644-a4de-7f233f4b4270"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Select:_Add_Index_Property_To_Each_Element')",
+                "where": "@or(equals(item()?['valueType'], 'IntentRecognition'), equals(item()?['valueType'], 'DialogRedirect'), equals(item()?['valueType'], 'UnknownIntent'), equals(item()?['valueType'], 'SessionInfo'))"
+              }
+            },
+            "List_rows:_Copilot_Components": {
+              "runAfter": {
+                "Filter_array:_Traversed_Components": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9f031d6b-9a56-4e3e-a86d-08d26c035f44"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "botcomponents",
+                  "$select": "name, schemaname",
+                  "$filter": "statecode eq 0"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Apply_to_each:_Bot_Component": {
+              "foreach": "@outputs('List_rows:_Copilot_Components')?['body/value']",
+              "actions": {
+                "Append_to_array_variable:_BotComponentsArray": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "e9d64d62-4cfe-4d35-9439-e3d8022ce3dc"
+                  },
+                  "type": "AppendToArrayVariable",
+                  "inputs": {
+                    "name": "BotComponentsArray",
+                    "value": {
+                      "id": "@{items('Apply_to_each:_Bot_Component')?['botcomponentid']}",
+                      "name": "@{items('Apply_to_each:_Bot_Component')?['name']}",
+                      "schemaname": "@{items('Apply_to_each:_Bot_Component')?['schemaname']}"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows:_Copilot_Components": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "ce016a8e-c1b5-4bd0-99a1-8086c941b492"
+              },
+              "type": "Foreach",
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 50
+                }
+              }
+            },
+            "Apply_to_each:_Traversed_Components": {
+              "foreach": "@body('Filter_array:_Traversed_Components')",
+              "actions": {
+                "Set_variable:_CurrentElement": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "a9da9151-9ec6-427a-b600-b37c2d262d6f"
+                  },
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "CurrentElement",
+                    "value": "@items('Apply_to_each:_Traversed_Components')"
+                  }
+                },
+                "Switch": {
+                  "runAfter": {
+                    "Filter_array:_Get_Next_SessionInfo_Elements_After_Traversed_Components": [
+                      "Succeeded"
+                    ]
+                  },
+                  "cases": {
+                    "Case": {
+                      "case": "IntentRecognition",
+                      "actions": {
+                        "Filter_array:_Bot_Components-IntentRecognition": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "dd8137a9-9403-444d-9ee8-37b3097de52e"
+                          },
+                          "type": "Query",
+                          "inputs": {
+                            "from": "@variables('BotComponentsArray')",
+                            "where": "@equals(item()?['id'], variables('CurrentElement')?['value']?['intentId'])"
+                          }
+                        },
+                        "Append_to_array_variable:_TraversedComponentsArray_1": {
+                          "runAfter": {
+                            "Filter_array:_Bot_Components-IntentRecognition": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "f2a47ed5-c73b-4f47-895e-93a0d56fb885"
+                          },
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "TraversedComponentsArray",
+                            "value": {
+                              "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_Get_Next_SessionInfo_Elements_After_Traversed_Components'))?['timestamp']}",
+                              "Type": "Topic",
+                              "Trigger": "Intent Recognition",
+                              "Schema Name": "@{first(body('Filter_array:_Bot_Components-IntentRecognition'))?['schemaname']}",
+                              "Id": "@{variables('CurrentElement')?['id']}",
+                              "Display Name": "@{variables('CurrentElement')?['value']?['intentScore']?['properties']?['Title']}"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Case_2": {
+                      "case": "DialogRedirect",
+                      "actions": {
+                        "Filter_array:_Bot_Compoents-DialogRedirect": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "71a8d9a6-580f-4d0c-a982-98a1d6c3d18b"
+                          },
+                          "type": "Query",
+                          "inputs": {
+                            "from": "@variables('BotComponentsArray')",
+                            "where": "@equals(item()?['id'], variables('CurrentElement')?['value']?['targetDialogId'])"
+                          }
+                        },
+                        "Append_to_array_variable:_TraversedComponentsArray_2": {
+                          "runAfter": {
+                            "Filter_array:_Bot_Compoents-DialogRedirect": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "fa27ca62-b109-4413-a3ac-6800bcc0a612"
+                          },
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "TraversedComponentsArray",
+                            "value": {
+                              "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_Get_Next_SessionInfo_Elements_After_Traversed_Components'))?['timestamp']}",
+                              "Type": "Topic",
+                              "Trigger": "Topic Redirect",
+                              "Schema Name": "@{first(body('Filter_array:_Bot_Compoents-DialogRedirect'))?['schemaname']}",
+                              "Id": "@{variables('CurrentElement')?['id']}",
+                              "Display Name": "@{first(body('Filter_array:_Bot_Compoents-DialogRedirect'))?['name']}"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Case_3": {
+                      "case": "UnknownIntent",
+                      "actions": {
+                        "Append_to_array_variable:_TraversedComponentsArray": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "e7cee207-149a-43ad-bf5b-be4917609326"
+                          },
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "TraversedComponentsArray",
+                            "value": {
+                              "Session ID": "@{variables('ConversationTranscriptsNameArray')[0]}-@{first(body('Filter_array:_Get_Next_SessionInfo_Elements_After_Traversed_Components'))?['timestamp']}",
+                              "Type": "Topic",
+                              "Trigger": "Unrecognized Intent",
+                              "Schema Name": null,
+                              "Id": null,
+                              "Display Name": "Unrecognized Intent"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "default": {
+                    "actions": {}
+                  },
+                  "expression": "@items('Apply_to_each:_Traversed_Components')?['valueType']",
+                  "metadata": {
+                    "operationMetadataId": "f37b4257-24ff-4251-9afa-c9582b0efdc6"
+                  },
+                  "type": "Switch"
+                },
+                "Filter_array:_Get_Next_SessionInfo_Elements_After_Traversed_Components": {
+                  "runAfter": {
+                    "Set_variable:_CurrentElement": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "52d67ea1-c089-4380-a5d8-62b01dba51d3"
+                  },
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Filter_array:_Traversed_Components')",
+                    "where": "@and(equals(item()?['valueType'], 'SessionInfo'), greater(item()?['Index'], variables('CurrentElement')?['Index']))"
+                  }
+                }
+              },
+              "runAfter": {
+                "Apply_to_each:_Bot_Component": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "d71106e0-4928-450a-9159-7fa424694f01"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_TraversedComponentsArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ce78e3d7-3fee-4f2a-8307-bd465a92c6b0"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable:_BotComponentsArray": {
+          "runAfter": {
+            "Scope:_Tracked_Variables": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "650a9a2b-db61-4851-a561-492ff0302ae7"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "BotComponentsArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_TraversedComponentsArray": {
+          "runAfter": {
+            "Initialize_variable:_BotComponentsArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "573f281f-b5ad-4819-94b3-6f9e42e5253b"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "TraversedComponentsArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "List_rows:_Copilot_Configurations": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "ff09189a-49bd-4214-bc2c-c82ed103f12b"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilotconfigurations",
+              "$select": "cat_dataverseurl, cat_copilotid, cat_iscopyfulltranscriptenabled",
+              "$filter": "statecode eq 0 and cat_configurationtypecode eq 2"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Apply_to_each:_Copilot_Configurations": {
+          "foreach": "@outputs('List_rows:_Copilot_Configurations')?['body/value']",
+          "actions": {
+            "List_rows_from_selected_environment:_Conversation_Transcripts": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "2f472bad-0167-47dc-9325-47acd62c44b0"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecordsWithOrganization",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "organization": "https://copilotstudioaccelerator-dev.crm.dynamics.com",
+                  "entityName": "conversationtranscripts",
+                  "$select": "name, content, conversationstarttime, _bot_conversationtranscriptid_value",
+                  "$filter": "_bot_conversationtranscriptid_value eq '@{items('Apply_to_each:_Copilot_Configurations')?['cat_copilotid']}' and createdon ge @{formatDateTime(addDays(utcNow(), -10), 'yyyy-MM-ddTHH:mm:ssZ')} and statecode eq 0"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Apply_to_each:_Conversation_Transcripts": {
+              "foreach": "@outputs('List_rows_from_selected_environment:_Conversation_Transcripts')?['body/value']",
+              "actions": {
+                "Append_to_array_variable:_ConversationTranscriptsArray": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "4b163c4a-a2b2-42ab-a4ce-43090a2768e3"
+                  },
+                  "type": "AppendToArrayVariable",
+                  "inputs": {
+                    "name": "ConversationTranscriptsArray",
+                    "value": {
+                      "name": "@{items('Apply_to_each:_Conversation_Transcripts')?['name']}",
+                      "content": "@{items('Apply_to_each:_Conversation_Transcripts')?['content']}",
+                      "conversationstarttime": "@{items('Apply_to_each:_Conversation_Transcripts')?['conversationstarttime']}",
+                      "_bot_conversationtranscriptid_value": "@{items('Apply_to_each:_Conversation_Transcripts')?['_bot_conversationtranscriptid_value']}",
+                      "cat_iscopyfulltranscriptenabled": "@{items('Apply_to_each:_Copilot_Configurations')?['cat_iscopyfulltranscriptenabled']}"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_from_selected_environment:_Conversation_Transcripts": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "557ba360-c176-45f2-8cf8-923feccf7b27"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_ConversationTranscriptsArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c1418596-f414-462f-b3aa-040a765f2a34"
+          },
+          "type": "Foreach"
+        },
+        "Initialize_variable:_ConversationTranscriptsArray": {
+          "runAfter": {
+            "List_rows:_Copilot_Configurations": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "efbaf931-aedd-406d-bd82-f418165d7dda"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ConversationTranscriptsArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Compose": {
+          "runAfter": {
+            "Apply_to_each:_Copilot_Configurations": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "f67a5f94-dd88-41fa-baf3-277a9bb6721e"
+          },
+          "type": "Compose",
+          "inputs": "@variables('ConversationTranscriptsArray')"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

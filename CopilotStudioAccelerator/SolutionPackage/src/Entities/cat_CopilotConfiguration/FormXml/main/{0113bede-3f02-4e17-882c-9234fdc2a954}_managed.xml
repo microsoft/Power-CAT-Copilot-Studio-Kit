@@ -26,12 +26,6 @@
                         </labels>
                         <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
                       </cell>
-                      <cell id="{721fe5fe-d1fc-460b-a42c-f96bf4dc7012}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_configurationtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_configurationtypecode" disabled="false" />
-                      </cell>
                       <cell id="{5df4c7c6-98ce-411f-9027-767afeb17747}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
@@ -42,45 +36,6 @@
                             <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
                           </parameters>
                         </control>
-                      </cell>
-                    </row>
-                  </rows>
-                </section>
-                <section name="tab_general_section_conversationkpissettings" id="7c647872-adb8-4597-af50-8a0f2e3eafce" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
-                  <labels>
-                    <label description="Conversation KPIs Settings" languagecode="1033" />
-                  </labels>
-                  <rows>
-                    <row>
-                      <cell id="{be1cc71e-91b6-4bed-94ad-abf4f0898e44}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_dataverseurl" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_dataverseurl" disabled="false" />
-                      </cell>
-                      <cell id="{ee6950e6-ee57-4e8f-86a6-bd2395db547b}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{adffd3e0-6da0-4599-abbc-113e47d26098}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell locklevel="0" id="{f10eae4b-bcfb-4029-bd29-06387d2d5a75}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell id="{b4ee1cc6-fe96-4ded-9e38-1221cc949cc1}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_iscopyfulltranscriptenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_iscopyfulltranscriptenabled" disabled="false" uniqueid="{95fbe6ef-90dd-4045-bfb1-8426cca3cdda}" />
                       </cell>
                     </row>
                   </rows>
@@ -97,34 +52,11 @@
                         </labels>
                         <control id="cat_regioncode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_regioncode" disabled="false" />
                       </cell>
-                      <cell locklevel="0" id="{5d161654-1667-4fa8-89fd-13c94f015a54}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell locklevel="0" id="{57e33f9c-d1cd-466b-b781-d1d5a4474cbc}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{76c8b136-f467-408e-a36e-646eeea3c0e3}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell id="{1c366e61-1e39-46f3-97c2-9c1fbdee7bc5}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{1c366e61-1e39-46f3-97c2-9c1fbdee7bc5}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Token Endpoint" languagecode="1033" />
                         </labels>
                         <control id="cat_tokenendpoint" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_tokenendpoint" disabled="false" />
-                      </cell>
-                      <cell id="{d956ddd2-62ba-4724-954b-0dd98cc2bbdf}" locklevel="0" colspan="1" rowspan="1" visible="false">
-                        <labels>
-                          <label description="Secret" languagecode="1033" />
-                        </labels>
-                        <control id="cat_directlinechannelsecuritysecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_directlinechannelsecuritysecret" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -139,6 +71,24 @@
                           <label description="Secret Location" languagecode="1033" />
                         </labels>
                         <control id="cat_directlinechannelsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_directlinechannelsecretlocationcode" disabled="false" />
+                      </cell>
+                      <cell id="{d956ddd2-62ba-4724-954b-0dd98cc2bbdf}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Secret" languagecode="1033" />
+                        </labels>
+                        <control id="cat_directlinechannelsecuritysecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_directlinechannelsecuritysecret" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{96dba36a-b614-4b65-9fce-a745b753fe44}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{f5f3592f-27ad-45c6-8aac-4da078fc7335}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                       <cell id="{d891b5ad-590b-417b-974e-078872eb98b9}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
@@ -649,28 +599,6 @@
           </customControl>
         </controlDescription>
         <controlDescription forControl="{29f3c5c5-c9dc-479a-9d2f-0134957fd5ca}">
-          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
-            <parameters>
-              <datafieldname>cat_iscopyfulltranscriptenabled</datafieldname>
-            </parameters>
-          </customControl>
-          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
-            <parameters>
-              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
-            </parameters>
-          </customControl>
-          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
-            <parameters>
-              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
-            </parameters>
-          </customControl>
-          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
-            <parameters>
-              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
-            </parameters>
-          </customControl>
-        </controlDescription>
-        <controlDescription forControl="{95fbe6ef-90dd-4045-bfb1-8426cca3cdda}">
           <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
             <parameters>
               <datafieldname>cat_iscopyfulltranscriptenabled</datafieldname>
