@@ -4,6 +4,9 @@ Copilot Studio Kit supports testing custom Copilots with user authentication ena
 
 For more information on how to enable user authentication for custom Copilot in **Microsoft Copilot Studio**, please see https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad
 
+> [!WARNING]  
+> There is a known issue with the Entra ID v2 user authentication that we are working on and expect to mitigate shortly.
+
 ## Modify the user authentication application
 
 To enable user authentication support on **Copilot Studio Kit**, Dataverse environment URL has to be added as single-page application redirect URI on the application registration used for the user authentication.
