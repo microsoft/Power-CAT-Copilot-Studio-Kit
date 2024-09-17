@@ -28,7 +28,6 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
 
 ## Connector requirements
 
-- HTTP
 - [Microsoft Dataverse](https://learn.microsoft.com/connectors/commondataserviceforapps/)
 - [Azure Application Insights](https://learn.microsoft.com/connectors/applicationinsights/) (optional)
 
