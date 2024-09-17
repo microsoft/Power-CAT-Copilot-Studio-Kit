@@ -1,8 +1,13 @@
 # Enable user authentication
 
-Copilot Studio Kit supports testing custom Copilots with user authentication enabled using Entra ID v2 (Azure Active Directory v2) as the service provider.
+Copilot Studio Kit supports testing custom Copilots with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider and SSO enabled.
 
-For more information on how to enable user authentication for custom Copilot in **Microsoft Copilot Studio**, please see https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad
+## Prerequisites
+Copilot Studio has been configured to support single sign-on with Microsoft Entra ID. For more information on how to configure SSO in **Microsoft Copilot Studio**, please see instructions [here](https://learn.microsoft.com/microsoft-copilot-studio/configure-sso).
+
+## Create canvas app registration for Copilot Studio Kit
+1. Follow (these)[https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad#create-an-app-registration] steps to create new app registration to use with Copilot Studio Kit
+1. 
 
 ## Modify the user authentication application
 
