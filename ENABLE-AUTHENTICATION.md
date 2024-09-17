@@ -1,40 +1,31 @@
 # Enable user authentication
 
-Copilot Studio Kit supports testing custom Copilots with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider and SSO enabled.
+**Copilot Studio Kit** supports testing custom Copilots with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider with SSO enabled.
 
 ## Prerequisites
-Copilot Studio has been configured to support single sign-on with Microsoft Entra ID. For more information on how to configure SSO in **Microsoft Copilot Studio**, please see instructions [here](https://learn.microsoft.com/microsoft-copilot-studio/configure-sso).
+**Microsoft Copilot Studio** has been configured to support single sign-on with Microsoft Entra ID. For more information on how to configure SSO in the **Microsoft Copilot Studio**, please see instructions [here](https://learn.microsoft.com/microsoft-copilot-studio/configure-sso).
+
+In this documentation, we refer to the existing app created for user authentication as **"copilot_auth_app"** 
 
 ## Create canvas app registration for Copilot Studio Kit
-1. Follow (these)[https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad#create-an-app-registration] steps to create new app registration to use with Copilot Studio Kit
-1. 
+In this documentation, we refer to the new app created specifically for Copilot Studio Kit as **"kit_canvas_app"** 
 
-## Modify the user authentication application
+### Create the app registration
+1. Follow [these](https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad#create-an-app-registration) steps to create new app registration to use with Copilot Studio Kit.
 
-To enable user authentication support on **Copilot Studio Kit**, Dataverse environment URL has to be added as single-page application redirect URI on the application registration used for the user authentication.
+### Add Redirect URI
+With these steps, you will add the Dataverse URL of the environment hosting Copilot Studio Kit as **redirect URI** to the **"kit_canvas_app"** to allow Copilot Studio Kit to use this app registration for authentication purposes.
+1. After creating the app registration, go to **Authentication**, and then select **Add a platform**.
+1. Under **Platform configurations**, select **Add a platform**, and then select **Web**.
+1. Under **Redirect URIs**, enter your **Dataverse environment URL** (https://<hostname>.crm.dynamics.com/)
+1. In the **Implicit grant and hybrid flows section**, turn on both Access tokens (used for implicit flows) and ID tokens (used for implicit and hybrid flows).
+1. Select **Configure** to confirm your changes.
+1. Go to **API Permissions**. Select **Grant admin consent** for <your tenant name> and then **Yes**.
+> [!NOTE]
+> For the last step (admin consent) you might have to reach out to your administrator if you do not have the required permissions.
 
-Please note that user authentication has to be enabled in **Microsoft Copilot Studio** and application registration created before proceeding with these steps.
-
-1. Log in to the [Azure Portal](https://portal.azure.com/).
-1. Navigate to the App registrations.
-1. Locate and select the application used for user authentication
-1. Note down the Application (client) ID and Directory (tenant) ID - these will be used later in Copilot Configuration as **Client ID** and **Tenant ID**.
-1. In the sidebar, navigate to Manage > Authentication.
-1. Add your Dataverse environment URL (https://<hostname>.crm.dynamics.com/) to the Single-page application redirect URI list. 
-
-<img alt="copilot-user-auth-portal-redirect-uri" src="https://github.com/user-attachments/assets/343c43eb-1b5f-4bd3-aae3-23d5dbaf81ae">
-
-## Enable user authentication on your Copilot configuration
-
-Before following these steps, make sure you have installed Copilot Studio Kit following the [installation instructions](./INSTALLATION_INSTRUCTIONS.md)
-
-1. Navigate to **Copilot Studio Kit**.
-1. Select **Copilots** to view the Copilot Configurations.
-1. Create new configuration by pressing **New** or open existing Copilot configuration
-1. From **User Authentication** drop-down list, select **Entra ID v2**
-1. Enter the **Client ID** and **Tenant ID** of your user authentication application registration (as noted earlier)
-1. Fill other required values as required
-1. Save
+### Define a custom scope for your Copilot
+1. Following [these](https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-sso?tabs=classic#define-a-custom-scope-for-your-copilot) steps, associate your **"copilot_auth_app"** with the **"kit_canvas_app"**. Make note of the full scope URI (api://1234-4567/scope.name) from the **Expose an API**-step. You will need to enter the **Client ID**, **Tenant ID** and the **Full scope URI** in the Copilot configuration to enable user authentication support in Copilot Studio Kit.
 
 > [!NOTE]  
 > If you are planning to test Copilots using SharePoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
