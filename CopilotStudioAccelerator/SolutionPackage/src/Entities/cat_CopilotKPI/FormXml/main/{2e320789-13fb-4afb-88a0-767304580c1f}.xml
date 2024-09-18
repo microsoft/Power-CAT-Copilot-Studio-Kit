@@ -28,9 +28,13 @@
                       </cell>
                       <cell id="{7230c4b4-b5ba-4efd-86ac-0f27220c193a}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Copilot" languagecode="1033" />
+                          <label description="Agent" languagecode="1033" />
                         </labels>
-                        <control id="cat_copilotconfigurationid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilotconfigurationid" disabled="false" />
+                        <control id="cat_copilotconfigurationid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilotconfigurationid" disabled="false">
+                          <parameters>
+                            <DefaultViewId>{2DA3CC71-1374-EF11-A671-000D3A8DF0F3}</DefaultViewId>
+                          </parameters>
+                        </control>
                       </cell>
                       <cell locklevel="0" id="{6a5823d5-b7f6-40b1-a5b4-1df03dda0273}">
                         <labels>
@@ -70,7 +74,7 @@
                       </cell>
                       <cell id="{75eaa17c-69f6-410d-b377-0be2493ec43a}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Copilot ID" languagecode="1033" />
+                          <label description="Agent ID" languagecode="1033" />
                         </labels>
                         <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="false" />
                       </cell>

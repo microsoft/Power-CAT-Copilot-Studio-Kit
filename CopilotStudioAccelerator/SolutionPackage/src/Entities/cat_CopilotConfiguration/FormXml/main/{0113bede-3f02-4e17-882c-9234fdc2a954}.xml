@@ -26,6 +26,12 @@
                         </labels>
                         <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
                       </cell>
+                      <cell id="{560a4217-7d62-4bac-a639-b119acfa1747}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Configuration Type" languagecode="1033" />
+                        </labels>
+                        <control id="cat_configurationtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_configurationtypecode" disabled="false" />
+                      </cell>
                       <cell id="{5df4c7c6-98ce-411f-9027-767afeb17747}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Owner" languagecode="1033" />
@@ -40,7 +46,67 @@
                     </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_directlinesettings" id="358faf45-0bac-46c6-9d74-f8021a17faf6" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
+                <section name="tab_general_section_kpisettings" id="c32bba23-c9a5-4d3a-95f8-f0a73499acf2" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
+                  <labels>
+                    <label description="Conversation KPI Settings" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{38d23e56-446d-4df9-bf0e-81017473a88d}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{a346a353-74db-4d9d-8351-2dd65d16632f}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{0922e272-aedc-4c53-990b-08f806dfa248}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{dec62ad1-c2c6-4756-b76b-a2fc56667086}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Dataverse URL" languagecode="1033" />
+                        </labels>
+                        <control id="cat_dataverseurl" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_dataverseurl" disabled="false" />
+                      </cell>
+                      <cell id="{fa987676-e155-4022-8a77-9b55b2b336fd}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent ID (botid)" languagecode="1033" />
+                        </labels>
+                        <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="false" />
+                      </cell>
+                      <cell id="{a9365e19-745a-42b9-8a70-b42181cd1808}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Copy Full Transcript" languagecode="1033" />
+                        </labels>
+                        <control id="cat_iscopyfulltranscriptenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_iscopyfulltranscriptenabled" disabled="false" uniqueid="{a2f358a6-26ee-48e5-b2ea-ac8690a01434}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0cbb8425-65e6-42b5-9308-9c85c5a0d61d}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Tracked Variables" languagecode="1033" />
+                        </labels>
+                        <control id="cat_trackedvariables" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_trackedvariables" disabled="false" />
+                      </cell>
+                      <cell id="{01fb393e-b26e-4210-a9c7-1fc9f22c48ec}" locklevel="0" colspan="2" rowspan="3">
+                        <labels>
+                          <label description="Agent Components" languagecode="1033" />
+                        </labels>
+                        <control id="cat_copilotcomponents" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_copilotcomponents" disabled="true" uniqueid="{ee6cb502-3ad6-41c1-ac25-8abb6a08e6b1}" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="tab_general_section_directlinesettings" id="358faf45-0bac-46c6-9d74-f8021a17faf6" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
                   <labels>
                     <label description="Direct Line Settings" languagecode="1033" />
                   </labels>
@@ -58,6 +124,11 @@
                         </labels>
                         <control id="cat_tokenendpoint" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_tokenendpoint" disabled="false" />
                       </cell>
+                      <cell id="{01adcd97-de6b-4b18-a419-10cf2dc97788}" userspacer="true" showlabel="false" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
                     </row>
                     <row>
                       <cell id="{eba5a47f-0f4c-42a1-9d0b-371a1b8d6067}" locklevel="0" colspan="1" rowspan="1">
@@ -66,11 +137,10 @@
                         </labels>
                         <control id="cat_isdirectlinechannelsecurityenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isdirectlinechannelsecurityenabled" disabled="false" uniqueid="{a8c1548d-4086-4bfa-b1bb-8c6ec4b3683d}" />
                       </cell>
-                      <cell id="{31e0b14c-e576-41d6-8e10-e7c690ddaa06}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                      <cell id="{7822680b-e3ea-433b-8199-9dbbb8638a3d}" userspacer="true" showlabel="false" colspan="1" rowspan="1">
                         <labels>
-                          <label description="Secret Location" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_directlinechannelsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_directlinechannelsecretlocationcode" disabled="false" />
                       </cell>
                       <cell id="{d956ddd2-62ba-4724-954b-0dd98cc2bbdf}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
@@ -85,10 +155,11 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell locklevel="0" id="{f5f3592f-27ad-45c6-8aac-4da078fc7335}">
+                      <cell id="{31e0b14c-e576-41d6-8e10-e7c690ddaa06}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Secret Location" languagecode="1033" />
                         </labels>
+                        <control id="cat_directlinechannelsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_directlinechannelsecretlocationcode" disabled="false" />
                       </cell>
                       <cell id="{d891b5ad-590b-417b-974e-078872eb98b9}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
@@ -99,7 +170,7 @@
                     </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_userauthentication" id="bc8fdbd0-1c5b-496a-bc64-c3704c680972" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="true">
+                <section name="tab_general_section_userauthentication" id="bc8fdbd0-1c5b-496a-bc64-c3704c680972" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
                   <labels>
                     <label description="User Authentication" languagecode="1033" />
                   </labels>
@@ -124,9 +195,17 @@
                         <control id="cat_tenantid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_tenantid" disabled="false" />
                       </cell>
                     </row>
+                    <row>
+                      <cell id="{d970da10-1545-4450-b0ab-6f0e2732c6c9}" locklevel="0" colspan="3" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Scope" languagecode="1033" />
+                        </labels>
+                        <control id="cat_scope" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_scope" disabled="false" />
+                      </cell>
+                    </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_resultsenrichment" id="1d9e0e26-8fe8-4981-8b48-e2d639d4af3f" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
+                <section name="tab_general_section_resultsenrichment" id="1d9e0e26-8fe8-4981-8b48-e2d639d4af3f" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
                   <labels>
                     <label description="Results Enrichment" languagecode="1033" />
                   </labels>
@@ -220,7 +299,7 @@
                     </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_conversationtranscriptsenrichment" id="6e809e6d-3dc6-4e1b-91ab-0053ed73cb94" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
+                <section name="tab_general_section_conversationtranscriptsenrichment" id="6e809e6d-3dc6-4e1b-91ab-0053ed73cb94" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
                   <labels>
                     <label description="Conversation Transcripts Enrichment" languagecode="1033" />
                   </labels>
@@ -259,7 +338,7 @@
                     </row>
                   </rows>
                 </section>
-                <section name="tab_general_section_generativeaitesting" id="d240501f-3bb0-4f4d-bb4b-0b8f2bb687bc" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="true">
+                <section name="tab_general_section_generativeaitesting" id="d240501f-3bb0-4f4d-bb4b-0b8f2bb687bc" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
                   <labels>
                     <label description="Generative AI Testing" languagecode="1033" />
                   </labels>
@@ -344,6 +423,50 @@
                     <row />
                     <row />
                     <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_advanced" id="32e732f4-309b-466d-8844-f587f21ad380" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Advanced" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_advanced_section_advancedsettings" id="1b78fffe-2c50-45e2-bda5-40d289ee39ee" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
+                  <labels>
+                    <label description="Advanced Settings" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{9abcab06-df86-4712-8636-5a929f109b52}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{16aeaad1-383c-40eb-b478-8dc50ffa7fb0}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{39f61276-932f-46ea-b73c-7ee3f79ff31b}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Concurrent Threads" languagecode="1033" />
+                        </labels>
+                        <control id="cat_concurrentthreads" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_concurrentthreads" disabled="false" />
+                      </cell>
+                      <cell id="{27f55dfe-8aed-4fb0-98bd-747a7c97cbec}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Delay Between Batches" languagecode="1033" />
+                        </labels>
+                        <control id="cat_delaybetweenbatches" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_delaybetweenbatches" disabled="false" />
+                      </cell>
+                    </row>
                   </rows>
                 </section>
               </sections>
@@ -620,12 +743,85 @@
             </parameters>
           </customControl>
         </controlDescription>
+        <controlDescription forControl="{ee6cb502-3ad6-41c1-ac25-8abb6a08e6b1}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_copilotcomponents</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_copilotcomponents</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_copilotcomponents</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_copilotcomponents</Value>
+              <Height type="Whole.None" static="true">25</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{a2f358a6-26ee-48e5-b2ea-ac8690a01434}">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>cat_iscopyfulltranscriptenabled</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
       </controlDescriptions>
+      <formLibraries>
+        <Library name="cat_/powercat/js/copilotconfiguration_main.js" libraryUniqueId="{91ae357e-6c62-4500-b831-6839588dbee1}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="hideAndShowConversationKPISettings" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{c228678b-35aa-42c8-a2c3-20d35129471e}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="hideAndShowFields" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{cb83d8d9-8afb-42c4-9dfe-7dacd3f8bb01}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="cat_configurationtypecode">
+          <Handlers>
+            <Handler functionName="hideAndShowConversationKPISettings" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{6d0cb571-2078-46e0-b8ff-f4c4e7623e22}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="hideAndShowFields" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{a03ef8c3-d523-40c9-8eee-eb03075e2b56}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="cat_isenrichedwithconversationtranscripts">
+          <Handlers>
+            <Handler functionName="hideAndShowConversationKPISettings" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{238d992d-f0f5-4a46-b5c2-ce0dbf0e94b0}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="hideAndShowFields" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{649442dc-9202-4bd7-aeb4-f574faba1537}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>
     <LocalizedNames>
-      <LocalizedName description="Copilot Configuration" languagecode="1033" />
+      <LocalizedName description="Agent Configuration" languagecode="1033" />
     </LocalizedNames>
   </systemform>
 </forms>
