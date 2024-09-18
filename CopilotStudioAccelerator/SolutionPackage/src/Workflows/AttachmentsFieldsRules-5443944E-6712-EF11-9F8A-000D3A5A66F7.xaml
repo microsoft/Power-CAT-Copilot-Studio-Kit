@@ -101,9 +101,9 @@
                                   <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
-                                <Sequence DisplayName="SetAttributeValueStep_SetMessageStep5_Action_3: Set Test Utterance">
+                                <Sequence DisplayName="SetAttributeValueStep3: Set Test Utterance">
                                   <Sequence.Variables>
-                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep_SetMessageStep5_Action_3_1" />
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep3_1" />
                                   </Sequence.Variables>
                                   <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                                   <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
@@ -114,43 +114,43 @@
                                       <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
-                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep_SetMessageStep5_Action_3_1]</OutArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep3_1]</OutArgument>
                                     </mxswa:ActivityReference.Arguments>
                                   </mxswa:ActivityReference>
-                                  <mxswa:SetEntityProperty Attribute="cat_testutterance" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep_SetMessageStep5_Action_3_1]">
+                                  <mxswa:SetEntityProperty Attribute="cat_testutterance" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep3_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
                                     </mxswa:SetEntityProperty.TargetType>
                                   </mxswa:SetEntityProperty>
-                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep_SetMessageStep5_Action_3" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep3" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
-                                <Sequence DisplayName="SetAttributeValueStep_SetMessageStep5_Action_2: Clear Expected Response">
+                                <Sequence DisplayName="SetAttributeValueStep2: Clear Expected Response">
                                   <Sequence.Variables>
-                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep_SetMessageStep5_Action_2_1" />
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep2_1" />
                                   </Sequence.Variables>
                                   <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                                   <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
-                                  <mxswa:SetEntityProperty Attribute="cat_expectedresponse" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep_SetMessageStep5_Action_2_1]">
+                                  <mxswa:SetEntityProperty Attribute="cat_expectedresponse" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep2_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
                                     </mxswa:SetEntityProperty.TargetType>
                                   </mxswa:SetEntityProperty>
-                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep_SetMessageStep5_Action_2" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep2" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Describe the array of attachments the copilot is expected to return that will contain the JSON records for the Adaptive Cards or Basic Cards. Select Apply to see an example (existing values will be overwritten)." LabelId="07a78f20-5db0-43d7-b8ce-bed5b1be0c9c" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Describe the array of attachments the copilot is expected to return that will contain the JSON records for the Adaptive Cards or Basic Cards. Select Apply to see an example (existing values will be overwritten)." LabelId="ccdc0fac-12dc-45f5-aeba-d7db330fa176" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">2f46c6fc-e8f0-4d90-8eaa-9ea186d483fa</s:Guid>
-                              <x:String x:Key="UniqueName">id_4b2c302d591b489ebc491b2036ea5e2eActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">a2e83dbf-ff8b-4772-becf-ab2bd3a244e9</s:Guid>
+                              <x:String x:Key="UniqueName">id_b515794ea26d45d4b37f4400aa1a802fActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>

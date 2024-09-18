@@ -11,17 +11,30 @@
       <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
         <row name="result" id="cat_copilotconfigurationid">
           <cell name="cat_name" width="285" />
+          <cell name="cat_configurationtypecode" width="150" />
           <cell name="cat_regioncode" width="114" />
           <cell name="cat_tokenendpoint" width="130" />
           <cell name="cat_isdirectlinechannelsecurityenabled" width="205" />
           <cell name="cat_directlinechannelsecretlocationcode" width="247" />
           <cell name="cat_directlinechannelsecuritysecret" width="243" />
           <cell name="cat_directlinechannelsecurityenvironmentvariable" width="332" />
-          <cell name="cat_isazureapplicationinsightsenabled" width="264" />
           <cell name="cat_isenrichedwithconversationtranscripts" width="253" />
           <cell name="cat_dataverseurl" width="128" />
           <cell name="cat_iscopyfulltranscriptenabled" width="157" />
           <cell name="cat_isgeneratedanswersanalysisenabled" width="201" />
+          <cell name="cat_generativeaiprovidercode" width="172" />
+          <cell name="cat_isazureapplicationinsightsenabled" width="264" />
+          <cell name="cat_azureappinsightsapplicationid" width="200" />
+          <cell name="cat_azureappinsightsclientid" width="168" />
+          <cell name="cat_azureappinsightsenvironmentvariable" width="239" />
+          <cell name="cat_azureappinsightssecret" width="151" />
+          <cell name="cat_azureappinsightssecretlocationcode" width="204" />
+          <cell name="cat_azureappinsightstenantid" width="172" />
+          <cell name="cat_userauthenticationcode" width="154" />
+          <cell name="cat_clientid" width="100" />
+          <cell name="cat_tenantid" width="100" />
+          <cell name="cat_copilotid" width="135" />
+          <cell name="cat_trackedvariables" width="141" />
         </row>
       </grid>
     </layoutxml>
@@ -46,6 +59,19 @@
           <attribute name="cat_tokenendpoint" />
           <attribute name="cat_isgeneratedanswersanalysisenabled" />
           <attribute name="cat_iscopyfulltranscriptenabled" />
+          <attribute name="cat_configurationtypecode" />
+          <attribute name="cat_copilotid" />
+          <attribute name="cat_azureappinsightsapplicationid" />
+          <attribute name="cat_azureappinsightsclientid" />
+          <attribute name="cat_azureappinsightsenvironmentvariable" />
+          <attribute name="cat_azureappinsightssecret" />
+          <attribute name="cat_azureappinsightssecretlocationcode" />
+          <attribute name="cat_azureappinsightstenantid" />
+          <attribute name="cat_clientid" />
+          <attribute name="cat_tenantid" />
+          <attribute name="cat_trackedvariables" />
+          <attribute name="cat_userauthenticationcode" />
+          <attribute name="cat_generativeaiprovidercode" />
         </entity>
       </fetch>
     </fetchxml>
