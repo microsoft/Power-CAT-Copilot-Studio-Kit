@@ -21,7 +21,7 @@ Follow [these](https://learn.microsoft.com/en-us/microsoft-copilot-studio/config
 ### 2. Add Redirect URI
 With these steps, you will add the Dataverse URL of the environment hosting Copilot Studio Kit as **redirect URI** to the **"kit_canvas_app"** to allow Copilot Studio Kit to use this app registration for authentication purposes.
 1. After creating the app registration, go to **Authentication**, and then select **Add a platform**.
-1. Under **Platform configurations**, select **Add a platform**, and then select **Web**.
+1. Under **Platform configurations**, select **Add a platform**, and then select **Single-page application**.
 1. Under **Redirect URIs**, enter your **Dataverse environment URL** (https://\<hostname>\.crm.dynamics.com/)
 1. In the **Implicit grant and hybrid flows section**, turn on both Access tokens (used for implicit flows) and ID tokens (used for implicit and hybrid flows).
 1. Select **Configure** to confirm your changes.
