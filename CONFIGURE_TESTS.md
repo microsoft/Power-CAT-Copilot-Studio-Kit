@@ -31,7 +31,6 @@ From the Tests subgrid, select **New Copilot Test**
 | **Name** | Yes | Name of the test. This can be an internal reference ID, e.g., TST-001. |
 | **Copilot Test Set** | Yes | Parent test set for the test |
 | **Test Type** | Yes | One of the above test types |
-| **Seconds Before Getting Answer** | Yes | Number of seconds before the tool checks for an answer. <br> Note: while the built-in Natural Language Understanding model usually takes less that 0.5s to send an answer back, the latency may vary based on a number of factor. Calling APIs, connectors or cloud flows as part of the first response may delay the message. Using generative AI features may also add extra latency. If unsure, put 10 seconds and adjust based on your results. |
 | **Send startConversation Event** |   | If enabled, the startConversation start will be sent to the copilot so that it [proactively starts the conversation](https://learn.microsoft.com/microsoft-copilot-studio/configure-bot-greeting?tabs=web), and the test utterance is only sent after. |
 | **Expected Position of the Response Message** |   | Don't set a value if unsure. <br> This option allows the to capture a specific copilot response if it sends multiple messages. For example, if the copilot first says "Hello" and then "How can I help you?", and if you want to test the second message, set 2. |
 | **Test Utterance** | Yes | The message that you want to send to the copilot as part of the test |
