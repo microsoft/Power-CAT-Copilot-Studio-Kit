@@ -33,4 +33,4 @@ Following [these](https://learn.microsoft.com/en-us/microsoft-copilot-studio/con
 You will need to enter the **Client ID**, **Tenant ID** and the **Full scope URI** in the Copilot configuration to enable user authentication support in the Copilot Studio Kit.
 
 > [!NOTE]  
-> If you are planning to test Copilots using SharePoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
+> If you are planning to test Copilots using SharePoint as knowledge source, you need to add **Files.Read.All** and **Sites.Read.All** delegated API permissions to your application (**"copilot_auth_app"**). Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
