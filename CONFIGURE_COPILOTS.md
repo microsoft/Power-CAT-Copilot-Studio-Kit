@@ -3,7 +3,8 @@
 The custom Copilots you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
 To do this, you need to create a **Copilot Configuration** record that will contain the required information to connect to these copilots and run tests against them.
 
-![copilot-configuration-new](https://github.com/user-attachments/assets/93e0602e-302d-4371-9a0f-f30d395da719)
+![copilot-configuration](https://github.com/user-attachments/assets/1b9e6138-cdcb-402a-a474-1c02ae33696d)
+
 
 ## Configure a new Copilot 
 
@@ -21,9 +22,10 @@ To do this, you need to create a **Copilot Configuration** record that will cont
 | **Secret Location** | Depends | When _Channel Security_ is checked, choose where you prefer to store the Direct Line channel secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
 | **Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the Direct Line channel secret. |
 | **Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the Azure Key Vault secret. <br> See [Configure secrets in Azure Key Vault](./CONFIGURE_COPILOTS.md#configure-secrets-in-azure-key-vault)|
-| **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this Copilot. |
+| **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this Copilot. See [Enable authentication](./ENABLE-AUTHENTICATION.md) for instructions how to enable user authentication support.  |
 | **Client ID** | Depends | Enter the application (client) ID of the application created to enable the  end user authentication for custom Copilot (https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad) |
 | **Tenant ID** | Depends | Enter the tenant ID of the application created to enable end user authentication for custom Copilot |
+| **Scope** | Depends | Enter the custom scope that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md#3-define-a-custom-scope-for-your-copilot). Use the full scope URI format: "api://1234-4567/scope.name"|
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
 | **App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
 | **App Insights Application ID** | Depends | Enter the **AppId** of your Application Insights resource |
@@ -41,12 +43,12 @@ To do this, you need to create a **Copilot Configuration** record that will cont
 
 ## Note about end user authentication
 
-Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Active Directory v2) service provider for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
+Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Active Directory v2) service provider (with SSO) for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
 
 ## Note about results enrichment with Dataverse Conversation Transcripts
 
-- For the Copilot Studio Kit to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
-- Only environments within the same tenant can be targeted.
+* For the Copilot Studio Kit to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
+* Only environments within the same tenant can be targeted.
 
 ## Note about results enrichment with Application Insights
 
