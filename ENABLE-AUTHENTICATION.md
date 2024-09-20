@@ -9,13 +9,13 @@ Some of the required actions have already been described in detail in the **Micr
 
 On this page, we refer to the existing app created for user authentication as the **"copilot_auth_app"** 
 
-## Create canvas app registration for Copilot Studio Kit
-On this page, we refer to the new app created specifically for Copilot Studio Kit as the **"kit_canvas_app"** 
-
 > [!NOTE]  
 > If you have already created app registration for App Insights enrichment, you **may** reuse that application as **"kit_canvas_app"** instead of creating another application. If you wish to do that, you can skip the **Create the app registration** step below and proceed with **Add Redirect URI**. 
 
-### 1. Create the app registration
+## Create canvas app registration for Copilot Studio Kit
+On this page, we refer to the new app created specifically for Copilot Studio Kit as the **"kit_canvas_app"** 
+
+### 1. Create the app registration ("kit_canvas_app")
 Follow [these](https://learn.microsoft.com/en-us/microsoft-copilot-studio/configuration-authentication-azure-ad#create-an-app-registration) steps to create new app registration to use with **Copilot Studio Kit**. Make note of the **Client ID** and **Tenant ID** of the app registration.
 
 ### 2. Add Redirect URI
@@ -33,4 +33,4 @@ Following [these](https://learn.microsoft.com/en-us/microsoft-copilot-studio/con
 You will need to enter the **Client ID**, **Tenant ID** and the **Full scope URI** in the Copilot configuration to enable user authentication support in the Copilot Studio Kit.
 
 > [!NOTE]  
-> If you are planning to test Copilots using SharePoint as their knowledge source, you need to add Files.Read.All and Sites.Read.All delegated API permissions to your application. Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
+> If you are planning to test Copilots using SharePoint as knowledge source, you need to add **Files.Read.All** and **Sites.Read.All** delegated API permissions to your application (**"copilot_auth_app"**). Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
