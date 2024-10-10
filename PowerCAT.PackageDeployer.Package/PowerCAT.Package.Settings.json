@@ -1,0 +1,126 @@
+{
+  "Project": [
+    {
+      "name": "powercat-business-approvals-kit",
+      "description": "powercat-business-approvals-kit",
+      "solutions": [
+        {
+          "name": "BusinessApprovalKit",
+          "importorder": "1",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        }
+      ],
+      "PreDeploymentSettings": [
+        {
+          "settingname": "iscustomcontrolsincanvasappsenabled",
+          "value": "true"
+        }
+      ],
+      "PostDeploymentSettings": [
+      ],
+      "Packages": [
+        "msdyn_FlowApprovals"
+      ],
+      "FlowConfiguration": [
+      ]
+    },
+    {
+      "name": "powercat-automation-kit",
+      "description": "powercat-automation-kit",
+      "solutions": [
+        {
+          "name": "AutomationCoEMain",
+          "importorder": "1",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        },
+        {
+          "name": "AutomationCoESatellite",
+          "importorder": "2",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        },
+        {
+          "name": "AutomationKitControlCenter",
+          "importorder": "3",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        }
+      ],
+      "PreDeploymentSettings": [
+        {
+          "settingname": "iscustomcontrolsincanvasappsenabled",
+          "value": "true"
+        }
+      ],
+      "PostDeploymentSettings": [
+        {
+          "settingname": "isautodatacaptureenabled",
+          "value": "true"
+        }
+      ],
+      "Packages": [
+        "msdyn_FlowApprovals"
+      ]
+    },
+    {
+      "name": "powercat-creator-kit",
+      "description": "powercat-creator-kit",
+      "solutions": [
+        {
+          "name": "CreatorKitAI",
+          "importorder": "2",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        },
+        {
+          "name": "CreatorKitCore",
+          "importorder": "1",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        },
+        {
+          "name": "CreatorKitReferencesCanvas",
+          "importorder": "3",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        },
+        {
+          "name": "CreatorKitReferencesMDA",
+          "importorder": "4",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        }
+      ],
+      "PreDeploymentSettings": [
+        {
+          "settingname": "iscustomcontrolsincanvasappsenabled",
+          "value": "true"
+        }
+      ],
+      "PostDeploymentSettings": [
+      ],
+      "Packages": [
+      ],
+      "FlowConfiguration": [
+      ]
+    }
+  ]
+}

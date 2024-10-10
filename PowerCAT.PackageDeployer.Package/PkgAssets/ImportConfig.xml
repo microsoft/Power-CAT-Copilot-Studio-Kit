@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  More information about ImportConfig.xml file
+  https://docs.microsoft.com/en-us/power-platform/alm/package-deployer-tool
+
+  Common attributes on the root element:
+  - installsampledata (bool)
+  - waitforsampledatatoinstall (bool)
+  - agentdesktopzipfile (string)
+  - agentdesktopexename (string)
+  - crmmigdataimportfile (string)
+-->
+<configdatastorage installsampledata="false" waitforsampledatatoinstall="true">
+  <solutions>
+    <!--
+      Solutions to import
+
+      This section will be populated by default at build time and is populated with the solutions specified in the project via:
+      - ProjectReference, where the project is a Dataverse Solution project (e.g. *.cdsproj)
+      - PpSolution, explicitly added loose zip file of a solution.
+    
+      The order of these elements is significant as it indicates the order in which solutions will be installed into the environment.
+
+      <configsolutionfile solutionpackagefilename="solutionFile.zip" />
+    -->
+  </solutions>
+  <filestoimport>
+    <!--
+      Contains an array of <configimportfile> and <zipimportdetails> nodes that are used to describe individual files and zip files respectively to be imported.
+      
+      <configimportfile filename="File.csv" filetype="CSV" associatedmap="" importtoentity="FileEntity" datadelimiter="" fielddelimiter="comma" enableduplicatedetection="true" isfirstrowheader="true"  isrecordownerateam="false" owneruser="" waitforimporttocomplete="true"/>
+      <configimportfile filename="File.zip" filetype="ZIP" associatedmap="ZipFileMap" importtoentity="FileEntity" datadelimiter="" fielddelimiter="comma" enableduplicatedetection="true" isfirstrowheader="true"  isrecordownerateam="false" owneruser="" waitforimporttocomplete="true"/>
+      <zipimportdetails>
+        <zipimportdetail filename="subfile1.csv" filetype="csv" importtoentity="account" />
+        <zipimportdetail filename="subfile2.txt" filetype="csv" importtoentity="contact" />
+      </zipimportdetails>
+    -->
+  </filestoimport>
+  <filesmapstoimport>
+    <!--
+      <configimportmapfile filename="FileMap.xml" />
+      <configimportmapfile filename="ZipFileMap.xml" />
+    -->
+  </filesmapstoimport>
+</configdatastorage>
