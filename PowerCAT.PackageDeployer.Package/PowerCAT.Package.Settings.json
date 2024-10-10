@@ -121,6 +121,30 @@
       ],
       "FlowConfiguration": [
       ]
-    }
+    },
+	{
+      "name": "Power-CAT-Copilot-Studio-Kit",
+      "description": "Power-CAT-Copilot-Studio-Kit",
+      "solutions": [
+        {
+          "name": "CopilotStudioAccelerator",
+          "importorder": "1",
+          "publishworkflows-activate-plugins": "true",
+          "overwrite-unmanaged-customizations": "true",
+          "missing-dependency-behavior": "skip",
+          "import-mode": "async"
+        }
+      ],
+      "PreDeploymentSettings": [
+        {
+          "settingname": "iscustomcontrolsincanvasappsenabled",
+          "value": "true"
+        }
+      ],
+      "PostDeploymentSettings": [
+      ],
+      "Packages": [
+      ]
+    },
   ]
 }
