@@ -31,3 +31,11 @@ And finally, you need to grant this application access to your Application Insig
 1. Search and select your application from the list. Finish by clicking **Select**
 1. Proceed to **Review + assign** by clicking **Next**
 1. Review the permissions and finish by clicking **Review + assign** button from the bottom of the screen.
+
+## Steps to find out AppId
+Please make note of the **AppId** of your Application Insights resource, as it will used later as **App Insights Application ID** in the Copilot configuration. To get this value, navigate to your Application Insights resource, from **Overview**-page, click **JSON-view** and make note of value in **properties.AppId** (please see screenshots below). You can also find the same **Application Id** from the **Configure->API Access** view.
+
+![appinsights1](https://github.com/user-attachments/assets/a2e932d7-5415-4e17-88ce-16955968e803)
+
+![appinsights2](https://github.com/user-attachments/assets/f84dc656-d990-47cf-8618-53fa375383d9)
+

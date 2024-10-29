@@ -28,7 +28,7 @@ To do this, you need to create a **Copilot Configuration** record that will cont
 | **Scope** | Depends | Enter the custom scope that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md#3-define-a-custom-scope-for-your-copilot). Use the full scope URI format: "api://1234-4567/scope.name"|
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
 | **App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
-| **App Insights Application ID** | Depends | Enter the **AppId** of your Application Insights resource |
+| **App Insights Application ID** | Depends | Enter the **AppId** of your Application Insights resource. Please see [here](./ENABLE-APPINSIGHTS.md#steps-to-find-out-appid) for additional details. |
 | **App Insights Secret Location** | Depends | Choose where you prefer to store the App Insights application secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
 | **App Insights Tenant ID** | Depends | Enter the tenant ID of the Application Insights resource and the application |
 | **App Insights Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the App Insights application secret. |
