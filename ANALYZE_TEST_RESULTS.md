@@ -2,14 +2,14 @@
 
 ## Test run details
 
-The Copilot Test Run view offers an overview of the various run statuses:
+The Agent Test Run view offers an overview of the various run statuses:
 
 | Status | Description | 
 | --- | --- | 
-| **Run Status** | Main process that runs each individual Copilot Test against the Copilot Configuration using the Direct Line API, and creates a corresponding Copilot Test Result record. | 
-| **App Insights Enrichment Status** | Only runs if _Enrich With Azure Application Insights_ is enabled on the related Copilot Configuration record. | 
-| **Generated Answers Analysis** | Only runs if _Analyze Generated Answers_	is enabled on the related Copilot Configuration record. | 
-| **Dataverse Enrichment Status** | Only runs if _Enrich With Conversation Transcripts_ is enabled on the related Copilot Configuration record.  | 
+| **Run Status** | Main process that runs each individual Agent Test against the Agent Configuration using the Direct Line API, and creates a corresponding Agent Test Result record. | 
+| **App Insights Enrichment Status** | Only runs if _Enrich With Azure Application Insights_ is enabled on the related Agent Configuration record. | 
+| **Generated Answers Analysis** | Only runs if _Analyze Generated Answers_	is enabled on the related Agent Configuration record. | 
+| **Dataverse Enrichment Status** | Only runs if _Enrich With Conversation Transcripts_ is enabled on the related Agent Configuration record.  | 
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/9a0e2a82-3387-4433-83f8-d1a56164784f)
 
@@ -21,7 +21,7 @@ After a cloud flow runs, aggregated results are calculated.
 | --- | --- | 
 | **# Tests** | Number of test results. | 
 | **Success Rate (%)** | Percentage of the number of Test Result records with a Success result compared to the total number of test results. | 
-| **Average Latency (ms)** | Average time it took for the copilot to send the message after it received the test utterance, in milliseconds. | 
+| **Average Latency (ms)** | Average time it took for the agent to send the message after it received the test utterance, in milliseconds. | 
 | **# Success** | Number of Test Result records with a Success result. | 
 | **# Failed** | Number of Test Result records with a Failed result. | 
 | **# Pending** | Number of Test Result records with a Pending result. | 
@@ -49,9 +49,9 @@ For different kinds of tests, different subgrid views may be leveraged:
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/42c9d0bc-0357-404e-ae83-95917c50af5e)
 
-## Copilot Test Result form details
+## Agent Test Result form details
 
-The Copilot Test Result form offers additional details on an individual test execution. <br>
+The Agent Test Result form offers additional details on an individual test execution. <br>
 These records are automatically created.
 
 | Column Name |  Description | 
@@ -61,10 +61,10 @@ These records are automatically created.
 | **Copilot Test** | Related test. The details of the test are displayed in a Quick View form. |
 | **Result** | Result: `Success`, `Failed`, `Unknown`, `Error`, `Pending`.  |
 | **Result** | Auto-generated explanation of the Result. |
-| **Latency (ms)** | Time it took for the copilot to send the message back after it received the test utterance, in milliseconds. |
+| **Latency (ms)** | Time it took for the agent to send the message back after it received the test utterance, in milliseconds. |
 | **Message Sent** | Timestamp of the message sent by the user. |
-| **Response Received** | Timestamp of the message sent by the copilot. |
-| **Response** | Text message received from the copilot |
+| **Response Received** | Timestamp of the message sent by the agent. |
+| **Response** | Text message received from the agent. |
 | **App Insights Result** | Generative answer results from Azure Application Insights (when _Enrich With Azure Application Insights_ is enabled) |
 | **Triggered Topic ID** | Unique identifier of the Chatbot Subcomponent record corresponding to the triggered topic in Dataverse (when _Enrich With Conversation Transcripts_ is enabled) |
 | **Triggered Topic / Event** | Name of the triggered topic (when _Enrich With Conversation Transcripts_ is enabled). <br > In case of multiple topics matched, `IntentCandidates`. For Conversational Boosting and Fallback, `UnknownIntent`. |
