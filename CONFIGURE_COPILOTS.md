@@ -1,30 +1,30 @@
-# Configure copilots in Power CAT Copilot Studio Kit
+# Configure agents in Power CAT Copilot Studio Kit
 
-The custom Copilots you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
-To do this, you need to create a **Copilot Configuration** record that will contain the required information to connect to these copilots and run tests against them.
+The custom Agents you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
+To do this, you need to create a **Agent Configuration** record that will contain the required information to connect to these agents and run tests against them.
 
 ![copilot-configuration](https://github.com/user-attachments/assets/1b9e6138-cdcb-402a-a474-1c02ae33696d)
 
 
-## Configure a new Copilot 
+## Configure a new Agent 
 
 1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app)).
-2. Navigate to **Copilots**.
-3. Create a **New** Copilot Configuration record.
+2. Navigate to **Agents**.
+3. Create a **New** Agent Configuration record.
 4. Fill in the following  **information**.
 
 | Column Name | Required | Description | 
 | --- | --- | --- |
-| **Name** | Yes | Name of the copilot configuration. <br> The name doesn't have to be the same as the copilot you target. |
-| **Region** | Yes | Region where the copilot is deployed. <br> This is required to target the appropriate [Direct Line endpoint](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-api-reference?view=azure-bot-service-4.0). |
+| **Name** | Yes | Name of the agent configuration. <br> The name doesn't have to be the same as the agent you target. |
+| **Region** | Yes | Region where the agent is deployed. <br> This is required to target the appropriate [Direct Line endpoint](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-api-reference?view=azure-bot-service-4.0). |
 | **Token Endpoint** | Depends | If _Channel Security_ isn't used or enforced, use the [token endpoint](https://learn.microsoft.com/microsoft-copilot-studio/publication-connect-bot-to-custom-application#retrieve-your-copilot-studio-copilot-parameters) that's available in the Mobile app channel. |
 | **Channel Security** |  |  Enable this option if [web and Direct Line channel security](https://learn.microsoft.com/microsoft-copilot-studio/configure-web-security) is enabled. <br> That way, a token can be obtained in exchange for a secret. |
 | **Secret Location** | Depends | When _Channel Security_ is checked, choose where you prefer to store the Direct Line channel secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
 | **Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the Direct Line channel secret. |
 | **Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the Azure Key Vault secret. <br> See [Configure secrets in Azure Key Vault](./CONFIGURE_COPILOTS.md#configure-secrets-in-azure-key-vault)|
-| **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this Copilot. See [Enable authentication](./ENABLE-AUTHENTICATION.md) for instructions how to enable user authentication support.  |
-| **Client ID** | Depends | Enter the application (client) ID of the application created to enable the  end user authentication for custom Copilot (https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad) |
-| **Tenant ID** | Depends | Enter the tenant ID of the application created to enable end user authentication for custom Copilot |
+| **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this Agent. See [Enable authentication](./ENABLE-AUTHENTICATION.md) for instructions how to enable user authentication support.  |
+| **Client ID** | Depends | Enter the application (client) ID of the application created to enable the  end user authentication for custom Agent (https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad) |
+| **Tenant ID** | Depends | Enter the tenant ID of the application created to enable end user authentication for custom Agent |
 | **Scope** | Depends | Enter the custom scope that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md#3-define-a-custom-scope-for-your-copilot). Use the full scope URI format: "api://1234-4567/scope.name"|
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
 | **App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
@@ -43,7 +43,7 @@ To do this, you need to create a **Copilot Configuration** record that will cont
 
 ## Note about end user authentication
 
-Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Active Directory v2) service provider (with SSO) for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
+Copilot Studio Kit supports testing custom Agents with Entra ID v2 (Azure Active Directory v2) service provider (with SSO) for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
 
 ## Note about results enrichment with Dataverse Conversation Transcripts
 
@@ -55,7 +55,7 @@ Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Acti
 * For enriching test results from Application Insights, app registration is required within the same tenant as the Application Insights resource
 * Application Insights resource and the application can reside in a different tenant than the custom Copilot being tested
 * For detailed instructions on how to register the application and get the required information for the Application Insights resource, please see [here](./ENABLE-APPINSIGHTS.md).
-* Make sure that the custom Copilot is configured to send telemetry to Application Insights resource and that it is the same as in the Copilot configuration in the Copilot Studio Kit. For information on how to connect your custom Copilot to Application Insights, please see [here](./ENABLE-APPINSIGHTS.md)
+* Make sure that the custom Agent is configured to send telemetry to Application Insights resource and that it is the same as in the Agent configuration in the Copilot Studio Kit. For information on how to connect your custom Agent to Application Insights, please see [here](./ENABLE-APPINSIGHTS.md)
 
 ## Configure secrets in Azure Key Vault
 
@@ -64,7 +64,7 @@ Copilot Studio Kit supports testing custom Copilots with Entra ID v2 (Azure Acti
 
 If you do not want to store secrets directly in Dataverse, you can choose to store them in Azure Key Vault.
 If you choose to do so, you then need to use environment variables of type secrets so that the Power CAT Copilot Studio Kit can fetch secrets from the key vault when running tests.
-Because each copilot configuration may target a different copilot and use a different secret, you need to create individual environment variables for each secret.
+Because each agent configuration may target a different copilot and use a different secret, you need to create individual environment variables for each secret.
 
 1. Configure your Azure Key Vault by following this documentation: [Configure Azure Key Vault](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#configure-azure-key-vault).
 2. Go to **[make.powerapps.com](https://make.powerapps.com/)**
@@ -73,7 +73,7 @@ Because each copilot configuration may target a different copilot and use a diff
 5. Select **Common Data Services Default Solution** <br>
    _Note: you can choose to create or use your own custom solution as well. The idea here is to create environment variables that will be used by Power CAT Copilot Studio Kit to retrieve secrets from the Azure Key Vault._
 6. Follow the steps in: [Create a new environment variable for the Key Vault secret](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#create-a-new-environment-variable-for-the-key-vault-secret)
-7. Once created, use the environment variable **schema name** (e.g., cr42e_Copilot1DirectLineSecret) in the Copilot Configuration record.
+7. Once created, use the environment variable **schema name** (e.g., cr42e_Copilot1DirectLineSecret) in the Agent Configuration record.
 
 ## Next step
 - [Configure tests](./CONFIGURE_TESTS.md)
