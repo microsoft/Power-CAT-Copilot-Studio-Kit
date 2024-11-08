@@ -57,8 +57,8 @@ These records are automatically created.
 | Column Name |  Description | 
 | --- | --- |
 | **Conversation ID** | Identifier of the conversation provided by the Direct Line API. |
-| **Copilot Test Run** | Related test run. |
-| **Copilot Test** | Related test. The details of the test are displayed in a Quick View form. |
+| **Agent Test Run** | Related test run. |
+| **Agent Test** | Related test. The details of the test are displayed in a Quick View form. |
 | **Result** | Result: `Success`, `Failed`, `Unknown`, `Error`, `Pending`.  |
 | **Result** | Auto-generated explanation of the Result. |
 | **Latency (ms)** | Time it took for the agent to send the message back after it received the test utterance, in milliseconds. |
@@ -70,8 +70,8 @@ These records are automatically created.
 | **Triggered Topic / Event** | Name of the triggered topic (when _Enrich With Conversation Transcripts_ is enabled). <br > In case of multiple topics matched, `IntentCandidates`. For Conversational Boosting and Fallback, `UnknownIntent`. |
 | **Recognized Intent Score** | In case of intent recognition, score of the top intent. |
 | **Conversation Transcript** | File attachment of the full conversation transcript JSON (when _Enrich With Conversation Transcripts_ is enabled and _Copy Full Transcript_ is set to yes.|
-| **Suggested Actions** | When available, JSON of the suggested actions returned by the copilot and associated to its reponse. |
-| **Attachments** |  When available, JSON of the attachments array returned by the copilot and associated to its response. |
+| **Suggested Actions** | When available, JSON of the suggested actions returned by the agent and associated to its reponse. |
+| **Attachments** |  When available, JSON of the attachments array returned by the agent and associated to its response. |
 | **Citations** | For generated answers, JSON array of the citations that were used to generate the answer (when _Enrich With Conversation Transcripts_ is enabled ) |
 
 ## Inspecting the transcript
