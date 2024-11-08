@@ -1,6 +1,6 @@
 # Enable user authentication
 
-**Copilot Studio Kit** supports testing custom Copilots with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider with SSO enabled. These instructions will help you to make sure you have the necessary prerequisites in place and to create the required app registration (or modify existing app) to be used with Copilot Studio Kit for user authentication. 
+**Copilot Studio Kit** supports testing custom Agents with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider with SSO enabled. These instructions will help you to make sure you have the necessary prerequisites in place and to create the required app registration (or modify existing app) to be used with Copilot Studio Kit for user authentication. 
 
 Some of the required actions have already been described in detail in the **Microsoft Copilot Studio** documentation, and for those we will refer to the existing documentation instead of duplicating the steps here.
 
@@ -27,10 +27,10 @@ With these steps, you will add the Dataverse URL of the environment hosting Copi
 1. Select **Configure** to confirm your changes.
 1. Go to **API Permissions**. Select **Grant admin consent** for <your tenant name> and then **Yes**. For this step, you might have to reach out to your administrator if you do not have the required permissions.
 
-### 3. Define a custom scope for your Copilot
+### 3. Define a custom scope for your Agent
 Following [these](https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-sso?tabs=classic#define-a-custom-scope-for-your-copilot) steps, associate your **"copilot_auth_app"** with the **"kit_canvas_app"**. In the **Expose an API**-step, make note of the full scope URI (api://1234-4567/scope.name).
 
-You will need to enter the **Client ID**, **Tenant ID** and the **Full scope URI** in the Copilot configuration to enable user authentication support in the Copilot Studio Kit.
+You will need to enter the **Client ID**, **Tenant ID** and the **Full scope URI** in the Agent configuration to enable user authentication support in the Copilot Studio Kit.
 
 > [!NOTE]  
-> If you are planning to test Copilots using SharePoint as knowledge source, you need to add **Files.Read.All** and **Sites.Read.All** delegated API permissions to your application (**"copilot_auth_app"**). Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
+> If you are planning to test Agents using SharePoint as knowledge source, you need to add **Files.Read.All** and **Sites.Read.All** delegated API permissions to your application (**"copilot_auth_app"**). Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
