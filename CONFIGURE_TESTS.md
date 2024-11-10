@@ -15,9 +15,9 @@
 | Test Type | Description |
 | --- | --- | 
 | **Response Match** | This is the simplest type of test, and it can be immediately evaluated. <br> Compares the copilot response with the expected response. |
-| **Attachments (Adaptive Cards, etc.)** | Compares the copilot attachments JSON response with the expected attachments JSON. <br> Note: this is the full array of attachments |
+| **Attachments (Adaptive Cards, etc.)** | Compares the copilot attachments JSON response with the expected attachments JSON. <br> Note: this is the full array of attachments. [Learn about Adaptive Cards](https://learn.microsoft.com/en-us/adaptive-cards/). |
 | **Topic Match** | _Only available when Dataverse enrichment is configured._ <br> When the Dataverse enrichment step completes, compares the expected topic name and the triggered topic name. |
-| **Generative Answers** | _Only available if AI Builder enrichment is configured._ <br> Uses a large language model to assess if the AI-generated answer is close to a sample answer or honors validation instructions. <br> When _Azure Application Insights enrichment_ is configured, negative tests, such as Moderation or No Search Results can also be tested. | 
+| **Generative Answers** | _Only available if AI Builder enrichment is configured._ <br> Uses a large language model to assess if the AI-generated answer is close to a sample answer or honors validation instructions. <br> When _Azure Application Insights enrichment_ is configured, negative tests, such as Moderation or No Search Results, can also be tested. Learn more about [Azure Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview). |
 
 ## Create a new test
 
@@ -57,6 +57,8 @@ After creating a test set, you may use Excel to bulk create or update tests.
 > [!NOTE]
 > Learn more about Excel import and export in Power Apps model-driven apps here: [How to import data
 ](https://learn.microsoft.com/power-apps/user/import-data)
+
+- Learn about [Test Automation in Power Apps](https://learn.microsoft.com/en-us/powerapps/maker/canvas-apps/test-studio-overview).
 
 ## Duplicating a Test Set
 
