@@ -18,6 +18,8 @@
 1. If prompted, create the required **connections**, and select **Import**.
 1. Wait for the import operation to successfully complete.
 
+For more details on importing solutions, see [Import a Solution](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/import-update-export-solutions#import-a-solution).
+
 ## Upgrading existing solution
 
 If you have earlier version of Copilot Studio Kit installed and want to upgrade it to the latest version, follow these steps:
@@ -44,6 +46,8 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 1. Locate and select **Power CAT Copilot Studio Kit**.
 1. Select **Play**.
 1. **Bookmark** the app (optional)
+
+For further details on managing apps, see [Overview of Power Apps](https://learn.microsoft.com/en-us/powerapps/).
 
 ## Next step
 [Configure users and teams](/SETUP_USERS_AND_TEAMS.md)
