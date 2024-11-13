@@ -19,8 +19,20 @@ Today, the tool supports these types of tests:
 
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
 
-## Conversation KPIs
-Aggregate and retain key performance indicators from your custom agents without having to parse complex conversation transcripts.
+## Conversation KPIs (Preview)
+Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
+
+* Aggregated Data: The feature surfaces simplified conversation outcome results, making it easier to understand the performance of your custom agents. This includes metrics such as the number of sessions, turns, and the global outcome of conversations (e.g., resolved, partially resolved, escalated, or abandoned).
+
+* Sample Power BI Reports: The Copilot Studio Kit offers a sample Power BI reports based on aggregated KPIs. These reports provide a visual representation of the data, helping you quickly identify trends and areas for improvement, and provide a solid starting point for your own custom reports.
+
+* Tracked Variables: You can define specific variables to track as part of the aggregated conversation KPIs, such as custom Net Promoter Score (NPS) or other relevant metrics. This allows you to tailor the KPIs to your specific needs.
+
+* Optional Full Transcript Storage: Users have the option to include the full conversation transcript with the KPI records (as file). This allows for a more detailed analysis if needed, using the transcript visualizer built into the Copilot Studio Kit.
+
+* Long-term tracking: Conversation KPIs can be stored in the system for as long as required which allows tracking the impact of improvements and performance of custom copilots over long time-period.
+
+Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking up to 5 variables during the preview.
 
 # About this GitHub repo
 
