@@ -34,6 +34,10 @@ Conversation KPIs are designed to help makers track and analyze the performance 
 
 Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking up to 5 variables during the preview.
 
+![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
+
+![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
+
 # About this GitHub repo
 
 The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
