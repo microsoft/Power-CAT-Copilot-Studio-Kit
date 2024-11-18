@@ -11,7 +11,7 @@ The Agent Test Run view offers an overview of the various run statuses:
 | **Generated Answers Analysis** | Only runs if _Analyze Generated Answers_	is enabled on the related Agent Configuration record. | 
 | **Dataverse Enrichment Status** | Only runs if _Enrich With Conversation Transcripts_ is enabled on the related Agent Configuration record.  | 
 
-![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/9a0e2a82-3387-4433-83f8-d1a56164784f)
+![analyze test results](https://github.com/user-attachments/assets/c1aaa783-f43e-4c6d-996c-d49a124a5d9d)
 
 ## Aggregated results
 
@@ -39,7 +39,7 @@ Each result has a **Result Reason** that's automatically populated. It will cont
 For AI-generated assessments, it will recommend a human review: `AI-generated assessment of the response. Please review`. <br>
 This attribute can be used by testers to add their own comments and notes on a test.
 
-![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/9de27a17-efe4-4220-9492-889bb623ddb7)
+![detailed results](https://github.com/user-attachments/assets/9648ae07-98cf-4602-9468-8a29ecf7c3bb)
 
 For different kinds of tests, different subgrid views may be leveraged:
 - Generative Answers Results
@@ -78,7 +78,7 @@ These records are automatically created.
 
 If _Enrich With Conversation Transcripts_ is enabled and _Copy Full Transcript_ is set to yes, full transcript is copied on the test result. When analyzing a test result, navigating to the **Transcript**-tab will provide a detailed transcript view on the left side and easy-to-read visualization on the right side.
 
-![copilot-studio-transcript-visualizer](https://github.com/user-attachments/assets/8f586ceb-ef2e-47ab-9f48-85543e4bd9e8)
+![Inspecting the transcript](https://github.com/user-attachments/assets/072bfe80-6ee2-4d3a-b483-7a6aebd776bc)
 
 ## Next
 Should you experience any issues, please see:
