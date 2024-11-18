@@ -24,7 +24,8 @@
 After you've created a Test Set, you can add Tests to it.
 From the Tests subgrid, select **New Agent Test**
 
-![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/689cfa4a-2c4b-4cc2-be94-4484b00e8c71)
+![new test set](https://github.com/user-attachments/assets/cf4155a6-1946-415b-b6c4-5659618625b4)
+
 
 | Column Name | Required | Description | 
 | --- | --- | --- |
