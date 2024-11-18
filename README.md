@@ -51,6 +51,8 @@ Benefits of using SharePoint synchronization (compared to using SharePoint site 
 
 Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details and how to configure SharePoint synchronization.
 
+You can read more on the approach from [this article in Linkedin](https://www.linkedin.com/pulse/sync-your-sharepoint-library-dataverse-how-hybrid-approach-r%C3%A9mi-dyon-8lyle)
+
 # About this GitHub repo
 
 The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
