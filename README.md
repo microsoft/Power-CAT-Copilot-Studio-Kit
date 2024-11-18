@@ -35,7 +35,7 @@ Conversation KPIs are designed to help makers track and analyze the performance 
 
 Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking less than 5 variables during the preview to avoid performance issues. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
 
-Conversation KPIs are generated on-demand during the preview, but we plan to add support for automatic daily KPI generation.
+Conversation KPIs are generated on-demand during the preview, but we plan to add support for automatic daily KPI generation. To generate KPIs, navigate to the agent configuration, press "**Generate KPIs**" and select a date range.
 
 ![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
 
@@ -51,7 +51,7 @@ Benefits of using SharePoint synchronization (compared to using SharePoint site 
 - Lower latency in responses
 - Indexing of non-text elements in PDFs
 
-Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details and how to configure SharePoint synchronization.
+Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details and how to configure SharePoint synchronization. SharePoint synchronization is automatically performed daily and it can be run on-demand by selecting "**Sync Files**" from the agent configuration.
 
 You can read more on the approach from [this article in Linkedin](https://www.linkedin.com/pulse/sync-your-sharepoint-library-dataverse-how-hybrid-approach-r%C3%A9mi-dyon-8lyle)
 
