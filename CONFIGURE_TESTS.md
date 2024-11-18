@@ -58,7 +58,6 @@ After creating a test set, you may use Excel to bulk create or update tests.
 > Learn more about Excel import and export in Power Apps model-driven apps here: [How to import data
 ](https://learn.microsoft.com/power-apps/user/import-data)
 
-- Learn about [Test Automation in Power Apps](https://learn.microsoft.com/en-us/powerapps/maker/canvas-apps/test-studio-overview).
 
 ## Duplicating a Test Set
 
