@@ -20,6 +20,7 @@ Today, the tool supports these types of tests:
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
 
 ## Conversation KPIs (Preview)
+
 Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
 
 * Aggregated Data: The feature surfaces simplified conversation outcome results, making it easier to understand the performance of your custom agents. This includes metrics such as the number of sessions, turns, and the global outcome of conversations (e.g., resolved, partially resolved, escalated, or abandoned).
@@ -37,6 +38,10 @@ Conversation KPIs feature is currently in preview and limited to processing 1000
 ![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
 
 ![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
+
+## Sharepoint synchronization
+
+SharePoint synchronization feature allows makers to configure scheduled file synchronization from SharePoint locations to custom agent knowledge as 
 
 # About this GitHub repo
 
