@@ -1,5 +1,9 @@
 # Release notes
 
+## November 20 2024
+- Conversation KPIs
+- SharePoint synchronization
+
 ## September 12 2024 
 - Relaxed deployment requirements - App Insights connection not required during installation
 - Support for multiple App Insights instances
