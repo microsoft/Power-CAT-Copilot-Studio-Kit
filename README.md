@@ -33,15 +33,23 @@ Conversation KPIs are designed to help makers track and analyze the performance 
 
 * Long-term tracking: Conversation KPIs can be stored in the system for as long as required which allows tracking the impact of improvements and performance of custom copilots over long time-period.
 
-Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking up to 5 variables during the preview.
+Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking less than 5 variables during the preview to avoid performance issues. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
 
 ![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
 
 ![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
 
-## Sharepoint synchronization
+## SharePoint synchronization
 
-SharePoint synchronization feature allows makers to configure scheduled file synchronization from SharePoint locations to custom agent knowledge as 
+SharePoint synchronization allows makers to configure periodical selective content synchronization from SharePoint locations to custom agent knowledge base as files.
+
+Benefits of using SharePoint synchronization (compared to using SharePoint site as knowledge source):
+- Support for additional file types
+- Support for larger files (up to 512MB)
+- Lower latency in responses
+- Indexing of non-text elements in PDFs
+
+Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details and how to configure SharePoint synchronization.
 
 # About this GitHub repo
 
