@@ -34,3 +34,6 @@ You will need to enter the **Client ID**, **Tenant ID** and the **Full scope URI
 
 > [!NOTE]  
 > If you are planning to test Agents using SharePoint as knowledge source, you need to add **Files.Read.All** and **Sites.Read.All** delegated API permissions to your application (**"copilot_auth_app"**). Remember to specify the same scopes in Copilot Studio as described [here](https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-answers-sharepoint-onedrive#advanced-authentication-scenarios).
+
+> [!IMPORTANT]  
+> Reminder: You should use the "**copilot_auth_app**" on your custom agents in Copilot studio, and "**kit_canvas_app**" in the agent configuration of Copilot Studio Kit.
