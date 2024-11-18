@@ -35,6 +35,8 @@ Conversation KPIs are designed to help makers track and analyze the performance 
 
 Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking less than 5 variables during the preview to avoid performance issues. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
 
+Conversation KPIs are generated on-demand during the preview, but we plan to add support for automatic daily KPI generation.
+
 ![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
 
 ![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
