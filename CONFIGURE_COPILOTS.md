@@ -3,10 +3,16 @@
 The custom agents you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
 To do this, you need to create a **Agent Configuration** record that will contain the required information to connect to these agents and run tests against them.
 
-![copilot-configuration](https://github.com/user-attachments/assets/1b9e6138-cdcb-402a-a474-1c02ae33696d)
+![configure agents](https://github.com/user-attachments/assets/23586e64-4ea2-4056-abbc-17bb3d4e69a5)
 
+From November 2024 release onwards, multiple configuration types are supported:
+- **Test Automation** - Allows bulk testing of custom agents
+- **Conversation KPIs** - Parses conversation transcripts of selected custom agents and generates Conversation KPI records
+- **File Synchronization** - Allows selectively synchronizing content from SharePoint locations to custom agent knowledge base as files
 
-## Configure a new Agent 
+Multiple configuration types are supported in single agent configuration record. Only relevant configuration sections are visible in the agent configuration view.
+
+## Create new Agent Configuration record
 
 1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app)).
 2. Navigate to **Agents**.
@@ -16,6 +22,17 @@ To do this, you need to create a **Agent Configuration** record that will contai
 | Column Name | Required | Description | 
 | --- | --- | --- |
 | **Name** | Yes | Name of the agent configuration. <br> The name doesn't have to be the same as the agent you target. |
+| **Configuration Type(s)** | Yes | Select one or more configuration types as described above. |
+
+Note: These fields are mandatory for all configuration types.
+
+## Configure a new Agent for Test Automation
+
+1. Select "**Test Automation**" from Configuration Type(s).
+2. In addition to Base Configuration, fill in the following  **information**.
+
+| Column Name | Required | Description | 
+| --- | --- | --- |
 | **Region** | Yes | Region where the agent is deployed. <br> This is required to target the appropriate [Direct Line endpoint](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-api-reference?view=azure-bot-service-4.0). |
 | **Token Endpoint** | Depends | If _Channel Security_ isn't used or enforced, use the [token endpoint](https://learn.microsoft.com/microsoft-copilot-studio/publication-connect-bot-to-custom-application#retrieve-your-copilot-studio-copilot-parameters) that's available in the Mobile app channel. |
 | **Channel Security** |  |  Enable this option if [web and Direct Line channel security](https://learn.microsoft.com/microsoft-copilot-studio/configure-web-security) is enabled. <br> That way, a token can be obtained in exchange for a secret. |
@@ -39,7 +56,49 @@ To do this, you need to create a **Agent Configuration** record that will contai
 | **Analyze Generated Answers** |  | When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answer or validation instructions. |
 | **Generative AI Provider** | Depends | When _Analyze Generated Answers_ is enabled, LLM model that is used to do the analysis. Only **AI Builder** is supported at the moment |
 
-5. **Save**
+3. **Save**
+
+## Configure a new Agent for Conversation KPIs
+
+1. Select "**Conversation KPIs**" from Configuration Type(s).
+2. In addition to Base Configuration, fill in the following  **information**.
+
+| Column Name | Required | Description | 
+| --- | --- | --- |
+| **Dataverse URL** | Yes | Dataverse URL where the conversation transcripts (and the agent) are located. Example: **"https://organizationname.crm.dynamics.com"** |
+| **Agent ID** | Yes | Botid of the custom agent you are targeting. You can find this in Copilot Studio from **Settings->Session details->Copilot Id**.  |
+| **Copy Full Transcript** | Yes | Optionally full transcript of the conversation is copied over and associated with the KPI record. This is required if you wish to inspect the conversation in the transcript visualizer (**Transcript**-tab on the Conversation KPI record.) |
+| **Tracked Variables** | No | You can specify up to five custom variables you wish to track from the conversations (e.g. custom NPS score). The format is JSON array, example: **"[ "Activity.Channel", "Activity.Type" ]"** |
+| **Agent Components** | No  | This is a readonly field which is populated with the components of the agent you have specified, e.g. topics, knowledge sources, etc. |
+
+3. **Save**
+
+![conversation kpi configuration](https://github.com/user-attachments/assets/910571bd-72a3-415b-8995-4f87b3764b2b)
+
+## Configure a new Agent for File Synchronization
+
+1. Select "**File Synchronization**" from Configuration Type(s).
+2. In addition to Base Configuration, enter the following information:
+
+| Column Name | Required | Description | 
+| --- | --- | --- |
+| **Agent ID (botid)** | Yes | Botid of the custom agent you are targeting. You can find this in Copilot Studio from **Settings->Session details->Copilot Id**. |
+| **Dataverse URL** | Yes | Dataverse URL where the custom agent is located (and content will be synchronized to). Example: **"https://organizationname.crm.dynamics.com"** |
+
+3. Add at least one **File Indexer Configuration** and fill in the following  **information**.
+
+| Column Name | Required | Description | 
+| --- | --- | --- |
+| **Name** | Yes | Name of the File Indexer configuration. Example: **"HR documents"**|
+| **Site Address** | Yes | Address of the SharePoint site you are synchronizing the content from. Example: **"https://organizationname.sharepoint.com/sites/sitename"** |
+| **Library Name** | Yes |  The library in the SharePoint site you are synchronizing the content from. Example: **"Documents"** |
+| **Agent Configuration** | Yes | The agent configuration this record belongs to. This is automatically populated if you create new record through agent configuration view. |
+| **Include Nested Items** | Yes | If the content synchronization is limited to the exact location you specify, or whether the child items of that location will be included in the synchronization as well. |
+| **Limit Entries to Folder** | No | Optionally you can specify a folder in the library to synchronize. Example: **"/HR-documents"**|
+
+4. **Save**
+
+![file sync](https://github.com/user-attachments/assets/90bc990a-646c-4311-863f-6c5cba43a48d)
 
 ## Note about end user authentication
 
