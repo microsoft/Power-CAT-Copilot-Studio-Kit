@@ -66,7 +66,7 @@
       "actions": {
         "Get_Generative_Answers_Copilot_Test_Results": {
           "runAfter": {
-            "Generate_Azure_App_Insights_Access_Token": [
+            "Parse_Token_Response": [
               "Succeeded"
             ]
           },
@@ -108,6 +108,13 @@
               "$select": "cat_delayforazureapplicationinsightsenrichment, cat_isgeneratedanswersanalysisenabled, cat_azureappinsightsapplicationid, cat_azureappinsightstenantid, cat_azureappinsightsclientid, cat_azureappinsightssecretlocationcode, cat_azureappinsightssecret, cat_azureappinsightsenvironmentvariable"
             },
             "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "secureData": {
+              "properties": [
+                "outputs"
+              ]
+            }
           }
         },
         "Apply_to_each_Generative_Answers_Result": {
@@ -154,7 +161,7 @@
                 "parameters": {
                   "actionName": "cat_ExecuteAppInsightsQuery",
                   "item/cat_AppInsightsApplicationId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsapplicationid']",
-                  "item/cat_AppInsightsAccessToken": "@outputs('Generate_Azure_App_Insights_Access_Token')?['body/cat_AppInsightsResponse']",
+                  "item/cat_AppInsightsAccessToken": "@body('Parse_Token_Response')?['access_token']",
                   "item/cat_AppInsightsQuery": "customEvents\n| where name == \"GenerativeAnswers\"\n| where tostring(todynamic(customDimensions).conversationId) == \"@{items('Apply_to_each_Generative_Answers_Result')?['cat_name']}\"\n| where timestamp between ((datetime(@{items('Apply_to_each_Generative_Answers_Result')?['cat_responsereceivedtimestamp']}) - 1h) .. (datetime(@{items('Apply_to_each_Generative_Answers_Result')?['cat_responsereceivedtimestamp']}) + 1h))\n| extend cd = todynamic(customDimensions)\n| extend result = tostring(cd.Result)\n| project result"
                 },
                 "authentication": "@parameters('$authentication')"
@@ -496,6 +503,46 @@
                 "inputs",
                 "outputs"
               ]
+            }
+          }
+        },
+        "Parse_Token_Response": {
+          "runAfter": {
+            "Generate_Azure_App_Insights_Access_Token": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fd4e7717-60ba-4656-85c6-ce3da676563a"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@outputs('Generate_Azure_App_Insights_Access_Token')?['body/cat_AppInsightsResponse']",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token_type": {
+                  "type": "string"
+                },
+                "expires_in": {
+                  "type": "string"
+                },
+                "ext_expires_in": {
+                  "type": "string"
+                },
+                "expires_on": {
+                  "type": "string"
+                },
+                "not_before": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "access_token": {
+                  "type": "string"
+                }
+              }
             }
           }
         }

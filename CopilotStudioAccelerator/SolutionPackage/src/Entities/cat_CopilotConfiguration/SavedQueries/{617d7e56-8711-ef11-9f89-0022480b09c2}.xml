@@ -11,7 +11,7 @@
       <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
         <row name="result" id="cat_copilotconfigurationid">
           <cell name="cat_name" width="285" />
-          <cell name="cat_configurationtypecode" width="150" />
+          <cell name="cat_configurationtypescodes" width="165" />
           <cell name="cat_regioncode" width="114" />
           <cell name="cat_tokenendpoint" width="130" />
           <cell name="cat_isdirectlinechannelsecurityenabled" width="205" />
@@ -59,7 +59,6 @@
           <attribute name="cat_tokenendpoint" />
           <attribute name="cat_isgeneratedanswersanalysisenabled" />
           <attribute name="cat_iscopyfulltranscriptenabled" />
-          <attribute name="cat_configurationtypecode" />
           <attribute name="cat_copilotid" />
           <attribute name="cat_azureappinsightsapplicationid" />
           <attribute name="cat_azureappinsightsclientid" />
@@ -72,6 +71,7 @@
           <attribute name="cat_trackedvariables" />
           <attribute name="cat_userauthenticationcode" />
           <attribute name="cat_generativeaiprovidercode" />
+          <attribute name="cat_configurationtypescodes" />
         </entity>
       </fetch>
     </fetchxml>

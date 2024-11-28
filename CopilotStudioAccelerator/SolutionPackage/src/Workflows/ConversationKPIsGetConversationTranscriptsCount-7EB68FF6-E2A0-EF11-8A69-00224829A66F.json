@@ -1,0 +1,137 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "36da7aa3-ab7a-4fb6-a490-204cff36b9fc"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Agent Id",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter Agent Id",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "Dataverse Url",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter Dataverse Url",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "Start Date",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter start date",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "End Date",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter end date",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "List_rows_from_selected_environment": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "a85e53ff-d68a-4af2-b01b-ffa6b3e359a2"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps_1",
+              "operationId": "ListRecordsWithOrganization",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "organization": "@triggerBody()['text_1']",
+              "entityName": "conversationtranscripts",
+              "$select": "conversationtranscriptid",
+              "$filter": "_bot_conversationtranscriptid_value eq '@{triggerBody()['text']}' and statecode eq 0 and createdon ge @{formatDateTime(triggerBody()['text_2'], 'yyyy-MM-ddTHH:mm:ssZ')} and createdon le @{addDays(formatDateTime(triggerBody()['text_3'], 'yyyy-MM-ddTHH:mm:ssZ'), 1)}"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "paginationPolicy": {
+              "minimumItemCount": 100000
+            }
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "List_rows_from_selected_environment": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bf867b1e-eed6-4a18-9d55-795695a09835"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "record_count": "@{length(outputs('List_rows_from_selected_environment')?['body/value'])}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "record_count": {
+                  "title": "Record Count",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
