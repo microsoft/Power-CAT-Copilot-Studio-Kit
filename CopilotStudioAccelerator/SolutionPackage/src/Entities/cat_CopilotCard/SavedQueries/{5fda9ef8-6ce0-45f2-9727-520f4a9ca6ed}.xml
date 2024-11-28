@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{5fda9ef8-6ce0-45f2-9727-520f4a9ca6ed}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilotcardid">
+          <cell name="cat_name" width="167" />
+          <cell name="cat_description" width="300" />
+          <cell name="cat_typecode" width="101" />
+          <cell name="cat_origincode" width="85" />
+          <cell name="ownerid" width="107" />
+          <cell name="createdon" width="148" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_copilotcard">
+          <attribute name="cat_copilotcardid" />
+          <attribute name="cat_name" />
+          <order attribute="cat_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cat_typecode" />
+          <attribute name="cat_origincode" />
+          <attribute name="cat_description" />
+          <attribute name="ownerid" />
+          <attribute name="createdon" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Agent Cards" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

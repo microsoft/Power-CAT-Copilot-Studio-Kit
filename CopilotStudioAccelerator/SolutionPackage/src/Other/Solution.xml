@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml version="9.2.24082.192" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml version="9.2.24103.228" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.24103.228" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.24103.00228">
   <SolutionManifest>
     <UniqueName>CopilotStudioAccelerator</UniqueName>
     <LocalizedNames>
@@ -13,15 +13,15 @@
     <Publisher>
       <UniqueName>PowerCat</UniqueName>
       <LocalizedNames>
-        <LocalizedName description="Power CAT" languagecode="1033" />
+        <LocalizedName description="PowerCAT" languagecode="1033" />
       </LocalizedNames>
       <Descriptions>
-        <Description description="The Power Platform Customer Advisory Team (Power CAT) is part of the Microsoft Power Platform engineering team at Microsoft. " languagecode="1033" />
+        <Description description="PowerCAT" languagecode="1033" />
       </Descriptions>
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl>https://aka.ms/WhoIsPowerCAT</SupportingWebsiteUrl>
       <CustomizationPrefix>cat</CustomizationPrefix>
-      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <CustomizationOptionValuePrefix>33535</CustomizationOptionValuePrefix>
       <Addresses>
         <Address>
           <AddressNumber>1</AddressNumber>
@@ -82,17 +82,23 @@
       </Addresses>
     </Publisher>
     <RootComponents>
+      <RootComponent type="1" schemaName="cat_copilotcard" behavior="0" />
       <RootComponent type="1" schemaName="cat_copilotconfiguration" behavior="0" />
+      <RootComponent type="1" schemaName="cat_copilotfileindexerconfiguration" behavior="0" />
       <RootComponent type="1" schemaName="cat_copilotkpi" behavior="0" />
+      <RootComponent type="1" schemaName="cat_copilotstudiokitlogs" behavior="0" />
       <RootComponent type="1" schemaName="cat_copilottest" behavior="0" />
       <RootComponent type="1" schemaName="cat_copilottestresult" behavior="0" />
       <RootComponent type="1" schemaName="cat_copilottestrun" behavior="0" />
       <RootComponent type="1" schemaName="cat_copilottestset" behavior="0" />
+      <RootComponent type="1" schemaName="systemuser" behavior="1" />
       <RootComponent type="1" schemaName="team" behavior="2" />
       <RootComponent type="20" id="{00ca9752-c912-ef11-9f89-0022480b09c2}" behavior="0" />
       <RootComponent type="20" id="{144e624f-c812-ef11-9f89-0022480b09c2}" behavior="0" />
       <RootComponent type="20" id="{95c1906e-c912-ef11-9f8a-6045bd0825af}" behavior="0" />
+      <RootComponent type="29" id="{074d710c-7b93-ef11-8a69-7c1e524a2ae3}" behavior="0" />
       <RootComponent type="29" id="{1893ad31-f54f-ef11-a316-7c1e52198498}" behavior="0" />
+      <RootComponent type="29" id="{197368f9-da8b-ef11-ac21-7c1e520cbfa3}" behavior="0" />
       <RootComponent type="29" id="{20db2e81-e318-ef11-9f89-0022483374d8}" behavior="0" />
       <RootComponent type="29" id="{27cf52d8-5812-ef11-9f8a-000d3a5a66f7}" behavior="0" />
       <RootComponent type="29" id="{296c3eb2-55db-ee11-904d-6045bd057afd}" behavior="0" />
@@ -101,7 +107,12 @@
       <RootComponent type="29" id="{5013bd32-f765-ef11-bfe2-000d3a8df0f3}" behavior="0" />
       <RootComponent type="29" id="{5443944e-6712-ef11-9f8a-000d3a5a66f7}" behavior="0" />
       <RootComponent type="29" id="{5a0623cc-3544-ef11-8409-0022481f3bb5}" behavior="0" />
+      <RootComponent type="29" id="{61c62343-b69d-ef11-8a69-0022482aa8ab}" behavior="0" />
+      <RootComponent type="29" id="{6d9315a8-4e94-ef11-8a69-7c1e524a2ae3}" behavior="0" />
+      <RootComponent type="29" id="{6d9c8532-9b92-ef11-ac21-7c1e520158f7}" behavior="0" />
+      <RootComponent type="29" id="{787294d5-3694-ef11-8a69-7c1e524a2ae3}" behavior="0" />
       <RootComponent type="29" id="{7be95153-cb0c-ef11-9f8a-000d3a5a66f7}" behavior="0" />
+      <RootComponent type="29" id="{7eb68ff6-e2a0-ef11-8a69-00224829a66f}" behavior="0" />
       <RootComponent type="29" id="{861bdd5e-bc09-ef11-9f8a-000d3a5cb958}" behavior="0" />
       <RootComponent type="29" id="{8a3751c9-2df9-ee11-a1fd-000d3a5a66f7}" behavior="0" />
       <RootComponent type="29" id="{92c68751-3d69-ef11-bfe2-6045bdd82309}" behavior="0" />
@@ -114,20 +125,33 @@
       <RootComponent type="29" id="{c9f3745c-a110-ef11-9f8a-000d3a5cb958}" behavior="0" />
       <RootComponent type="29" id="{cd0126fc-8fe3-47a1-ac85-dda3fd34c58b}" behavior="0" />
       <RootComponent type="29" id="{d24bf0c7-afa2-4fb3-9958-037a310ae4c2}" behavior="0" />
+      <RootComponent type="29" id="{dd0e6b13-d092-ef11-ac21-6045bdfed0cf}" behavior="0" />
+      <RootComponent type="29" id="{e3742ca3-e086-ef11-ac21-7c1e520158f7}" behavior="0" />
       <RootComponent type="29" id="{e80e3233-7932-ef11-8409-7c1e520ac4c6}" behavior="0" />
+      <RootComponent type="29" id="{ea936a04-6c6e-ef11-a670-000d3a8df0f3}" behavior="0" />
       <RootComponent type="29" id="{ed6a53e3-6012-ef11-9f8a-000d3a5cb958}" behavior="0" />
+      <RootComponent type="29" id="{eeadb10f-458c-ef11-ac21-6045bdd46f57}" behavior="0" />
+      <RootComponent type="29" id="{f63da1ff-257b-ef11-a671-7c1e520158f7}" behavior="0" />
       <RootComponent type="29" id="{fa40c544-9a0b-ef11-9f8a-000d3a5cb958}" behavior="0" />
+      <RootComponent type="300" schemaName="cat_conversationkpi_6082b" behavior="0" />
       <RootComponent type="300" schemaName="cat_copilotstudioacceleratordefaultcommandlibrary_40e65" behavior="0" />
       <RootComponent type="300" schemaName="cat_home_c8017" behavior="0" />
       <RootComponent type="401" id="{0ebe7217-deac-4d24-8ea1-67237f416b1b}" behavior="0" />
+      <RootComponent type="431" schemaName="cat_copilotcard cat_image" behavior="0" />
+      <RootComponent type="432" schemaName="cat_copilotcard" behavior="0" />
+      <RootComponent type="60" id="{55b614bd-ec8a-ef11-ac21-7c1e520cbfa3}" behavior="0" />
+      <RootComponent type="61" schemaName="cat_/powercat/img/copilotcard.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/copilotconfiguration.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/copilotkpi.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/copilotstudio.svg" behavior="0" />
+      <RootComponent type="61" schemaName="cat_/powercat/img/copilotstudiokit.png" behavior="0" />
+      <RootComponent type="61" schemaName="cat_/powercat/img/copilotstudiokitlogs.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/copilottest.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/copilottestresult.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/copilottestrun.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/copilottestset.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/home.svg" behavior="0" />
+      <RootComponent type="61" schemaName="cat_/powercat/img/powerbi.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/powercat.png" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/webchatbotavatar.svg" behavior="0" />
       <RootComponent type="61" schemaName="cat_/powercat/img/webchatuseravatar.svg" behavior="0" />
@@ -139,10 +163,15 @@
       <RootComponent type="66" schemaName="cat_PowerCAT.WebChat" behavior="0" />
       <RootComponent type="70" id="{d8ce4283-40f9-ee11-a1fd-000d3a5cb958}" behavior="0" />
       <RootComponent type="80" schemaName="cat_CopilotStudioAccelerator" behavior="0" />
+      <RootComponent type="9" schemaName="cat_cardorigin" behavior="0" />
+      <RootComponent type="9" schemaName="cat_cardtype" behavior="0" />
       <RootComponent type="9" schemaName="cat_configurationtype" behavior="0" />
       <RootComponent type="9" schemaName="cat_conversationoutcome" behavior="0" />
+      <RootComponent type="9" schemaName="cat_executionstatus" behavior="0" />
+      <RootComponent type="9" schemaName="cat_filesource" behavior="0" />
       <RootComponent type="9" schemaName="cat_generativeaiprovider" behavior="0" />
       <RootComponent type="9" schemaName="cat_generativeansweroutcome" behavior="0" />
+      <RootComponent type="9" schemaName="cat_logtype" behavior="0" />
       <RootComponent type="9" schemaName="cat_region" behavior="0" />
       <RootComponent type="9" schemaName="cat_result" behavior="0" />
       <RootComponent type="9" schemaName="cat_runstatus" behavior="0" />
@@ -153,137 +182,219 @@
     </RootComponents>
     <MissingDependencies>
       <MissingDependency>
-        <Required type="1" schemaName="bot" displayName="Copilot" solution="PowerVirtualAgents (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="bot" displayName="Copilot" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
+        </Required>
+        <Dependent type="29" displayName="Synchronize files into Copilot Studio Child Flow" id="{e3742ca3-e086-ef11-ac21-7c1e520158f7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="bot" displayName="Copilot" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="62" schemaName="cat_CopilotStudioAccelerator" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="bot" displayName="Copilot" solution="PowerVirtualAgents (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="bot" displayName="Copilot" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="80" schemaName="cat_CopilotStudioAccelerator" displayName="Copilot Studio Kit" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
+        </Required>
+        <Dependent type="29" displayName="Synchronize files into Copilot Studio Child Flow" id="{e3742ca3-e086-ef11-ac21-7c1e520158f7}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
+        </Required>
+        <Dependent type="29" displayName="Conversation KPIs Main Child" id="{ea936a04-6c6e-ef11-a670-000d3a8df0f3}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="29" displayName="Enrich with Dataverse Conversation Transcripts" id="{fa40c544-9a0b-ef11-9f8a-000d3a5cb958}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="62" schemaName="cat_CopilotStudioAccelerator" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="botcomponent" displayName="Copilot component" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="80" schemaName="cat_CopilotStudioAccelerator" displayName="Copilot Studio Kit" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="botcomponentcollection" displayName="Copilot component collection" solution="PowerVirtualAgents (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="botcomponentcollection" displayName="Copilot component collection" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="62" schemaName="cat_CopilotStudioAccelerator" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="botcomponentcollection" displayName="Copilot component collection" solution="PowerVirtualAgents (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="botcomponentcollection" displayName="Copilot component collection" solution="PowerVirtualAgents (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="80" schemaName="cat_CopilotStudioAccelerator" displayName="Copilot Studio Kit" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
+        </Required>
+        <Dependent type="29" displayName="Conversation KPIs Get Conversation Transcripts Count" id="{7eb68ff6-e2a0-ef11-8a69-00224829a66f}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
+        </Required>
+        <Dependent type="29" displayName="Conversation KPIs Main Child" id="{ea936a04-6c6e-ef11-a670-000d3a8df0f3}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="29" displayName="Enrich with Dataverse Conversation Transcripts" id="{fa40c544-9a0b-ef11-9f8a-000d3a5cb958}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="62" schemaName="cat_CopilotStudioAccelerator" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.7.4.15198581)">
-          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.7.4.15198581)</package>
+        <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.10.1.15694140)">
+          <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="80" schemaName="cat_CopilotStudioAccelerator" displayName="Copilot Studio Kit" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="181" schemaName="NonRelational Data Provider" displayName="NonRelational Data Provider" solution="NonRelationalDataProvider (9.1.0.203)" id="{1d9bde74-9ebd-4da9-8ff5-aa74945b9f74}" />
+        <Required type="181" schemaName="NonRelational Data Provider" displayName="NonRelational Data Provider" solution="NonRelationalDataProvider (9.1.0.284)" id="{1d9bde74-9ebd-4da9-8ff5-aa74945b9f74}">
+          <package>NonRelationalCustomActions (9.1.0.284)</package>
+        </Required>
         <Dependent type="1" schemaName="cat_copilotkpi" displayName="Conversation KPI" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="183" schemaName="NonRelational Data Provider" displayName="NonRelational Data Provider" solution="NonRelationalDataProvider (9.1.0.203)" id="{19897b6e-b2c2-461c-8f32-5a2413028030}" />
+        <Required type="183" schemaName="NonRelational Data Provider" displayName="NonRelational Data Provider" solution="NonRelationalDataProvider (9.1.0.284)" id="{19897b6e-b2c2-461c-8f32-5a2413028030}">
+          <package>NonRelationalCustomActions (9.1.0.284)</package>
+        </Required>
         <Dependent type="1" schemaName="cat_copilotkpi" displayName="Conversation KPI" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="2" schemaName="membershiptype" displayName="Membership Type" parentSchemaName="team" parentDisplayName="Team" solution="AuthorizationCore (1.116.0.38)" />
+        <Required type="2" schemaName="membershiptype" displayName="Membership Type" parentSchemaName="team" parentDisplayName="Team" solution="AuthorizationCore (1.116.0.62)">
+          <package>msft_PrivilegeChecker (1.4.0.2)</package>
+        </Required>
         <Dependent type="60" displayName="Copilot Studio Kit" parentDisplayName="Team" id="{3cf4f54d-7b32-ef11-840a-7c1e52185e85}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="60" displayName="Agent Test Run" parentDisplayName="Agent Test Run" id="{76e0115f-7f5a-4278-bee5-af5809627846}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="60" displayName="Agent Test" parentDisplayName="Agent Test" id="{90f464d5-1a3d-4aef-94bd-a44d963f9713}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="68" id="{43d04d06-a849-4afd-b182-384f3be3d87c}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="68" id="{5f04fbce-bb13-4b75-9cfe-9354442f66bc}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="68" id="{8e5c817c-0f07-4e07-b010-f17d0826386c}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="68" id="{f1156723-b37b-4142-92f0-ab2e6742f3f3}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="68" id="{fbdc17fe-f21b-47eb-b12f-9468909da284}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="68" id="{ffa77666-b85e-4cae-99cb-e8551137ce7b}" />
-      </MissingDependency>
-      <MissingDependency>
-        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2408.2014)" />
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
         <Dependent type="60" displayName="Agent Configuration" parentDisplayName="Agent Configuration" id="{0113bede-3f02-4e17-882c-9234fdc2a954}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2408.2014)" />
-        <Dependent type="60" displayName="Copilot Studio Kit" parentDisplayName="Team" id="{3cf4f54d-7b32-ef11-840a-7c1e52185e85}" />
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="60" displayName="Agent Test Run" parentDisplayName="Agent Test Run" id="{76e0115f-7f5a-4278-bee5-af5809627846}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2408.2014)" />
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
         <Dependent type="60" displayName="Agent Test" parentDisplayName="Agent Test" id="{90f464d5-1a3d-4aef-94bd-a44d963f9713}" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="90" schemaName="Microsoft.Dynamics.AI.Plugins.CustomApis.AIPluginPredict, Microsoft.Dynamics.AI.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" displayName="Microsoft.Dynamics.AI.Plugins.CustomApis.AIPluginPredict" solution="msdyn_AISolution (202408.1.0.1)" id="{727e8789-bd29-46fa-b00a-3a49605eeb06}">
-          <package>msdyn_AISolutionAnchor (202408.1.0.1)</package>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="68" id="{43d04d06-a849-4afd-b182-384f3be3d87c}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="68" id="{5f04fbce-bb13-4b75-9cfe-9354442f66bc}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="68" id="{8e5c817c-0f07-4e07-b010-f17d0826386c}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="68" id="{eb4a4343-2891-406d-a70e-d6e793a84e75}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="68" id="{f1156723-b37b-4142-92f0-ab2e6742f3f3}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="68" id="{fbdc17fe-f21b-47eb-b12f-9468909da284}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="Microsoft.PowerApps.PowerAppsOneGrid" displayName="Microsoft.PowerApps.PowerAppsOneGrid" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="68" id="{ffa77666-b85e-4cae-99cb-e8551137ce7b}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="60" displayName="Agent Configuration" parentDisplayName="Agent Configuration" id="{0113bede-3f02-4e17-882c-9234fdc2a954}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="60" displayName="Information" parentDisplayName="File Indexer Configuration" id="{11e6c09a-0b71-4688-a240-40051dad1795}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="60" displayName="Copilot Studio Kit" parentDisplayName="Team" id="{3cf4f54d-7b32-ef11-840a-7c1e52185e85}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="66" schemaName="MscrmControls.FieldControls.ToggleControl" displayName="MscrmControls.FieldControls.ToggleControl" solution="BaseCustomControlsCore (9.0.2410.3010)">
+          <package>BaseCustomControlsCore (9.0.2410.3010)</package>
+        </Required>
+        <Dependent type="60" displayName="Agent Test" parentDisplayName="Agent Test" id="{90f464d5-1a3d-4aef-94bd-a44d963f9713}" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="90" schemaName="Microsoft.Dynamics.AI.Plugins.CustomApis.AIPluginPredict, Microsoft.Dynamics.AI.Plugins, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" displayName="Microsoft.Dynamics.AI.Plugins.CustomApis.AIPluginPredict" solution="msdyn_AISolution (202410.1.1.1)" id="{727e8789-bd29-46fa-b00a-3a49605eeb06}">
+          <package>msdyn_AISolutionAnchor (202410.1.1.1)</package>
         </Required>
         <Dependent type="CustomAPI" displayName="msdyn_aibdptaigenerativeanswermatch0ebe7217deac4d248ea167237f416b1b" id.uniquename="msdyn_aibdptaigenerativeanswermatch0ebe7217deac4d248ea167237f416b1b" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.12)" id.uniquename="AppChannel" />
+        <Required type="SettingDefinition" displayName="AppChannel" solution="msdyn_AppFrameworkInfraExtensions (1.0.0.12)" id.uniquename="AppChannel">
+          <package>PowerAppsAppFramework_Anchor (1.0.0.16)</package>
+        </Required>
         <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cat_CopilotStudioAccelerator,settingdefinitionid.uniquename=AppChannel" id.parentappmoduleid.uniquename="cat_CopilotStudioAccelerator" id.settingdefinitionid.uniquename="AppChannel" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="SettingDefinition" displayName="appcopilotenabled" solution="msdyn_AppCopilotAppInfraSettings (9.1.2024082.240802037)" id.uniquename="appcopilotenabled" />
+        <Required type="SettingDefinition" displayName="appcopilotenabled" solution="msdyn_AppCopilotAppInfraSettings (9.1.2024102.241007064)" id.uniquename="appcopilotenabled">
+          <package>PowerAppsAppCopilotApp_Anchor (9.1.2024102.241007064)</package>
+        </Required>
         <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cat_CopilotStudioAccelerator,settingdefinitionid.uniquename=appcopilotenabled" id.parentappmoduleid.uniquename="cat_CopilotStudioAccelerator" id.settingdefinitionid.uniquename="appcopilotenabled" />
       </MissingDependency>
       <MissingDependency>
-        <Required type="SettingDefinition" displayName="enablecopilotautotriggersummarize" solution="msdyn_AppCopilotAppInfraSettings (9.1.2024082.240802037)" id.uniquename="enablecopilotautotriggersummarize" />
+        <Required type="SettingDefinition" displayName="enablecopilotautotriggersummarize" solution="msdyn_AppCopilotAppInfraSettings (9.1.2024102.241007064)" id.uniquename="enablecopilotautotriggersummarize">
+          <package>PowerAppsAppCopilotApp_Anchor (9.1.2024102.241007064)</package>
+        </Required>
         <Dependent type="AppSetting" displayName="parentappmoduleid.uniquename=cat_CopilotStudioAccelerator,settingdefinitionid.uniquename=enablecopilotautotriggersummarize" id.parentappmoduleid.uniquename="cat_CopilotStudioAccelerator" id.settingdefinitionid.uniquename="enablecopilotautotriggersummarize" />
       </MissingDependency>
     </MissingDependencies>
