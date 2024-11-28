@@ -27,7 +27,7 @@
           <order attribute="createdon" descending="true" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
-            <condition attribute="cat_configurationtypecode" operator="eq" value="1" />
+            <condition attribute="cat_configurationtypescodes" operator="eq" value="1" />
           </filter>
         </entity>
       </fetch>
