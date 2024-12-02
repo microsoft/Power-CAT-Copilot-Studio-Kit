@@ -95,7 +95,7 @@ Related instructions in the Copilot Studio Kit repository: https://github.com/mi
 1. Select **Agents** from the navigation.
 1. Click **New**
 1. Enter **Name**
-1. From **Configuration Type(s)** select **Test Automatiojn**
+1. From **Configuration Type(s)** select **Test Automation**
 1. Fill  **Direct Line Settings**-section, enter either **Token Endpoint** or enable **Channel Security** and enter Direct Line secret.
 1. In **User Authentication**-section, for **User Authencation** select **Entra ID v2**
 1. For **Client ID**, enter the **Client ID** of **KitAuthApp**
@@ -106,8 +106,8 @@ Related instructions in the Copilot Studio Kit repository: https://github.com/mi
 Now you are ready to start testing your agent with end user authentication enabled!
 
 To recap what we did here:
-- Created app registration specifically for Copilot Studio Kit authentication
+- Created app registration specifically for Copilot Studio Kit authentication purpose
 - Created app registration for Copilot Studio authentication
-- Linked the applications so that Copilot Studio Kit is able to authenticate to Direct Link via Copilot Studio authentication application
+- Linked the applications so that Copilot Studio Kit is able to authenticate to Direct Line via Copilot Studio authentication application
 - Enabled authentication in custom agent in Copilot Studio
 - Created agent configuration in Copilot Studio Kit with end user authentication enabled
