@@ -45,6 +45,10 @@ After the import process has finished, complete these steps to enable the Conver
    1. Conversation KPI Tracked Variables Child
    1. Conversation KPI Main Child
    1. Conversation KPI Manual
+   1. Synchronize files into Copilot Studio Child Flow
+   1. Synchronize into Copilot Studio
+   1. Synchronize files into Copilot On Demand
+   1. Any remaining flows in the solution that are turned off
 
 > [!NOTE]  
 > While upgrading the Copilot Studio Kit, you might encounter the following error: "*Solution "Power CAT Copilot Studio Kit" failed to import: ImportAsHolding failed with exception: Cannot delete attribute: cat_copilottestrunid from Entity: cat_CopilotTestRun since the attribute is not a custom field.*".
