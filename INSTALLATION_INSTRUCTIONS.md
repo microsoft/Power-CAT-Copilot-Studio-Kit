@@ -21,6 +21,8 @@
 
 ## Upgrading existing solution
 
+When upgrading to November release from an older version of the kit, please take backup of your agent configuration as the data model for agent configuration has changed.
+
 If you have earlier version of Copilot Studio Kit installed and want to upgrade it to the latest version, follow these steps:
 
 1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
