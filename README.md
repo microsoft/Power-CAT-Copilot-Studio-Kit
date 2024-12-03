@@ -33,7 +33,7 @@ Conversation KPIs are designed to help makers track and analyze the performance 
 
 * Long-term tracking: Conversation KPIs can be stored in the system for as long as required which allows tracking the impact of improvements and performance of custom copilots over long time-period.
 
-Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking less than 5 variables during the preview to avoid performance issues. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
+Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking up to 3 variables during the preview to avoid performance issues. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
 
 Conversation KPIs are generated on-demand during the preview, but we plan to add support for automatic daily KPI generation. To generate KPIs, navigate to the agent configuration, press "**Generate KPIs**" and select a date range.
 
