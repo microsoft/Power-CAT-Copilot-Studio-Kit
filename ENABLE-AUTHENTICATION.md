@@ -1,6 +1,6 @@
 # Enable user authentication
 
-**Copilot Studio Kit** supports testing custom Copilots with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider with SSO enabled. These instructions include all the steps required to enable end user authentication on your agent in Copilot Studio, create and configure the required applications in Azure Portal and finally create the agent configuration in Copilot Studio Kit.
+**Copilot Studio Kit** supports testing custom Agents with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider with SSO enabled. These instructions include all the steps required to enable end user authentication on your agent in Copilot Studio, create and configure the required applications in Azure Portal and finally create the agent configuration in Copilot Studio Kit.
 
 ## Prerequisites
 - Copilot Studio Kit has been installed
