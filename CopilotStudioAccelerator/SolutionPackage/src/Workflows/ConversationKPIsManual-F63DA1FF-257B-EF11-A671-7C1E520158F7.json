@@ -1,0 +1,83 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Record Id",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter Record Id",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "Start Date",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter Start Date (MM/DD/YYYY)",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "End Date",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter End Date (MM/DD/YYYY)",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "2ad8fe66-abae-43bb-bd6e-0fabed73e7bf"
+          }
+        }
+      },
+      "actions": {
+        "Run_a_Child_Flow:_Generate_Conversation_KPIs_Child_Flow": {
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "ea936a04-6c6e-ef11-a670-000d3a8df0f3"
+            },
+            "body": {
+              "text_3": "Manual",
+              "text": "@triggerBody()['text']",
+              "text_1": "@triggerBody()['text_1']",
+              "text_2": "@triggerBody()['text_2']"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "5b46a0d8-3e69-43bf-a47b-ac1912b014fe"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -1,0 +1,689 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_sharepointonline": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_DataverseIndexerSharePoint"
+        },
+        "api": {
+          "name": "shared_sharepointonline"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Dataverse URL (cat_DataverseURL)": {
+          "defaultValue": "https://copilotstudioaccelerator-dev.crm.dynamics.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_DataverseURL",
+            "description": "Mandatory. URL of the agent's Copilot Studio Dataverse instance (e.g., https://org.crm.dynamics.com/)"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "10faa580-8374-46cf-8d88-0f13a757b7bf"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Please enter your input",
+                  "title": "Source",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Please enter your input",
+                  "title": "CopilotConfigurationId",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_Library_Name": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "98031167-47a0-4953-ade9-cb0f18143b1e"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "LibraryName",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Initialize_Run_Date_Time": {
+          "runAfter": {
+            "Initialize_Library_Name": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "82d20fb4-452e-4551-aac4-651b6cbd607d"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "RunDateTime",
+                "type": "string",
+                "value": "@utcNow()"
+              }
+            ]
+          }
+        },
+        "Initialize_Error_Variable": {
+          "runAfter": {
+            "Initialize_Run_Date_Time": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3563a35a-6cd9-4cce-b9c3-cbe838421a86"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varErrors",
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "Try": {
+          "actions": {
+            "Apply_to_each_File_Indexer_Configurations": {
+              "foreach": "@outputs('Get_File_Indexer_Configurations')?['body/value']",
+              "actions": {
+                "Get_Agent": {
+                  "runAfter": {
+                    "Get_SharePoint_files": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "14019bda-6e6c-49ec-9356-c140270dd79c"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps_1",
+                      "operationId": "GetItemWithOrganization",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
+                      "entityName": "bots",
+                      "recordId": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_copilotid']",
+                      "$select": "schemaname"
+                    },
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                    }
+                  }
+                },
+                "Get_SharePoint_files": {
+                  "actions": {
+                    "Get_all_lists_and_libraries": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "3cf3a7f1-f8f2-4dbb-b9f6-3cbcbde4e787"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "GetAllTables",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@items('Apply_to_each_File_Indexer_Configurations')?['cat_siteaddress']"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Apply_to_each_library": {
+                      "foreach": "@outputs('Get_all_lists_and_libraries')?['body/value']",
+                      "actions": {
+                        "Condition": {
+                          "actions": {
+                            "Set_variable_Library_Name": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "7ab1968a-512a-4c5d-82a5-279ff85b365a"
+                              },
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "LibraryName",
+                                "value": "@items('Apply_to_each_library')?['Name']"
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "expression": {
+                            "and": [
+                              {
+                                "equals": [
+                                  "@items('Apply_to_each_library')?['DisplayName']",
+                                  "@items('Apply_to_each_File_Indexer_Configurations')?['cat_libraryname']"
+                                ]
+                              }
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "77d49ae1-805a-4f4a-8e89-d1dfb2e536ba"
+                          },
+                          "type": "If"
+                        }
+                      },
+                      "runAfter": {
+                        "Get_all_lists_and_libraries": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "fa539efa-e97c-4cda-bda4-8500a990381d"
+                      },
+                      "type": "Foreach"
+                    },
+                    "Get_files": {
+                      "runAfter": {
+                        "Apply_to_each_library": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "17453ca1-34a0-4f52-adac-2725aae910f2"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_sharepointonline",
+                          "operationId": "GetFileItems",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                        },
+                        "parameters": {
+                          "dataset": "@items('Apply_to_each_File_Indexer_Configurations')?['cat_siteaddress']",
+                          "table": "@variables('LibraryName')",
+                          "folderPath": "@items('Apply_to_each_File_Indexer_Configurations')?['cat_limitentriestofolder']",
+                          "viewScopeOption": "@if(equals(items('Apply_to_each_File_Indexer_Configurations')?['cat_arenesteditemsincluded'], true), 'RecursiveAll', 'Default')",
+                          "$filter": "FSObjType eq 0 and (File_x0020_Type eq 'doc' or File_x0020_Type eq 'docx' or File_x0020_Type eq 'xls' or File_x0020_Type eq 'xlsx' or File_x0020_Type eq 'ppt' or File_x0020_Type eq 'pptx' or File_x0020_Type eq 'pdf' or File_x0020_Type eq 'txt' or File_x0020_Type eq 'md' or File_x0020_Type eq 'log' or File_x0020_Type eq 'html' or File_x0020_Type eq 'htm' or File_x0020_Type eq 'csv' or File_x0020_Type eq 'xml' or File_x0020_Type eq 'odt' or File_x0020_Type eq 'ods' or File_x0020_Type eq 'odp' or File_x0020_Type eq 'epub' or File_x0020_Type eq 'rtf' or File_x0020_Type eq 'pages' or File_x0020_Type eq 'key' or File_x0020_Type eq 'numbers' or File_x0020_Type eq 'json' or File_x0020_Type eq 'yml' or File_x0020_Type eq 'yaml' or File_x0020_Type eq 'tex' or File_x0020_Type eq 'dot' or File_x0020_Type eq 'text' or File_x0020_Type eq 'shtml' or File_x0020_Type eq 'ehtml' or File_x0020_Type eq 'shtm' or File_x0020_Type eq 'xslt' or File_x0020_Type eq 'xbl' or File_x0020_Type eq 'xsl' or File_x0020_Type eq 'latex')\n"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "603f8a66-c78b-4e28-be43-59436e7a4ae3"
+                  },
+                  "type": "Scope"
+                },
+                "Upload_files_to_Copilot_Studio": {
+                  "actions": {
+                    "Apply_to_each_file": {
+                      "foreach": "@outputs('Get_files')?['body/value']",
+                      "actions": {
+                        "Get_file_content": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "86c4c193-6df1-45f5-aafd-7a1695202d67"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_sharepointonline",
+                              "operationId": "GetFileContent",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                            },
+                            "parameters": {
+                              "dataset": "@items('Apply_to_each_File_Indexer_Configurations')?['cat_siteaddress']",
+                              "id": "@items('Apply_to_each_file')?['{Identifier}']",
+                              "inferContentType": true
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Create_File_Copilot_Component": {
+                          "runAfter": {
+                            "Get_file_content": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "bdcdaf05-3202-482b-86f5-03fff616b1fe"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps_1",
+                              "operationId": "CreateRecordWithOrganization",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "organization": "@parameters('Dataverse URL (cat_DataverseURL)')",
+                              "entityName": "botcomponents",
+                              "item/componenttype": 14,
+                              "item/schemaname": "@{body('Get_Agent')?['schemaname']}.component.dvindexer_@{replace(guid(), '-', '')}",
+                              "item/description": "This knowledge source searches information contained in @{items('Apply_to_each_file')?['{FilenameWithExtension}']}",
+                              "item/name": "@items('Apply_to_each_file')?['{FilenameWithExtension}']",
+                              "item/parentbotid@odata.bind": "bots(@{outputs('Get_Agent')?['body/botid']})"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Upload_a_file_or_an_image_to_selected_environment": {
+                          "runAfter": {
+                            "Create_File_Copilot_Component": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "5d0db686-d878-41ad-a606-90dbd19ad229"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps_1",
+                              "operationId": "UpdateEntityFileImageFieldContentWithOrganization",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
+                              "entityName": "botcomponents",
+                              "recordId": "@outputs('Create_File_Copilot_Component')?['body/botcomponentid']",
+                              "fileImageFieldName": "filedata",
+                              "item": "@body('Get_file_content')",
+                              "x-ms-file-name": "@items('Apply_to_each_file')?['{Link}']"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "2d116fa1-b1b0-404e-8c2d-9ba36f1eb311"
+                      },
+                      "type": "Foreach"
+                    }
+                  },
+                  "runAfter": {
+                    "Get_Agent": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "0be54869-3892-45ed-9f72-f110b538f1d3"
+                  },
+                  "type": "Scope"
+                },
+                "Delete_existing_files_in_Copilot_Studio": {
+                  "actions": {
+                    "List_previously_created_files": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "585ed64a-f033-4ee3-b897-f67adc7091ab"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "ListRecordsWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
+                          "entityName": "botcomponents",
+                          "$select": "filedata",
+                          "$filter": "startswith(schemaname, '@{body('Get_Agent')?['schemaname']}.component.dvindexer_') and _parentbotid_value eq '@{body('Get_Agent')?['botid']}' and createdon le @{variables('RunDateTime')}"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "For_each_component": {
+                      "foreach": "@outputs('List_previously_created_files')?['body/value']",
+                      "actions": {
+                        "Perform_an_unbound_action_in_selected_environment": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "fd6256b4-06fb-4f3d-819a-3f8b336bbbd9"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps_1",
+                              "operationId": "PerformUnboundActionWithOrganization",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "organization": "@parameters('Dataverse URL (cat_DataverseURL)')",
+                              "actionName": "DeleteFile",
+                              "item/FileId": "@items('For_each_component')?['filedata']"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Delete_bot_component": {
+                          "runAfter": {
+                            "Perform_an_unbound_action_in_selected_environment": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "519b36fc-1238-42b7-bdc5-c3e0b5dc2869"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_commondataserviceforapps_1",
+                              "operationId": "DeleteRecordWithOrganization",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            },
+                            "parameters": {
+                              "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
+                              "entityName": "botcomponents",
+                              "recordId": "@items('For_each_component')?['botcomponentid']"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "List_previously_created_files": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "3885a902-6450-4b5b-8b43-2dd67162d027"
+                      },
+                      "type": "Foreach"
+                    }
+                  },
+                  "runAfter": {
+                    "Upload_files_to_Copilot_Studio": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "cd27547d-db17-4942-91c6-3bffd5a5f863"
+                  },
+                  "type": "Scope"
+                },
+                "Publish_Agent": {
+                  "runAfter": {
+                    "Delete_existing_files_in_Copilot_Studio": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "4154cd51-e3d9-42c5-9127-bf963c3827ba"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps_1",
+                      "operationId": "PerformBoundActionWithOrganization",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
+                      "entityName": "bots",
+                      "actionName": "Microsoft.Dynamics.CRM.PvaPublish",
+                      "recordId": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_copilotid']"
+                    },
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Get_File_Indexer_Configurations": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "7a4c4c91-6cd7-419b-b4f7-b047a538d934"
+              },
+              "type": "Foreach"
+            },
+            "Get_File_Indexer_Configurations": {
+              "runAfter": {
+                "Check_Source": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b09cb79f-1755-4c1e-a0a1-1601e4e95fae"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotfileindexerconfigurations",
+                  "$filter": "statecode eq 0\n",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n  <entity name=\"cat_copilotfileindexerconfiguration\">\n    <attribute name=\"cat_copilotfileindexerconfigurationid\" />\n    <attribute name=\"statuscode\" />\n    <attribute name=\"statecode\" />\n    <attribute name=\"cat_siteaddress\" />\n    <attribute name=\"cat_limitentriestofolder\" />\n    <attribute name=\"cat_libraryname\" />\n    <attribute name=\"cat_arenesteditemsincluded\" />\n    <attribute name=\"cat_copilotconfigurationid\" />\n    <order attribute=\"cat_name\" descending=\"false\" />\n    <filter type=\"and\">\n      <condition attribute=\"cat_copilotconfigurationid\" operator=\"not-null\" />\n       <condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />\n    </filter>\n    <link-entity name=\"cat_copilotconfiguration\" from=\"cat_copilotconfigurationid\" to=\"cat_copilotconfigurationid\" link-type=\"inner\" alias=\"parent\">\n      <attribute name=\"cat_copilotid\" />\n      <attribute name=\"cat_dataverseurl\" />\n      <filter type=\"and\">\n        <condition attribute=\"cat_configurationtypescodes\" operator=\"contain-values\">\n          <value>3</value>\n        </condition>\n@{variables('AgentConfigurationConditionExpression')}\n      </filter>\n    </link-entity>\n  </entity>\n</fetch>\n",
+                  "$expand": "cat_CopilotConfigurationId($select=cat_copilotid,cat_dataverseurl)"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Check_Source": {
+              "actions": {
+                "Set_AgentConfigurationConditionExpression": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "e28b1b40-4623-4b56-839e-3397cc97e360"
+                  },
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "AgentConfigurationConditionExpression",
+                    "value": "<condition attribute=\"cat_copilotconfigurationid\" operator=\"eq\" uitype=\"cat_copilotconfiguration\" value=\"@{triggerBody()?['text_1']}\"/>"
+                  }
+                }
+              },
+              "runAfter": {},
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@triggerBody()?['text']",
+                      "Manual"
+                    ]
+                  }
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "4ceeabcb-9254-4a21-912e-a530366b3f66"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Initialize_AgentConfigurationConditionExpression": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "953b0319-25ae-405a-9d5e-339f26b98ff0"
+          },
+          "type": "Scope"
+        },
+        "Catch": {
+          "actions": {
+            "Filter_array": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "b4096f76-7325-4480-ac20-7ac30182ea81"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@result('Try')",
+                "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
+              }
+            },
+            "Add_Error_Log": {
+              "runAfter": {
+                "Filter_array": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "30c5e708-8cae-4ad1-9d7d-add590bb0309"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotstudiokitlogses",
+                  "item/cat_executionstatuscode": 4,
+                  "item/cat_cloudflowinstanceurl": "https://make.powerautomate.com/environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
+                  "item/cat_cloudflowname": "Synchronize files into Copilot Studio Child Flow",
+                  "item/cat_errormessage": "@first(body('Filter_array'))?['error']?['message']"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Add_Error_Log": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "23216dd2-8de7-4205-be4d-475f3e204294"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "response": "Flow execution completed."
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "title": "Response",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Try": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5dde4f29-72ed-4ced-a86f-05dbde3e2eed"
+          },
+          "type": "Scope"
+        },
+        "Initialize_AgentConfigurationConditionExpression": {
+          "runAfter": {
+            "Initialize_Error_Variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e591aff1-2419-472b-9598-b0c0fa2b6aaf"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "AgentConfigurationConditionExpression",
+                "type": "string"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

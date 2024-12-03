@@ -1,6 +1,6 @@
 # Setup users and teams in Power CAT Copilot Studio Kit
 
-After completing the installation of Power CAT Copilot Studio Kit, you can grant security roles to your users so that they can configure new copilots and tests.
+After completing the installation of Power CAT Copilot Studio Kit, you can grant security roles to your users so that they can configure new agents and tests.
 
 It's a best practice to security assign roles via Entra ID group and team memberships, but you can also assign them manually and individually to users.
 

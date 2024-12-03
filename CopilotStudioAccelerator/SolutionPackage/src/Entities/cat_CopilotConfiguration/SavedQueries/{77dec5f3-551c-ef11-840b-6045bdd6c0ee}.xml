@@ -11,7 +11,7 @@
       <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
         <row name="result" id="cat_copilotconfigurationid">
           <cell name="cat_name" width="285" />
-          <cell name="cat_configurationtypecode" width="158" />
+          <cell name="cat_configurationtypescodes" width="165" />
           <cell name="ownerid" width="173" />
           <cell name="createdon" width="179" />
         </row>
@@ -30,7 +30,7 @@
           </filter>
           <attribute name="ownerid" />
           <order attribute="createdon" descending="true" />
-          <attribute name="cat_configurationtypecode" />
+          <attribute name="cat_configurationtypescodes" />
         </entity>
       </fetch>
     </fetchxml>

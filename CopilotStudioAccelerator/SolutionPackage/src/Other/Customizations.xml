@@ -1,14 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.24103.228" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.24103.00228">
   <Entities />
   <Roles />
   <Workflows />
   <FieldSecurityProfiles />
   <Templates />
+  <EntityImageConfigs>
+    <EntityImageConfig>
+      <parententitylogicalname>cat_copilotcard</parententitylogicalname>
+      <primaryimageattribute>cat_image</primaryimageattribute>
+    </EntityImageConfig>
+  </EntityImageConfigs>
+  <AttributeImageConfigs>
+    <AttributeImageConfig>
+      <attributelogicalname>cat_image</attributelogicalname>
+      <parententitylogicalname>cat_copilotcard</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
+  </AttributeImageConfigs>
   <EntityMaps />
   <EntityRelationships />
   <OrganizationSettings />
   <optionsets />
+  <Dashboards />
   <WebResources />
   <CustomControls />
   <SolutionPluginAssemblies />
@@ -66,17 +80,17 @@
   </AIModels>
   <connectionreferences>
     <connectionreference connectionreferencelogicalname="cat_CopilotStudioAcceleratorDataverse">
-      <connectionreferencedisplayname>Copilot Studio Accelerator - Dataverse</connectionreferencedisplayname>
+      <connectionreferencedisplayname>Copilot Studio Kit - Dataverse</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
-      <description>Microsoft Dataverse connection reference for Copilot Studio Accelerator</description>
+      <description>Microsoft Dataverse connection reference for Copilot Studio Kit</description>
       <iscustomizable>1</iscustomizable>
       <promptingbehavior>0</promptingbehavior>
       <statecode>0</statecode>
       <statuscode>1</statuscode>
     </connectionreference>
-    <connectionreference connectionreferencelogicalname="new_sharedcommondataserviceforapps_7d711">
-      <connectionreferencedisplayname>Microsoft Dataverse</connectionreferencedisplayname>
-      <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
+    <connectionreference connectionreferencelogicalname="cat_DataverseIndexerSharePoint">
+      <connectionreferencedisplayname>Copilot Studio Kit - SharePoint</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_sharepointonline</connectorid>
       <iscustomizable>1</iscustomizable>
       <promptingbehavior>0</promptingbehavior>
       <statecode>0</statecode>

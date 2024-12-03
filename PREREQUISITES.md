@@ -11,7 +11,7 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
 - Adequate licensing to run **Power Automate cloud flows** using **Premium** connectors.
 
 > [!NOTE]
-> Power CAT Copilot Studio Kit can be installed in the same environment where you host your custom copilots, but this isn't mandatory. <br>
+> Power CAT Copilot Studio Kit can be installed in the same environment where you host your custom agents, but this isn't mandatory. <br>
 > On licensing:
 > - If installed as part of Power Platform, refer to [Microsoft Power Platform Licensing Guide](https://go.microsoft.com/fwlink/?linkid=2085130).
 > - If installed as part of Dynamics 365, refer to  [Dynamics 365 Licensing Guide](https://go.microsoft.com/fwlink/p/?LinkId=866544)

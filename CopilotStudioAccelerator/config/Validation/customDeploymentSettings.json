@@ -1,12 +1,6 @@
 {
     "ActivateFlowConfiguration":  [
                                       {
-                                          "solutionComponentName":  "AnalyzegeneratedanswerswithAIBuilder",
-                                          "solutionComponentUniqueName":  "ed6a53e3-6012-ef11-9f8a-000d3a5cb958",
-                                          "sortOrder":  "#{activateflow.order.AnalyzegeneratedanswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#",
-                                          "activate":  "#{activateflow.activate.AnalyzegeneratedanswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#"
-                                      },
-                                      {
                                           "solutionComponentName":  "EnrichwithAzureApplicationInsights",
                                           "solutionComponentUniqueName":  "861bdd5e-bc09-ef11-9f8a-000d3a5cb958",
                                           "sortOrder":  "#{activateflow.order.EnrichwithAzureApplicationInsights.861bdd5e-bc09-ef11-9f8a-000d3a5cb958}#",
@@ -37,22 +31,88 @@
                                           "activate":  "#{activateflow.activate.UpdateAgentTestRunRollupColumns.27cf52d8-5812-ef11-9f8a-000d3a5a66f7}#"
                                       },
                                       {
+                                          "solutionComponentName":  "AnalyzeGeneratedAnswerswithAIBuilder",
+                                          "solutionComponentUniqueName":  "ed6a53e3-6012-ef11-9f8a-000d3a5cb958",
+                                          "sortOrder":  "#{activateflow.order.AnalyzeGeneratedAnswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#",
+                                          "activate":  "#{activateflow.activate.AnalyzeGeneratedAnswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#"
+                                      },
+                                      {
                                           "solutionComponentName":  "AssignAgentTesttoAgentTestSetOwner",
                                           "solutionComponentUniqueName":  "e80e3233-7932-ef11-8409-7c1e520ac4c6",
                                           "sortOrder":  "#{activateflow.order.AssignAgentTesttoAgentTestSetOwner.e80e3233-7932-ef11-8409-7c1e520ac4c6}#",
                                           "activate":  "#{activateflow.activate.AssignAgentTesttoAgentTestSetOwner.e80e3233-7932-ef11-8409-7c1e520ac4c6}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsGenerativeAnswersChild",
+                                          "solutionComponentUniqueName":  "074d710c-7b93-ef11-8a69-7c1e524a2ae3",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsGenerativeAnswersChild.074d710c-7b93-ef11-8a69-7c1e524a2ae3}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsGenerativeAnswersChild.074d710c-7b93-ef11-8a69-7c1e524a2ae3}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsGetConversationTranscriptsCount",
+                                          "solutionComponentUniqueName":  "7eb68ff6-e2a0-ef11-8a69-00224829a66f",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsGetConversationTranscriptsCount.7eb68ff6-e2a0-ef11-8a69-00224829a66f}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsGetConversationTranscriptsCount.7eb68ff6-e2a0-ef11-8a69-00224829a66f}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsMainChild",
+                                          "solutionComponentUniqueName":  "ea936a04-6c6e-ef11-a670-000d3a8df0f3",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsMainChild.ea936a04-6c6e-ef11-a670-000d3a8df0f3}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsMainChild.ea936a04-6c6e-ef11-a670-000d3a8df0f3}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsManual",
+                                          "solutionComponentUniqueName":  "f63da1ff-257b-ef11-a671-7c1e520158f7",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsManual.f63da1ff-257b-ef11-a671-7c1e520158f7}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsManual.f63da1ff-257b-ef11-a671-7c1e520158f7}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsSessionInsightsChild",
+                                          "solutionComponentUniqueName":  "6d9315a8-4e94-ef11-8a69-7c1e524a2ae3",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsSessionInsightsChild.6d9315a8-4e94-ef11-8a69-7c1e524a2ae3}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsSessionInsightsChild.6d9315a8-4e94-ef11-8a69-7c1e524a2ae3}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsTrackedVariablesChild",
+                                          "solutionComponentUniqueName":  "dd0e6b13-d092-ef11-ac21-6045bdfed0cf",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsTrackedVariablesChild.dd0e6b13-d092-ef11-ac21-6045bdfed0cf}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsTrackedVariablesChild.dd0e6b13-d092-ef11-ac21-6045bdfed0cf}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsTraversedComponentsChild",
+                                          "solutionComponentUniqueName":  "787294d5-3694-ef11-8a69-7c1e524a2ae3",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsTraversedComponentsChild.787294d5-3694-ef11-8a69-7c1e524a2ae3}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsTraversedComponentsChild.787294d5-3694-ef11-8a69-7c1e524a2ae3}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "ConversationKPIsUnrecognizedandAmbiguousUtterancesChild",
+                                          "solutionComponentUniqueName":  "6d9c8532-9b92-ef11-ac21-7c1e520158f7",
+                                          "sortOrder":  "#{activateflow.order.ConversationKPIsUnrecognizedandAmbiguousUtterancesChild.6d9c8532-9b92-ef11-ac21-7c1e520158f7}#",
+                                          "activate":  "#{activateflow.activate.ConversationKPIsUnrecognizedandAmbiguousUtterancesChild.6d9c8532-9b92-ef11-ac21-7c1e520158f7}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "SynchronizefilesintoCopilotOnDemand",
+                                          "solutionComponentUniqueName":  "eeadb10f-458c-ef11-ac21-6045bdd46f57",
+                                          "sortOrder":  "#{activateflow.order.SynchronizefilesintoCopilotOnDemand.eeadb10f-458c-ef11-ac21-6045bdd46f57}#",
+                                          "activate":  "#{activateflow.activate.SynchronizefilesintoCopilotOnDemand.eeadb10f-458c-ef11-ac21-6045bdd46f57}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "SynchronizefilesintoCopilotStudio",
+                                          "solutionComponentUniqueName":  "197368f9-da8b-ef11-ac21-7c1e520cbfa3",
+                                          "sortOrder":  "#{activateflow.order.SynchronizefilesintoCopilotStudio.197368f9-da8b-ef11-ac21-7c1e520cbfa3}#",
+                                          "activate":  "#{activateflow.activate.SynchronizefilesintoCopilotStudio.197368f9-da8b-ef11-ac21-7c1e520cbfa3}#"
+                                      },
+                                      {
+                                          "solutionComponentName":  "SynchronizefilesintoCopilotStudioChildFlow",
+                                          "solutionComponentUniqueName":  "e3742ca3-e086-ef11-ac21-7c1e520158f7",
+                                          "sortOrder":  "#{activateflow.order.SynchronizefilesintoCopilotStudioChildFlow.e3742ca3-e086-ef11-ac21-7c1e520158f7}#",
+                                          "activate":  "#{activateflow.activate.SynchronizefilesintoCopilotStudioChildFlow.e3742ca3-e086-ef11-ac21-7c1e520158f7}#"
                                       }
                                   ],
     "ConnectorShareWithGroupTeamConfiguration":  [
 
                                                  ],
     "SolutionComponentOwnershipConfiguration":  [
-                                                    {
-                                                        "solutionComponentType":  29,
-                                                        "solutionComponentName":  "AnalyzegeneratedanswerswithAIBuilder",
-                                                        "solutionComponentUniqueName":  "ed6a53e3-6012-ef11-9f8a-000d3a5cb958",
-                                                        "ownerEmail":  "#{owner.ownerEmail.AnalyzegeneratedanswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#"
-                                                    },
                                                     {
                                                         "solutionComponentType":  29,
                                                         "solutionComponentName":  "EnrichwithAzureApplicationInsights",
@@ -85,17 +145,84 @@
                                                     },
                                                     {
                                                         "solutionComponentType":  29,
+                                                        "solutionComponentName":  "AnalyzeGeneratedAnswerswithAIBuilder",
+                                                        "solutionComponentUniqueName":  "ed6a53e3-6012-ef11-9f8a-000d3a5cb958",
+                                                        "ownerEmail":  "#{owner.ownerEmail.AnalyzeGeneratedAnswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
                                                         "solutionComponentName":  "AssignAgentTesttoAgentTestSetOwner",
                                                         "solutionComponentUniqueName":  "e80e3233-7932-ef11-8409-7c1e520ac4c6",
                                                         "ownerEmail":  "#{owner.ownerEmail.AssignAgentTesttoAgentTestSetOwner.e80e3233-7932-ef11-8409-7c1e520ac4c6}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsGenerativeAnswersChild",
+                                                        "solutionComponentUniqueName":  "074d710c-7b93-ef11-8a69-7c1e524a2ae3",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsGenerativeAnswersChild.074d710c-7b93-ef11-8a69-7c1e524a2ae3}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsGetConversationTranscriptsCount",
+                                                        "solutionComponentUniqueName":  "7eb68ff6-e2a0-ef11-8a69-00224829a66f",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsGetConversationTranscriptsCount.7eb68ff6-e2a0-ef11-8a69-00224829a66f}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsMainChild",
+                                                        "solutionComponentUniqueName":  "ea936a04-6c6e-ef11-a670-000d3a8df0f3",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsMainChild.ea936a04-6c6e-ef11-a670-000d3a8df0f3}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsManual",
+                                                        "solutionComponentUniqueName":  "f63da1ff-257b-ef11-a671-7c1e520158f7",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsManual.f63da1ff-257b-ef11-a671-7c1e520158f7}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsSessionInsightsChild",
+                                                        "solutionComponentUniqueName":  "6d9315a8-4e94-ef11-8a69-7c1e524a2ae3",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsSessionInsightsChild.6d9315a8-4e94-ef11-8a69-7c1e524a2ae3}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsTrackedVariablesChild",
+                                                        "solutionComponentUniqueName":  "dd0e6b13-d092-ef11-ac21-6045bdfed0cf",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsTrackedVariablesChild.dd0e6b13-d092-ef11-ac21-6045bdfed0cf}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsTraversedComponentsChild",
+                                                        "solutionComponentUniqueName":  "787294d5-3694-ef11-8a69-7c1e524a2ae3",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsTraversedComponentsChild.787294d5-3694-ef11-8a69-7c1e524a2ae3}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "ConversationKPIsUnrecognizedandAmbiguousUtterancesChild",
+                                                        "solutionComponentUniqueName":  "6d9c8532-9b92-ef11-ac21-7c1e520158f7",
+                                                        "ownerEmail":  "#{owner.ownerEmail.ConversationKPIsUnrecognizedandAmbiguousUtterancesChild.6d9c8532-9b92-ef11-ac21-7c1e520158f7}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "SynchronizefilesintoCopilotOnDemand",
+                                                        "solutionComponentUniqueName":  "eeadb10f-458c-ef11-ac21-6045bdd46f57",
+                                                        "ownerEmail":  "#{owner.ownerEmail.SynchronizefilesintoCopilotOnDemand.eeadb10f-458c-ef11-ac21-6045bdd46f57}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "SynchronizefilesintoCopilotStudio",
+                                                        "solutionComponentUniqueName":  "197368f9-da8b-ef11-ac21-7c1e520cbfa3",
+                                                        "ownerEmail":  "#{owner.ownerEmail.SynchronizefilesintoCopilotStudio.197368f9-da8b-ef11-ac21-7c1e520cbfa3}#"
+                                                    },
+                                                    {
+                                                        "solutionComponentType":  29,
+                                                        "solutionComponentName":  "SynchronizefilesintoCopilotStudioChildFlow",
+                                                        "solutionComponentUniqueName":  "e3742ca3-e086-ef11-ac21-7c1e520158f7",
+                                                        "ownerEmail":  "#{owner.ownerEmail.SynchronizefilesintoCopilotStudioChildFlow.e3742ca3-e086-ef11-ac21-7c1e520158f7}#"
                                                     }
                                                 ],
     "FlowShareWithGroupTeamConfiguration":  [
-                                                {
-                                                    "solutionComponentName":  "AnalyzegeneratedanswerswithAIBuilder",
-                                                    "solutionComponentUniqueName":  "ed6a53e3-6012-ef11-9f8a-000d3a5cb958",
-                                                    "aadGroupTeamName":  "#{flow.sharing.AnalyzegeneratedanswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#"
-                                                },
                                                 {
                                                     "solutionComponentName":  "EnrichwithAzureApplicationInsights",
                                                     "solutionComponentUniqueName":  "861bdd5e-bc09-ef11-9f8a-000d3a5cb958",
@@ -122,9 +249,69 @@
                                                     "aadGroupTeamName":  "#{flow.sharing.UpdateAgentTestRunRollupColumns.27cf52d8-5812-ef11-9f8a-000d3a5a66f7}#"
                                                 },
                                                 {
+                                                    "solutionComponentName":  "AnalyzeGeneratedAnswerswithAIBuilder",
+                                                    "solutionComponentUniqueName":  "ed6a53e3-6012-ef11-9f8a-000d3a5cb958",
+                                                    "aadGroupTeamName":  "#{flow.sharing.AnalyzeGeneratedAnswerswithAIBuilder.ed6a53e3-6012-ef11-9f8a-000d3a5cb958}#"
+                                                },
+                                                {
                                                     "solutionComponentName":  "AssignAgentTesttoAgentTestSetOwner",
                                                     "solutionComponentUniqueName":  "e80e3233-7932-ef11-8409-7c1e520ac4c6",
                                                     "aadGroupTeamName":  "#{flow.sharing.AssignAgentTesttoAgentTestSetOwner.e80e3233-7932-ef11-8409-7c1e520ac4c6}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsGenerativeAnswersChild",
+                                                    "solutionComponentUniqueName":  "074d710c-7b93-ef11-8a69-7c1e524a2ae3",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsGenerativeAnswersChild.074d710c-7b93-ef11-8a69-7c1e524a2ae3}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsGetConversationTranscriptsCount",
+                                                    "solutionComponentUniqueName":  "7eb68ff6-e2a0-ef11-8a69-00224829a66f",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsGetConversationTranscriptsCount.7eb68ff6-e2a0-ef11-8a69-00224829a66f}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsMainChild",
+                                                    "solutionComponentUniqueName":  "ea936a04-6c6e-ef11-a670-000d3a8df0f3",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsMainChild.ea936a04-6c6e-ef11-a670-000d3a8df0f3}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsManual",
+                                                    "solutionComponentUniqueName":  "f63da1ff-257b-ef11-a671-7c1e520158f7",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsManual.f63da1ff-257b-ef11-a671-7c1e520158f7}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsSessionInsightsChild",
+                                                    "solutionComponentUniqueName":  "6d9315a8-4e94-ef11-8a69-7c1e524a2ae3",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsSessionInsightsChild.6d9315a8-4e94-ef11-8a69-7c1e524a2ae3}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsTrackedVariablesChild",
+                                                    "solutionComponentUniqueName":  "dd0e6b13-d092-ef11-ac21-6045bdfed0cf",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsTrackedVariablesChild.dd0e6b13-d092-ef11-ac21-6045bdfed0cf}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsTraversedComponentsChild",
+                                                    "solutionComponentUniqueName":  "787294d5-3694-ef11-8a69-7c1e524a2ae3",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsTraversedComponentsChild.787294d5-3694-ef11-8a69-7c1e524a2ae3}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "ConversationKPIsUnrecognizedandAmbiguousUtterancesChild",
+                                                    "solutionComponentUniqueName":  "6d9c8532-9b92-ef11-ac21-7c1e520158f7",
+                                                    "aadGroupTeamName":  "#{flow.sharing.ConversationKPIsUnrecognizedandAmbiguousUtterancesChild.6d9c8532-9b92-ef11-ac21-7c1e520158f7}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "SynchronizefilesintoCopilotOnDemand",
+                                                    "solutionComponentUniqueName":  "eeadb10f-458c-ef11-ac21-6045bdd46f57",
+                                                    "aadGroupTeamName":  "#{flow.sharing.SynchronizefilesintoCopilotOnDemand.eeadb10f-458c-ef11-ac21-6045bdd46f57}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "SynchronizefilesintoCopilotStudio",
+                                                    "solutionComponentUniqueName":  "197368f9-da8b-ef11-ac21-7c1e520cbfa3",
+                                                    "aadGroupTeamName":  "#{flow.sharing.SynchronizefilesintoCopilotStudio.197368f9-da8b-ef11-ac21-7c1e520cbfa3}#"
+                                                },
+                                                {
+                                                    "solutionComponentName":  "SynchronizefilesintoCopilotStudioChildFlow",
+                                                    "solutionComponentUniqueName":  "e3742ca3-e086-ef11-ac21-7c1e520158f7",
+                                                    "aadGroupTeamName":  "#{flow.sharing.SynchronizefilesintoCopilotStudioChildFlow.e3742ca3-e086-ef11-ac21-7c1e520158f7}#"
                                                 }
                                             ],
     "AadGroupCanvasConfiguration":  [

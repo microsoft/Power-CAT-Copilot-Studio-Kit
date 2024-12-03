@@ -1,0 +1,599 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "dd03b093-56a7-4a98-8efd-969b293b4b40"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "ConversationTranscriptCotent",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "ConversationTranscriptName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Initialize_variable:_UnrecognizedUtterencesArray": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "28791316-766f-4427-aa93-0159e2f22d65"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "UnrecognizedUtterencesArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_AmbiguousUtterancesArray": {
+          "runAfter": {
+            "Initialize_variable:_UnrecognizedUtterencesArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d247ae5e-ed8c-4899-a001-721fada5f493"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "AmbiguousUtterancesArray",
+                "type": "array",
+                "value": []
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_CurrentElement": {
+          "runAfter": {
+            "Initialize_variable:_AmbiguousUtterancesArray": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1226ddb3-0dd1-409a-8b4c-0cbf017781ce"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "CurrentElement",
+                "type": "object"
+              }
+            ]
+          }
+        },
+        "Scope:_Try": {
+          "actions": {
+            "Parse_JSON:_ConversationTranscript": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "3d9ddab6-a2ca-42b0-b782-80f79d28ca26"
+              },
+              "type": "ParseJson",
+              "inputs": {
+                "content": "@triggerBody()['text']",
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "valueType": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "timestamp": {
+                        "type": "integer"
+                      },
+                      "from": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "integer"
+                          }
+                        }
+                      },
+                      "value": {
+                        "type": [
+                          "object",
+                          "string"
+                        ],
+                        "properties": {
+                          "isDesignMode": {
+                            "type": "boolean"
+                          },
+                          "locale": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "index": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "channelId": {
+                        "type": "string"
+                      },
+                      "attachments": {
+                        "type": "array"
+                      },
+                      "channelData": {
+                        "type": "object",
+                        "properties": {
+                          "postBack": {
+                            "type": "boolean"
+                          },
+                          "cci_trace_id": {
+                            "type": "string"
+                          },
+                          "clientActivityID": {
+                            "type": "string"
+                          }
+                        }
+                      },
+                      "textFormat": {
+                        "type": "string"
+                      },
+                      "text": {
+                        "type": "string"
+                      },
+                      "replyToId": {
+                        "type": "string"
+                      },
+                      "speak": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "timestamp",
+                      "from",
+                      "index"
+                    ]
+                  }
+                }
+              }
+            },
+            "Filter_array:_Unrecognized_Utterances": {
+              "runAfter": {
+                "Parse_JSON:_ConversationTranscript": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1884bac5-c20c-45c3-916c-bd1182ac311f"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Parse_JSON:_ConversationTranscript')",
+                "where": "@or(equals(item()?['valueType'], 'UnknownIntent'), equals(item()?['valueType'], 'SessionInfo'), equals(item()?['valueType'], 'GPTAnswer'), not(empty(item()?['channelData']?['pva:gpt-feedback'])))"
+              }
+            },
+            "Filter_array:_AmbiguousUtterances": {
+              "runAfter": {
+                "Filter_array:_Unrecognized_Utterances": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "21ad5a9e-cdbf-4cf7-a2ca-c5f9eb17cc21"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@body('Parse_JSON:_ConversationTranscript')",
+                "where": "@or(equals(item()?['valueType'], 'IntentCandidates'), equals(item()?['valueType'], 'SessionInfo'))"
+              }
+            },
+            "Apply_to_each:_Unrecognized_Utterances": {
+              "foreach": "@body('Filter_array:_Unrecognized_Utterances')",
+              "actions": {
+                "Condition:_Is_UnknownIntent": {
+                  "actions": {
+                    "Set_variable:_CurrrentElement_Of_UnknownIntent": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "dd1099ab-00d4-4872-8c5a-1e5441bd912e"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "CurrentElement",
+                        "value": "@items('Apply_to_each:_Unrecognized_Utterances')"
+                      }
+                    },
+                    "Filter_array:_Get_Next_SessionInfo_Elements_After_UnknownIntent": {
+                      "runAfter": {
+                        "Filter_array:_Get_GPTFeedback": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "20b75b68-5f54-4b2e-8c70-2691793cb733"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Unrecognized_Utterances')",
+                        "where": "@and(equals(item()?['valueType'], 'SessionInfo'), greater(item()?['index'], variables('CurrentElement')?['index']))"
+                      }
+                    },
+                    "Append_to_array_variable:_UnrecognizedIntentTopicArray": {
+                      "runAfter": {
+                        "Compose:_Sort_SessionInfo_Array_for_UnknownIntent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "79006f87-6195-41d0-985e-15a0a3dd43b0"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "UnrecognizedUtterencesArray",
+                        "value": {
+                          "Session ID": "@{triggerBody()['text_1']}-@{first(outputs('Compose:_Sort_SessionInfo_Array_for_UnknownIntent'))?['timestamp']}-@{first(outputs('Compose:_Sort_SessionInfo_Array_for_UnknownIntent'))?['id']}",
+                          "Unrecognized Utterance": "@{variables('CurrentElement')?['value']?['userQuery']}",
+                          "Status": "@{if(\tgreater(length(body('Filter_array:_Get_GPTAnswerState')), 0),\r\n\tfirst(body('Filter_array:_Get_GPTAnswerState'))?['value']?['gptAnswerState'], \r\n\t'Fallback'\r\n)}",
+                          "Used Generative Answer": "@if(\r\n    greater(length(body('Filter_array:_Get_GPTAnswerState')), 0),\r\n    true,\r\n    false\r\n)",
+                          "Used AI Knowledge": "@if(\r\n    greater(length(body('Filter_array:_Get_GPTFeedback')), 0),\r\n    first(body('Filter_array:_Get_GPTFeedback'))?['channelData']?['pva:gpt-feedback']?['triggeredGptFallback'],\r\n    null\r\n)"
+                        }
+                      }
+                    },
+                    "Filter_array:_Get_Next_UnknownIntent": {
+                      "runAfter": {
+                        "Set_variable:_CurrrentElement_Of_UnknownIntent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "0c5bae3a-d4a4-434c-998c-b6505b4b3fb0"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Unrecognized_Utterances')",
+                        "where": "@and(equals(item()?['valueType'], 'UnknownIntent'), greater(item()?['index'], variables('CurrentElement')?['index']))"
+                      }
+                    },
+                    "Filter_array:_Get_GPTAnswerState": {
+                      "runAfter": {
+                        "Set_variable:_NextElement_of_UnknownIntent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "a066a526-aff0-477f-9ef0-911192cf4ecc"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Unrecognized_Utterances')",
+                        "where": "@and(\n    equals(item()?['valueType'], 'GPTAnswer'),\n    greater(item()?['index'], variables('CurrentElement')?['index']),\n    or(\n        equals(variables('NextElement'), null),\n        less(item()?['index'], variables('NextElement')?['index'])\n    )\n)\n"
+                      }
+                    },
+                    "Filter_array:_Get_GPTFeedback": {
+                      "runAfter": {
+                        "Filter_array:_Get_GPTAnswerState": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "8f661d96-9d27-4ee2-ba01-c034fbd2fcef"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Unrecognized_Utterances')",
+                        "where": "@and(\n    not(empty(item()?['channelData']?['pva:gpt-feedback'])),\n    greater(item()?['index'], variables('CurrentElement')?['index']),\n    or(\n        equals(variables('NextElement'), null),\n        less(item()?['index'], variables('NextElement')?['index'])\n    )\n)"
+                      }
+                    },
+                    "Set_variable:_NextElement_of_UnknownIntent": {
+                      "runAfter": {
+                        "Filter_array:_Get_Next_UnknownIntent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "17298d4d-abdc-4230-b3fa-ad57e13fb235"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "NextElement",
+                        "value": "@first(body('Filter_array:_Get_Next_UnknownIntent'))"
+                      }
+                    },
+                    "Compose:_Sort_SessionInfo_Array_for_UnknownIntent": {
+                      "runAfter": {
+                        "Filter_array:_Get_Next_SessionInfo_Elements_After_UnknownIntent": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "b62f61f8-966f-49c4-8326-55126521c1cf"
+                      },
+                      "type": "Compose",
+                      "inputs": "@sort(body('Filter_array:_Get_Next_SessionInfo_Elements_After_UnknownIntent'), 'index')"
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@items('Apply_to_each:_Unrecognized_Utterances')?['valueType']",
+                      "UnknownIntent"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "43e711e7-3498-4307-b051-9517cbcb3ca0"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Filter_array:_AmbiguousUtterances": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "7711a71c-7ee2-4fbc-845a-85da3b8f135c"
+              },
+              "type": "Foreach"
+            },
+            "Apply_to_each:_AmbiguousUtterances": {
+              "foreach": "@body('Filter_array:_AmbiguousUtterances')",
+              "actions": {
+                "Condition:_Is_IntentCandidates": {
+                  "actions": {
+                    "Set_variable:_CurrentElement_Of_IntentCandidates": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "40201194-d88a-4d78-8693-24b1933b06ba"
+                      },
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "CurrentElement",
+                        "value": "@items('Apply_to_each:_AmbiguousUtterances')"
+                      }
+                    },
+                    "Filter_array:_Get_Next_SessionInfo_Elements_After_IntentCandidates": {
+                      "runAfter": {
+                        "Set_variable:_CurrentElement_Of_IntentCandidates": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "dae70def-8d98-45c8-aae3-5d8ec399d88e"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_AmbiguousUtterances')",
+                        "where": "@and(equals(item()?['valueType'], 'SessionInfo'), greater(item()?['index'], variables('CurrentElement')?['index']))"
+                      }
+                    },
+                    "Append_to_array_variable:_AmbiguousUtterancesArray": {
+                      "runAfter": {
+                        "Select:_Intents": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "51fc5f9e-7664-4712-9e1f-766aa621a42b"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "AmbiguousUtterancesArray",
+                        "value": {
+                          "Session ID": "@{triggerBody()['text_1']}-@{first(outputs('Compose:_Sort_SessionInfo_Array_for_IntentCandidates'))?['timestamp']}-@{first(outputs('Compose:_Sort_SessionInfo_Array_for_IntentCandidates'))?['id']}",
+                          "Intent Candidates ID": "@{variables('CurrentElement')?['id']}",
+                          "Ambiguous Utterance": "@{variables('CurrentElement')?['value']?['triggerUtterance']}",
+                          "Intent Candidates": "@body('Select:_Intents')"
+                        }
+                      }
+                    },
+                    "Select:_Intents": {
+                      "runAfter": {
+                        "Compose:_Sort_SessionInfo_Array_for_IntentCandidates": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "ba043641-17ec-4e4d-882d-ebb2d74e14a5"
+                      },
+                      "type": "Select",
+                      "inputs": {
+                        "from": "@variables('CurrentElement')?['value']?['intents']",
+                        "select": {
+                          "Intent Id": "@item()?['intentId']",
+                          "Intent Score": "@item()?['intentScore']?['score']",
+                          "Title": "@item()?['intentScore']?['properties']?['Title']"
+                        }
+                      }
+                    },
+                    "Compose:_Sort_SessionInfo_Array_for_IntentCandidates": {
+                      "runAfter": {
+                        "Filter_array:_Get_Next_SessionInfo_Elements_After_IntentCandidates": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "1ea829f5-c5c2-416b-91d1-e7cb6bd64a66"
+                      },
+                      "type": "Compose",
+                      "inputs": "@sort(body('Filter_array:_Get_Next_SessionInfo_Elements_After_IntentCandidates'), 'index')"
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "equals": [
+                      "@items('Apply_to_each:_AmbiguousUtterances')?['valueType']",
+                      "IntentCandidates"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "c0dd5ef2-1a1d-4960-b7c4-bae9e7374855"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Apply_to_each:_Unrecognized_Utterances": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "a5db509b-f59c-4d5a-a23e-50a216755df4"
+              },
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_NextElement": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "236155c9-69c1-43cd-8a2d-6e95b10cfebc"
+          },
+          "type": "Scope"
+        },
+        "Scope:_Catch": {
+          "actions": {
+            "Terminate": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "04b10cb3-63ab-493b-9ee8-a3aacf72e905"
+              },
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "code": "Conversation KPIs Unrecognized and Ambiguous Utterances Child",
+                  "message": "An error occurred while processing your request. Please try again later or contact support if the issue persists."
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Try": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "478d1cd7-8d5c-4545-b820-94f947980d1a"
+          },
+          "type": "Scope"
+        },
+        "Scope:_Finally": {
+          "actions": {
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "28376a71-7efe-4066-b9f5-9f1d1b2ba586"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "unrecognizedutterencesarray": "@{variables('UnrecognizedUtterencesArray')}",
+                  "ambiguousutterancesarray": "@{variables('AmbiguousUtterancesArray')}"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "unrecognizedutterencesarray": {
+                      "title": "UnrecognizedUtterencesArray",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "ambiguousutterancesarray": {
+                      "title": "AmbiguousUtterancesArray",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Catch": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1a54d218-87cf-4d22-9439-cec578795c34"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable:_NextElement": {
+          "runAfter": {
+            "Initialize_variable:_CurrentElement": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "96dab8aa-3f35-49e4-8597-397eeb89ca23"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "NextElement",
+                "type": "object",
+                "value": null
+              }
+            ]
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
