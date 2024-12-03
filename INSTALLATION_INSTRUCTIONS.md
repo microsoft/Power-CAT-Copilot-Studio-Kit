@@ -30,7 +30,21 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 1. Select **Browse**
 1. Select **CopilotStudioAccelerator.zip**
 1. Select **Next**
-1. Power Apps will recognize that this is an upgrade to an existing managed solution. Confirm that you want to upgrade the existing solution by clicking **Next** and then **Import**
+1. Power Apps will recognize that this is an upgrade to an existing managed solution.
+1. Confirm that you want to upgrade the existing solution by clicking **Next**
+1. Leave "**Conversation KPIs report**" values as-is for now, you will be updating these in the later steps.
+1. Select **Import**
+
+After the import process has finished, complete these steps to enable the Conversation KPIs related flows:
+1. Navigate to **Power Automate**
+1. Make sure you have the environment with Copilot Studio Kit selected
+1. Select **Solutions**
+1. Select **Copilot Studio Kit**
+1. Select **Cloud flows**
+1. Turn on the following flows in the following order
+   1. Conversation KPI Tracked Variables Child
+   1. Conversation KPI Main Child
+   1. Conversation KPI Manual
 
 > [!NOTE]  
 > While upgrading the Copilot Studio Kit, you might encounter the following error: "*Solution "Power CAT Copilot Studio Kit" failed to import: ImportAsHolding failed with exception: Cannot delete attribute: cat_copilottestrunid from Entity: cat_CopilotTestRun since the attribute is not a custom field.*".
