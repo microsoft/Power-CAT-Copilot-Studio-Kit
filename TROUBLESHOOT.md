@@ -5,6 +5,7 @@
 Typically, two app registrations need to be created for the end user authentication:
 
 **KitAuthApp** – Used in Copilot Studio Kit agent configurations
+
 **CopilotStudioAuthApp**  - Used in Copilot Studio, linked to KitAuthApp
 
 #### General checklist
