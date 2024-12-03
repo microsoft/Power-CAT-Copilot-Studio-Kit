@@ -54,10 +54,6 @@ After creating a test set, you may use Excel to bulk create or update tests.
 9. **Submit** for import.
 10. **Wait** for the import to complete and succeed.
 
-> [!NOTE]
-> Learn more about Excel import and export in Power Apps model-driven apps here: [How to import data
-](https://learn.microsoft.com/power-apps/user/import-data)
-
 
 ## Duplicating a Test Set
 
