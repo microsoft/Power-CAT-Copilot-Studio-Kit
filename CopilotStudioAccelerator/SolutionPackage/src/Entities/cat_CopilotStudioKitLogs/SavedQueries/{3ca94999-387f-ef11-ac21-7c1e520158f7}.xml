@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{3ca94999-387f-ef11-ac21-7c1e520158f7}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilotstudiokitlogsid">
+          <cell name="cat_name" width="78" />
+          <cell name="cat_executionstatuscode" width="130" />
+          <cell name="cat_startdate" width="100" />
+          <cell name="cat_enddate" width="100" />
+          <cell name="cat_cloudflowname" width="169" />
+          <cell name="cat_cloudflowinstanceurl" width="300" />
+          <cell name="cat_errormessage" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+        <controlDescriptions />
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical" distinct="true">
+        <entity name="cat_copilotstudiokitlogs">
+          <attribute name="cat_name" />
+          <attribute name="createdon" />
+          <attribute name="cat_errormessage" />
+          <attribute name="cat_cloudflowname" />
+          <attribute name="cat_cloudflowinstanceurl" />
+          <order attribute="createdon" descending="true" />
+          <attribute name="cat_executionstatuscode" />
+          <attribute name="cat_startdate" />
+          <attribute name="cat_enddate" />
+          <attribute name="cat_copilotstudiokitlogsid" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>20240917.5</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Conversation KPI Logs" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

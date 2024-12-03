@@ -4,6 +4,7 @@
  * @commandLabel Get the command label.
  */
 function executeTestRunAction(primaryControl, commandLabel) {
+  "use strict";
   //variable declarations/assignments
   let actionExecutionRequest = null;
   let confirmationMessage = "";
@@ -34,8 +35,7 @@ function executeTestRunAction(primaryControl, commandLabel) {
     .replace("}", "");
   const dataverseUriHost = Xrm.Utility.getGlobalContext()
     .getClientUrl()
-    .replace("https://", "")
-    .replace("http://", "");
+    .replace("https://", "");
 
   // Create action request based on command label
   switch (commandLabel) {
@@ -120,6 +120,7 @@ function executeActionRequest(
   formContext,
   successMessage
 ) {
+  "use strict";
   const confirmStrings = {
     text: confirmationMessage,
     title: "Confirmation Dialog",
@@ -194,6 +195,7 @@ function createExecutionRequest(
   dataverseUriHost,
   operationName
 ) {
+  "use strict";
   const executionRequest = {
     entity: copilotTestRun,
     CopilotTestRunId: copilotTestRunId,
@@ -255,6 +257,7 @@ function createExecutionRequest(
  * @param formContext - The form context of the record to copy.
  */
 function copyRecord(formContext) {
+  "use strict";
   const entityName = formContext.data.entity.getEntityName();
 
   try {
@@ -312,6 +315,7 @@ function copyRecord(formContext) {
  * @uniqueId unique id for notification.
  */
 function displayNotification(formContext, message, type, uniqueId) {
+  "use strict";
   formContext.ui.setFormNotification(message, type, uniqueId);
 }
 
@@ -321,6 +325,7 @@ function displayNotification(formContext, message, type, uniqueId) {
  * @uniqueId unique id for notification.
  */
 function removeNotification(formContext, uniqueId) {
+  "use strict";
   setTimeout(function () {
     formContext.ui.clearFormNotification(uniqueId);
   }, 7000);

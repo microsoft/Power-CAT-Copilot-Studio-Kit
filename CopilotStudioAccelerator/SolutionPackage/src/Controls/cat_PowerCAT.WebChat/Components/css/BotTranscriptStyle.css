@@ -2,80 +2,80 @@
 .transcript {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Adjust gap between messages */
-    padding: 20px; /* Optional padding for the container */
-    overflow-y: auto; /* Enable scrolling if content overflows */
-    height: 100%; /* Ensure the container takes full height */
-    background-color: #f7f7f7; /* Background color for the chat window */
+    gap: 10px;
+    padding: 20px;
+    overflow-y: auto;
+    height: 100%;
+    background-color: #f7f7f7;
 }
 
 /* Styles for individual messages */
 .message {
     display: flex;
-    align-items: flex-start; /* Align avatar and message box */
-    gap: 10px; /* Space between avatar and message box */
+    align-items: flex-start;
+    gap: 10px;
     padding: 10px;
     border-radius: 8px;
-    max-width: 80%; /* Messages will take up to 80% of the container */
-    word-break: break-word; /* Break long words if needed */
-    overflow-wrap: break-word; /* Ensure long words wrap properly */
-    white-space: normal; /* Allow text to wrap to the next line */
+    max-width: 80%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
-/* Styles for user messages */
+/* User messages aligned to the right */
 .message.user {
     align-self: flex-end;
-    flex-direction: row-reverse; /* Align avatar to the right side */
-    background-color: #e1f5fe; /* Background color for user messages */
+    flex-direction: row-reverse;
+    background-color: #e1f5fe;
 }
 
-/* Styles for bot messages */
+/* Bot messages aligned to the left */
 .message.bot {
     align-self: flex-start;
-    background-color: #f1f1f1; /* Background color for bot messages */
+    background-color: #f1f1f1;
 }
 
-/* Styles for the message content */
+/* Content styling for the message box */
 .message-content {
     background-color: #ffffff;
     border: 1px solid #dcdcdc;
     border-radius: 8px;
     padding: 20px;
     width: auto;
-    max-width: 100%; /* Ensure it doesn't exceed container width */
-    word-wrap: break-word; /* Ensure long words break into the next line */
-    overflow-wrap: break-word; /* Break long words when necessary */
-    word-break: break-word; /* Break long words */
-    white-space: normal; /* Ensure text wraps to the next line */
-    box-sizing: border-box; /* Include padding and border in element's total width and height */
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    box-sizing: border-box;
 }
 
-/* Styles for the message text */
+/* Styles for the actual message text */
 .message-text {
     margin: 0;
-    line-height: 1.4; /* Adjust line-height for reduced spacing */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Use a Microsoft font */
-    font-size: 14px; /* Font size for message text */
-    color: #333; /* Text color */
-    word-wrap: break-word; /* Ensure long words break into the next line */
-    overflow-wrap: break-word; /* Break long words when necessary */
-    word-break: break-word; /* Break long words */
-    white-space: normal; /* Ensure text wraps properly */
+    line-height: 1.4;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: #333;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
 
-/* Styles for avatars */
+/* Styles for avatars in the messages */
 .avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    object-fit: cover; /* Ensure the image fits well within the container */
+    object-fit: cover;
 }
 
-/* Styles for the message timestamp */
+/* Styling for the message timestamp */
 .message-timestamp {
     font-size: 0.8em;
     color: #888;
     margin-top: 5px;
-    align-self: flex-end; /* Align timestamp to the bottom-right */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Original font for timestamp */
+    align-self: flex-end;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
