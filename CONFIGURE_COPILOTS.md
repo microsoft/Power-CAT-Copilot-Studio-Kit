@@ -90,7 +90,7 @@ Note: These fields are mandatory for all configuration types.
 | Column Name | Required | Description | 
 | --- | --- | --- |
 | **Name** | Yes | Name of the File Indexer configuration. Example: **"HR documents"**|
-| **Site Address** | Yes | Address of the SharePoint site you are synchronizing the content from. Example: **"https://organizationname.sharepoint.com/sites/sitename"** |
+| **Site Address** | Yes | Address of the SharePoint site you are synchronizing the content from. Example: **"https://organizationname.sharepoint.com/sites/sitename/"** |
 | **Library Name** | Yes |  The library in the SharePoint site you are synchronizing the content from. Example: **"Documents"** |
 | **Agent Configuration** | Yes | The agent configuration this record belongs to. This is automatically populated if you create new record through agent configuration view. |
 | **Include Nested Items** | Yes | If the content synchronization is limited to the exact location you specify, or whether the child items of that location will be included in the synchronization as well. |
