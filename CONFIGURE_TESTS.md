@@ -17,7 +17,7 @@
 | **Response Match** | This is the simplest type of test, and it can be immediately evaluated. <br> Compares the copilot response with the expected response. |
 | **Attachments (Adaptive Cards, etc.)** | Compares the copilot attachments JSON response with the expected attachments JSON. <br> Note: this is the full array of attachments. [Learn about Adaptive Cards](https://learn.microsoft.com/en-us/adaptive-cards/). |
 | **Topic Match** | _Only available when Dataverse enrichment is configured._ <br> When the Dataverse enrichment step completes, compares the expected topic name and the triggered topic name. |
-| **Generative Answers** | _Only available if AI Builder enrichment is configured._ <br> Uses a large language model to assess if the AI-generated answer is close to a sample answer or honors validation instructions. <br> When _Azure Application Insights enrichment_ is configured, negative tests, such as Moderation or No Search Results, can also be tested. Learn more about [Azure Application Insights](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview). |
+| **Generative Answers** | _Only available if AI Builder enrichment is configured._ <br> Uses a large language model to assess if the AI-generated answer is close to a sample answer or honors validation instructions. <br> When _Azure Application Insights enrichment_ is configured, negative tests, such as Moderation or No Search Results, can also be tested. |
 
 ## Create a new test
 
@@ -31,7 +31,7 @@ From the Tests subgrid, select **New Copilot Test**
 | **Name** | Yes | Name of the test. This can be an internal reference ID, e.g., TST-001. |
 | **Copilot Test Set** | Yes | Parent test set for the test |
 | **Test Type** | Yes | One of the above test types |
-| **Send startConversation Event** |   | If enabled, the startConversation start will be sent to the copilot so that it [proactively starts the conversation](https://learn.microsoft.com/microsoft-copilot-studio/configure-bot-greeting?tabs=web), and the test utterance is only sent after. |
+| **Send startConversation Event** |   | If enabled, the startConversation start will be sent to the copilot so that it proactively starts the conversation, and the test utterance is only sent after. |
 | **Expected Position of the Response Message** |   | Don't set a value if unsure. <br> This option allows the to capture a specific copilot response if it sends multiple messages. For example, if the copilot first says "Hello" and then "How can I help you?", and if you want to test the second message, set 2. |
 | **Test Utterance** | Yes | The message that you want to send to the copilot as part of the test |
 | **Expected Response** | Depends | Mandatory for a Response Match. <br> Expected response from the copilot. <br> For a Generative Answers test, this is where you can set a sample answer or your own validation instructions for the large language model.  |
