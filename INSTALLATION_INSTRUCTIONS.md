@@ -19,6 +19,7 @@
 1. Leave "**Conversation KPIs report**" values as-is for now, you will be updating these in the later steps.
 1. Wait for the import operation to successfully complete.
 
+
 ## Upgrading existing solution
 
 If you have earlier version of Copilot Studio Kit installed and want to upgrade it to the latest version, follow these steps:
@@ -60,6 +61,8 @@ After the import process has finished, complete these steps to enable the Conver
 1. Select **Play**.
 1. **Bookmark** the app (optional)
 
+
+=======
 ## Configure the embedded Conversation KPI dashboard
 
 These steps are required only if you plan to use the embedded Conversation KPI dashboard in the Copilot Studio Kit.
@@ -95,6 +98,7 @@ In order to set up the embedded Conversation KPIs dashboard, you need to update 
 1. Locate and select **Conversation KPIs Report**
 1. Replace placeholders in the **Default Value** with the actual **Workspace name**, **Workspace GUID**, **Report Name** and **Report GUID** you noted down during the publishing process.
 1. Save
+
 
 ## Next step
 [Configure users and teams](/SETUP_USERS_AND_TEAMS.md)
