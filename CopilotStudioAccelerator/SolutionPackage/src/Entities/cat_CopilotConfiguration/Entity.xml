@@ -2144,6 +2144,20 @@
           </Descriptions>
         </attribute>
       </attributes>
+      <EntityKeys>
+        <EntityKey>
+          <Name>cat_AgentId</Name>
+          <LogicalName>cat_agentid</LogicalName>
+          <IntroducedVersion>20240917.45</IntroducedVersion>
+          <IsCustomizable>0</IsCustomizable>
+          <EntityKeyAttributes>
+            <AttributeName>cat_copilotid</AttributeName>
+          </EntityKeyAttributes>
+          <displaynames>
+            <displayname description="Agent Id" languagecode="1033" />
+          </displaynames>
+        </EntityKey>
+      </EntityKeys>
       <EntitySetName>cat_copilotconfigurations</EntitySetName>
       <IsDuplicateCheckSupported>0</IsDuplicateCheckSupported>
       <IsBusinessProcessEnabled>0</IsBusinessProcessEnabled>

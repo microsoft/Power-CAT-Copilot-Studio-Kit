@@ -62,7 +62,7 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell locklevel="0" id="{0922e272-aedc-4c53-990b-08f806dfa248}" showlabel="false">
+                      <cell locklevel="0" id="{943556a5-6899-4439-b3aa-9e4634d1ed60}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -89,19 +89,25 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{0cbb8425-65e6-42b5-9308-9c85c5a0d61d}" locklevel="0" colspan="1" rowspan="3">
+                      <cell id="{0cbb8425-65e6-42b5-9308-9c85c5a0d61d}" locklevel="0" colspan="1" rowspan="5">
                         <labels>
                           <label description="Tracked Variables" languagecode="1033" />
                         </labels>
-                        <control id="cat_trackedvariables" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_trackedvariables" disabled="false" uniqueid="{158dca6d-6acf-45d1-93f2-6320d73c8746}" />
+                        <control id="cat_trackedvariables" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_trackedvariables" disabled="false" />
                       </cell>
-                      <cell id="{01fb393e-b26e-4210-a9c7-1fc9f22c48ec}" locklevel="0" colspan="2" rowspan="3">
+                      <cell locklevel="0" id="{5d44006b-efa5-452b-8961-ca5e5e54bd89}">
                         <labels>
-                          <label description="Agent Components" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_copilotcomponents" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_copilotcomponents" disabled="true" uniqueid="{ee6cb502-3ad6-41c1-ac25-8abb6a08e6b1}" />
+                      </cell>
+                      <cell locklevel="0" id="{ffffb5ec-4c5f-486c-a966-a75b986c70fd}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
                       </cell>
                     </row>
+                    <row />
+                    <row />
                     <row />
                     <row />
                   </rows>
@@ -877,34 +883,6 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{ee6cb502-3ad6-41c1-ac25-8abb6a08e6b1}">
-          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
-            <parameters>
-              <datafieldname>cat_copilotcomponents</datafieldname>
-            </parameters>
-          </customControl>
-          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_copilotcomponents</Value>
-              <Height type="Whole.None" static="true">25</Height>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-            </parameters>
-          </customControl>
-          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_copilotcomponents</Value>
-              <Height type="Whole.None" static="true">25</Height>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-            </parameters>
-          </customControl>
-          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_copilotcomponents</Value>
-              <Height type="Whole.None" static="true">25</Height>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-            </parameters>
-          </customControl>
-        </controlDescription>
         <controlDescription forControl="{a2f358a6-26ee-48e5-b2ea-ac8690a01434}">
           <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
             <parameters>
@@ -1036,34 +1014,6 @@
               <ShowFooter type="Enum" static="true">yes</ShowFooter>
               <ShowColumnHeaders type="Enum" static="true">yes</ShowColumnHeaders>
               <EnableStatusColumn type="Enum" static="true">yes</EnableStatusColumn>
-            </parameters>
-          </customControl>
-        </controlDescription>
-        <controlDescription forControl="{158dca6d-6acf-45d1-93f2-6320d73c8746}">
-          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
-            <parameters>
-              <datafieldname>cat_trackedvariables</datafieldname>
-            </parameters>
-          </customControl>
-          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_trackedvariables</Value>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">25</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_trackedvariables</Value>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">25</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_trackedvariables</Value>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">25</fileColumnLogicalName>
             </parameters>
           </customControl>
         </controlDescription>

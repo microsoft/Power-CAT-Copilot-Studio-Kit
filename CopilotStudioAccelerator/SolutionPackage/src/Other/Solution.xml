@@ -96,6 +96,7 @@
       <RootComponent type="20" id="{00ca9752-c912-ef11-9f89-0022480b09c2}" behavior="0" />
       <RootComponent type="20" id="{144e624f-c812-ef11-9f89-0022480b09c2}" behavior="0" />
       <RootComponent type="20" id="{95c1906e-c912-ef11-9f8a-6045bd0825af}" behavior="0" />
+      <RootComponent type="29" id="{036b8fb0-25ae-ef11-b8e9-7c1e520158f7}" behavior="0" />
       <RootComponent type="29" id="{074d710c-7b93-ef11-8a69-7c1e524a2ae3}" behavior="0" />
       <RootComponent type="29" id="{1893ad31-f54f-ef11-a316-7c1e52198498}" behavior="0" />
       <RootComponent type="29" id="{197368f9-da8b-ef11-ac21-7c1e520cbfa3}" behavior="0" />
@@ -125,7 +126,6 @@
       <RootComponent type="29" id="{c9f3745c-a110-ef11-9f8a-000d3a5cb958}" behavior="0" />
       <RootComponent type="29" id="{cd0126fc-8fe3-47a1-ac85-dda3fd34c58b}" behavior="0" />
       <RootComponent type="29" id="{d24bf0c7-afa2-4fb3-9958-037a310ae4c2}" behavior="0" />
-      <RootComponent type="29" id="{dd0e6b13-d092-ef11-ac21-6045bdfed0cf}" behavior="0" />
       <RootComponent type="29" id="{e3742ca3-e086-ef11-ac21-7c1e520158f7}" behavior="0" />
       <RootComponent type="29" id="{e80e3233-7932-ef11-8409-7c1e520ac4c6}" behavior="0" />
       <RootComponent type="29" id="{ea936a04-6c6e-ef11-a670-000d3a8df0f3}" behavior="0" />
@@ -240,6 +240,10 @@
           <package>msdynce_CustomerCareIntelligenceBots_Anchor (2024.10.1.15694140)</package>
         </Required>
         <Dependent type="80" schemaName="cat_CopilotStudioAccelerator" displayName="Copilot Studio Kit" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="cat_agenttranscripts" displayName="Agent Transcripts" solution="Active" />
+        <Dependent type="1" schemaName="cat_copilotconfiguration" displayName="Agent Configuration" />
       </MissingDependency>
       <MissingDependency>
         <Required type="1" schemaName="conversationtranscript" displayName="ConversationTranscript" solution="PowerVirtualAgentsCommon (2024.10.1.15694140)">
