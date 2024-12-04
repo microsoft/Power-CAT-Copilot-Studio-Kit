@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EntityRelationships xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <EntityRelationship Name="business_unit_cat_agenttranscripts" />
   <EntityRelationship Name="business_unit_cat_copilotcard" />
   <EntityRelationship Name="business_unit_cat_copilotconfiguration" />
   <EntityRelationship Name="business_unit_cat_copilotfileindexerconfiguration" />
@@ -9,6 +10,7 @@
   <EntityRelationship Name="business_unit_cat_copilottestresult" />
   <EntityRelationship Name="business_unit_cat_copilottestrun" />
   <EntityRelationship Name="business_unit_cat_copilottestset" />
+  <EntityRelationship Name="cat_AgentTranscripts_cat_AgentConfiguration_cat_CopilotConfiguration" />
   <EntityRelationship Name="cat_copilotfileindexerconfiguration_CopilotConfigurationId_cat_copilotconfiguration" />
   <EntityRelationship Name="cat_CopilotKPI_cat_CopilotConfigurationId_cat_CopilotConfiguration" />
   <EntityRelationship Name="cat_copilotstudiokitlogs_CopilotConfigurationId_cat_copilotconfiguration" />
@@ -19,6 +21,8 @@
   <EntityRelationship Name="cat_copilottestrun_CopilotTestSetId_cat_copil" />
   <EntityRelationship Name="ElasticFileAttachment_cat_CopilotKPI_cat_ConversationTranscriptFile" />
   <EntityRelationship Name="FileAttachment_cat_CopilotTestResult_cat_ConversationTranscriptFile" />
+  <EntityRelationship Name="lk_cat_agenttranscripts_createdby" />
+  <EntityRelationship Name="lk_cat_agenttranscripts_modifiedby" />
   <EntityRelationship Name="lk_cat_copilotcard_createdby" />
   <EntityRelationship Name="lk_cat_copilotcard_modifiedby" />
   <EntityRelationship Name="lk_cat_copilotconfiguration_createdby" />
@@ -37,6 +41,7 @@
   <EntityRelationship Name="lk_cat_copilottestrun_modifiedby" />
   <EntityRelationship Name="lk_cat_copilottestset_createdby" />
   <EntityRelationship Name="lk_cat_copilottestset_modifiedby" />
+  <EntityRelationship Name="owner_cat_agenttranscripts" />
   <EntityRelationship Name="owner_cat_copilotcard" />
   <EntityRelationship Name="owner_cat_copilotconfiguration" />
   <EntityRelationship Name="owner_cat_copilotfileindexerconfiguration" />
@@ -46,6 +51,7 @@
   <EntityRelationship Name="owner_cat_copilottestresult" />
   <EntityRelationship Name="owner_cat_copilottestrun" />
   <EntityRelationship Name="owner_cat_copilottestset" />
+  <EntityRelationship Name="team_cat_agenttranscripts" />
   <EntityRelationship Name="team_cat_copilotcard" />
   <EntityRelationship Name="team_cat_copilotconfiguration" />
   <EntityRelationship Name="team_cat_copilotfileindexerconfiguration" />
@@ -55,6 +61,7 @@
   <EntityRelationship Name="team_cat_copilottestresult" />
   <EntityRelationship Name="team_cat_copilottestrun" />
   <EntityRelationship Name="team_cat_copilottestset" />
+  <EntityRelationship Name="user_cat_agenttranscripts" />
   <EntityRelationship Name="user_cat_copilotcard" />
   <EntityRelationship Name="user_cat_copilotconfiguration" />
   <EntityRelationship Name="user_cat_copilotfileindexerconfiguration" />

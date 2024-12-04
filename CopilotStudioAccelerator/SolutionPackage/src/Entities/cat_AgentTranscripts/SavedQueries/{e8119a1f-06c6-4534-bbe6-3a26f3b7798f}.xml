@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{e8119a1f-06c6-4534-bbe6-3a26f3b7798f}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_agenttranscriptsid">
+          <cell name="cat_name" width="300" />
+          <cell name="cat_workflowstatus" width="130" />
+          <cell name="cat_agentconfiguration" width="300" />
+          <cell name="cat_agentid" width="249" />
+          <cell name="cat_dataverseurl" width="300" />
+          <cell name="cat_conversationdate" width="188" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_agenttranscripts">
+          <attribute name="cat_agenttranscriptsid" />
+          <attribute name="cat_name" />
+          <attribute name="cat_agentconfiguration" />
+          <attribute name="cat_agentid" />
+          <attribute name="cat_dataverseurl" />
+          <attribute name="cat_workflowstatus" />
+          <attribute name="cat_conversationdate" />
+          <order attribute="cat_agentconfiguration" descending="false" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="All Agent Transcripts" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>
