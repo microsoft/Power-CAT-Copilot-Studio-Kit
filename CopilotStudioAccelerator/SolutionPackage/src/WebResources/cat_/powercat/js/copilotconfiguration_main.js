@@ -424,13 +424,13 @@ function showSyncFilesDialog(formContext) {
 /**
  * @function createExecutionRequest create an execution request with all required parameters.
  * @operationName operation name.
- * @CopilotConfigurationId Copilot Configuration Id
+ * @copilotConfigurationId Copilot Configuration Id
  * @returns execution request.
  */
-function createExecutionRequest(operationName, CopilotConfigurationId) {
+function createExecutionRequest(operationName, copilotConfigurationId) {
   "use strict";
   const executionRequest = {
-    CopilotConfigurationId: CopilotConfigurationId,
+    CopilotConfigurationId: copilotConfigurationId,
     getMetadata: function () {
       return {
         boundParameter: null,
