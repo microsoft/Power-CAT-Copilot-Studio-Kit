@@ -10,7 +10,7 @@ Typically, two app registrations need to be created for the end user authenticat
 
 #### General checklist
 * Ensure that the custom agent (Copilot Studio) and the Copilot Studio Kit are on the same tenant
-* Before enabling end user authentication, make sure authentication is disabled on both the custom agent and agent configuration in Copilot Studio Kit and run simple test to verify that the connectivity works
+* Before enabling end user authentication, make sure authentication is disabled on both the custom agent and agent configuration in Copilot Studio Kit and run a simple test to verify that the connectivity works
 
 #### Checklist for KitAuthApp
 *	In Azure Portal, Authentication, verify that SPA Redirect URI has the Dataverse URI where Copilot Studio Kit is deployed to
