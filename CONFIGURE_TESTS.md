@@ -45,15 +45,11 @@ From the Tests subgrid, select **New Agent Test**
 
 After creating a test set, you may use Excel to bulk create or update tests.
 1. From your **test set** record
-2. Switch the subgrid view from **Tests** to **Export/Import View**.
-3. In the subgrid commands, select **Export Agent Tests**.
-4. Make sure you set the same **Agent Test Set** name (must be unique for the import to succeed).
-5. **Fill out** the required columns.
-6. Navigate to **Tests** in the left-hand navigation bar.
-7. Select **Import from Excel**
-8. Select your **file** and select **Next**.
-9. **Submit** for import.
-10. **Wait** for the import to complete and succeed.
+1. Switch the subgrid view from **Tests** to **Export/Import View**.
+1. In the subgrid commands, select **Export Agent Tests in Excel Online**.
+1. Add and modify tests as required.
+1. Click **Save**.
+1. **Wait** for the import to complete and succeed.
 
 > [!NOTE]
 > Learn more about Excel import and export in Power Apps model-driven apps here: [How to import data
