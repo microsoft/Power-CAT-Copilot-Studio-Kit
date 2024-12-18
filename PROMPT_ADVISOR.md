@@ -1,4 +1,4 @@
-# Prompt advisor
+# Prompt Advisor
 
 ## Refine your AI Builder custom prompts (preview)
 
