@@ -55,6 +55,14 @@ Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details and h
 
 You can read more on the approach from [this article in Linkedin](https://www.linkedin.com/pulse/sync-your-sharepoint-library-dataverse-how-hybrid-approach-r%C3%A9mi-dyon-8lyle)
 
+## Prompt Advisor (preview)
+
+Prompt Advisor allows makers to develop effective prompts while learning useful prompt engineering skills. Prompts entered in the advisor tool will be analyzed and receive a confidence evaluation with detailed reasoning for the score. Advisor also provides a list of suggested refined prompts implementing various prompt techniques. Makers can select from these optimized prompts to iteratively refine and improve their input.
+
+![image (2)](https://github.com/user-attachments/assets/cfed9884-660b-4b2f-acd7-d9e42eadcc9a)
+
+More details available on the [Prompt Advisor](./PROMPT_ADVISOR.md) page.
+
 # About this GitHub repo
 
 The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
