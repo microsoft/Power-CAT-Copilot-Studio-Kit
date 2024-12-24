@@ -95,6 +95,9 @@ Note: These fields are mandatory for all configuration types.
 | **Agent Configuration** | Yes | The agent configuration this record belongs to. This is automatically populated if you create new record through agent configuration view. |
 | **Include Nested Items** | Yes | If the content synchronization is limited to the exact location you specify, or whether the child items of that location will be included in the synchronization as well. |
 | **Limit Entries to Folder** | No | Optionally you can specify a folder in the library to synchronize. Example: **"/HR-documents"**|
+| **SharePoint Files Filter Query** | No | Optionally you can specify additional filters to use when selecting files to be synchronized. Leave empty for no additional filtering. Example: **PublicContent eq 'true'**|
+| **Include SharePoint Pages** | No | Optionally you can include SharePoint pages in the synchronization.|
+| **SharePoint Pages Filter Query** | No | Optionally you can specify additional filters to use when selecting pages to be synchronized. Leave empty for no additional filtering. Example: **PublicContent eq 'true'**|
 
 4. **Save**
 
