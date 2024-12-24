@@ -118,6 +118,7 @@
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
               "item/cat_appinsightsenrichmentstatuscode": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_isazureapplicationinsightsenabled'], true), 5, 4)",
               "item/cat_dataverseenrichmentstatuscode": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_isenrichedwithconversationtranscripts'], true), 5, 4)",
+              "item/cat_errordetails": "<strong>@{workflow()['tags']['flowDisplayName']}</strong> flow run: <a href=\"https://make.powerautomate.com/environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>",
               "item/cat_generatedanswersanalysiscode": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true), 5, 4)",
               "item/cat_runstatuscode": 3
             },
@@ -365,7 +366,9 @@
         "Update_Copilot_Test_Run:_Error": {
           "runAfter": {
             "Do_until_Last_Page": [
-              "Succeeded"
+              "Failed",
+              "Skipped",
+              "TimedOut"
             ]
           },
           "metadata": {
@@ -796,7 +799,7 @@
                       "actionName": "cat_SendMessageOrEvent",
                       "item/cat_Token": "@body('Parse_Token_Response')?['token']",
                       "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
-                      "item/cat_Body": "{\n  \"type\": \"message\",\n  \"from\": {\n    \"id\": \"CopilotStudioKit\"\n  },\n  \"text\": \"@{items('Apply_to_each_Copilot_Test')?['cat_testutterance']}\"\n}",
+                      "item/cat_Body": "{\n  \"type\": \"message\",\n  \"from\": {\n    \"id\": \"CopilotStudioKit\"\n  },\n  \"text\": \"@{replace(items('Apply_to_each_Copilot_Test')?['cat_testutterance'], '\"', '\\\"')}\"\n}",
                       "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
                     },
                     "authentication": "@parameters('$authentication')"
@@ -1459,7 +1462,7 @@
                       "type": "Query",
                       "inputs": {
                         "from": "@body('Filter_array:_Activities_of_type_Message')",
-                        "where": "@and(\n    equals(item()?['from']?['role'], 'bot'),\n    empty(first(item()?['attachments'])?['content']?['tokenExchangeResource']?['id']),\n    or(\n        equals(first(item()?['attachments'])?['contentType'], 'application/vnd.microsoft.card.adaptive'),\n        and(\n            not(empty(item()?['text'])),\n            not(\n                or(\n                    contains(toLower(item()?['text']), 'sign in'),\n                    contains(toLower(item()?['text']), 'sign-in'),\n                    contains(toLower(item()?['text']), 'signing in'),\n                    contains(toLower(item()?['text']), 'login'),\n                    contains(toLower(item()?['text']), 'log in'),\n                    contains(toLower(item()?['text']), 'log into'),\n                    contains(toLower(item()?['text']), 'log on'),\n                    contains(toLower(item()?['text']), 'log onto'),\n                    contains(toLower(item()?['text']), 'log back in'),\n                    contains(toLower(item()?['text']), 'authenticate'),\n                    contains(toLower(item()?['text']), 'authentication required'),\n                    contains(toLower(item()?['text']), 'authorize'),\n                    contains(toLower(item()?['text']), 'authorization needed'),\n                    contains(toLower(item()?['text']), 'verify your identity'),\n                    contains(toLower(item()?['text']), 'identity verification'),\n                    contains(toLower(item()?['text']), 'verify credentials'),\n                    contains(toLower(item()?['text']), 'enter credentials'),\n                    contains(toLower(item()?['text']), 'access your account'),\n                    contains(toLower(item()?['text']), 'account access required'),\n                    contains(toLower(item()?['text']), 'credentials needed'),\n                    contains(toLower(item()?['text']), 'access token'),\n                    contains(toLower(item()?['text']), 'token expired'),\n                    contains(toLower(item()?['text']), 'session expired'),\n                    contains(toLower(item()?['text']), 're-authenticate'),\n                    contains(toLower(item()?['text']), 're-authentication required')\n                )\n            )\n        )\n    )\n)\n"
+                        "where": "@and(\n    equals(item()?['from']?['role'], 'bot'),\n    empty(first(item()?['attachments'])?['content']?['tokenExchangeResource']?['id']),\n    or(\n        equals(first(item()?['attachments'])?['contentType'], 'application/vnd.microsoft.card.adaptive'),\n        and(\n            not(empty(item()?['text'])),\n            not(\n                or(\n                    contains(toLower(item()?['text']), 'need you to sign in'),\n                    contains(toLower(item()?['text']), 'Please sign in'),\n                    contains(toLower(item()?['text']), 'sign in to continue'),\n                    contains(toLower(item()?['text']), 'log in to access'),\n                    contains(toLower(item()?['text']), 'sign-in required'),\n                    contains(toLower(item()?['text']), 'click here to log in')\n                )\n            )\n        )\n    )\n)"
                       }
                     }
                   },
