@@ -14,7 +14,7 @@
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{71e910d6-1445-472d-a0c8-b4c0c5aae23d}" columns="111">
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{71e910d6-1445-472d-a0c8-b4c0c5aae23d}" columns="111" name="tab_general_section_general">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
@@ -52,11 +52,43 @@
                         </labels>
                         <control id="cat_arenesteditemsincluded" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_arenesteditemsincluded" disabled="false" uniqueid="{3d05ae2e-ef04-4ee6-8805-a0227cf8d9cb}" />
                       </cell>
+                      <cell id="{28f1ed01-b4a6-451f-85c8-7f8cdbbbb335}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sharepointfilesfilterquery" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_sharepointfilesfilterquery" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
                       <cell id="{4cfd3ce3-9bc0-441d-af40-d57fdb5b8612}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                         <control id="cat_limitentriestofolder" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_limitentriestofolder" disabled="false" />
+                      </cell>
+                      <cell id="{a274a45b-3c2f-43d8-8037-37d101e8e497}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_includesharepointpages" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_includesharepointpages" disabled="false" uniqueid="{9380b81b-26dd-47a5-a097-674a3f62171d}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{384ccb89-471d-44db-8784-37540bb4b196}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{be297d62-e232-4e12-ad11-a5a1c2901fca}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{ab68639c-1728-4fb5-acab-eeb247bf3e13}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sharepointpagesfilterquery" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_sharepointpagesfilterquery" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -254,6 +286,28 @@
           <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
             <parameters>
               <value>cat_arenesteditemsincluded</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{9380b81b-26dd-47a5-a097-674a3f62171d}">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>cat_includesharepointpages</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_includesharepointpages</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_includesharepointpages</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_includesharepointpages</value>
             </parameters>
           </customControl>
         </controlDescription>
