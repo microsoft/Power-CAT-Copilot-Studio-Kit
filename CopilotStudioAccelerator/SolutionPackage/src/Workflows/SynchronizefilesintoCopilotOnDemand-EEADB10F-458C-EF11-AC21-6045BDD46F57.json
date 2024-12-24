@@ -2,56 +2,51 @@
   "properties": {
     "connectionReferences": {
       "shared_commondataserviceforapps-1": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        }
+        "runtimeSource": "embedded"
       }
     },
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
-        },
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
         }
       },
       "triggers": {
         "When_an_action_is_performed": {
-          "metadata": {
-            "operationMetadataId": "cca0b404-9a7f-45c4-b14d-85ad652ebb66"
-          },
           "type": "OpenApiConnectionWebhook",
           "inputs": {
-            "host": {
-              "connectionName": "shared_commondataserviceforapps-1",
-              "operationId": "BusinessEventsTrigger",
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-            },
             "parameters": {
               "catalog": "allcatalog",
               "category": "allcategory",
               "subscriptionRequest/entityname": "none",
               "subscriptionRequest/sdkmessagename": "cat_RunSyncFiles"
             },
-            "authentication": "@parameters('$authentication')"
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "BusinessEventsTrigger",
+              "connectionName": "shared_commondataserviceforapps-1"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "cca0b404-9a7f-45c4-b14d-85ad652ebb66"
           }
         }
       },
       "actions": {
         "Run_Synchronize_files_into_Copilot_Studio_Child_Flow": {
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "debc5dfa-a47c-4845-9a8e-f4c91845c1fd"
-          },
           "type": "Workflow",
           "inputs": {
             "host": {
@@ -61,12 +56,16 @@
               "text": "Manual",
               "text_1": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']"
             }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "debc5dfa-a47c-4845-9a8e-f4c91845c1fd"
           }
         }
       },
       "outputs": {}
     },
-    "templateName": ""
+    "templateName": null
   },
   "schemaVersion": "1.0.0.0"
 }

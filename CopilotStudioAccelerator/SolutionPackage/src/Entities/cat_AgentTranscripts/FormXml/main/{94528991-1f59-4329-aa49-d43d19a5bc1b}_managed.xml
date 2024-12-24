@@ -52,20 +52,6 @@
                         </labels>
                         <control id="cat_conversationdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_conversationdate" disabled="false" />
                       </cell>
-                      <cell id="{b1325ce0-268b-4c05-93a9-bc919417eab6}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_iscopyfulltranscriptenabled" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="cat_iscopyfulltranscriptenabled" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{4dd850a4-225b-44c9-bc32-fa1a155f9072}" locklevel="0" colspan="2" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_dataverseurl" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_dataverseurl" disabled="false" />
-                      </cell>
                       <cell id="{c3aa6fd2-7337-44a5-983c-8938d2291a33}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
@@ -78,9 +64,28 @@
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_transcriptcontent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_transcriptcontent" disabled="false" uniqueid="{f569d55b-e8f5-494a-89e6-066b9e1895c6}" />
+                        <control id="cat_transcriptcontent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_transcriptcontent" disabled="false" uniqueid="{a0c25bf6-3864-4031-9256-8ba81c7a9182}" />
                       </cell>
                     </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
                   </rows>
                 </section>
               </sections>
@@ -146,34 +151,6 @@
         <Everyone />
       </DisplayConditions>
       <controlDescriptions>
-        <controlDescription forControl="{f569d55b-e8f5-494a-89e6-066b9e1895c6}">
-          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
-            <parameters>
-              <datafieldname>cat_transcriptcontent</datafieldname>
-            </parameters>
-          </customControl>
-          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_transcriptcontent</Value>
-              <Height type="Whole.None" static="true">50</Height>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-            </parameters>
-          </customControl>
-          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_transcriptcontent</Value>
-              <Height type="Whole.None" static="true">50</Height>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-            </parameters>
-          </customControl>
-          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
-            <parameters>
-              <Value type="Multiple">cat_transcriptcontent</Value>
-              <Height type="Whole.None" static="true">50</Height>
-              <FileColumn type="Enum" static="true">False</FileColumn>
-            </parameters>
-          </customControl>
-        </controlDescription>
         <controlDescription forControl="{a15ff846-cec3-4efe-80df-aa188e35ffe7}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
@@ -198,6 +175,34 @@
             <parameters>
               <Value type="Multiple">cat_trackedvariables</Value>
               <Height type="Whole.None" static="true">10</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{a0c25bf6-3864-4031-9256-8ba81c7a9182}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_transcriptcontent</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_transcriptcontent</Value>
+              <Height type="Whole.None" static="true">50</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_transcriptcontent</Value>
+              <Height type="Whole.None" static="true">50</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_transcriptcontent</Value>
+              <Height type="Whole.None" static="true">50</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
             </parameters>
           </customControl>

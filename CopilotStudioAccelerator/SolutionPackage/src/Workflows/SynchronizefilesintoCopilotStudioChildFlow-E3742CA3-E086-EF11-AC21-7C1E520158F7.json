@@ -248,13 +248,120 @@
                           "table": "@variables('LibraryName')",
                           "folderPath": "@items('Apply_to_each_File_Indexer_Configurations')?['cat_limitentriestofolder']",
                           "viewScopeOption": "@if(equals(items('Apply_to_each_File_Indexer_Configurations')?['cat_arenesteditemsincluded'], true), 'RecursiveAll', 'Default')",
-                          "$filter": "FSObjType eq 0 and (File_x0020_Type eq 'doc' or File_x0020_Type eq 'docx' or File_x0020_Type eq 'xls' or File_x0020_Type eq 'xlsx' or File_x0020_Type eq 'ppt' or File_x0020_Type eq 'pptx' or File_x0020_Type eq 'pdf' or File_x0020_Type eq 'txt' or File_x0020_Type eq 'md' or File_x0020_Type eq 'log' or File_x0020_Type eq 'html' or File_x0020_Type eq 'htm' or File_x0020_Type eq 'csv' or File_x0020_Type eq 'xml' or File_x0020_Type eq 'odt' or File_x0020_Type eq 'ods' or File_x0020_Type eq 'odp' or File_x0020_Type eq 'epub' or File_x0020_Type eq 'rtf' or File_x0020_Type eq 'pages' or File_x0020_Type eq 'key' or File_x0020_Type eq 'numbers' or File_x0020_Type eq 'json' or File_x0020_Type eq 'yml' or File_x0020_Type eq 'yaml' or File_x0020_Type eq 'tex' or File_x0020_Type eq 'dot' or File_x0020_Type eq 'text' or File_x0020_Type eq 'shtml' or File_x0020_Type eq 'ehtml' or File_x0020_Type eq 'shtm' or File_x0020_Type eq 'xslt' or File_x0020_Type eq 'xbl' or File_x0020_Type eq 'xsl' or File_x0020_Type eq 'latex')\n"
+                          "$filter": "FSObjType eq 0 and (File_x0020_Type eq 'doc' or File_x0020_Type eq 'docx' or File_x0020_Type eq 'xls' or File_x0020_Type eq 'xlsx' or File_x0020_Type eq 'ppt' or File_x0020_Type eq 'pptx' or File_x0020_Type eq 'pdf' or File_x0020_Type eq 'txt' or File_x0020_Type eq 'md' or File_x0020_Type eq 'log' or File_x0020_Type eq 'html' or File_x0020_Type eq 'htm' or File_x0020_Type eq 'csv' or File_x0020_Type eq 'xml' or File_x0020_Type eq 'odt' or File_x0020_Type eq 'ods' or File_x0020_Type eq 'odp' or File_x0020_Type eq 'epub' or File_x0020_Type eq 'rtf' or File_x0020_Type eq 'pages' or File_x0020_Type eq 'key' or File_x0020_Type eq 'numbers' or File_x0020_Type eq 'json' or File_x0020_Type eq 'yml' or File_x0020_Type eq 'yaml' or File_x0020_Type eq 'tex' or File_x0020_Type eq 'dot' or File_x0020_Type eq 'text' or File_x0020_Type eq 'shtml' or File_x0020_Type eq 'ehtml' or File_x0020_Type eq 'shtm' or File_x0020_Type eq 'xslt' or File_x0020_Type eq 'xbl' or File_x0020_Type eq 'xsl' or File_x0020_Type eq 'latex')@{if(empty(items('Apply_to_each_File_Indexer_Configurations')?['cat_sharepointfilesfilterquery']), '', concat(' and ', items('Apply_to_each_File_Indexer_Configurations')?['cat_sharepointfilesfilterquery']))}\n"
                         },
                         "authentication": {
                           "type": "Raw",
                           "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                         }
                       }
+                    },
+                    "Synchronize_Pages": {
+                      "actions": {
+                        "Get_pages": {
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "4051de34-a512-4538-b0d2-5ef9c48a4daa"
+                          },
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "host": {
+                              "connectionName": "shared_sharepointonline",
+                              "operationId": "HttpRequest",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+                            },
+                            "parameters": {
+                              "dataset": "@items('Apply_to_each_File_Indexer_Configurations')?['cat_siteaddress']",
+                              "parameters/method": "GET",
+                              "parameters/uri": "_api/web/lists/getbytitle('Site Pages')/items?$select=Title,CanvasContent1,FileLeafRef&$filter=Title ne null and FileLeafRef ne null@{if(empty(items('Apply_to_each_File_Indexer_Configurations')?['cat_sharepointpagesfilterquery']), '', concat(' and ', items('Apply_to_each_File_Indexer_Configurations')?['cat_sharepointpagesfilterquery']))}"
+                            },
+                            "authentication": {
+                              "type": "Raw",
+                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            }
+                          }
+                        },
+                        "Parse_JSON": {
+                          "runAfter": {
+                            "Get_pages": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "3b193801-e617-47a8-9bf8-417e18a17cf0"
+                          },
+                          "type": "ParseJson",
+                          "inputs": {
+                            "content": "@body('Get_pages')",
+                            "schema": {
+                              "type": "object",
+                              "properties": {
+                                "d": {
+                                  "type": "object",
+                                  "properties": {
+                                    "results": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "__metadata": {
+                                            "type": "object",
+                                            "properties": {
+                                              "id": {
+                                                "type": "string"
+                                              },
+                                              "uri": {
+                                                "type": "string"
+                                              },
+                                              "etag": {
+                                                "type": "string"
+                                              },
+                                              "type": {
+                                                "type": "string"
+                                              }
+                                            }
+                                          },
+                                          "FileLeafRef": {
+                                            "type": "string"
+                                          },
+                                          "Title": {
+                                            "type": "string"
+                                          },
+                                          "CanvasContent1": {
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Get_files": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@items('Apply_to_each_File_Indexer_Configurations')?['cat_includesharepointpages']",
+                              "@true"
+                            ]
+                          }
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "c9eaca82-8907-4de5-b722-f6db0bdf720a"
+                      },
+                      "type": "If"
                     }
                   },
                   "runAfter": {},
@@ -322,7 +429,7 @@
                             }
                           }
                         },
-                        "Upload_a_file_or_an_image_to_selected_environment": {
+                        "Upload_a_file": {
                           "runAfter": {
                             "Create_File_Copilot_Component": [
                               "Succeeded"
@@ -358,6 +465,96 @@
                         "operationMetadataId": "2d116fa1-b1b0-404e-8c2d-9ba36f1eb311"
                       },
                       "type": "Foreach"
+                    },
+                    "Update_pages_as_files": {
+                      "actions": {
+                        "Apply_to_each_page": {
+                          "foreach": "@body('Parse_JSON')?['d']?['results']",
+                          "actions": {
+                            "Create_Page_File_Copilot_Component": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "bdcdaf05-3202-482b-86f5-03fff616b1fe"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps_1",
+                                  "operationId": "CreateRecordWithOrganization",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "organization": "@parameters('Dataverse URL (cat_DataverseURL)')",
+                                  "entityName": "botcomponents",
+                                  "item/componenttype": 14,
+                                  "item/schemaname": "@{body('Get_Agent')?['schemaname']}.component.dvindexer_@{replace(guid(), '-', '')}",
+                                  "item/description": "This knowledge source searches information contained in @{item()?['Title']}",
+                                  "item/name": "@item()?['FileLeafRef']",
+                                  "item/parentbotid@odata.bind": "bots(@{outputs('Get_Agent')?['body/botid']})"
+                                },
+                                "authentication": {
+                                  "type": "Raw",
+                                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                }
+                              }
+                            },
+                            "Upload_page_as_file": {
+                              "runAfter": {
+                                "Create_Page_File_Copilot_Component": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "5d0db686-d878-41ad-a606-90dbd19ad229"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps_1",
+                                  "operationId": "UpdateEntityFileImageFieldContentWithOrganization",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
+                                  "entityName": "botcomponents",
+                                  "recordId": "@outputs('Create_Page_File_Copilot_Component')?['body/botcomponentid']",
+                                  "fileImageFieldName": "filedata",
+                                  "item": "@item()?['CanvasContent1']",
+                                  "x-ms-file-name": "@{items('Apply_to_each_File_Indexer_Configurations')?['cat_siteaddress']}/SitePages/@{items('Apply_to_each_page')?['FileLeafRef']}"
+                                },
+                                "authentication": {
+                                  "type": "Raw",
+                                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                }
+                              }
+                            }
+                          },
+                          "runAfter": {},
+                          "metadata": {
+                            "operationMetadataId": "2d116fa1-b1b0-404e-8c2d-9ba36f1eb311"
+                          },
+                          "type": "Foreach"
+                        }
+                      },
+                      "runAfter": {
+                        "Apply_to_each_file": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@items('Apply_to_each_File_Indexer_Configurations')?['cat_includesharepointpages']",
+                              "@true"
+                            ]
+                          }
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "f66cb2c2-eca7-4416-a9cb-d728481c47fb"
+                      },
+                      "type": "If"
                     }
                   },
                   "runAfter": {
@@ -529,7 +726,7 @@
                 "parameters": {
                   "entityName": "cat_copilotfileindexerconfigurations",
                   "$filter": "statecode eq 0\n",
-                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n  <entity name=\"cat_copilotfileindexerconfiguration\">\n    <attribute name=\"cat_copilotfileindexerconfigurationid\" />\n    <attribute name=\"statuscode\" />\n    <attribute name=\"statecode\" />\n    <attribute name=\"cat_siteaddress\" />\n    <attribute name=\"cat_limitentriestofolder\" />\n    <attribute name=\"cat_libraryname\" />\n    <attribute name=\"cat_arenesteditemsincluded\" />\n    <attribute name=\"cat_copilotconfigurationid\" />\n    <order attribute=\"cat_name\" descending=\"false\" />\n    <filter type=\"and\">\n      <condition attribute=\"cat_copilotconfigurationid\" operator=\"not-null\" />\n       <condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />\n    </filter>\n    <link-entity name=\"cat_copilotconfiguration\" from=\"cat_copilotconfigurationid\" to=\"cat_copilotconfigurationid\" link-type=\"inner\" alias=\"parent\">\n      <attribute name=\"cat_copilotid\" />\n      <attribute name=\"cat_dataverseurl\" />\n      <filter type=\"and\">\n        <condition attribute=\"cat_configurationtypescodes\" operator=\"contain-values\">\n          <value>3</value>\n        </condition>\n@{variables('AgentConfigurationConditionExpression')}\n      </filter>\n    </link-entity>\n  </entity>\n</fetch>\n",
+                  "fetchXml": "<fetch version=\"1.0\" output-format=\"xml-platform\" mapping=\"logical\" distinct=\"false\">\n  <entity name=\"cat_copilotfileindexerconfiguration\">\n    <attribute name=\"cat_copilotfileindexerconfigurationid\" />\n    <attribute name=\"statuscode\" />\n    <attribute name=\"statecode\" />\n    <attribute name=\"cat_siteaddress\" />\n    <attribute name=\"cat_limitentriestofolder\" />\n    <attribute name=\"cat_libraryname\" />\n    <attribute name=\"cat_arenesteditemsincluded\" />\n    <attribute name=\"cat_copilotconfigurationid\" />\n    <attribute name=\"cat_includesharepointpages\" />\n    <attribute name=\"cat_sharepointfilesfilterquery\" />\n     <attribute name=\"cat_sharepointpagesfilterquery\" />\n    <order attribute=\"cat_name\" descending=\"false\" />\n    <filter type=\"and\">\n      <condition attribute=\"cat_copilotconfigurationid\" operator=\"not-null\" />\n       <condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />\n    </filter>\n    <link-entity name=\"cat_copilotconfiguration\" from=\"cat_copilotconfigurationid\" to=\"cat_copilotconfigurationid\" link-type=\"inner\" alias=\"parent\">\n      <attribute name=\"cat_copilotid\" />\n      <attribute name=\"cat_dataverseurl\" />\n      <filter type=\"and\">\n        <condition attribute=\"cat_configurationtypescodes\" operator=\"contain-values\">\n          <value>3</value>\n        </condition>\n@{variables('AgentConfigurationConditionExpression')}\n      </filter>\n    </link-entity>\n  </entity>\n</fetch>\n",
                   "$expand": "cat_CopilotConfigurationId($select=cat_copilotid,cat_dataverseurl)"
                 },
                 "authentication": {
@@ -620,34 +817,6 @@
                   "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                 }
               }
-            },
-            "Respond_to_a_Power_App_or_flow": {
-              "runAfter": {
-                "Add_Error_Log": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "23216dd2-8de7-4205-be4d-475f3e204294"
-              },
-              "type": "Response",
-              "kind": "PowerApp",
-              "inputs": {
-                "statusCode": 200,
-                "body": {
-                  "response": "Flow execution completed."
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "response": {
-                      "title": "Response",
-                      "x-ms-dynamically-added": true,
-                      "type": "string"
-                    }
-                  }
-                }
-              }
             }
           },
           "runAfter": {
@@ -680,6 +849,46 @@
               }
             ]
           }
+        },
+        "Finally": {
+          "actions": {
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "23216dd2-8de7-4205-be4d-475f3e204294"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "response": "Flow execution completed."
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "response": {
+                      "title": "Response",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Catch": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "8c85e125-8a37-4c18-b6d9-e152d4f30ea5"
+          },
+          "type": "Scope"
         }
       }
     },

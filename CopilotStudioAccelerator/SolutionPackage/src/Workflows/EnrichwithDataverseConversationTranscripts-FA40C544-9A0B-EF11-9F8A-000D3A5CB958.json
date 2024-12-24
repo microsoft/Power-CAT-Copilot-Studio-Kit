@@ -553,7 +553,8 @@
             "parameters": {
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/cat_dataverseenrichmentstatuscode": 3
+              "item/cat_dataverseenrichmentstatuscode": 3,
+              "item/cat_errordetails": "@concat(\r\n  outputs('Update_Copilot_Test_Run:_Running')?['body/cat_errordetails'],\r\n  '<br/>',\r\n  '<strong>',\r\n  workflow()?['tags']?['flowDisplayName'],\r\n  '</strong> flow run: <a href=\"https://make.powerautomate.com/environments/',\r\n  workflow()?['tags']?['environmentName'],\r\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\r\n  workflow()?['name'],\r\n  '/runs/',\r\n  workflow()?['run']?['name'],\r\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\r\n)"
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -580,7 +581,7 @@
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
               "item/cat_dataverseenrichmentstatuscode": 6,
-              "item/cat_errordetails": "@{concat(\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\n  '<br/>',\n  'Failed <strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"https://make.powerautomate.com/environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)\n}"
+              "item/cat_errordetails": "@concat(\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\n  '<br/>',\n  'Failed <strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"https://make.powerautomate.com/environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)\n"
             },
             "authentication": "@parameters('$authentication')"
           }
