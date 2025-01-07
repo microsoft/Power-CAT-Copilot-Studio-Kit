@@ -16,6 +16,7 @@ Users can enter a prompt and receive a confidence evaluation with detailed reaso
 1. A **Microsoft Dataverse Environment** with [AI Builder prompts enabled in the admin center](https://learn.microsoft.com/ai-builder/administer#enable-or-disable-ai-builder-preview-features) and Copilot Studio Kit
 1. **Permission requirements**: System customizer security role.
 1. **AI Builder credits**: Ensure [AI Builder credits](https://learn.microsoft.com/ai-builder/credit-management) are assigned to your environment.
+2. **Enable the Power Apps Component Framework Feature** : [Power Apps Component Framework Feature](https://learn.microsoft.com/en-us/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature)
 
 ---
 
