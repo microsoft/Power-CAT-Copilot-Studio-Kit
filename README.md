@@ -19,7 +19,7 @@ Today, the tool supports these types of tests:
 
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
 
-## Conversation KPIs (Preview)
+## Conversation KPIs
 
 Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
 
@@ -33,9 +33,7 @@ Conversation KPIs are designed to help makers track and analyze the performance 
 
 * Long-term tracking: Conversation KPIs can be stored in the system for as long as required which allows tracking the impact of improvements and performance of custom copilots over long time-period.
 
-Conversation KPIs feature is currently in preview and limited to processing 10000 transcripts per request. We recommend tracking up to 3 variables during the preview to avoid performance issues. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
-
-Conversation KPIs are generated on-demand during the preview, but we plan to add support for automatic daily KPI generation. To generate KPIs, navigate to the agent configuration, press "**Generate KPIs**" and select a date range.
+Conversation KPIs are generated automatically twice per day and on-demand generation is supported as well. To generate KPIs on-demand, navigate to the agent configuration, press "**Generate KPIs**" and select a date range. Up to 75,000 transcripts are processed per automatic run and up to 50,000 per on-demand run. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
 
 ![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
 
