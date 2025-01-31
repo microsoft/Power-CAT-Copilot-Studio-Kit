@@ -17,3 +17,7 @@ Conversation KPIs are generated automatically twice per day and on-demand genera
 ![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
 
 ![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
+
+Read more on how to configure agent for [KPI generation](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-conversation-kpis)
+
+Back to the [landing page](./README.md)
