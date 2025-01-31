@@ -77,3 +77,5 @@ Purchase additional credits through your Microsoft account or contact your admin
 ### Why is my confidence score low?  
 
 The confidence score depends on clarity and relevance. Review the **evaluation pane feedback** to improve the prompt.
+
+Back to the [landing page](./README.md)
