@@ -22,10 +22,6 @@ Prompt Advisor allows makers to develop effective prompts while learning useful 
 
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
 
-# About this GitHub repo
-
-The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
-
 # Setup instructions and documentation
 
 - [Prerequisites](./PREREQUISITES.md)
@@ -54,6 +50,10 @@ The latest shipped version is available via **[Releases](https://github.com/micr
 Stay up to date with our releases by **subscribing** to them: 
 1. Select **Watch**
 2. Select **Custom** > **Releases** > **Apply** to receive notifications about our releases
+
+# About this GitHub repo
+
+The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
 
 ## Submit a feature request
 
