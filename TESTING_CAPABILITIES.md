@@ -17,4 +17,4 @@ Today, the tool supports these types of tests:
 
 Read more on how to configure agent for [test automation](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-test-automation)
 
-Back to the [landing page](./README.md)
+Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
