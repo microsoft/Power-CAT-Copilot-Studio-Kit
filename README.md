@@ -4,18 +4,22 @@ The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities desi
 
 ## Testing capabilities  
 Copilot Studio Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match and generative answers which leverages AI Builder for response analysis. 
+
 More information on [testing capabilities](./TESTING_CAPABILITIES.md) 
 
 ## Conversation KPIs
 Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
+
 More information on [conversation KPIs](./CONVERSATION_KPIS.md)
 
 ## SharePoint synchronization
 SharePoint synchronization allows makers to configure periodical selective content synchronization from SharePoint locations to custom agent knowledge base as files.
+
 More information on [SharePoint synchronization](./FILE_SYNCHRONIZATION.md)
 
 ## Prompt Advisor (preview)
 Prompt Advisor allows makers to develop effective prompts while learning useful prompt engineering skills. Prompts entered in the advisor tool will be analyzed and receive a confidence evaluation with detailed reasoning for the score. Advisor also provides a list of suggested refined prompts implementing various prompt techniques. Makers can select from these optimized prompts to iteratively refine and improve their input.
+
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
 
 # About this GitHub repo
