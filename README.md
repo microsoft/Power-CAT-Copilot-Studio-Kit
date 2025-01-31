@@ -1,65 +1,22 @@
 # Power CAT Copilot Studio Kit
 
-The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers test custom agents, use large language model to validate AI-generated content, and track aggregated key performance indicators.
+The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers develop and test custom agents, use large language model to validate AI-generated content, optimize prompts, and track aggregated key performance indicators of their custom agents.
 
 ## Testing capabilities  
-The Power CAT Copilot Studio Kit is a user-friendly application that empowers makers to configure agents and test sets. It has native capabilities such as Excel export or import for bulk creation and updates.
-
-By running individual tests against the Copilot Studio APIs (Direct Line), the agent responses are evaluated against expected results.
-To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact triggered topic name, intent recognition scores, etc.).
-For AI-generated answers, that are by nature non-deterministic, AI Builder prompts are used to compare the generated answer with a sample answer or with validation instructions.
-
-Today, the tool supports these types of tests:
-- Response exact match.
-- Attachments match.
-- Topic match (requires Dataverse enrichment)
-- Generative answers (requires AI Builder for response analysis, and Azure Application Insights for details on why an answer was or was not generated)
-
-![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/33496e94-0c7a-4e63-9291-9e461aa9b9e7)
-
-![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
+Copilot Studio Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match and generative answers which leverages AI Builder for response analysis. 
+More information on [testing capabilities](./TESTING_CAPABILITIES.md) 
 
 ## Conversation KPIs
-
 Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
-
-* Aggregated Data: The feature surfaces simplified conversation outcome results, making it easier to understand the performance of your custom agents. This includes metrics such as the number of sessions, turns, and the global outcome of conversations (e.g., resolved, partially resolved, escalated, or abandoned).
-
-* Sample Power BI Reports: The Copilot Studio Kit offers a sample Power BI reports based on aggregated KPIs. These reports provide a visual representation of the data, helping you quickly identify trends and areas for improvement, and provide a solid starting point for your own custom reports.
-
-* Tracked Variables: You can define specific variables to track as part of the aggregated conversation KPIs, such as custom Net Promoter Score (NPS) or other relevant metrics. This allows you to tailor the KPIs to your specific needs.
-
-* Optional Full Transcript Storage: Users have the option to include the full conversation transcript with the KPI records (as file). This allows for a more detailed analysis if needed, using the transcript visualizer built into the Copilot Studio Kit.
-
-* Long-term tracking: Conversation KPIs can be stored in the system for as long as required which allows tracking the impact of improvements and performance of custom copilots over long time-period.
-
-Conversation KPIs are generated automatically twice per day and on-demand generation is supported as well. To generate KPIs on-demand, navigate to the agent configuration, press "**Generate KPIs**" and select a date range. Up to 75,000 transcripts are processed per automatic run and up to 50,000 per on-demand run. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
-
-![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
-
-![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
+More information on [conversation KPIs](./CONVERSATION_KPIS.md)
 
 ## SharePoint synchronization
-
 SharePoint synchronization allows makers to configure periodical selective content synchronization from SharePoint locations to custom agent knowledge base as files.
-
-Benefits of using SharePoint synchronization (compared to using SharePoint site as knowledge source):
-- Support for additional file types
-- Support for larger files (up to 512MB)
-- Lower latency in responses
-- Indexing of non-text elements in PDFs
-
-Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details and how to configure SharePoint synchronization. SharePoint synchronization is automatically performed daily and it can be run on-demand by selecting "**Sync Files**" from the agent configuration.
-
-You can read more on the approach from [this article in Linkedin](https://www.linkedin.com/pulse/sync-your-sharepoint-library-dataverse-how-hybrid-approach-r%C3%A9mi-dyon-8lyle)
+More information on [SharePoint synchronization](./FILE_SYNCHRONIZATION.md)
 
 ## Prompt Advisor (preview)
-
 Prompt Advisor allows makers to develop effective prompts while learning useful prompt engineering skills. Prompts entered in the advisor tool will be analyzed and receive a confidence evaluation with detailed reasoning for the score. Advisor also provides a list of suggested refined prompts implementing various prompt techniques. Makers can select from these optimized prompts to iteratively refine and improve their input.
-
-![image (2)](https://github.com/user-attachments/assets/cfed9884-660b-4b2f-acd7-d9e42eadcc9a)
-
-More details available on the [Prompt Advisor](./PROMPT_ADVISOR.md) page.
+More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
 
 # About this GitHub repo
 
@@ -83,7 +40,8 @@ Optionally
 # Known limitations
 
 As of the latest release:
-- Multi-turn conversations are not supported.
+- Multi-turn conversations are not yet supported.
+- Authentication support for testing is limited to unauthenticated and authenticted with EntraV2 SSO.
 
 ## Latest release
 
