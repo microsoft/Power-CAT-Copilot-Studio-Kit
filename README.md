@@ -24,6 +24,16 @@ Prompt Advisor allows makers to develop effective prompts while learning useful 
 
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
 
+## Webchat Playground (New!)
+Webchat Playground simplifies customizing the appearance and behavior of the copilot agent webchat, including colors, fonts, thumbnails and initials. Easy to use UI allows makers to define the look and feel of their webchat and HTML is generated with the specified styles. 
+
+More information on [Webchat Playground](./WEBCHAT_PLAYGROUND.md)
+
+## Adaptive Cards Gallery (New!)
+Adaptive Cards Gallery provides makers with a dozen built-in adaptive card templates for different scenarios. They demonstrate the extensibility of the adaptive card visuals and behavior, and provide examples on the agent side implementation as well on things like dynamic data binding.
+
+More information on [Adaptive Cards Gallery](./ADAPTIVE_CARDS_GALLERY.md)
+
 # Setup instructions and documentation
 
 - [Prerequisites](./PREREQUISITES.md)
