@@ -16,4 +16,4 @@ You can read more on the approach from [this article in Linkedin](https://www.li
 
 Read more on how to configure agent for [SharePoint synchronization](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-file-synchronization)
 
-Back to the [landing page](./README.md)
+Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
