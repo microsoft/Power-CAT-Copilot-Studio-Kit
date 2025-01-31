@@ -78,4 +78,4 @@ Purchase additional credits through your Microsoft account or contact your admin
 
 The confidence score depends on clarity and relevance. Review the **evaluation pane feedback** to improve the prompt.
 
-Back to the [landing page](./README.md)
+Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
