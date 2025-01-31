@@ -20,4 +20,4 @@ Conversation KPIs are generated automatically twice per day and on-demand genera
 
 Read more on how to configure agent for [KPI generation](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-conversation-kpis)
 
-Back to the [landing page](./README.md)
+Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
