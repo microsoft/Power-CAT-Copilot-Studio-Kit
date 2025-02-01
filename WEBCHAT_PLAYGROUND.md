@@ -4,7 +4,7 @@ Webchat Playground simplifies customizing the appearance and behavior of the cop
 
 ![theme1](https://github.com/user-attachments/assets/fffea4df-5958-4293-98bd-d798d450af15)
 
-Webchat Playground comes with predefined themes which demonstrate different customization options of the webchat, and can be used a starting point when designing a new theme. Makers can also create new themes from scratch and save them for future use.
+Webchat Playground comes with predefined themes which demonstrate different customization options of the webchat, and can be used a starting point when designing a new theme. Makers can also create new themes and save them for future use.
 
 ![theme2](https://github.com/user-attachments/assets/6b5f07aa-2462-4121-b813-7abddf31c8dc)
 
