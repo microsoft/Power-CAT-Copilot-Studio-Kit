@@ -41,11 +41,24 @@ Webchat Playground comes with predefined themes which demonstrate different cust
 
 ### Deleting a theme
 
-1. Existing theme can be edited 
+1. Existing theme can be deleted by first opening it in edit mode,
+1. Select the trashcan symbol from the top
+   
 ### Exporting the styles
+
+1. Select the desired theme from the theme selector
+1. Select the **JSON** tab from the right pane
+1. Select all the text in the view and copy-paste into your webchat html as **styleoptions** variable
+
+Read more from [here](https://learn.microsoft.com/microsoft-copilot-studio/customize-default-canvas?tabs=web#customize-the-agent-icon-background-color-and-name).
 
 ### Exporting the HTML snippet
 
+1. Select the desired theme from the theme selector
+1. Select the **Code Snippet** tab from the right pane
+1. Select all the HTML markup in the view and save it as file with html-extension.
+1. The resulting html file can be uploaded to the web server.
 
+Read more from [here](https://learn.microsoft.com/microsoft-copilot-studio/customize-default-canvas?tabs=web#customize-the-default-canvas-simple).
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
