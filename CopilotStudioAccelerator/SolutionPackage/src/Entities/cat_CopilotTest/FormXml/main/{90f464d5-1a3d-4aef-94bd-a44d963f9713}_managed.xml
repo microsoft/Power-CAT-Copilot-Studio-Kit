@@ -106,7 +106,7 @@
                         <labels>
                           <label description="Expected Attachments JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_expectedattachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_expectedattachmentsjson" disabled="false" uniqueid="{3c16e7df-46ef-4505-9311-9be8fbe81b83}" />
+                        <control id="cat_expectedattachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_expectedattachmentsjson" disabled="false" uniqueid="{ad1cecba-baac-4a7e-9165-38eb496b887f}" />
                       </cell>
                     </row>
                     <row>
@@ -195,7 +195,7 @@
                         <labels>
                           <label description="External Variables JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_externalvariablesjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_externalvariablesjson" disabled="false" uniqueid="{d59ceaf2-3c5f-4474-9658-880311f92047}" />
+                        <control id="cat_externalvariablesjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_externalvariablesjson" disabled="false" uniqueid="{6467c1dc-1bb8-49b8-9322-fed64188159a}" />
                       </cell>
                     </row>
                     <row />
@@ -413,7 +413,7 @@
             </cell>
             <cell id="{f3a51af2-7baf-4176-99fd-5d122b62eaaf}" locklevel="0" colspan="1" rowspan="1">
               <labels>
-                <label description="" languagecode="1033" />
+                <label description="Owner" languagecode="1033" />
               </labels>
               <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false">
                 <parameters>
@@ -573,7 +573,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{3c16e7df-46ef-4505-9311-9be8fbe81b83}">
+        <controlDescription forControl="{ad1cecba-baac-4a7e-9165-38eb496b887f}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_expectedattachmentsjson</datafieldname>
@@ -584,7 +584,6 @@
               <Value type="Multiple">cat_expectedattachmentsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
@@ -592,7 +591,6 @@
               <Value type="Multiple">cat_expectedattachmentsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
@@ -600,11 +598,10 @@
               <Value type="Multiple">cat_expectedattachmentsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{d59ceaf2-3c5f-4474-9658-880311f92047}">
+        <controlDescription forControl="{6467c1dc-1bb8-49b8-9322-fed64188159a}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_externalvariablesjson</datafieldname>
@@ -613,25 +610,22 @@
           <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
             <parameters>
               <Value type="Multiple">cat_externalvariablesjson</Value>
-              <Height type="Whole.None" static="true">40</Height>
+              <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
             <parameters>
               <Value type="Multiple">cat_externalvariablesjson</Value>
-              <Height type="Whole.None" static="true">40</Height>
+              <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
             <parameters>
               <Value type="Multiple">cat_externalvariablesjson</Value>
-              <Height type="Whole.None" static="true">40</Height>
+              <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
         </controlDescription>

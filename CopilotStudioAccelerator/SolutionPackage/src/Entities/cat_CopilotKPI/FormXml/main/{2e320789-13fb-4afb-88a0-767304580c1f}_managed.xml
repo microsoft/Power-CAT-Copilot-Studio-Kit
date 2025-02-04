@@ -22,13 +22,13 @@
                     <row>
                       <cell id="{085b6655-48c5-4122-97e2-53a7d54cfdf0}">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Name" languagecode="1033" />
                         </labels>
-                        <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
+                        <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" disabled="false" />
                       </cell>
                       <cell id="{7230c4b4-b5ba-4efd-86ac-0f27220c193a}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Agent" languagecode="1033" />
                         </labels>
                         <control id="cat_copilotconfigurationid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilotconfigurationid" disabled="false">
                           <parameters>
@@ -45,13 +45,13 @@
                     <row>
                       <cell id="{005833dd-adf6-4da3-b162-6bfe9bba9174}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Conversation ID" languagecode="1033" />
                         </labels>
                         <control id="cat_conversationid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_conversationid" disabled="false" />
                       </cell>
                       <cell id="{97526223-d058-4303-924c-5de3ba620b90}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Conversation Date" languagecode="1033" />
                         </labels>
                         <control id="cat_conversationdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_conversationdate" disabled="false" />
                       </cell>
@@ -74,9 +74,9 @@
                       </cell>
                       <cell id="{75eaa17c-69f6-410d-b377-0be2493ec43a}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Agent ID" languagecode="1033" />
                         </labels>
-                        <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="false" />
+                        <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -92,7 +92,7 @@
                       </cell>
                       <cell id="{372cd705-0bdf-4f90-be1d-5c58ed0e3a52}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="User ID" languagecode="1033" />
                         </labels>
                         <control id="cat_userid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_userid" disabled="false" />
                       </cell>
@@ -107,19 +107,19 @@
                     <row>
                       <cell id="{4409f52e-4605-4e0a-82e7-85d1fc480bde}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Global Outcome" languagecode="1033" />
                         </labels>
                         <control id="cat_globaloutcomecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_globaloutcomecode" disabled="false" />
                       </cell>
                       <cell id="{edd61250-8a4b-41ee-8fb6-86189294d46a}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="CSAT" languagecode="1033" />
                         </labels>
                         <control id="cat_csat" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="cat_csat" disabled="false" />
                       </cell>
                       <cell id="{4f16148f-2b52-4192-90ed-5cd98ce5722d}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Conversation Duration (seconds)" languagecode="1033" />
                         </labels>
                         <control id="cat_conversationduration" classid="{AA987274-CE4E-4271-A803-66164311A958}" datafieldname="cat_conversationduration" disabled="false" />
                       </cell>
@@ -127,21 +127,15 @@
                     <row>
                       <cell id="{ab8ca22e-07d4-424e-91e0-26eda6326848}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Sessions" languagecode="1033" />
                         </labels>
                         <control id="cat_sessions" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_sessions" disabled="false" />
                       </cell>
                       <cell id="{763178be-b632-4479-ac1e-b4aae5f50a37}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Turns" languagecode="1033" />
                         </labels>
                         <control id="cat_turns" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_turns" disabled="false" />
-                      </cell>
-                      <cell id="{a19d9bc1-4ffa-4a6b-99ca-ba10c34e59ad}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_conversationtranscriptfile" classid="{0A7FF475-B016-4687-9CE5-042BFDBD6519}" datafieldname="cat_conversationtranscriptfile" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -165,15 +159,15 @@
                     <row>
                       <cell id="{0dac7070-0591-49f9-ba97-69b812a8c790}" locklevel="0" colspan="1" rowspan="3" auto="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Sessions Details" languagecode="1033" />
                         </labels>
-                        <control id="cat_sessionsdetails" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_sessionsdetails" disabled="false" uniqueid="{75e9b070-dbb3-4dca-ac30-c1f322ff0e74}" />
+                        <control id="cat_sessionsdetails" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_sessionsdetails" disabled="true" uniqueid="{e4463d9f-a734-403f-be94-6dbaf12c682c}" />
                       </cell>
                       <cell id="{1f301891-db70-4d56-a63f-b47c06e1cb84}" locklevel="0" colspan="1" rowspan="3" auto="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Traversed Components" languagecode="1033" />
                         </labels>
-                        <control id="cat_traversedcomponents" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_traversedcomponents" disabled="false" uniqueid="{8b830f05-4246-4f2a-a1a1-7c5a4625ac71}" />
+                        <control id="cat_traversedcomponents" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_traversedcomponents" disabled="true" uniqueid="{3f6ac93a-68b7-4a62-bcbb-66b34269957f}" />
                       </cell>
                     </row>
                     <row />
@@ -181,15 +175,15 @@
                     <row>
                       <cell id="{1d6d774c-945d-4222-9ed4-97e7f61ebc69}" locklevel="0" colspan="1" rowspan="3" auto="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Unrecognized Utterances" languagecode="1033" />
                         </labels>
-                        <control id="cat_unrecognizedutterances" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_unrecognizedutterances" disabled="false" uniqueid="{66d1ff55-ea21-482c-be97-f5c6fc1a9de3}" />
+                        <control id="cat_unrecognizedutterances" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_unrecognizedutterances" disabled="true" uniqueid="{44c01ee0-9cfa-4aea-a56d-2bfd8717f14a}" />
                       </cell>
                       <cell id="{cdc2f238-ee60-4e16-b1de-ff2558ddacea}" locklevel="0" colspan="1" rowspan="3" auto="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Tracked Variables" languagecode="1033" />
                         </labels>
-                        <control id="cat_trackedvariables" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_trackedvariables" disabled="false" uniqueid="{b87b3ffd-d36f-4142-b838-cfba846b2336}" />
+                        <control id="cat_trackedvariables" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_trackedvariables" disabled="true" uniqueid="{978dc036-11ff-4101-b897-5d08f8330310}" />
                       </cell>
                     </row>
                     <row />
@@ -197,15 +191,15 @@
                     <row>
                       <cell id="{df4aa707-2f32-47f1-bb35-a4ce0482b8b7}" locklevel="0" colspan="1" rowspan="3" auto="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Ambiguous Utterances" languagecode="1033" />
                         </labels>
-                        <control id="cat_ambiguousutterances" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_ambiguousutterances" disabled="false" uniqueid="{6de1bb9d-613a-4bb8-ba93-4b45c9788f98}" />
+                        <control id="cat_ambiguousutterances" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_ambiguousutterances" disabled="true" uniqueid="{17820819-8775-4047-bf64-b96f9856ffde}" />
                       </cell>
                       <cell id="{96ed37b4-1065-4e4a-826c-76e639b438bc}" locklevel="0" colspan="1" rowspan="3" auto="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Generative Answers" languagecode="1033" />
                         </labels>
-                        <control id="cat_generativeanswers" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_generativeanswers" disabled="false" uniqueid="{7ce7e4b0-5fc9-448e-96f6-cfe9ad0fdc5d}" />
+                        <control id="cat_generativeanswers" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_generativeanswers" disabled="true" uniqueid="{0419f621-29d7-4f54-a83d-37052dbbd374}" />
                       </cell>
                     </row>
                     <row />
@@ -236,11 +230,11 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{e9c078f5-9551-4168-a8aa-f18a4c62a0c9}" locklevel="0" colspan="1" rowspan="1" showlabel="false">
+                      <cell id="{f2bc26f7-5487-4ace-bb96-5e4a66402fc0}" locklevel="0" colspan="1" rowspan="1" showlabel="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Transcript Content" languagecode="1033" />
                         </labels>
-                        <control id="cat_jsoneditorpcfcolumn" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_jsoneditorpcfcolumn" disabled="false" uniqueid="{2657dbe9-d6b1-436a-ac1b-e2bb775024fd}" />
+                        <control id="cat_transcriptcontent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_transcriptcontent" disabled="true" uniqueid="{9d4290fa-d63d-4eea-8ee4-1539363039ae}" />
                       </cell>
                     </row>
                   </rows>
@@ -256,11 +250,11 @@
                   <rows>
                     <row />
                     <row>
-                      <cell id="{70bdf36e-3ca1-409b-a49d-b26786e43599}" locklevel="0" colspan="1" rowspan="1" showlabel="false" auto="false">
+                      <cell id="{ebb2aa6b-7f34-4142-9aef-ce7d16bba377}" locklevel="0" colspan="1" rowspan="1" showlabel="false" auto="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Transcript Content" languagecode="1033" />
                         </labels>
-                        <control id="cat_webchatpcfcolumn" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_webchatpcfcolumn" disabled="false" uniqueid="{866ae946-ab8a-4310-b978-0ade2e7a8558}" />
+                        <control id="cat_transcriptcontent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_transcriptcontent" disabled="false" uniqueid="{5841a1f2-a549-41b9-8e67-7db22534e5ed}" />
                       </cell>
                     </row>
                   </rows>
@@ -294,7 +288,7 @@
                       </cell>
                       <cell id="{b24d7752-2e97-4862-802c-2cfb9739ba1a}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Owning Business Unit" languagecode="1033" />
                         </labels>
                         <control id="owningbusinessunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="owningbusinessunit" disabled="false" />
                       </cell>
@@ -302,19 +296,19 @@
                     <row>
                       <cell id="{a3214dc4-5198-4f02-913e-1627e635cc8f}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Created By" languagecode="1033" />
                         </labels>
                         <control id="createdby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdby" disabled="false" />
                       </cell>
                       <cell id="{dd861d04-0d56-4686-b314-f50c4194069f}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Modified By" languagecode="1033" />
                         </labels>
                         <control id="modifiedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedby" disabled="false" />
                       </cell>
                       <cell id="{d10ce5f2-f81e-43c4-bfbd-860919d4970c}" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Owner" languagecode="1033" />
                         </labels>
                         <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="true" />
                       </cell>
@@ -322,13 +316,13 @@
                     <row>
                       <cell id="{7d465c56-4a7a-4ac5-882e-17045e20f3e8}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Created By (Delegate)" languagecode="1033" />
                         </labels>
                         <control id="createdonbehalfby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdonbehalfby" disabled="false" />
                       </cell>
                       <cell id="{0c50a6cb-7c44-4573-9cc7-49cd3800f23b}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Modified By (Delegate)" languagecode="1033" />
                         </labels>
                         <control id="modifiedonbehalfby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedonbehalfby" disabled="false" />
                       </cell>
@@ -336,19 +330,19 @@
                     <row>
                       <cell id="{67da085e-d8ed-44d3-bb48-b9ecf935782b}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Created On" languagecode="1033" />
                         </labels>
                         <control id="createdon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
                       </cell>
                       <cell id="{2f98848e-8ec0-4f6b-8a43-bca9984a190b}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Modified On" languagecode="1033" />
                         </labels>
                         <control id="modifiedon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="false" />
                       </cell>
                       <cell id="{032f5211-c47a-4bfa-9c99-8ec79a5f2e35}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Time to live" languagecode="1033" />
                         </labels>
                         <control id="ttlinseconds" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="ttlinseconds" disabled="true" />
                       </cell>
@@ -366,7 +360,7 @@
                       </cell>
                       <cell id="{633982f6-efab-4309-949d-86ea7c28421c}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Partition Id" languagecode="1033" />
                         </labels>
                         <control id="partitionid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="partitionid" disabled="true" />
                       </cell>
@@ -424,7 +418,32 @@
         <Everyone />
       </DisplayConditions>
       <controlDescriptions>
-        <controlDescription forControl="{75e9b070-dbb3-4dca-ac30-c1f322ff0e74}">
+        <controlDescription forControl="{5841a1f2-a549-41b9-8e67-7db22534e5ed}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_transcriptcontent</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.WebChat">
+            <parameters>
+              <Value type="Multiple">cat_transcriptcontent</Value>
+              <FileColumn type="TwoOptions" static="true">false</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.WebChat">
+            <parameters>
+              <Value type="Multiple">cat_transcriptcontent</Value>
+              <FileColumn type="TwoOptions" static="true">false</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.WebChat">
+            <parameters>
+              <Value type="Multiple">cat_transcriptcontent</Value>
+              <FileColumn type="TwoOptions" static="true">false</FileColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{e4463d9f-a734-403f-be94-6dbaf12c682c}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_sessionsdetails</datafieldname>
@@ -452,7 +471,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{66d1ff55-ea21-482c-be97-f5c6fc1a9de3}">
+        <controlDescription forControl="{44c01ee0-9cfa-4aea-a56d-2bfd8717f14a}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_unrecognizedutterances</datafieldname>
@@ -480,7 +499,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{6de1bb9d-613a-4bb8-ba93-4b45c9788f98}">
+        <controlDescription forControl="{17820819-8775-4047-bf64-b96f9856ffde}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_ambiguousutterances</datafieldname>
@@ -508,7 +527,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{8b830f05-4246-4f2a-a1a1-7c5a4625ac71}">
+        <controlDescription forControl="{3f6ac93a-68b7-4a62-bcbb-66b34269957f}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_traversedcomponents</datafieldname>
@@ -536,7 +555,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{b87b3ffd-d36f-4142-b838-cfba846b2336}">
+        <controlDescription forControl="{978dc036-11ff-4101-b897-5d08f8330310}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_trackedvariables</datafieldname>
@@ -564,7 +583,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{7ce7e4b0-5fc9-448e-96f6-cfe9ad0fdc5d}">
+        <controlDescription forControl="{0419f621-29d7-4f54-a83d-37052dbbd374}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_generativeanswers</datafieldname>
@@ -592,59 +611,31 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{2657dbe9-d6b1-436a-ac1b-e2bb775024fd}">
+        <controlDescription forControl="{9d4290fa-d63d-4eea-8ee4-1539363039ae}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
-              <datafieldname>cat_jsoneditorpcfcolumn</datafieldname>
+              <datafieldname>cat_transcriptcontent</datafieldname>
             </parameters>
           </customControl>
           <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
             <parameters>
-              <Value type="Multiple">cat_jsoneditorpcfcolumn</Value>
+              <Value type="Multiple">cat_transcriptcontent</Value>
               <Height type="Whole.None" static="true">70</Height>
-              <FileColumn type="Enum" static="true">True</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+              <FileColumn type="Enum" static="true">False</FileColumn>
             </parameters>
           </customControl>
           <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
             <parameters>
-              <Value type="Multiple">cat_jsoneditorpcfcolumn</Value>
+              <Value type="Multiple">cat_transcriptcontent</Value>
               <Height type="Whole.None" static="true">70</Height>
-              <FileColumn type="Enum" static="true">True</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+              <FileColumn type="Enum" static="true">False</FileColumn>
             </parameters>
           </customControl>
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
             <parameters>
-              <Value type="Multiple">cat_jsoneditorpcfcolumn</Value>
+              <Value type="Multiple">cat_transcriptcontent</Value>
               <Height type="Whole.None" static="true">70</Height>
-              <FileColumn type="Enum" static="true">True</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-        </controlDescription>
-        <controlDescription forControl="{866ae946-ab8a-4310-b978-0ade2e7a8558}">
-          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
-            <parameters>
-              <datafieldname>cat_webchatpcfcolumn</datafieldname>
-            </parameters>
-          </customControl>
-          <customControl formFactor="0" name="cat_PowerCAT.WebChat">
-            <parameters>
-              <Value type="Multiple">cat_webchatpcfcolumn</Value>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-          <customControl formFactor="2" name="cat_PowerCAT.WebChat">
-            <parameters>
-              <Value type="Multiple">cat_webchatpcfcolumn</Value>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-          <customControl formFactor="1" name="cat_PowerCAT.WebChat">
-            <parameters>
-              <Value type="Multiple">cat_webchatpcfcolumn</Value>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+              <FileColumn type="Enum" static="true">False</FileColumn>
             </parameters>
           </customControl>
         </controlDescription>
