@@ -1,0 +1,88 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
+          },
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_Copilot": {
+          "runAfter": {
+            "Initialize_Variable_-_Approval_Information": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
+          },
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "approvaldetails": "@{variables('ApprovalInformation')}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "approvaldetails": {
+                  "title": "ApprovalDetails",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Initialize_Variable_-_Approval_Information": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "57c0ec25-0284-4884-9e8e-d202bf5aa615"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ApprovalInformation",
+                "type": "object",
+                "value": {
+                  "requestId": "IJK982337645",
+                  "submittedBy": "David Warner",
+                  "submittedDate": "2025-01-20",
+                  "category": "IT Support",
+                  "priority": "High",
+                  "status": "Pending",
+                  "details": "The user is experiencing issues with their laptop not connecting to the company VPN."
+                }
+              }
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

@@ -7,7 +7,7 @@
     <FormActivationState>1</FormActivationState>
     <form headerdensity="HighWithControls">
       <tabs>
-        <tab verticallayout="true" id="{91468107-600e-47f7-9e44-b1dad2ba7c5d}" IsUserDefined="1">
+        <tab verticallayout="true" id="{91468107-600e-47f7-9e44-b1dad2ba7c5d}" IsUserDefined="1" name="tab_General">
           <labels>
             <label description="General" languagecode="1033" />
           </labels>
@@ -46,25 +46,39 @@
                         </labels>
                         <control id="cat_conversationid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_conversationid" disabled="false" />
                       </cell>
+                      <cell id="{4de0be13-a427-463f-8c6b-454b1895c0f6}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Conversation Transcript Id" languagecode="1033" />
+                        </labels>
+                        <control id="cat_conversationtranscriptid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_conversationtranscriptid" disabled="false" />
+                      </cell>
+                      <cell id="{6dfa12b5-d93b-4abf-ae37-0aefc3600f5d}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Copy Full Transcript" languagecode="1033" />
+                        </labels>
+                        <control id="cat_iscopyfulltranscriptenabled" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_iscopyfulltranscriptenabled" disabled="false" uniqueid="{9f43677a-aa7a-40d8-aa65-09d84e90aa2f}" />
+                      </cell>
+                    </row>
+                    <row>
                       <cell id="{c5f51f71-e92d-4b2e-b4ad-94021d6ee32d}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Conversation Date" languagecode="1033" />
                         </labels>
                         <control id="cat_conversationdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_conversationdate" disabled="false" />
                       </cell>
-                      <cell id="{c3aa6fd2-7337-44a5-983c-8938d2291a33}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{c3aa6fd2-7337-44a5-983c-8938d2291a33}" locklevel="0" colspan="2" rowspan="1">
                         <labels>
                           <label description="Tracked Variables" languagecode="1033" />
                         </labels>
-                        <control id="cat_trackedvariables" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_trackedvariables" disabled="false" uniqueid="{a15ff846-cec3-4efe-80df-aa188e35ffe7}" />
+                        <control id="cat_trackedvariables" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_trackedvariables" disabled="false" uniqueid="{3ae6a003-d15f-49c4-a2ba-100c95b93f15}" />
                       </cell>
                     </row>
                     <row>
-                      <cell id="{281e0896-92a1-4eb9-8fa7-a7fb55d6419d}" locklevel="0" colspan="3" rowspan="20" showlabel="false">
+                      <cell id="{281e0896-92a1-4eb9-8fa7-a7fb55d6419d}" locklevel="0" colspan="3" rowspan="20" showlabel="true">
                         <labels>
                           <label description="Transcript Content" languagecode="1033" />
                         </labels>
-                        <control id="cat_transcriptcontent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_transcriptcontent" disabled="false" uniqueid="{a0c25bf6-3864-4031-9256-8ba81c7a9182}" />
+                        <control id="cat_transcriptcontent" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_transcriptcontent" disabled="false" uniqueid="{160cd1a6-bdd2-4a5b-b6eb-86ab7d4d10bf}" />
                       </cell>
                     </row>
                     <row />
@@ -151,7 +165,29 @@
         <Everyone />
       </DisplayConditions>
       <controlDescriptions>
-        <controlDescription forControl="{a15ff846-cec3-4efe-80df-aa188e35ffe7}">
+        <controlDescription forControl="{9f43677a-aa7a-40d8-aa65-09d84e90aa2f}">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>cat_iscopyfulltranscriptenabled</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_iscopyfulltranscriptenabled</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{3ae6a003-d15f-49c4-a2ba-100c95b93f15}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_trackedvariables</datafieldname>
@@ -179,7 +215,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{a0c25bf6-3864-4031-9256-8ba81c7a9182}">
+        <controlDescription forControl="{160cd1a6-bdd2-4a5b-b6eb-86ab7d4d10bf}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_transcriptcontent</datafieldname>

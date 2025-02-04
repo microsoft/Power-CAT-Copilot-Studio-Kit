@@ -1,0 +1,160 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Please enter your input",
+                  "title": "IncidentTitle",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_1": {
+                  "description": "Please enter your input",
+                  "title": "IncidentType",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Please enter your input",
+                  "title": "IncidentDescription",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "date": {
+                  "description": "Please enter or select a date (YYYY-MM-DD)",
+                  "format": "date",
+                  "title": "IncidentDate",
+                  "type": "string",
+                  "x-ms-content-hint": "DATE",
+                  "x-ms-dynamically-added": true
+                },
+                "text_3": {
+                  "description": "Please enter your input",
+                  "title": "ReportedBy",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_4": {
+                  "description": "Please enter your input",
+                  "title": "ContactInformation",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "date"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_Copilot": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "reportresponse": {
+                  "title": "ReportResponse",
+                  "description": "",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "reportresponse": "@{variables('IncidentId')}"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable_-_Incident_Id": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
+          }
+        },
+        "Initialize_Variable_-_Incident_Details": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IncidentInformation",
+                "type": "object",
+                "value": {
+                  "incidentTitle": "@{triggerBody()?['text']}",
+                  "incidentType": "@{triggerBody()?['text_1']}",
+                  "incidentDesc": "@{triggerBody()?['text_2']}",
+                  "incidentDate": "@{triggerBody()?['date']}",
+                  "reportedBy": "@{triggerBody()?['text_3']}",
+                  "contactInfo": "@{triggerBody()?['text_4']}"
+                }
+              }
+            ]
+          },
+          "runAfter": {}
+        },
+        "Initialize_variable_-_Incident_Id": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "IncidentId",
+                "type": "object",
+                "value": {
+                  "IncidentId": "INC0001321"
+                }
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_Variable_-_Incident_Details": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {},
+      "description": "Run a flow from Copilot and send back a response."
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

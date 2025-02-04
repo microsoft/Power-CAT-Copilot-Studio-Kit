@@ -589,7 +589,7 @@
                 },
                 "Create_Copilot_Test_Result": {
                   "runAfter": {
-                    "Message_Position": [
+                    "Compose": [
                       "Succeeded"
                     ]
                   },
@@ -1523,6 +1523,18 @@
                     "operationMetadataId": "550099ac-1e76-48c1-826c-bdfdcd6a2582"
                   },
                   "type": "If"
+                },
+                "Compose": {
+                  "runAfter": {
+                    "Message_Position": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "8012a8fe-2736-49ae-bde8-d53807fd3734"
+                  },
+                  "type": "Compose",
+                  "inputs": "@{ticks(\r\n                body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n            )}\n\n@{ticks(\r\n                body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n            )}\n@{sub(\r\n            ticks(\r\n                body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n            ),\r\n            ticks(\r\n                body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n            )\r\n        )}"
                 }
               },
               "runAfter": {
