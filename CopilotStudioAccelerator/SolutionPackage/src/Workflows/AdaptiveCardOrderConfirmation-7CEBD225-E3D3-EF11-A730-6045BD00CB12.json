@@ -1,0 +1,117 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Please enter your input",
+                  "title": "OrderId",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_Copilot": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderinfo": {
+                  "title": "OrderInfo",
+                  "description": "",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "orderinfo": "@{variables('OrderDetails')}"
+            }
+          },
+          "runAfter": {
+            "Initialize_Variable_-__Order_Details": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
+          }
+        },
+        "Initialize_Variable_-__Order_Details": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "OrderDetails",
+                "type": "object",
+                "value": {
+                  "orderNumber": "@{triggerBody()?['text']}",
+                  "orderDate": "2025-01-15",
+                  "deliveryDate": "2025-01-20",
+                  "shippingAddress": "123 Main Street, Bengaluru, Karnataka, India",
+                  "items": [
+                    {
+                      "imageUrl": "https://example.com/item1.jpg",
+                      "name": "Wireless Headphones",
+                      "quantity": "1",
+                      "price": "₹2999"
+                    },
+                    {
+                      "imageUrl": "https://example.com/item2.jpg",
+                      "name": "Bluetooth Speaker",
+                      "quantity": "1",
+                      "price": "₹1999"
+                    }
+                  ],
+                  "totalAmount": "₹4998",
+                  "trackingUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/",
+                  "supportUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/"
+                }
+              }
+            ]
+          },
+          "runAfter": {}
+        }
+      },
+      "outputs": {},
+      "description": "Run a flow from Copilot and send back a response."
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

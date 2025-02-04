@@ -1,0 +1,195 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Conversation Rating
+
+  actions:
+    - kind: AdaptiveCardPrompt
+      id: c2GbnN
+      card: |-
+        {
+            "type": "AdaptiveCard",
+            "version": "1.5",
+            "body": [
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Did this answer your question?",
+                            "style": "heading",
+                            "wrap": true
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Please rate your experience or ask something else.",
+                            "size": "Medium",
+                            "horizontalAlignment": "Left",
+                            "spacing": "Small",
+                            "wrap": true,
+                            "color": "Dark"
+                        },
+                        {
+                            "type": "Container",
+                            "items": [
+                                {
+                                    "type": "Container",
+                                    "minHeight": "15px"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "ColumnSet",
+                    "spacing": "Small",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "width": "45px",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                    "altText": "1 Star",
+                                    "selectAction": {
+                                        "type": "Action.Submit",
+                                        "data": {
+                                            "rating": 1,
+                                            "actionSubmitId": "rate1"
+                                        }
+                                    },
+                                    "width": "30px",
+                                    "size": "Small"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "45px",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                    "altText": "2 Stars",
+                                    "selectAction": {
+                                        "type": "Action.Submit",
+                                        "data": {
+                                            "rating": 2,
+                                            "actionSubmitId": "rate2"
+                                        }
+                                    },
+                                    "width": "30px",
+                                    "size": "Small"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "45px",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                    "altText": "3 Stars",
+                                    "size": "Small",
+                                    "selectAction": {
+                                        "type": "Action.Submit",
+                                        "data": {
+                                            "rating": 3,
+                                            "actionSubmitId": "rate3"
+                                        }
+                                    },
+                                    "width": "30px"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "45px",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                    "altText": "4 Stars",
+                                    "size": "Small",
+                                    "selectAction": {
+                                        "type": "Action.Submit",
+                                        "data": {
+                                            "rating": 4,
+                                            "actionSubmitId": "rate4"
+                                        }
+                                    },
+                                    "width": "30px"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "45px",
+                            "items": [
+                                {
+                                    "type": "Image",
+                                    "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                    "altText": "5 Stars",
+                                    "size": "Small",
+                                    "selectAction": {
+                                        "type": "Action.Submit",
+                                        "data": {
+                                            "rating": 5,
+                                            "actionSubmitId": "rate5"
+                                        }
+                                    },
+                                    "width": "30px"
+                                }
+                            ]
+                        }
+                    ],
+                    "minHeight": "70px",
+                    "horizontalAlignment": "Left"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "comment",
+                    "placeholder": "Leave a comment (optional)",
+                    "label": "Comment",
+                    "isMultiline": true
+                },
+                {
+                    "type": "ActionSet",
+                    "actions": [
+                        {
+                            "type": "Action.Submit",
+                            "title": "Submit Feedback",
+                            "style": "positive",
+                            "data": {
+                                "action": "submitFeedback",
+                                "comment": "${comment}",
+                                "actionSubmitId": "submitFeedback"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      output:
+        binding:
+          action: Topic.action
+          actionSubmitId: Topic.actionSubmitId
+          comment: Topic.comment
+          rating: Topic.rating
+
+      outputType:
+        properties:
+          action: String
+          actionSubmitId: String
+          comment: String
+          rating: Number
+
+    - kind: SendActivity
+      id: sendActivity_qeeUVR
+      activity: Thank you for your response!
