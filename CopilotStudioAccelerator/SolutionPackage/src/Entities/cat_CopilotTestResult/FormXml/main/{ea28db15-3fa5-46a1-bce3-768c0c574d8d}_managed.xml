@@ -202,7 +202,7 @@
                         <labels>
                           <label description="Suggested Actions JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_suggestedactionsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_suggestedactionsjson" disabled="false" uniqueid="{16647046-041a-4163-a602-f767e6abfa3b}" />
+                        <control id="cat_suggestedactionsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_suggestedactionsjson" disabled="false" uniqueid="{cd6a5517-9c98-43c1-8f45-00a993cf555d}" />
                       </cell>
                     </row>
                     <row />
@@ -228,7 +228,7 @@
                         <labels>
                           <label description="Attachments JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_attachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_attachmentsjson" disabled="false" uniqueid="{741ccb8f-1bc9-4098-a45b-d8f1485988b0}" />
+                        <control id="cat_attachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_attachmentsjson" disabled="false" uniqueid="{2f9ec725-9ba0-40e9-90fd-67c73507eba6}" />
                       </cell>
                     </row>
                     <row />
@@ -252,9 +252,9 @@
                     <row>
                       <cell id="{b35c88b1-18b5-4c58-addc-2c3190f0ea27}" locklevel="0" colspan="1" rowspan="10" showlabel="false" auto="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Citations" languagecode="1033" />
                         </labels>
-                        <control id="cat_citations" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_citations" disabled="false" uniqueid="{5e459329-ad3b-43c0-9b14-70f53ca0b52b}" />
+                        <control id="cat_citations" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_citations" disabled="false" uniqueid="{52695351-e248-4d1d-819e-d0ff8e80ea90}" />
                       </cell>
                     </row>
                     <row />
@@ -287,9 +287,9 @@
                     <row>
                       <cell id="{ab0031a4-7428-748d-9e1b-20c9d91a2c0c}" showlabel="false" locklevel="0">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="JSonEditorPCFColumn" languagecode="1033" />
                         </labels>
-                        <control id="cat_jsoneditorpcfcolumn" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_jsoneditorpcfcolumn" disabled="false" uniqueid="{b26759a8-1a09-436d-b07a-87ddb23344ef}" />
+                        <control id="cat_jsoneditorpcfcolumn" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_jsoneditorpcfcolumn" disabled="true" uniqueid="{917a7dab-2d9e-4d83-acd9-d7b45132fe1b}" />
                       </cell>
                     </row>
                   </rows>
@@ -306,9 +306,9 @@
                     <row>
                       <cell id="{580843d6-a649-17e1-879c-202239792055}" showlabel="false" locklevel="0">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="WebChatPCFColumn" languagecode="1033" />
                         </labels>
-                        <control id="cat_webchatpcfcolumn" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_webchatpcfcolumn" disabled="false" uniqueid="{4cc1ecc2-1648-4577-a6cc-66d3394de5fc}" />
+                        <control id="cat_webchatpcfcolumn" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_webchatpcfcolumn" disabled="true" uniqueid="{30c3d9b1-8e80-4976-be00-1ba7c86c8a1a}" />
                       </cell>
                     </row>
                   </rows>
@@ -434,7 +434,7 @@
             </cell>
             <cell id="{78e16e6a-9c28-4810-aa65-d2895ac468b8}" locklevel="0" colspan="1" rowspan="1">
               <labels>
-                <label description="" languagecode="1033" />
+                <label description="Owner" languagecode="1033" />
               </labels>
               <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false">
                 <parameters>
@@ -499,7 +499,7 @@
         </NavBarAreas>
       </Navigation>
       <controlDescriptions>
-        <controlDescription forControl="{16647046-041a-4163-a602-f767e6abfa3b}">
+        <controlDescription forControl="{cd6a5517-9c98-43c1-8f45-00a993cf555d}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_suggestedactionsjson</datafieldname>
@@ -510,7 +510,6 @@
               <Value type="Multiple">cat_suggestedactionsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
@@ -518,7 +517,6 @@
               <Value type="Multiple">cat_suggestedactionsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
@@ -526,11 +524,10 @@
               <Value type="Multiple">cat_suggestedactionsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{741ccb8f-1bc9-4098-a45b-d8f1485988b0}">
+        <controlDescription forControl="{2f9ec725-9ba0-40e9-90fd-67c73507eba6}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_attachmentsjson</datafieldname>
@@ -541,7 +538,6 @@
               <Value type="Multiple">cat_attachmentsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
@@ -549,7 +545,6 @@
               <Value type="Multiple">cat_attachmentsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
@@ -557,11 +552,10 @@
               <Value type="Multiple">cat_attachmentsjson</Value>
               <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{5e459329-ad3b-43c0-9b14-70f53ca0b52b}">
+        <controlDescription forControl="{52695351-e248-4d1d-819e-d0ff8e80ea90}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_citations</datafieldname>
@@ -570,54 +564,26 @@
           <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
             <parameters>
               <Value type="Multiple">cat_citations</Value>
-              <Height type="Whole.None" static="true">40</Height>
+              <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
             <parameters>
               <Value type="Multiple">cat_citations</Value>
-              <Height type="Whole.None" static="true">40</Height>
+              <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
             <parameters>
               <Value type="Multiple">cat_citations</Value>
-              <Height type="Whole.None" static="true">40</Height>
+              <Height type="Whole.None" static="true">25</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_</fileColumnLogicalName>
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{4cc1ecc2-1648-4577-a6cc-66d3394de5fc}">
-          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
-            <parameters>
-              <datafieldname>cat_webchatpcfcolumn</datafieldname>
-            </parameters>
-          </customControl>
-          <customControl formFactor="0" name="cat_PowerCAT.WebChat">
-            <parameters>
-              <Value type="Multiple">cat_webchatpcfcolumn</Value>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-          <customControl formFactor="2" name="cat_PowerCAT.WebChat">
-            <parameters>
-              <Value type="Multiple">cat_webchatpcfcolumn</Value>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-          <customControl formFactor="1" name="cat_PowerCAT.WebChat">
-            <parameters>
-              <Value type="Multiple">cat_webchatpcfcolumn</Value>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
-            </parameters>
-          </customControl>
-        </controlDescription>
-        <controlDescription forControl="{b26759a8-1a09-436d-b07a-87ddb23344ef}">
+        <controlDescription forControl="{917a7dab-2d9e-4d83-acd9-d7b45132fe1b}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_jsoneditorpcfcolumn</datafieldname>
@@ -628,7 +594,7 @@
               <Value type="Multiple">cat_jsoneditorpcfcolumn</Value>
               <Height type="Whole.None" static="true">70</Height>
               <FileColumn type="Enum" static="true">True</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+              <FileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</FileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
@@ -636,7 +602,7 @@
               <Value type="Multiple">cat_jsoneditorpcfcolumn</Value>
               <Height type="Whole.None" static="true">70</Height>
               <FileColumn type="Enum" static="true">True</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+              <FileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</FileColumnLogicalName>
             </parameters>
           </customControl>
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
@@ -644,7 +610,35 @@
               <Value type="Multiple">cat_jsoneditorpcfcolumn</Value>
               <Height type="Whole.None" static="true">70</Height>
               <FileColumn type="Enum" static="true">True</FileColumn>
-              <fileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</fileColumnLogicalName>
+              <FileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</FileColumnLogicalName>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{30c3d9b1-8e80-4976-be00-1ba7c86c8a1a}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_webchatpcfcolumn</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.WebChat">
+            <parameters>
+              <Value type="Multiple">cat_webchatpcfcolumn</Value>
+              <FileColumn type="TwoOptions" static="true">true</FileColumn>
+              <FileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</FileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.WebChat">
+            <parameters>
+              <Value type="Multiple">cat_webchatpcfcolumn</Value>
+              <FileColumn type="TwoOptions" static="true">true</FileColumn>
+              <FileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</FileColumnLogicalName>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.WebChat">
+            <parameters>
+              <Value type="Multiple">cat_webchatpcfcolumn</Value>
+              <FileColumn type="TwoOptions" static="true">true</FileColumn>
+              <FileColumnLogicalName type="SingleLine.Text" static="true">cat_conversationtranscriptfile</FileColumnLogicalName>
             </parameters>
           </customControl>
         </controlDescription>

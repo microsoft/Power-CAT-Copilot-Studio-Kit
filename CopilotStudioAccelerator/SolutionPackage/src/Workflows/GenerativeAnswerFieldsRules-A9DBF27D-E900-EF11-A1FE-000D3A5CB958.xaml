@@ -68,16 +68,16 @@
                     <Sequence DisplayName="SetVisibilityStep3: Show Generative Answers Outcome">
                       <mcwc:SetVisibility ControlId="cat_generativeansweroutcomecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetMessageStep_SetVisibilityStep3_5: Generative Answer">
+                    <Sequence DisplayName="SetMessageStep5: Generative Answer">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
-                                <Sequence DisplayName="SetAttributeValueStep_undefined_Action_1: Set Test Utterance">
+                                <Sequence DisplayName="SetAttributeValueStep1: Set Test Utterance">
                                   <Sequence.Variables>
-                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep_undefined_Action_1_1" />
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1_1" />
                                   </Sequence.Variables>
                                   <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                                   <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
@@ -88,22 +88,22 @@
                                       <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
-                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep_undefined_Action_1_1]</OutArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep1_1]</OutArgument>
                                     </mxswa:ActivityReference.Arguments>
                                   </mxswa:ActivityReference>
-                                  <mxswa:SetEntityProperty Attribute="cat_testutterance" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep_undefined_Action_1_1]">
+                                  <mxswa:SetEntityProperty Attribute="cat_testutterance" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep1_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
                                     </mxswa:SetEntityProperty.TargetType>
                                   </mxswa:SetEntityProperty>
-                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep_undefined_Action_1" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
-                                <Sequence DisplayName="SetAttributeValueStep_SetVisibilityStep3_5_Action_2: Set Expected Response">
+                                <Sequence DisplayName="SetAttributeValueStep2: Set Expected Response">
                                   <Sequence.Variables>
-                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep_SetVisibilityStep3_5_Action_2_1" />
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep2_1" />
                                   </Sequence.Variables>
                                   <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                                   <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
@@ -114,22 +114,22 @@
                                       <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
-                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep_SetVisibilityStep3_5_Action_2_1]</OutArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep2_1]</OutArgument>
                                     </mxswa:ActivityReference.Arguments>
                                   </mxswa:ActivityReference>
-                                  <mxswa:SetEntityProperty Attribute="cat_expectedresponse" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep_SetVisibilityStep3_5_Action_2_1]">
+                                  <mxswa:SetEntityProperty Attribute="cat_expectedresponse" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep2_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
                                     </mxswa:SetEntityProperty.TargetType>
                                   </mxswa:SetEntityProperty>
-                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep_SetVisibilityStep3_5_Action_2" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep2" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
-                                <Sequence DisplayName="SetAttributeValueStep_SetVisibilityStep3_5_Action_3: Set Generative Answer Outcome">
+                                <Sequence DisplayName="SetAttributeValueStep3: Set Generative Answer Outcome">
                                   <Sequence.Variables>
-                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep_SetVisibilityStep3_5_Action_3_1" />
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep3_1" />
                                   </Sequence.Variables>
                                   <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                                   <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
@@ -140,17 +140,17 @@
                                       <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
                                       </InArgument>
-                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep_SetVisibilityStep3_5_Action_3_1]</OutArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep3_1]</OutArgument>
                                     </mxswa:ActivityReference.Arguments>
                                   </mxswa:ActivityReference>
-                                  <mxswa:SetEntityProperty Attribute="cat_generativeansweroutcomecode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep_SetVisibilityStep3_5_Action_3_1]">
+                                  <mxswa:SetEntityProperty Attribute="cat_generativeansweroutcomecode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep3_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
                                       </InArgument>
                                     </mxswa:SetEntityProperty.TargetType>
                                   </mxswa:SetEntityProperty>
-                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep_SetVisibilityStep3_5_Action_3" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep3" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
                               </sco:Collection>
@@ -181,7 +181,7 @@
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "true" }]</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "True" }]</InArgument>
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
               </InArgument>

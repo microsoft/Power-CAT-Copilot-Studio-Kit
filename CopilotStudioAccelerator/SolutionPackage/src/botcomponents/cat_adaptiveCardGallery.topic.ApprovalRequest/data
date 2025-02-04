@@ -1,0 +1,223 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Approval Request
+
+  actions:
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_wudm5b
+      input: {}
+      output:
+        binding:
+          approvaldetails: Topic.ApprovalInfo
+
+      flowId: 66b343c7-63ce-ef11-8eea-000d3a5c1e68
+
+    - kind: ParseValue
+      id: aEmdFw
+      variable: Topic.ApprovalDetails
+      valueType:
+        kind: Record
+        properties:
+          category: String
+          details: String
+          priority: String
+          requestId: String
+          status: String
+          submittedBy: String
+          submittedDate: String
+
+      value: =Topic.ApprovalInfo
+
+    - kind: AdaptiveCardPrompt
+      id: BF9pGZ
+      repeatCount: 2
+      card: |-
+        ={
+          type: "AdaptiveCard",
+          version: "1.3",
+          body: [
+            {
+              type: "Container",
+              items: [
+                {
+                  type: "TextBlock",
+                  text: "Approval Request",
+                  weight: "Bolder",
+                  size: "Large",
+                  horizontalAlignment: "Center",
+                  color: "Accent"
+                }
+              ]
+            },
+            {
+              type: "FactSet",
+              facts: [
+                {
+                  title: "Request ID:",
+                  value: Topic.ApprovalDetails.requestId
+                },
+                {
+                  title: "Submitted By:",
+                  value: Topic.ApprovalDetails.submittedBy
+                },
+                {
+                  title: "Submitted On:",
+                  value: Topic.ApprovalDetails.submittedDate
+                },
+                {
+                  title: "Category:",
+                  value: Topic.ApprovalDetails.category
+                },
+                {
+                  title: "Priority:",
+                  value: Topic.ApprovalDetails.priority
+                },
+                {
+                  title: "Status:",
+                  value: Topic.ApprovalDetails.status
+                }
+              ]
+            },
+            {
+              type: "Container",
+              items: [
+                {
+                  type: "TextBlock",
+                  text: "Details",
+                  weight: "Bolder",
+                  spacing: "Medium",
+                  color: "Dark"
+                },
+                {
+                  type: "TextBlock",
+                  text: Topic.ApprovalDetails.details,
+                  wrap: true,
+                  spacing: "Small",
+                  color: "Default"
+                }
+              ],
+              style: "default"
+            },
+            {
+              type: "ActionSet",
+              actions: [
+                {
+                  type: "Action.Submit",
+                  title: "Approve",
+                  style: "positive",
+                  data: {
+                    action: "approveRequest",
+                    requestId: Topic.ApprovalDetails.requestId
+                  }
+                },
+                {
+                  type: "Action.Submit",
+                  title: "Reject",
+                  style: "destructive",
+                  data: {
+                    action: "rejectRequest",
+                    requestId: Topic.ApprovalDetails.requestId
+                  }
+                },
+                {
+                  type: "Action.ShowCard",
+                  title: "Request Changes",
+                  card: {
+                    type: "AdaptiveCard",
+                    body: [
+                      {
+                        type: "Input.Text",
+                        id: "comments",
+                        placeholder: "Add comments or requested changes",
+                        isMultiline: true
+                      }
+                    ],
+                    actions: [
+                      {
+                        type: "Action.Submit",
+                        title: "Submit Changes",
+                        data: {
+                          action: "requestChanges",
+                          requestId: Topic.ApprovalDetails.requestId
+                        }
+                      }
+                    ],
+                    '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+                  }
+                }
+              ]
+            }
+          ],
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      output:
+        binding:
+          action: Topic.action
+          actionSubmitId: Topic.actionSubmitId
+          comments: Topic.comments
+          requestId: Topic.requestId
+
+      outputType:
+        properties:
+          action: String
+          actionSubmitId: String
+          comments: String
+          requestId: String
+
+    - kind: ConditionGroup
+      id: conditionGroup_Z0peFQ
+      conditions:
+        - id: conditionItem_5yHodt
+          condition: =Topic.actionSubmitId = "Approve"
+          actions:
+            - kind: SendActivity
+              id: sendActivity_WoAG8x
+              activity: Your Request {Topic.requestId} is approved!
+
+      elseActions:
+        - kind: ConditionGroup
+          id: conditionGroup_sYwI0Y
+          conditions:
+            - id: conditionItem_WruVjU
+              condition: =Topic.actionSubmitId = "Reject"
+              actions:
+                - kind: SendActivity
+                  id: sendActivity_3wgTHX
+                  activity: Sorry, your Request {Topic.requestId} is rejected!
+
+          elseActions:
+            - kind: ConditionGroup
+              id: conditionGroup_AMCfKa
+              conditions:
+                - id: conditionItem_h0uPwq
+                  condition: =Topic.actionSubmitId = "Submit Changes"
+                  actions:
+                    - kind: InvokeFlowAction
+                      id: invokeFlowAction_yIbtyP
+                      input:
+                        binding:
+                          text: =Topic.comments
+
+                      output:
+                        binding:
+                          requestidinfo: Topic.RequestIdInfo
+
+                      flowId: d06e9f82-b2d7-ef11-a730-6045bd00cb12
+
+                    - kind: ParseValue
+                      id: zJC1Im
+                      variable: Topic.ChangeRequestId
+                      valueType:
+                        kind: Record
+                        properties:
+                          changeRequestId: String
+
+                      value: =Topic.RequestIdInfo
+
+                    - kind: SendActivity
+                      id: sendActivity_4Jno91
+                      activity: "Change Request ID: {Topic.ChangeRequestId.changeRequestId} for {Topic.comments} is created."

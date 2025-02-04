@@ -50,7 +50,7 @@
                     <Sequence DisplayName="SetMessageStep1: Name">
                       <mcwc:SetMessage ControlId="cat_name" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -101,7 +101,7 @@
                     <Sequence DisplayName="SetMessageStep2: Region">
                       <mcwc:SetMessage ControlId="cat_regioncode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -149,7 +149,7 @@
                     <Sequence DisplayName="SetMessageStep3: Channel Security">
                       <mcwc:SetMessage ControlId="cat_isdirectlinechannelsecurityenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -197,7 +197,7 @@
                     <Sequence DisplayName="SetMessageStep4: User Authentication">
                       <mcwc:SetMessage ControlId="cat_userauthenticationcode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -245,7 +245,7 @@
                     <Sequence DisplayName="SetMessageStep5: Enrich With Azure Application Insights&#x9;">
                       <mcwc:SetMessage ControlId="cat_isazureapplicationinsightsenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -293,7 +293,7 @@
                     <Sequence DisplayName="SetMessageStep6: Enrich With Conversation Transcripts&#x9;">
                       <mcwc:SetMessage ControlId="cat_isenrichedwithconversationtranscripts" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -341,7 +341,7 @@
                     <Sequence DisplayName="SetMessageStep7: Analyze Generated Answer">
                       <mcwc:SetMessage ControlId="cat_isgeneratedanswersanalysisenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">

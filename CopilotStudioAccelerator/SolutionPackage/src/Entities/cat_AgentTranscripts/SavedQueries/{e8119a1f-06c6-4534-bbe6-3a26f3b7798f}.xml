@@ -12,11 +12,12 @@
         <row name="result" id="cat_agenttranscriptsid">
           <cell name="cat_name" width="300" />
           <cell name="cat_workflowstatus" width="130" />
-          <cell name="cat_agentconfiguration" width="225" />
+          <cell name="cat_agentconfiguration" width="178" />
           <cell name="cat_agentid" width="249" />
           <cell name="createdon" width="120" />
           <cell name="cat_conversationdate" width="188" />
           <cell name="ownerid" width="141" />
+          <cell name="a_56bb6055734d4727a2d039578cfa1d0b.cat_dataverseurl" width="257" />
         </row>
       </grid>
     </layoutxml>
@@ -31,8 +32,11 @@
           <attribute name="cat_workflowstatus" />
           <attribute name="cat_conversationdate" />
           <attribute name="createdon" />
-          <order attribute="createdon" descending="true" />
           <attribute name="ownerid" />
+          <order attribute="createdon" descending="true" />
+          <link-entity alias="a_56bb6055734d4727a2d039578cfa1d0b" name="cat_copilotconfiguration" to="cat_agentconfiguration" from="cat_copilotconfigurationid" link-type="outer" visible="false">
+            <attribute name="cat_dataverseurl" />
+          </link-entity>
         </entity>
       </fetch>
     </fetchxml>
