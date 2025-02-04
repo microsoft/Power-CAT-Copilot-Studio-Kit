@@ -1,0 +1,5341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account Summary Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Account Summary",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "version": "1.5",
+          "backgroundImage": {
+            "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+            "fillMode": "Repeat"
+          },
+          "body": [
+            {
+              "type": "Container",
+              "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+                "fillMode": "Repeat"
+              },
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "color": "Default",
+                  "text": "Account Summary",
+                  "horizontalAlignment": "Left",
+                  "spacing": "ExtraLarge",
+                  "style": "heading"
+                },
+                {
+                  "type": "Container"
+                },
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Account Number:",
+                      "value": "123454663546"
+                    },
+                    {
+                      "title": "Account Holder:",
+                      "value": "Philip Hughes"
+                    },
+                    {
+                      "title": "Account Type:",
+                      "value": "Current"
+                    },
+                    {
+                      "title": "Current Balance:",
+                      "value": "$120002000.79"
+                    },
+                    {
+                      "title": "Last Transaction Date:",
+                      "value": "2024-09-08"
+                    }
+                  ],
+                  "separator": true
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Medium",
+                  "weight": "Bolder",
+                  "color": "Dark",
+                  "text": "Recent Transactions",
+                  "separator": true
+                },
+                {
+                  "type": "Container",
+                  "items": [
+                    {
+                      "type": "ColumnSet",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Grocery Shopping",
+                              "wrap": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "color": "Attention",
+                              "text": "$10000",
+                              "horizontalAlignment": "Right",
+                              "wrap": true
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "ColumnSet",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Utility Bill",
+                              "wrap": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "color": "Attention",
+                              "text": "$20000",
+                              "horizontalAlignment": "Right",
+                              "wrap": true
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "ColumnSet",
+                      "columns": [
+                        {
+                          "type": "Column",
+                          "width": "stretch",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "text": "Online Purchase",
+                              "wrap": true
+                            }
+                          ]
+                        },
+                        {
+                          "type": "Column",
+                          "width": "auto",
+                          "items": [
+                            {
+                              "type": "TextBlock",
+                              "color": "Attention",
+                              "text": "$20000",
+                              "horizontalAlignment": "Right",
+                              "wrap": true
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ColumnSet",
+              "columns": [
+                {
+                  "type": "Column",
+                  "width": "stretch",
+                  "items": [
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.OpenUrl",
+                          "url": "Topic.RecordInfo.statementUrl",
+                          "title": "View Full Statement",
+                          "style": "positive"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Column",
+                  "width": "stretch",
+                  "items": [
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.OpenUrl",
+                          "data": {
+                            "accountNumber": "Topic.RecordInfo.accountNumber",
+                            "action": "contactSupport",
+                            "actionSubmitId": "Contact Support"
+                          },
+                          "url": "Topic.RecordInfo.statementUrl",
+                          "title": "Contact Support"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      }
+    ],
+    "type": "message"
+  }
+]</value>
+  </data>
+  <data name="Account Summary Content" xml:space="preserve">
+    <value>{
+  type: "AdaptiveCard",
+  version: "1.5",
+  backgroundImage: {
+    url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+    fillMode: "Repeat"
+  },
+  body: [
+    {
+      type: "Container",
+      backgroundImage: {
+        url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+        fillMode: "Repeat"
+      },
+      items: [
+        {
+          type: "TextBlock",
+          size: "Large",
+          weight: "Bolder",
+          color: "Default",
+          text: "Account Summary",
+          horizontalAlignment: "Left",
+          spacing: "ExtraLarge",
+          style: "heading"
+        },
+        {
+          type: "Container"
+        },
+        {
+          type: "FactSet",
+          facts: [
+            {
+              title: "Account Number:",
+              value: Topic.RecordInfo.accountNumber
+            },
+            {
+              title: "Account Holder:",
+              value: Topic.RecordInfo.accountHolder
+            },
+            {
+              title: "Account Type:",
+              value: Topic.RecordInfo.accountType
+            },
+            {
+              title: "Current Balance:",
+              value: Topic.RecordInfo.currentBalance
+            },
+            {
+              title: "Last Transaction Date:",
+              value: Topic.RecordInfo.lastTransactionDate
+            }
+          ],
+          separator: true
+        },
+        {
+          type: "TextBlock",
+          size: "Medium",
+          weight: "Bolder",
+          color: "Dark",
+          text: "Recent Transactions",
+          separator: true
+        },
+        {
+          type: "Container",
+          items: ForAll(
+            Topic.RecordInfo.transactions,
+          {
+              type: "ColumnSet",
+              columns: [
+              {
+                  type: "Column",
+                  width: "stretch",
+                  items: [
+                  {
+                      type: "TextBlock",
+                      text: ThisRecord.description,
+                      wrap: true
+                  }
+                ]
+              },
+              {
+                  type: "Column",
+                  width: "auto",
+                  items: [
+                  {
+                      type: "TextBlock",
+                      text: ThisRecord.amount,
+                      horizontalAlignment: "Right",
+                      wrap: true,
+                      color: "Attention"
+                  }
+                ]
+              }
+            ]
+          }
+          )
+        }
+      ]
+    },
+    {
+      type: "ColumnSet",
+      columns: [
+        {
+          type: "Column",
+          width: "stretch",
+          items: [
+            {
+              type: "ActionSet",
+              actions: [
+                {
+                  type: "Action.OpenUrl",
+                  url: Topic.RecordInfo.statementUrl,
+                  title: "View Full Statement",
+                  style: "positive"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "Column",
+          width: "stretch",
+          items: [
+            {
+              type: "ActionSet",
+              actions: [
+                {
+                  type: "Action.OpenUrl",
+                  data: {
+                    accountNumber: Topic.RecordInfo.accountNumber,
+                    action: "contactSupport",
+                    actionSubmitId: "Contact Support"
+                  },
+                  url: Topic.RecordInfo.statementUrl,
+                  title: "Contact Support"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Account Summary Sample Data" xml:space="preserve">
+    <value>{
+  "accountNumber": "1232144323",
+  "accountHolder": "Glenn Phillips",
+  "accountType": "Savings",
+  "currentBalance": "$10,000,000",
+  "lastTransactionDate": "2025-01-08",
+  "transactions": [
+    {
+      "description": "Grocery Shopping",
+      "amount": "$1000"
+    },
+    {
+      "description": "Utility Bill",
+      "amount": "$2000"
+    },
+    {
+      "description": "Online Purchase",
+      "amount": "$5000.69"
+    }
+  ],
+  "statementUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"
+}</value>
+  </data>
+  <data name="Account Summary Sample JSON" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "version": "1.5",
+    "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+                "fillMode": "Repeat"
+            },
+    "body": [
+        {
+            "type": "Container",
+              "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+                "fillMode": "Repeat"
+            },
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "size": "Large",
+                    "weight": "Bolder",
+                    "color": "Default",
+                    "text": "Account Summary",
+                    "horizontalAlignment": "Left",
+                    "facts": null,
+                    "items": null,
+                    "spacing": "ExtraLarge",
+                    "style": "heading"
+                },
+                {
+                    "type": "Container"
+                },
+                {
+                    "type": "FactSet",
+                    "facts": [
+                        {
+                            "title": "Account Number:",
+                            "value": "90001321434"
+                        },
+                        {
+                            "title": "Account Holder:",
+                            "value": "John Doe"
+                        },
+                        {
+                            "title": "Account Type:",
+                            "value": "Savings"
+                        },
+                        {
+                            "title": "Current Balance:",
+                            "value": "$10,000"
+                        },
+                        {
+                            "title": "Last Transaction Date:",
+                            "value": "2025-01-08"
+                        }
+                    ],
+                    "color": null,
+                    "horizontalAlignment": null,
+                    "items": null,
+                    "size": null,
+                    "text": null,
+                    "weight": null,
+                    "separator": true
+                },
+                {
+                    "type": "TextBlock",
+                    "size": "Medium",
+                    "weight": "Bolder",
+                    "color": "Dark",
+                    "text": "Recent Transactions",
+                    "facts": null,
+                    "items": null,
+                    "separator": true
+                },
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "ColumnSet",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "stretch",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "Grocery Shopping",
+                                            "wrap": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "auto",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "color": "Attention",
+                                            "text": "$10000",
+                                            "horizontalAlignment": "Right",
+                                            "wrap": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "ColumnSet",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "stretch",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "Utility Bill",
+                                            "wrap": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "auto",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "color": "Attention",
+                                            "text": "$20000",
+                                            "horizontalAlignment": "Right",
+                                            "wrap": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "ColumnSet",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "stretch",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "Online Purchase",
+                                            "wrap": true
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "color": null,
+                    "facts": null,
+                    "horizontalAlignment": null,
+                    "size": null,
+                    "text": null,
+                    "weight": null
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.OpenUrl",
+                                    "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/",
+                                    "title": "View Full Statement",
+                                    "style": "positive",
+                                    "data": null
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.Submit",
+                                    "data": {
+                                        "accountNumber": "90001321434",
+                                        "action": "contactSupport",
+                                        "actionSubmitId": "Contact Support"
+                                    },
+                                    "title": "Contact Support",
+                                    "url": null
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Approval Request Content" xml:space="preserve">
+    <value>{
+  type: "AdaptiveCard",
+  version: "1.3",
+  body: [
+    {
+      type: "Container",
+      items: [
+        {
+          type: "TextBlock",
+          text: "Approval Request",
+          weight: "Bolder",
+          size: "Large",
+          horizontalAlignment: "Center",
+          color: "Accent"
+        }
+      ]
+    },
+    {
+      type: "FactSet",
+      facts: [
+        {
+          title: "Request ID:",
+          value: Topic.ApprovalDetails.requestId
+        },
+        {
+          title: "Submitted By:",
+          value: Topic.ApprovalDetails.submittedBy
+        },
+        {
+          title: "Submitted On:",
+          value: Topic.ApprovalDetails.submittedDate
+        },
+        {
+          title: "Category:",
+          value: Topic.ApprovalDetails.category
+        },
+        {
+          title: "Priority:",
+          value: Topic.ApprovalDetails.priority
+        },
+        {
+          title: "Status:",
+          value: Topic.ApprovalDetails.status
+        }
+      ]
+    },
+    {
+      type: "Container",
+      items: [
+        {
+          type: "TextBlock",
+          text: "Details",
+          weight: "Bolder",
+          spacing: "Medium",
+          color: "Dark"
+        },
+        {
+          type: "TextBlock",
+          text: Topic.ApprovalDetails.details,
+          wrap: true,
+          spacing: "Small",
+          color: "Default"
+        }
+      ],
+      style: "default"
+    },
+    {
+      type: "ActionSet",
+      actions: [
+        {
+          type: "Action.Submit",
+          title: "Approve",
+          style: "positive",
+          data: {
+            action: "approveRequest",
+            requestId: Topic.ApprovalDetails.requestId
+          }
+        },
+        {
+          type: "Action.Submit",
+          title: "Reject",
+          style: "destructive",
+          data: {
+            action: "rejectRequest",
+            requestId: Topic.ApprovalDetails.requestId
+          }
+        },
+        {
+          type: "Action.ShowCard",
+          title: "Request Changes",
+          card: {
+            type: "AdaptiveCard",
+            body: [
+              {
+                type: "Input.Text",
+                id: "comments",
+                placeholder: "Add comments or requested changes",
+                isMultiline: true
+              }
+            ],
+            actions: [
+              {
+                type: "Action.Submit",
+                title: "Submit Changes",
+                data: {
+                  action: "requestChanges",
+                  requestId: Topic.ApprovalDetails.requestId
+                }
+              }
+            ],
+            '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+          }
+        }
+      ]
+    }
+  ],
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Approval Request Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Approval Request",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ8NDQ0OFREWFhURExMYIDQgGBolGxUVITEhKikrLi4uFx8zODMsNygtLisBCgoKDg0NFQ8PFSsdFR0rLS0tKysrLSstLS0tLy00KysrKy0rKysrKy0rLys1KysrNysrKysrLS0tKystKystK//AABEIALUBFgMBIgACEQEDEQH/xAAaAAEBAQEBAQEAAAAAAAAAAAAAAQIDBAUH/8QALBABAQACAQIFAwMEAwAAAAAAAAECEQMhQRIxUWFxBJGxgcHwQlLh8SKh0f/EABkBAQEBAQEBAAAAAAAAAAAAAAEAAgMEBf/EABwRAQEBAQACAwAAAAAAAAAAAAABEQIhURIxQf/aAAwDAQACEQMRAD8A/TwV7nzUUEgBIASBFxxtuogSb6R6OLik63rfw1x8cx+fVti9OnPOCorLoIrc4r36fkasc1mFv+XbHCRR8mpz7Yx4p36/hsQHABFRFCVUiogCQKiIAgJVSpICIPlgPS8gAgCCQAUuM3dR6uPDU/KcXHqe/d0jn1XTnnBVxwt7OmPF6sWusjnJvybx4vV1gzrXxSSTyBAQESACAFRFRZAlARFAFACAEqRUEQBzzy7DWM3p84B6HlAEgBIejh49db59vY4Pp7et6Ts9mOEjn13+OvHH7XLHjt9nbHjk92orla7TkADQlKiQCIABQAkKKEKCKgAgIkAEDNWsoDOeWltccrtqRm0RRph4QWS3ydnBFkdcOD1+0dscZPJm9NTiuOHBe/T27u/FxTtPmrHbHHTn11XXniLI1Ikac3UARAEkqKiAiiSCiQCyJEUVEgKCIUSAKkiVWSBBjky7Fm1nPLbIRthUTPOY+Yso2OOHB6/aOuMk8ppVNuiSRFJGsMdstY1x493SEixm10kJGgZaAEkFQgqKiSC6NIBpREFUHEFVJAAkAKEEtIS1BMrohMstORbsajnboo4/UZ/0/f4P2L4cuXPxXfbsMDo5PdoUcnfDTrjNM8cdJGbWpCRqJI1Iy3IQUBRGkQRFCkAIA0qIChCiAqgJCKhAis2lUtZolLJa5ZXZnlv4RqRi0UEGc8vDNvHbvrW+fk8V6eU8v/XN05mOfV1QGmX0QawnVw16MbxijUjDchI0RQ0gugFlGkIZFCEFEkUAgBIASBBIBm0i0tZEtaA555b+DLLbLUjFooIDjz5/0z9XTkz8M9+zyWtcxnqojVR0YAEH028YkjcjzWvXISNyJI1GWoKAaEWpUERQhAEhKqJAgQAJAIkqbS1LSNLUEtIHPPLaZZbZakYtWBFIEyupuq83Lnu+0UmjcZzy3dsqjowAIICkPrYxsxWR5K9sixYjQIAiiUEEBCBBEAAoBElECNEtS1ENNgxlnr5ODVyy055ZbS1GpGbRYikKI58mfafqsCcue+k/VxaRuMoKEIjSVBAVB9lSDyPcsUEQolSRBKQWsgWQQKVAQBLU2lq2ptBAQuWnLLLbUgtayz9GBGmNAEgGc89fKCcmeuk8/wAOSmmp4ZQauNTw32+8KZGvDfb7xNJIjXh+PvDKa/3shkBMvtCRXke5VQRVmrWbUE2zatrLTKoBAJtNpLtNiIKglshCueXJ6M5Z2/DLUjN6W1ALIAkAznlr5SM8tfLkDWBHTtJ16zz7W/zTD0TnmsZq/wDHX3kv7imY53v+nlOs+Uk6zp13106Z8sv906+Lp1lupuX7f9tZfUY23pZv09N79e/cefR8e3CTUm5fO/HZfa79/m/yO0+onTpdS/vb+6Tmx6S+KyeHr08Vsu/3W30sntwznnfXr7pnOtemfUTvL016f3bs/Dly5zLUm7rfW+fWmW+mbJn24ijbD66wHle2AAJWKoYzWUAsogEIAUICDOeWnK0G4xQAgACCgkzndRyQajNUAoASAEgBIAQAEn//2Q=="
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Approval Request",
+                  "weight": "Bolder",
+                  "size": "Large",
+                  "horizontalAlignment": "Center",
+                  "color": "Accent"
+                }
+              ]
+            },
+            {
+              "type": "FactSet",
+              "facts": [
+                {
+                  "title": "Request ID:",
+                  "value": "ID989798696"
+                },
+                {
+                  "title": "Submitted By:",
+                  "value": "Joe Root"
+                },
+                {
+                  "title": "Submitted On:",
+                  "value": "2025-01-01"
+                },
+                {
+                  "title": "Category:",
+                  "value": "Software Installation"
+                },
+                {
+                  "title": "Priority:",
+                  "value": "Medium"
+                },
+                {
+                  "title": "Status:",
+                  "value": "Pending"
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Details",
+                  "weight": "Bolder",
+                  "spacing": "Medium",
+                  "color": "Dark"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Installation",
+                  "wrap": true,
+                  "spacing": "Small",
+                  "color": "Default"
+                }
+              ],
+              "style": "default"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Approve",
+                  "style": "positive",
+                  "data": {
+                    "action": "approveRequest",
+                    "requestId": "IKJ22345435"
+                  }
+                },
+                {
+                  "type": "Action.Submit",
+                  "title": "Reject",
+                  "style": "destructive",
+                  "data": {
+                    "action": "rejectRequest",
+                    "requestId": "IKJ22345435"
+                  }
+                },
+                {
+                  "type": "Action.ShowCard",
+                  "title": "Request Changes",
+                  "card": {
+                    "type": "AdaptiveCard",
+                    "body": [
+                      {
+                        "type": "Input.Text",
+                        "id": "comments",
+                        "placeholder": "Add comments or requested changes",
+                        "isMultiline": true
+                      }
+                    ],
+                    "actions": [
+                      {
+                        "type": "Action.Submit",
+                        "title": "Submit Changes",
+                        "data": {
+                          "action": "requestChanges",
+                          "requestId": "IKJ22345435"
+                        }
+                      }
+                    ],
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                  }
+                }
+              ]
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Approval Request Sample Data" xml:space="preserve">
+    <value>{
+  "requestId": "IJK982337645",
+  "submittedBy": "David Warner",
+  "submittedDate": "2025-01-20",
+  "category": "IT Support",
+  "priority": "High",
+  "status": "Pending",
+  "details": "The user is experiencing issues with their laptop not connecting to the company VPN."
+}</value>
+  </data>
+  <data name="Approval Request Sample JSON" xml:space="preserve">
+    <value>{
+  "type": "AdaptiveCard",
+  "version": "1.3",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Approval Request",
+          "weight": "Bolder",
+          "size": "Large",
+          "horizontalAlignment": "Center",
+          "color": "Accent"
+        }
+      ]
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Request ID:",
+          "value": "REQ123456"
+        },
+        {
+          "title": "Submitted By:",
+          "value": "Jane Doe"
+        },
+        {
+          "title": "Submitted On:",
+          "value": "2025-01-15"
+        },
+        {
+          "title": "Category:",
+          "value": "IT Support"
+        },
+        {
+          "title": "Priority:",
+          "value": "High"
+        },
+        {
+          "title": "Status:",
+          "value": "Pending"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Details",
+          "weight": "Bolder",
+          "spacing": "Medium",
+          "color": "Dark"
+        },
+        {
+          "type": "TextBlock",
+          "text": "The request is to upgrade the server infrastructure to improve performance.",
+          "wrap": true,
+          "spacing": "Small",
+          "color": "Default"
+        }
+      ],
+      "style": "default"
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.Submit",
+          "title": "Approve",
+          "style": "positive",
+          "data": {
+            "action": "approveRequest",
+            "requestId": "REQ123456"
+          }
+        },
+        {
+          "type": "Action.Submit",
+          "title": "Reject",
+          "style": "destructive",
+          "data": {
+            "action": "rejectRequest",
+            "requestId": "REQ123456"
+          }
+        },
+        {
+          "type": "Action.ShowCard",
+          "title": "Request Changes",
+          "card": {
+            "type": "AdaptiveCard",
+            "body": [
+              {
+                "type": "Input.Text",
+                "id": "comments",
+                "placeholder": "Add comments or requested changes",
+                "isMultiline": true
+              }
+            ],
+            "actions": [
+              {
+                "type": "Action.Submit",
+                "title": "Submit Changes",
+                "data": {
+                  "action": "requestChanges",
+                  "requestId": "REQ123456"
+                }
+              }
+            ],
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+          }
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Conversation Rating Content" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "version": "1.5",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Did this answer your question?",
+                    "style": "heading",
+                    "wrap": true
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Please rate your experience or ask something else.",
+                    "size": "Medium",
+                    "horizontalAlignment": "Left",
+                    "spacing": "Small",
+                    "wrap": true,
+                    "color": "Dark"
+                },
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "Container",
+                            "minHeight": "15px"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "spacing": "Small",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "1 Star",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 1,
+                                    "actionSubmitId": "rate1"
+                                }
+                            },
+                            "width": "30px",
+                            "size": "Small"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "2 Stars",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 2,
+                                    "actionSubmitId": "rate2"
+                                }
+                            },
+                            "width": "30px",
+                            "size": "Small"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "3 Stars",
+                            "size": "Small",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 3,
+                                    "actionSubmitId": "rate3"
+                                }
+                            },
+                            "width": "30px"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "4 Stars",
+                            "size": "Small",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 4,
+                                    "actionSubmitId": "rate4"
+                                }
+                            },
+                            "width": "30px"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "5 Stars",
+                            "size": "Small",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 5,
+                                    "actionSubmitId": "rate5"
+                                }
+                            },
+                            "width": "30px"
+                        }
+                    ]
+                }
+            ],
+            "minHeight": "70px",
+            "horizontalAlignment": "Left"
+        },
+        {
+            "type": "Input.Text",
+            "id": "comment",
+            "placeholder": "Leave a comment (optional)",
+            "label": "Comment",
+            "isMultiline": true
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Submit Feedback",
+                    "style": "positive",
+                    "data": {
+                        "action": "submitFeedback",
+                        "comment": "${comment}",
+                        "actionSubmitId": "submitFeedback"
+                    }
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Conversation Rating Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Conversation Rating",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+    {
+        "timestamp": "",
+        "from": {
+            "role": "bot"
+        },
+        "attachments": [
+            {
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {
+                    "type": "AdaptiveCard",
+                    "version": "1.5",
+                    "body": [
+                        {
+                            "type": "Container",
+                            "items": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Did this answer your question?",
+                                    "style": "heading",
+                                    "wrap": true
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Please rate your experience or ask something else.",
+                                    "size": "Medium",
+                                    "horizontalAlignment": "Left",
+                                    "spacing": "Small",
+                                    "wrap": true,
+                                    "color": "Dark"
+                                },
+                                {
+                                    "type": "Container",
+                                    "items": [
+                                        {
+                                            "type": "Container",
+                                            "minHeight": "15px"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "ColumnSet",
+                            "spacing": "Small",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "45px",
+                                    "items": [
+                                        {
+                                            "type": "Image",
+                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "altText": "1 Star",
+                                            "selectAction": {
+                                                "type": "Action.Submit",
+                                                "data": {
+                                                    "rating": 1,
+                                                    "actionSubmitId": "rate1"
+                                                }
+                                            },
+                                            "width": "30px",
+                                            "size": "Small"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "45px",
+                                    "items": [
+                                        {
+                                            "type": "Image",
+                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "altText": "2 Stars",
+                                            "selectAction": {
+                                                "type": "Action.Submit",
+                                                "data": {
+                                                    "rating": 2,
+                                                    "actionSubmitId": "rate2"
+                                                }
+                                            },
+                                            "width": "30px",
+                                            "size": "Small"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "45px",
+                                    "items": [
+                                        {
+                                            "type": "Image",
+                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "altText": "3 Stars",
+                                            "size": "Small",
+                                            "selectAction": {
+                                                "type": "Action.Submit",
+                                                "data": {
+                                                    "rating": 3,
+                                                    "actionSubmitId": "rate3"
+                                                }
+                                            },
+                                            "width": "30px"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "45px",
+                                    "items": [
+                                        {
+                                            "type": "Image",
+                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "altText": "4 Stars",
+                                            "size": "Small",
+                                            "selectAction": {
+                                                "type": "Action.Submit",
+                                                "data": {
+                                                    "rating": 4,
+                                                    "actionSubmitId": "rate4"
+                                                }
+                                            },
+                                            "width": "30px"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "45px",
+                                    "items": [
+                                        {
+                                            "type": "Image",
+                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "altText": "5 Stars",
+                                            "size": "Small",
+                                            "selectAction": {
+                                                "type": "Action.Submit",
+                                                "data": {
+                                                    "rating": 5,
+                                                    "actionSubmitId": "rate5"
+                                                }
+                                            },
+                                            "width": "30px"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "minHeight": "70px",
+                            "horizontalAlignment": "Left"
+                        },
+                        {
+                            "type": "Input.Text",
+                            "id": "comment",
+                            "placeholder": "Leave a comment (optional)",
+                            "label": "comment",
+                            "isMultiline": true
+                        },
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.Submit",
+                                    "title": "Submit Feedback",
+                                    "style": "positive",
+                                    "data": {
+                                        "action": "submitFeedback",
+                                        "comment": "${comment}",
+                                        "actionSubmitId": "submitFeedback"
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                }
+            }
+        ],
+        "type": "message"
+    }
+]
+</value>
+  </data>
+  <data name="Conversation Rating Sample JSON" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "version": "1.5",
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Did this answer your question?",
+                    "style": "heading",
+                    "wrap": true
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Please rate your experience or ask something else.",
+                    "size": "Medium",
+                    "horizontalAlignment": "Left",
+                    "spacing": "Small",
+                    "wrap": true,
+                    "color": "Dark"
+                },
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "Container",
+                            "minHeight": "15px"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "spacing": "Small",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "1 Star",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 1,
+                                    "actionSubmitId": "rate1"
+                                }
+                            },
+                            "width": "30px",
+                            "size": "Small"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "2 Stars",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 2,
+                                    "actionSubmitId": "rate2"
+                                }
+                            },
+                            "width": "30px",
+                            "size": "Small"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "3 Stars",
+                            "size": "Small",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 3,
+                                    "actionSubmitId": "rate3"
+                                }
+                            },
+                            "width": "30px"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "4 Stars",
+                            "size": "Small",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 4,
+                                    "actionSubmitId": "rate4"
+                                }
+                            },
+                            "width": "30px"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "45px",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "altText": "5 Stars",
+                            "size": "Small",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "data": {
+                                    "rating": 5,
+                                    "actionSubmitId": "rate5"
+                                }
+                            },
+                            "width": "30px"
+                        }
+                    ]
+                }
+            ],
+            "minHeight": "70px",
+            "horizontalAlignment": "Left"
+        },
+        {
+            "type": "Input.Text",
+            "id": "comment",
+            "placeholder": "Leave a comment (optional)",
+            "label": "Comment",
+            "isMultiline": true
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Submit Feedback",
+                    "style": "positive",
+                    "data": {
+                        "action": "submitFeedback",
+                        "comment": "${comment}",
+                        "actionSubmitId": "submitFeedback"
+                    }
+                }
+            ]
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Event Registration Content" xml:space="preserve">
+    <value>{
+  type: "AdaptiveCard",
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+  version: "1.5",
+  backgroundImage: {
+    url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+  },
+  body: [
+    {
+      type: "Container",
+      items: [
+        {
+          type: "Image",
+          size: "Medium",
+          url: "https://www.synalis.de/wp-content/uploads/2023/10/Eroeffnungs-Keynote-mmpc-2023-1024x576.jpeg",
+          horizontalAlignment: "Center",
+          altText: "Event Logo",
+          height: "200px"
+        },
+        {
+          type: "TextBlock",
+          size: "ExtraLarge",
+          weight: "Bolder",
+          color: "Accent",
+          text: "You're Invited!",
+          horizontalAlignment: "Center"
+        },
+        {
+          type: "TextBlock",
+          size: "Large",
+          weight: "Bolder",
+          text: Topic.EventDetails.eventTitle,
+          horizontalAlignment: "Center",
+          wrap: true
+        },
+        {
+          type: "TextBlock",
+          size: "Medium",
+          text: Topic.EventDetails.eventDesc,
+          horizontalAlignment: "Center",
+          wrap: true,
+          spacing: "Small"
+        }
+      ],
+      style: "emphasis",
+      actions: []
+    },
+    {
+      type: "Container",
+      items: [
+        {
+          type: "FactSet",
+          facts: [
+            {
+              title: "Date:",
+              value: Topic.EventDetails.eventDate
+            },
+            {
+              title: "Time:",
+              value: Topic.EventDetails.eventTime
+            },
+            {
+              title: "Location:",
+              value: Topic.EventDetails.eventLoc
+            }
+          ]
+        }
+      ],
+      style: "emphasis",
+      spacing: "Small",
+      actions: []
+    },
+    {
+      type: "Container",
+      items: [
+        {
+          type: "TextBlock",
+          size: "Medium",
+          weight: "Bolder",
+          text: "Reserve Your Spot!",
+          spacing: "Small"
+        },
+        {
+          type: "Input.Text",
+          id: "participantName",
+          placeholder: "Enter your name *",
+          isRequired: true,
+          label: "Name",
+          errorMessage: "Name is required."
+        },
+        {
+          type: "Input.Text",
+          id: "participantEmail",
+          placeholder: "Enter your email *",
+          isRequired: true,
+          label: "Email",
+          errorMessage: "Email is required."
+        },
+        {
+          type: "Input.ChoiceSet",
+          id: "participationType",
+          style: "expanded",
+          choices: [
+            {
+              title: "In Person",
+              value: "in_person"
+            },
+            {
+              title: "Online",
+              value: "online"
+            }
+          ],
+          isRequired: true,
+          label: "How will you attend? *",
+          errorMessage: "Please select a participation type."
+        }
+      ],
+      style: "emphasis",
+      actions: [],
+      spacing: "Small"
+    },
+    {
+      type: "ActionSet",
+      actions: [
+        {
+          type: "Action.Submit",
+          data: {
+            action: "registerForEvent",
+            actionSubmitId: "Register Now"
+          },
+          title: "Register Now",
+          style: "positive"
+        }
+      ],
+      spacing: "Small"
+    }
+  ]
+}</value>
+  </data>
+  <data name="Event Registration Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Event Registration",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+          "version": "1.5",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "Image",
+                  "size": "Medium",
+                  "url": "https://www.synalis.de/wp-content/uploads/2023/10/Eroeffnungs-Keynote-mmpc-2023-1024x576.jpeg",
+                  "horizontalAlignment": "Center",
+                  "altText": "Event Logo",
+                  "height": "200px"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "ExtraLarge",
+                  "weight": "Bolder",
+                  "color": "Accent",
+                  "text": "You're Invited!",
+                  "horizontalAlignment": "Center"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "text": "Test Title",
+                  "horizontalAlignment": "Center",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Medium",
+                  "text": "Test Description",
+                  "horizontalAlignment": "Center",
+                  "wrap": true,
+                  "spacing": "Small"
+                }
+              ],
+              "style": "emphasis",
+              "actions": []
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Date:",
+                      "value": "2025-09-09"
+                    },
+                    {
+                      "title": "Time:",
+                      "value": "12:01 AM"
+                    },
+                    {
+                      "title": "Location:",
+                      "value": "Dubai"
+                    }
+                  ]
+                }
+              ],
+              "style": "emphasis",
+              "spacing": "Small",
+              "actions": []
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "size": "Medium",
+                  "weight": "Bolder",
+                  "text": "Reserve Your Spot!",
+                  "spacing": "Small"
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "participantName",
+                  "placeholder": "Enter your name *",
+                  "isRequired": true,
+                  "label": "Name",
+                  "errorMessage": "Name is required."
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "participantEmail",
+                  "placeholder": "Enter your email *",
+                  "isRequired": true,
+                  "label": "Email",
+                  "errorMessage": "Email is required."
+                },
+                {
+                  "type": "Input.ChoiceSet",
+                  "id": "participationType",
+                  "style": "expanded",
+                  "choices": [
+                    {
+                      "title": "In Person",
+                      "value": "in_person"
+                    },
+                    {
+                      "title": "Online",
+                      "value": "online"
+                    }
+                  ],
+                  "isRequired": true,
+                  "label": "How will you attend? *",
+                  "errorMessage": "Please select a participation type."
+                }
+              ],
+              "style": "emphasis",
+              "actions": [],
+              "spacing": "Small"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "data": {
+                    "action": "registerForEvent",
+                    "actionSubmitId": "Register Now"
+                  },
+                  "title": "Register Now",
+                  "style": "positive"
+                }
+              ],
+              "spacing": "Small"
+            }
+          ]
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Event Registration Sample JSON" xml:space="preserve">
+    <value>{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "backgroundImage": {
+    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+  },
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "Image",
+          "size": "Medium",
+          "url": "https://www.synalis.de/wp-content/uploads/2023/10/Eroeffnungs-Keynote-mmpc-2023-1024x576.jpeg",
+          "horizontalAlignment": "Center",
+          "altText": "Event Logo",
+          "height": "200px"
+        },
+        {
+          "type": "TextBlock",
+          "size": "ExtraLarge",
+          "weight": "Bolder",
+          "color": "Accent",
+          "text": "You're Invited!",
+          "horizontalAlignment": "Center"
+        },
+        {
+          "type": "TextBlock",
+          "size": "Large",
+          "weight": "Bolder",
+          "text": "Annual Tech Conference 2025",
+          "horizontalAlignment": "Center",
+          "wrap": true
+        },
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "text": "Join us for a day of insightful talks and networking with industry leaders.",
+          "horizontalAlignment": "Center",
+          "wrap": true,
+          "spacing": "Small"
+        }
+      ],
+      "style": "emphasis",
+      "actions": []
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Date:",
+              "value": "2025-03-15"
+            },
+            {
+              "title": "Time:",
+              "value": "10:00 AM - 4:00 PM"
+            },
+            {
+              "title": "Location:",
+              "value": "Tech Convention Center, New York, NY"
+            }
+          ]
+        }
+      ],
+      "style": "emphasis",
+      "spacing": "Small",
+      "actions": []
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "size": "Medium",
+          "weight": "Bolder",
+          "text": "Reserve Your Spot!",
+          "spacing": "Small"
+        },
+        {
+          "type": "Input.Text",
+          "id": "participantName",
+          "placeholder": "Enter your name *",
+          "isRequired": true,
+          "label": "Name",
+          "errorMessage": "Name is required."
+        },
+        {
+          "type": "Input.Text",
+          "id": "participantEmail",
+          "placeholder": "Enter your email *",
+          "isRequired": true,
+          "label": "Email",
+          "errorMessage": "Email is required."
+        },
+        {
+          "type": "Input.ChoiceSet",
+          "id": "participationType",
+          "style": "expanded",
+          "choices": [
+            {
+              "title": "In Person",
+              "value": "in_person"
+            },
+            {
+              "title": "Online",
+              "value": "online"
+            }
+          ],
+          "isRequired": true,
+          "label": "How will you attend? *",
+          "errorMessage": "Please select a participation type."
+        }
+      ],
+      "style": "emphasis",
+      "actions": [],
+      "spacing": "Small"
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.Submit",
+          "data": {
+            "action": "registerForEvent",
+            "actionSubmitId": "Register Now"
+          },
+          "title": "Register Now",
+          "style": "positive"
+        }
+      ],
+      "spacing": "Small"
+    }
+  ]
+}</value>
+  </data>
+  <data name="Incident Report Content" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "backgroundImage": {
+        "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+    },
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Incident Reporting",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "horizontalAlignment": "Center",
+                    "color": "Accent"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Please provide details about the incident you are reporting. Fields marked with * are required.",
+                    "size": "Medium",
+                    "wrap": true,
+                    "spacing":"Large"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "Input.Text",
+                    "id": "incidentTitle",
+                    "placeholder": "Enter a brief title for the incident *",
+                    "label": "Incident Title",
+                    "isRequired": true,
+                    "errorMessage": "Incident title is required."
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "incidentType",
+                    "label": "Incident Type *",
+                    "choices": [
+                        {
+                            "title": "System Outage",
+                            "value": "systemOutage"
+                        },
+                        {
+                            "title": "Data Breach",
+                            "value": "dataBreach"
+                        },
+                        {
+                            "title": "Safety Hazard",
+                            "value": "safetyHazard"
+                        },
+                        {
+                            "title": "Other",
+                            "value": "other"
+                        }
+                    ],
+                    "isRequired": true,
+                    "errorMessage": "Please select an incident type."
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "incidentDescription",
+                    "placeholder": "Describe the incident in detail *",
+                    "label": "Incident Description",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Incident description is required."
+                },
+                {
+                    "type": "Input.Date",
+                    "id": "incidentDate",
+                    "label": "Incident Date *",
+                    "isRequired": true,
+                    "errorMessage": "Please provide the date of the incident."
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "reportedBy",
+                    "placeholder": "Enter your name",
+                    "label": "Reported By (Optional)"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "contactInfo",
+                    "placeholder": "Enter your contact information",
+                    "label": "Contact Information (Optional)"
+                }
+            ],
+            "style": "default",
+            "spacing": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Submit Report",
+                    "style": "positive",
+                    "data": {
+                        "action": "submitIncidentReport"
+                    }
+                },
+                {
+                    "type": "Action.ShowCard",
+                    "title": "Cancel",
+                    "card": {
+                        "type": "AdaptiveCard",
+                        "body": [
+                            {
+                                "type": "TextBlock",
+                                "text": "Are you sure you want to cancel this report?",
+                                "weight": "Bolder",
+                                "wrap": true
+                            },
+                            {
+                                "type": "ActionSet",
+                                "actions": [
+                                    {
+                                        "type": "Action.Submit",
+                                        "title": "Yes, Cancel",
+                                        "data": {
+                                            "action": "cancelIncidentReport"
+                                        }
+                                    },
+                                    {
+                                        "type": "Action.Submit",
+                                        "title": "No, Continue",
+                                        "data": {
+                                            "action": "continueIncidentReport"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                    }
+                }
+            ],
+            "spacing": "Medium"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Incident Report Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Incident Report",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Incident Reporting",
+                  "weight": "Bolder",
+                  "size": "Large",
+                  "horizontalAlignment": "Center",
+                  "color": "Accent"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Please provide details about the incident you are reporting. Fields marked with * are required.",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Large"
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "Input.Text",
+                  "id": "incidentTitle",
+                  "placeholder": "Enter a brief title for the incident *",
+                  "label": "Incident Title",
+                  "isRequired": true,
+                  "errorMessage": "Incident title is required."
+                },
+                {
+                  "type": "Input.ChoiceSet",
+                  "id": "incidentType",
+                  "label": "Incident Type *",
+                  "choices": [
+                    {
+                      "title": "System Outage",
+                      "value": "systemOutage"
+                    },
+                    {
+                      "title": "Data Breach",
+                      "value": "dataBreach"
+                    },
+                    {
+                      "title": "Safety Hazard",
+                      "value": "safetyHazard"
+                    },
+                    {
+                      "title": "Other",
+                      "value": "other"
+                    }
+                  ],
+                  "isRequired": true,
+                  "errorMessage": "Please select an incident type."
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "incidentDescription",
+                  "placeholder": "Describe the incident in detail *",
+                  "label": "Incident Description",
+                  "isMultiline": true,
+                  "isRequired": true,
+                  "errorMessage": "Incident description is required."
+                },
+                {
+                  "type": "Input.Date",
+                  "id": "incidentDate",
+                  "label": "Incident Date *",
+                  "isRequired": true,
+                  "errorMessage": "Please provide the date of the incident."
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "reportedBy",
+                  "placeholder": "Enter your name",
+                  "label": "Reported By (Optional)"
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "contactInfo",
+                  "placeholder": "Enter your contact information",
+                  "label": "Contact Information (Optional)"
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Submit Report",
+                  "style": "positive",
+                  "data": {
+                    "action": "submitIncidentReport"
+                  }
+                },
+                {
+                  "type": "Action.ShowCard",
+                  "title": "Cancel",
+                  "card": {
+                    "type": "AdaptiveCard",
+                    "body": [
+                      {
+                        "type": "TextBlock",
+                        "text": "Are you sure you want to cancel this report?",
+                        "weight": "Bolder",
+                        "wrap": true
+                      },
+                      {
+                        "type": "ActionSet",
+                        "actions": [
+                          {
+                            "type": "Action.Submit",
+                            "title": "Yes, Cancel",
+                            "data": {
+                              "action": "cancelIncidentReport"
+                            }
+                          },
+                          {
+                            "type": "Action.Submit",
+                            "title": "No, Continue",
+                            "data": {
+                              "action": "continueIncidentReport"
+                            }
+                          }
+                        ]
+                      }
+                    ],
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                  }
+                }
+              ],
+              "spacing": "Medium"
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Incident Report Sample JSON" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "backgroundImage": {
+        "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+    },
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Incident Reporting",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "horizontalAlignment": "Center",
+                    "color": "Accent"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Please provide details about the incident you are reporting. Fields marked with * are required.",
+                    "size": "Medium",
+                    "wrap": true,
+                    "spacing":"Large"
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "Input.Text",
+                    "id": "incidentTitle",
+                    "placeholder": "Enter a brief title for the incident *",
+                    "label": "Incident Title",
+                    "isRequired": true,
+                    "errorMessage": "Incident title is required."
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "incidentType",
+                    "label": "Incident Type *",
+                    "choices": [
+                        {
+                            "title": "System Outage",
+                            "value": "systemOutage"
+                        },
+                        {
+                            "title": "Data Breach",
+                            "value": "dataBreach"
+                        },
+                        {
+                            "title": "Safety Hazard",
+                            "value": "safetyHazard"
+                        },
+                        {
+                            "title": "Other",
+                            "value": "other"
+                        }
+                    ],
+                    "isRequired": true,
+                    "errorMessage": "Please select an incident type."
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "incidentDescription",
+                    "placeholder": "Describe the incident in detail *",
+                    "label": "Incident Description",
+                    "isMultiline": true,
+                    "isRequired": true,
+                    "errorMessage": "Incident description is required."
+                },
+                {
+                    "type": "Input.Date",
+                    "id": "incidentDate",
+                    "label": "Incident Date *",
+                    "isRequired": true,
+                    "errorMessage": "Please provide the date of the incident."
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "reportedBy",
+                    "placeholder": "Enter your name",
+                    "label": "Reported By (Optional)"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "contactInfo",
+                    "placeholder": "Enter your contact information",
+                    "label": "Contact Information (Optional)"
+                }
+            ],
+            "style": "default",
+            "spacing": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Submit Report",
+                    "style": "positive",
+                    "data": {
+                        "action": "submitIncidentReport"
+                    }
+                },
+                {
+                    "type": "Action.ShowCard",
+                    "title": "Cancel",
+                    "card": {
+                        "type": "AdaptiveCard",
+                        "body": [
+                            {
+                                "type": "TextBlock",
+                                "text": "Are you sure you want to cancel this report?",
+                                "weight": "Bolder",
+                                "wrap": true
+                            },
+                            {
+                                "type": "ActionSet",
+                                "actions": [
+                                    {
+                                        "type": "Action.Submit",
+                                        "title": "Yes, Cancel",
+                                        "data": {
+                                            "action": "cancelIncidentReport"
+                                        }
+                                    },
+                                    {
+                                        "type": "Action.Submit",
+                                        "title": "No, Continue",
+                                        "data": {
+                                            "action": "continueIncidentReport"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                    }
+                }
+            ],
+            "spacing": "Medium"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Order Confirmation Content" xml:space="preserve">
+    <value>{
+  type: "AdaptiveCard",
+  version: "1.3",
+  backgroundImage: {
+        url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+    },
+  body: [
+    {
+      type: "Container",
+      items: [
+        {
+          type: "TextBlock",
+          text: "Order Confirmation",
+          weight: "Bolder",
+          size: "ExtraLarge",
+          horizontalAlignment: "Center",
+          color: "Accent"
+        },
+        {
+          type: "TextBlock",
+          text: "Thank you for your order! Here are the details of your purchase:",
+          size: "Medium",
+          wrap: true,
+          spacing: "Small"
+        }
+      ]
+    },
+    {
+      type: "Container",
+      items: [
+        {
+          type: "FactSet",
+          facts: [
+            {
+              title: "Order Number:",
+              value: Topic.OrderDetails.orderNumber
+            },
+            {
+              title: "Order Date:",
+              value: Topic.OrderDetails.orderDate
+            },
+            {
+              title: "Estimated Delivery:",
+              value: Topic.OrderDetails.deliveryDate
+            },
+            {
+              title: "Shipping Address:",
+              value: Topic.OrderDetails.shippingAddress
+            }
+          ]
+        }
+      ],
+      style: "default",
+      spacing: "Medium"
+    },
+    {
+      type: "Container",
+      items: [
+        {
+          type: "TextBlock",
+          text: "Items in Your Order",
+          weight: "Bolder",
+          size: "Medium",
+          spacing: "Small",
+          color: "Dark"
+        },
+        {
+          type: "Container",
+          items: ForAll(
+            Topic.OrderDetails.items,
+            {
+              type: "ColumnSet",
+              columns: [
+                {
+                  type: "Column",
+                  width: "auto",
+                  items: [
+                    {
+                      type: "Image",
+                      url: ThisRecord.imageUrl,
+                      size: "Small",
+                      altText: "Item Image"
+                    }
+                  ]
+                },
+                {
+                  type: "Column",
+                  width: "stretch",
+                  items: [
+                    {
+                      type: "TextBlock",
+                      text: ThisRecord.name,
+                      weight: "Bolder",
+                      wrap: true
+                    },
+                    {
+                      type: "TextBlock",
+                      text: ThisRecord.quantity &amp;  " X " &amp; ThisRecord.price,
+                      wrap: true
+                    }
+                  ]
+                }
+              ]
+            }
+          )
+        }
+      ],
+      style: "default",
+      spacing: "Medium"
+    },
+    {
+      type: "Container",
+      items: [
+        {
+          type: "TextBlock",
+          text: "Total Amount",
+          weight: "Bolder",
+          size: "Medium",
+          spacing: "Small",
+          color: "Accent"
+        },
+        {
+          type: "TextBlock",
+          text: Topic.OrderDetails.totalAmount,
+          size: "Large",
+          weight: "Bolder",
+          color: "Good",
+          spacing: "Small"
+        }
+      ],
+      style: "default",
+      spacing: "Medium"
+    },
+    {
+      type: "ActionSet",
+      actions: [
+        {
+          type: "Action.OpenUrl",
+          title: "Track Order",
+          url: Topic.OrderDetails.trackingUrl,
+          style: "positive"
+        },
+        {
+          type: "Action.OpenUrl",
+          title: "Contact Support",
+          url: Topic.OrderDetails.supportUrl
+        }
+      ],
+      spacing: "Medium"
+    }
+  ],
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+  OutputType: "AdaptiveCard"
+}</value>
+  </data>
+  <data name="Order Confirmation Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Order Confirmation",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Order Confirmation",
+                  "weight": "Bolder",
+                  "size": "ExtraLarge",
+                  "horizontalAlignment": "Center",
+                  "color": "Accent"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Thank you for your order! Here are the details of your purchase:",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Small"
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Order Number:",
+                      "value": "12454543256"
+                    },
+                    {
+                      "title": "Order Date:",
+                      "value": "2025-01-01"
+                    },
+                    {
+                      "title": "Estimated Delivery:",
+                      "value": "2025-01-20"
+                    },
+                    {
+                      "title": "Shipping Address:",
+                      "value": "Miami"
+                    }
+                  ]
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Items in Your Order",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "spacing": "Small",
+                  "color": "Dark"
+                },
+                {
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "auto",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "url": "",
+                          "size": "Small",
+                          "altText": "Item 1 Image"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "JBL Ear Buds",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "2 X $200",
+                          "wrap": true
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "auto",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "url": "${item2ImageUrl}",
+                          "size": "Small",
+                          "altText": "Item 2 Image"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "Reynolds Ball Pen",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "2 X $200",
+                          "wrap": true
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Total Amount",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "spacing": "Small",
+                  "color": "Accent"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "$800",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "color": "Good",
+                  "spacing": "Small"
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Track Order",
+                  "url": "${trackingUrl}",
+                  "style": "positive"
+                },
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Contact Support",
+                  "url": "${supportUrl}"
+                }
+              ],
+              "spacing": "Medium"
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Order Confirmation Sample Data" xml:space="preserve">
+    <value>{
+  "orderNumber": "214332145325",
+  "orderDate": "2025-01-15",
+  "deliveryDate": "2025-01-20",
+  "shippingAddress": "123 Main Street, Bengaluru, Karnataka, India",
+  "items": [
+    {
+      "imageUrl": "https://example.com/item1.jpg",
+      "name": "Wireless Headphones",
+      "quantity": "1",
+      "price": "₹2999"
+    },
+    {
+      "imageUrl": "https://example.com/item2.jpg",
+      "name": "Bluetooth Speaker",
+      "quantity": "1",
+      "price": "₹1999"
+    }
+  ],
+  "totalAmount": "₹4998",
+  "trackingUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/",
+  "supportUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/"
+}</value>
+  </data>
+  <data name="Order Confirmation Sample JSON" xml:space="preserve">
+    <value>{
+  "type": "AdaptiveCard",
+  "version": "1.3",
+  "backgroundImage": {
+    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+  },
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Order Confirmation",
+          "weight": "Bolder",
+          "size": "ExtraLarge",
+          "horizontalAlignment": "Center",
+          "color": "Accent"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Thank you for your order! Here are the details of your purchase:",
+          "size": "Medium",
+          "wrap": true,
+          "spacing": "Small"
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Order Number:",
+              "value": "ORD123456"
+            },
+            {
+              "title": "Order Date:",
+              "value": "2025-01-20"
+            },
+            {
+              "title": "Estimated Delivery:",
+              "value": "2025-01-25"
+            },
+            {
+              "title": "Shipping Address:",
+              "value": "123 Main St, New York, NY 10001"
+            }
+          ]
+        }
+      ],
+      "style": "default",
+      "spacing": "Medium"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Items in Your Order",
+          "weight": "Bolder",
+          "size": "Medium",
+          "spacing": "Small",
+          "color": "Dark"
+        },
+        {
+          "type": "Container",
+          "items": [
+            {
+              "type": "ColumnSet",
+              "columns": [
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    {
+                      "type": "Image",
+                      "url": "https://example.com/item1.jpg",
+                      "size": "Small",
+                      "altText": "Item Image"
+                    }
+                  ]
+                },
+                {
+                  "type": "Column",
+                  "width": "stretch",
+                  "items": [
+                    {
+                      "type": "TextBlock",
+                      "text": "JBL Ear Buds",
+                      "weight": "Bolder",
+                      "wrap": true
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "2" &amp; "X" &amp; "$50",
+                      "wrap": true
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "ColumnSet",
+              "columns": [
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    {
+                      "type": "Image",
+                      "url": "https://example.com/item2.jpg",
+                      "size": "Small",
+                      "altText": "Item Image"
+                    }
+                  ]
+                },
+                {
+                  "type": "Column",
+                  "width": "stretch",
+                  "items": [
+                    {
+                      "type": "TextBlock",
+                      "text": "Ball Pen",
+                      "weight": "Bolder",
+                      "wrap": true
+                    },
+                    {
+                      "type": "TextBlock",
+                      "text": "1" &amp; "X" &amp; "$100",
+                      "wrap": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "style": "default",
+      "spacing": "Medium"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Total Amount",
+          "weight": "Bolder",
+          "size": "Medium",
+          "spacing": "Small",
+          "color": "Accent"
+        },
+        {
+          "type": "TextBlock",
+          "text": "$200",
+          "size": "Large",
+          "weight": "Bolder",
+          "color": "Good",
+          "spacing": "Small"
+        }
+      ],
+      "style": "default",
+      "spacing": "Medium"
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.OpenUrl",
+          "title": "Track Order",
+          "url": "https://example.com/track-order",
+          "style": "positive"
+        },
+        {
+          "type": "Action.OpenUrl",
+          "title": "Contact Support",
+          "url": "https://example.com/contact-support"
+        }
+      ],
+      "spacing": "Medium"
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "OutputType": "AdaptiveCard"
+}</value>
+  </data>
+  <data name="Product Return Content" xml:space="preserve">
+    <value>{
+  type: "AdaptiveCard",
+  version: "1.3",
+  backgroundImage: {
+        url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+    },
+  body: [
+    {
+      type: "TextBlock",
+      text: "Return Products",
+      weight: "Bolder",
+      size: "ExtraLarge",
+      horizontalAlignment: "Center",
+      color: "Accent"
+    },
+    {
+      type: "TextBlock",
+      text: "Order Summary",
+      weight: "Bolder",
+      size: "Medium",
+      spacing: "Medium"
+    },
+    {
+      type: "FactSet",
+      seperator:"true",
+      facts: [
+        {
+          title: "Order Number:",
+          value: Topic.ReturnInfo.OrderNumber
+        },
+        {
+          title: "Order Date:",
+          value: Topic.ReturnInfo.OrderDate
+        },
+        {
+          title: "Total Amount:",
+          value: Topic.ReturnInfo.TotalAmount
+        }
+      ]
+    },
+    {
+      type: "TextBlock",
+      text: "Select Products to Return",
+      weight: "Bolder",
+      size: "Medium",
+      spacing: "Medium"
+    },
+    {
+      type: "Container",
+      items: ForAll(
+        Topic.ReturnInfo.Products,
+        {
+          type: "ColumnSet",
+          columns: [
+            {
+              type: "Column",
+              width: "stretch",
+              items: [
+                {
+                  type: "TextBlock",
+                  text: ThisRecord.ProductName,
+                  weight: "Bolder",
+                  wrap: true
+                },
+                {
+                  type: "TextBlock",
+                  text: ThisRecord.ProductPrice,
+                  size: "Medium",
+                  color: "Good",
+                  wrap: true
+                },
+                {
+                  type: "Input.Toggle",
+                  id: "returnProduct" &amp; ThisRecord.ProductName,
+                  title: "Select for Return",
+                  value: "false"
+                }
+              ]
+            }
+          ]
+        }
+      ),
+      style: "emphasis"
+    },
+    {
+      type: "TextBlock",
+      text: "Reason for Return",
+      weight: "Bolder",
+      size: "Medium",
+      spacing: "Medium"
+    },
+    {
+      type: "Input.Text",
+      id: "returnReason",
+      placeholder: "Enter your reason for return",
+      isMultiline: true
+    },
+    {
+      type: "ActionSet",
+      actions: [
+        {
+          type: "Action.Submit",
+          title: "Submit Return Request",
+          style: "positive",
+          data: {
+            action: "submitReturn",
+            orderId: Topic.OrderNumber
+          }
+        }
+      ]
+    }
+  ],
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Product Return Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Product Return",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          "body": [
+            {
+              "type": "TextBlock",
+              "text": "Return Products",
+              "weight": "Bolder",
+              "size": "ExtraLarge",
+              "horizontalAlignment": "Center",
+              "color": "Accent"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Order Summary",
+              "weight": "Bolder",
+              "size": "Medium",
+              "spacing": "Medium"
+            },
+            {
+              "type": "FactSet",
+              "facts": [
+                {
+                  "title": "Order Number:",
+                  "value": "21334554"
+                },
+                {
+                  "title": "Order Date:",
+                  "value": "2025-01-09"
+                },
+                {
+                  "title": "Total Amount:",
+                  "value": "$1999"
+                }
+              ]
+            },
+            {
+              "type": "TextBlock",
+              "text": "Select Products to Return",
+              "weight": "Bolder",
+              "size": "Medium",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "auto",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "url": "",
+                          "size": "Small",
+                          "altText": "Product 1 Image"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "JBL Ear Buds",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "$1000",
+                          "size": "Medium",
+                          "color": "Good",
+                          "wrap": true
+                        },
+                        {
+                          "type": "Input.Toggle",
+                          "id": "returnProduct1",
+                          "title": "Select for Return",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "auto",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "url": "",
+                          "size": "Small",
+                          "altText": "Product 2 Image"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "Reynolds Ball Pen",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "$999",
+                          "size": "Medium",
+                          "color": "Good",
+                          "wrap": true
+                        },
+                        {
+                          "type": "Input.Toggle",
+                          "id": "returnProduct2",
+                          "title": "Select for Return",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "style": "emphasis"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Reason for Return",
+              "weight": "Bolder",
+              "size": "Medium",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Input.Text",
+              "id": "returnReason",
+              "placeholder": "Enter your reason for return",
+              "isMultiline": true
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Submit Return Request",
+                  "style": "positive",
+                  "data": {
+                    "action": "submitReturn",
+                    "orderId": "21334554"
+                  }
+                }
+              ]
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Product Return Sample Data" xml:space="preserve">
+    <value>{
+  "OrderNumber": "21432415",
+  "OrderDate": "2024-08-09",
+  "TotalAmount": "$200",
+  "Products": [
+    {
+      "ProductName": "JBL Ear Buds",
+      "ProductPrice": "$100"
+    },
+    {
+      "ProductName": "Apple iPhone 16 Pro",
+      "ProductPrice": "$100"
+    }
+  ],
+  "ReturnReason": "NA"
+}</value>
+  </data>
+  <data name="Product Return Sample JSON" xml:space="preserve">
+    <value>{
+  "type": "AdaptiveCard",
+  "version": "1.3",
+  "backgroundImage": {
+    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+  },
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "Return Products",
+      "weight": "Bolder",
+      "size": "ExtraLarge",
+      "horizontalAlignment": "Center",
+      "color": "Accent"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Order Summary",
+      "weight": "Bolder",
+      "size": "Medium",
+      "spacing": "Medium"
+    },
+    {
+      "type": "FactSet",
+      "seperator": "true",
+      "facts": [
+        {
+          "title": "Order Number:",
+          "value": "123456789"
+        },
+        {
+          "title": "Order Date:",
+          "value": "2025-01-15"
+        },
+        {
+          "title": "Total Amount:",
+          "value": "$150.00"
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "text": "Select Products to Return",
+      "weight": "Bolder",
+      "size": "Medium",
+      "spacing": "Medium"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Product 1",
+                  "weight": "Bolder",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "$50.00",
+                  "size": "Medium",
+                  "color": "Good",
+                  "wrap": true
+                },
+                {
+                  "type": "Input.Toggle",
+                  "id": "returnProduct1",
+                  "title": "Select for Return",
+                  "value": "false"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Product 2",
+                  "weight": "Bolder",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "$100.00",
+                  "size": "Medium",
+                  "color": "Good",
+                  "wrap": true
+                },
+                {
+                  "type": "Input.Toggle",
+                  "id": "returnProduct2",
+                  "title": "Select for Return",
+                  "value": "false"
+                }
+              ]
+            }
+          ]
+        }
+      ),
+      "style": "emphasis"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Reason for Return",
+      "weight": "Bolder",
+      "size": "Medium",
+      "spacing": "Medium"
+    },
+    {
+      "type": "Input.Text",
+      "id": "returnReason",
+      "placeholder": "Enter your reason for return",
+      "isMultiline": true
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.Submit",
+          "title": "Submit Return Request",
+          "style": "positive",
+          "data": {
+            "action": "submitReturn",
+            "orderId": Topic.OrderNumber
+          }
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Profile Summary Content" xml:space="preserve">
+    <value>{
+  type: "AdaptiveCard",
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+  version: "1.5",
+  body: [
+    {
+      type: "Container",
+      items: [
+        {
+          type: "ColumnSet",
+          columns: [
+            {
+              type: "Column",
+              width: "stretch",
+              items: [
+                {
+                  type: "Image",
+                  size: "Stretch",
+                  style: "Person",
+                  url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/profilePic.jpg",
+                  altText: "Profile Picture",
+                  width: "80px",
+                  height: "80px"
+                },
+                {
+                  type: "TextBlock",
+                  size: "Large",
+                  weight: "Bolder",
+                  text: Topic.FullName,
+                  wrap: true,
+                  spacing: "Small"
+                },
+                {
+                  type: "TextBlock",
+                  size: "Small",
+                  color: "Accent",
+                  text: Topic.ProfileSummary.jobTitle,
+                  wrap: true,
+                  spacing: "Small",
+                  weight: "Bolder"
+                },
+                {
+                  type: "TextBlock",
+                  size: "Small",
+                  text: Topic.ProfileSummary.bio,
+                  wrap: true,
+                  spacing: "Small"
+                }
+              ],
+              horizontalAlignment: "Center"
+            }
+          ]
+        }
+      ],
+      backgroundImage: {
+        url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+        fillMode: "Repeat"
+      }
+    },
+    {
+      type: "Container",
+      items: [
+        {
+          type: "FactSet",
+          facts: [
+            {
+              title: "Email:",
+              value: Topic.ProfileSummary.email
+            },
+            {
+              title: "Phone:",
+              value: Topic.ProfileSummary.phone
+            },
+            {
+              title: "Location:",
+              value: Topic.ProfileSummary.location
+            },
+            {
+              title: "Manager:",
+              value: Topic.ProfileSummary.managerName
+            },
+            {
+              title: "Employee ID:",
+              value: Topic.ProfileSummary.employeeId
+            }
+          ]
+        }
+      ],
+      style: "default",
+      spacing: "Medium",
+      separator: true,
+      backgroundImage: {
+        url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+      }
+    },
+    {
+      type: "ActionSet",
+      actions: [
+        {
+          type: "Action.ShowCard",
+          card: {
+            type: "AdaptiveCard",
+            body: [
+              {
+                type: "Input.Text",
+                id: "updatedName",
+                placeholder: "Enter new name",
+                value:""
+              },
+              {
+                type: "Input.Text",
+                id: "updatedEmail",
+                placeholder: "Enter new email",
+                value:""
+              },
+              {
+                type: "Input.Text",
+                id: "updatedPhone",
+                placeholder: "Enter new phone",
+                value:""
+              },
+              {
+                type: "Input.Text",
+                id: "updatedBio",
+                placeholder: "Enter new bio",
+                value:"",
+                isMultiline: true
+              }
+            ],
+            actions: [
+              {
+                type: "Action.Submit",
+                data: {
+                  action: "updateProfile",
+                  actionSubmitId: "Save Changes"
+                },
+                title: "Save Changes"
+              }
+            ]
+          },
+          title: "Update Profile"
+        }
+      ],
+      spacing: "Medium"
+    }
+  ],
+  backgroundImage: {
+    url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+    fillMode: "Repeat"
+  }
+}</value>
+  </data>
+  <data name="Profile Summary Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Profile Summary",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+          "version": "1.5",
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "size": "Stretch",
+                          "style": "Person",
+                          "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/profilePic.jpg",
+                          "altText": "Profile Picture",
+                          "width": "80px",
+                          "height": "80px"
+                        },
+                        {
+                          "type": "TextBlock",
+                          "size": "Large",
+                          "weight": "Bolder",
+                          "text": "Steve Rogers",
+                          "wrap": true,
+                          "spacing": "Small"
+                        },
+                        {
+                          "type": "TextBlock",
+                          "size": "Small",
+                          "color": "Accent",
+                          "text": "Developer",
+                          "wrap": true,
+                          "spacing": "Small",
+                          "weight": "Bolder"
+                        },
+                        {
+                          "type": "TextBlock",
+                          "size": "Small",
+                          "text": "Microsoft",
+                          "wrap": true,
+                          "spacing": "Small"
+                        }
+                      ],
+                      "horizontalAlignment": "Center"
+                    }
+                  ]
+                }
+              ],
+              "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+                "fillMode": "Repeat"
+              }
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Email:",
+                      "value": "abc@asu.com"
+                    },
+                    {
+                      "title": "Phone:",
+                      "value": "123-456-7890"
+                    },
+                    {
+                      "title": "Location:",
+                      "value": "New Jersey"
+                    },
+                    {
+                      "title": "Manager:",
+                      "value": "Siddharth"
+                    },
+                    {
+                      "title": "Employee ID:",
+                      "value": "PCD24235435"
+                    }
+                  ]
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium",
+              "separator": true,
+              "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+              }
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.ShowCard",
+                  "card": {
+                    "type": "AdaptiveCard",
+                    "body": [
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedName",
+                        "placeholder": "Enter new name",
+                        "value": ""
+                      },
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedEmail",
+                        "placeholder": "Enter new email",
+                        "value": ""
+                      },
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedPhone",
+                        "placeholder": "Enter new phone",
+                        "value": ""
+                      },
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedBio",
+                        "placeholder": "Enter new bio",
+                        "value": "",
+                        "isMultiline": true
+                      }
+                    ],
+                    "actions": [
+                      {
+                        "type": "Action.Submit",
+                        "data": {
+                          "action": "updateProfile",
+                          "actionSubmitId": "Save Changes"
+                        },
+                        "title": "Save Changes"
+                      }
+                    ]
+                  },
+                  "title": "Update Profile"
+                }
+              ],
+              "spacing": "Medium"
+            }
+          ],
+          "backgroundImage": {
+            "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+            "fillMode": "Repeat"
+          }
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Profile Summary Sample Data" xml:space="preserve">
+    <value>{
+  "fullName": "David Roger",
+  "email": "alexhales@engcricket.in",
+  "phone": "123-456-7890",
+  "bio": "Software Developer",
+  "profileImageUrl": "",
+  "jobTitle": "Software Engineer",
+  "department": "PowerCAT",
+  "location": "New Delhi",
+  "managerName": "Jasprit Bumrah",
+  "employeeId": "PC2342375865"
+}</value>
+  </data>
+  <data name="Profile Summary Sample JSON" xml:space="preserve">
+    <value>{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "ColumnSet",
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "Image",
+                  "size": "Stretch",
+                  "style": "Person",
+                  "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/profilePic.jpg",
+                  "altText": "Profile Picture",
+                  "width": "80px",
+                  "height": "80px"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "text": "John Doe",
+                  "wrap": true,
+                  "spacing": "Small"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Small",
+                  "color": "Accent",
+                  "text": "Software Engineer",
+                  "wrap": true,
+                  "spacing": "Small",
+                  "weight": "Bolder"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Small",
+                  "text": "Passionate about coding and technology.",
+                  "wrap": true,
+                  "spacing": "Small"
+                }
+              ],
+              "horizontalAlignment": "Center"
+            }
+          ]
+        }
+      ],
+      "backgroundImage": {
+        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+        "fillMode": "Repeat"
+      }
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "FactSet",
+          "facts": [
+            {
+              "title": "Email:",
+              "value": "john.doe@example.com"
+            },
+            {
+              "title": "Phone:",
+              "value": "+1 234 567 890"
+            },
+            {
+              "title": "Location:",
+              "value": "New York, USA"
+            },
+            {
+              "title": "Manager:",
+              "value": "Jane Smith"
+            },
+            {
+              "title": "Employee ID:",
+              "value": "EMP123456"
+            }
+          ]
+        }
+      ],
+      "style": "default",
+      "spacing": "Medium",
+      "separator": true,
+      "backgroundImage": {
+        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+      }
+    },
+    {
+      "type": "ActionSet",
+      "actions": [
+        {
+          "type": "Action.ShowCard",
+          "card": {
+            "type": "AdaptiveCard",
+            "body": [
+              {
+                "type": "Input.Text",
+                "id": "updatedName",
+                "placeholder": "Enter new name",
+                "value": ""
+              },
+              {
+                "type": "Input.Text",
+                "id": "updatedEmail",
+                "placeholder": "Enter new email",
+                "value": ""
+              },
+              {
+                "type": "Input.Text",
+                "id": "updatedPhone",
+                "placeholder": "Enter new phone",
+                "value": ""
+              },
+              {
+                "type": "Input.Text",
+                "id": "updatedBio",
+                "placeholder": "Enter new bio",
+                "value": "",
+                "isMultiline": true
+              }
+            ],
+            "actions": [
+              {
+                "type": "Action.Submit",
+                "data": {
+                  "action": "updateProfile",
+                  "actionSubmitId": "Save Changes"
+                },
+                "title": "Save Changes"
+              }
+            ]
+          },
+          "title": "Update Profile"
+        }
+      ],
+      "spacing": "Medium"
+    }
+  ],
+  "backgroundImage": {
+    "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+    "fillMode": "Repeat"
+  }
+}</value>
+  </data>
+  <data name="Scheduling Form Content" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "backgroundImage": {
+        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+    },
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Schedule a Car Service Appointment",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "horizontalAlignment": "Center",
+                    "color": "Accent",
+                     "wrap": true
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Choose a service, select a date and time, and confirm your appointment.",
+                    "size": "Medium",
+                    "wrap": true,
+                    "spacing": "Large"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Select Service",
+                    "size": "Medium",
+                    "wrap": true,
+                    "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "availableServices",
+                    "label": "Available Services",
+                    "choices": [
+                        {
+                            "title": "Oil Change",
+                            "value": "Oil Change(30min)"
+                        },
+                        {
+                            "title": "Tire Replacement",
+                            "value": "Tire Replacement(45 min)"
+                        }
+                    ],
+                    "placeholder": "Select Service",
+                    "style": "expanded"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Select Date",
+                    "size": "Medium",
+                    "wrap": true,
+                      "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "availableDates",
+                    "label": "Select Available Date",
+                    "choices": [
+                        {
+                            "title": "2025-01-02",
+                            "value": "2025-01-02"
+                        },
+                        {
+                            "title": "2025-01-05",
+                            "value": "2025-01-05"
+                        }
+                    ]
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Select Time",
+                    "size": "Medium",
+                    "wrap": true,
+                      "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "availableTimes",
+                    "label": "Select Available Time",
+                    "choices": [
+                        {
+                            "title": "12:50 PM",
+                            "value": "12:50 PM"
+                        },
+                        {
+                            "title": "10:30 AM",
+                            "value": "10:30 AM"
+                        }
+                    ]
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Contact Information",
+                    "size": "Medium",
+                    "wrap": true,
+                     "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "fullName",
+                    "placeholder": "Enter your full name",
+                    "label": "Full Name"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "phoneNumber",
+                    "placeholder": "Enter your Phone Number",
+                    "label": "Phone Number"
+                }
+            ]
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Confirm Appointment",
+                    "style": "positive",
+                    "data": {
+                        "action": "submitIncidentReport"
+                    }
+                }
+            ],
+            "spacing": "Medium"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Scheduling Form Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Scheduling Form",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Schedule a Car Service Appointment",
+                  "weight": "Bolder",
+                  "size": "Large",
+                  "horizontalAlignment": "Center",
+                  "color": "Accent",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Choose a service, select a date and time, and confirm your appointment.",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Large"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Select Service",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Medium",
+                  "weight": "Bolder"
+                },
+                {
+                  "type": "Input.ChoiceSet",
+                  "id": "availableServices",
+                  "label": "Available Services",
+                  "choices": [
+                    {
+                      "title": "Oil Change",
+                      "value": "Oil Change(30min)"
+                    },
+                    {
+                      "title": "Tire Replacement",
+                      "value": "Tire Replacement(45 min)"
+                    }
+                  ],
+                  "placeholder": "Select Service",
+                  "style": "expanded"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Select Date",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Medium",
+                  "weight": "Bolder"
+                },
+                {
+                  "type": "Input.ChoiceSet",
+                  "id": "availableDates",
+                  "label": "Select Available Date",
+                  "choices": [
+                    {
+                      "title": "2025-01-02",
+                      "value": "2025-01-02"
+                    },
+                    {
+                      "title": "2025-01-05",
+                      "value": "2025-01-05"
+                    }
+                  ]
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Select Time",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Medium",
+                  "weight": "Bolder"
+                },
+                {
+                  "type": "Input.ChoiceSet",
+                  "id": "availableTimes",
+                  "label": "Select Available Time",
+                  "choices": [
+                    {
+                      "title": "12:50 PM",
+                      "value": "12:50 PM"
+                    },
+                    {
+                      "title": "10:30 AM",
+                      "value": "10:30 AM"
+                    }
+                  ]
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Contact Information",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Medium",
+                  "weight": "Bolder"
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "fullName",
+                  "placeholder": "Enter your full name",
+                  "label": "Full Name"
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "phoneNumber",
+                  "placeholder": "Enter your Phone Number",
+                  "label": "Phone Number"
+                }
+              ]
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Confirm Appointment",
+                  "style": "positive",
+                  "data": {
+                    "action": "submitIncidentReport"
+                  }
+                }
+              ],
+              "spacing": "Medium"
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Scheduling Form Sample JSON" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "backgroundImage": {
+        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+    },
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "Schedule a Car Service Appointment",
+                    "weight": "Bolder",
+                    "size": "Large",
+                    "horizontalAlignment": "Center",
+                    "color": "Accent",
+                     "wrap": true
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Choose a service, select a date and time, and confirm your appointment.",
+                    "size": "Medium",
+                    "wrap": true,
+                    "spacing": "Large"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Select Service",
+                    "size": "Medium",
+                    "wrap": true,
+                    "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "availableServices",
+                    "label": "Available Services",
+                    "choices": [
+                        {
+                            "title": "Oil Change",
+                            "value": "Oil Change(30min)"
+                        },
+                        {
+                            "title": "Tire Replacement",
+                            "value": "Tire Replacement(45 min)"
+                        }
+                    ],
+                    "placeholder": "Select Service",
+                    "style": "expanded"
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Select Date",
+                    "size": "Medium",
+                    "wrap": true,
+                      "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "availableDates",
+                    "label": "Select Available Date",
+                    "choices": [
+                        {
+                            "title": "2025-01-02",
+                            "value": "2025-01-02"
+                        },
+                        {
+                            "title": "2025-01-05",
+                            "value": "2025-01-05"
+                        }
+                    ]
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Select Time",
+                    "size": "Medium",
+                    "wrap": true,
+                      "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.ChoiceSet",
+                    "id": "availableTimes",
+                    "label": "Select Available Time",
+                    "choices": [
+                        {
+                            "title": "12:50 PM",
+                            "value": "12:50 PM"
+                        },
+                        {
+                            "title": "10:30 AM",
+                            "value": "10:30 AM"
+                        }
+                    ]
+                },
+                {
+                    "type": "TextBlock",
+                    "text": "Contact Information",
+                    "size": "Medium",
+                    "wrap": true,
+                     "spacing": "Medium",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "fullName",
+                    "placeholder": "Enter your full name",
+                    "label": "Full Name"
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "phoneNumber",
+                    "placeholder": "Enter your Phone Number",
+                    "label": "Phone Number"
+                }
+            ]
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Confirm Appointment",
+                    "style": "positive",
+                    "data": {
+                        "action": "submitIncidentReport"
+                    }
+                }
+            ],
+            "spacing": "Medium"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Simple thumb up/down rating Content" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.5",
+    "backgroundImage": {
+        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+    },
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "size": "Large",
+                    "weight": "Bolder",
+                    "color": "Accent",
+                    "text": "Did this answer your question?",
+                    "horizontalAlignment": "Center"
+                },
+                {
+                    "type": "TextBlock",
+                    "size": "Medium",
+                    "text": "Your feedback helps us improve.",
+                    "horizontalAlignment": "Center",
+                    "wrap": true,
+                    "spacing": "Small"
+                }
+            ],
+            "actions": null,
+            "columns": null,
+            "horizontalAlignment": null,
+            "label": null,
+            "placeholder": null
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.ToggleVisibility",
+                                    "title": "",
+                                    "feedback": [
+                                        "thumbs_up"
+                                    ],
+                                    "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_dislike_24_regular.svg"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.ToggleVisibility",
+                                    "title": "",
+                                    "feedback": [
+                                        "thumbs_down"
+                                    ],
+                                    "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_like_24_regular.svg"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "spacing": "Medium",
+            "actions": null,
+            "horizontalAlignment": "Center",
+            "items": null,
+            "label": null,
+            "placeholder": null
+        },
+        {
+            "type": "Input.Text",
+            "id": "comment",
+            "placeholder": "Add a comment (optional)",
+            "label": "Additional Feedback",
+            "actions": null,
+            "columns": null,
+            "horizontalAlignment": null,
+            "items": null,
+            "spacing": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "data": {
+                        "comment": "",
+                        "feedback": "",
+                        "actionSubmitId": "Submit Feedback"
+                    },
+                    "title": "Submit Feedback",
+                    "style": "positive"
+                }
+            ],
+            "columns": null,
+            "horizontalAlignment": null,
+            "items": null,
+            "label": null,
+            "placeholder": null,
+            "style": null
+        }
+    ]
+}</value>
+  </data>
+  <data name="Simple thumb up/down rating Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Simple thumb up/down rating",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+          "version": "1.5",
+          "backgroundImage": {
+            "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "color": "Accent",
+                  "text": "Did this answer your question?",
+                  "horizontalAlignment": "Center"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Medium",
+                  "text": "Your feedback helps us improve.",
+                  "horizontalAlignment": "Center",
+                  "wrap": true,
+                  "spacing": "Small"
+                }
+              ]
+            },
+            {
+              "type": "ColumnSet",
+              "columns": [
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.ToggleVisibility",
+                          "title": "",
+                          "data": {
+                            "feedback": "thumbs_up"
+                          },
+                          "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_like_24_regular.svg"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.ToggleVisibility",
+                          "title": "",
+                          "data": {
+                            "feedback": "thumbs_down"
+                          },
+                          "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_dislike_24_regular.svg"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "spacing": "Medium",
+              "horizontalAlignment": "Center"
+            },
+            {
+              "type": "Input.Text",
+              "id": "comment",
+              "placeholder": "Add a comment (optional)",
+              "label": "Additional Feedback",
+              "spacing": "Medium"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "data": {
+                    "actionSubmitId": "Submit Feedback"
+                  },
+                  "title": "Submit Feedback",
+                  "style": "positive"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Simple thumb up/down rating Sample JSON" xml:space="preserve">
+    <value>{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.5",
+    "backgroundImage": {
+        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+    },
+    "body": [
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "size": "Large",
+                    "weight": "Bolder",
+                    "color": "Accent",
+                    "text": "Did this answer your question?",
+                    "horizontalAlignment": "Center"
+                },
+                {
+                    "type": "TextBlock",
+                    "size": "Medium",
+                    "text": "Your feedback helps us improve.",
+                    "horizontalAlignment": "Center",
+                    "wrap": true,
+                    "spacing": "Small"
+                }
+            ],
+            "actions": null,
+            "columns": null,
+            "horizontalAlignment": null,
+            "label": null,
+            "placeholder": null
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.ToggleVisibility",
+                                    "title": "",
+                                    "feedback": [
+                                        "thumbs_up"
+                                    ],
+                                    "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_dislike_24_regular.svg"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "ActionSet",
+                            "actions": [
+                                {
+                                    "type": "Action.ToggleVisibility",
+                                    "title": "",
+                                    "feedback": [
+                                        "thumbs_down"
+                                    ],
+                                    "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_like_24_regular.svg"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "spacing": "Medium",
+            "actions": null,
+            "horizontalAlignment": "Center",
+            "items": null,
+            "label": null,
+            "placeholder": null
+        },
+        {
+            "type": "Input.Text",
+            "id": "comment",
+            "placeholder": "Add a comment (optional)",
+            "label": "Additional Feedback",
+            "actions": null,
+            "columns": null,
+            "horizontalAlignment": null,
+            "items": null,
+            "spacing": "Medium"
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "data": {
+                        "comment": "",
+                        "feedback": "",
+                        "actionSubmitId": "Submit Feedback"
+                    },
+                    "title": "Submit Feedback",
+                    "style": "positive"
+                }
+            ],
+            "columns": null,
+            "horizontalAlignment": null,
+            "items": null,
+            "label": null,
+            "placeholder": null,
+            "style": null
+        }
+    ]
+}</value>
+  </data>
+  <data name="Ticket Information Content" xml:space="preserve">
+    <value>{
+  type: "AdaptiveCard",
+  version: "1.3",
+  backgroundImage: {
+    url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+  },
+  body: [
+    {
+      type: "Container",
+      items: [
+        {
+          type: "TextBlock",
+          text: "Ticket Information",
+          weight: "Bolder",
+          size: "Large",
+          horizontalAlignment: "Center",
+          color: "Accent",
+          spacing: "Large"
+        },
+        {
+          type: "FactSet",
+          separator: true,
+          facts: [
+            {
+              title: "Ticket ID:",
+              value: Topic.TicketInfo.ticketId
+            },
+            {
+              title: "Created On:",
+              value: Topic.TicketInfo.createdOn
+            },
+            {
+              title: "Category:",
+              value: Topic.TicketInfo.category
+            },
+            {
+              title: "Priority:",
+              value: Topic.TicketInfo.priority
+            },
+            {
+              title: "Status:",
+              value: Topic.TicketInfo.status
+            },
+            {
+              title: "Assigned To:",
+              value: Topic.TicketInfo.assignedTo
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: "Container",
+      separator: true,
+      items: [
+        {
+          type: "TextBlock",
+          text: "Description",
+          weight: "Bolder",
+          spacing: "Medium",
+          color: "Dark"
+        },
+        {
+          type: "TextBlock",
+          text: Topic.TicketInfo.description,
+          wrap: true,
+          spacing: "Small",
+          color: "Default"
+        }
+      ],
+      style: "emphasis"
+    },
+    {
+      type: "ColumnSet",
+      spacing: "Large",
+      columns: [
+        {
+          type: "Column",
+          width: "auto",
+          items: [
+            {
+              type: "ActionSet",
+              spacing: "Large",
+              actions: [
+                {
+                  type: "Action.OpenUrl",
+                  title: "View Details",
+                  url: Topic.TicketInfo.url,
+                  style: "positive"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "Column",
+          width: "auto",
+          items: [
+            {
+              type: "ActionSet",
+              spacing: "Large",
+              actions: [
+                {
+                  type: "Action.OpenUrl",
+                  title: "Update Ticket",
+                  url: Topic.TicketInfo.url,
+                  style: "positive"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "Column",
+          width: "auto",
+          items: [
+            {
+              type: "ActionSet",
+              spacing: "Large",
+              actions: [
+                {
+                  type: "Action.OpenUrl",
+                  title: "Escalate Ticket",
+                  url: Topic.TicketInfo.url,
+                  style: "destructive",
+                  spacing: "Large"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+  <data name="Ticket Information Conversation" xml:space="preserve">
+    <value>[
+ {
+  "from": {
+   "role": "user"
+  },
+  "text": "Ticket Information",
+  "textFormat": "plain",
+  "timestamp": "",
+  "type": "message"
+ },
+  {
+    "timestamp": "",
+    "from": {
+      "role": "bot"
+    },
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Ticket Information",
+                  "weight": "Bolder",
+                  "size": "Large",
+                  "horizontalAlignment": "Center",
+                  "color": "Accent"
+                },
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Ticket ID:",
+                      "value": "SDF32424534"
+                    },
+                    {
+                      "title": "Created On:",
+                      "value": "2025-01-01"
+                    },
+                    {
+                      "title": "Category:",
+                      "value": "Business"
+                    },
+                    {
+                      "title": "Priority:",
+                      "value": "High"
+                    },
+                    {
+                      "title": "Status:",
+                      "value": "Completed"
+                    },
+                    {
+                      "title": "Assigned To:",
+                      "value": "David"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Description",
+                  "weight": "Bolder",
+                  "spacing": "Medium",
+                  "color": "Dark"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "Grocery",
+                  "wrap": true,
+                  "spacing": "Small",
+                  "color": "Default"
+                }
+              ],
+              "style": "emphasis"
+            },
+            {
+              "type": "ColumnSet",
+              "spacing": "Medium",
+              "columns": [
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.OpenUrl",
+                          "title": "View Details",
+                          "url": "${URL}",
+                          "style": "positive"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.OpenUrl",
+                          "title": "Update Ticket",
+                          "url": "${URL}",
+                          "style": "positive"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Column",
+                  "width": "auto",
+                  "items": [
+                    {
+                      "type": "ActionSet",
+                      "actions": [
+                        {
+                          "type": "Action.OpenUrl",
+                          "title": "Escalate Ticket",
+                          "url": "${URL}",
+                          "style": "destructive"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      }
+    ],
+    "type": "message"
+  }
+]
+</value>
+  </data>
+  <data name="Ticket Information Sample JSON" xml:space="preserve">
+    <value>{
+  "type": "AdaptiveCard",
+  "version": "1.3",
+  "backgroundImage": {
+    "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+  },
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Ticket Information",
+          "weight": "Bolder",
+          "size": "Large",
+          "horizontalAlignment": "Center",
+          "color": "Accent",
+          "spacing": "Large"
+        },
+        {
+          "type": "FactSet",
+          "separator": true,
+          "facts": [
+            {
+              "title": "Ticket ID:",
+              "value": "123456"
+            },
+            {
+              "title": "Created On:",
+              "value": "2025-01-01"
+            },
+            {
+              "title": "Category:",
+              "value": "Technical Support"
+            },
+            {
+              "title": "Priority:",
+              "value": "High"
+            },
+            {
+              "title": "Status:",
+              "value": "Open"
+            },
+            {
+              "title": "Assigned To:",
+              "value": "John Smith"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "separator": true,
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Description",
+          "weight": "Bolder",
+          "spacing": "Medium",
+          "color": "Dark"
+        },
+        {
+          "type": "TextBlock",
+          "text": "The issue is related to the login functionality not working as expected.",
+          "wrap": true,
+          "spacing": "Small",
+          "color": "Default"
+        }
+      ],
+      "style": "emphasis"
+    },
+    {
+      "type": "ColumnSet",
+      "spacing": "Large",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "ActionSet",
+              "spacing": "Large",
+              "actions": [
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "View Details",
+                  "url": "",
+                  "style": "positive"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "ActionSet",
+              "spacing": "Large",
+              "actions": [
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Update Ticket",
+                  "url": "",
+                  "style": "positive"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "ActionSet",
+              "spacing": "Large",
+              "actions": [
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Escalate Ticket",
+                  "url": "",
+                  "style": "destructive",
+                  "spacing": "Large"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+}</value>
+  </data>
+</root>

@@ -8,14 +8,13 @@
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
-        },
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
         }
       },
       "triggers": {
         "manual": {
+          "metadata": {
+            "operationMetadataId": "2ad8fe66-abae-43bb-bd6e-0fabed73e7bf"
+          },
           "type": "Request",
           "kind": "PowerAppV2",
           "inputs": {
@@ -50,18 +49,19 @@
                 "text_2"
               ]
             }
-          },
-          "metadata": {
-            "operationMetadataId": "2ad8fe66-abae-43bb-bd6e-0fabed73e7bf"
           }
         }
       },
       "actions": {
-        "Run_a_Child_Flow:_Generate_Conversation_KPIs_Child_Flow": {
+        "Run_a_Child_Flow:_Conversation_KPIs_Copy_Transcripts_Child": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "5b46a0d8-3e69-43bf-a47b-ac1912b014fe"
+          },
           "type": "Workflow",
           "inputs": {
             "host": {
-              "workflowReferenceName": "ea936a04-6c6e-ef11-a670-000d3a8df0f3"
+              "workflowReferenceName": "290d043b-9fbf-ef11-a72e-0022481efed6"
             },
             "body": {
               "text_3": "Manual",
@@ -69,15 +69,11 @@
               "text_1": "@triggerBody()['text_1']",
               "text_2": "@triggerBody()['text_2']"
             }
-          },
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "5b46a0d8-3e69-43bf-a47b-ac1912b014fe"
           }
         }
       }
     },
-    "templateName": null
+    "templateName": ""
   },
   "schemaVersion": "1.0.0.0"
 }

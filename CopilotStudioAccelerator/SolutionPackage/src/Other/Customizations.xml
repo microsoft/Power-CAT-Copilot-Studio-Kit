@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.24111.222" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.24112.00220">
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.24123.252" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.24123.00252">
   <Entities />
   <Roles />
   <Workflows />
@@ -7,11 +7,20 @@
   <Templates />
   <EntityImageConfigs>
     <EntityImageConfig>
+      <parententitylogicalname>cat_chatbotstyle</parententitylogicalname>
+      <primaryimageattribute>cat_chatbotimage</primaryimageattribute>
+    </EntityImageConfig>
+    <EntityImageConfig>
       <parententitylogicalname>cat_copilotcard</parententitylogicalname>
       <primaryimageattribute>cat_image</primaryimageattribute>
     </EntityImageConfig>
   </EntityImageConfigs>
   <AttributeImageConfigs>
+    <AttributeImageConfig>
+      <attributelogicalname>cat_chatbotimage</attributelogicalname>
+      <parententitylogicalname>cat_chatbotstyle</parententitylogicalname>
+      <canstorefullimage>1</canstorefullimage>
+    </AttributeImageConfig>
     <AttributeImageConfig>
       <attributelogicalname>cat_image</attributelogicalname>
       <parententitylogicalname>cat_copilotcard</parententitylogicalname>

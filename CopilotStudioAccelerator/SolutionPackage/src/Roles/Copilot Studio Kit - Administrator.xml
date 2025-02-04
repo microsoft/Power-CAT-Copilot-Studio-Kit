@@ -1,8 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Role id="{144e624f-c812-ef11-9f89-0022480b09c2}" name="Copilot Studio Kit - Administrator" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <IsCustomizable>1</IsCustomizable>
+  <IsAutoAssigned>0</IsAutoAssigned>
   <RolePrivileges>
     <RolePrivilege name="prvActivateSynchronousWorkflow" level="Basic" />
+    <RolePrivilege name="prvAppendcat_AgentTranscripts" level="Global" />
     <RolePrivilege name="prvAppendcat_CopilotConfiguration" level="Global" />
     <RolePrivilege name="prvAppendcat_CopilotKPI" level="Global" />
     <RolePrivilege name="prvAppendcat_CopilotStudioKitLogs" level="Global" />
@@ -16,6 +18,7 @@
     <RolePrivilege name="prvAppendNewProcess" level="Global" />
     <RolePrivilege name="prvAppendTeam" level="Global" />
     <RolePrivilege name="prvAppendToAsyncOperation" level="Basic" />
+    <RolePrivilege name="prvAppendTocat_AgentTranscripts" level="Global" />
     <RolePrivilege name="prvAppendTocat_CopilotConfiguration" level="Global" />
     <RolePrivilege name="prvAppendTocat_CopilotKPI" level="Global" />
     <RolePrivilege name="prvAppendTocat_CopilotStudioKitLogs" level="Global" />
@@ -37,6 +40,7 @@
     <RolePrivilege name="prvAppendWorkflow" level="Basic" />
     <RolePrivilege name="prvAppendWorkflowSession" level="Basic" />
     <RolePrivilege name="prvAssignAsyncOperation" level="Basic" />
+    <RolePrivilege name="prvAssigncat_AgentTranscripts" level="Global" />
     <RolePrivilege name="prvAssigncat_CopilotConfiguration" level="Global" />
     <RolePrivilege name="prvAssigncat_CopilotKPI" level="Global" />
     <RolePrivilege name="prvAssigncat_CopilotStudioKitLogs" level="Global" />
@@ -49,6 +53,7 @@
     <RolePrivilege name="prvAssignImportMap" level="Global" />
     <RolePrivilege name="prvAssignWorkflow" level="Basic" />
     <RolePrivilege name="prvAssignWorkflowSession" level="Basic" />
+    <RolePrivilege name="prvCreatecat_AgentTranscripts" level="Global" />
     <RolePrivilege name="prvCreatecat_CopilotConfiguration" level="Global" />
     <RolePrivilege name="prvCreatecat_CopilotKPI" level="Global" />
     <RolePrivilege name="prvCreatecat_CopilotStudioKitLogs" level="Global" />
@@ -67,6 +72,7 @@
     <RolePrivilege name="prvCreateUserEntityUISettings" level="Basic" />
     <RolePrivilege name="prvCreateWorkflow" level="Basic" />
     <RolePrivilege name="prvCreateWorkflowSession" level="Basic" />
+    <RolePrivilege name="prvDeletecat_AgentTranscripts" level="Global" />
     <RolePrivilege name="prvDeletecat_CopilotConfiguration" level="Global" />
     <RolePrivilege name="prvDeletecat_CopilotKPI" level="Global" />
     <RolePrivilege name="prvDeletecat_CopilotStudioKitLogs" level="Global" />
@@ -93,6 +99,7 @@
     <RolePrivilege name="prvReadAttribute" level="Global" />
     <RolePrivilege name="prvReadAttributeMap" level="Global" />
     <RolePrivilege name="prvReadBusinessUnit" level="Global" />
+    <RolePrivilege name="prvReadcat_AgentTranscripts" level="Global" />
     <RolePrivilege name="prvReadcat_CopilotConfiguration" level="Global" />
     <RolePrivilege name="prvReadcat_CopilotKPI" level="Global" />
     <RolePrivilege name="prvReadcat_CopilotStudioKitLogs" level="Global" />
@@ -148,6 +155,7 @@
     <RolePrivilege name="prvShareWorkflowSession" level="Basic" />
     <RolePrivilege name="prvWorkflowExecution" level="Global" />
     <RolePrivilege name="prvWriteAsyncOperation" level="Basic" />
+    <RolePrivilege name="prvWritecat_AgentTranscripts" level="Global" />
     <RolePrivilege name="prvWritecat_CopilotConfiguration" level="Global" />
     <RolePrivilege name="prvWritecat_CopilotKPI" level="Global" />
     <RolePrivilege name="prvWritecat_CopilotStudioKitLogs" level="Global" />
