@@ -75,13 +75,13 @@
                         <labels>
                           <label description="Content" languagecode="1033" />
                         </labels>
-                        <control id="cat_content" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_content" disabled="false" uniqueid="{073b3c4a-520f-496a-bd86-59c7501ffb27}" />
+                        <control id="cat_content" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_content" disabled="false" uniqueid="{2a4107a0-6b26-4cec-a1fd-d35c05a39b9e}" />
                       </cell>
                       <cell id="{9ccd523c-8a3c-460f-a5f9-0d2bf31b1563}" locklevel="0" colspan="1" rowspan="10" auto="true">
                         <labels>
                           <label description="Sample Data" languagecode="1033" />
                         </labels>
-                        <control id="cat_sampledata" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_sampledata" disabled="false" uniqueid="{9f57e1bd-fc8e-4b2d-a9c7-a22eea580e12}" />
+                        <control id="cat_sampledata" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_sampledata" disabled="false" uniqueid="{6f3a5c35-009e-4f64-99be-de14d6900952}" />
                       </cell>
                     </row>
                     <row />
@@ -98,12 +98,13 @@
                         <labels>
                           <label description="Sample JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_samplejson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_samplejson" disabled="false" uniqueid="{2614d121-4cba-4168-ade7-6ba9a8e339ce}" />
+                        <control id="cat_samplejson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_samplejson" disabled="false" uniqueid="{6e2a73b7-ed95-43d6-b1ec-f439057eb3aa}" />
                       </cell>
-                      <cell locklevel="0" id="{c796dc9a-fb28-4668-9f16-d8294e019040}">
+                      <cell id="{7dcc92ed-aadc-428a-a92e-72f634dba9ae}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Conversation" languagecode="1033" />
                         </labels>
+                        <control id="cat_conversation" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_conversation" disabled="false" uniqueid="{ab9b8b18-437d-4053-a400-442e3574fa6f}" />
                       </cell>
                     </row>
                     <row />
@@ -264,7 +265,7 @@
         <Everyone />
       </DisplayConditions>
       <controlDescriptions>
-        <controlDescription forControl="{073b3c4a-520f-496a-bd86-59c7501ffb27}">
+        <controlDescription forControl="{2a4107a0-6b26-4cec-a1fd-d35c05a39b9e}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_content</datafieldname>
@@ -292,7 +293,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{9f57e1bd-fc8e-4b2d-a9c7-a22eea580e12}">
+        <controlDescription forControl="{6f3a5c35-009e-4f64-99be-de14d6900952}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_sampledata</datafieldname>
@@ -320,7 +321,7 @@
             </parameters>
           </customControl>
         </controlDescription>
-        <controlDescription forControl="{2614d121-4cba-4168-ade7-6ba9a8e339ce}">
+        <controlDescription forControl="{6e2a73b7-ed95-43d6-b1ec-f439057eb3aa}">
           <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
             <parameters>
               <datafieldname>cat_samplejson</datafieldname>
@@ -343,6 +344,34 @@
           <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
             <parameters>
               <Value type="Multiple">cat_samplejson</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{ab9b8b18-437d-4053-a400-442e3574fa6f}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_conversation</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_conversation</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_conversation</Value>
+              <Height type="Whole.None" static="true">40</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_conversation</Value>
               <Height type="Whole.None" static="true">40</Height>
               <FileColumn type="Enum" static="true">False</FileColumn>
             </parameters>
