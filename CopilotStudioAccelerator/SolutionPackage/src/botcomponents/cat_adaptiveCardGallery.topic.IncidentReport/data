@@ -4,7 +4,7 @@ beginDialog:
   id: main
   intent:
     triggerQueries:
-      - Report Incident
+      - Incident Report
 
   actions:
     - kind: AdaptiveCardPrompt
@@ -43,7 +43,7 @@ beginDialog:
                         {
                             "type": "Input.Text",
                             "id": "incidentTitle",
-                            "placeholder": "Enter a brief title for the incident *",
+                            "placeholder": "Enter a brief title for the incident",
                             "label": "Incident Title",
                             "isRequired": true,
                             "errorMessage": "Incident title is required."
@@ -51,7 +51,7 @@ beginDialog:
                         {
                             "type": "Input.ChoiceSet",
                             "id": "incidentType",
-                            "label": "Incident Type *",
+                            "label": "Incident Type",
                             "choices": [
                                 {
                                     "title": "System Outage",
@@ -76,7 +76,7 @@ beginDialog:
                         {
                             "type": "Input.Text",
                             "id": "incidentDescription",
-                            "placeholder": "Describe the incident in detail *",
+                            "placeholder": "Describe the incident in detail",
                             "label": "Incident Description",
                             "isMultiline": true,
                             "isRequired": true,
@@ -85,7 +85,7 @@ beginDialog:
                         {
                             "type": "Input.Date",
                             "id": "incidentDate",
-                            "label": "Incident Date *",
+                            "label": "Incident Date",
                             "isRequired": true,
                             "errorMessage": "Please provide the date of the incident."
                         },

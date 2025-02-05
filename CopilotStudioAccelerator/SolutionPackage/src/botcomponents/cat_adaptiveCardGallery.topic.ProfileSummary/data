@@ -10,7 +10,7 @@ beginDialog:
     - kind: SetVariable
       id: setVariable_OSMB85
       variable: Topic.FullName
-      value: Steve Rogers
+      value: Jane Doe
 
     - kind: InvokeFlowAction
       id: invokeFlowAction_T3wGmn
@@ -49,7 +49,7 @@ beginDialog:
         ={
           type: "AdaptiveCard",
           '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
-          version: "1.5",
+          version: "1.3",
           body: [
             {
               type: "Container",
