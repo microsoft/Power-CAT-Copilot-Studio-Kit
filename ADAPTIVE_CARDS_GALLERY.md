@@ -11,8 +11,8 @@ Adaptive cards gallery is a collection of adaptive cards demonstrating different
 
 ![adaptivecards1](https://github.com/user-attachments/assets/e35288e3-77e5-4f76-8b57-4406332d4544)
 
-Adaptive card templates in the gallery 
+Each sample adaptive card comes with a template and sample data. Adaptive cards are all implemented in a Copilot Studio custom agent as well, which can be activated for live preview, by entering its token endpoint in an environment variable **Agent Token Endpoint**. **Open in Copilot Studio** opens a topic associated with the selected adaptive card from the custom agent into a new tab so that backend implementation details can be studied and copied.
 
-## Features
+![adaptivecards2](https://github.com/user-attachments/assets/d4e7ca66-2e7c-497c-94e8-0695e12253dd)
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
