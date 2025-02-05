@@ -19,6 +19,7 @@
           <LogicalName>cat_agentconfiguration</LogicalName>
           <RequiredLevel>required</RequiredLevel>
           <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
           <ValidForUpdateApi>1</ValidForUpdateApi>
           <ValidForReadApi>1</ValidForReadApi>
           <ValidForCreateApi>1</ValidForCreateApi>
@@ -159,6 +160,7 @@
           <IsRetrievable>0</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <Format>datetime</Format>
+          <CanChangeDateTimeBehavior>1</CanChangeDateTimeBehavior>
           <Behavior>1</Behavior>
           <displaynames>
             <displayname description="Conversation Date" languagecode="1033" />
@@ -205,6 +207,108 @@
           </displaynames>
           <Descriptions>
             <Description description="Unique identifier for the conversation being processed." languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="cat_ConversationTranscriptId">
+          <Type>nvarchar</Type>
+          <Name>cat_conversationtranscriptid</Name>
+          <LogicalName>cat_conversationtranscriptid</LogicalName>
+          <RequiredLevel>required</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>0</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>text</Format>
+          <MaxLength>100</MaxLength>
+          <Length>200</Length>
+          <displaynames>
+            <displayname description="Conversation Transcript Id" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Unique identifier for Conversation Transcript." languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="cat_iscopyfulltranscriptenabled">
+          <Type>bit</Type>
+          <Name>cat_iscopyfulltranscriptenabled</Name>
+          <LogicalName>cat_iscopyfulltranscriptenabled</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>20241204.37</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>0</AppDefaultValue>
+          <optionset Name="cat_agenttranscripts_cat_iscopyfulltranscriptenabled">
+            <OptionSetType>bit</OptionSetType>
+            <IntroducedVersion>20241204.37</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <ExternalTypeName></ExternalTypeName>
+            <displaynames>
+              <displayname description="Copy Full Transcript" languagecode="1033" />
+            </displaynames>
+            <Descriptions>
+              <Description description="" languagecode="1033" />
+            </Descriptions>
+            <options>
+              <option value="1" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="Yes" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="0" ExternalValue="" IsHidden="0">
+                <labels>
+                  <label description="No" languagecode="1033" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Copy Full Transcript" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="When enabled, copies the full Conversation Transcript from Agent Transcripts to Conversation KPI." languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="cat_Name">
@@ -369,7 +473,7 @@
               <Description description="" languagecode="1033" />
             </Descriptions>
             <options>
-              <option value="1" ExternalValue="" Color="#f7d914">
+              <option value="1" ExternalValue="" Color="#f7d914" IsHidden="0">
                 <labels>
                   <label description="Pending" languagecode="1033" />
                 </labels>
@@ -377,9 +481,17 @@
                   <Description description="" languagecode="1033" />
                 </Descriptions>
               </option>
-              <option value="2" ExternalValue="" Color="#04cc4a">
+              <option value="2" ExternalValue="" Color="#04cc4a" IsHidden="0">
                 <labels>
                   <label description="Completed" languagecode="1033" />
+                </labels>
+                <Descriptions>
+                  <Description description="" languagecode="1033" />
+                </Descriptions>
+              </option>
+              <option value="3" Color="#f56e6e" IsHidden="0">
+                <labels>
+                  <label description="Failed" languagecode="1033" />
                 </labels>
                 <Descriptions>
                   <Description description="" languagecode="1033" />

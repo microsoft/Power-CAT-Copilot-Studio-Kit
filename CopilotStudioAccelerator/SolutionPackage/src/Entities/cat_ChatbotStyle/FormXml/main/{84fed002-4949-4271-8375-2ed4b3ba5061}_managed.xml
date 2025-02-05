@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{84fed002-4949-4271-8375-2ed4b3ba5061}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{3920678c-d505-43ed-8840-833d7859f7f3}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{529d214a-cbd3-40cb-bad0-01d8a5507fc4}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{d7161b39-3baf-4332-b0fd-7f27b25eeb63}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{21b3b78e-70ef-4854-a7f4-8a389517cab2}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0db80c07-eb5f-4e02-b8fc-fda066565b03}">
+                        <labels>
+                          <label description="Description" languagecode="1033" />
+                        </labels>
+                        <control id="cat_description" classid="{e0dece4b-6fc8-4a8f-a065-082708572369}" datafieldname="cat_description" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9ee263f9-d73b-4158-8b3c-0b956ca61389}">
+                        <labels>
+                          <label description="Styles" languagecode="1033" />
+                        </labels>
+                        <control id="cat_styles" classid="{e0dece4b-6fc8-4a8f-a065-082708572369}" datafieldname="cat_styles" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>
