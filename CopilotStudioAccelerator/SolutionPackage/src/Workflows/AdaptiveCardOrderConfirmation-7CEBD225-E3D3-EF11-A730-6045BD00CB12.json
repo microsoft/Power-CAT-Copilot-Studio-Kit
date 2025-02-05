@@ -50,10 +50,8 @@
               "properties": {
                 "orderinfo": {
                   "title": "OrderInfo",
-                  "description": "",
-                  "type": "string",
-                  "x-ms-content-hint": "TEXT",
-                  "x-ms-dynamically-added": true
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
                 }
               },
               "additionalProperties": {}
@@ -86,30 +84,32 @@
                   "shippingAddress": "123 Main Street, Bengaluru, Karnataka, India",
                   "items": [
                     {
-                      "imageUrl": "https://example.com/item1.jpg",
+                      "imageUrl": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4LLFK?ver=29db&q=90&m=6&h=270&w=270&b=%23FFFFFFFF&f=jpg&o=f&aim=true",
                       "name": "Wireless Headphones",
                       "quantity": "1",
                       "price": "₹2999"
                     },
                     {
-                      "imageUrl": "https://example.com/item2.jpg",
+                      "imageUrl": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4ZzLI?ver=7236&q=90&m=6&h=270&w=270&b=%23FFFFFFFF&f=jpg&o=f&aim=true",
                       "name": "Bluetooth Speaker",
                       "quantity": "1",
                       "price": "₹1999"
                     }
                   ],
                   "totalAmount": "₹4998",
-                  "trackingUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/",
-                  "supportUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/"
+                  "trackingUrl": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/",
+                  "supportUrl": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/"
                 }
               }
             ]
           },
-          "runAfter": {}
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "6617382b-3638-4935-a121-746d08bcc624"
+          }
         }
       },
-      "outputs": {},
-      "description": "Run a flow from Copilot and send back a response."
+      "outputs": {}
     },
     "templateName": null
   },

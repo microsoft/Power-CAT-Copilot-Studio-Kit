@@ -138,7 +138,7 @@
         "contentType": "application/vnd.microsoft.card.adaptive",
         "content": {
           "type": "AdaptiveCard",
-          "version": "1.5",
+          "version": "1.3",
           "backgroundImage": {
             "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
             "fillMode": "Repeat"
@@ -169,23 +169,23 @@
                   "facts": [
                     {
                       "title": "Account Number:",
-                      "value": "123454663546"
+                      "value": "98237426348"
                     },
                     {
                       "title": "Account Holder:",
-                      "value": "Philip Hughes"
+                      "value": "Glenn Phillips"
                     },
                     {
                       "title": "Account Type:",
-                      "value": "Current"
+                      "value": "Savings"
                     },
                     {
                       "title": "Current Balance:",
-                      "value": "$120002000.79"
+                      "value": "$7,350,000"
                     },
                     {
                       "title": "Last Transaction Date:",
-                      "value": "2024-09-08"
+                      "value": "2025-01-08"
                     }
                   ],
                   "separator": true
@@ -222,7 +222,7 @@
                             {
                               "type": "TextBlock",
                               "color": "Attention",
-                              "text": "$10000",
+                              "text": "$109",
                               "horizontalAlignment": "Right",
                               "wrap": true
                             }
@@ -251,7 +251,7 @@
                             {
                               "type": "TextBlock",
                               "color": "Attention",
-                              "text": "$20000",
+                              "text": "$350",
                               "horizontalAlignment": "Right",
                               "wrap": true
                             }
@@ -280,7 +280,7 @@
                             {
                               "type": "TextBlock",
                               "color": "Attention",
-                              "text": "$20000",
+                              "text": "$4999.99",
                               "horizontalAlignment": "Right",
                               "wrap": true
                             }
@@ -304,7 +304,7 @@
                       "actions": [
                         {
                           "type": "Action.OpenUrl",
-                          "url": "Topic.RecordInfo.statementUrl",
+                          "url": "https://learn.microsoft.com/microsoft-copilot-studio/",
                           "title": "View Full Statement",
                           "style": "positive"
                         }
@@ -326,7 +326,7 @@
                             "action": "contactSupport",
                             "actionSubmitId": "Contact Support"
                           },
-                          "url": "Topic.RecordInfo.statementUrl",
+                          "url": "https://learn.microsoft.com/microsoft-copilot-studio/",
                           "title": "Contact Support"
                         }
                       ]
@@ -347,7 +347,7 @@
   <data name="Account Summary Content" xml:space="preserve">
     <value>{
   type: "AdaptiveCard",
-  version: "1.5",
+  version: "1.3",
   backgroundImage: {
     url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
     fillMode: "Repeat"
@@ -491,34 +491,10 @@
   '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
 }</value>
   </data>
-  <data name="Account Summary Sample Data" xml:space="preserve">
-    <value>{
-  "accountNumber": "1232144323",
-  "accountHolder": "Glenn Phillips",
-  "accountType": "Savings",
-  "currentBalance": "$10,000,000",
-  "lastTransactionDate": "2025-01-08",
-  "transactions": [
-    {
-      "description": "Grocery Shopping",
-      "amount": "$1000"
-    },
-    {
-      "description": "Utility Bill",
-      "amount": "$2000"
-    },
-    {
-      "description": "Online Purchase",
-      "amount": "$5000.69"
-    }
-  ],
-  "statementUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/"
-}</value>
-  </data>
   <data name="Account Summary Sample JSON" xml:space="preserve">
     <value>{
     "type": "AdaptiveCard",
-    "version": "1.5",
+    "version": "1.3",
     "backgroundImage": {
                 "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
                 "fillMode": "Repeat"
@@ -551,11 +527,11 @@
                     "facts": [
                         {
                             "title": "Account Number:",
-                            "value": "90001321434"
+                            "value": "98237426348"
                         },
                         {
                             "title": "Account Holder:",
-                            "value": "John Doe"
+                            "value": "Glenn Phillips"
                         },
                         {
                             "title": "Account Type:",
@@ -563,7 +539,7 @@
                         },
                         {
                             "title": "Current Balance:",
-                            "value": "$10,000"
+                            "value": "$7,350,000"
                         },
                         {
                             "title": "Last Transaction Date:",
@@ -612,7 +588,7 @@
                                         {
                                             "type": "TextBlock",
                                             "color": "Attention",
-                                            "text": "$10000",
+                                            "text": "$109",
                                             "horizontalAlignment": "Right",
                                             "wrap": true
                                         }
@@ -641,7 +617,7 @@
                                         {
                                             "type": "TextBlock",
                                             "color": "Attention",
-                                            "text": "$20000",
+                                            "text": "$350",
                                             "horizontalAlignment": "Right",
                                             "wrap": true
                                         }
@@ -659,6 +635,20 @@
                                         {
                                             "type": "TextBlock",
                                             "text": "Online Purchase",
+                                            "wrap": true
+                                        }
+                                    ]
+                                },
+								,
+                                {
+                                    "type": "Column",
+                                    "width": "auto",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "color": "Attention",
+                                            "text": "$4999.99",
+                                            "horizontalAlignment": "Right",
                                             "wrap": true
                                         }
                                     ]
@@ -687,7 +677,7 @@
                             "actions": [
                                 {
                                     "type": "Action.OpenUrl",
-                                    "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/",
+                                    "url": "https://learn.microsoft.com/microsoft-copilot-studio/",
                                     "title": "View Full Statement",
                                     "style": "positive",
                                     "data": null
@@ -711,7 +701,7 @@
                                         "actionSubmitId": "Contact Support"
                                     },
                                     "title": "Contact Support",
-                                    "url": null
+                                    "url": "https://learn.microsoft.com/microsoft-copilot-studio/"
                                 }
                             ]
                         }
@@ -887,23 +877,23 @@
               "facts": [
                 {
                   "title": "Request ID:",
-                  "value": "ID989798696"
+                  "value": "IJK982337645"
                 },
                 {
                   "title": "Submitted By:",
-                  "value": "Joe Root"
+                  "value": "David Warner"
                 },
                 {
                   "title": "Submitted On:",
-                  "value": "2025-01-01"
+                  "value": "2025-01-20"
                 },
                 {
                   "title": "Category:",
-                  "value": "Software Installation"
+                  "value": "IT Support"
                 },
                 {
                   "title": "Priority:",
-                  "value": "Medium"
+                  "value": "High"
                 },
                 {
                   "title": "Status:",
@@ -923,7 +913,7 @@
                 },
                 {
                   "type": "TextBlock",
-                  "text": "Installation",
+                  "text": "The user is experiencing issues with their laptop not connecting to the company VPN.",
                   "wrap": true,
                   "spacing": "Small",
                   "color": "Default"
@@ -940,7 +930,7 @@
                   "style": "positive",
                   "data": {
                     "action": "approveRequest",
-                    "requestId": "IKJ22345435"
+                    "requestId": "IJK982337645"
                   }
                 },
                 {
@@ -949,7 +939,7 @@
                   "style": "destructive",
                   "data": {
                     "action": "rejectRequest",
-                    "requestId": "IKJ22345435"
+                    "requestId": "IJK982337645"
                   }
                 },
                 {
@@ -971,7 +961,7 @@
                         "title": "Submit Changes",
                         "data": {
                           "action": "requestChanges",
-                          "requestId": "IKJ22345435"
+                          "requestId": "IJK982337645"
                         }
                       }
                     ],
@@ -1002,129 +992,134 @@
 }</value>
   </data>
   <data name="Approval Request Sample JSON" xml:space="preserve">
-    <value>{
-  "type": "AdaptiveCard",
-  "version": "1.3",
-  "body": [
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "TextBlock",
-          "text": "Approval Request",
-          "weight": "Bolder",
-          "size": "Large",
-          "horizontalAlignment": "Center",
-          "color": "Accent"
-        }
-      ]
-    },
-    {
-      "type": "FactSet",
-      "facts": [
-        {
-          "title": "Request ID:",
-          "value": "REQ123456"
-        },
-        {
-          "title": "Submitted By:",
-          "value": "Jane Doe"
-        },
-        {
-          "title": "Submitted On:",
-          "value": "2025-01-15"
-        },
-        {
-          "title": "Category:",
-          "value": "IT Support"
-        },
-        {
-          "title": "Priority:",
-          "value": "High"
-        },
-        {
-          "title": "Status:",
-          "value": "Pending"
-        }
-      ]
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "TextBlock",
-          "text": "Details",
-          "weight": "Bolder",
-          "spacing": "Medium",
-          "color": "Dark"
-        },
-        {
-          "type": "TextBlock",
-          "text": "The request is to upgrade the server infrastructure to improve performance.",
-          "wrap": true,
-          "spacing": "Small",
-          "color": "Default"
-        }
-      ],
-      "style": "default"
-    },
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.Submit",
-          "title": "Approve",
-          "style": "positive",
-          "data": {
-            "action": "approveRequest",
-            "requestId": "REQ123456"
-          }
-        },
-        {
-          "type": "Action.Submit",
-          "title": "Reject",
-          "style": "destructive",
-          "data": {
-            "action": "rejectRequest",
-            "requestId": "REQ123456"
-          }
-        },
-        {
-          "type": "Action.ShowCard",
-          "title": "Request Changes",
-          "card": {
-            "type": "AdaptiveCard",
-            "body": [
-              {
-                "type": "Input.Text",
-                "id": "comments",
-                "placeholder": "Add comments or requested changes",
-                "isMultiline": true
-              }
-            ],
-            "actions": [
-              {
-                "type": "Action.Submit",
-                "title": "Submit Changes",
-                "data": {
-                  "action": "requestChanges",
-                  "requestId": "REQ123456"
+    <value>
+		{
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ8NDQ0OFREWFhURExMYIDQgGBolGxUVITEhKikrLi4uFx8zODMsNygtLisBCgoKDg0NFQ8PFSsdFR0rLS0tKysrLSstLS0tLy00KysrKy0rKysrKy0rLys1KysrNysrKysrLS0tKystKystK//AABEIALUBFgMBIgACEQEDEQH/xAAaAAEBAQEBAQEAAAAAAAAAAAAAAQIDBAUH/8QALBABAQACAQIFAwMEAwAAAAAAAAECEQMhQRIxUWFxBJGxgcHwQlLh8SKh0f/EABkBAQEBAQEBAAAAAAAAAAAAAAEAAgMEBf/EABwRAQEBAQACAwAAAAAAAAAAAAABEQIhURIxQf/aAAwDAQACEQMRAD8A/TwV7nzUUEgBIASBFxxtuogSb6R6OLik63rfw1x8cx+fVti9OnPOCorLoIrc4r36fkasc1mFv+XbHCRR8mpz7Yx4p36/hsQHABFRFCVUiogCQKiIAgJVSpICIPlgPS8gAgCCQAUuM3dR6uPDU/KcXHqe/d0jn1XTnnBVxwt7OmPF6sWusjnJvybx4vV1gzrXxSSTyBAQESACAFRFRZAlARFAFACAEqRUEQBzzy7DWM3p84B6HlAEgBIejh49db59vY4Pp7et6Ts9mOEjn13+OvHH7XLHjt9nbHjk92orla7TkADQlKiQCIABQAkKKEKCKgAgIkAEDNWsoDOeWltccrtqRm0RRph4QWS3ydnBFkdcOD1+0dscZPJm9NTiuOHBe/T27u/FxTtPmrHbHHTn11XXniLI1Ikac3UARAEkqKiAiiSCiQCyJEUVEgKCIUSAKkiVWSBBjky7Fm1nPLbIRthUTPOY+Yso2OOHB6/aOuMk8ppVNuiSRFJGsMdstY1x493SEixm10kJGgZaAEkFQgqKiSC6NIBpREFUHEFVJAAkAKEEtIS1BMrohMstORbsajnboo4/UZ/0/f4P2L4cuXPxXfbsMDo5PdoUcnfDTrjNM8cdJGbWpCRqJI1Iy3IQUBRGkQRFCkAIA0qIChCiAqgJCKhAis2lUtZolLJa5ZXZnlv4RqRi0UEGc8vDNvHbvrW+fk8V6eU8v/XN05mOfV1QGmX0QawnVw16MbxijUjDchI0RQ0gugFlGkIZFCEFEkUAgBIASBBIBm0i0tZEtaA555b+DLLbLUjFooIDjz5/0z9XTkz8M9+zyWtcxnqojVR0YAEH028YkjcjzWvXISNyJI1GWoKAaEWpUERQhAEhKqJAgQAJAIkqbS1LSNLUEtIHPPLaZZbZakYtWBFIEyupuq83Lnu+0UmjcZzy3dsqjowAIICkPrYxsxWR5K9sixYjQIAiiUEEBCBBEAAoBElECNEtS1ENNgxlnr5ODVyy055ZbS1GpGbRYikKI58mfafqsCcue+k/VxaRuMoKEIjSVBAVB9lSDyPcsUEQolSRBKQWsgWQQKVAQBLU2lq2ptBAQuWnLLLbUgtayz9GBGmNAEgGc89fKCcmeuk8/wAOSmmp4ZQauNTw32+8KZGvDfb7xNJIjXh+PvDKa/3shkBMvtCRXke5VQRVmrWbUE2zatrLTKoBAJtNpLtNiIKglshCueXJ6M5Z2/DLUjN6W1ALIAkAznlr5SM8tfLkDWBHTtJ16zz7W/zTD0TnmsZq/wDHX3kv7imY53v+nlOs+Uk6zp13106Z8sv906+Lp1lupuX7f9tZfUY23pZv09N79e/cefR8e3CTUm5fO/HZfa79/m/yO0+onTpdS/vb+6Tmx6S+KyeHr08Vsu/3W30sntwznnfXr7pnOtemfUTvL016f3bs/Dly5zLUm7rfW+fWmW+mbJn24ijbD66wHle2AAJWKoYzWUAsogEIAUICDOeWnK0G4xQAgACCgkzndRyQajNUAoASAEgBIAQAEn//2Q=="
+          },
+          "body": [
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Approval Request",
+                  "weight": "Bolder",
+                  "size": "Large",
+                  "horizontalAlignment": "Center",
+                  "color": "Accent"
                 }
-              }
-            ],
-            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
-          }
+              ]
+            },
+            {
+              "type": "FactSet",
+              "facts": [
+                {
+                  "title": "Request ID:",
+                  "value": "IJK982337645"
+                },
+                {
+                  "title": "Submitted By:",
+                  "value": "David Warner"
+                },
+                {
+                  "title": "Submitted On:",
+                  "value": "2025-01-20"
+                },
+                {
+                  "title": "Category:",
+                  "value": "IT Support"
+                },
+                {
+                  "title": "Priority:",
+                  "value": "High"
+                },
+                {
+                  "title": "Status:",
+                  "value": "Pending"
+                }
+              ]
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Details",
+                  "weight": "Bolder",
+                  "spacing": "Medium",
+                  "color": "Dark"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "The user is experiencing issues with their laptop not connecting to the company VPN.",
+                  "wrap": true,
+                  "spacing": "Small",
+                  "color": "Default"
+                }
+              ],
+              "style": "default"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "title": "Approve",
+                  "style": "positive",
+                  "data": {
+                    "action": "approveRequest",
+                    "requestId": "IJK982337645"
+                  }
+                },
+                {
+                  "type": "Action.Submit",
+                  "title": "Reject",
+                  "style": "destructive",
+                  "data": {
+                    "action": "rejectRequest",
+                    "requestId": "IJK982337645"
+                  }
+                },
+                {
+                  "type": "Action.ShowCard",
+                  "title": "Request Changes",
+                  "card": {
+                    "type": "AdaptiveCard",
+                    "body": [
+                      {
+                        "type": "Input.Text",
+                        "id": "comments",
+                        "placeholder": "Add comments or requested changes",
+                        "isMultiline": true
+                      }
+                    ],
+                    "actions": [
+                      {
+                        "type": "Action.Submit",
+                        "title": "Submit Changes",
+                        "data": {
+                          "action": "requestChanges",
+                          "requestId": "IJK982337645"
+                        }
+                      }
+                    ],
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                  }
+                }
+              ]
+            }
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
         }
-      ]
-    }
-  ],
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
-}</value>
+	</value>
   </data>
   <data name="Conversation Rating Content" xml:space="preserve">
     <value>{
     "type": "AdaptiveCard",
-    "version": "1.5",
+    "version": "1.3",
     "body": [
         {
             "type": "Container",
@@ -1165,7 +1160,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "1 Star",
                             "selectAction": {
                                 "type": "Action.Submit",
@@ -1185,7 +1180,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "2 Stars",
                             "selectAction": {
                                 "type": "Action.Submit",
@@ -1205,7 +1200,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "3 Stars",
                             "size": "Small",
                             "selectAction": {
@@ -1225,7 +1220,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "4 Stars",
                             "size": "Small",
                             "selectAction": {
@@ -1245,7 +1240,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "5 Stars",
                             "size": "Small",
                             "selectAction": {
@@ -1310,7 +1305,7 @@
                 "contentType": "application/vnd.microsoft.card.adaptive",
                 "content": {
                     "type": "AdaptiveCard",
-                    "version": "1.5",
+                    "version": "1.3",
                     "body": [
                         {
                             "type": "Container",
@@ -1351,7 +1346,7 @@
                                     "items": [
                                         {
                                             "type": "Image",
-                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                                             "altText": "1 Star",
                                             "selectAction": {
                                                 "type": "Action.Submit",
@@ -1371,7 +1366,7 @@
                                     "items": [
                                         {
                                             "type": "Image",
-                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                                             "altText": "2 Stars",
                                             "selectAction": {
                                                 "type": "Action.Submit",
@@ -1391,7 +1386,7 @@
                                     "items": [
                                         {
                                             "type": "Image",
-                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                                             "altText": "3 Stars",
                                             "size": "Small",
                                             "selectAction": {
@@ -1411,7 +1406,7 @@
                                     "items": [
                                         {
                                             "type": "Image",
-                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                                             "altText": "4 Stars",
                                             "size": "Small",
                                             "selectAction": {
@@ -1431,7 +1426,7 @@
                                     "items": [
                                         {
                                             "type": "Image",
-                                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                                             "altText": "5 Stars",
                                             "size": "Small",
                                             "selectAction": {
@@ -1484,7 +1479,7 @@
   <data name="Conversation Rating Sample JSON" xml:space="preserve">
     <value>{
     "type": "AdaptiveCard",
-    "version": "1.5",
+    "version": "1.3",
     "body": [
         {
             "type": "Container",
@@ -1525,7 +1520,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "1 Star",
                             "selectAction": {
                                 "type": "Action.Submit",
@@ -1545,7 +1540,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "2 Stars",
                             "selectAction": {
                                 "type": "Action.Submit",
@@ -1565,7 +1560,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "3 Stars",
                             "size": "Small",
                             "selectAction": {
@@ -1585,7 +1580,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "4 Stars",
                             "size": "Small",
                             "selectAction": {
@@ -1605,7 +1600,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://cdn-icons-png.flaticon.com/512/2107/2107957.png",
+                            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABbCAYAAAAYwymkAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAUpSURBVHhe7ZzpixxFGIf9z1wFD+KBohgvvIUYRcELDwIGUVFEvP3gkQQSxQsVFKOCElERxBANmXt3du57djwwfuiq8q3yFcV9d6anuqq6eroe+JEvO1X1Pqk+qqd6zhAB6wTJDgiSHRAkOyBIdkCQ7IAg2QFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkB2ZI86QjeOiBYfb9g6/fCv08K3v1QiK3f8A/8JDOS2eZTIjp1Jp3iLpD9Cf6lf2RCclS9jZb7v/DWQfyEX3gvmTWeI4XuFDE8jp/0B78lDwukyLkp7cYP+4PXktn6fbTIBeGdd7EFP/BX8ugkKTBWipd4dcfhreSodjstMGZ4+zC2lD5eSuaD70hxS6V4EczmX7DFdPFSclS5lRa3ZHjzdWwxXbyTzPtfksK0UjhPiOkUW04PvyTP/hRR+VpamGZY4yVsPD28ksy7n5KiEqVwDszmPvaQDv5Inp2GhcSVtKiEYY1nsJN08EYyb79NCjIVMa5hT+7xQ/LwOIg4e5sYo4GjJK2LYLqSpxP1iDIqXkyLMZ3aHXAP/j127g43kqdDmK0/C977TPDWIcHqT6iCSREuUrhAsPX7Bdt8Vp2meP8YLOMr1pbi5iTDoShXarzzHlxoXoAiHoJFxc0wS8+nC/U1pUvVkp7VHxWs9SocaR/DBDmBReqRXLI8n0qZ1IBXKXAryDb2wWQaY+HxSSRZPlIkB7TKgZkuRgU0EA9tybz/NT2IPESKnvTQxGL0JE9n6uJBDiAnYesPo4zFaEnm7TfJjvMWMd5AI/PRkixvf6hO8xa15yMGWpKj8lVkp3kLa7yIRuajKfkastO8hTVfQSPz0Ttd1O4iO81bePsdNDIfvQtf5y2y07xFjJtoZD5aksV0oFZAVMd5CavdjTIWoycZ4P1voLOztnWei5QuVxMtLtqSJbz3OT2IVU75CljtbaKBeCSSrBj8AKeOc+kBrVoq1y81g/8huWSJ3BhYvJAe2Kqkulc9TtDBjGTJpK4OJXKAGY98Ni62fsdCl8ecZMl0CIfUdeRAsxr5ykRSzEqWyCd01T3kgLMW3nwNi0qGeckSOLTYxgPkwLORNcG7H2AxybEjGdHdxJ125PeUJrEqWa0Mi7vIQnwNq92DgzeHXckAqz9OFuNreO8Yjtwc1iXz1htkMb5G7b8wjH3JNnZqWkyS++GdsC8ZDj+qGF9jAweniwNkMb7Gxu5P+xe+jX1kMb6G947iyM1hXXJUvposxtew5ss4cnPYlbz1K1mIz5E/8WAau5KHJ8hCvI7cgmUYq5J55326EM8jN6ebxKpktvk0WYTv4YNvsQIzWJUc98dAfIvp97LtSs7od3+s/ghWYAZ7ksdNsoBMpHIjFmEGe5JHRbqALETuqzCIPcmDH+kCkqZ0GdzLPihY43nBqnfaOSXJn3EwiD3Jkx5dgGbUImF0Ehv/D7M/BO9+ZHY7b3UPNm4Gqxc+KYYsYonIWStGp7DF+cjXwUxs6zX5/Z7EqmQxKsOg17YVsThrf7/OpfMAfXZa8N4XcPG6gWg3RuCIkG2YxK5kgLeP0MXsEFZ/zNjjRt77CmTfRPazU8TwJ/y0OaxLlvDu0YVvS8lXgZfdyBcX+VpvnL0g8rU5GziRrJgO1a+oyHtQVRRcwdUL5a1DMHNb+EeWgTse+T51VLnlX7ml3fAfvN/qGNxJzjFBsgOCZAcEyQ4Ikh0QJDsgSHZAkOyAINkBQbIDgmQHBMkOCJIdECRbR4i/ADjxAvipTNwyAAAAAElFTkSuQmCC",
                             "altText": "5 Stars",
                             "size": "Small",
                             "selectAction": {
@@ -1653,7 +1648,7 @@
     <value>{
   type: "AdaptiveCard",
   '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
-  version: "1.5",
+  version: "1.3",
   backgroundImage: {
     url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
   },
@@ -1664,7 +1659,7 @@
         {
           type: "Image",
           size: "Medium",
-          url: "https://www.synalis.de/wp-content/uploads/2023/10/Eroeffnungs-Keynote-mmpc-2023-1024x576.jpeg",
+          url: "https://www.microsoft.com/en-us/power-platform/blog/wp-content/uploads/2024/08/Picture1-1.jpg",
           horizontalAlignment: "Center",
           altText: "Event Logo",
           height: "200px"
@@ -1735,7 +1730,7 @@
         {
           type: "Input.Text",
           id: "participantName",
-          placeholder: "Enter your name *",
+          placeholder: "Enter your name",
           isRequired: true,
           label: "Name",
           errorMessage: "Name is required."
@@ -1743,7 +1738,7 @@
         {
           type: "Input.Text",
           id: "participantEmail",
-          placeholder: "Enter your email *",
+          placeholder: "Enter your email",
           isRequired: true,
           label: "Email",
           errorMessage: "Email is required."
@@ -1763,7 +1758,7 @@
             }
           ],
           isRequired: true,
-          label: "How will you attend? *",
+          label: "How will you attend?",
           errorMessage: "Please select a participation type."
         }
       ],
@@ -1811,7 +1806,7 @@
         "content": {
           "type": "AdaptiveCard",
           "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-          "version": "1.5",
+          "version": "1.3",
           "backgroundImage": {
             "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
           },
@@ -1822,7 +1817,7 @@
                 {
                   "type": "Image",
                   "size": "Medium",
-                  "url": "https://www.synalis.de/wp-content/uploads/2023/10/Eroeffnungs-Keynote-mmpc-2023-1024x576.jpeg",
+                  "url": "https://www.microsoft.com/en-us/power-platform/blog/wp-content/uploads/2024/08/Picture1-1.jpg",
                   "horizontalAlignment": "Center",
                   "altText": "Event Logo",
                   "height": "200px"
@@ -1839,14 +1834,14 @@
                   "type": "TextBlock",
                   "size": "Large",
                   "weight": "Bolder",
-                  "text": "Test Title",
+                  "text": "Microsoft Biz Apps",
                   "horizontalAlignment": "Center",
                   "wrap": true
                 },
                 {
                   "type": "TextBlock",
                   "size": "Medium",
-                  "text": "Test Description",
+                  "text": "Event hosted by Microsoft for Biz Apps Developers &amp; Learners",
                   "horizontalAlignment": "Center",
                   "wrap": true,
                   "spacing": "Small"
@@ -1863,7 +1858,7 @@
                   "facts": [
                     {
                       "title": "Date:",
-                      "value": "2025-09-09"
+                      "value": "2025-02-19"
                     },
                     {
                       "title": "Time:",
@@ -1893,7 +1888,7 @@
                 {
                   "type": "Input.Text",
                   "id": "participantName",
-                  "placeholder": "Enter your name *",
+                  "placeholder": "Enter your name",
                   "isRequired": true,
                   "label": "Name",
                   "errorMessage": "Name is required."
@@ -1901,7 +1896,7 @@
                 {
                   "type": "Input.Text",
                   "id": "participantEmail",
-                  "placeholder": "Enter your email *",
+                  "placeholder": "Enter your email",
                   "isRequired": true,
                   "label": "Email",
                   "errorMessage": "Email is required."
@@ -1921,7 +1916,7 @@
                     }
                   ],
                   "isRequired": true,
-                  "label": "How will you attend? *",
+                  "label": "How will you attend?",
                   "errorMessage": "Please select a participation type."
                 }
               ],
@@ -1954,144 +1949,146 @@
 </value>
   </data>
   <data name="Event Registration Sample JSON" xml:space="preserve">
-    <value>{
-  "type": "AdaptiveCard",
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "version": "1.5",
-  "backgroundImage": {
-    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
-  },
-  "body": [
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "Image",
-          "size": "Medium",
-          "url": "https://www.synalis.de/wp-content/uploads/2023/10/Eroeffnungs-Keynote-mmpc-2023-1024x576.jpeg",
-          "horizontalAlignment": "Center",
-          "altText": "Event Logo",
-          "height": "200px"
-        },
-        {
-          "type": "TextBlock",
-          "size": "ExtraLarge",
-          "weight": "Bolder",
-          "color": "Accent",
-          "text": "You're Invited!",
-          "horizontalAlignment": "Center"
-        },
-        {
-          "type": "TextBlock",
-          "size": "Large",
-          "weight": "Bolder",
-          "text": "Annual Tech Conference 2025",
-          "horizontalAlignment": "Center",
-          "wrap": true
-        },
-        {
-          "type": "TextBlock",
-          "size": "Medium",
-          "text": "Join us for a day of insightful talks and networking with industry leaders.",
-          "horizontalAlignment": "Center",
-          "wrap": true,
-          "spacing": "Small"
-        }
-      ],
-      "style": "emphasis",
-      "actions": []
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "FactSet",
-          "facts": [
+    <value>
+		{
+          "type": "AdaptiveCard",
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          "body": [
             {
-              "title": "Date:",
-              "value": "2025-03-15"
+              "type": "Container",
+              "items": [
+                {
+                  "type": "Image",
+                  "size": "Medium",
+                  "url": "https://www.microsoft.com/en-us/power-platform/blog/wp-content/uploads/2024/08/Picture1-1.jpg",
+                  "horizontalAlignment": "Center",
+                  "altText": "Event Logo",
+                  "height": "200px"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "ExtraLarge",
+                  "weight": "Bolder",
+                  "color": "Accent",
+                  "text": "You're Invited!",
+                  "horizontalAlignment": "Center"
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "text": "Microsoft Biz Apps",
+                  "horizontalAlignment": "Center",
+                  "wrap": true
+                },
+                {
+                  "type": "TextBlock",
+                  "size": "Medium",
+                  "text": "Event hosted by Microsoft for Biz Apps Developers &amp; Learners",
+                  "horizontalAlignment": "Center",
+                  "wrap": true,
+                  "spacing": "Small"
+                }
+              ],
+              "style": "emphasis",
+              "actions": []
             },
             {
-              "title": "Time:",
-              "value": "10:00 AM - 4:00 PM"
+              "type": "Container",
+              "items": [
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Date:",
+                      "value": "2025-02-19"
+                    },
+                    {
+                      "title": "Time:",
+                      "value": "12:01 AM"
+                    },
+                    {
+                      "title": "Location:",
+                      "value": "Dubai"
+                    }
+                  ]
+                }
+              ],
+              "style": "emphasis",
+              "spacing": "Small",
+              "actions": []
             },
             {
-              "title": "Location:",
-              "value": "Tech Convention Center, New York, NY"
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "size": "Medium",
+                  "weight": "Bolder",
+                  "text": "Reserve Your Spot!",
+                  "spacing": "Small"
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "participantName",
+                  "placeholder": "Enter your name",
+                  "isRequired": true,
+                  "label": "Name",
+                  "errorMessage": "Name is required."
+                },
+                {
+                  "type": "Input.Text",
+                  "id": "participantEmail",
+                  "placeholder": "Enter your email",
+                  "isRequired": true,
+                  "label": "Email",
+                  "errorMessage": "Email is required."
+                },
+                {
+                  "type": "Input.ChoiceSet",
+                  "id": "participationType",
+                  "style": "expanded",
+                  "choices": [
+                    {
+                      "title": "In Person",
+                      "value": "in_person"
+                    },
+                    {
+                      "title": "Online",
+                      "value": "online"
+                    }
+                  ],
+                  "isRequired": true,
+                  "label": "How will you attend?",
+                  "errorMessage": "Please select a participation type."
+                }
+              ],
+              "style": "emphasis",
+              "actions": [],
+              "spacing": "Small"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.Submit",
+                  "data": {
+                    "action": "registerForEvent",
+                    "actionSubmitId": "Register Now"
+                  },
+                  "title": "Register Now",
+                  "style": "positive"
+                }
+              ],
+              "spacing": "Small"
             }
           ]
         }
-      ],
-      "style": "emphasis",
-      "spacing": "Small",
-      "actions": []
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "TextBlock",
-          "size": "Medium",
-          "weight": "Bolder",
-          "text": "Reserve Your Spot!",
-          "spacing": "Small"
-        },
-        {
-          "type": "Input.Text",
-          "id": "participantName",
-          "placeholder": "Enter your name *",
-          "isRequired": true,
-          "label": "Name",
-          "errorMessage": "Name is required."
-        },
-        {
-          "type": "Input.Text",
-          "id": "participantEmail",
-          "placeholder": "Enter your email *",
-          "isRequired": true,
-          "label": "Email",
-          "errorMessage": "Email is required."
-        },
-        {
-          "type": "Input.ChoiceSet",
-          "id": "participationType",
-          "style": "expanded",
-          "choices": [
-            {
-              "title": "In Person",
-              "value": "in_person"
-            },
-            {
-              "title": "Online",
-              "value": "online"
-            }
-          ],
-          "isRequired": true,
-          "label": "How will you attend? *",
-          "errorMessage": "Please select a participation type."
-        }
-      ],
-      "style": "emphasis",
-      "actions": [],
-      "spacing": "Small"
-    },
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.Submit",
-          "data": {
-            "action": "registerForEvent",
-            "actionSubmitId": "Register Now"
-          },
-          "title": "Register Now",
-          "style": "positive"
-        }
-      ],
-      "spacing": "Small"
-    }
-  ]
-}</value>
+	</value>
   </data>
   <data name="Incident Report Content" xml:space="preserve">
     <value>{
@@ -2127,7 +2124,7 @@
                 {
                     "type": "Input.Text",
                     "id": "incidentTitle",
-                    "placeholder": "Enter a brief title for the incident *",
+                    "placeholder": "Enter a brief title for the incident",
                     "label": "Incident Title",
                     "isRequired": true,
                     "errorMessage": "Incident title is required."
@@ -2135,7 +2132,7 @@
                 {
                     "type": "Input.ChoiceSet",
                     "id": "incidentType",
-                    "label": "Incident Type *",
+                    "label": "Incident Type",
                     "choices": [
                         {
                             "title": "System Outage",
@@ -2160,7 +2157,7 @@
                 {
                     "type": "Input.Text",
                     "id": "incidentDescription",
-                    "placeholder": "Describe the incident in detail *",
+                    "placeholder": "Describe the incident in detail",
                     "label": "Incident Description",
                     "isMultiline": true,
                     "isRequired": true,
@@ -2169,7 +2166,7 @@
                 {
                     "type": "Input.Date",
                     "id": "incidentDate",
-                    "label": "Incident Date *",
+                    "label": "Incident Date",
                     "isRequired": true,
                     "errorMessage": "Please provide the date of the incident."
                 },
@@ -2294,7 +2291,7 @@
                 {
                   "type": "Input.Text",
                   "id": "incidentTitle",
-                  "placeholder": "Enter a brief title for the incident *",
+                  "placeholder": "Enter a brief title for the incident",
                   "label": "Incident Title",
                   "isRequired": true,
                   "errorMessage": "Incident title is required."
@@ -2302,7 +2299,7 @@
                 {
                   "type": "Input.ChoiceSet",
                   "id": "incidentType",
-                  "label": "Incident Type *",
+                  "label": "Incident Type",
                   "choices": [
                     {
                       "title": "System Outage",
@@ -2327,7 +2324,7 @@
                 {
                   "type": "Input.Text",
                   "id": "incidentDescription",
-                  "placeholder": "Describe the incident in detail *",
+                  "placeholder": "Describe the incident in detail",
                   "label": "Incident Description",
                   "isMultiline": true,
                   "isRequired": true,
@@ -2336,7 +2333,7 @@
                 {
                   "type": "Input.Date",
                   "id": "incidentDate",
-                  "label": "Incident Date *",
+                  "label": "Incident Date",
                   "isRequired": true,
                   "errorMessage": "Please provide the date of the incident."
                 },
@@ -2449,7 +2446,7 @@
                 {
                     "type": "Input.Text",
                     "id": "incidentTitle",
-                    "placeholder": "Enter a brief title for the incident *",
+                    "placeholder": "Enter a brief title for the incident",
                     "label": "Incident Title",
                     "isRequired": true,
                     "errorMessage": "Incident title is required."
@@ -2457,7 +2454,7 @@
                 {
                     "type": "Input.ChoiceSet",
                     "id": "incidentType",
-                    "label": "Incident Type *",
+                    "label": "Incident Type",
                     "choices": [
                         {
                             "title": "System Outage",
@@ -2482,7 +2479,7 @@
                 {
                     "type": "Input.Text",
                     "id": "incidentDescription",
-                    "placeholder": "Describe the incident in detail *",
+                    "placeholder": "Describe the incident in detail",
                     "label": "Incident Description",
                     "isMultiline": true,
                     "isRequired": true,
@@ -2491,7 +2488,7 @@
                 {
                     "type": "Input.Date",
                     "id": "incidentDate",
-                    "label": "Incident Date *",
+                    "label": "Incident Date",
                     "isRequired": true,
                     "errorMessage": "Please provide the date of the incident."
                 },
@@ -2774,11 +2771,11 @@
                   "facts": [
                     {
                       "title": "Order Number:",
-                      "value": "12454543256"
+                      "value": "CST907347435"
                     },
                     {
                       "title": "Order Date:",
-                      "value": "2025-01-01"
+                      "value": "2025-01-15"
                     },
                     {
                       "title": "Estimated Delivery:",
@@ -2786,7 +2783,7 @@
                     },
                     {
                       "title": "Shipping Address:",
-                      "value": "Miami"
+                      "value": "123 Main Street, Bengaluru, Karnataka, India"
                     }
                   ]
                 }
@@ -2814,7 +2811,7 @@
                       "items": [
                         {
                           "type": "Image",
-                          "url": "",
+                          "url": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4LLFK?ver=29db&amp;q=90&amp;m=6&amp;h=270&amp;w=270&amp;b=%23FFFFFFFF&amp;f=jpg&amp;o=f&amp;aim=true",
                           "size": "Small",
                           "altText": "Item 1 Image"
                         }
@@ -2826,13 +2823,13 @@
                       "items": [
                         {
                           "type": "TextBlock",
-                          "text": "JBL Ear Buds",
+                          "text": "Wireless Headphones",
                           "weight": "Bolder",
                           "wrap": true
                         },
                         {
                           "type": "TextBlock",
-                          "text": "2 X $200",
+                          "text": "1 X ₹2999",
                           "wrap": true
                         }
                       ]
@@ -2848,7 +2845,7 @@
                       "items": [
                         {
                           "type": "Image",
-                          "url": "${item2ImageUrl}",
+                          "url": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4ZzLI?ver=7236&amp;q=90&amp;m=6&amp;h=270&amp;w=270&amp;b=%23FFFFFFFF&amp;f=jpg&amp;o=f&amp;aim=true",
                           "size": "Small",
                           "altText": "Item 2 Image"
                         }
@@ -2860,13 +2857,13 @@
                       "items": [
                         {
                           "type": "TextBlock",
-                          "text": "Reynolds Ball Pen",
+                          "text": "Bluetooth Speaker",
                           "weight": "Bolder",
                           "wrap": true
                         },
                         {
                           "type": "TextBlock",
-                          "text": "2 X $200",
+                          "text": "1 X ₹1999",
                           "wrap": true
                         }
                       ]
@@ -2890,7 +2887,7 @@
                 },
                 {
                   "type": "TextBlock",
-                  "text": "$800",
+                  "text": "₹4998",
                   "size": "Large",
                   "weight": "Bolder",
                   "color": "Good",
@@ -2906,13 +2903,13 @@
                 {
                   "type": "Action.OpenUrl",
                   "title": "Track Order",
-                  "url": "${trackingUrl}",
+                  "url": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/",
                   "style": "positive"
                 },
                 {
                   "type": "Action.OpenUrl",
                   "title": "Contact Support",
-                  "url": "${supportUrl}"
+                  "url": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/"
                 }
               ],
               "spacing": "Medium"
@@ -2929,217 +2926,211 @@
   </data>
   <data name="Order Confirmation Sample Data" xml:space="preserve">
     <value>{
-  "orderNumber": "214332145325",
+  "orderNumber": "CST907347435",
   "orderDate": "2025-01-15",
   "deliveryDate": "2025-01-20",
   "shippingAddress": "123 Main Street, Bengaluru, Karnataka, India",
   "items": [
     {
-      "imageUrl": "https://example.com/item1.jpg",
+      "imageUrl": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4LLFK?ver=29db&amp;q=90&amp;m=6&amp;h=270&amp;w=270&amp;b=%23FFFFFFFF&amp;f=jpg&amp;o=f&amp;aim=true",
       "name": "Wireless Headphones",
       "quantity": "1",
       "price": "₹2999"
     },
     {
-      "imageUrl": "https://example.com/item2.jpg",
+      "imageUrl": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4ZzLI?ver=7236&amp;q=90&amp;m=6&amp;h=270&amp;w=270&amp;b=%23FFFFFFFF&amp;f=jpg&amp;o=f&amp;aim=true",
       "name": "Bluetooth Speaker",
       "quantity": "1",
       "price": "₹1999"
     }
   ],
   "totalAmount": "₹4998",
-  "trackingUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/",
-  "supportUrl": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/"
+  "trackingUrl": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/",
+  "supportUrl": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/"
 }</value>
   </data>
   <data name="Order Confirmation Sample JSON" xml:space="preserve">
     <value>{
-  "type": "AdaptiveCard",
-  "version": "1.3",
-  "backgroundImage": {
-    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
-  },
-  "body": [
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "TextBlock",
-          "text": "Order Confirmation",
-          "weight": "Bolder",
-          "size": "ExtraLarge",
-          "horizontalAlignment": "Center",
-          "color": "Accent"
-        },
-        {
-          "type": "TextBlock",
-          "text": "Thank you for your order! Here are the details of your purchase:",
-          "size": "Medium",
-          "wrap": true,
-          "spacing": "Small"
-        }
-      ]
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "FactSet",
-          "facts": [
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          "body": [
             {
-              "title": "Order Number:",
-              "value": "ORD123456"
-            },
-            {
-              "title": "Order Date:",
-              "value": "2025-01-20"
-            },
-            {
-              "title": "Estimated Delivery:",
-              "value": "2025-01-25"
-            },
-            {
-              "title": "Shipping Address:",
-              "value": "123 Main St, New York, NY 10001"
-            }
-          ]
-        }
-      ],
-      "style": "default",
-      "spacing": "Medium"
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "TextBlock",
-          "text": "Items in Your Order",
-          "weight": "Bolder",
-          "size": "Medium",
-          "spacing": "Small",
-          "color": "Dark"
-        },
-        {
-          "type": "Container",
-          "items": [
-            {
-              "type": "ColumnSet",
-              "columns": [
+              "type": "Container",
+              "items": [
                 {
-                  "type": "Column",
-                  "width": "auto",
-                  "items": [
-                    {
-                      "type": "Image",
-                      "url": "https://example.com/item1.jpg",
-                      "size": "Small",
-                      "altText": "Item Image"
-                    }
-                  ]
+                  "type": "TextBlock",
+                  "text": "Order Confirmation",
+                  "weight": "Bolder",
+                  "size": "ExtraLarge",
+                  "horizontalAlignment": "Center",
+                  "color": "Accent"
                 },
                 {
-                  "type": "Column",
-                  "width": "stretch",
-                  "items": [
-                    {
-                      "type": "TextBlock",
-                      "text": "JBL Ear Buds",
-                      "weight": "Bolder",
-                      "wrap": true
-                    },
-                    {
-                      "type": "TextBlock",
-                      "text": "2" &amp; "X" &amp; "$50",
-                      "wrap": true
-                    }
-                  ]
+                  "type": "TextBlock",
+                  "text": "Thank you for your order! Here are the details of your purchase:",
+                  "size": "Medium",
+                  "wrap": true,
+                  "spacing": "Small"
                 }
               ]
             },
             {
-              "type": "ColumnSet",
-              "columns": [
+              "type": "Container",
+              "items": [
                 {
-                  "type": "Column",
-                  "width": "auto",
-                  "items": [
+                  "type": "FactSet",
+                  "facts": [
                     {
-                      "type": "Image",
-                      "url": "https://example.com/item2.jpg",
-                      "size": "Small",
-                      "altText": "Item Image"
+                      "title": "Order Number:",
+                      "value": "CST907347435"
+                    },
+                    {
+                      "title": "Order Date:",
+                      "value": "2025-01-15"
+                    },
+                    {
+                      "title": "Estimated Delivery:",
+                      "value": "2025-01-20"
+                    },
+                    {
+                      "title": "Shipping Address:",
+                      "value": "123 Main Street, Bengaluru, Karnataka, India"
+                    }
+                  ]
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Items in Your Order",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "spacing": "Small",
+                  "color": "Dark"
+                },
+                {
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "auto",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "url": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4LLFK?ver=29db&amp;q=90&amp;m=6&amp;h=270&amp;w=270&amp;b=%23FFFFFFFF&amp;f=jpg&amp;o=f&amp;aim=true",
+                          "size": "Small",
+                          "altText": "Item 1 Image"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "Wireless Headphones",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "1 X ₹2999",
+                          "wrap": true
+                        }
+                      ]
                     }
                   ]
                 },
                 {
-                  "type": "Column",
-                  "width": "stretch",
-                  "items": [
+                  "type": "ColumnSet",
+                  "columns": [
                     {
-                      "type": "TextBlock",
-                      "text": "Ball Pen",
-                      "weight": "Bolder",
-                      "wrap": true
+                      "type": "Column",
+                      "width": "auto",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "url": "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4ZzLI?ver=7236&amp;q=90&amp;m=6&amp;h=270&amp;w=270&amp;b=%23FFFFFFFF&amp;f=jpg&amp;o=f&amp;aim=true",
+                          "size": "Small",
+                          "altText": "Item 2 Image"
+                        }
+                      ]
                     },
                     {
-                      "type": "TextBlock",
-                      "text": "1" &amp; "X" &amp; "$100",
-                      "wrap": true
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "Bluetooth Speaker",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "1 X ₹1999",
+                          "wrap": true
+                        }
+                      ]
                     }
                   ]
                 }
-              ]
+              ],
+              "style": "default",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "Total Amount",
+                  "weight": "Bolder",
+                  "size": "Medium",
+                  "spacing": "Small",
+                  "color": "Accent"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "₹4998",
+                  "size": "Large",
+                  "weight": "Bolder",
+                  "color": "Good",
+                  "spacing": "Small"
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Track Order",
+                  "url": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/",
+                  "style": "positive"
+                },
+                {
+                  "type": "Action.OpenUrl",
+                  "title": "Contact Support",
+                  "url": "https://learn.microsoft.com/microsoft-copilot-studio/guidance/"
+                }
+              ],
+              "spacing": "Medium"
             }
-          ]
-        }
-      ],
-      "style": "default",
-      "spacing": "Medium"
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "TextBlock",
-          "text": "Total Amount",
-          "weight": "Bolder",
-          "size": "Medium",
-          "spacing": "Small",
-          "color": "Accent"
-        },
-        {
-          "type": "TextBlock",
-          "text": "$200",
-          "size": "Large",
-          "weight": "Bolder",
-          "color": "Good",
-          "spacing": "Small"
-        }
-      ],
-      "style": "default",
-      "spacing": "Medium"
-    },
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.OpenUrl",
-          "title": "Track Order",
-          "url": "https://example.com/track-order",
-          "style": "positive"
-        },
-        {
-          "type": "Action.OpenUrl",
-          "title": "Contact Support",
-          "url": "https://example.com/contact-support"
-        }
-      ],
-      "spacing": "Medium"
-    }
-  ],
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "OutputType": "AdaptiveCard"
-}</value>
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }</value>
   </data>
   <data name="Product Return Content" xml:space="preserve">
     <value>{
@@ -3303,15 +3294,15 @@
               "facts": [
                 {
                   "title": "Order Number:",
-                  "value": "21334554"
+                  "value": "PK8237987"
                 },
                 {
                   "title": "Order Date:",
-                  "value": "2025-01-09"
+                  "value": "2024-08-09"
                 },
                 {
                   "title": "Total Amount:",
-                  "value": "$1999"
+                  "value": "$1100"
                 }
               ]
             },
@@ -3330,29 +3321,17 @@
                   "columns": [
                     {
                       "type": "Column",
-                      "width": "auto",
-                      "items": [
-                        {
-                          "type": "Image",
-                          "url": "",
-                          "size": "Small",
-                          "altText": "Product 1 Image"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Column",
                       "width": "stretch",
                       "items": [
                         {
                           "type": "TextBlock",
-                          "text": "JBL Ear Buds",
+                          "text": "Surface Wireless Headphones 2",
                           "weight": "Bolder",
                           "wrap": true
                         },
                         {
                           "type": "TextBlock",
-                          "text": "$1000",
+                          "text": "$100",
                           "size": "Medium",
                           "color": "Good",
                           "wrap": true
@@ -3372,29 +3351,17 @@
                   "columns": [
                     {
                       "type": "Column",
-                      "width": "auto",
-                      "items": [
-                        {
-                          "type": "Image",
-                          "url": "",
-                          "size": "Small",
-                          "altText": "Product 2 Image"
-                        }
-                      ]
-                    },
-                    {
-                      "type": "Column",
                       "width": "stretch",
                       "items": [
                         {
                           "type": "TextBlock",
-                          "text": "Reynolds Ball Pen",
+                          "text": "Surface Pro Laptop",
                           "weight": "Bolder",
                           "wrap": true
                         },
                         {
                           "type": "TextBlock",
-                          "text": "$999",
+                          "text": "$1000",
                           "size": "Medium",
                           "color": "Good",
                           "wrap": true
@@ -3451,172 +3418,172 @@
   </data>
   <data name="Product Return Sample Data" xml:space="preserve">
     <value>{
-  "OrderNumber": "21432415",
-  "OrderDate": "2024-08-09",
-  "TotalAmount": "$200",
-  "Products": [
-    {
-      "ProductName": "JBL Ear Buds",
-      "ProductPrice": "$100"
-    },
-    {
-      "ProductName": "Apple iPhone 16 Pro",
-      "ProductPrice": "$100"
-    }
-  ],
-  "ReturnReason": "NA"
-}</value>
+		  "OrderNumber": "PK8237987",
+		  "OrderDate": "2024-08-09",
+		  "TotalAmount": "$1100",
+		  "Products": [
+			{
+			  "ProductName": "Surface Wireless Headphones 2",
+			  "ProductPrice": "$100"
+			},
+			{
+			  "ProductName": "Surface Pro Laptop",
+			  "ProductPrice": "$1000"
+			}
+		  ],
+		  "ReturnReason": "NA"
+		}
+</value>
   </data>
   <data name="Product Return Sample JSON" xml:space="preserve">
     <value>{
-  "type": "AdaptiveCard",
-  "version": "1.3",
-  "backgroundImage": {
-    "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
-  },
-  "body": [
-    {
-      "type": "TextBlock",
-      "text": "Return Products",
-      "weight": "Bolder",
-      "size": "ExtraLarge",
-      "horizontalAlignment": "Center",
-      "color": "Accent"
-    },
-    {
-      "type": "TextBlock",
-      "text": "Order Summary",
-      "weight": "Bolder",
-      "size": "Medium",
-      "spacing": "Medium"
-    },
-    {
-      "type": "FactSet",
-      "seperator": "true",
-      "facts": [
-        {
-          "title": "Order Number:",
-          "value": "123456789"
-        },
-        {
-          "title": "Order Date:",
-          "value": "2025-01-15"
-        },
-        {
-          "title": "Total Amount:",
-          "value": "$150.00"
-        }
-      ]
-    },
-    {
-      "type": "TextBlock",
-      "text": "Select Products to Return",
-      "weight": "Bolder",
-      "size": "Medium",
-      "spacing": "Medium"
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "ColumnSet",
-          "columns": [
+          "type": "AdaptiveCard",
+          "version": "1.3",
+          "backgroundImage": {
+            "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          "body": [
             {
-              "type": "Column",
-              "width": "stretch",
+              "type": "TextBlock",
+              "text": "Return Products",
+              "weight": "Bolder",
+              "size": "ExtraLarge",
+              "horizontalAlignment": "Center",
+              "color": "Accent"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Order Summary",
+              "weight": "Bolder",
+              "size": "Medium",
+              "spacing": "Medium"
+            },
+            {
+              "type": "FactSet",
+              "facts": [
+                {
+                  "title": "Order Number:",
+                  "value": "PK8237987"
+                },
+                {
+                  "title": "Order Date:",
+                  "value": "2024-08-09"
+                },
+                {
+                  "title": "Total Amount:",
+                  "value": "$1100"
+                }
+              ]
+            },
+            {
+              "type": "TextBlock",
+              "text": "Select Products to Return",
+              "weight": "Bolder",
+              "size": "Medium",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Container",
               "items": [
                 {
-                  "type": "TextBlock",
-                  "text": "Product 1",
-                  "weight": "Bolder",
-                  "wrap": true
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "Surface Wireless Headphones 2",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "$100",
+                          "size": "Medium",
+                          "color": "Good",
+                          "wrap": true
+                        },
+                        {
+                          "type": "Input.Toggle",
+                          "id": "returnProduct1",
+                          "title": "Select for Return",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
-                  "type": "TextBlock",
-                  "text": "$50.00",
-                  "size": "Medium",
-                  "color": "Good",
-                  "wrap": true
-                },
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "TextBlock",
+                          "text": "Surface Pro Laptop",
+                          "weight": "Bolder",
+                          "wrap": true
+                        },
+                        {
+                          "type": "TextBlock",
+                          "text": "$1000",
+                          "size": "Medium",
+                          "color": "Good",
+                          "wrap": true
+                        },
+                        {
+                          "type": "Input.Toggle",
+                          "id": "returnProduct2",
+                          "title": "Select for Return",
+                          "value": "false"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "style": "emphasis"
+            },
+            {
+              "type": "TextBlock",
+              "text": "Reason for Return",
+              "weight": "Bolder",
+              "size": "Medium",
+              "spacing": "Medium"
+            },
+            {
+              "type": "Input.Text",
+              "id": "returnReason",
+              "placeholder": "Enter your reason for return",
+              "isMultiline": true
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
                 {
-                  "type": "Input.Toggle",
-                  "id": "returnProduct1",
-                  "title": "Select for Return",
-                  "value": "false"
+                  "type": "Action.Submit",
+                  "title": "Submit Return Request",
+                  "style": "positive",
+                  "data": {
+                    "action": "submitReturn",
+                    "orderId": "21334554"
+                  }
                 }
               ]
             }
-          ]
-        },
-        {
-          "type": "ColumnSet",
-          "columns": [
-            {
-              "type": "Column",
-              "width": "stretch",
-              "items": [
-                {
-                  "type": "TextBlock",
-                  "text": "Product 2",
-                  "weight": "Bolder",
-                  "wrap": true
-                },
-                {
-                  "type": "TextBlock",
-                  "text": "$100.00",
-                  "size": "Medium",
-                  "color": "Good",
-                  "wrap": true
-                },
-                {
-                  "type": "Input.Toggle",
-                  "id": "returnProduct2",
-                  "title": "Select for Return",
-                  "value": "false"
-                }
-              ]
-            }
-          ]
-        }
-      ),
-      "style": "emphasis"
-    },
-    {
-      "type": "TextBlock",
-      "text": "Reason for Return",
-      "weight": "Bolder",
-      "size": "Medium",
-      "spacing": "Medium"
-    },
-    {
-      "type": "Input.Text",
-      "id": "returnReason",
-      "placeholder": "Enter your reason for return",
-      "isMultiline": true
-    },
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.Submit",
-          "title": "Submit Return Request",
-          "style": "positive",
-          "data": {
-            "action": "submitReturn",
-            "orderId": Topic.OrderNumber
-          }
-        }
-      ]
-    }
-  ],
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
-}</value>
+          ],
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }</value>
   </data>
   <data name="Profile Summary Content" xml:space="preserve">
     <value>{
   type: "AdaptiveCard",
   '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
-  version: "1.5",
+  version: "1.3",
   body: [
     {
       type: "Container",
@@ -3787,7 +3754,7 @@
         "content": {
           "type": "AdaptiveCard",
           "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-          "version": "1.5",
+          "version": "1.3",
           "body": [
             {
               "type": "Container",
@@ -3812,7 +3779,7 @@
                           "type": "TextBlock",
                           "size": "Large",
                           "weight": "Bolder",
-                          "text": "Steve Rogers",
+                          "text": "Jane Doe",
                           "wrap": true,
                           "spacing": "Small"
                         },
@@ -3820,7 +3787,7 @@
                           "type": "TextBlock",
                           "size": "Small",
                           "color": "Accent",
-                          "text": "Developer",
+                          "text": "Software Engineer",
                           "wrap": true,
                           "spacing": "Small",
                           "weight": "Bolder"
@@ -3828,7 +3795,7 @@
                         {
                           "type": "TextBlock",
                           "size": "Small",
-                          "text": "Microsoft",
+                          "text": "Software Developer",
                           "wrap": true,
                           "spacing": "Small"
                         }
@@ -3851,23 +3818,23 @@
                   "facts": [
                     {
                       "title": "Email:",
-                      "value": "abc@asu.com"
+                      "value": "janedoe@example.com"
                     },
                     {
                       "title": "Phone:",
-                      "value": "123-456-7890"
+                      "value": "555-123-4567"
                     },
                     {
                       "title": "Location:",
-                      "value": "New Jersey"
+                      "value": "Redmond"
                     },
                     {
                       "title": "Manager:",
-                      "value": "Siddharth"
+                      "value": "Ashley Moss"
                     },
                     {
                       "title": "Employee ID:",
-                      "value": "PCD24235435"
+                      "value": "PC2342375865"
                     }
                   ]
                 }
@@ -3943,171 +3910,175 @@
 </value>
   </data>
   <data name="Profile Summary Sample Data" xml:space="preserve">
-    <value>{
-  "fullName": "David Roger",
-  "email": "alexhales@engcricket.in",
-  "phone": "123-456-7890",
-  "bio": "Software Developer",
-  "profileImageUrl": "",
-  "jobTitle": "Software Engineer",
-  "department": "PowerCAT",
-  "location": "New Delhi",
-  "managerName": "Jasprit Bumrah",
-  "employeeId": "PC2342375865"
-}</value>
+    <value>
+		{
+		  "fullName": "Jane Doe",
+		  "email": "janedoe@example.com",
+		  "phone": "555-123-4567",
+		  "bio": "Software Developer",
+		  "profileImageUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/profilePic.jpg",
+		  "jobTitle": "Software Engineer",
+		  "department": "Sales and Marketing",
+		  "location": "Redmond",
+		  "managerName": "Ashley Moss",
+		  "employeeId": "PC2342375865"
+		}
+	</value>
   </data>
   <data name="Profile Summary Sample JSON" xml:space="preserve">
-    <value>{
-  "type": "AdaptiveCard",
-  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "version": "1.5",
-  "body": [
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "ColumnSet",
-          "columns": [
+    <value>
+		{
+          "type": "AdaptiveCard",
+          "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+          "version": "1.3",
+          "body": [
             {
-              "type": "Column",
-              "width": "stretch",
+              "type": "Container",
               "items": [
                 {
-                  "type": "Image",
-                  "size": "Stretch",
-                  "style": "Person",
-                  "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/profilePic.jpg",
-                  "altText": "Profile Picture",
-                  "width": "80px",
-                  "height": "80px"
-                },
-                {
-                  "type": "TextBlock",
-                  "size": "Large",
-                  "weight": "Bolder",
-                  "text": "John Doe",
-                  "wrap": true,
-                  "spacing": "Small"
-                },
-                {
-                  "type": "TextBlock",
-                  "size": "Small",
-                  "color": "Accent",
-                  "text": "Software Engineer",
-                  "wrap": true,
-                  "spacing": "Small",
-                  "weight": "Bolder"
-                },
-                {
-                  "type": "TextBlock",
-                  "size": "Small",
-                  "text": "Passionate about coding and technology.",
-                  "wrap": true,
-                  "spacing": "Small"
+                  "type": "ColumnSet",
+                  "columns": [
+                    {
+                      "type": "Column",
+                      "width": "stretch",
+                      "items": [
+                        {
+                          "type": "Image",
+                          "size": "Stretch",
+                          "style": "Person",
+                          "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/profilePic.jpg",
+                          "altText": "Profile Picture",
+                          "width": "80px",
+                          "height": "80px"
+                        },
+                        {
+                          "type": "TextBlock",
+                          "size": "Large",
+                          "weight": "Bolder",
+                          "text": "Jane Doe",
+                          "wrap": true,
+                          "spacing": "Small"
+                        },
+                        {
+                          "type": "TextBlock",
+                          "size": "Small",
+                          "color": "Accent",
+                          "text": "Software Engineer",
+                          "wrap": true,
+                          "spacing": "Small",
+                          "weight": "Bolder"
+                        },
+                        {
+                          "type": "TextBlock",
+                          "size": "Small",
+                          "text": "Software Developer",
+                          "wrap": true,
+                          "spacing": "Small"
+                        }
+                      ],
+                      "horizontalAlignment": "Center"
+                    }
+                  ]
                 }
               ],
-              "horizontalAlignment": "Center"
-            }
-          ]
-        }
-      ],
-      "backgroundImage": {
-        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
-        "fillMode": "Repeat"
-      }
-    },
-    {
-      "type": "Container",
-      "items": [
-        {
-          "type": "FactSet",
-          "facts": [
-            {
-              "title": "Email:",
-              "value": "john.doe@example.com"
-            },
-            {
-              "title": "Phone:",
-              "value": "+1 234 567 890"
-            },
-            {
-              "title": "Location:",
-              "value": "New York, USA"
-            },
-            {
-              "title": "Manager:",
-              "value": "Jane Smith"
-            },
-            {
-              "title": "Employee ID:",
-              "value": "EMP123456"
-            }
-          ]
-        }
-      ],
-      "style": "default",
-      "spacing": "Medium",
-      "separator": true,
-      "backgroundImage": {
-        "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
-      }
-    },
-    {
-      "type": "ActionSet",
-      "actions": [
-        {
-          "type": "Action.ShowCard",
-          "card": {
-            "type": "AdaptiveCard",
-            "body": [
-              {
-                "type": "Input.Text",
-                "id": "updatedName",
-                "placeholder": "Enter new name",
-                "value": ""
-              },
-              {
-                "type": "Input.Text",
-                "id": "updatedEmail",
-                "placeholder": "Enter new email",
-                "value": ""
-              },
-              {
-                "type": "Input.Text",
-                "id": "updatedPhone",
-                "placeholder": "Enter new phone",
-                "value": ""
-              },
-              {
-                "type": "Input.Text",
-                "id": "updatedBio",
-                "placeholder": "Enter new bio",
-                "value": "",
-                "isMultiline": true
+              "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+                "fillMode": "Repeat"
               }
-            ],
-            "actions": [
-              {
-                "type": "Action.Submit",
-                "data": {
-                  "action": "updateProfile",
-                  "actionSubmitId": "Save Changes"
-                },
-                "title": "Save Changes"
+            },
+            {
+              "type": "Container",
+              "items": [
+                {
+                  "type": "FactSet",
+                  "facts": [
+                    {
+                      "title": "Email:",
+                      "value": "janedoe@example.com"
+                    },
+                    {
+                      "title": "Phone:",
+                      "value": "555-123-4567"
+                    },
+                    {
+                      "title": "Location:",
+                      "value": "Redmond"
+                    },
+                    {
+                      "title": "Manager:",
+                      "value": "Ashley Moss"
+                    },
+                    {
+                      "title": "Employee ID:",
+                      "value": "PC2342375865"
+                    }
+                  ]
+                }
+              ],
+              "style": "default",
+              "spacing": "Medium",
+              "separator": true,
+              "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
               }
-            ]
-          },
-          "title": "Update Profile"
+            },
+            {
+              "type": "ActionSet",
+              "actions": [
+                {
+                  "type": "Action.ShowCard",
+                  "card": {
+                    "type": "AdaptiveCard",
+                    "body": [
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedName",
+                        "placeholder": "Enter new name",
+                        "value": ""
+                      },
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedEmail",
+                        "placeholder": "Enter new email",
+                        "value": ""
+                      },
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedPhone",
+                        "placeholder": "Enter new phone",
+                        "value": ""
+                      },
+                      {
+                        "type": "Input.Text",
+                        "id": "updatedBio",
+                        "placeholder": "Enter new bio",
+                        "value": "",
+                        "isMultiline": true
+                      }
+                    ],
+                    "actions": [
+                      {
+                        "type": "Action.Submit",
+                        "data": {
+                          "action": "updateProfile",
+                          "actionSubmitId": "Save Changes"
+                        },
+                        "title": "Save Changes"
+                      }
+                    ]
+                  },
+                  "title": "Update Profile"
+                }
+              ],
+              "spacing": "Medium"
+            }
+          ],
+          "backgroundImage": {
+            "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+            "fillMode": "Repeat"
+          }
         }
-      ],
-      "spacing": "Medium"
-    }
-  ],
-  "backgroundImage": {
-    "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
-    "fillMode": "Repeat"
-  }
-}</value>
+	</value>
   </data>
   <data name="Scheduling Form Content" xml:space="preserve">
     <value>{
@@ -4551,7 +4522,7 @@
     <value>{
     "type": "AdaptiveCard",
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-    "version": "1.5",
+    "version": "1.3",
     "backgroundImage": {
         "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
     },
@@ -4688,7 +4659,7 @@
         "content": {
           "type": "AdaptiveCard",
           "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-          "version": "1.5",
+          "version": "1.3",
           "backgroundImage": {
             "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
           },
@@ -4792,7 +4763,7 @@
     <value>{
     "type": "AdaptiveCard",
     "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-    "version": "1.5",
+    "version": "1.3",
     "backgroundImage": {
         "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
     },
@@ -5087,19 +5058,19 @@
                   "facts": [
                     {
                       "title": "Ticket ID:",
-                      "value": "SDF32424534"
+                      "value": "KLP090787"
                     },
                     {
                       "title": "Created On:",
-                      "value": "2025-01-01"
+                      "value": "2025-01-09"
                     },
                     {
                       "title": "Category:",
-                      "value": "Business"
+                      "value": "Software"
                     },
                     {
                       "title": "Priority:",
-                      "value": "High"
+                      "value": "Low"
                     },
                     {
                       "title": "Status:",
@@ -5107,7 +5078,7 @@
                     },
                     {
                       "title": "Assigned To:",
-                      "value": "David"
+                      "value": "John Doe"
                     }
                   ]
                 }
@@ -5125,7 +5096,7 @@
                 },
                 {
                   "type": "TextBlock",
-                  "text": "Grocery",
+                  "text": "Software Installation required for client project",
                   "wrap": true,
                   "spacing": "Small",
                   "color": "Default"
@@ -5147,7 +5118,7 @@
                         {
                           "type": "Action.OpenUrl",
                           "title": "View Details",
-                          "url": "${URL}",
+                          "url": "https://learn.microsoft.com/microsoft-copilot-studio/",
                           "style": "positive"
                         }
                       ]
@@ -5164,7 +5135,7 @@
                         {
                           "type": "Action.OpenUrl",
                           "title": "Update Ticket",
-                          "url": "${URL}",
+                          "url": "https://learn.microsoft.com/microsoft-copilot-studio/",
                           "style": "positive"
                         }
                       ]
@@ -5181,7 +5152,7 @@
                         {
                           "type": "Action.OpenUrl",
                           "title": "Escalate Ticket",
-                          "url": "${URL}",
+                          "url": "https://learn.microsoft.com/microsoft-copilot-studio/",
                           "style": "destructive"
                         }
                       ]
