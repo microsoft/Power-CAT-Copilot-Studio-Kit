@@ -18,7 +18,7 @@ Webchat Playground comes with predefined themes which demonstrate different cust
 
 ![ui2](https://github.com/user-attachments/assets/19c75edf-20f7-48b1-b43a-b4f26e91a3d4)
 
-1. Left pane turns into style editor when theme is being edited, or new theme is being created. It has sections for **General**, **Send Box**, **Suggestion Box**, **Avatar** and **Bubble**. Editor also includes accessibility checker for all applicable sections. Save and delete actions are available from the top.
+1. The left pane turns into a style editor when a theme is being edited or a new theme is being created. It has sections for **General**, **Send Box**, **Suggestion Box**, **Avatar** and **Bubble**. The editor also includes an accessibility checker for all applicable sections. Save and delete actions are available from the top.
 2. Right pane showing **Code Snippet**
    
 ## Functionality
