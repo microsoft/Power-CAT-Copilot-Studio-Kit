@@ -2,10 +2,10 @@
 
 The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers develop and test custom agents, use large language model to validate AI-generated content, optimize prompts, and track aggregated key performance indicators of their custom agents.
 
+![landingpage](https://github.com/user-attachments/assets/6b12168c-dab6-41e6-bcf9-64fb0802d931)
+
 > [!NOTE]  
 > We are working on improvements to the test logic of authenticated bots and have temporarily disabled the feature, until we finish with the improvements.
-
-![landingpage](https://github.com/user-attachments/assets/6b12168c-dab6-41e6-bcf9-64fb0802d931)
 
 # Features
 ## Testing capabilities  
