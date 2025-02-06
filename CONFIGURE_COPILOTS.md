@@ -28,6 +28,9 @@ Note: These fields are mandatory for all configuration types.
 
 ## Configure a new Agent for Test Automation
 
+> [!NOTE]  
+> We are working on improvements to the test logic of authenticated bots and have temporarily disabled the feature, until we finish with the improvements.
+
 1. Select "**Test Automation**" from Configuration Type(s).
 2. In addition to Base Configuration, fill in the following  **information**.
 
