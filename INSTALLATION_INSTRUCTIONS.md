@@ -1,5 +1,7 @@
 # Install the Power CAT Copilot Studio Kit
 
+Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.md)
+
 ## Download
 
 1. Download the latest version of the Power CAT Copilot Studio Kit **managed** solution here: <br>
