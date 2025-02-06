@@ -20,6 +20,10 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
   This integration is required to get additional telemetry details for AI-generated answers. <br>
   Refer to this [documentation](https://learn.microsoft.com/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry?tabs=webApp) on how to integrate Azure Application Insights with Microsoft Copilot Studio.
 
+## Dependencies
+
+- Copilot Studio Kit is using advanced components from the Creator Kit, please make sure to deploy it before deploying Copilot Studio Kit - [Creator Kit installation instructions](https://learn.microsoft.com/power-platform/guidance/creator-kit/setup)
+
 ## Optional requirements
 
 - **AI Builder credits**.<br>
