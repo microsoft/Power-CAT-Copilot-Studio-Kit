@@ -21,7 +21,7 @@ Related instructions in Microsoft Learn: https://learn.microsoft.com/en-us/micro
 1. Under **Redirect URIs**, enter your **Dataverse environment URL** (https://\<hostname>\.crm.dynamics.com/)
 1. Select **Configure** to confirm your changes.
 1. Go to **Certificates & secrets**.
-1. Create new client secret. Make note of the value of this secret (KitAuthApp secret). We will need this when creating the agent registration.
+1. Create new client secret. Make note of the value of this secret (*KitAuthApp secret*). We will need this when creating the agent registration.
 1. Go to **API Permissions**.
 1. Select **Grant admin consent for <your tenant name>**, and then select **Yes**. If the button isn't available, you might need to ask a tenant administrator to do enter it for you.
 
