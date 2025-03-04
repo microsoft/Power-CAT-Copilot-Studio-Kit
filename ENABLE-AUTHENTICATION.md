@@ -17,10 +17,11 @@ Related instructions in Microsoft Learn: https://learn.microsoft.com/en-us/micro
 1. Select **Register**, you will be sent to the "**Overview**"-page of your new application.
 1. Make note of the "**Directory (tenant) ID**" and "**Application (client) ID**". We will need these when creating agent registration in Copilot Studio Kit and associating the Copilot Studio with the Copilot Studio Kit app.
 1. Expand **Manage** and select **Authentication**
-1. Under **Platform configurations**, select **Add a platform**, and then select **Single-page application**.
+1. Under **Platform configurations**, select **Add a platform**, and then select **Web**.
 1. Under **Redirect URIs**, enter your **Dataverse environment URL** (https://\<hostname>\.crm.dynamics.com/)
-1. In the **Implicit grant and hybrid flows**-section, turn on both **Access tokens** (used for implicit flows) and **ID tokens** (used for implicit and hybrid flows).
 1. Select **Configure** to confirm your changes.
+1. Go to **Certificates & secrets**.
+1. Create new client secret. Make note of the value of this secret (KitAuthApp secret). We will need this when creating the agent registration.
 1. Go to **API Permissions**.
 1. Select **Grant admin consent for <your tenant name>**, and then select **Yes**. If the button isn't available, you might need to ask a tenant administrator to do enter it for you.
 
