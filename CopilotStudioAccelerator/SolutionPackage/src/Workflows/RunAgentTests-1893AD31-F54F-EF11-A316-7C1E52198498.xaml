@@ -2,9 +2,27 @@
   <x:Members>
     <x:Property Name="InputEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
     <x:Property Name="CreatedEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
-    <x:Property Name="AccessToken" Type="InArgument(x:String)">
+    <x:Property Name="AuthCode" Type="InArgument(x:String)">
       <x:Property.Attributes>
         <mxsw:ArgumentRequiredAttribute Value="False" />
+        <mxsw:ArgumentTargetAttribute Value="False" />
+        <mxsw:ArgumentDescriptionAttribute Value="" />
+        <mxsw:ArgumentDirectionAttribute Value="Input" />
+        <mxsw:ArgumentEntityAttribute Value="" />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="CodeVerifier" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <mxsw:ArgumentRequiredAttribute Value="False" />
+        <mxsw:ArgumentTargetAttribute Value="False" />
+        <mxsw:ArgumentDescriptionAttribute Value="New Argument" />
+        <mxsw:ArgumentDirectionAttribute Value="Input" />
+        <mxsw:ArgumentEntityAttribute Value="" />
+      </x:Property.Attributes>
+    </x:Property>
+    <x:Property Name="CopilotConfigurationId" Type="InArgument(x:String)">
+      <x:Property.Attributes>
+        <mxsw:ArgumentRequiredAttribute Value="True" />
         <mxsw:ArgumentTargetAttribute Value="False" />
         <mxsw:ArgumentDescriptionAttribute Value="" />
         <mxsw:ArgumentDirectionAttribute Value="Input" />
@@ -21,15 +39,6 @@
       </x:Property.Attributes>
     </x:Property>
     <x:Property Name="CopilotTestSetId" Type="InArgument(x:String)">
-      <x:Property.Attributes>
-        <mxsw:ArgumentRequiredAttribute Value="True" />
-        <mxsw:ArgumentTargetAttribute Value="False" />
-        <mxsw:ArgumentDescriptionAttribute Value="" />
-        <mxsw:ArgumentDirectionAttribute Value="Input" />
-        <mxsw:ArgumentEntityAttribute Value="" />
-      </x:Property.Attributes>
-    </x:Property>
-    <x:Property Name="CopilotConfigurationId" Type="InArgument(x:String)">
       <x:Property.Attributes>
         <mxsw:ArgumentRequiredAttribute Value="True" />
         <mxsw:ArgumentTargetAttribute Value="False" />

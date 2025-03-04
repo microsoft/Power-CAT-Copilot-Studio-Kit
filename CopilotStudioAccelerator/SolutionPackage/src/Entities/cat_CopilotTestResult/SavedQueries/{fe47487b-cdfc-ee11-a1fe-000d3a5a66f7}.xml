@@ -10,10 +10,10 @@
     <layoutxml>
       <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
         <row name="result" id="cat_copilottestresultid">
-          <cell name="cat_copilottestid" width="97" />
+          <cell name="cat_copilottestid" width="130" />
           <cell name="cat_name" width="136" />
-          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_testutterance" width="202" />
-          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_testtypecode" width="131" />
+          <cell name="cat_testutterance" width="202" />
+          <cell name="cat_testtypecode" width="169" />
           <cell name="cat_response" width="267" />
           <cell name="cat_latencyms" width="99" />
           <cell name="cat_resultcode" width="79" />
@@ -31,15 +31,13 @@
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
-          <link-entity alias="a_11c43379b03342349c835ebb85a49d36" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
-            <attribute name="cat_testutterance" />
-            <attribute name="cat_testtypecode" />
-          </link-entity>
           <attribute name="cat_name" />
           <attribute name="cat_copilottestid" />
           <order attribute="cat_copilottestid" descending="false" />
           <attribute name="cat_latencyms" />
           <attribute name="cat_resultreason" />
+          <attribute name="cat_testutterance" />
+          <attribute name="cat_testtypecode" />
         </entity>
       </fetch>
     </fetchxml>

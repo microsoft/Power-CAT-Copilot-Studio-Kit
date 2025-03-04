@@ -64,38 +64,6 @@
         }
       },
       "actions": {
-        "Get_Copilot_Tests": {
-          "runAfter": {
-            "Get_Copilot_Configuration": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "cdcb622c-426b-4061-baaa-588823dbeca1"
-          },
-          "type": "OpenApiConnection",
-          "inputs": {
-            "host": {
-              "connectionName": "shared_commondataserviceforapps_1",
-              "operationId": "ListRecords",
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-            },
-            "parameters": {
-              "entityName": "cat_copilottests",
-              "$select": "cat_testutterance, cat_copilottestid, cat_expectedresponse, cat_testtypecode, cat_generativeansweroutcomecode, cat_expectedpositionoftheresponseactivity, cat_expectedtopicname, cat_isstartconversationeventsent, cat_externalvariablesjson, cat_expectedattachmentsjson",
-              "$filter": "_cat_copilottestsetid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestSetId']}' and statecode eq 0",
-              "$orderby": "cat_name"
-            },
-            "authentication": "@parameters('$authentication')"
-          },
-          "runtimeConfiguration": {
-            "secureData": {
-              "properties": [
-                "inputs"
-              ]
-            }
-          }
-        },
         "Update_Copilot_Test_Run:_Complete": {
           "runAfter": {
             "Perform_a_bound_action:_Update_Rollup_Columns": [
@@ -135,7 +103,7 @@
         },
         "Initialize_Bot_Framework_URI": {
           "runAfter": {
-            "Get_Copilot_Tests": [
+            "Get_Copilot_Configuration": [
               "Succeeded"
             ]
           },
@@ -308,64 +276,9 @@
           },
           "type": "If"
         },
-        "Condition:_If_Direct_Line_Environment_Variable_Secret": {
-          "actions": {
-            "Get_Direct_Line_Secret": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "d21e8d39-3956-4a27-b023-35072c64d912"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "PerformUnboundAction",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "actionName": "RetrieveEnvironmentVariableSecretValue",
-                  "item/EnvironmentVariableName": "@outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecurityenvironmentvariable']"
-                },
-                "authentication": "@parameters('$authentication')"
-              },
-              "runtimeConfiguration": {
-                "secureData": {
-                  "properties": [
-                    "outputs"
-                  ]
-                }
-              }
-            }
-          },
-          "runAfter": {
-            "Calculate_Total_Pages": [
-              "Succeeded"
-            ]
-          },
-          "expression": {
-            "and": [
-              {
-                "equals": [
-                  "@outputs('Get_Copilot_Configuration')?['body/cat_isdirectlinechannelsecurityenabled']",
-                  true
-                ]
-              },
-              {
-                "equals": [
-                  "@outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecretlocationcode']",
-                  2
-                ]
-              }
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "b8fa7220-e752-4f2e-bb11-59f375754a8c"
-          },
-          "type": "If"
-        },
         "Update_Copilot_Test_Run:_Error": {
           "runAfter": {
-            "Do_until_Last_Page": [
+            "Scope:_Run_Copilot_Tests": [
               "Failed",
               "Skipped",
               "TimedOut"
@@ -435,7 +348,7 @@
         },
         "Perform_a_bound_action:_Update_Rollup_Columns": {
           "runAfter": {
-            "Do_until_Last_Page": [
+            "Scope:_Run_Copilot_Tests": [
               "Succeeded"
             ]
           },
@@ -467,95 +380,8 @@
             }
           }
         },
-        "Initialize_Concurrent_Threads": {
-          "runAfter": {
-            "Initialize_Bot_Framework_URI": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "35fae642-2151-4e5f-92c6-b17ae2d651c3"
-          },
-          "type": "InitializeVariable",
-          "inputs": {
-            "variables": [
-              {
-                "name": "Concurrent Threads",
-                "type": "integer",
-                "value": "@if(equals(coalesce(outputs('Get_Copilot_Configuration')?['body/cat_concurrentthreads'], 0), 0), 50, outputs('Get_Copilot_Configuration')?['body/cat_concurrentthreads'])"
-              }
-            ]
-          }
-        },
-        "Initialize_Page_Number": {
-          "runAfter": {
-            "Initialize_Concurrent_Threads": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "35fae642-2151-4e5f-92c6-b17ae2d651c3"
-          },
-          "type": "InitializeVariable",
-          "inputs": {
-            "variables": [
-              {
-                "name": "Page Number",
-                "type": "integer",
-                "value": 1
-              }
-            ]
-          }
-        },
-        "Calculate_Total_Pages": {
-          "runAfter": {
-            "Initialize_Page_Number": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "b1acd80c-7cad-4863-a8e8-da20a66d1d97"
-          },
-          "type": "Compose",
-          "inputs": "@div(add(length(outputs('Get_Copilot_Tests')?['body/value']), sub(variables('Concurrent Threads'), 1)), variables('Concurrent Threads'))"
-        },
-        "Do_until_Last_Page": {
+        "Scope:_Run_Copilot_Tests": {
           "actions": {
-            "Get_Agent_Tests": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "bfa5891c-eeb0-45da-a194-ab1c91a4a792"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps",
-                  "operationId": "ListRecords",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "entityName": "cat_copilottests",
-                  "fetchXml": "<fetch count=\"@{variables('Concurrent Threads')}\" page=\"@{variables('Page Number')}\">\n    <entity name=\"cat_copilottest\">\n        <attribute name=\"cat_name\"/>\n        <attribute name=\"cat_testutterance\"/>\n        <attribute name=\"cat_copilottestid\"/>\n        <attribute name=\"cat_expectedresponse\"/>\n        <attribute name=\"cat_testtypecode\"/>\n        <attribute name=\"cat_generativeansweroutcomecode\"/>\n        <attribute name=\"cat_expectedpositionoftheresponseactivity\"/>\n        <attribute name=\"cat_expectedtopicname\"/>\n        <attribute name=\"cat_isstartconversationeventsent\"/>\n        <attribute name=\"cat_externalvariablesjson\"/>\n        <attribute name=\"cat_expectedattachmentsjson\"/>\n        <filter type=\"and\">\n            <condition attribute=\"cat_copilottestsetid\" operator=\"eq\" value=\"@{triggerOutputs()?['body/InputParameters/CopilotTestSetId']}\" />\n            <condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />\n        </filter>\n    </entity>\n</fetch>\n"
-                },
-                "authentication": "@parameters('$authentication')"
-              }
-            },
-            "Increment_Page": {
-              "runAfter": {
-                "Apply_to_each_Copilot_Test": [
-                  "Succeeded",
-                  "Failed"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "6a14fb5e-d03e-433f-a67b-2c0a0cb29225"
-              },
-              "type": "IncrementVariable",
-              "inputs": {
-                "name": "Page Number",
-                "value": 1
-              }
-            },
             "Apply_to_each_Copilot_Test": {
               "foreach": "@outputs('Get_Agent_Tests')?['body/value']",
               "actions": {
@@ -589,7 +415,7 @@
                 },
                 "Create_Copilot_Test_Result": {
                   "runAfter": {
-                    "Compose": [
+                    "Message_Position": [
                       "Succeeded"
                     ]
                   },
@@ -609,13 +435,21 @@
                       "item/cat_CopilotTestRunId@odata.bind": "cat_copilottestruns(@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']})",
                       "item/cat_name": "@body('Parse_Token_Response')?['conversationId']",
                       "item/cat_resultcode": "@if(\n    empty(body('Filter_array:_Messages_from_Bot')), \n    4,\n    if(\n        equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 3),\n        if(\n            equals(\n                json(string(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments'])),\n                json(string(items('Apply_to_each_Copilot_Test')?['cat_expectedattachmentsjson']))\n            ),\n            1,\n            2\n        ),\n        if(\n            not(empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'])),\n            if(\n                or(\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'ContentError'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'DataLossPreventionViolation'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionException'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionBadRequest'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionTimedOut'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InvalidContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InfiniteLoopInBotContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'LatestPublishedVersionNotFound'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToDisabledDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToNonExistentDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'SystemError')\n                ),\n                4,\n                if(\n                    equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 1),\n                    if(\n                        equals(\n                            items('Apply_to_each_Copilot_Test')?['cat_expectedresponse'],\n                            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']\n                        ),\n                        1,\n                        2\n                    ),\n                    if(\n                        equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 2),\n                        if(\n                            equals(body('Get_Copilot_Configuration')?['cat_isenrichedwithconversationtranscripts'], true),\n                            5,\n                            3\n                        ),\n                        if(\n                            equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 4),\n                            if(\n                                or(\n                                    equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 1),\n                                    equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 2)\n                                ),\n                                if(\n                                    equals(body('Get_Copilot_Configuration')?['cat_isgeneratedanswersanalysisenabled'], true),\n                                    5,\n                                    3\n                                ),\n                                if(\n                                    or(\n                                        equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 3),\n                                        equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 4)\n                                    ),\n                                    if(\n                                        equals(body('Get_Copilot_Configuration')?['cat_isazureapplicationinsightsenabled'], true),\n                                        5,\n                                        3\n                                    ),\n                                    3\n                                )\n                            ),\n                            5\n                        )\n                    )\n                )\n            ),\n            3\n        )\n    )\n)\n",
+                      "item/cat_testtypecode": "@items('Apply_to_each_Copilot_Test')?['cat_testtypecode']",
+                      "item/cat_testutterance": "@items('Apply_to_each_Copilot_Test')?['cat_testutterance']",
                       "item/cat_attachmentsjson": "@{if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    null,\r\n    if(\r\n        empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments']),\r\n        null,\r\n        string(\r\n            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments']\r\n        )\r\n    )\r\n)\r\n}",
+                      "item/cat_expectedattachmentsjson": "@items('Apply_to_each_Copilot_Test')?['cat_expectedattachmentsjson']",
+                      "item/cat_generativeansweroutcomecode": "@items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode']",
+                      "item/cat_expectedresponse": "@items('Apply_to_each_Copilot_Test')?['cat_expectedresponse']",
+                      "item/cat_expectedtopicname": "@items('Apply_to_each_Copilot_Test')?['cat_expectedtopicname']",
+                      "item/cat_externalvariablesjson": "@items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson']",
                       "item/cat_latencyms": "@if(\r\n    or(\r\n        empty(body('Filter_array:_Messages_from_Bot')),\r\n        empty(body('Filter_array:_Messages_from_User'))\r\n    ),\r\n    null,\r\n    div(\r\n        sub(\r\n            ticks(\r\n                body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n            ),\r\n            ticks(\r\n                body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n            )\r\n        ),\r\n        10000\r\n    )\r\n)",
                       "item/cat_messagesenttimestamp": "@if(\r\n    empty(body('Filter_array:_Messages_from_User')),\r\n    null,\r\n    body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n)",
                       "item/ownerid@odata.bind": "@{outputs('Update_Copilot_Test_Run:_Running')?['body/_ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname']}s(@{outputs('Update_Copilot_Test_Run:_Running')?['body/_ownerid_value']})",
                       "item/cat_response": "@if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    'No response',\r\n    if(\r\n        empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']),\r\n        if(\r\n            not(empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments'])),\r\n            'No response, but attachments (Adaptive Cards, etc.)',\r\n            'No response'\r\n        ),\r\n        body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']\r\n    )\r\n)\r\n",
                       "item/cat_responsereceivedtimestamp": "@if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    null,\r\n    body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n)\r\n",
                       "item/cat_resultreason": "@if(\n    empty(body('Filter_array:_Messages_from_Bot')),\n    'No response from bot',\n    if(\n        equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 3),\n        if(\n            equals(\n                json(string(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['attachments'])),\n                json(string(items('Apply_to_each_Copilot_Test')?['cat_expectedattachmentsjson']))\n            ),\n            'Exact match between the expected attachment(s) JSON and the received attachment(s) JSON',\n            'Not an exact match between the expected attachment(s) JSON and the received attachment(s) JSON'\n         ),\n        if(\n            not(empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'])),\n            if(\n                or(\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'ContentError'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'DataLossPreventionViolation'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionException'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionBadRequest'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'FlowActionTimedOut'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InvalidContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'InfiniteLoopInBotContent'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'LatestPublishedVersionNotFound'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToDisabledDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'RedirectToNonExistentDialog'),\n                    contains(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text'], 'SystemError')\n                ),\n                'The bot returned an error',\n                if(\n                    equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 1),\n                    if(\n                        equals(\n                            items('Apply_to_each_Copilot_Test')?['cat_expectedresponse'],\n                            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['text']\n                        ),\n                        'Exact match between the expected message and the received message',\n                        'Not an exact match between the expected response and received message'\n                     ),\n                    if(\n                        equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 2),\n                        if(\n                            equals(body('Get_Copilot_Configuration')?['cat_isenrichedwithconversationtranscripts'], true),\n                            'Pending analysis of Conversation Transcripts',\n                            'Cannot be evaluated without Conversation Transcripts enrichment'\n                        ),\n                        if(\n                            equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 4),\n                            if(\n                                or(\n                                    equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 1),\n                                    equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 2)\n                                ),\n                                if(\n                                    equals(body('Get_Copilot_Configuration')?['cat_isgeneratedanswersanalysisenabled'], true),\n                                    'Pending analysis with AI Builder',\n                                    'Cannot be evaluated without AI Builder analysis'\n                                ),\n                                if(\n                                    or(\n                                        equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 3),\n                                        equals(items('Apply_to_each_Copilot_Test')?['cat_generativeansweroutcomecode'], 4)\n                                    ),\n                                    if(\n                                        equals(body('Get_Copilot_Configuration')?['cat_isazureapplicationinsightsenabled'], true),\n                                        'Pending analysis with Azure Application Insights',\n                                        'Cannot be evaluated without Azure Application Insights enrichment'\n                                    ),\n                                    'Answer could not be evaluated'\n                                )\n                            ),\n                            'Pending analysis'\n                        )\n                    )\n                )\n            ),\n            'Answer could not be evaluated'\n        )\n    )\n)\n",
+                      "item/cat_isstartconversationeventsent": "@items('Apply_to_each_Copilot_Test')?['cat_isstartconversationeventsent']",
                       "item/cat_suggestedactionsjson": "@if(\r\n    empty(body('Filter_array:_Messages_from_Bot')),\r\n    null,\r\n    if(\r\n        empty(body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['suggestedActions']),\r\n        null,\r\n        string(\r\n            body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['suggestedActions']\r\n        )\r\n    )\r\n)\r\n"
                     },
                     "authentication": "@parameters('$authentication')"
@@ -703,8 +537,8 @@
                         },
                         "parameters": {
                           "actionName": "cat_SendMessageOrEvent",
-                          "item/cat_Token": "@body('Parse_Token_Response')?['token']",
                           "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
+                          "item/cat_Token": "@body('Parse_Token_Response')?['token']",
                           "item/cat_Body": "{\n  \"type\": \"event\",\n  \"from\": {\n    \"id\": \"CopilotStudioKit\"\n  },\n  \"name\": \"startConversation\"\n}",
                           "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
                         },
@@ -797,9 +631,483 @@
                     },
                     "parameters": {
                       "actionName": "cat_SendMessageOrEvent",
-                      "item/cat_Token": "@body('Parse_Token_Response')?['token']",
                       "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
-                      "item/cat_Body": "{\n  \"type\": \"message\",\n  \"from\": {\n    \"id\": \"CopilotStudioKit\"\n  },\n  \"text\": \"@{replace(items('Apply_to_each_Copilot_Test')?['cat_testutterance'], '\"', '\\\"')}\"\n}",
+                      "item/cat_Token": "@body('Parse_Token_Response')?['token']",
+                      "item/cat_Body": "{\n  \"type\": \"message\",\n  \"from\": {\n    \"id\": \"@{outputs('Update_Copilot_Test_Run:_Running')?['body/cat_copilottestrunid']}\"\n  },\n  \"text\": \"@{replace(items('Apply_to_each_Copilot_Test')?['cat_testutterance'], '\"', '\\\"')}\"\n}",
+                      "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Do_until_bot_responds_or_till_timeout": {
+                  "actions": {
+                    "Delay_before_fetching_responses": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "4c00dfa0-1ae9-4896-a472-0546a41ffdc8"
+                      },
+                      "type": "Wait",
+                      "inputs": {
+                        "interval": {
+                          "count": "@if(equals(items('Apply_to_each_Copilot_Test')?['cat_secondsbeforegettinganswer'], null),\r\n\tif( equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 4),\r\n\t\t10,\r\n\t\t5\r\n\t),\r\n\titems('Apply_to_each_Copilot_Test')?['cat_secondsbeforegettinganswer']\r\n)",
+                          "unit": "Second"
+                        }
+                      }
+                    },
+                    "Get_Activities": {
+                      "runAfter": {
+                        "Delay_before_fetching_responses": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "72c0569d-987b-4416-a1da-36ace14c56f5"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "PerformUnboundAction",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "actionName": "cat_GetResponse",
+                          "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
+                          "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')",
+                          "item/cat_Token": "@body('Parse_Token_Response')?['token']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Parse_Activities_Response": {
+                      "runAfter": {
+                        "Get_Activities": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "488c476d-25f0-40c4-af46-e09b56f26102"
+                      },
+                      "type": "ParseJson",
+                      "inputs": {
+                        "content": "@outputs('Get_Activities')?['body/cat_Response']",
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "activities": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "from": {
+                                    "type": "object",
+                                    "properties": {
+                                      "role": {
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "text": {
+                                    "type": "string"
+                                  },
+                                  "timestamp": {
+                                    "type": "string"
+                                  },
+                                  "attachments": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "contentType": {
+                                          "type": "string"
+                                        },
+                                        "content": {
+                                          "oneOf": [
+                                            {
+                                              "type": "object"
+                                            },
+                                            {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string"
+                                                  },
+                                                  "id": {
+                                                    "type": "string"
+                                                  },
+                                                  "timestamp": {
+                                                    "type": "string"
+                                                  },
+                                                  "serviceUrl": {
+                                                    "type": "string"
+                                                  },
+                                                  "channelId": {
+                                                    "type": "string"
+                                                  },
+                                                  "from": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "conversation": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "recipient": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      },
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "role": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "membersAdded": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "membersRemoved": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "reactionsAdded": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "reactionsRemoved": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "text": {
+                                                    "type": "string"
+                                                  },
+                                                  "attachments": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "entities": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "replyToId": {
+                                                    "type": "string"
+                                                  },
+                                                  "value": {
+                                                    "type": "object"
+                                                  },
+                                                  "name": {
+                                                    "type": "string"
+                                                  },
+                                                  "listenFor": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "string"
+                                                    }
+                                                  },
+                                                  "textHighlights": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "suggestedActions": {
+                                    "type": "object",
+                                    "properties": {
+                                      "to": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "actions": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string"
+                                            },
+                                            "title": {
+                                              "type": "string"
+                                            },
+                                            "text": {
+                                              "type": "string"
+                                            },
+                                            "value": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Filter_array:_Activities_of_type_Message": {
+                      "runAfter": {
+                        "Parse_Activities_Response": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "83d3803e-42d9-4d1b-8963-78732c59190a"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Parse_Activities_Response')?['activities']",
+                        "where": "@equals(item()?['type'], 'message')"
+                      }
+                    },
+                    "Filter_array:_Messages_from_Bot": {
+                      "runAfter": {
+                        "Filter_array:_Activities_of_type_Message": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "2e772575-37e2-42f7-ba6d-e3e5c92a5136"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Activities_of_type_Message')",
+                        "where": "@and(\n    equals(item()?['from']?['role'], 'bot'),\n    empty(first(item()?['attachments'])?['content']?['tokenExchangeResource']?['id']),\n    or(\n        equals(first(item()?['attachments'])?['contentType'], 'application/vnd.microsoft.card.adaptive'),\n        and(\n            not(empty(item()?['text'])),\n            not(\n                or(\n                    contains(toLower(item()?['text']), 'need you to sign in'),\n                    contains(toLower(item()?['text']), 'Please sign in'),\n                    contains(toLower(item()?['text']), 'sign in to continue'),\n                    contains(toLower(item()?['text']), 'log in to access'),\n                    contains(toLower(item()?['text']), 'sign-in required'),\n                    contains(toLower(item()?['text']), 'click here to log in')\n                )\n            )\n        )\n    )\n)"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Send_Test_Utterance": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": "@if(equals(items('Apply_to_each_Copilot_Test')?['cat_isstartconversationeventsent'], true), greater(length(body('Filter_array:_Messages_from_Bot')), 1), greater(length(body('Filter_array:_Messages_from_Bot')), 0))",
+                  "limit": {
+                    "count": 25,
+                    "timeout": "PT3M"
+                  },
+                  "metadata": {
+                    "operationMetadataId": "5a6cbf30-8aba-4d78-8839-f23760e40e57"
+                  },
+                  "type": "Until"
+                },
+                "Condition:_If_External_Variables": {
+                  "actions": {
+                    "Send_pvaSetContext_Event": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "74f0f5db-0738-4006-a8b7-61d7f1b0562e"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "PerformUnboundAction",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "actionName": "cat_SendMessageOrEvent",
+                          "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
+                          "item/cat_Token": "@body('Parse_Token_Response')?['token']",
+                          "item/cat_Body": "{\n  \"type\": \"event\",\n  \"from\": {\n    \"id\": \"CopilotStudioKit\"\n  },\n  \"name\": \"pvaSetContext\",\n  \"value\": @{json(items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson'])}\n}",
+                          "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Initiate_Conversation": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "not": {
+                      "equals": [
+                        "@items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson']",
+                        "@null"
+                      ]
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "550099ac-1e76-48c1-826c-bdfdcd6a2582"
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {
+                "Scope:_User_Authentication": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "dc0383b1-4bed-4bc5-bed6-6910c9be8942"
+              },
+              "type": "Foreach",
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 25
+                }
+              }
+            },
+            "Scope:_User_Authentication": {
+              "actions": {
+                "Condition:_Direct_Line_Channel_Security_Is_Enabled": {
+                  "actions": {
+                    "Generate_Direct_Line_Token_From_Secret_for_authentication": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "a47056e2-8e8f-4f57-b3e1-a81f702d44ea"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "PerformUnboundAction",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "actionName": "cat_GenerateTokenFromSecret",
+                          "item/cat_Secret": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecretlocationcode'], 1), outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecuritysecret'], outputs('Get_Direct_Line_Secret')?['body/EnvironmentVariableSecretValue'])",
+                          "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      },
+                      "runtimeConfiguration": {
+                        "secureData": {
+                          "properties": [
+                            "inputs",
+                            "outputs"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "else": {
+                    "actions": {
+                      "Generate_Direct_Line_Token_From_Endpoint_for_authentication": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "5ad52659-aef9-4c1f-809e-3f013784f7a2"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps_1",
+                            "operationId": "PerformUnboundAction",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "actionName": "cat_GenerateTokenFromEndpoint",
+                            "item/cat_Endpoint": "@outputs('Get_Copilot_Configuration')?['body/cat_tokenendpoint']"
+                          },
+                          "authentication": "@parameters('$authentication')"
+                        }
+                      }
+                    }
+                  },
+                  "expression": {
+                    "equals": [
+                      "@outputs('Get_Copilot_Configuration')?['body/cat_isdirectlinechannelsecurityenabled']",
+                      true
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7bb9bd83-6492-4886-b33a-cf61981f9e52"
+                  },
+                  "type": "If"
+                },
+                "Parse_Token_Response_for_authentication": {
+                  "runAfter": {
+                    "Condition:_Direct_Line_Channel_Security_Is_Enabled": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "62eab454-2998-4e1f-8761-f53fec066472"
+                  },
+                  "type": "ParseJson",
+                  "inputs": {
+                    "content": "@if(empty(outputs('Generate_Direct_Line_Token_From_Endpoint_for_authentication')?['body/cat_Response']), outputs('Generate_Direct_Line_Token_From_Secret_for_authentication')?['body/cat_Response'], outputs('Generate_Direct_Line_Token_From_Endpoint_for_authentication')?['body/cat_Response'])",
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "token": {
+                          "type": "string"
+                        },
+                        "expires_in": {
+                          "type": "integer"
+                        },
+                        "conversationId": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "Initiate_Conversation_for_authentication": {
+                  "runAfter": {
+                    "Parse_Token_Response_for_authentication": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7af2e74d-db42-4a35-940f-24b9d8e80da4"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps_1",
+                      "operationId": "PerformUnboundAction",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "actionName": "cat_InitiateConversation",
+                      "item/cat_Token": "@body('Parse_Token_Response_for_authentication')?['token']",
                       "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
                     },
                     "authentication": "@parameters('$authentication')"
@@ -1047,14 +1355,14 @@
                         "operationMetadataId": "2b3c068f-a1b2-4807-b1c9-c6a781cad4cd"
                       },
                       "type": "Compose",
-                      "inputs": "@if(\r\n    empty(\r\n        first(\r\n            body('Filter_Attachments')\r\n        )?['attachments']?[0]?['content']?['tokenExchangeResource']?['id']\r\n    ),\r\n    'Not Found',\r\n    first(\r\n        body('Filter_Attachments')\r\n    )?['attachments']?[0]?['content']?['tokenExchangeResource']?['id']\r\n)"
+                      "inputs": "@if(empty(first(body('Filter_Attachments'))?['attachments']?[0]?['content']?['tokenExchangeResource']?['id']), 'Not Found', first(body('Filter_Attachments'))?['attachments']?[0]?['content']?['tokenExchangeResource']?['id'])"
                     },
                     "Already_Authenticated": {
                       "actions": {
                         "User_Authentication": {
                           "runAfter": {},
                           "metadata": {
-                            "operationMetadataId": "c1bbbdd6-5d2e-45ca-8a7b-1560a7f42870"
+                            "operationMetadataId": "c63f7a5d-b41b-41e0-9e5f-1bb0dc3cb28c"
                           },
                           "type": "OpenApiConnection",
                           "inputs": {
@@ -1064,11 +1372,17 @@
                               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                             },
                             "parameters": {
-                              "actionName": "cat_SendMessageOrEvent",
-                              "item/cat_Token": "@body('Parse_Token_Response')?['token']",
-                              "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
-                              "item/cat_Body": "{\n  \"type\": \"invoke\",\n  \"name\": \"signin/tokenExchange\",\n  \"value\": {\n    \"id\": \"@{outputs('Get_Id')}\",\n    \"connectionName\": \"@{outputs('Get_Connection_Name')}\",\n    \"token\": \"@{triggerOutputs()?['body/InputParameters/AccessToken']}\"\n  },\n  \"from\": {\n    \"id\": \"CopilotStudioAccelerator\",\n    \"role\": \"user\",\n    \"name\": \"CopilotStudioAccelerator\"\n  }\n}",
-                              "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
+                              "actionName": "cat_AuthenticateEndUser",
+                              "item/cat_Token": "@body('Parse_Token_Response_for_authentication')?['token']",
+                              "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')",
+                              "item/cat_ConverationId": "@body('Parse_Token_Response_for_authentication')?['conversationId']",
+                              "item/cat_AuthCode": "@triggerOutputs()?['body/InputParameters/AuthCode']",
+                              "item/cat_CodeVerifier": "@triggerOutputs()?['body/InputParameters/CodeVerifier']",
+                              "item/cat_Id": "@outputs('Get_Id')",
+                              "item/cat_ConnectionName": "@outputs('Get_Connection_Name')",
+                              "item/cat_MessageId": "@outputs('Update_Copilot_Test_Run:_Running')?['body/cat_copilottestrunid']",
+                              "item/cat_AgentConfigId": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
+                              "item/cat_ClientUrl": "@concat('https://', uriHost(outputs('Update_Copilot_Test_Run:_Running')?['body/@odata.id']), '/')"
                             },
                             "authentication": "@parameters('$authentication')"
                           }
@@ -1080,12 +1394,16 @@
                         ]
                       },
                       "expression": {
-                        "not": {
-                          "equals": [
-                            "@outputs('Get_Id')",
-                            "Not Found"
-                          ]
-                        }
+                        "and": [
+                          {
+                            "not": {
+                              "equals": [
+                                "@outputs('Get_Id')",
+                                "Not Found"
+                              ]
+                            }
+                          }
+                        ]
                       },
                       "metadata": {
                         "operationMetadataId": "cdfc795c-0fef-462d-9115-90e0f7be094f"
@@ -1123,9 +1441,9 @@
                         },
                         "parameters": {
                           "actionName": "cat_GetResponse",
-                          "item/cat_Token": "@body('Parse_Token_Response')?['token']",
-                          "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
-                          "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
+                          "item/cat_ConverationId": "@body('Parse_Token_Response_for_authentication')?['conversationId']",
+                          "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')",
+                          "item/cat_Token": "@body('Parse_Token_Response_for_authentication')?['token']"
                         },
                         "authentication": "@parameters('$authentication')"
                       }
@@ -1142,7 +1460,7 @@
                       "type": "Query",
                       "inputs": {
                         "from": "@body('Parse_Attachment')?['activities']",
-                        "where": "@and(\n  not(empty(item()?['attachments'])),\n  equals(item()?['attachments']?[0]?['contentType'], 'application/vnd.microsoft.card.oauth')\n)"
+                        "where": "@and(not(empty(item()?['attachments'])), equals(item()?['attachments']?[0]?['contentType'], 'application/vnd.microsoft.card.oauth'))"
                       }
                     },
                     "Get_Connection_Name": {
@@ -1159,7 +1477,7 @@
                     }
                   },
                   "runAfter": {
-                    "Send_Test_Utterance": [
+                    "Send_startConversation_Event_for_authentication": [
                       "Succeeded"
                     ]
                   },
@@ -1174,7 +1492,15 @@
                       {
                         "not": {
                           "equals": [
-                            "@triggerOutputs()?['body/InputParameters/AccessToken']",
+                            "@triggerOutputs()?['body/InputParameters/AuthCode']",
+                            "@null"
+                          ]
+                        }
+                      },
+                      {
+                        "not": {
+                          "equals": [
+                            "@triggerOutputs()?['body/InputParameters/CodeVerifier']",
                             "@null"
                           ]
                         }
@@ -1186,355 +1512,31 @@
                   },
                   "type": "If"
                 },
-                "Do_until_bot_responds_or_till_timeout": {
-                  "actions": {
-                    "Delay_before_fetching_responses": {
-                      "runAfter": {},
-                      "metadata": {
-                        "operationMetadataId": "4c00dfa0-1ae9-4896-a472-0546a41ffdc8"
-                      },
-                      "type": "Wait",
-                      "inputs": {
-                        "interval": {
-                          "count": "@if( equals(items('Apply_to_each_Copilot_Test')?['cat_testtypecode'], 4), 10, 5)",
-                          "unit": "Second"
-                        }
-                      }
-                    },
-                    "Get_Activities": {
-                      "runAfter": {
-                        "Delay_before_fetching_responses": [
-                          "Succeeded"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "72c0569d-987b-4416-a1da-36ace14c56f5"
-                      },
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "host": {
-                          "connectionName": "shared_commondataserviceforapps_1",
-                          "operationId": "PerformUnboundAction",
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                        },
-                        "parameters": {
-                          "actionName": "cat_GetResponse",
-                          "item/cat_Token": "@body('Parse_Token_Response')?['token']",
-                          "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
-                          "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
-                        },
-                        "authentication": "@parameters('$authentication')"
-                      }
-                    },
-                    "Parse_Activities_Response": {
-                      "runAfter": {
-                        "Get_Activities": [
-                          "Succeeded"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "488c476d-25f0-40c4-af46-e09b56f26102"
-                      },
-                      "type": "ParseJson",
-                      "inputs": {
-                        "content": "@outputs('Get_Activities')?['body/cat_Response']",
-                        "schema": {
-                          "type": "object",
-                          "properties": {
-                            "activities": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": "string"
-                                  },
-                                  "from": {
-                                    "type": "object",
-                                    "properties": {
-                                      "role": {
-                                        "type": "string"
-                                      },
-                                      "id": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  },
-                                  "text": {
-                                    "type": "string"
-                                  },
-                                  "timestamp": {
-                                    "type": "string"
-                                  },
-                                  "attachments": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "contentType": {
-                                          "type": "string"
-                                        },
-                                        "content": {
-                                          "oneOf": [
-                                            {
-                                              "type": "object"
-                                            },
-                                            {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "type": {
-                                                    "type": "string"
-                                                  },
-                                                  "id": {
-                                                    "type": "string"
-                                                  },
-                                                  "timestamp": {
-                                                    "type": "string"
-                                                  },
-                                                  "serviceUrl": {
-                                                    "type": "string"
-                                                  },
-                                                  "channelId": {
-                                                    "type": "string"
-                                                  },
-                                                  "from": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "string"
-                                                      }
-                                                    }
-                                                  },
-                                                  "conversation": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "string"
-                                                      }
-                                                    }
-                                                  },
-                                                  "recipient": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "string"
-                                                      },
-                                                      "name": {
-                                                        "type": "string"
-                                                      },
-                                                      "role": {
-                                                        "type": "string"
-                                                      }
-                                                    }
-                                                  },
-                                                  "membersAdded": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object"
-                                                    }
-                                                  },
-                                                  "membersRemoved": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object"
-                                                    }
-                                                  },
-                                                  "reactionsAdded": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object"
-                                                    }
-                                                  },
-                                                  "reactionsRemoved": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object"
-                                                    }
-                                                  },
-                                                  "text": {
-                                                    "type": "string"
-                                                  },
-                                                  "attachments": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object"
-                                                    }
-                                                  },
-                                                  "entities": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object"
-                                                    }
-                                                  },
-                                                  "replyToId": {
-                                                    "type": "string"
-                                                  },
-                                                  "value": {
-                                                    "type": "object"
-                                                  },
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "listenFor": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "string"
-                                                    }
-                                                  },
-                                                  "textHighlights": {
-                                                    "type": "array",
-                                                    "items": {
-                                                      "type": "object"
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "suggestedActions": {
-                                    "type": "object",
-                                    "properties": {
-                                      "to": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "actions": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "type": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "text": {
-                                              "type": "string"
-                                            },
-                                            "value": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "Filter_array:_Activities_of_type_Message": {
-                      "runAfter": {
-                        "Parse_Activities_Response": [
-                          "Succeeded"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "83d3803e-42d9-4d1b-8963-78732c59190a"
-                      },
-                      "type": "Query",
-                      "inputs": {
-                        "from": "@body('Parse_Activities_Response')?['activities']",
-                        "where": "@equals(item()?['type'], 'message')"
-                      }
-                    },
-                    "Filter_array:_Messages_from_Bot": {
-                      "runAfter": {
-                        "Filter_array:_Activities_of_type_Message": [
-                          "Succeeded"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "2e772575-37e2-42f7-ba6d-e3e5c92a5136"
-                      },
-                      "type": "Query",
-                      "inputs": {
-                        "from": "@body('Filter_array:_Activities_of_type_Message')",
-                        "where": "@and(\n    equals(item()?['from']?['role'], 'bot'),\n    empty(first(item()?['attachments'])?['content']?['tokenExchangeResource']?['id']),\n    or(\n        equals(first(item()?['attachments'])?['contentType'], 'application/vnd.microsoft.card.adaptive'),\n        and(\n            not(empty(item()?['text'])),\n            not(\n                or(\n                    contains(toLower(item()?['text']), 'need you to sign in'),\n                    contains(toLower(item()?['text']), 'Please sign in'),\n                    contains(toLower(item()?['text']), 'sign in to continue'),\n                    contains(toLower(item()?['text']), 'log in to access'),\n                    contains(toLower(item()?['text']), 'sign-in required'),\n                    contains(toLower(item()?['text']), 'click here to log in')\n                )\n            )\n        )\n    )\n)"
-                      }
-                    }
-                  },
+                "Send_startConversation_Event_for_authentication": {
                   "runAfter": {
-                    "Condition:_User_Authentication": [
-                      "Succeeded"
-                    ]
-                  },
-                  "expression": "@if(equals(items('Apply_to_each_Copilot_Test')?['cat_isstartconversationeventsent'], true), greater(length(body('Filter_array:_Messages_from_Bot')), 1), greater(length(body('Filter_array:_Messages_from_Bot')), 0))",
-                  "limit": {
-                    "count": 25,
-                    "timeout": "PT3M"
-                  },
-                  "metadata": {
-                    "operationMetadataId": "5a6cbf30-8aba-4d78-8839-f23760e40e57"
-                  },
-                  "type": "Until"
-                },
-                "Condition:_If_External_Variables": {
-                  "actions": {
-                    "Send_pvaSetContext_Event": {
-                      "runAfter": {},
-                      "metadata": {
-                        "operationMetadataId": "74f0f5db-0738-4006-a8b7-61d7f1b0562e"
-                      },
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "host": {
-                          "connectionName": "shared_commondataserviceforapps_1",
-                          "operationId": "PerformUnboundAction",
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                        },
-                        "parameters": {
-                          "actionName": "cat_SendMessageOrEvent",
-                          "item/cat_Token": "@body('Parse_Token_Response')?['token']",
-                          "item/cat_ConverationId": "@body('Parse_Token_Response')?['conversationId']",
-                          "item/cat_Body": "{\n  \"type\": \"event\",\n  \"from\": {\n    \"id\": \"CopilotStudioKit\"\n  },\n  \"name\": \"pvaSetContext\",\n  \"value\": @{json(items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson'])}\n}",
-                          "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
-                        },
-                        "authentication": "@parameters('$authentication')"
-                      }
-                    }
-                  },
-                  "runAfter": {
-                    "Initiate_Conversation": [
-                      "Succeeded"
-                    ]
-                  },
-                  "expression": {
-                    "not": {
-                      "equals": [
-                        "@items('Apply_to_each_Copilot_Test')?['cat_externalvariablesjson']",
-                        "@null"
-                      ]
-                    }
-                  },
-                  "metadata": {
-                    "operationMetadataId": "550099ac-1e76-48c1-826c-bdfdcd6a2582"
-                  },
-                  "type": "If"
-                },
-                "Compose": {
-                  "runAfter": {
-                    "Message_Position": [
+                    "Initiate_Conversation_for_authentication": [
                       "Succeeded"
                     ]
                   },
                   "metadata": {
-                    "operationMetadataId": "8012a8fe-2736-49ae-bde8-d53807fd3734"
+                    "operationMetadataId": "74f0f5db-0738-4006-a8b7-61d7f1b0562e"
                   },
-                  "type": "Compose",
-                  "inputs": "@{ticks(\r\n                body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n            )}\n\n@{ticks(\r\n                body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n            )}\n@{sub(\r\n            ticks(\r\n                body('Filter_array:_Messages_from_Bot')[outputs('Message_Position')]?['timestamp']\r\n            ),\r\n            ticks(\r\n                body('Filter_array:_Messages_from_User')[0]?['timestamp']\r\n            )\r\n        )}"
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps_1",
+                      "operationId": "PerformUnboundAction",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "actionName": "cat_SendMessageOrEvent",
+                      "item/cat_ConverationId": "@body('Parse_Token_Response_for_authentication')?['conversationId']",
+                      "item/cat_Token": "@body('Parse_Token_Response_for_authentication')?['token']",
+                      "item/cat_Body": "{\n  \"type\": \"event\",\n  \"from\": {\n    \"id\": \"CopilotStudioKit\"\n  },\n  \"name\": \"startConversation\"\n}",
+                      "item/cat_BotFrameworkUri": "@variables('Bot Framework URI')"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
                 }
               },
               "runAfter": {
@@ -1543,47 +1545,94 @@
                 ]
               },
               "metadata": {
-                "operationMetadataId": "dc0383b1-4bed-4bc5-bed6-6910c9be8942"
+                "operationMetadataId": "7a55f465-746d-4010-9d2b-fc1f2129c751"
               },
-              "type": "Foreach",
-              "runtimeConfiguration": {
-                "concurrency": {
-                  "repetitions": 50
-                }
-              }
+              "type": "Scope"
             },
-            "Delay": {
+            "Condition:_If_Direct_Line_Environment_Variable_Secret": {
+              "actions": {
+                "Get_Direct_Line_Secret": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "d21e8d39-3956-4a27-b023-35072c64d912"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps_1",
+                      "operationId": "PerformUnboundAction",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "actionName": "RetrieveEnvironmentVariableSecretValue",
+                      "item/EnvironmentVariableName": "@outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecurityenvironmentvariable']"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "secureData": {
+                      "properties": [
+                        "outputs"
+                      ]
+                    }
+                  }
+                }
+              },
+              "runAfter": {},
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@outputs('Get_Copilot_Configuration')?['body/cat_isdirectlinechannelsecurityenabled']",
+                      true
+                    ]
+                  },
+                  {
+                    "equals": [
+                      "@outputs('Get_Copilot_Configuration')?['body/cat_directlinechannelsecretlocationcode']",
+                      2
+                    ]
+                  }
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "b8fa7220-e752-4f2e-bb11-59f375754a8c"
+              },
+              "type": "If"
+            },
+            "Get_Agent_Tests": {
               "runAfter": {
-                "Increment_Page": [
+                "Condition:_If_Direct_Line_Environment_Variable_Secret": [
                   "Succeeded"
                 ]
               },
               "metadata": {
-                "operationMetadataId": "1f816cf2-278b-46f5-895c-d9070ec558bf"
+                "operationMetadataId": "bfa5891c-eeb0-45da-a194-ab1c91a4a792"
               },
-              "type": "Wait",
+              "type": "OpenApiConnection",
               "inputs": {
-                "interval": {
-                  "count": "@if(equals(coalesce(outputs('Get_Copilot_Configuration')?['body/cat_delaybetweenbatches'], 0), 0), 1, outputs('Get_Copilot_Configuration')?['body/cat_delaybetweenbatches'])",
-                  "unit": "Second"
-                }
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilottests",
+                  "fetchXml": "<fetch>\n    <entity name=\"cat_copilottest\">\n        <attribute name=\"cat_name\"/>\n        <attribute name=\"cat_testutterance\"/>\n        <attribute name=\"cat_copilottestid\"/>\n        <attribute name=\"cat_expectedresponse\"/>\n        <attribute name=\"cat_testtypecode\"/>\n        <attribute name=\"cat_generativeansweroutcomecode\"/>\n        <attribute name=\"cat_expectedpositionoftheresponseactivity\"/>\n        <attribute name=\"cat_expectedtopicname\"/>\n        <attribute name=\"cat_isstartconversationeventsent\"/>\n        <attribute name=\"cat_externalvariablesjson\"/>\n        <attribute name=\"cat_expectedattachmentsjson\"/>\n         <attribute name=\"cat_secondsbeforegettinganswer\"/>\n         <order attribute=\"cat_name\" />\n        <filter type=\"and\">\n            <condition attribute=\"cat_copilottestsetid\" operator=\"eq\" value=\"@{triggerOutputs()?['body/InputParameters/CopilotTestSetId']}\" />\n            <condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />\n        </filter>\n    </entity>\n</fetch>\n"
+                },
+                "authentication": "@parameters('$authentication')"
               }
             }
           },
           "runAfter": {
-            "Condition:_If_Direct_Line_Environment_Variable_Secret": [
+            "Initialize_Bot_Framework_URI": [
               "Succeeded"
             ]
           },
-          "expression": "@greater(variables('Page Number'), outputs('Calculate_Total_Pages'))",
-          "limit": {
-            "count": 60,
-            "timeout": "PT1H"
-          },
           "metadata": {
-            "operationMetadataId": "f5cd5149-75f9-474c-b13c-bc4a48e7ee02"
+            "operationMetadataId": "401c9cee-a435-4d66-be30-d8060884fb7d"
           },
-          "type": "Until"
+          "type": "Scope"
         }
       }
     },

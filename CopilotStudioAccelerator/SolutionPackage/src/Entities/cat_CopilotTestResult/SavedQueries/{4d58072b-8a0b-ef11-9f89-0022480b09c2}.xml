@@ -12,8 +12,8 @@
         <row name="result" id="cat_copilottestresultid">
           <cell name="cat_copilottestid" width="109" />
           <cell name="cat_name" width="133" />
-          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_testutterance" width="203" />
-          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_expectedresponse" width="193" />
+          <cell name="cat_testutterance" width="203" />
+          <cell name="cat_expectedresponse" width="195" />
           <cell name="a_4f67ce3858a644288ccbb2d78486db95.cat_generativeansweroutcomecode" width="144" />
           <cell name="cat_response" width="200" />
           <cell name="cat_appinsightsresult" width="143" />
@@ -34,8 +34,6 @@
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
           <link-entity alias="a_11c43379b03342349c835ebb85a49d36" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="inner">
-            <attribute name="cat_testutterance" />
-            <attribute name="cat_expectedresponse" />
             <filter type="and">
               <condition attribute="cat_testtypecode" operator="eq" value="4" />
             </filter>
@@ -49,6 +47,8 @@
           <order attribute="cat_copilottestid" descending="false" />
           <attribute name="cat_latencyms" />
           <attribute name="cat_resultreason" />
+          <attribute name="cat_testutterance" />
+          <attribute name="cat_expectedresponse" />
         </entity>
       </fetch>
     </fetchxml>

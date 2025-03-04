@@ -74,7 +74,7 @@
             "parameters": {
               "entityName": "cat_copilottestresults",
               "$select": "cat_name, cat_copilottestresultid, cat_response, cat_resultcode, cat_resultreason",
-              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  and statecode eq 0 and cat_resultcode ne 4",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  and statecode eq 0 and cat_resultcode ne 4 and cat_CopilotTestId/cat_testtypecode eq 2",
               "$orderby": "createdon asc",
               "$expand": "cat_CopilotTestId($select=cat_testtypecode, cat_expectedtopicname)"
             },
