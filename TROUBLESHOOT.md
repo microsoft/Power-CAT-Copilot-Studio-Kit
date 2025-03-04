@@ -13,10 +13,10 @@ Typically, two app registrations need to be created for the end user authenticat
 * Before enabling end user authentication, make sure authentication is disabled on both the custom agent and agent configuration in Copilot Studio Kit and run a simple test to verify that the connectivity works
 
 #### Checklist for KitAuthApp
-*	In Azure Portal, Authentication, verify that SPA Redirect URI has the Dataverse URI where Copilot Studio Kit is deployed to
-*	Verify that implicit grant and hybrid flows are enabled for Access tokens and ID tokens
-*	Verify that supported account types is “Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)”
-*	In API permissions, verify that User.Read permission is in the list, delegated and has admin consent granted
+* In Azure Portal, Authentication, verify that Web Redirect URI has the Dataverse URI where Copilot Studio Kit is deployed to
+* Verify that supported account types is “Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)”
+* In API permissions, verify that User.Read permission is in the list, delegated and has admin consent granted
+* Verify that client secret is created and that secret is in the Agent Configuration (User Authentication->Client Secret)
 
 #### Checklist for CopilotStudioAuthApp
 *	In Azure Portal, Authentication, verify that Web Redirect URI has
@@ -48,6 +48,8 @@ Typically, two app registrations need to be created for the end user authenticat
 * Ensure user authentication is set to “Entra ID v2”
 * Ensure that the Client ID is the client id of KitAuthApp
 * Ensure  Scope is the custom scope created in CopilotStudioAuthApp and same as in Copilot Studio authentication settings
+* Ensure	that client secret in User Authentication->Client Secret matches with the value of the client secret created for **KitAuthApp*
+* Ensure that **Channel Security** is enabled in **Direct Line Settings** and has valid configuration
 
 #### Checklist for test configuration
 * Try your test with and without sending the conversation start event (found from Advanced tab on the test), depending on your agent configuration this might make a difference
