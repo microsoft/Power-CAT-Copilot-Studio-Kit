@@ -54,7 +54,7 @@ Optionally
 
 As of the latest release:
 - Multi-turn conversations are not yet supported.
-- Authentication support for testing is limited to unauthenticated and authenticted with EntraV2 SSO.
+- Support for testing agents requiring authentication is limited to unauthenticated and authenticated with EntraV2 SSO.
 
 ## Latest release
 
