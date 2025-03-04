@@ -42,7 +42,7 @@ Note: These fields are mandatory for all configuration types.
 | **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this agent. See [Enable authentication](./ENABLE-AUTHENTICATION.md) for instructions how to enable user authentication support. **Note:** Channel Security needs to be enabled if user authentication is enabled. |
 | **Client ID** | Depends | Enter the application (client) ID of the application created to enable the  end user authentication for custom agent (https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad) |
 | **Tenant ID** | Depends | Enter the tenant ID of the application created to enable end user authentication for custom agent |
-| **Client Secret** | Depends | Enter the client secret that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md). |
+| **Client Secret** | Depends | Enter the client secret that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md#create-authentication-application-for-copilot-studio-kit). |
 | **Scope** | Depends | Enter the custom scope that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md#3-define-a-custom-scope-for-your-copilot). Use the full scope URI format: "api://1234-4567/scope.name"|
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
 | **App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
