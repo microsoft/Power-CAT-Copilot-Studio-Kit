@@ -4,9 +4,6 @@ The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities desi
 
 ![landingpage](https://github.com/user-attachments/assets/6b12168c-dab6-41e6-bcf9-64fb0802d931)
 
-> [!NOTE]  
-> We are working on improvements to the test logic of authenticated bots and have temporarily disabled the feature, until we finish with the improvements.
-
 # Features
 ## Testing capabilities  
 Copilot Studio Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match and generative answers which leverages AI Builder for response analysis. 
