@@ -1,7 +1,16 @@
 # Release notes
 
+## March 2025
+- Fixed issues
+- Improved token handling when testing authenticated agents
+
+## February 2025
+- Webchat Playground
+- Adaptive Cards Gallery
+- Converstation KPIs
+
 ## November 20 2024
-- Conversation KPIs
+- Conversation KPIs (preview)
 - SharePoint synchronization
 
 ## September 12 2024 
