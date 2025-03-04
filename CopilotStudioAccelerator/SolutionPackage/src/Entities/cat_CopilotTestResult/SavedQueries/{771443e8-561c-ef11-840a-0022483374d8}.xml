@@ -13,9 +13,9 @@
           <cell name="cat_copilottestrunid" width="140" />
           <cell name="cat_copilottestid" width="125" />
           <cell name="cat_name" width="133" />
-          <cell name="a_0e6cff8d1ff14a0f871ecbace9ab6081.cat_testutterance" width="203" />
+          <cell name="cat_testutterance" width="203" />
           <cell name="cat_response" width="271" />
-          <cell name="a_0e6cff8d1ff14a0f871ecbace9ab6081.cat_testtypecode" width="169" />
+          <cell name="cat_testtypecode" width="169" />
           <cell name="cat_recognizedtopicname" width="115" />
           <cell name="cat_latencyms" width="102" />
           <cell name="cat_resultcode" width="79" />
@@ -38,10 +38,6 @@
             <condition attribute="statecode" operator="eq" value="0" />
             <condition attribute="ownerid" operator="eq-useroruserteams" />
           </filter>
-          <link-entity alias="a_0e6cff8d1ff14a0f871ecbace9ab6081" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
-            <attribute name="cat_testtypecode" />
-            <attribute name="cat_testutterance" />
-          </link-entity>
           <attribute name="cat_name" />
           <attribute name="cat_latencyms" />
           <attribute name="cat_recognizedtopicname" />
@@ -51,6 +47,8 @@
               <condition attribute="statecode" operator="eq" value="0" />
             </filter>
           </link-entity>
+          <attribute name="cat_testutterance" />
+          <attribute name="cat_testtypecode" />
         </entity>
       </fetch>
     </fetchxml>

@@ -12,7 +12,7 @@
         <row name="result" id="cat_copilottestresultid">
           <cell name="cat_copilottestid" width="109" />
           <cell name="cat_name" width="171" />
-          <cell name="a_11c43379b03342349c835ebb85a49d36.cat_testutterance" width="203" />
+          <cell name="cat_testutterance" width="203" />
           <cell name="a_9218d831c0cb4f879f1a1556cdbf05a5.cat_expectedattachmentsjson" width="164" />
           <cell name="cat_response" width="132" />
           <cell name="cat_attachmentsjson" width="148" />
@@ -32,7 +32,6 @@
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
           <link-entity alias="a_11c43379b03342349c835ebb85a49d36" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="inner">
-            <attribute name="cat_testutterance" />
             <filter type="and">
               <condition attribute="cat_testtypecode" operator="eq" value="3" />
             </filter>
@@ -45,6 +44,7 @@
             <attribute name="cat_expectedattachmentsjson" />
           </link-entity>
           <attribute name="cat_resultreason" />
+          <attribute name="cat_testutterance" />
         </entity>
       </fetch>
     </fetchxml>
