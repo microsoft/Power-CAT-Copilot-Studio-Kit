@@ -1,6 +1,48 @@
-# Install the Power CAT Copilot Studio Kit
-
 Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.md)
+
+# Installing the Power Cat Copilot Studio Kit ([Appsource](https://appsource.microsoft.com/product/dynamics-365/microsoftpowercatarch.copilotstudiokit?tab=Overview))
+
+## Deploy from AppSource
+
+1. Navigate to Copilot Studio Kit in AppSource (https://appsource.microsoft.com/product/dynamics-365/microsoftpowercatarch.copilotstudiokit?tab=Overview)
+1. Click **Get it now**
+1. Sign-in if required
+1. You are presented with **Install Copilot Studio Kit** view
+1. From the drop-down list, select the environment where you want to deploy Copilot Studio Kit
+1. Carefully study the presented Terms and Statements, if you agree, check the boxes to indicate that and click **Install**
+1. Installation will begin
+
+## Post deployment steps
+
+After the installation finishes, proceed with these post deployment steps:
+
+Please note that steps 7. and 8. are optional and required only if you plan to use the SharePoint synchronize feature. Connection to the SharePoint should point to the source SharePoint site.
+1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
+1. Go to **Solutions**
+1. Select **Default Solution**
+1. Select **Connection references**
+1. Locate "**Copilot Studio Kit - Dataverse**" and open it for editing.
+1. Ensure all required fields are filled and the selected connection is valid. Create new connection to Dataverse as required.
+1. (*Optional*) Locate "**Copilot Studio Kit - SharePoint**" and open it for editing.
+1. (*Optional*) Ensure all required fields are filled and the selected connection is valid. Create new connection to Sharepoint as required.
+1. Click **Save**
+1. Click **Save changes**
+
+Next, ensure all related flows are enabled:
+
+Please note that flows that begin with "Synchronize files" need to be enabled only if you plan to use the SharePoint synchronize feature.
+1. Navigate to **Power Automate**
+1. Make sure the environment with the Copilot Studio Kit is selected
+1. Select **Solutions**
+1. Select **Copilot Studio Kit**
+1. Select **Cloud flows**
+1. Make sure all the flows are enabled (Status = On)
+1. Enable any flows that are not enabled, in the following order
+   1. Flows that end with "**Grandchild**"
+   1. Flows that end with "**Child**"
+   1. Rest of the flows as required, in any order
+
+# Installing the Power CAT Copilot Studio Kit (Github)
 
 ## Download
 
@@ -37,16 +79,19 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 1. Leave "**Conversation KPIs report**" values as-is for now, you will be updating these in the later steps.
 1. Select **Import**
 
-After the import process has finished, complete these steps to enable the Conversation KPIs related flows:
+## Post installation/upgrade steps
+
+After the import process has finished, complete these steps to make sure all the related flows are enabled:
 1. Navigate to **Power Automate**
-1. Make sure you have the environment with Copilot Studio Kit selected
+1. Make sure the environment with the Copilot Studio Kit is selected
 1. Select **Solutions**
 1. Select **Copilot Studio Kit**
 1. Select **Cloud flows**
-1. Turn on the following flows in the following order
-   1. Conversation KPI Tracked Variables Child
-   1. Conversation KPI Main Child
-   1. Conversation KPI Manual
+1. Make sure all the flows are enabled (Status = On)
+1. Enable any flows that are not enabled, in the following order
+   1. Flows that end with "**Grandchild**"
+   1. Flows that end with "**Child**"
+   1. Rest of the flows as required, in any order
 
 > [!NOTE]  
 > While upgrading the Copilot Studio Kit, you might encounter the following error: "*Solution "Power CAT Copilot Studio Kit" failed to import: ImportAsHolding failed with exception: Cannot delete attribute: cat_copilottestrunid from Entity: cat_CopilotTestRun since the attribute is not a custom field.*".
