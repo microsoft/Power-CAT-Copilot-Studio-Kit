@@ -2,9 +2,6 @@
 
 ## Authentication errors
 
-> [!NOTE]  
-> We are working on improvements to the test logic of authenticated bots and have temporarily disabled the feature, until we finish with the improvements.
-
 Typically, two app registrations need to be created for the end user authentication:
 
 **KitAuthApp** – Used in Copilot Studio Kit agent configurations
