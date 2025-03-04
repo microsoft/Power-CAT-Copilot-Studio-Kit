@@ -1,7 +1,6 @@
 # Release notes
 
 ## March 2025
-- Fixed issues
 - Improved token handling when testing authenticated agents
 
 ## February 2025
