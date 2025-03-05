@@ -28,9 +28,6 @@ Note: These fields are mandatory for all configuration types.
 
 ## Configure a new Agent for Test Automation
 
-> [!NOTE]  
-> We are working on improvements to the test logic of authenticated bots and have temporarily disabled the feature, until we finish with the improvements.
-
 1. Select "**Test Automation**" from Configuration Type(s).
 2. In addition to Base Configuration, fill in the following  **information**.
 
@@ -38,13 +35,14 @@ Note: These fields are mandatory for all configuration types.
 | --- | --- | --- |
 | **Region** | Yes | Region where the agent is deployed. <br> This is required to target the appropriate [Direct Line endpoint](https://learn.microsoft.com/azure/bot-service/rest-api/bot-framework-rest-direct-line-3-0-api-reference?view=azure-bot-service-4.0). |
 | **Token Endpoint** | Depends | If _Channel Security_ isn't used or enforced, use the [token endpoint](https://learn.microsoft.com/microsoft-copilot-studio/publication-connect-bot-to-custom-application#retrieve-your-copilot-studio-copilot-parameters) that's available in the Mobile app channel. |
-| **Channel Security** |  |  Enable this option if [web and Direct Line channel security](https://learn.microsoft.com/microsoft-copilot-studio/configure-web-security) is enabled. <br> That way, a token can be obtained in exchange for a secret. |
+| **Channel Security** |  |  Enable this option if [web and Direct Line channel security](https://learn.microsoft.com/microsoft-copilot-studio/configure-web-security) is enabled. <br> That way, a token can be obtained in exchange for a secret. **Note:** Channel Security needs to be enabled if user authentication is enabled. |
 | **Secret Location** | Depends | When _Channel Security_ is checked, choose where you prefer to store the Direct Line channel secret. <br> Dataverse stores the secret in a secured column, while Key Vault requires to use an environment variable of type secret, and storing the secret in a Azure Key Vault. |
 | **Secret** | Depends | When _Dataverse_ is selected as the _Secret Location_, this column stores the Direct Line channel secret. |
 | **Environment Variable** | Depends | When _Key Vault_ is selected as the _Secret Location_, this column stores the schema name for the environment variable of type secret that links to the Azure Key Vault secret. <br> See [Configure secrets in Azure Key Vault](./CONFIGURE_COPILOTS.md#configure-secrets-in-azure-key-vault)|
-| **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this agent. See [Enable authentication](./ENABLE-AUTHENTICATION.md) for instructions how to enable user authentication support.  |
+| **User Authentication** |  | Select **Entra ID v2** if end user authentication is required for this agent. See [Enable authentication](./ENABLE-AUTHENTICATION.md) for instructions how to enable user authentication support. **Note:** Channel Security needs to be enabled if user authentication is enabled. |
 | **Client ID** | Depends | Enter the application (client) ID of the application created to enable the  end user authentication for custom agent (https://learn.microsoft.com/microsoft-copilot-studio/configuration-authentication-azure-ad) |
 | **Tenant ID** | Depends | Enter the tenant ID of the application created to enable end user authentication for custom agent |
+| **Client Secret** | Depends | Enter the client secret that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md#create-authentication-application-for-copilot-studio-kit). "*KitAuthApp secret*" |
 | **Scope** | Depends | Enter the custom scope that you created earlier [when enabling authentication support.](./ENABLE-AUTHENTICATION.md#3-define-a-custom-scope-for-your-copilot). Use the full scope URI format: "api://1234-4567/scope.name"|
 | **Enrich With Azure Application Insights** |  | Enable this to enrich test results for Generative Answers tests with Azure Application Insights telemetry data. |
 | **App Insights Client ID** | Depends | Enter the application (client) ID of the application that has been granted the permissions to read data from Application Insights resource |
