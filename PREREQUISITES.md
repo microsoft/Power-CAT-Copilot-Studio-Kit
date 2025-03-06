@@ -16,19 +16,24 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
 > - If installed as part of Power Platform, refer to [Microsoft Power Platform Licensing Guide](https://go.microsoft.com/fwlink/?linkid=2085130).
 > - If installed as part of Dynamics 365, refer to  [Dynamics 365 Licensing Guide](https://go.microsoft.com/fwlink/p/?LinkId=866544)
 
-- **Azure Application Insights**.<br>
-  This integration is required to get additional telemetry details for AI-generated answers. <br>
-  Refer to this [documentation](https://learn.microsoft.com/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry?tabs=webApp) on how to integrate Azure Application Insights with Microsoft Copilot Studio.
-
 ## Dependencies
 
 - Copilot Studio Kit is using advanced components from the Creator Kit, please make sure to deploy it before deploying Copilot Studio Kit - [Creator Kit installation instructions](https://learn.microsoft.com/power-platform/guidance/creator-kit/setup)
 
 ## Optional requirements
 
-- **AI Builder credits**.<br>
-  AI Builder prompts are used on the Test Automation features of the Kit to analyze an AI-generated answer and compare it with a sample answer or validation instructions. Each Test Case of type "Generative Answers" will consume 50 credits on average, but the exact consumption can vary based on the length of the test utterance, response and other factors. <br>
+- **AI Builder credits**.
+  AI Builder prompts are used with the Test Automation and Prompt Advisor features of the Kit.
+
+  **Test Automation**: AI builder can be used to analyze an AI-generated answer and compare it with a sample answer or validation instructions. Each Test Case of type "Generative Answers" will consume 50 credits on average, but the exact consumption can vary based on the length of the test utterance, response and other factors.
+
+  **Prompt Advisor**: each iteration will consume 120 credits on average, but can vary based on the length of the prompt being analyzed and other factors.
+
   Learn more about AI Builder prompts licensing [here](https://learn.microsoft.com/ai-builder/credit-management#ai-prompt-licensing).
+
+- **Azure Application Insights**.<br>
+  This integration is required to get additional telemetry details for AI-generated answers. <br>
+  Refer to this [documentation](https://learn.microsoft.com/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry?tabs=webApp) on how to integrate Azure Application Insights with Microsoft Copilot Studio.
 
 ## Connector requirements
 
