@@ -47,7 +47,7 @@ Please note that flows that begin with "Synchronize files" need to be enabled on
 ## Download
 
 1. Download the latest version of the Power CAT Copilot Studio Kit **managed** solution by going to the latest GitHub Release below: <br>
-   [Power Cat Copilot Studio Kit Latest GitHub Releases](/releases/latest) 
+   [Power Cat Copilot Studio Kit Latest GitHub Releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) 
 
 ## Install CopilotStudioAccelerator.zip
 
