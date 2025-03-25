@@ -50,6 +50,8 @@ Optionally
 - [Enable user authentication support](./ENABLE-AUTHENTICATION.md)
 - [Enable Application Insights support](./ENABLE-APPINSIGHTS.md)
 
+For information on required licenses on Power Platform, and AI builder credits consumption, please see [Prerequisites](./PREREQUISITES.md)
+
 # Known limitations
 
 As of the latest release:
