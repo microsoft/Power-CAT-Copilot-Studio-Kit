@@ -25,9 +25,9 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
 - **AI Builder credits**.
   AI Builder prompts are used with the Test Automation and Prompt Advisor features of the Kit.
 
-  **Test Automation**: AI builder can be used to analyze an AI-generated answer and compare it with a sample answer or validation instructions. Each Test Case of type "Generative Answers" will consume 50 credits on average, but the exact consumption can vary based on the length of the test utterance, response and other factors.
+  **Test Automation**: AI builder can be used to analyze an AI-generated answer and compare it with a sample answer or validation instructions. Each Test Case of type "Generative Answers" will consume 50 credits on average (based on our testing), but the exact consumption can vary based on the length of the test utterance, response and other factors.
 
-  **Prompt Advisor**: each iteration will consume 120 credits on average, but can vary based on the length of the prompt being analyzed and other factors.
+  **Prompt Advisor**: each iteration will consume 120 credits on average (based on our testing), but can vary based on the length of the prompt being analyzed and other factors.
 
   Learn more about AI Builder prompts licensing [here](https://learn.microsoft.com/ai-builder/credit-management#ai-prompt-licensing).
 
