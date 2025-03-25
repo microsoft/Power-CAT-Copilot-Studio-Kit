@@ -1,4 +1,17 @@
 # Adaptive cards gallery
+## Setup Note
+
+To get the Adaptive cards gallery working after you install the Copilot Studio Kit solution, you will need to go to the ````Adaptive Card Gallery```` Agent that was installed in the solution file.  
+
+* Open Copilot Studio in your current environment
+* Open the ````Adaptive Card Gallery```` Agent that was deployed in the solution file
+* Publish the ````Adaptive Card Gallery```` Agent
+* Open the mobile app channel to view the published token endpoint for this Agent
+* Copy the token endpoint and then update the ````Agent Token Endpoint```` environment variable
+  * You can find this environment variable by opening up the Default Solution and then filtering to the Environment Variables.
+  * Paste the token endpoint value into the ````Agent Token Endpoint````
+* Reload the Adaptive cards gallery page and you should be up and running now!
+
 ## About adaptive cards
 
 Adaptive Cards are a lightweight UI framework that enables developers to create dynamic and interactive content that can be rendered consistently across different platforms and applications. They are defined using a JSON-based schema, allowing for flexibility in layout and interactivity while adapting to the look and feel of the host application.
