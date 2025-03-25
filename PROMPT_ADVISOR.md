@@ -78,4 +78,10 @@ Purchase additional credits through your Microsoft account or contact your admin
 
 The confidence score depends on clarity and relevance. Review the **evaluation pane feedback** to improve the prompt.
 
+### What do the different techniques mean?
+
+- Zero-shot prompting means giving the AI a task with just instructions and no examples, relying on its general knowledge to figure it out.
+- Few-shot prompting means showing the AI a few examples of the task first so it can learn the pattern or style before giving the answer.
+- Chain-of-thought prompting means asking the AI to explain its reasoning step by step, which helps it solve complex problems more accurately.
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
