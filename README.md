@@ -8,6 +8,8 @@ The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities desi
 ## Testing capabilities  
 Copilot Studio Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match and generative answers which leverages AI Builder for response analysis. 
 
+***Copilot Studio Kit test automation now supports multi-turn testing using all supported test types.***
+
 More information on [testing capabilities](./TESTING_CAPABILITIES.md) 
 
 ## Conversation KPIs
@@ -25,15 +27,20 @@ Prompt Advisor allows makers to develop effective prompts while learning useful 
 
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
 
-## Webchat Playground (New!)
+## Webchat Playground
 Webchat Playground simplifies customizing the appearance and behavior of the copilot agent webchat, including colors, fonts, thumbnails and initials. Easy to use UI allows makers to define the look and feel of their webchat, and HTML is generated with the specified styles. 
 
 More information on [Webchat Playground](./WEBCHAT_PLAYGROUND.md)
 
-## Adaptive Cards Gallery (New!)
+## Adaptive Cards Gallery
 Adaptive Cards Gallery provides makers with a dozen built-in adaptive card templates for different scenarios. They demonstrate the extensibility of the adaptive card visuals and behavior, and provide examples on the agent side implementation as well on things like dynamic data binding.
 
 More information on [Adaptive Cards Gallery](./ADAPTIVE_CARDS_GALLERY.md)
+
+## Agent Inventory
+Agent Inventory provides administrators with a tenant-wide view to all Copilot Studio custom agents in their organization, including detailed information on the features they are using, authentication mode, knowledge sources, orchestration type and more. Agent Inventory ships with a dashboard and the data can be exported for use in other applications.
+
+More information on [Agent Inventory](./AGENT_INVENTORY.md)
 
 # Setup instructions and documentation
 
@@ -55,8 +62,7 @@ For information on required licenses on Power Platform, and AI builder credits c
 # Known limitations
 
 As of the latest release:
-- Multi-turn conversations are not yet supported.
-- Support for testing agents requiring authentication is limited to unauthenticated and authenticated with EntraV2 SSO.
+- Custom agent end user authentication support in test automation is limited Entra Id V2 with SSO.
 
 ## Latest release
 
