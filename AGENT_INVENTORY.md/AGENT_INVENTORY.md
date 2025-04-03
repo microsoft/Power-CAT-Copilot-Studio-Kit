@@ -3,13 +3,13 @@
 
 Administrators can use Copilot Studio Kit Agent Inventory feature to easily get a tenant-wide visibility to all the Copilot Studio custom agents in their organization, across environments. Agent inventory data includes basic metadata like creation times, publish status and authentication mode, as well as information on the feature usage like knowledge sources used, usage of prompts, orchestration type and more.
 
-## Agent Inventory dashboard
+## Dashboard
 
 Agent Inventory feature ships with a dashboard that provides an overview on agents, growth and AI adoption. Detailed data is available for each agent and can be exported for use in other applications.
 
 ![agent inventory dashboard](https://github.com/user-attachments/assets/f5c556f9-3dd0-41fb-acda-00c64c781b3e)
 
-## Agent Inventory detailed view
+## Detailed view
 
 From the Agent Inventory dashboard, users can see the total amoung of agents in the tenant, usage % of generative AI features, actions and AI builder prompts
 and how many agents are leveraging knowledge sources. Also visible are authentication mechanism used by the custom agents, agent creation timeline
@@ -21,7 +21,7 @@ knowledge sources and more.
 
 ![agent inventory detailed view](https://github.com/user-attachments/assets/02dd5e90-9810-4bce-b500-df03cee118c6)
 
-## Agent Inventory list view
+## List view
 
 And finally, pressing *Show more* from the dashboard view, brings up a list view where users can find the information they are looking for by filtering, sorting and adding additional columns.
 
