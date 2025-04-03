@@ -27,6 +27,7 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 
 ![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
 
-
+> [!NOTE]
+> The visibility to the agents is limited and controlled by the connection reference **cat_CopilotStudioAcceleratorPowerPlatformforAdmins** that is used to collect the agent information from the environments. For full visibility, the connection reference has to be configured with account having Power Platform admin role. Other accounts can be used as well, but the visibility of the agent inventory is limited by the permissions of the account used in the connection reference.
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
