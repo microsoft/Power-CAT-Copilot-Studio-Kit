@@ -80,6 +80,18 @@ If _Enrich With Conversation Transcripts_ is enabled and _Copy Full Transcript_ 
 
 ![Inspecting the transcript](https://github.com/user-attachments/assets/072bfe80-6ee2-4d3a-b483-7a6aebd776bc)
 
+## Analyzing multi-turn test results
+
+With the added support for multi-turn testing, the multi-turn tests are visible in the results view with other test types, and their overall result (Success/Failed) is visible on the Result-column. If you open the additional details page of multi-turn test by clicking the Conversation ID value, you will get a list of child tests the multiturn test consists of.
+
+![multiturn detailed view](https://github.com/user-attachments/assets/4ecc7679-e7c0-40aa-95ad-1b39142f955b)
+
+In the detailed view of multi-turn test result, you are able to see results of individual child tests and can drill down into their details. The result of multi-turn test itself is determined based on the results of its child tests that are marked as critical. Non-critical child tests are allowed to fail, and the multi-turn test case will continue to the next test case. If any of the critical child tests fail, test execution for that multi-turn will halt and the test will be marked as failed. If all the critical child tests of multi-turn test pass, the result of the multi-turn test will be considered success.
+
+The reason why multi-turn test case might contain non-critical tests is that they can be used to feed information to generative orchestrator and the exact response to the test case in this case do not matter, just the critical test(s) that follow.
+
+Multi-turn test (and thus the multi-turn test result) can include any of the regular test types, response match, attachments, topic match and generative answers.
+
 ## Next
 Should you experience any issues, please see:
 - [Troubleshooting](./TROUBLESHOOT.md)
