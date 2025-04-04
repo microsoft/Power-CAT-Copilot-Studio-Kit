@@ -1,5 +1,11 @@
 # Release notes
 
+## April 2025
+- Multi-turn support for test automation
+- New string comparison operators for Response Match test type
+- Floating widget support in Webchat Playground
+- Agent Inventory
+
 ## March 2025
 - Improved token handling when testing authenticated agents
 
