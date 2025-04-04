@@ -10,14 +10,21 @@
     <layoutxml>
       <grid name="cat_copilottests" jump="cat_name" select="1" icon="1" preview="0">
         <row name="cat_copilottest" id="cat_copilottestid">
-          <cell name="cat_name" width="300" />
+          <cell name="cat_name" width="183" />
+          <cell name="cat_copilottestsetid" width="123" />
+          <cell name="cat_parent" width="100" />
+          <cell name="cat_critical" width="59" />
+          <cell name="cat_order" width="53" />
+          <cell name="cat_testtypecode" width="100" />
+          <cell name="cat_testutterance" width="210" />
+          <cell name="statecode" width="65" />
           <cell name="createdon" width="125" />
         </row>
       </grid>
     </layoutxml>
     <querytype>64</querytype>
     <fetchxml>
-      <fetch version="1.0" mapping="logical">
+      <fetch version="1.0" mapping="logical" distinct="true">
         <entity name="cat_copilottest">
           <attribute name="cat_copilottestid" />
           <attribute name="cat_name" />
@@ -25,6 +32,13 @@
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
           </filter>
+          <attribute name="cat_copilottestsetid" />
+          <attribute name="cat_critical" />
+          <attribute name="cat_order" />
+          <attribute name="cat_testtypecode" />
+          <attribute name="cat_parent" />
+          <attribute name="statecode" />
+          <attribute name="cat_testutterance" />
         </entity>
       </fetch>
     </fetchxml>

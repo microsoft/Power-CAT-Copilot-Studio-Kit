@@ -1,0 +1,1040 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_commondataserviceforapps_1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "Delay for Azure Application Insights Enrichment (Minutes) (cat_DelayforAzureApplicationInsightsEnrichment)": {
+          "defaultValue": 5,
+          "type": "Int",
+          "metadata": {
+            "schemaName": "cat_DelayforAzureApplicationInsightsEnrichment",
+            "description": "Delay for Azure Application Insights Enrichment"
+          }
+        },
+        "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "https://make.powerautomate.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_PowerAutomateEndpoint"
+          }
+        }
+      },
+      "triggers": {
+        "When_an_action_is_performed": {
+          "metadata": {
+            "operationMetadataId": "6f260134-22f0-4ba2-86b5-7e66d3481ead"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "BusinessEventsTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "catalog": "allcatalog",
+              "category": "allcategory",
+              "subscriptionRequest/entityname": "cat_copilottestrun",
+              "subscriptionRequest/sdkmessagename": "cat_RunAzureApplicationInsightsEnrichment"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Get_Generative_Answers_Copilot_Test_Results": {
+          "runAfter": {
+            "Parse_Token_Response": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6076da45-72f2-4ca7-bc39-244924e64238"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestresults",
+              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_responsereceivedtimestamp",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}' \nand statecode eq 0 \nand cat_resultcode ne 4 \nand (cat_CopilotTestId/cat_testtypecode eq 4 or cat_CopilotTestId/cat_testtypecode eq 5) \nand _cat_parent_value eq null",
+              "$orderby": "createdon asc",
+              "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance,cat_testtypecode)"
+            },
+            "authentication": "@parameters('$authentication')",
+            "retryPolicy": {
+              "type": "none"
+            }
+          }
+        },
+        "Get_Copilot_Configuration": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "25599a62-4e1c-487d-84bb-d087bb11b867"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilotconfigurations",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
+              "$select": "cat_delayforazureapplicationinsightsenrichment, cat_isgeneratedanswersanalysisenabled, cat_azureappinsightsapplicationid, cat_azureappinsightstenantid, cat_azureappinsightsclientid, cat_azureappinsightssecretlocationcode, cat_azureappinsightssecret, cat_azureappinsightsenvironmentvariable"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "secureData": {
+              "properties": [
+                "outputs"
+              ]
+            }
+          }
+        },
+        "Apply_to_each_Generative_Answers_Result": {
+          "foreach": "@outputs('Get_Generative_Answers_Copilot_Test_Results')?['body/value']",
+          "actions": {
+            "Condition:_Check_for_Multiturn_Test": {
+              "actions": {
+                "Scope:_Non-Multiturn_Execution": {
+                  "actions": {
+                    "Get_Azure_App_Insights_Query_Response": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "b72d6acb-f159-4763-8248-69b904edf7ae"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "PerformUnboundAction",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "actionName": "cat_ExecuteAppInsightsQuery",
+                          "item/cat_AppInsightsQuery": "customEvents\n| where name == \"GenerativeAnswers\"\n| where tostring(todynamic(customDimensions).conversationId) == \"@{items('Apply_to_each_Generative_Answers_Result')?['cat_name']}\"\n| where timestamp between ((datetime(@{items('Apply_to_each_Generative_Answers_Result')?['cat_responsereceivedtimestamp']}) - 1h) .. (datetime(@{items('Apply_to_each_Generative_Answers_Result')?['cat_responsereceivedtimestamp']}) + 1h))\n| extend cd = todynamic(customDimensions)\n| extend result = tostring(cd.Result)\n| project result",
+                          "item/cat_AppInsightsAccessToken": "@body('Parse_Token_Response')?['access_token']",
+                          "item/cat_AppInsightsApplicationId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsapplicationid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Parse_Query_Response": {
+                      "runAfter": {
+                        "Get_Azure_App_Insights_Query_Response": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "0d04fbdb-4520-4b70-8d58-1c7b933092fe"
+                      },
+                      "type": "ParseJson",
+                      "inputs": {
+                        "content": "@outputs('Get_Azure_App_Insights_Query_Response')?['body/cat_AppInsightsResponse']",
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "tables": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "columns": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "type": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "name",
+                                        "type"
+                                      ]
+                                    }
+                                  },
+                                  "rows": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "columns",
+                                  "rows"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Update_Copilot_Test_Result": {
+                      "runAfter": {
+                        "Parse_Query_Response": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "UpdateRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "cat_copilottestresults",
+                          "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
+                          "item/cat_resultcode": "@if(\r\n    empty(body('Parse_Query_Response')?['tables'][0]['rows']),\r\n    if(\r\n        or(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\r\n        ),\r\n        3,\r\n        if(\r\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n            5,\r\n            3\r\n        )\r\n    ),\r\n    if(\r\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n        if(\r\n            startsWith(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Filtered'),\r\n            1,\r\n            2\r\n        ),\r\n        if(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\r\n            if(\r\n                or(\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'No Search Results'),\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Answer not Found in Search Results')\r\n                ),\r\n                1,\r\n                2\r\n            ),\r\n            if(\r\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n                5,\r\n                3\r\n            )\r\n        )\r\n    )\r\n)",
+                          "item/cat_appinsightsresult": "@if(\r\n    greater(\r\n        length(body('Parse_Query_Response')?['tables'][0]['rows']), \r\n        0\r\n    ), \r\n    body('Parse_Query_Response')?['tables'][0]['rows'][0][0], \r\n    'No Azure Application Insights Result'\r\n)",
+                          "item/cat_resultreason": "@if(\r\n    empty(body('Parse_Query_Response')?['tables'][0]['rows']),\r\n    if(\r\n        or(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\r\n        ),\r\n        'Impossible to evaluate: no Azure Application Insights result',\r\n        if(\r\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n            'No Azure Application Insights result, but result can still be assessed with AI Builder',\r\n            'Impossible to evaluate: no Azure Application Insights result'\r\n        )\r\n    ),\r\n    if(\r\n        equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n        if(\r\n            startsWith(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Filtered'),\r\n            'Answer was moderated',\r\n            'Moderation was expected'\r\n        ),\r\n        if(\r\n            equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\r\n            if(\r\n                or(\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'No Search Results'),\r\n                    equals(body('Parse_Query_Response')?['tables'][0]['rows'][0][0], 'Answer not Found in Search Results')\r\n                ),\r\n                'Answer was not generated because of no search results',\r\n                'No search results were expected'\r\n            ),\r\n            if(\r\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n               'Result still needs to be assessed by AI Builder',\r\n               'Could not assess the answer'\r\n            )\r\n        )\r\n    )\r\n)"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "5eb1c53a-9fed-4b95-bae6-872234c4b2f9"
+                  },
+                  "type": "Scope"
+                }
+              },
+              "runAfter": {},
+              "else": {
+                "actions": {
+                  "Scope:_Multiturn_Execution": {
+                    "actions": {
+                      "Condition:_Check_if_Generative_Answers_Test_Results_are_present": {
+                        "actions": {
+                          "Perform_an_unbound_action:_App_Insights_Result": {
+                            "runAfter": {},
+                            "metadata": {
+                              "operationMetadataId": "b72d6acb-f159-4763-8248-69b904edf7ae"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "PerformUnboundAction",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "actionName": "cat_ExecuteAppInsightsQuery",
+                                "item/cat_AppInsightsQuery": "customEvents\n| where name == \"GenerativeAnswers\"\n| where tostring(todynamic(customDimensions).conversationId) == \"@{items('Apply_to_each_Generative_Answers_Result')?['cat_name']}\"\n| where timestamp between ((datetime(@{first(outputs('List_rows:_Get_Child_Test_Results')?['body/value'])?['cat_responsereceivedtimestamp']}) - 1h) .. (datetime(@{first(outputs('List_rows:_Get_Child_Test_Results')?['body/value'])?['cat_responsereceivedtimestamp']}) + 1h))\n| extend Result = tostring(customDimensions.Result),\n              Message = tostring(customDimensions.Message)\n| project Result, Message",
+                                "item/cat_AppInsightsAccessToken": "@body('Parse_Token_Response')?['access_token']",
+                                "item/cat_AppInsightsApplicationId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsapplicationid']"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          },
+                          "Parse_JSON:_Query_Response_for_Child_Test_Result": {
+                            "runAfter": {
+                              "Perform_an_unbound_action:_App_Insights_Result": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "0d04fbdb-4520-4b70-8d58-1c7b933092fe"
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                              "content": "@outputs('Perform_an_unbound_action:_App_Insights_Result')?['body/cat_AppInsightsResponse']",
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                  "tables": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "name": {
+                                          "type": "string"
+                                        },
+                                        "columns": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "type": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "type"
+                                            ]
+                                          }
+                                        },
+                                        "rows": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "name",
+                                        "columns",
+                                        "rows"
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Select_TestUtterence_with_Result": {
+                            "runAfter": {
+                              "Parse_JSON:_Query_Response_for_Child_Test_Result": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "20123ae4-dcd0-4734-bdb9-34aa38f8f878"
+                            },
+                            "type": "Select",
+                            "inputs": {
+                              "from": "@body('Parse_JSON:_Query_Response_for_Child_Test_Result')?['tables']?[0]?['rows']",
+                              "select": {
+                                "Message": "@item()?[1]",
+                                "Result": "@item()?[0]"
+                              }
+                            }
+                          },
+                          "Apply_to_each:_Child_Agent_Test_Results": {
+                            "foreach": "@outputs('List_rows:_Get_Child_Test_Results')?['body/value']",
+                            "actions": {
+                              "Filter_array:_Child_Test_App_Insights_Result": {
+                                "runAfter": {},
+                                "metadata": {
+                                  "operationMetadataId": "01f432f1-1c35-4725-ae2a-def718104818"
+                                },
+                                "type": "Query",
+                                "inputs": {
+                                  "from": "@body('Select_TestUtterence_with_Result')",
+                                  "where": "@equals(item()?['Message'], if(not(empty(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_appinsightsmessage'])), items('Apply_to_each:_Child_Agent_Test_Results')?['cat_appinsightsmessage'], items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testutterance']))"
+                                }
+                              },
+                              "Condition:_Check_to_continue_Multiturn_processing": {
+                                "actions": {
+                                  "Update_a_row:_Agent_Child_Result": {
+                                    "runAfter": {
+                                      "Set_variable:_MultiTurnResult": [
+                                        "Succeeded"
+                                      ]
+                                    },
+                                    "metadata": {
+                                      "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                                    },
+                                    "type": "OpenApiConnection",
+                                    "inputs": {
+                                      "host": {
+                                        "connectionName": "shared_commondataserviceforapps",
+                                        "operationId": "UpdateRecord",
+                                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                      },
+                                      "parameters": {
+                                        "entityName": "cat_copilottestresults",
+                                        "recordId": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestresultid']",
+                                        "item/cat_resultcode": "@variables('MultiturnResult')",
+                                        "item/cat_appinsightsresult": "@if(\n    empty(body('Filter_array:_Child_Test_App_Insights_Result')),\n\t'No Azure Application Insights Result',\n\tbody('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result']\n)",
+                                        "item/cat_resultreason": "@if(\n        empty(body('Filter_array:_Child_Test_App_Insights_Result')),\n    if(\n        or(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        'Impossible to evaluate: no Azure Application Insights result',\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            'No Azure Application Insights result, but result can still be assessed with AI Builder',\n            'Impossible to evaluate: no Azure Application Insights result'\n        )\n    ),\n    if(\n        equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n            startsWith(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Filtered'),\n            'Answer was moderated',\n            'Moderation was expected'\n        ),\n        if(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'No Search Results'),\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Answer not Found in Search Results')\n                ),\n                'Answer was not generated because of no search results',\n                'No search results were expected'\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n               'Result still needs to be assessed by AI Builder',\n               'Could not assess the answer'\n            )\n        )\n    )\n)"
+                                      },
+                                      "authentication": "@parameters('$authentication')"
+                                    }
+                                  },
+                                  "Condition:_Check_for_Critical_Tests": {
+                                    "actions": {
+                                      "Condition:_Check_if_test_failed_or_error_out": {
+                                        "actions": {
+                                          "Set_variable:_ContinueMultiTurnProcessing": {
+                                            "runAfter": {},
+                                            "metadata": {
+                                              "operationMetadataId": "b0b2871c-d906-45e3-a3b8-b6febd5af8d1"
+                                            },
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                              "name": "ContinueMultiturnProcessing",
+                                              "value": "@false"
+                                            }
+                                          },
+                                          "Set_variable:_MultiTurnPendingResult_2": {
+                                            "runAfter": {
+                                              "Set_variable:_ContinueMultiTurnProcessing": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "b94a866c-fad9-420a-9d00-dccd476cd217"
+                                            },
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                              "name": "MultiturnPendingResult",
+                                              "value": "@false"
+                                            }
+                                          }
+                                        },
+                                        "runAfter": {},
+                                        "else": {
+                                          "actions": {
+                                            "Set_variable:_MultiTurnPendingResult": {
+                                              "runAfter": {},
+                                              "metadata": {
+                                                "operationMetadataId": "b94a866c-fad9-420a-9d00-dccd476cd217"
+                                              },
+                                              "type": "SetVariable",
+                                              "inputs": {
+                                                "name": "MultiturnPendingResult",
+                                                "value": "@if(equals(variables('MultiturnResult'), 5), true, false)"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "expression": {
+                                          "or": [
+                                            {
+                                              "equals": [
+                                                "@variables('MultiturnResult')",
+                                                2
+                                              ]
+                                            },
+                                            {
+                                              "equals": [
+                                                "@variables('MultiturnResult')",
+                                                3
+                                              ]
+                                            },
+                                            {
+                                              "equals": [
+                                                "@variables('MultiturnResult')",
+                                                4
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "4f8b67dc-88e8-42a9-b5a8-11c0fbc9d776"
+                                        },
+                                        "type": "If"
+                                      }
+                                    },
+                                    "runAfter": {
+                                      "Update_a_row:_Agent_Child_Result": [
+                                        "Succeeded"
+                                      ]
+                                    },
+                                    "expression": {
+                                      "equals": [
+                                        "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_critical']",
+                                        "@true"
+                                      ]
+                                    },
+                                    "metadata": {
+                                      "operationMetadataId": "724a24dc-dd7c-44fb-a5ef-4a7358f99bd9"
+                                    },
+                                    "type": "If"
+                                  },
+                                  "Set_variable:_MultiTurnResult": {
+                                    "runAfter": {},
+                                    "metadata": {
+                                      "operationMetadataId": "de1eb8f4-e6e9-4e0a-9ad3-d844c1f73367"
+                                    },
+                                    "type": "SetVariable",
+                                    "inputs": {
+                                      "name": "MultiturnResult",
+                                      "value": "@if(\n    empty(body('Filter_array:_Child_Test_App_Insights_Result')),\n    if(\n        or(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        3,\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            5,\n            3\n        )\n    ),\n    if(\n        equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n\t\t\tstartsWith(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Filtered'),\n            1,\n            2\n        ),\n        if(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'No Search Results'),\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Answer not Found in Search Results')\n                ),\n                1,\n                2\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n                5,\n                3\n            )\n        )\n    )\n)"
+                                    }
+                                  }
+                                },
+                                "runAfter": {
+                                  "Filter_array:_Child_Test_App_Insights_Result": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "expression": {
+                                  "equals": [
+                                    "@variables('ContinueMultiturnProcessing')",
+                                    "@true"
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "53b8da92-5a51-4906-87bb-35bd2c921458"
+                                },
+                                "type": "If"
+                              }
+                            },
+                            "runAfter": {
+                              "Select_TestUtterence_with_Result": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "83f510ca-343d-49fc-b7a7-567be88681e0"
+                            },
+                            "type": "Foreach"
+                          },
+                          "Update_a_row:_Parent_Multiturn_Agent_Test_Result": {
+                            "runAfter": {
+                              "Apply_to_each:_Child_Agent_Test_Results": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "64b99d18-70b3-4cc7-9c2d-63edd12136c7"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "UpdateOnlyRecord",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "cat_copilottestresults",
+                                "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
+                                "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tvariables('MultiturnResult')\r\n)"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          }
+                        },
+                        "runAfter": {
+                          "List_rows:_Get_Child_Test_Results": [
+                            "Succeeded"
+                          ]
+                        },
+                        "expression": {
+                          "greater": [
+                            "@length(outputs('List_rows:_Get_Child_Test_Results')?['body/value'])",
+                            0
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "58e07c4f-a937-4c22-a59a-fad141c5d0f1"
+                        },
+                        "type": "If"
+                      },
+                      "Set_variable:_ContinueMultiturnProcessing_for_each_Multiturn_test": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "fba16fea-00ef-4938-8df0-4930e0cf192a"
+                        },
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "ContinueMultiturnProcessing",
+                          "value": "@true"
+                        }
+                      },
+                      "Set_variable:_MultiturnPendingResult_for_each_Multiturn_test": {
+                        "runAfter": {
+                          "Set_variable:_ContinueMultiturnProcessing_for_each_Multiturn_test": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "d8358c9c-8455-466d-a062-c930c4f558cf"
+                        },
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "MultiturnPendingResult",
+                          "value": "@false"
+                        }
+                      },
+                      "List_rows:_Get_Child_Test_Results": {
+                        "runAfter": {
+                          "Set_variable:_MultiturnPendingResult_for_each_Multiturn_test": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "025bb9de-a9e8-4e24-846f-4db3caed4627"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "host": {
+                            "connectionName": "shared_commondataserviceforapps",
+                            "operationId": "ListRecords",
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                          },
+                          "parameters": {
+                            "entityName": "cat_copilottestresults",
+                            "$select": "cat_name, cat_copilottestresultid, cat_response, cat_responsereceivedtimestamp, cat_appinsightsmessage",
+                            "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}' \nand statecode eq 0 \nand cat_resultcode ne 4 \nand cat_CopilotTestId/cat_testtypecode eq 4 \nand _cat_parent_value eq '@{items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']}'",
+                            "$orderby": "createdon asc",
+                            "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance,cat_critical)"
+                          },
+                          "authentication": "@parameters('$authentication')",
+                          "retryPolicy": {
+                            "type": "none"
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "9cb840c9-eba1-426b-b6e2-de0f2a4d2aea"
+                    },
+                    "type": "Scope"
+                  }
+                }
+              },
+              "expression": {
+                "not": {
+                  "equals": [
+                    "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testtypecode']",
+                    5
+                  ]
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "6e1a7ad0-b4a7-4715-adca-74605554280c"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Get_Flow_Endpoint": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fdd67cc2-01c6-4669-beb8-4a8c089f6504"
+          },
+          "type": "Foreach"
+        },
+        "Update_Copilot_Test_Run:_Running": {
+          "runAfter": {
+            "Condition_Skip_Delay": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "1879daca-4f37-49d8-8b18-6a8cf166f470"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 2
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Update_Copilot_Test_Run:_Complete": {
+          "runAfter": {
+            "Perform_a_bound_action:_Update_Rollup_Columns": [
+              "Succeeded",
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "46100016-2f1b-4e28-9ef7-90648debe3d9"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 3,
+              "item/cat_errordetails": "@concat(\r\n  outputs('Update_Copilot_Test_Run:_Running')?['body/cat_errordetails'],\r\n  '<br/>',\r\n  '<strong>',\r\n  workflow()?['tags']?['flowDisplayName'],\r\n  '</strong> flow run: <a href=\"',\r\n  outputs('Get_Flow_Endpoint'),\r\n  'environments/',\r\n  workflow()?['tags']?['environmentName'],\r\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\r\n  workflow()?['name'],\r\n  '/runs/',\r\n  workflow()?['run']?['name'],\r\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\r\n)"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Update_Copilot_Test_Run:_Error": {
+          "runAfter": {
+            "Apply_to_each_Generative_Answers_Result": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "46100016-2f1b-4e28-9ef7-90648debe3d9"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_appinsightsenrichmentstatuscode": 6,
+              "item/cat_errordetails": "@concat(\r\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\r\n  '<br/>',\r\n  'Failed <strong>',\r\n  workflow()?['tags']?['flowDisplayName'],\r\n  '</strong> flow run: <a href=\"',\r\n  outputs('Get_Flow_Endpoint'),\r\n  'environments/',\r\n  workflow()?['tags']?['environmentName'],\r\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\r\n  workflow()?['name'],\r\n  '/runs/',\r\n  workflow()?['run']?['name'],\r\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\r\n)\r\n",
+              "item/cat_generatedanswersanalysiscode": 4
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Perform_a_bound_action:_Update_Rollup_Columns": {
+          "runAfter": {
+            "Apply_to_each_Generative_Answers_Result": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "af483f4c-32dd-412b-a719-f226b3756087"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "actionName": "Microsoft.Dynamics.CRM.cat_RunRollupColumnsUpdates",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/DataverseUriHost": "@uriHost(outputs('Get_Copilot_Configuration')?['body/@odata.id'])",
+              "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Condition:_If_Analyze_Generative_Answers_is_enabled": {
+          "actions": {
+            "Perform_a_bound_action:_Run_AI_Builder_Analysis": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "cc622639-9ae0-4c18-aa8a-0dfcd7171aff"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_1",
+                  "operationId": "PerformBoundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilottestruns",
+                  "actionName": "Microsoft.Dynamics.CRM.cat_RunAIBuilderAnalysis",
+                  "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/CopilotTestSetId": "@triggerOutputs()?['body/InputParameters/CopilotTestSetId']"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Complete": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled']",
+              true
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "653f3f78-5dfe-462a-a3ab-291541720e2d"
+          },
+          "type": "If"
+        },
+        "Condition_Skip_Delay": {
+          "actions": {},
+          "runAfter": {
+            "Get_Copilot_Configuration": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Delay": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "4d599376-4b60-4b5b-a3d0-f167ef6bc4ec"
+                },
+                "type": "Wait",
+                "inputs": {
+                  "interval": {
+                    "count": "@if(equals(parameters('Delay for Azure Application Insights Enrichment (Minutes) (cat_DelayforAzureApplicationInsightsEnrichment)'), null), 5, parameters('Delay for Azure Application Insights Enrichment (Minutes) (cat_DelayforAzureApplicationInsightsEnrichment)'))",
+                    "unit": "Minute"
+                  }
+                }
+              }
+            }
+          },
+          "expression": {
+            "and": [
+              {
+                "equals": [
+                  "@triggerBody()?['InputParameters']?['SkipDelay']",
+                  "@true"
+                ]
+              }
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "90c95f0e-82b3-45b9-8beb-4995df28e587"
+          },
+          "type": "If"
+        },
+        "Condition:_If_Azure_App_Insights_Environment_Variable_Secret": {
+          "actions": {
+            "Get_Azure_App_Insights_Secret": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "c48d1c4b-2831-4036-9ce5-579781ffd80f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "RetrieveEnvironmentVariableSecretValue",
+                  "item/EnvironmentVariableName": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsenvironmentvariable']"
+                },
+                "authentication": "@parameters('$authentication')"
+              },
+              "runtimeConfiguration": {
+                "secureData": {
+                  "properties": [
+                    "inputs",
+                    "outputs"
+                  ]
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Running": [
+              "Succeeded"
+            ]
+          },
+          "expression": {
+            "equals": [
+              "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightssecretlocationcode']",
+              2
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "560816de-2f95-4f45-9c92-9685a53d27b5"
+          },
+          "type": "If"
+        },
+        "Generate_Azure_App_Insights_Access_Token": {
+          "runAfter": {
+            "Condition:_If_Azure_App_Insights_Environment_Variable_Secret": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "d879d350-e327-4387-b544-f6dd4e3a20d7"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "PerformUnboundAction",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "actionName": "cat_GenerateAppInsightsAccessToken",
+              "item/cat_AppInsightsClientId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightsclientid']",
+              "item/cat_AppInsightsTenantId": "@outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightstenantid']",
+              "item/cat_AppInsightsClientSecret": "@if(equals(outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightssecretlocationcode'], 1),\r\n   outputs('Get_Copilot_Configuration')?['body/cat_azureappinsightssecret'],\r\n   outputs('Get_Azure_App_Insights_Secret')?['body/EnvironmentVariableSecretValue'])"
+            },
+            "authentication": "@parameters('$authentication')"
+          },
+          "runtimeConfiguration": {
+            "secureData": {
+              "properties": [
+                "inputs",
+                "outputs"
+              ]
+            }
+          }
+        },
+        "Parse_Token_Response": {
+          "runAfter": {
+            "Generate_Azure_App_Insights_Access_Token": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fd4e7717-60ba-4656-85c6-ce3da676563a"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@outputs('Generate_Azure_App_Insights_Access_Token')?['body/cat_AppInsightsResponse']",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token_type": {
+                  "type": "string"
+                },
+                "expires_in": {
+                  "type": "string"
+                },
+                "ext_expires_in": {
+                  "type": "string"
+                },
+                "expires_on": {
+                  "type": "string"
+                },
+                "not_before": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "access_token": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Initialize_variable:_ContinueMultiturnProcessing": {
+          "runAfter": {
+            "Get_Generative_Answers_Copilot_Test_Results": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bfa823e7-3504-432e-990e-589d29149f0b"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ContinueMultiturnProcessing",
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_MultiturnResult": {
+          "runAfter": {
+            "Initialize_variable:_ContinueMultiturnProcessing": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a3125a46-5313-4d02-bbfb-057eceb6cd97"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "MultiturnResult",
+                "type": "integer"
+              }
+            ]
+          }
+        },
+        "Initialize_variable:_MultiturnPendingResult": {
+          "runAfter": {
+            "Initialize_variable:_MultiturnResult": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cd2678c6-278c-4208-b809-513e48fa9363"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "MultiturnPendingResult",
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "Get_Flow_Endpoint": {
+          "runAfter": {
+            "Initialize_variable:_MultiturnPendingResult": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "39e693bc-3942-4177-a3ff-2e3356d893dd"
+          },
+          "type": "Compose",
+          "inputs": "@if(equals(parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'),'https://make.powerautomate.com/'),'https://make.powerautomate.com/',parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'))"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

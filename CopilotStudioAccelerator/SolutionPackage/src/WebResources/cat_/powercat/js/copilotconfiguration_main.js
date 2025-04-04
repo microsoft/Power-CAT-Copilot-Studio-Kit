@@ -20,6 +20,9 @@ function hideAndShowConversationKPISettings(executionContext) {
   const conversationTranscriptsSection = tabGeneral.sections.get(
     "tab_general_section_conversationtranscriptsenrichment"
   );
+  const conversationAnalyzerSection = tabGeneral.sections.get(
+    "tab_general_section_conversationanalyzer"
+  );
 
   const kpiLogsTab = formContext.ui.tabs.get("tab_conversation_kpi_logs");
 
@@ -34,6 +37,7 @@ function hideAndShowConversationKPISettings(executionContext) {
   toggleSectionVisibility(tabGeneral, sectionsToHideOrShow, false);
   kpiSection.setVisible(false);
   fileSection.setVisible(false);
+  conversationAnalyzerSection.setVisible(false);
   fileConfigDetailsSection.setVisible(false);
   conversationTranscriptsSection.setVisible(false);
   kpiLogsTab.setVisible(false);
@@ -67,6 +71,17 @@ function hideAndShowConversationKPISettings(executionContext) {
     // Show the File section and File Config Details section for File Synchronization
     fileSection.setVisible(true);
     fileConfigDetailsSection.setVisible(true);
+    setFieldRequirements(
+      formContext,
+      ["cat_copilotid", "cat_dataverseurl"],
+      "required"
+    );
+  }
+
+  // Check if configuration type includes 'Conversation Analyzer' (4)
+  if (configurationTypeValues.includes(4)) {
+    // Show the Conversation Analyzer section
+    conversationAnalyzerSection.setVisible(true);
     setFieldRequirements(
       formContext,
       ["cat_copilotid", "cat_dataverseurl"],
@@ -258,11 +273,11 @@ function setFieldVisibilityForEachSections(executionContext) {
     isEnrichedWithTranscripts === true &&
     configurationTypeValues.includes(1)
   ) {
-    section.controls.get("cat_dataverseurl1").setVisible(true);
+    section.controls.get("cat_dataverseurl2").setVisible(true);
     formContext.getAttribute("cat_dataverseurl").setRequiredLevel("required");
     section.controls.get("cat_iscopyfulltranscriptenabled1").setVisible(true);
   } else {
-    section.controls.get("cat_dataverseurl1").setVisible(false);
+    section.controls.get("cat_dataverseurl2").setVisible(false);
     section.controls.get("cat_iscopyfulltranscriptenabled1").setVisible(false);
   }
 }

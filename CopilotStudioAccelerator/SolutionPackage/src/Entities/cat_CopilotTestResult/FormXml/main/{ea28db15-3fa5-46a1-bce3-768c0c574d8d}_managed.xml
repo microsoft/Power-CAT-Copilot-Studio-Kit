@@ -12,9 +12,9 @@
             <label description="General" languagecode="1033" />
           </labels>
           <columns>
-            <column width="35%">
+            <column width="20%">
               <sections>
-                <section name="tab_general_section_testdetails" id="c3fc5f01-360c-453a-a683-d95aebe5e381" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                <section name="tab_general_section_testdetails" id="c3fc5f01-360c-453a-a683-d95aebe5e381" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="1" labelwidth="115">
                   <labels>
                     <label description="Test Details" languagecode="1033" />
                   </labels>
@@ -24,7 +24,7 @@
                         <labels>
                           <label description="Agent Test Run" languagecode="1033" />
                         </labels>
-                        <control id="cat_copilottestrunid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilottestrunid" disabled="false">
+                        <control id="cat_copilottestrunid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilottestrunid" disabled="true">
                           <parameters>
                             <useMainFormDialogForCreate>true</useMainFormDialogForCreate>
                             <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
@@ -37,7 +37,7 @@
                         <labels>
                           <label description="Agent Test" languagecode="1033" />
                         </labels>
-                        <control id="cat_copilottestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilottestid" disabled="false">
+                        <control id="cat_copilottestid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilottestid" disabled="true">
                           <parameters>
                             <useMainFormDialogForCreate>true</useMainFormDialogForCreate>
                             <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
@@ -46,11 +46,27 @@
                       </cell>
                     </row>
                     <row>
+                      <cell id="{08659823-4aff-4f7f-8611-40e06c1e6995}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_parent" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_parent" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
                       <cell id="{e67623a2-1065-4b68-ad95-bc21254b9055}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_testtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_testtypecode" disabled="false" />
+                        <control id="cat_testtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_testtypecode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{aaa3742d-476b-4e78-922b-2e5ac0927794}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_comparisonoperator" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_comparisonoperator" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -58,7 +74,7 @@
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_isstartconversationeventsent" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="cat_isstartconversationeventsent" disabled="false" />
+                        <control id="cat_isstartconversationeventsent" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="cat_isstartconversationeventsent" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -66,7 +82,7 @@
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_testutterance" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_testutterance" disabled="false" />
+                        <control id="cat_testutterance" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_testutterance" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -74,7 +90,7 @@
                         <labels>
                           <label description="Expected Response / Validation Instructions (for Generative Answers)" languagecode="1033" />
                         </labels>
-                        <control id="cat_expectedresponse" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedresponse" disabled="false" />
+                        <control id="cat_expectedresponse" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedresponse" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -82,7 +98,7 @@
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_expectedtopicname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_expectedtopicname" disabled="false" />
+                        <control id="cat_expectedtopicname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_expectedtopicname" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -90,7 +106,7 @@
                         <labels>
                           <label description="Generative Answers Outcome" languagecode="1033" />
                         </labels>
-                        <control id="cat_generativeansweroutcomecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_generativeansweroutcomecode" disabled="false" />
+                        <control id="cat_generativeansweroutcomecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_generativeansweroutcomecode" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -98,7 +114,7 @@
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_externalvariablesjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_externalvariablesjson" disabled="false" />
+                        <control id="cat_externalvariablesjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_externalvariablesjson" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -106,7 +122,7 @@
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_expectedattachmentsjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedattachmentsjson" disabled="false" />
+                        <control id="cat_expectedattachmentsjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedattachmentsjson" disabled="true" />
                       </cell>
                     </row>
                     <row />
@@ -117,7 +133,7 @@
                 </section>
               </sections>
             </column>
-            <column width="65%">
+            <column width="80%">
               <sections>
                 <section name="tab_general_section_result" id="663d8c89-a83b-41e5-9abe-44391f62a32f" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
@@ -135,7 +151,7 @@
                         <labels>
                           <label description="Conversation ID" languagecode="1033" />
                         </labels>
-                        <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
+                        <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -148,6 +164,44 @@
                     </row>
                   </rows>
                 </section>
+                <section name="tab_general_section_multiturntestresults" id="dafe9a3b-1960-432f-95b4-430162dba9c9" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" visible="false">
+                  <labels>
+                    <label description="Multiturn Test Results" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell locklevel="0" id="{7a239063-5d16-446d-8e58-748904a2c000}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{d19da557-33d3-4c6f-90eb-bb9fa64d8529}" rowspan="4" colspan="1" auto="false" showlabel="true">
+                        <labels>
+                          <label description="Multiturn Test Results" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_Multiturntest_Results" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{1911888f-afd0-4676-bbb1-3bb65c2ce05c}">
+                          <parameters>
+                            <RecordsPerPage>10</RecordsPerPage>
+                            <AutoExpand>Fixed</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>cat_copilottestresult_Parent_cat_copilottestresult</RelationshipName>
+                            <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                            <ViewId>{AE6721BF-EB90-4F0A-8325-68A796A72FA9}</ViewId>
+                            <ViewIds>{771443E8-561C-EF11-840A-0022483374D8},{AE6721BF-EB90-4F0A-8325-68A796A72FA9}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
                 <section name="tab_general_section_performance" id="014e02ab-f556-414f-b6d7-35f0b171a641" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
                   <labels>
                     <label description="Performance" languagecode="1033" />
@@ -158,7 +212,7 @@
                         <labels>
                           <label description="Latency (ms)" languagecode="1033" />
                         </labels>
-                        <control id="cat_latencyms" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_latencyms" disabled="false" />
+                        <control id="cat_latencyms" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_latencyms" disabled="true" />
                       </cell>
                       <cell id="{3bc71a9a-ecb3-865e-c8ad-2bd49b1203ee}" showlabel="false" userspacer="true">
                         <labels>
@@ -171,13 +225,13 @@
                         <labels>
                           <label description="Message Sent" languagecode="1033" />
                         </labels>
-                        <control id="cat_messagesenttimestamp" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_messagesenttimestamp" disabled="false" />
+                        <control id="cat_messagesenttimestamp" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_messagesenttimestamp" disabled="true" />
                       </cell>
                       <cell id="{e98b4fe9-f4f7-4cc8-945e-d21175349861}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Response Received" languagecode="1033" />
                         </labels>
-                        <control id="cat_responsereceivedtimestamp" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_responsereceivedtimestamp" disabled="false" />
+                        <control id="cat_responsereceivedtimestamp" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_responsereceivedtimestamp" disabled="true" />
                       </cell>
                     </row>
                   </rows>
@@ -192,7 +246,7 @@
                         <labels>
                           <label description="Response" languagecode="1033" />
                         </labels>
-                        <control id="cat_response" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_response" disabled="false" />
+                        <control id="cat_response" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_response" disabled="true" />
                       </cell>
                     </row>
                   </rows>
@@ -207,13 +261,13 @@
                         <labels>
                           <label description="App Insights Result" languagecode="1033" />
                         </labels>
-                        <control id="cat_appinsightsresult" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_appinsightsresult" disabled="false" />
+                        <control id="cat_appinsightsresult" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_appinsightsresult" disabled="true" />
                       </cell>
                       <cell id="{c88d7dae-bead-4216-b76f-d29bf56566aa}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Triggered Topic ID" languagecode="1033" />
                         </labels>
-                        <control id="cat_recognizedtopicid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_recognizedtopicid" disabled="false" />
+                        <control id="cat_recognizedtopicid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_recognizedtopicid" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -221,13 +275,13 @@
                         <labels>
                           <label description="Triggered Topic / Event" languagecode="1033" />
                         </labels>
-                        <control id="cat_recognizedtopicname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_recognizedtopicname" disabled="false" />
+                        <control id="cat_recognizedtopicname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_recognizedtopicname" disabled="true" />
                       </cell>
                       <cell id="{ef5fb922-9bd0-4e2e-9191-354b92ee266f}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Recognized Intent Score" languagecode="1033" />
                         </labels>
-                        <control id="cat_recognizedintentscore" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="cat_recognizedintentscore" disabled="false" />
+                        <control id="cat_recognizedintentscore" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="cat_recognizedintentscore" disabled="true" />
                       </cell>
                     </row>
                     <row>
@@ -257,7 +311,7 @@
                         <labels>
                           <label description="Suggested Actions JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_suggestedactionsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_suggestedactionsjson" disabled="false" uniqueid="{cd6a5517-9c98-43c1-8f45-00a993cf555d}" />
+                        <control id="cat_suggestedactionsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_suggestedactionsjson" disabled="true" uniqueid="{cd6a5517-9c98-43c1-8f45-00a993cf555d}" />
                       </cell>
                     </row>
                     <row />
@@ -283,7 +337,7 @@
                         <labels>
                           <label description="Attachments JSON" languagecode="1033" />
                         </labels>
-                        <control id="cat_attachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_attachmentsjson" disabled="false" uniqueid="{2f9ec725-9ba0-40e9-90fd-67c73507eba6}" />
+                        <control id="cat_attachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_attachmentsjson" disabled="true" uniqueid="{2f9ec725-9ba0-40e9-90fd-67c73507eba6}" />
                       </cell>
                     </row>
                     <row />
@@ -309,7 +363,7 @@
                         <labels>
                           <label description="Citations" languagecode="1033" />
                         </labels>
-                        <control id="cat_citations" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_citations" disabled="false" uniqueid="{52695351-e248-4d1d-819e-d0ff8e80ea90}" />
+                        <control id="cat_citations" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_citations" disabled="true" uniqueid="{52695351-e248-4d1d-819e-d0ff8e80ea90}" />
                       </cell>
                     </row>
                     <row />
@@ -697,10 +751,144 @@
             </parameters>
           </customControl>
         </controlDescription>
+        <controlDescription forControl="{1911888f-afd0-4676-bbb1-3bb65c2ce05c}">
+          <customControl id="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+            <parameters>
+              <RecordsPerPage>10</RecordsPerPage>
+              <AutoExpand>Fixed</AutoExpand>
+              <EnableQuickFind>false</EnableQuickFind>
+              <EnableViewPicker>false</EnableViewPicker>
+              <EnableChartPicker>true</EnableChartPicker>
+              <ChartGridMode>All</ChartGridMode>
+              <RelationshipName>cat_copilottestresult_Parent_cat_copilottestresult</RelationshipName>
+              <TargetEntityType>cat_copilottestresult</TargetEntityType>
+              <ViewId>{AE6721BF-EB90-4F0A-8325-68A796A72FA9}</ViewId>
+              <ViewIds>{771443E8-561C-EF11-840A-0022483374D8},{AE6721BF-EB90-4F0A-8325-68A796A72FA9}</ViewIds>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{ae6721bf-eb90-4f0a-8325-68a796a72fa9}</ViewId>
+                <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>cat_copilottestresult_Parent_cat_copilottestresult</RelationshipName>
+                <FilteredViewIds>{771443E8-561C-EF11-840A-0022483374D8},{AE6721BF-EB90-4F0A-8325-68A796A72FA9}</FilteredViewIds>
+              </data-set>
+              <EnableEditing type="Enum" static="true">yes</EnableEditing>
+              <DisableChildItemsEditing type="Enum" static="true">no</DisableChildItemsEditing>
+              <EnableFiltering type="Enum" static="true">yes</EnableFiltering>
+              <EnableSorting type="Enum" static="true">yes</EnableSorting>
+              <EnableGrouping type="Enum" static="true">yes</EnableGrouping>
+              <EnableAggregation type="Enum" static="true">no</EnableAggregation>
+              <EnableColumnMoving type="Enum" static="true">no</EnableColumnMoving>
+              <EnableMultipleSelection type="Enum" static="true">yes</EnableMultipleSelection>
+              <EnableRangeSelection type="Enum" static="true">yes</EnableRangeSelection>
+              <EnableJumpBar type="Enum" static="true">no</EnableJumpBar>
+              <EnablePagination type="Enum" static="true">no</EnablePagination>
+              <EnableDropdownColor type="Enum" static="true">yes</EnableDropdownColor>
+              <EnableStatusIcons type="Enum" static="true">yes</EnableStatusIcons>
+              <EnableTypeIcons type="Enum" static="true">no</EnableTypeIcons>
+              <NavigationTypesAllowed type="Enum" static="true">all</NavigationTypesAllowed>
+              <ReflowBehavior type="Enum" static="true">Reflow</ReflowBehavior>
+              <ShowAvatar type="Enum" static="true">yes</ShowAvatar>
+              <ShowFooter type="Enum" static="true">yes</ShowFooter>
+              <ShowColumnHeaders type="Enum" static="true">yes</ShowColumnHeaders>
+              <ContextualLookupColumnFilters type="Enum" static="true">yes</ContextualLookupColumnFilters>
+              <LookupFilterBeginsWith type="Enum" static="true">no</LookupFilterBeginsWith>
+              <DateTimeFormat type="Enum" static="true">none</DateTimeFormat>
+              <DateOnlyFormat type="Enum" static="true">none</DateOnlyFormat>
+              <EnableStatusColumn type="Enum" static="true">yes</EnableStatusColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{ae6721bf-eb90-4f0a-8325-68a796a72fa9}</ViewId>
+                <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>cat_copilottestresult_Parent_cat_copilottestresult</RelationshipName>
+                <FilteredViewIds>{771443E8-561C-EF11-840A-0022483374D8},{AE6721BF-EB90-4F0A-8325-68A796A72FA9}</FilteredViewIds>
+              </data-set>
+              <EnableEditing type="Enum" static="true">yes</EnableEditing>
+              <DisableChildItemsEditing type="Enum" static="true">no</DisableChildItemsEditing>
+              <EnableFiltering type="Enum" static="true">yes</EnableFiltering>
+              <EnableSorting type="Enum" static="true">yes</EnableSorting>
+              <EnableGrouping type="Enum" static="true">yes</EnableGrouping>
+              <EnableAggregation type="Enum" static="true">no</EnableAggregation>
+              <EnableColumnMoving type="Enum" static="true">no</EnableColumnMoving>
+              <EnableMultipleSelection type="Enum" static="true">yes</EnableMultipleSelection>
+              <EnableRangeSelection type="Enum" static="true">yes</EnableRangeSelection>
+              <EnableJumpBar type="Enum" static="true">no</EnableJumpBar>
+              <EnablePagination type="Enum" static="true">no</EnablePagination>
+              <EnableDropdownColor type="Enum" static="true">yes</EnableDropdownColor>
+              <EnableStatusIcons type="Enum" static="true">yes</EnableStatusIcons>
+              <EnableTypeIcons type="Enum" static="true">no</EnableTypeIcons>
+              <NavigationTypesAllowed type="Enum" static="true">all</NavigationTypesAllowed>
+              <ReflowBehavior type="Enum" static="true">Reflow</ReflowBehavior>
+              <ShowAvatar type="Enum" static="true">yes</ShowAvatar>
+              <ShowFooter type="Enum" static="true">yes</ShowFooter>
+              <ShowColumnHeaders type="Enum" static="true">yes</ShowColumnHeaders>
+              <ContextualLookupColumnFilters type="Enum" static="true">yes</ContextualLookupColumnFilters>
+              <LookupFilterBeginsWith type="Enum" static="true">no</LookupFilterBeginsWith>
+              <DateTimeFormat type="Enum" static="true">none</DateTimeFormat>
+              <DateOnlyFormat type="Enum" static="true">none</DateOnlyFormat>
+              <EnableStatusColumn type="Enum" static="true">yes</EnableStatusColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{ae6721bf-eb90-4f0a-8325-68a796a72fa9}</ViewId>
+                <TargetEntityType>cat_copilottestresult</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>cat_copilottestresult_Parent_cat_copilottestresult</RelationshipName>
+                <FilteredViewIds>{771443E8-561C-EF11-840A-0022483374D8},{AE6721BF-EB90-4F0A-8325-68A796A72FA9}</FilteredViewIds>
+              </data-set>
+              <EnableEditing type="Enum" static="true">yes</EnableEditing>
+              <DisableChildItemsEditing type="Enum" static="true">no</DisableChildItemsEditing>
+              <EnableFiltering type="Enum" static="true">yes</EnableFiltering>
+              <EnableSorting type="Enum" static="true">yes</EnableSorting>
+              <EnableGrouping type="Enum" static="true">yes</EnableGrouping>
+              <EnableAggregation type="Enum" static="true">no</EnableAggregation>
+              <EnableColumnMoving type="Enum" static="true">no</EnableColumnMoving>
+              <EnableMultipleSelection type="Enum" static="true">yes</EnableMultipleSelection>
+              <EnableRangeSelection type="Enum" static="true">yes</EnableRangeSelection>
+              <EnableJumpBar type="Enum" static="true">no</EnableJumpBar>
+              <EnablePagination type="Enum" static="true">no</EnablePagination>
+              <EnableDropdownColor type="Enum" static="true">yes</EnableDropdownColor>
+              <EnableStatusIcons type="Enum" static="true">yes</EnableStatusIcons>
+              <EnableTypeIcons type="Enum" static="true">no</EnableTypeIcons>
+              <NavigationTypesAllowed type="Enum" static="true">all</NavigationTypesAllowed>
+              <ReflowBehavior type="Enum" static="true">Reflow</ReflowBehavior>
+              <ShowAvatar type="Enum" static="true">yes</ShowAvatar>
+              <ShowFooter type="Enum" static="true">yes</ShowFooter>
+              <ShowColumnHeaders type="Enum" static="true">yes</ShowColumnHeaders>
+              <ContextualLookupColumnFilters type="Enum" static="true">yes</ContextualLookupColumnFilters>
+              <LookupFilterBeginsWith type="Enum" static="true">no</LookupFilterBeginsWith>
+              <DateTimeFormat type="Enum" static="true">none</DateTimeFormat>
+              <DateOnlyFormat type="Enum" static="true">none</DateOnlyFormat>
+              <EnableStatusColumn type="Enum" static="true">yes</EnableStatusColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
       </controlDescriptions>
       <DisplayConditions Order="0" FallbackForm="true">
         <Everyone />
       </DisplayConditions>
+      <formLibraries>
+        <Library name="cat_/powercat/js/copilottestresult_main.js" libraryUniqueId="{de6317fd-a63b-4312-b471-ab2e060e242c}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="setMultiTurnResultsGridVisibility" libraryName="cat_/powercat/js/copilottestresult_main.js" handlerUniqueId="{8acc2f16-6769-47d3-aac5-dcdf20407dc1}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
     </form>
     <IsCustomizable>1</IsCustomizable>
     <CanBeDeleted>1</CanBeDeleted>

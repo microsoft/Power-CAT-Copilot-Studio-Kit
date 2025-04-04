@@ -8,13 +8,14 @@
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
         }
       },
       "triggers": {
         "manual": {
-          "metadata": {
-            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
-          },
           "type": "Request",
           "kind": "Skills",
           "inputs": {
@@ -23,26 +24,17 @@
               "properties": {},
               "required": []
             }
+          },
+          "metadata": {
+            "operationMetadataId": "b8f61c18-7224-4f8a-9c5f-72fbce5df764"
           }
         }
       },
       "actions": {
         "Respond_to_Copilot": {
-          "runAfter": {
-            "Initialize_Variable_-_Approval_Information": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
-          },
           "type": "Response",
           "kind": "Skills",
           "inputs": {
-            "statusCode": 200,
-            "body": {
-              "approvaldetails": "@{variables('ApprovalInformation')}"
-            },
             "schema": {
               "type": "object",
               "properties": {
@@ -51,15 +43,24 @@
                   "x-ms-dynamically-added": true,
                   "type": "string"
                 }
-              }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "approvaldetails": "@{variables('ApprovalInformation')}"
             }
+          },
+          "runAfter": {
+            "Initialize_Variable_-_Approval_Information": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "81c94f73-dd52-465c-ad3b-a4686da63cc3"
           }
         },
         "Initialize_Variable_-_Approval_Information": {
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "57c0ec25-0284-4884-9e8e-d202bf5aa615"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -77,12 +78,16 @@
                 }
               }
             ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "57c0ec25-0284-4884-9e8e-d202bf5aa615"
           }
         }
       },
       "outputs": {}
     },
-    "templateName": ""
+    "templateName": null
   },
   "schemaVersion": "1.0.0.0"
 }
