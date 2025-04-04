@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{530108fa-5fbf-4188-8b50-b6ed7d437e61}</savedqueryid>
+    <layoutxml>
+      <grid name="cat_solutioncomponents" jump="cat_componentname" select="1" icon="1" preview="1">
+        <row name="cat_solutioncomponent" id="cat_solutioncomponentid">
+          <cell name="cat_componentname" width="300" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_solutioncomponent">
+          <attribute name="cat_solutioncomponentid" />
+          <attribute name="cat_componentname" />
+          <attribute name="createdon" />
+          <order attribute="cat_componentname" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Solution Component Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

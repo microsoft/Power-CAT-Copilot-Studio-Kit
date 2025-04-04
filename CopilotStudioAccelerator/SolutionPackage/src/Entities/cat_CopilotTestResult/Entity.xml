@@ -13,6 +13,46 @@
         <Description description="" languagecode="1033" />
       </Descriptions>
       <attributes>
+        <attribute PhysicalName="cat_AppInsightsMessage">
+          <Type>nvarchar</Type>
+          <Name>cat_appinsightsmessage</Name>
+          <LogicalName>cat_appinsightsmessage</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>0</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>text</Format>
+          <MaxLength>2000</MaxLength>
+          <Length>4000</Length>
+          <displaynames>
+            <displayname description="App Insights Message" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Hidden field for Multiturn test to store message version within Azure App Insights for Test Utterance." languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="cat_AppInsightsResult">
           <Type>nvarchar</Type>
           <Name>cat_appinsightsresult</Name>
@@ -129,6 +169,45 @@
           </displaynames>
           <Descriptions>
             <Description description="" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="cat_ComparisonOperator">
+          <Type>picklist</Type>
+          <Name>cat_comparisonoperator</Name>
+          <LogicalName>cat_comparisonoperator</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>20250304.6</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>-1</AppDefaultValue>
+          <OptionSetName>cat_comparisonoperator</OptionSetName>
+          <displaynames>
+            <displayname description="Comparison Operator" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Specifies the comparison operator to be used in case of Response Match." languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="cat_ConversationTranscriptFile">
@@ -741,6 +820,45 @@
             <Description description="" languagecode="1033" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="cat_Parent">
+          <Type>lookup</Type>
+          <Name>cat_parent</Name>
+          <LogicalName>cat_parent</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>0</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.0.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <LookupStyle>single</LookupStyle>
+          <LookupTypes />
+          <displaynames>
+            <displayname description="Parent" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Defines parent test result for multiturn testing" languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="cat_RecognizedIntentScore">
           <Type>decimal</Type>
           <Name>cat_recognizedintentscore</Name>
@@ -772,7 +890,7 @@
           <IsRetrievable>0</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <MinValue>0</MinValue>
-          <MaxValue>1</MaxValue>
+          <MaxValue>2</MaxValue>
           <Accuracy>10</Accuracy>
           <displaynames>
             <displayname description="Recognized Intent Score" languagecode="1033" />
@@ -1101,7 +1219,7 @@
           <Type>ntext</Type>
           <Name>cat_testutterance</Name>
           <LogicalName>cat_testutterance</LogicalName>
-          <RequiredLevel>required</RequiredLevel>
+          <RequiredLevel>none</RequiredLevel>
           <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
           <ImeMode>auto</ImeMode>
           <ValidForUpdateApi>1</ValidForUpdateApi>
@@ -1932,13 +2050,13 @@
                 <data-set name="Items">
                   <columnsDefaultView />
                 </data-set>
-                <EnableEditing static="true" type="Enum">yes</EnableEditing>
-                <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
+                <EnableEditing static="true" type="Enum">no</EnableEditing>
+                <DisableChildItemsEditing static="true" type="Enum">yes</DisableChildItemsEditing>
                 <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
                 <EnableSorting static="true" type="Enum">yes</EnableSorting>
                 <EnableGrouping static="true" type="Enum">yes</EnableGrouping>
                 <EnableAggregation static="true" type="Enum">yes</EnableAggregation>
-                <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
+                <EnableColumnMoving static="true" type="Enum">yes</EnableColumnMoving>
                 <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
                 <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
                 <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
@@ -1951,6 +2069,10 @@
                 <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
                 <ShowFooter static="true" type="Enum">yes</ShowFooter>
                 <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+                <ContextualLookupColumnFilters static="true" type="Enum">yes</ContextualLookupColumnFilters>
+                <LookupFilterBeginsWith static="true" type="Enum">no</LookupFilterBeginsWith>
+                <DateTimeFormat static="true" type="Enum">none</DateTimeFormat>
+                <DateOnlyFormat static="true" type="Enum">none</DateOnlyFormat>
                 <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
               </parameters>
             </customControl>
@@ -1959,13 +2081,13 @@
                 <data-set name="Items">
                   <columnsDefaultView />
                 </data-set>
-                <EnableEditing static="true" type="Enum">yes</EnableEditing>
-                <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
+                <EnableEditing static="true" type="Enum">no</EnableEditing>
+                <DisableChildItemsEditing static="true" type="Enum">yes</DisableChildItemsEditing>
                 <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
                 <EnableSorting static="true" type="Enum">yes</EnableSorting>
                 <EnableGrouping static="true" type="Enum">yes</EnableGrouping>
                 <EnableAggregation static="true" type="Enum">yes</EnableAggregation>
-                <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
+                <EnableColumnMoving static="true" type="Enum">yes</EnableColumnMoving>
                 <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
                 <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
                 <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
@@ -1978,6 +2100,10 @@
                 <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
                 <ShowFooter static="true" type="Enum">yes</ShowFooter>
                 <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+                <ContextualLookupColumnFilters static="true" type="Enum">yes</ContextualLookupColumnFilters>
+                <LookupFilterBeginsWith static="true" type="Enum">no</LookupFilterBeginsWith>
+                <DateTimeFormat static="true" type="Enum">none</DateTimeFormat>
+                <DateOnlyFormat static="true" type="Enum">none</DateOnlyFormat>
                 <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
               </parameters>
             </customControl>
@@ -1986,13 +2112,13 @@
                 <data-set name="Items">
                   <columnsDefaultView />
                 </data-set>
-                <EnableEditing static="true" type="Enum">yes</EnableEditing>
-                <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
+                <EnableEditing static="true" type="Enum">no</EnableEditing>
+                <DisableChildItemsEditing static="true" type="Enum">yes</DisableChildItemsEditing>
                 <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
                 <EnableSorting static="true" type="Enum">yes</EnableSorting>
                 <EnableGrouping static="true" type="Enum">yes</EnableGrouping>
                 <EnableAggregation static="true" type="Enum">yes</EnableAggregation>
-                <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
+                <EnableColumnMoving static="true" type="Enum">yes</EnableColumnMoving>
                 <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
                 <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
                 <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
@@ -2005,6 +2131,10 @@
                 <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
                 <ShowFooter static="true" type="Enum">yes</ShowFooter>
                 <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+                <ContextualLookupColumnFilters static="true" type="Enum">yes</ContextualLookupColumnFilters>
+                <LookupFilterBeginsWith static="true" type="Enum">no</LookupFilterBeginsWith>
+                <DateTimeFormat static="true" type="Enum">none</DateTimeFormat>
+                <DateOnlyFormat static="true" type="Enum">none</DateOnlyFormat>
                 <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
               </parameters>
             </customControl>

@@ -32,6 +32,7 @@
           <attribute name="cat_resultcode" />
           <filter type="and">
             <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="cat_parent" operator="null" />
           </filter>
           <link-entity alias="a_11c43379b03342349c835ebb85a49d36" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="inner">
             <filter type="and">

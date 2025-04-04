@@ -12,6 +12,9 @@
         <row name="result" id="cat_copilottestid">
           <cell name="cat_copilottestsetid" width="168" />
           <cell name="cat_name" width="128" />
+          <cell name="cat_parent" width="100" />
+          <cell name="cat_critical" width="100" />
+          <cell name="cat_order" width="100" />
           <cell name="cat_testutterance" width="237" />
           <cell name="cat_testtypecode" width="144" />
           <cell name="cat_expectedresponse" width="227" />
@@ -45,6 +48,9 @@
           <attribute name="cat_isstartconversationeventsent" />
           <attribute name="cat_expectedattachmentsjson" />
           <attribute name="cat_externalvariablesjson" />
+          <attribute name="cat_parent" />
+          <attribute name="cat_critical" />
+          <attribute name="cat_order" />
         </entity>
       </fetch>
     </fetchxml>

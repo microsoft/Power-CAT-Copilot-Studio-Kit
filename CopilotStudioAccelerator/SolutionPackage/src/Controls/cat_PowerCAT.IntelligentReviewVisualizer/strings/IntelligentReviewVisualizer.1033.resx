@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="IntelligentReviewVisualizer_Display_Key" xml:space="preserve">
+    <value>Intelligent Review Visualizer</value>
+    <comment>Name of the Intelligent Review Visualizer control.</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_SolutionName_Display_Key" xml:space="preserve">
+    <value>Solution Name</value>
+    <comment>Solution Name of the selected solution.</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_InputEvent_Display_Key" xml:space="preserve">
+    <value>Input Event</value>
+    <comment>Event to initiate specific trigger. Refer Documentation to know more about the type of events.</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_SolutionFile_Display_Key" xml:space="preserve">
+    <value>Solution File</value>
+    <comment>Solution file to be evaluation. This accepts the File returned by attachment control.</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_HideUserInterface_Key" xml:space="preserve">
+    <value>Hide User Interface</value>
+    <comment>To hide the upload file functionality which this control offers.</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_ChooseButtonTitle_Display_Key" xml:space="preserve">
+    <value>Choose Button Title</value>
+    <comment>Title for the choose file button.</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_ReviewResults_Display_Key" xml:space="preserve">
+    <value>Review Results</value>
+    <comment>Evaluation Review results output object .</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternDetails" xml:space="preserve">
+    <value>Pattern Details</value>
+    <comment>Pattern details</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternType" xml:space="preserve">
+    <value>Pattern Type</value>
+    <comment>Pattern's component type </comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternID" xml:space="preserve">
+    <value>Pattern ID</value>
+    <comment>Unique pattern identifier</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternName" xml:space="preserve">
+    <value>Pattern Name</value>
+    <comment>Name of the pattern</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternDescription" xml:space="preserve">
+    <value>Pattern Description</value>
+    <comment>Description of the pattern </comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternDocLink" xml:space="preserve">
+    <value>Pattern DocLink</value>
+    <comment>Document links</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternRecommendation" xml:space="preserve">
+    <value>Pattern Recommendation</value>
+    <comment>Recommendation to be followed</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternSeverity" xml:space="preserve">
+    <value>Pattern Severity</value>
+    <comment>Severity of the pattern</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_PatternCategory" xml:space="preserve">
+    <value>Pattern Category</value>
+    <comment>Category of the pattern </comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_SolutionDetails_Display_Key" xml:space="preserve">
+    <value>Solution Details</value>
+    <comment>Solution Details</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_ReviewSolution_Key" xml:space="preserve">
+    <value>Review Solution</value>
+    <comment>Review Solution</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_ExtractSolutionDetails_Key" xml:space="preserve">
+    <value>Extract Solution Details</value>
+    <comment>Extract Solution Details</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_Status_Display_Key" xml:space="preserve">
+    <value>Status</value>
+    <comment>Status</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_Pass_Display_Key" xml:space="preserve">
+    <value>Pass</value>
+    <comment>Pass</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_Fail_Display_Key" xml:space="preserve">
+    <value>Fail</value>
+    <comment>Fail</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_Warning_Display_Key" xml:space="preserve">
+    <value>Warning</value>
+    <comment>Warning</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_NotExecuted_Display_Key" xml:space="preserve">
+    <value>Not Executed</value>
+    <comment>Not Executed</comment>
+  </data>
+  <data name="IntelligentReviewVisualizer_Skipped_Display_Key" xml:space="preserve">
+    <value>Skipped</value>
+    <comment>Skipped</comment>
+  </data>
+</root>

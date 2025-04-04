@@ -46,6 +46,28 @@
                     </row>
                   </rows>
                 </section>
+                <section name="tab_general_section_conversationanalyzer" id="a445701a-2316-4a29-9aea-867fa55f33bf" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115" visible="false">
+                  <labels>
+                    <label description="Conversation Analyzer" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{68eea8b1-1119-4f3e-93af-3778f1196095}" locklevel="0" colspan="1" rowspan="1" visible="true">
+                        <labels>
+                          <label description="Dataverse URL" languagecode="1033" />
+                        </labels>
+                        <control id="cat_dataverseurl" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_dataverseurl" disabled="false" />
+                      </cell>
+                      <cell id="{67503728-de07-4049-b47f-4a7da095c723}" locklevel="0" colspan="1" rowspan="1" visible="true">
+                        <labels>
+                          <label description="Agent ID (botid)" languagecode="1033" />
+                        </labels>
+                        <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
                 <section name="tab_general_section_kpisettings" id="c32bba23-c9a5-4d3a-95f8-f0a73499acf2" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
                   <labels>
                     <label description="Conversation KPI Settings" languagecode="1033" />
@@ -1070,12 +1092,6 @@
             <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{2bd5a78d-a607-4464-a2c0-67b820770d12}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
-        <event name="onchange" application="false" active="false" attribute="cat_configurationtypescodes">
-          <Handlers>
-            <Handler functionName="hideAndShowConversationKPISettings" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{2f95143a-983b-4158-b3e3-00370392c3f0}" enabled="true" parameters="" passExecutionContext="true" />
-            <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{935fe347-d433-4398-8324-0d642f82aad8}" enabled="true" parameters="" passExecutionContext="true" />
-          </Handlers>
-        </event>
         <event name="onchange" application="false" active="false" attribute="cat_isdirectlinechannelsecurityenabled">
           <Handlers>
             <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{3bc40cec-02de-43d8-b836-ad9ac76528ef}" enabled="true" parameters="" passExecutionContext="true" />
@@ -1104,6 +1120,12 @@
         <event name="onchange" application="false" active="false" attribute="cat_isgeneratedanswersanalysisenabled">
           <Handlers>
             <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{1a85bdcd-6b8e-4f70-9abb-c4eab2c02f7d}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="cat_configurationtypescodes">
+          <Handlers>
+            <Handler functionName="hideAndShowConversationKPISettings" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{5e10d0d3-e86a-4bdf-8537-662977e88272}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{d0631a4a-a801-4a4c-b589-dd8fe3c9575b}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
       </events>
