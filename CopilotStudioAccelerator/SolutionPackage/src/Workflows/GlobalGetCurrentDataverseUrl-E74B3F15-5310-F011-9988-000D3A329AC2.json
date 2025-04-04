@@ -1,0 +1,109 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "a8a0d7de-ed0d-40d8-a81a-bc2badbfc30f"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "Environment_Url": {
+          "runAfter": {
+            "List_Model-driven_Apps": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b57ed030-74a1-4774-9c04-2cce8554e4e8"
+          },
+          "type": "Compose",
+          "inputs": "@uriHost(first(outputs('List_Model-driven_Apps')?['body/value'])?['@odata.id'])"
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Environment_Url": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6c3bcb55-ff20-416f-aadd-356f6a963f16"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "environmenturl": "@{concat('https://', outputs('Environment_Url'), '/')}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "environmenturl": {
+                  "title": "EnvironmentUrl",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "List_Model-driven_Apps": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "593c9778-a4c8-4d8a-abf5-dbf6c6ac3f4d"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "appmodules",
+              "$select": "name",
+              "$top": 1
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

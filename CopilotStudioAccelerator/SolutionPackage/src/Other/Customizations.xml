@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25014.220" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.25014.00220">
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25024.216" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.25024.00216">
   <Entities />
   <Roles />
   <Workflows />
@@ -138,6 +138,15 @@
       <connectionreferencedisplayname>Copilot Studio Kit - Dataverse</connectionreferencedisplayname>
       <connectorid>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</connectorid>
       <description>Microsoft Dataverse connection reference for Copilot Studio Kit</description>
+      <iscustomizable>1</iscustomizable>
+      <promptingbehavior>0</promptingbehavior>
+      <statecode>0</statecode>
+      <statuscode>1</statuscode>
+    </connectionreference>
+    <connectionreference connectionreferencelogicalname="cat_CopilotStudioAcceleratorPowerPlatformforAdmins">
+      <connectionreferencedisplayname>Copilot Studio Kit - Power Platform for Admins</connectionreferencedisplayname>
+      <connectorid>/providers/Microsoft.PowerApps/apis/shared_powerplatformforadmins</connectorid>
+      <description>To fetch all environments of user</description>
       <iscustomizable>1</iscustomizable>
       <promptingbehavior>0</promptingbehavior>
       <statecode>0</statecode>

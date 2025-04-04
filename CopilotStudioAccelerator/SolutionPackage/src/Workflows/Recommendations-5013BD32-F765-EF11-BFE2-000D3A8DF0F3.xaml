@@ -50,7 +50,7 @@
                     <Sequence DisplayName="SetMessageStep1: External Variables JSON">
                       <mcwc:SetMessage ControlId="cat_externalvariablesjson" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -82,12 +82,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Warning: after applying, existing values will be overwritten.&#xA;More details: https://aka.ms/CopilotStudioGlobalVariables" LabelId="7dbe9f1e-b87b-4719-9173-af462a5ad9ea" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Warning: after applying, existing values will be overwritten.&#xA;More details: https://aka.ms/CopilotStudioGlobalVariables" LabelId="935a100a-4402-45c9-8f88-b8da2b076e8c" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">c5330c2a-bbd3-47e0-9a8b-adca4b40eef4</s:Guid>
-                              <x:String x:Key="UniqueName">id_828c1bbd316b475885c4e7689a00969fActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">b310009e-d1a4-4f01-bc12-312c7ef147ad</s:Guid>
+                              <x:String x:Key="UniqueName">id_06e2188691bf40e3a9775da02c2f261fActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -101,7 +101,7 @@
                     <Sequence DisplayName="SetMessageStep2: startConversation">
                       <mcwc:SetMessage ControlId="cat_isstartconversationeventsent" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -133,12 +133,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="More details: https://aka.ms/CopilotStudioStartConversation" LabelId="83fff0b5-15c7-4889-b767-26de2897144a" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="More details: https://aka.ms/CopilotStudioStartConversation" LabelId="94de28dc-f989-47f8-bd55-7376a144f07b" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">74087b4d-89fb-42c0-8bc7-a7d2a10ba937</s:Guid>
-                              <x:String x:Key="UniqueName">id_ef2d709b701f49c195d28f5df95a9158ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">61a55845-e592-4a56-8488-a048d536bc85</s:Guid>
+                              <x:String x:Key="UniqueName">id_fc4072243e2649339402990598269a72ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -152,7 +152,7 @@
                     <Sequence DisplayName="SetMessageStep3: Message Position">
                       <mcwc:SetMessage ControlId="cat_expectedpositionoftheresponseactivity" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -184,12 +184,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="For example, if the copilot first says &quot;Hello&quot; and then &quot;How can I help you?&quot;, and if you want to test the second message, set 2. Leave the field blank if unsure." LabelId="9a6451e8-e948-4bd8-a43a-22aa994ee50a" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="For example, if the copilot first says &quot;Hello&quot; and then &quot;How can I help you?&quot;, and if you want to test the second message, set 1. Position starts from 0. Leave the field blank if unsure." LabelId="023229b0-71fb-41d6-92ff-b55089ad9f53" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">06033cbb-5b34-46f6-8e0c-c46cb694e163</s:Guid>
-                              <x:String x:Key="UniqueName">id_c9b66d3af0694c5190a413ff627e7628ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">9528da88-5300-4dee-8a23-e6282ca34ea4</s:Guid>
+                              <x:String x:Key="UniqueName">id_ce7f28a11fe64d128739ee91e48d4216ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -203,7 +203,7 @@
                     <Sequence DisplayName="SetMessageStep4: Name">
                       <mcwc:SetMessage ControlId="cat_name" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -235,12 +235,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="This can be an internal reference ID, e.g., &quot;TST-001&quot;.&#xA;Warning: after applying, existing values will be overwritten." LabelId="fee57604-6d9f-415d-8ebc-5a46f85dd4c3" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="This can be an internal reference ID, e.g., &quot;TST-001&quot;.&#xA;Warning: after applying, existing values will be overwritten." LabelId="49cb365d-3bfa-4b1b-82ce-a887408344a9" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">ded57164-c326-48b8-bd8f-1c99d04b8e8f</s:Guid>
-                              <x:String x:Key="UniqueName">id_521e1830c6814e2db8773e08a9d42cf1ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">a094b4a5-8d87-461e-b92e-6f4712f30ecb</s:Guid>
+                              <x:String x:Key="UniqueName">id_6f87f6fe14d04c4690e45eb62ae04a13ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>

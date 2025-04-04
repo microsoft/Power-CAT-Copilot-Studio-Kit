@@ -13,6 +13,45 @@
         <Description description="" languagecode="1033" />
       </Descriptions>
       <attributes>
+        <attribute PhysicalName="cat_ComparisonOperator">
+          <Type>picklist</Type>
+          <Name>cat_comparisonoperator</Name>
+          <LogicalName>cat_comparisonoperator</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>20250304.6</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>1</AppDefaultValue>
+          <OptionSetName>cat_comparisonoperator</OptionSetName>
+          <displaynames>
+            <displayname description="Comparison Operator" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Specifies the comparison operator to be used in case of Response Match." languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="cat_CopilotTestId">
           <Type>primarykey</Type>
           <Name>cat_copilottestid</Name>
@@ -78,7 +117,7 @@
           <AutoNumberFormat></AutoNumberFormat>
           <IsSearchable>1</IsSearchable>
           <IsFilterable>0</IsFilterable>
-          <IsRetrievable>0</IsRetrievable>
+          <IsRetrievable>1</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <LookupStyle>single</LookupStyle>
           <LookupTypes />
@@ -87,6 +126,68 @@
           </displaynames>
           <Descriptions>
             <Description description="" languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="cat_Critical">
+          <Type>bit</Type>
+          <Name>cat_critical</Name>
+          <LogicalName>cat_critical</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.0.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>0</AppDefaultValue>
+          <optionset Name="cat_copilottest_cat_critical">
+            <OptionSetType>bit</OptionSetType>
+            <IntroducedVersion>1.0.0.0</IntroducedVersion>
+            <IsCustomizable>1</IsCustomizable>
+            <ExternalTypeName></ExternalTypeName>
+            <displaynames>
+              <displayname description="Critical" languagecode="1033" />
+            </displaynames>
+            <Descriptions>
+              <Description description="" languagecode="1033" />
+            </Descriptions>
+            <options>
+              <option value="1" ExternalValue="" Color="#ed6868" IsHidden="0">
+                <labels>
+                  <label description="Yes" languagecode="1033" />
+                </labels>
+              </option>
+              <option value="0" ExternalValue="" Color="#ffffff" IsHidden="0">
+                <labels>
+                  <label description="No" languagecode="1033" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+          <displaynames>
+            <displayname description="Critical" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Defines criticality of test" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="cat_ExpectedAttachmentsJSON">
@@ -196,7 +297,7 @@
           <AutoNumberFormat></AutoNumberFormat>
           <IsSearchable>1</IsSearchable>
           <IsFilterable>0</IsFilterable>
-          <IsRetrievable>0</IsRetrievable>
+          <IsRetrievable>1</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <Format>text</Format>
           <MaxLength>10000</MaxLength>
@@ -235,7 +336,7 @@
           <AutoNumberFormat></AutoNumberFormat>
           <IsSearchable>1</IsSearchable>
           <IsFilterable>0</IsFilterable>
-          <IsRetrievable>0</IsRetrievable>
+          <IsRetrievable>1</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <Format>text</Format>
           <MaxLength>100</MaxLength>
@@ -351,7 +452,7 @@
           <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
           <IsDataSourceSecret>0</IsDataSourceSecret>
           <AutoNumberFormat></AutoNumberFormat>
-          <IsSearchable>1</IsSearchable>
+          <IsSearchable>0</IsSearchable>
           <IsFilterable>0</IsFilterable>
           <IsRetrievable>0</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
@@ -498,13 +599,52 @@
           <IsRetrievable>0</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <Format>none</Format>
-          <MinValue>0</MinValue>
+          <MinValue>1</MinValue>
           <MaxValue>200</MaxValue>
           <displaynames>
             <displayname description="Order" languagecode="1033" />
           </displaynames>
           <Descriptions>
             <Description description="Order of the test within a group of multi-turn tests." languagecode="1033" />
+          </Descriptions>
+        </attribute>
+        <attribute PhysicalName="cat_Parent">
+          <Type>lookup</Type>
+          <Name>cat_parent</Name>
+          <LogicalName>cat_parent</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>0</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0.0.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>1</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>1</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <LookupStyle>single</LookupStyle>
+          <LookupTypes />
+          <displaynames>
+            <displayname description="Parent" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Defines parent test for multi turn testing." languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="cat_SecondsBeforeGettingAnswer">
@@ -575,9 +715,9 @@
           <AutoNumberFormat></AutoNumberFormat>
           <IsSearchable>1</IsSearchable>
           <IsFilterable>0</IsFilterable>
-          <IsRetrievable>0</IsRetrievable>
+          <IsRetrievable>1</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
-          <AppDefaultValue>1</AppDefaultValue>
+          <AppDefaultValue>-1</AppDefaultValue>
           <OptionSetName>cat_testtype</OptionSetName>
           <displaynames>
             <displayname description="Test Type" languagecode="1033" />
@@ -590,7 +730,7 @@
           <Type>ntext</Type>
           <Name>cat_testutterance</Name>
           <LogicalName>cat_testutterance</LogicalName>
-          <RequiredLevel>required</RequiredLevel>
+          <RequiredLevel>none</RequiredLevel>
           <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
           <ImeMode>auto</ImeMode>
           <ValidForUpdateApi>1</ValidForUpdateApi>
@@ -614,7 +754,7 @@
           <AutoNumberFormat></AutoNumberFormat>
           <IsSearchable>1</IsSearchable>
           <IsFilterable>0</IsFilterable>
-          <IsRetrievable>0</IsRetrievable>
+          <IsRetrievable>1</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <Format>text</Format>
           <MaxLength>2000</MaxLength>
@@ -969,7 +1109,7 @@
           <AutoNumberFormat></AutoNumberFormat>
           <IsSearchable>1</IsSearchable>
           <IsFilterable>0</IsFilterable>
-          <IsRetrievable>0</IsRetrievable>
+          <IsRetrievable>1</IsRetrievable>
           <IsLocalizable>0</IsLocalizable>
           <LookupStyle>single</LookupStyle>
           <LookupTypes>
@@ -1382,25 +1522,29 @@
                 <data-set name="Items">
                   <columnsDefaultView />
                 </data-set>
-                <EnableEditing static="true" type="Enum">no</EnableEditing>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
                 <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
                 <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
                 <EnableSorting static="true" type="Enum">yes</EnableSorting>
-                <EnableGrouping static="true" type="Enum">yes</EnableGrouping>
+                <EnableGrouping static="true" type="Enum">no</EnableGrouping>
                 <EnableAggregation static="true" type="Enum">no</EnableAggregation>
                 <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
                 <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
                 <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
                 <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
                 <EnablePagination static="true" type="Enum">no</EnablePagination>
-                <EnableDropdownColor static="true" type="Enum">no</EnableDropdownColor>
+                <EnableDropdownColor static="true" type="Enum">yes</EnableDropdownColor>
                 <EnableStatusIcons static="true" type="Enum">yes</EnableStatusIcons>
                 <EnableTypeIcons static="true" type="Enum">no</EnableTypeIcons>
-                <NavigationTypesAllowed static="true" type="Enum">primaryOnly</NavigationTypesAllowed>
+                <NavigationTypesAllowed static="true" type="Enum">all</NavigationTypesAllowed>
                 <ReflowBehavior static="true" type="Enum">Reflow</ReflowBehavior>
                 <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
                 <ShowFooter static="true" type="Enum">yes</ShowFooter>
                 <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+                <ContextualLookupColumnFilters static="true" type="Enum">yes</ContextualLookupColumnFilters>
+                <LookupFilterBeginsWith static="true" type="Enum">no</LookupFilterBeginsWith>
+                <DateTimeFormat static="true" type="Enum">none</DateTimeFormat>
+                <DateOnlyFormat static="true" type="Enum">none</DateOnlyFormat>
                 <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
               </parameters>
             </customControl>
@@ -1409,25 +1553,29 @@
                 <data-set name="Items">
                   <columnsDefaultView />
                 </data-set>
-                <EnableEditing static="true" type="Enum">no</EnableEditing>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
                 <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
                 <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
                 <EnableSorting static="true" type="Enum">yes</EnableSorting>
-                <EnableGrouping static="true" type="Enum">yes</EnableGrouping>
+                <EnableGrouping static="true" type="Enum">no</EnableGrouping>
                 <EnableAggregation static="true" type="Enum">no</EnableAggregation>
                 <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
                 <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
                 <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
                 <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
                 <EnablePagination static="true" type="Enum">no</EnablePagination>
-                <EnableDropdownColor static="true" type="Enum">no</EnableDropdownColor>
+                <EnableDropdownColor static="true" type="Enum">yes</EnableDropdownColor>
                 <EnableStatusIcons static="true" type="Enum">yes</EnableStatusIcons>
                 <EnableTypeIcons static="true" type="Enum">no</EnableTypeIcons>
-                <NavigationTypesAllowed static="true" type="Enum">primaryOnly</NavigationTypesAllowed>
+                <NavigationTypesAllowed static="true" type="Enum">all</NavigationTypesAllowed>
                 <ReflowBehavior static="true" type="Enum">Reflow</ReflowBehavior>
                 <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
                 <ShowFooter static="true" type="Enum">yes</ShowFooter>
                 <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+                <ContextualLookupColumnFilters static="true" type="Enum">yes</ContextualLookupColumnFilters>
+                <LookupFilterBeginsWith static="true" type="Enum">no</LookupFilterBeginsWith>
+                <DateTimeFormat static="true" type="Enum">none</DateTimeFormat>
+                <DateOnlyFormat static="true" type="Enum">none</DateOnlyFormat>
                 <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
               </parameters>
             </customControl>
@@ -1436,25 +1584,29 @@
                 <data-set name="Items">
                   <columnsDefaultView />
                 </data-set>
-                <EnableEditing static="true" type="Enum">no</EnableEditing>
+                <EnableEditing static="true" type="Enum">yes</EnableEditing>
                 <DisableChildItemsEditing static="true" type="Enum">no</DisableChildItemsEditing>
                 <EnableFiltering static="true" type="Enum">yes</EnableFiltering>
                 <EnableSorting static="true" type="Enum">yes</EnableSorting>
-                <EnableGrouping static="true" type="Enum">yes</EnableGrouping>
+                <EnableGrouping static="true" type="Enum">no</EnableGrouping>
                 <EnableAggregation static="true" type="Enum">no</EnableAggregation>
                 <EnableColumnMoving static="true" type="Enum">no</EnableColumnMoving>
                 <EnableMultipleSelection static="true" type="Enum">yes</EnableMultipleSelection>
                 <EnableRangeSelection static="true" type="Enum">yes</EnableRangeSelection>
                 <EnableJumpBar static="true" type="Enum">no</EnableJumpBar>
                 <EnablePagination static="true" type="Enum">no</EnablePagination>
-                <EnableDropdownColor static="true" type="Enum">no</EnableDropdownColor>
+                <EnableDropdownColor static="true" type="Enum">yes</EnableDropdownColor>
                 <EnableStatusIcons static="true" type="Enum">yes</EnableStatusIcons>
                 <EnableTypeIcons static="true" type="Enum">no</EnableTypeIcons>
-                <NavigationTypesAllowed static="true" type="Enum">primaryOnly</NavigationTypesAllowed>
+                <NavigationTypesAllowed static="true" type="Enum">all</NavigationTypesAllowed>
                 <ReflowBehavior static="true" type="Enum">Reflow</ReflowBehavior>
                 <ShowAvatar static="true" type="Enum">yes</ShowAvatar>
                 <ShowFooter static="true" type="Enum">yes</ShowFooter>
                 <ShowColumnHeaders static="true" type="Enum">yes</ShowColumnHeaders>
+                <ContextualLookupColumnFilters static="true" type="Enum">yes</ContextualLookupColumnFilters>
+                <LookupFilterBeginsWith static="true" type="Enum">no</LookupFilterBeginsWith>
+                <DateTimeFormat static="true" type="Enum">none</DateTimeFormat>
+                <DateOnlyFormat static="true" type="Enum">none</DateOnlyFormat>
                 <EnableStatusColumn static="true" type="Enum">yes</EnableStatusColumn>
               </parameters>
             </customControl>

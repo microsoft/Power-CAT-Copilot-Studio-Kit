@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{1918bc7f-2158-4b0b-a2ad-21a059431d81}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <tab verticallayout="true" id="{58fb684d-41bc-41b0-8f2f-feb1f14da155}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{8fa38d0b-54d6-40f2-97ad-6657465daee7}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{5429825c-0cd8-4443-a3b6-395009b61330}">
+                        <labels>
+                          <label description="Pattern Name" languagecode="1033" />
+                        </labels>
+                        <control id="cat_patternname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_patternname" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{93fd92aa-29cc-4036-9131-4b496a8646b7}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8c524efa-18a2-4a26-a79b-8de96af9be15}">
+                        <labels>
+                          <label description="Solution Component" languagecode="1033" />
+                        </labels>
+                        <control id="cat_componentid" classid="{270bd3db-d9af-4782-9025-509e298dec0a}" datafieldname="cat_componentid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0e870de5-d6b4-44bf-aac4-4561ec5fd916}">
+                        <labels>
+                          <label description="Pattern Description" languagecode="1033" />
+                        </labels>
+                        <control id="cat_patterndescription" classid="{e0dece4b-6fc8-4a8f-a065-082708572369}" datafieldname="cat_patterndescription" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{64b5719b-5b60-4d9c-8642-b8dd3b459e7f}">
+                        <labels>
+                          <label description="Status" languagecode="1033" />
+                        </labels>
+                        <control id="cat_status" classid="{67fac785-cd58-4f9f-abb3-4b7ddc6ed5ed}" datafieldname="cat_status" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8fe094d4-7f5d-4f20-ab78-1a2e8c3fed46}">
+                        <labels>
+                          <label description="Failure Reason" languagecode="1033" />
+                        </labels>
+                        <control id="cat_failurereason" classid="{e0dece4b-6fc8-4a8f-a065-082708572369}" datafieldname="cat_failurereason" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{2fd372bd-2dca-495f-8648-0ddd7436d7d4}">
+                        <labels>
+                          <label description="Recommendation" languagecode="1033" />
+                        </labels>
+                        <control id="cat_recommendation" classid="{e0dece4b-6fc8-4a8f-a065-082708572369}" datafieldname="cat_recommendation" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{70f42445-6130-4de4-a933-4c97efe83b54}">
+                        <labels>
+                          <label description="Severity" languagecode="1033" />
+                        </labels>
+                        <control id="cat_severity" classid="{3ef39988-22bb-4f0b-bbbe-64b5a3748aee}" datafieldname="cat_severity" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{12549db7-4fd9-4e80-80c8-776840ad5f95}">
+                        <labels>
+                          <label description="Category" languagecode="1033" />
+                        </labels>
+                        <control id="cat_category" classid="{3ef39988-22bb-4f0b-bbbe-64b5a3748aee}" datafieldname="cat_category" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

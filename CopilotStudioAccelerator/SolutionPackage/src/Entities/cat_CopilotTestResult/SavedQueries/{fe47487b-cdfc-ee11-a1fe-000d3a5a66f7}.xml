@@ -28,9 +28,6 @@
           <attribute name="cat_copilottestresultid" />
           <attribute name="cat_response" />
           <attribute name="cat_resultcode" />
-          <filter type="and">
-            <condition attribute="statecode" operator="eq" value="0" />
-          </filter>
           <attribute name="cat_name" />
           <attribute name="cat_copilottestid" />
           <order attribute="cat_copilottestid" descending="false" />
@@ -38,6 +35,12 @@
           <attribute name="cat_resultreason" />
           <attribute name="cat_testutterance" />
           <attribute name="cat_testtypecode" />
+          <filter type="and">
+            <filter type="and">
+              <condition attribute="statecode" operator="eq" value="0" />
+              <condition attribute="cat_parent" operator="null" />
+            </filter>
+          </filter>
         </entity>
       </fetch>
     </fetchxml>

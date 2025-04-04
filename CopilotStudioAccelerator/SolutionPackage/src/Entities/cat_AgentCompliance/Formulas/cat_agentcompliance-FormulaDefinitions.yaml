@@ -1,0 +1,36 @@
+cat_agentcompliancebotid: =cat_ConfiguredAgent.cat_copilotid
+cat_perctranscriptsinpiiviolation: =IfError(cat_transcriptspiivioloations / cat_totaltranscripts, 0)
+cat_perctranscriptsinpiiviolationstring: |-
+    =Concatenate(Text(
+        IfError(cat_transcriptspiivioloations / cat_totaltranscripts, 0) * 100,
+        "##0"), "%")
+cat_perctranscriptswithlowsentiment: =IfError(cat_transcriptswithlowsentiment / cat_sentimenttotaltranscripts, 0)
+cat_perctranscriptswithlowsentimentstring: |-
+    =Concatenate(Text(
+        IfError(cat_transcriptswithlowsentiment / cat_sentimenttotaltranscripts, 0) * 100,
+        "##0"), "%")
+cat_piicompliancestatuscolor: |-
+    =If(Or(IsBlank(cat_piicompliancestatus), cat_piicompliancestatus = [@global_cat_compliancestatus].'0'), "#18AB58", 
+    If(cat_piicompliancestatus = [@global_cat_compliancestatus].'1', "#D83A00", 
+    If(cat_piicompliancestatus = [@global_cat_compliancestatus].'2', "#029DCC", "#18AB58")))
+cat_piiseveritycolor: |-
+    =If(Or(IsBlank(cat_piiseverity), cat_piiseverity = [@global_cat_severity].'0'), "#18AB58", 
+    If(cat_piiseverity = [@global_cat_severity].'1', "#029DCC", 
+    If(cat_piiseverity = [@global_cat_severity].'2', "#FFBA01", 
+    "#D83A00")))
+cat_sentimentanalysisstatuscolor: |-
+    =If(Or(IsBlank(cat_sentimentanalysisstatus), cat_sentimentanalysisstatus = [@global_cat_compliancestatus].'0'), "#18AB58", 
+    If(cat_sentimentanalysisstatus = [@global_cat_compliancestatus].'1', "#D83A00", 
+    If(cat_sentimentanalysisstatus = [@global_cat_compliancestatus].'2', "#029DCC", "#18AB58")))
+cat_sentimentscoremonthlyaveragebucketted: |-
+    =If(cat_sentimentscoremonthlyaverage <= -0.7, "Awful", 
+    If(cat_sentimentscoremonthlyaverage <= -0.3, "Poor", 
+    If(cat_sentimentscoremonthlyaverage <= 0.3, "Okay", 
+    If(cat_sentimentscoremonthlyaverage <= 0.7, "Good",
+    "Great"))))
+cat_sentimentscoremonthlyaveragecolor: |-
+    =If(cat_sentimentscoremonthlyaveragebucketted = "Awful", "#D83A00",
+    If(cat_sentimentscoremonthlyaveragebucketted = "Poor", "#FFBA01",
+    If(cat_sentimentscoremonthlyaveragebucketted = "Okay", "#029DCC",
+    If(cat_sentimentscoremonthlyaveragebucketted = "Good", "#3CB371",
+    "#18AB58"))))

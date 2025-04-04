@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{1d1281bb-9b3a-4546-b03d-354486ed5fd0}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_componentname" select="1" icon="1" preview="1">
+        <row name="result" id="cat_solutioncomponentid">
+          <cell name="cat_componentname" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="cat_displayname" width="150" />
+          <cell name="cat_totalscreensorcomponents" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_solutioncomponent">
+          <attribute name="cat_solutioncomponentid" />
+          <attribute name="cat_componentname" />
+          <attribute name="createdon" />
+          <order attribute="cat_componentname" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cat_displayname" />
+          <attribute name="cat_totalscreensorcomponents" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Solution Components" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>
