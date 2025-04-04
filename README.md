@@ -42,6 +42,11 @@ Agent Inventory provides administrators with a tenant-wide view to all Copilot S
 
 More information on [Agent Inventory](./AGENT_INVENTORY.md)
 
+## Agent Review Tool (*New!*)
+Agent Review Tool is a solution analysis tool that can be used to review your agents for any potential issues or anti-patterns that might have negative impact on the performance or the security of your agent. After analysing the solution, Agent Review Tool presents the findings in easy to interpret format, with severity and details on how to address the issue.
+
+More information on [Agent Review Tool](./AGENT_REVIEW_TOOL.md)
+
 # Setup instructions and documentation
 
 - [Prerequisites](./PREREQUISITES.md)
