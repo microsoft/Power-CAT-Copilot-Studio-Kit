@@ -68,7 +68,7 @@
                     <Sequence DisplayName="SetMessageStep3: Response Match Recommendation">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -126,12 +126,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="A Response Match compares the actual response from the copilot with the expected one. Select Apply to see an example (existing values will be overwritten)." LabelId="89f8fb92-127a-445e-a6e0-4b136a664574" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="A Response Match compares the actual response from the copilot with the expected one. Select Apply to see an example (existing values will be overwritten)." LabelId="f0798bf7-5617-460a-bf5a-1238a5485308" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">e4dd81eb-13d8-4e91-bc5c-067349ffdb4c</s:Guid>
-                              <x:String x:Key="UniqueName">id_9fed354643e249c2bdd099eda2f61787ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">c4fb84f5-0e2b-48f3-8b98-37d46d5a5356</s:Guid>
+                              <x:String x:Key="UniqueName">id_0767df8c9a7a4b8ea0d0f7ff64989e46ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -141,6 +141,9 @@
                           <mcwo:StepLabel Description="Response Match" LabelId="a68e5173-7a5f-480e-bf00-56b354b475ac" LanguageCode="1033" />
                         </mcwc:SetMessage.StepLabels>
                       </mcwc:SetMessage>
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep_SetMessageStep3_4: Show field Comparison Operator">
+                      <mcwc:SetVisibility ControlId="cat_comparisonoperator" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>
@@ -152,7 +155,7 @@
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "True" }]</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "true" }]</InArgument>
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
               </InArgument>
@@ -172,6 +175,9 @@
                       <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                       <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
                       <mcwc:SetFieldRequiredLevel ControlId="cat_expectedresponse" ControlType="standard" DisplayName="SetFieldRequiredLevelStep3" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep_SetFieldRequiredLevelStep3_5: Hide field Comparison Operator">
+                      <mcwc:SetVisibility ControlId="cat_comparisonoperator" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>

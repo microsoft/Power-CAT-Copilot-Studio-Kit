@@ -14,7 +14,7 @@
           <columns>
             <column width="100%">
               <sections>
-                <section showlabel="false" showbar="false" IsUserDefined="0" id="{c217ca30-3b41-415d-953e-bb65498df12c}" columns="11" name="tab_general_section_general">
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{c217ca30-3b41-415d-953e-bb65498df12c}" columns="111" name="tab_general_section_general">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
@@ -26,6 +26,12 @@
                         </labels>
                         <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
                       </cell>
+                      <cell id="{9ef5f065-2e75-4122-93e2-857f14b278f0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Test Type" languagecode="1033" />
+                        </labels>
+                        <control id="cat_testtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_testtypecode" disabled="false" />
+                      </cell>
                       <cell id="{ff92ebfa-6e61-4f56-99c9-949e385ce5a5}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Agent Test Set" languagecode="1033" />
@@ -34,21 +40,41 @@
                           <parameters>
                             <useMainFormDialogForCreate>true</useMainFormDialogForCreate>
                             <useMainFormDialogForEdit>true</useMainFormDialogForEdit>
+                            <DisableMru>true</DisableMru>
                           </parameters>
                         </control>
                       </cell>
                     </row>
                     <row>
-                      <cell id="{9ef5f065-2e75-4122-93e2-857f14b278f0}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{8662eb01-2e4e-4d83-b36d-a4503be070a6}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
-                          <label description="Test Type" languagecode="1033" />
+                          <label description="Critical" languagecode="1033" />
                         </labels>
-                        <control id="cat_testtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_testtypecode" disabled="false" />
+                        <control id="cat_critical" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_critical" disabled="false" uniqueid="{fc4e1f19-3309-4277-90fb-8578d782cc19}" />
                       </cell>
-                      <cell locklevel="0" id="{1ec52e02-fa4b-485d-b0b0-64c358258b50}">
+                      <cell id="{54d940f0-abd7-4c13-9b8e-803286783940}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Order" languagecode="1033" />
                         </labels>
+                        <control id="cat_order" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_order" disabled="false" />
+                      </cell>
+                      <cell id="{97aeb1b6-22b7-4f5f-81f6-99ef5840451a}" locklevel="0" colspan="1" rowspan="1" visible="false" showlabel="true">
+                        <labels>
+                          <label description="Parent" languagecode="1033" />
+                        </labels>
+                        <control id="cat_parent" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_parent" disabled="false" uniqueid="{d97a200e-1e10-20a8-a5d1-de11ea20a37a}">
+                          <parameters>
+                            <DisableMru>true</DisableMru>
+                            <AutoResolve>true</AutoResolve>
+                            <DisableQuickFind>false</DisableQuickFind>
+                            <DisableViewPicker>false</DisableViewPicker>
+                            <DefaultViewId>{644FE6A3-D4C0-4D81-94AD-0B1FBA9CC0A0}</DefaultViewId>
+                            <FilterRelationshipName>cat_copilottest_CopilotTestSetId_cat_copilott</FilterRelationshipName>
+                            <DependentAttributeName>cat_copilottest.cat_copilottestsetid</DependentAttributeName>
+                            <DependentAttributeType>cat_copilottestset</DependentAttributeType>
+                            <AllowFilterOff>true</AllowFilterOff>
+                          </parameters>
+                        </control>
                       </cell>
                     </row>
                   </rows>
@@ -59,19 +85,48 @@
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{3e48999b-84aa-4f88-bf87-f3ae16735dd2}" locklevel="0" colspan="1" rowspan="5" auto="true">
+                      <cell id="{3e48999b-84aa-4f88-bf87-f3ae16735dd2}" locklevel="0" colspan="1" rowspan="5" auto="true" visible="false">
                         <labels>
                           <label description="Test Utterance" languagecode="1033" />
                         </labels>
                         <control id="cat_testutterance" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_testutterance" disabled="false" />
                       </cell>
+                      <cell id="{4ad360ee-8656-46af-814c-c9c1abd80c82}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
                     </row>
-                    <row />
-                    <row />
-                    <row />
-                    <row height="auto" />
                     <row>
-                      <cell locklevel="0" id="{6aed9aba-96d5-44e6-9229-1f46f91a375d}">
+                      <cell id="{3746eb4c-58f4-4278-9b2d-3f646321fd5c}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{87ab1288-e35b-4efb-abf0-aa188a8a9bf7}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{62352ec1-fd65-4001-89d1-013c77c590eb}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row height="auto">
+                      <cell id="{fc92ebf5-be49-40c4-b4ad-976f73da838e}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{6aed9aba-96d5-44e6-9229-1f46f91a375d}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -131,29 +186,105 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{6da14975-91fe-48b6-9018-a46f3ec59331}">
+                      <cell locklevel="0" id="{6da14975-91fe-48b6-9018-a46f3ec59331}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{f4054efa-eb78-4b0e-b34a-820274317e20}">
+                      <cell locklevel="0" id="{f4054efa-eb78-4b0e-b34a-820274317e20}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell id="{6c4a4f66-872e-40dd-adc2-26491fb20d59}" locklevel="0" colspan="1" rowspan="5" auto="true" visible="true">
+                      <cell id="{12edf440-814f-42ce-8634-feeaeef2de4b}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Comparison Operator" languagecode="1033" />
+                        </labels>
+                        <control id="cat_comparisonoperator" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_comparisonoperator" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{47219285-eaca-4bdd-8f2b-c436745c7cb4}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{6c4a4f66-872e-40dd-adc2-26491fb20d59}" locklevel="0" colspan="1" rowspan="5" auto="true" visible="false">
                         <labels>
                           <label description="Expected Response" languagecode="1033" />
                         </labels>
                         <control id="cat_expectedresponse" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedresponse" disabled="false" />
                       </cell>
                     </row>
+                    <row>
+                      <cell locklevel="0" id="{1a038b22-74a0-4518-92cb-3a637ab48e40}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{d572249d-8ff9-4ffd-a1b7-c140754e5d3d}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{7b20c829-27ed-465a-8ce3-f8d965aa1c4a}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row height="auto">
+                      <cell locklevel="0" id="{d6c5217a-8bce-4255-a775-afc2559fe000}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_multiturntests" id="690b273f-3c01-453e-bf8a-c94050df4139" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" visible="false">
+                  <labels>
+                    <label description="Multiturn Tests" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{bffb8313-5f83-4058-ae6a-d8ce7cf4b5a3}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{a9be8860-580a-40ed-90f7-8ddc62439af6}" rowspan="4" colspan="1" auto="true" showlabel="false">
+                        <labels>
+                          <label description="Multiturn Tests" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_MultiturnTests" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                          <parameters>
+                            <RecordsPerPage>20</RecordsPerPage>
+                            <AutoExpand>Auto</AutoExpand>
+                            <EnableQuickFind>true</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>true</EnableChartPicker>
+                            <ChartGridMode>All</ChartGridMode>
+                            <RelationshipName>cat_copilottest_Parent_cat_copilottest</RelationshipName>
+                            <TargetEntityType>cat_copilottest</TargetEntityType>
+                            <ViewId>{465E6CF2-B7F9-EF11-BAE2-0022482A581D}</ViewId>
+                            <ViewIds>{B41F6F61-561C-EF11-840B-6045BDD6C0EE},{6F98FE12-4EB7-4027-A3F4-2EFA43803939},{594824C5-8811-EF11-9F89-0022480B09C2},{CF45E143-E800-EF11-A1FE-000D3A340B9F},{465E6CF2-B7F9-EF11-BAE2-0022482A581D}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
                     <row />
                     <row />
                     <row />
-                    <row />
+                    <row height="auto" />
                   </rows>
                 </section>
               </sections>
@@ -173,12 +304,12 @@
                   </labels>
                   <rows>
                     <row>
-                      <cell locklevel="0" id="{2a2f8393-0d50-43a3-8450-f7d80b665423}">
+                      <cell locklevel="0" id="{2a2f8393-0d50-43a3-8450-f7d80b665423}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell locklevel="0" id="{d7f2fc87-3763-436c-8705-c3cde2537537}">
+                      <cell locklevel="0" id="{d7f2fc87-3763-436c-8705-c3cde2537537}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -198,20 +329,104 @@
                         <control id="cat_externalvariablesjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_externalvariablesjson" disabled="false" uniqueid="{6467c1dc-1bb8-49b8-9322-fed64188159a}" />
                       </cell>
                     </row>
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
-                    <row />
+                    <row>
+                      <cell id="{e35a94f8-76c7-42b8-aa57-23cffe002b36}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{f920bc2f-fbf4-443a-9d97-f840dbf034aa}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c6938f68-e48a-41a1-8fee-58e01033eaad}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0471f916-9dc2-4b08-9e41-18a5f45cdf12}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{6853a94f-3f30-43a0-ae38-1815ffeda9f5}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8f8cdde5-edb2-45eb-a84a-184e91698828}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0b01f912-de2a-4866-abf5-e81f2202b657}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{54ff80bf-76d6-4d15-a495-a9447edcce07}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{bf0f45fd-754d-44df-8cb8-dfc6606f4a88}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4379d7ae-272d-4894-9e80-a302e558f270}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{95a18249-7574-4c83-a9ce-804709083638}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{99b70a14-24d5-4619-8390-f201e8b7b65e}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{43963831-61bf-4c0e-ab37-b87e8361dfcd}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{44483a5c-9915-4d6b-93b3-4a197d1cddbf}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
                     <row>
                       <cell id="{06a83a91-236e-4fd3-b7be-8bffd4084279}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
@@ -219,7 +434,7 @@
                         </labels>
                         <control id="cat_expectedpositionoftheresponseactivity" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_expectedpositionoftheresponseactivity" disabled="false" />
                       </cell>
-                      <cell locklevel="0" id="{55728c67-36b7-4a92-a715-54e1ca658936}">
+                      <cell locklevel="0" id="{55728c67-36b7-4a92-a715-54e1ca658936}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -232,7 +447,7 @@
                         </labels>
                         <control id="cat_secondsbeforegettinganswer" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_secondsbeforegettinganswer" disabled="false" />
                       </cell>
-                      <cell locklevel="0" id="{58a547d2-08ac-4cdf-9f4f-4fc635f7a1ff}">
+                      <cell locklevel="0" id="{58a547d2-08ac-4cdf-9f4f-4fc635f7a1ff}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -642,6 +857,28 @@
             </parameters>
           </customControl>
         </controlDescription>
+        <controlDescription forControl="{fc4e1f19-3309-4277-90fb-8578d782cc19}">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>cat_critical</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_critical</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_critical</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_critical</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
       </controlDescriptions>
       <Navigation>
         <NavBar />
@@ -673,6 +910,22 @@
           </NavBarArea>
         </NavBarAreas>
       </Navigation>
+      <formLibraries>
+        <Library name="cat_/powercat/js/copilottest_main.js" libraryUniqueId="{b78831d9-9d53-47d9-99ee-a39f92cc0c0d}" />
+      </formLibraries>
+      <events>
+        <event name="onload" application="false" active="false">
+          <Handlers>
+            <Handler functionName="setMultiTurnControlsVisibility" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{510bbedb-5aed-4e71-a841-66a073ba033d}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="setTestOrder" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{569fda5a-92ac-4ef4-8180-d45230ab83c7}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="cat_testtypecode">
+          <Handlers>
+            <Handler functionName="setMultiTurnControlsVisibility" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{aa8dc942-83c3-4928-874c-010e7ee9e924}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+      </events>
       <DisplayConditions Order="0" FallbackForm="true">
         <Everyone />
       </DisplayConditions>

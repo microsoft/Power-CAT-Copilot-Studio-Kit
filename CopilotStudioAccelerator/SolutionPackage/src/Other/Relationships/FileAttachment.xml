@@ -21,4 +21,25 @@
       </Descriptions>
     </RelationshipDescription>
   </EntityRelationship>
+  <EntityRelationship Name="FileAttachment_cat_solutionreview_cat_SolutionFile">
+    <EntityRelationshipType>OneToMany</EntityRelationshipType>
+    <IsCustomizable>0</IsCustomizable>
+    <IntroducedVersion>1.0.0.8</IntroducedVersion>
+    <IsHierarchical>0</IsHierarchical>
+    <ReferencingEntityName>cat_solutionreview</ReferencingEntityName>
+    <ReferencedEntityName>FileAttachment</ReferencedEntityName>
+    <CascadeAssign>NoCascade</CascadeAssign>
+    <CascadeDelete>RemoveLink</CascadeDelete>
+    <CascadeArchive>RemoveLink</CascadeArchive>
+    <CascadeReparent>NoCascade</CascadeReparent>
+    <CascadeShare>NoCascade</CascadeShare>
+    <CascadeUnshare>NoCascade</CascadeUnshare>
+    <IsValidForAdvancedFind>0</IsValidForAdvancedFind>
+    <ReferencingAttributeName>cat_SolutionFile</ReferencingAttributeName>
+    <RelationshipDescription>
+      <Descriptions>
+        <Description description="" languagecode="1033" />
+      </Descriptions>
+    </RelationshipDescription>
+  </EntityRelationship>
 </EntityRelationships>
