@@ -2,7 +2,7 @@
 ## Overview
 Webchat Playground simplifies customizing the appearance and behavior of the copilot agent webchat, including colors, fonts, thumbnails and much more. Easy to use UI allows makers to define the look and feel of their webchat, and styles can be exported as JSON snippet or HTML sample.
 
-![theme1](https://github.com/user-attachments/assets/fffea4df-5958-4293-98bd-d798d450af15)
+![webchat overview](https://github.com/user-attachments/assets/6e070ba5-e47d-4f95-8b24-6ca3ff9f62cc)
 
 Webchat Playground comes with predefined themes which demonstrate different customization options of the webchat, and can be used a starting point when designing a new theme. Makers can also create new themes and save them for future use.
 
@@ -20,6 +20,12 @@ Webchat Playground comes with predefined themes which demonstrate different cust
 
 1. The left pane turns into a style editor when a theme is being edited or a new theme is being created. It has sections for **General**, **Send Box**, **Suggestion Box**, **Avatar** and **Bubble**. The editor also includes an accessibility checker for all applicable sections. Save and delete actions are available from the top.
 2. Right pane showing **Code Snippet**
+
+## Sample HTML
+
+The Sample HTML snippet features a floating widget webchat control with the selected styles applied.
+
+![webchat floating widget](https://github.com/user-attachments/assets/5c6d9a9d-3aa7-4abb-a1a7-1a9659a4afab)
    
 ## Functionality
 
