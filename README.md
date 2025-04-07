@@ -22,7 +22,7 @@ SharePoint synchronization allows makers to configure periodical selective conte
 
 More information on [SharePoint synchronization](./FILE_SYNCHRONIZATION.md)
 
-## Prompt Advisor (preview)
+## Prompt Advisor
 Prompt Advisor allows makers to develop effective prompts while learning useful prompt engineering skills. Prompts entered in the advisor tool will be analyzed and receive a confidence evaluation with detailed reasoning for the score. Advisor also provides a list of suggested refined prompts implementing various prompt techniques. Makers can select from these optimized prompts to iteratively refine and improve their input.
 
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
