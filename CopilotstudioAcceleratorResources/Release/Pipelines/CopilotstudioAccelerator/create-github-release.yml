@@ -48,7 +48,14 @@ steps:
     pipeline: '2359' #Production buildId
     runVersion: 'latest'
     patterns: '**/CopilotStudioAccelerator*.zip'
-  displayName: 'Download Copilot Studio Accelerator solution'  
+  displayName: 'Download Copilot Studio Accelerator solution'
+
+- powershell: |
+    Write-Host "Listing contents of $(Pipeline.Workspace)\drop:"
+    Get-ChildItem -Path "$(Pipeline.Workspace)\drop" -Recurse | ForEach-Object {
+        Write-Host $_.FullName
+    }
+  displayName: 'List downloaded artifacts'
 
 - powershell: |
 
@@ -66,7 +73,7 @@ steps:
     Write-Host "Checking for Conversation.KPIs.zip in the /Release/ folder..."
     $releaseFolder = "$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\"
     $kpiFile = Get-ChildItem -Path $releaseFolder -Filter '*.zip' | Where-Object { $_.Name -ieq 'Conversation.KPIs.zip' }
-    
+
     if ($kpiFile) {
         Write-Host "Found '$($kpiFile.Name)'. Copying to releaseassets..."
         Copy-Item -Path $kpiFile.FullName -Destination "$(Pipeline.Workspace)\releaseassets" -Force
@@ -108,7 +115,7 @@ steps:
       DestinationPath = '$(Pipeline.Workspace)/releaseassets/CopilotStudioKit-Unmanaged.zip'
     }
     Compress-Archive @compress
-    Write-Host "CopilotStudioKit-Unmanaged.zip created.    
+    Write-Host "CopilotStudioKit-Unmanaged.zip created."
 
     # Rename the build-numbered managed ZIP
     Write-Host "Renaming managed solution ZIPs with build number..."
@@ -131,7 +138,6 @@ steps:
     Write-Host "TemplateTitle set to: $templateTitle"
     Write-Host "##vso[task.setvariable variable=TemplateTag]$templateTag"
     Write-Host "##vso[task.setvariable variable=TemplateTitle]$templateTitle"
-
   displayName: 'Prepare release assets'
 
 - template: Pipelines\Templates\create-release-github.yml@PipelineRepo
