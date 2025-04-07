@@ -1,6 +1,6 @@
 # Prompt Advisor
 
-## Refine your AI Builder custom prompts (preview)
+## Refine your AI Builder custom prompts (being deprecated)
 
 Develop effective prompts while learning useful prompt engineering skills with the **Prompt advisor tool**.  
 Users can enter a prompt and receive a confidence evaluation with detailed reasoning for the score. Additionally, the tool provides a list of suggested refined prompts implementing various prompt techniques. Users can select from these optimized prompts to iteratively refine and improve their input.
