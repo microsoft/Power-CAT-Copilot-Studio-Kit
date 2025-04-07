@@ -40,51 +40,58 @@ steps:
 - checkout: self
   displayName: 'Checkout Source Branch'
 
-# Download the artifacts from the latest deployment of CopilotStudioAccelerator to production.
-- task: DownloadPipelineArtifact@2
-  inputs:
-    source: 'specific'
-    project: 'Power-CAT-Copilot-Studio-Kit'
-    pipeline: '2359' #Production buildId
-    runVersion: 'latest'
-    patterns: '**/CopilotStudioAccelerator*.zip'
-  displayName: 'Download Copilot Studio Accelerator solution'
-
 - powershell: |
-    New-Item -Path $(Pipeline.Workspace)\releaseassets -ItemType Directory
-    New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory
+    New-Item -Path $(Pipeline.Workspace)\releaseassets -ItemType Directory -Force
+    New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory -Force
+
+    # Copy managed ZIP with original name to staging (will rename later)
     Copy-Item '$(Pipeline.Workspace)\drop\*managed.zip' -Destination '$(Pipeline.Workspace)\assetstaging'
+
+    # Copy static release resources
     Copy-Item '$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\Collateral\CopilotstudioAccelerator\*.*' -Destination '$(Pipeline.Workspace)\assetstaging'
 
+    # Compress to: CopilotStudioKit.zip
     $compress = @{
       Path = '$(Pipeline.Workspace)\assetstaging\*.*'
       CompressionLevel = 'Fastest'
-      DestinationPath = '$(Pipeline.Workspace)\releaseassets\CopilotStudioAccelerator.zip'
+      DestinationPath = '$(Pipeline.Workspace)\releaseassets\CopilotStudioKit.zip'
     }
     Compress-Archive @compress
 
+    # Copy managed zip again to releaseassets for renaming (original name includes build number)
     Copy-Item '$(Pipeline.Workspace)\drop\*managed.zip' -Destination '$(Pipeline.Workspace)\releaseassets'
+
+    # Cleanup
     Remove-Item $(Pipeline.Workspace)\drop\*managed.zip -Recurse -Force -Confirm:$false
     Remove-Item $(Pipeline.Workspace)\assetstaging -Recurse -Force -Confirm:$false
-    New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory
+    New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory -Force
 
-    Copy-Item '$(Pipeline.Workspace)/drop/CopilotStudioAccelerator*.zip' -Destination '$(Pipeline.Workspace)\assetstaging'    
-    
+    # Copy unmanaged version for second archive
+    Copy-Item '$(Pipeline.Workspace)/drop/CopilotStudioAccelerator*.zip' -Destination '$(Pipeline.Workspace)\assetstaging'
+
+    # Compress to: CopilotStudioKit-Unmanaged.zip
     $compress = @{
       Path = '$(Pipeline.Workspace)\assetstaging\*.*'
       CompressionLevel = 'Fastest'
-      DestinationPath = '$(Pipeline.Workspace)/releaseassets/CopilotStudioAccelerator-Unmanaged.zip'
+      DestinationPath = '$(Pipeline.Workspace)/releaseassets/CopilotStudioKit-Unmanaged.zip'
     }
     Compress-Archive @compress
 
-    $templateTag = 'CopilotStudioAccelerator-$(ReleaseMonthName)${{parameters.ReleaseYearNumber}}'
-    $templateTitle = 'Copilot Studio Accelerator $(ReleaseMonthName) ${{parameters.ReleaseYearNumber}}'
+    # Rename managed solution file with build number
+    Get-ChildItem '$(Pipeline.Workspace)\releaseassets\CopilotStudioAccelerator*_managed.zip' | ForEach-Object {
+      $newName = $_.Name -replace '^CopilotStudioAccelerator', 'CopilotStudioKit'
+      Rename-Item $_.FullName -NewName $newName
+    }
+
+    # Set release metadata
+    $templateTag = 'CopilotStudioKit-$(ReleaseMonthName)${{parameters.ReleaseYearNumber}}'
+    $templateTitle = 'Copilot Studio Kit $(ReleaseMonthName) ${{parameters.ReleaseYearNumber}}'
     if(${{parameters.HotfixReleaseNumber}} -ne 0) {
-        $templateTag = 'CopilotStudioAccelerator-$(ReleaseMonthName)${{parameters.ReleaseYearNumber}}-HF${{parameters.HotfixReleaseNumber}}'
-        $templateTitle = 'Copilot Studio Accelerator $(ReleaseMonthName) ${{parameters.ReleaseYearNumber}} - Hotfix ${{parameters.HotfixReleaseNumber}}'
+        $templateTag = 'CopilotStudioKit-$(ReleaseMonthName)${{parameters.ReleaseYearNumber}}-HF${{parameters.HotfixReleaseNumber}}'
+        $templateTitle = 'Copilot Studio Kit $(ReleaseMonthName) ${{parameters.ReleaseYearNumber}} - Hotfix ${{parameters.HotfixReleaseNumber}}'
     }
     Write-Host "##vso[task.setvariable variable=TemplateTag]$templateTag"
-    Write-Host "##vso[task.setvariable variable=TemplateTitle]$templateTitle"    
+    Write-Host "##vso[task.setvariable variable=TemplateTitle]$templateTitle"
   displayName: 'Prepare release assets'
 
 - template: Pipelines\Templates\create-release-github.yml@PipelineRepo
