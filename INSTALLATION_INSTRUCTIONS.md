@@ -130,6 +130,7 @@ During the steps, please make note of the following values:
 1. Save and publish to a workspace - Make note of the **Report name** and **Workspace name**
 1. Navigate to "**https://app.powerbi.com/**" (Power BI service)
 1. Open the report you published and make note of the **Workspace GUID** and **Report GUID** that are present in the URL.
+   1. Please note that if you are publishing in "My Workspace", the Workspace GUID is: 00000000-0000-0000-0000-000000000000
 1. Click "**...**" and select **View semantic model**
 1. Open **File**->**Settings**
 1. Verify that **Data source credentials** don't have any issues, sign-in to fix as required.

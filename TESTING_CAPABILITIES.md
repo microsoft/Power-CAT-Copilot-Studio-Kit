@@ -10,6 +10,7 @@ Today, the tool supports these types of tests:
 - Attachments match.
 - Topic match (requires Dataverse enrichment)
 - Generative answers (requires AI Builder for response analysis, and Azure Application Insights for details on why an answer was or was not generated)
+- Multi-turn test type is a special test type that consists of a set of test cases of *regular* types that are executed in specified order in same conversation context. Multi-turn tests can be used to test scenarios end-to-end, and for testing custom agents with generative orchestration.
 
 ![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/33496e94-0c7a-4e63-9291-9e461aa9b9e7)
 
