@@ -66,6 +66,20 @@ steps:
     Write-Host "Copying collateral files from source repo..."
     Copy-Item '$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\Collateral\CopilotstudioAccelerator\*.*' -Destination '$(Pipeline.Workspace)\assetstaging' -Verbose
 
+    # Check and copy Conversation.KPIs.zip (case-insensitive, non-recursive)
+    Write-Host "Checking for Conversation.KPIs.zip in the /Release/ folder..."
+    $releaseFolder = "$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\"
+    $kpiFile = Get-ChildItem -Path $releaseFolder -Filter '*.zip' | Where-Object { $_.Name -ieq 'Conversation.KPIs.zip' }
+    
+    if ($kpiFile) {
+        Write-Host "Found '$($kpiFile.Name)'. Copying to releaseassets..."
+        Copy-Item -Path $kpiFile.FullName -Destination "$(Pipeline.Workspace)\releaseassets" -Force
+        Write-Host "Conversation.KPIs.zip successfully copied."
+    } else {
+        Write-Host "Conversation.KPIs.zip not found. Skipping."
+    }
+
+    <#
     # Compress to CopilotStudioKit.zip
     Write-Host "Creating CopilotStudioKit.zip (Managed + Collateral)..."
     $compress = @{
@@ -75,6 +89,7 @@ steps:
     }
     Compress-Archive @compress
     Write-Host "CopilotStudioKit.zip created."
+    #>
 
     # Copy original managed zip to releaseassets
     Write-Host "Copying managed solution zip from drop to releaseassets..."
@@ -90,6 +105,7 @@ steps:
     Write-Host "Copying unmanaged zip for secondary packaging..."
     Copy-Item '$(Pipeline.Workspace)/drop/CopilotStudioAccelerator*.zip' -Destination '$(Pipeline.Workspace)\assetstaging' -Verbose
 
+    <#
     # Compress to CopilotStudioKit-Unmanaged.zip
     Write-Host "Creating CopilotStudioKit-Unmanaged.zip..."
     $compress = @{
@@ -99,6 +115,7 @@ steps:
     }
     Compress-Archive @compress
     Write-Host "CopilotStudioKit-Unmanaged.zip created."
+    #>
 
     # Rename the build-numbered managed ZIP
     Write-Host "Renaming managed solution ZIPs with build number..."
