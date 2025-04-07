@@ -1,4 +1,5 @@
-# Agent Inventory
+# Agent Inventory (Preview)
+
 ## Agent Inventory overview
 
 Copilot Studio Kit Agent Inventory feature can be used to easily get a tenant-wide visibility to all the Copilot Studio custom agents in the organization, across environments. Agent inventory data includes basic metadata like creation times, publish status and authentication mode, as well as information on the feature usage like knowledge sources used, usage of prompts, orchestration type and more.
