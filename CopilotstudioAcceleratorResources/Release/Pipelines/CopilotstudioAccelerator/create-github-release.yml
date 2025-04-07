@@ -51,19 +51,15 @@ steps:
   displayName: 'Download Copilot Studio Accelerator solution'  
 
 - powershell: |
-    Write-Host "========== Starting release asset preparation =========="
 
     # Create folders
-    Write-Host "Creating folders: releaseassets and assetstaging..."
     New-Item -Path $(Pipeline.Workspace)\releaseassets -ItemType Directory -Force | Out-Null
     New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory -Force | Out-Null
 
     # Copy managed ZIP to staging
-    Write-Host "Copying managed solution ZIP from drop to assetstaging..."
     Copy-Item '$(Pipeline.Workspace)\drop\*managed.zip' -Destination '$(Pipeline.Workspace)\assetstaging' -Verbose
 
     # Copy static collateral files
-    Write-Host "Copying collateral files from source repo..."
     Copy-Item '$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\Collateral\CopilotstudioAccelerator\*.*' -Destination '$(Pipeline.Workspace)\assetstaging' -Verbose
 
     # Check and copy Conversation.KPIs.zip (case-insensitive, non-recursive)
@@ -96,7 +92,6 @@ steps:
     Copy-Item '$(Pipeline.Workspace)\drop\*managed.zip' -Destination '$(Pipeline.Workspace)\releaseassets' -Verbose
 
     # Cleanup drop and assetstaging
-    Write-Host "Cleaning up drop and assetstaging folders..."
     Remove-Item $(Pipeline.Workspace)\drop\*managed.zip -Recurse -Force -Confirm:$false -Verbose
     Remove-Item $(Pipeline.Workspace)\assetstaging -Recurse -Force -Confirm:$false -Verbose
     New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory -Force | Out-Null
@@ -105,7 +100,6 @@ steps:
     Write-Host "Copying unmanaged zip for secondary packaging..."
     Copy-Item '$(Pipeline.Workspace)/drop/CopilotStudioAccelerator*.zip' -Destination '$(Pipeline.Workspace)\assetstaging' -Verbose
 
-    <#
     # Compress to CopilotStudioKit-Unmanaged.zip
     Write-Host "Creating CopilotStudioKit-Unmanaged.zip..."
     $compress = @{
@@ -114,8 +108,7 @@ steps:
       DestinationPath = '$(Pipeline.Workspace)/releaseassets/CopilotStudioKit-Unmanaged.zip'
     }
     Compress-Archive @compress
-    Write-Host "CopilotStudioKit-Unmanaged.zip created."
-    #>
+    Write-Host "CopilotStudioKit-Unmanaged.zip created.    
 
     # Rename the build-numbered managed ZIP
     Write-Host "Renaming managed solution ZIPs with build number..."
@@ -128,7 +121,6 @@ steps:
     }
 
     # Set release metadata variables
-    Write-Host "Setting pipeline variables: TemplateTag and TemplateTitle..."
     $templateTag = 'CopilotStudioKit-$(ReleaseMonthName)${{parameters.ReleaseYearNumber}}'
     $templateTitle = 'Copilot Studio Kit $(ReleaseMonthName) ${{parameters.ReleaseYearNumber}}'
     if(${{parameters.HotfixReleaseNumber}} -ne 0) {
@@ -140,7 +132,6 @@ steps:
     Write-Host "##vso[task.setvariable variable=TemplateTag]$templateTag"
     Write-Host "##vso[task.setvariable variable=TemplateTitle]$templateTitle"
 
-    Write-Host "========== Release asset preparation completed =========="
   displayName: 'Prepare release assets'
 
 - template: Pipelines\Templates\create-release-github.yml@PipelineRepo
