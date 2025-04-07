@@ -22,7 +22,7 @@ SharePoint synchronization allows makers to configure periodical selective conte
 
 More information on [SharePoint synchronization](./FILE_SYNCHRONIZATION.md)
 
-## Prompt Advisor
+## Prompt Advisor (being deprecated)
 Prompt Advisor allows makers to develop effective prompts while learning useful prompt engineering skills. Prompts entered in the advisor tool will be analyzed and receive a confidence evaluation with detailed reasoning for the score. Advisor also provides a list of suggested refined prompts implementing various prompt techniques. Makers can select from these optimized prompts to iteratively refine and improve their input.
 
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
@@ -37,7 +37,7 @@ Adaptive Cards Gallery provides makers with a dozen built-in adaptive card templ
 
 More information on [Adaptive Cards Gallery](./ADAPTIVE_CARDS_GALLERY.md)
 
-## Agent Inventory (*New!*)
+## Agent Inventory (*New!*) (Preview)
 Agent Inventory provides administrators with a tenant-wide view to all Copilot Studio custom agents in their organization, including detailed information on the features they are using, authentication mode, knowledge sources, orchestration type and more. Agent Inventory ships with a dashboard and the data can be exported for use in other applications.
 
 More information on [Agent Inventory](./AGENT_INVENTORY.md)
