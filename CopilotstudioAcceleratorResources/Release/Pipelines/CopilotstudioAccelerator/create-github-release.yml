@@ -116,6 +116,16 @@ steps:
         Write-Host "No unmanaged CopilotStudioAccelerator ZIP found. Skipping unmanaged packaging."
     }
 
+    # Move unmanaged ZIP from assetstaging to releaseassets and rename
+    Write-Host "Renaming unmanaged solution ZIPs with build number..."
+    Get-ChildItem '$(Pipeline.Workspace)\assetstaging\CopilotStudioAccelerator*.zip' | Where-Object { $_.Name -notlike '*_managed.zip' } | ForEach-Object {
+      $original = $_.FullName
+      $newName = $_.Name -replace '^CopilotStudioAccelerator', 'CopilotStudioKit'
+      $newPath = Join-Path -Path '$(Pipeline.Workspace)\releaseassets' -ChildPath $newName
+      Move-Item -Path $original -Destination $newPath
+      Write-Host "Moved and renamed '$($_.Name)' to '$newName'"
+    }
+    
     <#
     # Compress to CopilotStudioKit-Unmanaged.zip
     Write-Host "Creating CopilotStudioKit-Unmanaged.zip..."
