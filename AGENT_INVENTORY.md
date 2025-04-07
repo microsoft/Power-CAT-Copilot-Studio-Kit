@@ -12,7 +12,7 @@ Agent Inventory feature ships with a dashboard that provides an overview on agen
 
 ## Detailed view
 
-From the Agent Inventory dashboard, users can see the total amoung of agents in the tenant, usage % of generative AI features, actions and AI builder prompts
+From the Agent Inventory dashboard, users can see the total amount of agents in the tenant, usage % of generative AI features, actions and AI builder prompts
 and how many agents are leveraging knowledge sources. Also visible are authentication mechanism used by the custom agents, agent creation timeline
 visualizing the growth, and a list of top 5 environments by agent count.
 
