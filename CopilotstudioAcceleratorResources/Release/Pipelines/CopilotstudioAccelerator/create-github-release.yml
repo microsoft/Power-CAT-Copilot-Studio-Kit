@@ -103,10 +103,20 @@ steps:
     Remove-Item $(Pipeline.Workspace)\assetstaging -Recurse -Force -Confirm:$false -Verbose
     New-Item -Path $(Pipeline.Workspace)\assetstaging -ItemType Directory -Force | Out-Null
 
-    # Copy unmanaged zip to staging
-    Write-Host "Copying unmanaged zip for secondary packaging..."
-    Copy-Item '$(Pipeline.Workspace)/drop/CopilotStudioAccelerator*.zip' -Destination '$(Pipeline.Workspace)\assetstaging' -Verbose
+    # Copy unmanaged ZIP (excluding *managed.zip) to assetstaging
+    Write-Host "Looking for unmanaged CopilotStudioAccelerator ZIP in drop folder..."
+    $unmanagedZip = Get-ChildItem '$(Pipeline.Workspace)\drop' -Filter 'CopilotStudioAccelerator*.zip' | Where-Object { $_.Name -notlike '*_managed.zip' }
 
+    if ($unmanagedZip) {
+        foreach ($file in $unmanagedZip) {
+            Write-Host "Copying unmanaged ZIP: $($file.Name)"
+            Copy-Item -Path $file.FullName -Destination '$(Pipeline.Workspace)\assetstaging' -Verbose
+        }
+    } else {
+        Write-Host "No unmanaged CopilotStudioAccelerator ZIP found. Skipping unmanaged packaging."
+    }
+
+    <#
     # Compress to CopilotStudioKit-Unmanaged.zip
     Write-Host "Creating CopilotStudioKit-Unmanaged.zip..."
     $compress = @{
@@ -116,6 +126,7 @@ steps:
     }
     Compress-Archive @compress
     Write-Host "CopilotStudioKit-Unmanaged.zip created."
+    #>
 
     # Rename the build-numbered managed ZIP
     Write-Host "Renaming managed solution ZIPs with build number..."
@@ -138,8 +149,9 @@ steps:
     Write-Host "TemplateTitle set to: $templateTitle"
     Write-Host "##vso[task.setvariable variable=TemplateTag]$templateTag"
     Write-Host "##vso[task.setvariable variable=TemplateTitle]$templateTitle"
-  displayName: 'Prepare release assets'
 
+  displayName: 'Prepare release assets'
+  
 - template: Pipelines\Templates\create-release-github.yml@PipelineRepo
   parameters:
     gitHubApiUrl: 'microsoft/Power-CAT-Copilot-Studio-Kit'
