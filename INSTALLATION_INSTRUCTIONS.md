@@ -83,7 +83,7 @@ Please note that the connection to the SharePoint should point to the source Sha
 1. Select **Default Solution**
 1. Select **Connection references**
 1. Locate "**Copilot Studio Kit - SharePoint**" and open it for editing.
-1. Ensure all required fields are filled and the selected connection is valid. Create new connection to Sharepoint as required.
+1. Ensure all required fields are filled and the selected connection is valid. Create new connection to SharePoint as required.
 1. Click **Save**
 1. Select **Environment variables**
 1. Locate and select **Dataverse URL**
