@@ -74,7 +74,9 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 # Common and shared configuration steps (applies to both AppSource and GitHub)
 
 ## Configure SharePoint Synchronization
-Following steps are **optional** and required only if you plan to use the **SharePoint Synchronization** feature. You can also set these later at any time before using that feature. Please note that the connection to the SharePoint should point to the source SharePoint site, and the Dataverse URL should point to the Dataverse instance associated with the (target) custom agents (where the content is synchronized **to**)
+Following steps are **optional** and required only if you plan to use the **SharePoint Synchronization** feature. You can also set these later at any time before using the feature.
+
+Please note that the connection to the SharePoint should point to the source SharePoint site, and the Dataverse URL should point to the Dataverse instance associated with the (target) custom agents (where the content is synchronized **to**)
 
 1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
 1. Go to **Solutions**
@@ -86,6 +88,24 @@ Following steps are **optional** and required only if you plan to use the **Shar
 1. Select **Environment variables**
 1. Locate and select **Dataverse URL**
 1. Replace placeholder in the **Current Value** with the actual **Dataverse URL** pointing to the Dataverse instance associated with your **Copilot Studio agents**, for example: https://org123.crm.dynamics.com/
+1. Click **Save**
+
+## Configure Agent Inventory
+Following steps are **optional** and required only if you plan to use the **Agent Inventory** feature. You can also set these later at any time before using the feature.
+
+Please note that the visibility to the agents is limited and controlled by the connection references in the solution. **Copilot Studio Kit - Power Platform for Admins** is used to fetch the list of environments in the tenant and **Copilot Studio Kit - Dataverse** is used to gather the agent information from the environments. For full visibility, the connection references have to be configured with account having Power Platform admin role and system admin level permission to all the environments. Other accounts can be used as well, but the visibility of the agent inventory is limited to the environments the user has system admin access to.
+
+1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
+1. Go to **Solutions**
+1. Select **Default Solution**
+1. Select **Connection references**
+1. Locate "**Copilot Studio Kit - Power Platform for Admins**" and open it for editing.
+1. This connection is used to list all the environments in the tenant. Use account with Power Platform Admin level permissions to get full visibility.
+1. Ensure all required fields are filled and the selected connection is valid.
+1. Click **Save**
+1. Locate "**Copilot Studio Kit - Dataverse**" and open it for editing.
+1. This connection is used to gather all the agent details from the environments. Use account with System Admin level permissions to all environments to get full visibility. Please note that this connection is used with other features in the Kit as well.
+1. Ensure all required fields are filled and the selected connection is valid.
 1. Click **Save**
 
 ## Enabling flows
