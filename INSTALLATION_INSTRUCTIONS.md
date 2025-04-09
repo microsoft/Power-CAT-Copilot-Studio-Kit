@@ -19,31 +19,15 @@ Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.m
 
 After the installation finishes, proceed with these post deployment steps:
 
-Please note that steps 7. and 8. are optional and required only if you plan to use the SharePoint synchronize feature. Connection to the SharePoint should point to the source SharePoint site.
 1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
 1. Go to **Solutions**
 1. Select **Default Solution**
 1. Select **Connection references**
 1. Locate "**Copilot Studio Kit - Dataverse**" and open it for editing.
 1. Ensure all required fields are filled and the selected connection is valid. Create new connection to Dataverse as required.
-1. (*Optional*) Locate "**Copilot Studio Kit - SharePoint**" and open it for editing.
-1. (*Optional*) Ensure all required fields are filled and the selected connection is valid. Create new connection to Sharepoint as required.
 1. Click **Save**
-1. Click **Save changes**
 
-Next, ensure all related flows are enabled:
-
-Please note that flows that begin with "Synchronize files" need to be enabled only if you plan to use the SharePoint synchronize feature.
-1. Navigate to **Power Automate**
-1. Make sure the environment with the Copilot Studio Kit is selected
-1. Select **Solutions**
-1. Select **Copilot Studio Kit**
-1. Select **Cloud flows**
-1. Make sure all the flows are enabled (Status = On)
-1. Enable any flows that are not enabled, in the following order
-   1. Flows that end with "**Grandchild**"
-   1. Flows that end with "**Child**"
-   1. Rest of the flows as required, in any order
+Please see the common and optional configuration steps below.
 
 # Installing the Power CAT Copilot Studio Kit (Github)
 
@@ -82,9 +66,53 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 1. Leave "**Conversation KPIs report**" values as-is for now, you will be updating these in the later steps.
 1. Select **Import**
 
-## Post installation/upgrade steps
+> [!NOTE]  
+> While upgrading the Copilot Studio Kit, you might encounter the following error: "*Solution "Power CAT Copilot Studio Kit" failed to import: ImportAsHolding failed with exception: Cannot delete attribute: cat_copilottestrunid from Entity: cat_CopilotTestRun since the attribute is not a custom field.*".
+>
+> This is a known issue that is being investigated. As a workaround, stage the upgrade before applying it. For detailed instructions, please see [here](https://learn.microsoft.com/power-apps/maker/data-platform/update-solutions).
 
-After the import process has finished, complete these steps to make sure all the related flows are enabled:
+# Common and shared configuration steps (applies to both AppSource and GitHub)
+
+## Configure SharePoint Synchronization
+Following steps are **optional** and required only if you plan to use the **SharePoint Synchronization** feature. You can also set these later at any time before using the feature.
+
+Please note that the connection to the SharePoint should point to the source SharePoint site, and the Dataverse URL should point to the Dataverse instance associated with the (target) custom agents (where the content is synchronized **to**)
+
+1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
+1. Go to **Solutions**
+1. Select **Default Solution**
+1. Select **Connection references**
+1. Locate "**Copilot Studio Kit - SharePoint**" and open it for editing.
+1. Ensure all required fields are filled and the selected connection is valid. Create new connection to SharePoint as required.
+1. Click **Save**
+1. Select **Environment variables**
+1. Locate and select **Dataverse URL**
+1. Replace placeholder in the **Current Value** with the actual **Dataverse URL** pointing to the Dataverse instance associated with your **Copilot Studio agents**, for example: https://org123.crm.dynamics.com/
+1. Click **Save**
+
+## Configure Agent Inventory
+Following steps are **optional** and required only if you plan to use the **Agent Inventory** feature. You can also set these later at any time before using the feature.
+
+Please note that the visibility to the agents is limited and controlled by the connection references in the solution. **Copilot Studio Kit - Power Platform for Admins** is used to fetch the list of environments in the tenant and **Copilot Studio Kit - Dataverse** is used to gather the agent information from the environments. For full visibility, the connection references have to be configured with account having Power Platform admin role and system admin level permission to all the environments. Other accounts can be used as well, but the visibility of the agent inventory is limited to the environments the user has system admin access to.
+
+1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
+1. Go to **Solutions**
+1. Select **Default Solution**
+1. Select **Connection references**
+1. Locate "**Copilot Studio Kit - Power Platform for Admins**" and open it for editing.
+1. This connection is used to list all the environments in the tenant. Use account with Power Platform Admin level permissions to get full visibility.
+1. Ensure all required fields are filled and the selected connection is valid.
+1. Click **Save**
+1. Locate "**Copilot Studio Kit - Dataverse**" and open it for editing.
+1. This connection is used to gather all the agent details from the environments. Use account with System Admin level permissions to all environments to get full visibility. Please note that this connection is used with other features in the Kit as well.
+1. Ensure all required fields are filled and the selected connection is valid.
+1. Click **Save**
+
+## Enabling flows
+
+> [!NOTE]  
+> If you have not set up the environment variable for **SharePoint Synchronization** in the previous step, you don't have to enable the related flows (they start with **Sharepoint Synchronization**). This does not impact other features in the Kit.
+
 1. Navigate to **Power Automate**
 1. Make sure the environment with the Copilot Studio Kit is selected
 1. Select **Solutions**
@@ -95,20 +123,6 @@ After the import process has finished, complete these steps to make sure all the
    1. Flows that end with "**Grandchild**"
    1. Flows that end with "**Child**"
    1. Rest of the flows as required, in any order
-
-> [!NOTE]  
-> While upgrading the Copilot Studio Kit, you might encounter the following error: "*Solution "Power CAT Copilot Studio Kit" failed to import: ImportAsHolding failed with exception: Cannot delete attribute: cat_copilottestrunid from Entity: cat_CopilotTestRun since the attribute is not a custom field.*".
->
-> This is a known issue that is being investigated. As a workaround, stage the upgrade before applying it. For detailed instructions, please see [here](https://learn.microsoft.com/power-apps/maker/data-platform/update-solutions).
-
-## Access the Power CAT Copilot Studio Kit app
-
-1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
-1. Select to the **environment** in which you want to install the Power CAT Copilot Studio Kit.
-1. Navigate to **Apps**.
-1. Locate and select **Power CAT Copilot Studio Kit**.
-1. Select **Play**.
-1. **Bookmark** the app (optional)
 
 ## Configure the embedded Conversation KPI dashboard
 
@@ -136,7 +150,7 @@ During the steps, please make note of the following values:
 1. Verify that **Data source credentials** don't have any issues, sign-in to fix as required.
 1. Navigate to **Refresh** and set the refresh schedule to your liking.
 
-### Updating the environment variable
+### Updating the report environment variable
 
 In order to set up the embedded Conversation KPIs dashboard, you need to update the related environment variable with correct identifiers.
 
@@ -146,6 +160,15 @@ In order to set up the embedded Conversation KPIs dashboard, you need to update 
 1. Locate and select **Conversation KPIs Report**
 1. Replace placeholders in the **Default Value** with the actual **Workspace name**, **Workspace GUID**, **Report Name** and **Report GUID** you noted down during the publishing process.
 1. Save
+
+## Access the Power CAT Copilot Studio Kit app
+
+1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
+1. Select to the **environment** in which you want to install the Power CAT Copilot Studio Kit.
+1. Navigate to **Apps**.
+1. Locate and select **Power CAT Copilot Studio Kit**.
+1. Select **Play**.
+1. **Bookmark** the app (optional)
 
 ## Next step
 [Configure users and teams](/SETUP_USERS_AND_TEAMS.md)
