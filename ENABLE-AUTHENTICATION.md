@@ -97,8 +97,8 @@ Related instructions in the Copilot Studio Kit repository: https://github.com/mi
 1. Click **New**
 1. Enter **Name**
 1. From **Configuration Type(s)** select **Test Automation**
-1. Fill  **Direct Line Settings**-section, enter either **Token Endpoint** or enable **Channel Security** and enter Direct Line secret.
-1. In **User Authentication**-section, for **User Authencation** select **Entra ID v2**
+1. Fill  **Direct Line Settings**-section, enable **Channel Security** and enter Direct Line secret.
+1. In **User Authentication**-section, for **User Authentication** select **Entra ID v2**
 1. For **Client ID**, enter the **Client ID** of **KitAuthApp**
 1. For **Tenant ID** enter the **Directory ID** of **KitAuthApp**
 1. For **Scope**, enter the full scope name (api://xxx/copilot.studio.scope) created for **CopilotStudioAuthApp**
