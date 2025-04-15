@@ -3,11 +3,11 @@ Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.m
 > [!NOTE]
 > Before you download and install the Copilot Studio Kit, ensure that you [enable code components](https://learn.microsoft.com/en-us/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature) in your environment first.
 
-# Installing the Power Cat Copilot Studio Kit ([Appsource](https://appsource.microsoft.com/product/dynamics-365/microsoftpowercatarch.copilotstudiokit?tab=Overview))
+# Installing the Power Cat Copilot Studio Kit ([Appsource](http://aka.ms/DownloadCopilotStudioKit))
 
 ## Deploy from AppSource
 
-1. Navigate to Copilot Studio Kit in AppSource (https://appsource.microsoft.com/product/dynamics-365/microsoftpowercatarch.copilotstudiokit?tab=Overview)
+1. Navigate to Copilot Studio Kit in [AppSource](http://aka.ms/DownloadCopilotStudioKit)
 1. Click **Get it now**
 1. Sign-in if required
 1. You are presented with **Install Copilot Studio Kit** view
