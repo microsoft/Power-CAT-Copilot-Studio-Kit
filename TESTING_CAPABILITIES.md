@@ -6,8 +6,8 @@ To further enrich results, additional data points can be retrieved from Azure Ap
 For AI-generated answers, that are by nature non-deterministic, AI Builder prompts are used to compare the generated answer with a sample answer or with validation instructions.
 
 Today, the tool supports these types of tests:
-- Response exact match.
-- Attachments match.
+- Response match
+- Attachments match
 - Topic match (requires Dataverse enrichment)
 - Generative answers (requires AI Builder for response analysis, and Azure Application Insights for details on why an answer was or was not generated)
 - Multi-turn test type is a special test type that consists of a set of test cases of *regular* types that are executed in specified order in same conversation context. Multi-turn tests can be used to test scenarios end-to-end, and for testing custom agents with generative orchestration.
