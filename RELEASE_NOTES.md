@@ -5,6 +5,7 @@
 - New string comparison operators for Response Match test type
 - Floating widget sample in Webchat Playground
 - Agent Inventory
+- Agent Review Tool
 
 ## March 2025
 - Improved token handling when testing authenticated agents
