@@ -3,6 +3,9 @@
 
 This meeting is a regular open forum for customers and partners to learn and ask questions about the Copilot Studio Kit.
 
+You can join the meeting using this link:
+https://aka.ms/CopilotStudioKitOfficeHoursJoin
+
 Please note:
 
 This session is open to public, will be attended by multiple customers and partners and will be recorded.
