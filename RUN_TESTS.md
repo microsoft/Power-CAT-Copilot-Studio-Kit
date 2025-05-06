@@ -28,10 +28,12 @@ When the Run Status reaches **Complete**, additional cloud flows may kick-in, de
 
 ## Duplicating a Test Run
 
-Users can quickly re-run the exact same set by clicking on the Duplicate Run command.
-This creates a copy of the record that immediately runs.
+Users can quickly re-run the exact same test set by clicking on the Duplicate Run command.
+This creates a copy of the record that immediately runs after saving.
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/cca5ee96-8b41-42a4-a7e4-4d8d104493f2)
+
+Primary purpose for duplicating a test run is to allow rerunning the same test configuration at a) another time b) after making configuration changes c) after adding to the test set
 
 ## Rerunning a specific step
 
@@ -42,6 +44,8 @@ Users may rerun a specific child flow
 - Update Rollup Columns
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/cd8cd44a-5e77-4a49-8c7b-cedfd0273153)
+
+Primary purpose of rerunning steps is to rerun enrichment steps in the case of temporary technical issues. Please note that rerun will only process test cases that are in *Success* or *Pending* status.
 
 ## Next step
 - [Analyze test results](./ANALYZE_TEST_RESULTS.md)
