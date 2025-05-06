@@ -13,7 +13,7 @@
 ## February 2025
 - Webchat Playground
 - Adaptive Cards Gallery
-- Converstation KPIs
+- Conversation KPIs
 
 ## November 20 2024
 - Conversation KPIs (preview)
