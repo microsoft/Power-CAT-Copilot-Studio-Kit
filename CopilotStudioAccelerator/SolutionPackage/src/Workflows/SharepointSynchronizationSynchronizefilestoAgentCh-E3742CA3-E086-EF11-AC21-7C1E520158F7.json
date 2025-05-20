@@ -32,12 +32,12 @@
           "defaultValue": {},
           "type": "Object"
         },
-        "Dataverse URL (cat_DataverseURL)": {
-          "defaultValue": "https://copilotstudiokit-dev.crm.dynamics.com/",
+        "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "https://make.gov.powerautomate.com/",
           "type": "String",
           "metadata": {
-            "schemaName": "cat_DataverseURL",
-            "description": "Mandatory. URL of the agent's Copilot Studio Dataverse instance (e.g., https://org.crm.dynamics.com/)"
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows, primarily for GCC (Government Community Cloud) environments. This can be left as it is for non-GCC organizations where the standard environment is used."
           }
         }
       },
@@ -243,6 +243,11 @@
                           "Succeeded"
                         ]
                       },
+                      "runtimeConfiguration": {
+                        "paginationPolicy": {
+                          "minimumItemCount": 500
+                        }
+                      },
                       "metadata": {
                         "operationMetadataId": "17453ca1-34a0-4f52-adac-2725aae910f2"
                       }
@@ -386,13 +391,15 @@
                           "type": "OpenApiConnection",
                           "inputs": {
                             "parameters": {
-                              "organization": "@parameters('Dataverse URL (cat_DataverseURL)')",
+                              "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
                               "entityName": "botcomponents",
-                              "item/componenttype": 14,
-                              "item/schemaname": "@{body('Get_Agent')?['schemaname']}.component.dvindexer_@{replace(guid(), '-', '')}",
-                              "item/description": "This knowledge source searches information contained in @{items('Apply_to_each_file')?['{FilenameWithExtension}']}",
-                              "item/name": "@items('Apply_to_each_file')?['{FilenameWithExtension}']",
-                              "item/parentbotid@odata.bind": "bots(@{outputs('Get_Agent')?['body/botid']})"
+                              "item": {
+                                "componenttype": 14,
+                                "schemaname": "@{body('Get_Agent')?['schemaname']}.component.dvindexer_@{replace(guid(), '-', '')}",
+                                "description": "This knowledge source searches information contained in @{items('Apply_to_each_file')?['{FilenameWithExtension}']}",
+                                "name": "@{items('Apply_to_each_file')?['{FilenameWithExtension}']}",
+                                "parentbotid@odata.bind": "bots(@{outputs('Get_Agent')?['body/botid']})"
+                              }
                             },
                             "host": {
                               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -461,13 +468,15 @@
                               "type": "OpenApiConnection",
                               "inputs": {
                                 "parameters": {
-                                  "organization": "@parameters('Dataverse URL (cat_DataverseURL)')",
+                                  "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
                                   "entityName": "botcomponents",
-                                  "item/componenttype": 14,
-                                  "item/schemaname": "@{body('Get_Agent')?['schemaname']}.component.dvindexer_@{replace(guid(), '-', '')}",
-                                  "item/description": "This knowledge source searches information contained in @{item()?['Title']}",
-                                  "item/name": "@item()?['FileLeafRef']",
-                                  "item/parentbotid@odata.bind": "bots(@{outputs('Get_Agent')?['body/botid']})"
+                                  "item": {
+                                    "componenttype": 14,
+                                    "schemaname": "@{body('Get_Agent')?['schemaname']}.component.dvindexer_@{replace(guid(), '-', '')}",
+                                    "description": "This knowledge source searches information contained in @{items('Apply_to_each_page')?['Title']}",
+                                    "name": "@{items('Apply_to_each_page')?['FileLeafRef']}",
+                                    "parentbotid@odata.bind": "bots(@{outputs('Get_Agent')?['body/botid']})"
+                                  }
                                 },
                                 "host": {
                                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -563,9 +572,11 @@
                           "type": "OpenApiConnection",
                           "inputs": {
                             "parameters": {
-                              "organization": "@parameters('Dataverse URL (cat_DataverseURL)')",
+                              "organization": "@items('Apply_to_each_File_Indexer_Configurations')?['parent.cat_dataverseurl']",
                               "actionName": "DeleteFile",
-                              "item/FileId": "@items('For_each_component')?['filedata']"
+                              "item": {
+                                "FileId": "@{items('For_each_component')?['filedata']}"
+                              }
                             },
                             "host": {
                               "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -732,14 +743,26 @@
                 "operationMetadataId": "b4096f76-7325-4480-ac20-7ac30182ea81"
               }
             },
+            "Get_Flow_Endpoint": {
+              "type": "Compose",
+              "inputs": "@if(equals(parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'), 'https://make.powerautomate.com/'), 'https://make.powerautomate.com/', parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'))",
+              "runAfter": {
+                "Filter_array": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "dc8e743d-1408-445c-8614-ee97abfcad5e"
+              }
+            },
             "Add_Error_Log": {
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
                   "entityName": "cat_copilotstudiokitlogses",
                   "item/cat_executionstatuscode": 4,
-                  "item/cat_cloudflowinstanceurl": "https://make.powerautomate.com/environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
-                  "item/cat_cloudflowname": "Synchronize files into Copilot Studio Child Flow",
+                  "item/cat_cloudflowinstanceurl": "@{outputs('Get_Flow_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
+                  "item/cat_cloudflowname": "Sharepoint Synchronization | Synchronize files to Agent (Child)",
                   "item/cat_errormessage": "@first(body('Filter_array'))?['error']?['message']"
                 },
                 "host": {
@@ -749,7 +772,7 @@
                 }
               },
               "runAfter": {
-                "Filter_array": [
+                "Get_Flow_Endpoint": [
                   "Succeeded"
                 ]
               },

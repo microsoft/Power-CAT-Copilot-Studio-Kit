@@ -1,31 +1,42 @@
 {
   "properties": {
     "connectionReferences": {
-      "shared_commondataserviceforapps_1": {
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        },
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "runtimeSource": "embedded"
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
       }
     },
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
         },
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
+        "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "https://make.powerautomate.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows, primarily for GCC (Government Community Cloud) environments. This can be left as it is for non-GCC organizations where the standard environment is used."
+          }
         }
       },
       "triggers": {
         "manual": {
+          "metadata": {
+            "operationMetadataId": "fb84c958-803d-487a-bfbc-ce23579f4ef5"
+          },
           "type": "Request",
           "kind": "Button",
           "inputs": {
@@ -69,14 +80,15 @@
                 "text_3"
               ]
             }
-          },
-          "metadata": {
-            "operationMetadataId": "fb84c958-803d-487a-bfbc-ce23579f4ef5"
           }
         }
       },
       "actions": {
         "Initialize_variable:_CopilotConfigurationFilterExpression": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "0dda7b9e-db7c-4c1e-881a-8204e250890e"
+          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -85,13 +97,17 @@
                 "type": "string"
               }
             ]
-          },
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "0dda7b9e-db7c-4c1e-881a-8204e250890e"
           }
         },
         "Initialize_variable:_ConversationTranscriptFilterExpression": {
+          "runAfter": {
+            "Initialize_variable:_CopilotConfigurationFilterExpression": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6e37908d-7a29-48d0-944c-70b79b815366"
+          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -100,33 +116,11 @@
                 "type": "string"
               }
             ]
-          },
-          "runAfter": {
-            "Initialize_variable:_CopilotConfigurationFilterExpression": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "6e37908d-7a29-48d0-944c-70b79b815366"
           }
         },
         "Scope:_Try": {
-          "type": "Scope",
           "actions": {
             "List_rows:_Copilot_Configurations": {
-              "type": "OpenApiConnection",
-              "inputs": {
-                "parameters": {
-                  "entityName": "cat_copilotconfigurations",
-                  "$select": "cat_copilotconfigurationid, cat_dataverseurl, cat_copilotid, cat_trackedvariables, cat_iscopyfulltranscriptenabled",
-                  "$filter": "@variables('CopilotConfigurationFilterExpression')"
-                },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                  "operationId": "ListRecords",
-                  "connectionName": "shared_commondataserviceforapps_1"
-                }
-              },
               "runAfter": {
                 "Condition:_Flow_Invocation_-_Manual_or_Scheduled": [
                   "Succeeded"
@@ -134,32 +128,61 @@
               },
               "metadata": {
                 "operationMetadataId": "4a92fc29-483e-40c7-9420-e8552bb79c09"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotconfigurations",
+                  "$select": "cat_copilotconfigurationid, cat_dataverseurl, cat_copilotid, cat_trackedvariables, cat_iscopyfulltranscriptenabled",
+                  "$filter": "@variables('CopilotConfigurationFilterExpression')"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
               }
             },
             "Apply_to_each:_Copilot_Configurations": {
-              "type": "Foreach",
               "foreach": "@outputs('List_rows:_Copilot_Configurations')?['body/value']",
               "actions": {
                 "List_rows_from_selected_environment:_Copilot_components": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "0c42bfc8-8473-41a4-a3e6-206fdbc74d01"
+                  },
                   "type": "OpenApiConnection",
                   "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecordsWithOrganization",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
                     "parameters": {
                       "organization": "@items('Apply_to_each:_Copilot_Configurations')?['cat_dataverseurl']",
                       "entityName": "botcomponents",
                       "$select": "botcomponentid,name,statecode,createdon,schemaname,componenttype,description",
                       "$filter": "_parentbotid_value eq '@{items('Apply_to_each:_Copilot_Configurations')?['cat_copilotid']}'"
                     },
-                    "host": {
-                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                      "operationId": "ListRecordsWithOrganization",
-                      "connectionName": "shared_commondataserviceforapps_1"
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                     }
-                  },
-                  "metadata": {
-                    "operationMetadataId": "0c42bfc8-8473-41a4-a3e6-206fdbc74d01"
                   }
                 },
                 "Select:_Bot_Components": {
+                  "runAfter": {
+                    "List_rows_from_selected_environment:_Copilot_components": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "c6f142cd-1550-4e62-be7a-edb886067fcd"
+                  },
                   "type": "Select",
                   "inputs": {
                     "from": "@outputs('List_rows_from_selected_environment:_Copilot_components')?['body/value']",
@@ -174,30 +197,9 @@
                       "componenttypename": "@item()?['componenttype@OData.Community.Display.V1.FormattedValue']",
                       "description": "@item()?['description']"
                     }
-                  },
-                  "runAfter": {
-                    "List_rows_from_selected_environment:_Copilot_components": [
-                      "Succeeded"
-                    ]
-                  },
-                  "metadata": {
-                    "operationMetadataId": "c6f142cd-1550-4e62-be7a-edb886067fcd"
                   }
                 },
                 "Update_a_row:_Copilot_Configuration": {
-                  "type": "OpenApiConnection",
-                  "inputs": {
-                    "parameters": {
-                      "entityName": "cat_copilotconfigurations",
-                      "recordId": "@items('Apply_to_each:_Copilot_Configurations')?['cat_copilotconfigurationid']",
-                      "item/cat_copilotcomponents": "@body('Select:_Bot_Components')"
-                    },
-                    "host": {
-                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                      "operationId": "UpdateRecord",
-                      "connectionName": "shared_commondataserviceforapps_1"
-                    }
-                  },
                   "runAfter": {
                     "Select:_Bot_Components": [
                       "Succeeded"
@@ -205,9 +207,34 @@
                   },
                   "metadata": {
                     "operationMetadataId": "e86e059d-7dc6-4028-b579-3da20bd2723b"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "UpdateRecord",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "cat_copilotconfigurations",
+                      "recordId": "@items('Apply_to_each:_Copilot_Configurations')?['cat_copilotconfigurationid']",
+                      "item/cat_copilotcomponents": "@body('Select:_Bot_Components')"
+                    },
+                    "authentication": {
+                      "type": "Raw",
+                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                    }
                   }
                 },
                 "Run_a_Child_Flow:_Conversation_KPIs_Copy_Transcripts_Grandchild": {
+                  "runAfter": {
+                    "Update_a_row:_Copilot_Configuration": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "61b6f420-38c6-4c90-9487-0ad03eaef258"
+                  },
                   "type": "Workflow",
                   "inputs": {
                     "host": {
@@ -225,47 +252,37 @@
                     "retryPolicy": {
                       "type": "none"
                     }
-                  },
-                  "runAfter": {
-                    "Update_a_row:_Copilot_Configuration": [
-                      "Succeeded"
-                    ]
-                  },
-                  "metadata": {
-                    "operationMetadataId": "61b6f420-38c6-4c90-9487-0ad03eaef258"
                   }
                 },
                 "Check_for_Grandchild_flow_errors": {
-                  "type": "If",
-                  "expression": {
-                    "equals": [
-                      "@not(empty(outputs('Run_a_Child_Flow:_Conversation_KPIs_Copy_Transcripts_Grandchild')?['Body']?['errormessage']))",
-                      "@true"
-                    ]
-                  },
                   "actions": {
                     "Append_to_string_variable:_ErrorMessage": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "ab87fc5d-6b70-4922-bb89-443c676e8bd9"
+                      },
                       "type": "AppendToStringVariable",
                       "inputs": {
                         "name": "ErrorMessage",
                         "value": "@body('Run_a_Child_Flow:_Conversation_KPIs_Copy_Transcripts_Grandchild')?['errormessage']"
-                      },
-                      "metadata": {
-                        "operationMetadataId": "ab87fc5d-6b70-4922-bb89-443c676e8bd9"
                       }
                     }
-                  },
-                  "else": {
-                    "actions": {}
                   },
                   "runAfter": {
                     "Run_a_Child_Flow:_Conversation_KPIs_Copy_Transcripts_Grandchild": [
                       "Succeeded"
                     ]
                   },
+                  "expression": {
+                    "equals": [
+                      "@not(empty(outputs('Run_a_Child_Flow:_Conversation_KPIs_Copy_Transcripts_Grandchild')?['Body']?['errormessage']))",
+                      "@true"
+                    ]
+                  },
                   "metadata": {
                     "operationMetadataId": "e629f45c-3a9c-4f79-a991-9d4a7282becb"
-                  }
+                  },
+                  "type": "If"
                 }
               },
               "runAfter": {
@@ -273,62 +290,30 @@
                   "Succeeded"
                 ]
               },
+              "metadata": {
+                "operationMetadataId": "ef68e4a3-b0ee-4492-bc6e-586c3c4ccd87"
+              },
+              "type": "Foreach",
               "runtimeConfiguration": {
                 "concurrency": {
                   "repetitions": 10
                 }
-              },
-              "metadata": {
-                "operationMetadataId": "ef68e4a3-b0ee-4492-bc6e-586c3c4ccd87"
-              }
-            },
-            "Add_a_new_row:_Logs": {
-              "type": "OpenApiConnection",
-              "inputs": {
-                "parameters": {
-                  "entityName": "cat_copilotstudiokitlogses",
-                  "item/cat_executionstatuscode": 2,
-                  "item/cat_CopilotConfigurationId@odata.bind": "@if(equals(triggerBody()?['text_3'], 'Manual'), concat('/cat_copilotconfigurations(', triggerBody()?['text'], ')'), null)",
-                  "item/cat_cloudflowinstanceurl": "https://make.powerautomate.com/environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
-                  "item/cat_cloudflowname": "Conversation KPIs Copy Transcripts Child",
-                  "item/cat_enddate": "@if(equals(triggerBody()['text_3'], 'Manual'), formatDateTime(triggerBody()['text_2'], 'yyyy-MM-ddTHH:mm:ssZ'), null)",
-                  "item/cat_startdate": "@if(equals(triggerBody()['text_3'], 'Manual'), formatDateTime(triggerBody()['text_1'], 'yyyy-MM-ddTHH:mm:ssZ'), null)"
-                },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                  "operationId": "CreateRecord",
-                  "connectionName": "shared_commondataserviceforapps_1"
-                }
-              },
-              "metadata": {
-                "operationMetadataId": "1ff98c93-94ce-4fe2-948d-285e6e86c1ab"
               }
             },
             "Condition:_Flow_Invocation_-_Manual_or_Scheduled": {
-              "type": "If",
-              "expression": {
-                "equals": [
-                  "@triggerBody()['text_3']",
-                  "Manual"
-                ]
-              },
               "actions": {
                 "Set_variable:_CopilotConfigurationFilterExpression_-_Manual": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "fc02c1d8-fb34-458f-b059-42f6016f5161"
+                  },
                   "type": "SetVariable",
                   "inputs": {
                     "name": "CopilotConfigurationFilterExpression",
                     "value": "cat_copilotconfigurationid eq '@{triggerBody()['text']}'"
-                  },
-                  "metadata": {
-                    "operationMetadataId": "fc02c1d8-fb34-458f-b059-42f6016f5161"
                   }
                 },
                 "Set_variable:_ConversationTranscriptFilterExpression_-_Manual": {
-                  "type": "SetVariable",
-                  "inputs": {
-                    "name": "ConversationTranscriptFilterExpression",
-                    "value": "<condition attribute=\"createdon\" operator=\"on-or-after\" value=\"@{formatDateTime(triggerBody()['text_1'], 'yyyy-MM-ddTHH:mm:ssZ')}\" />\n      <condition attribute=\"createdon\" operator=\"on-or-before\" value=\"@{addDays(formatDateTime(triggerBody()['text_2'], 'yyyy-MM-ddTHH:mm:ssZ'), 1)}\" />"
-                  },
                   "runAfter": {
                     "Set_variable:_CopilotConfigurationFilterExpression_-_Manual": [
                       "Succeeded"
@@ -336,35 +321,11 @@
                   },
                   "metadata": {
                     "operationMetadataId": "afe5b973-1306-4c5b-b3c5-ac0fd3585e67"
-                  }
-                }
-              },
-              "else": {
-                "actions": {
-                  "Set_variable:_CopilotConfigurationFilterExpression_-_Scheduled": {
-                    "type": "SetVariable",
-                    "inputs": {
-                      "name": "CopilotConfigurationFilterExpression",
-                      "value": "statecode eq 0 and contains(cat_configurationtypescodes, '2')"
-                    },
-                    "metadata": {
-                      "operationMetadataId": "32bb6d5f-a461-4bdb-8add-f4d4adc0023d"
-                    }
                   },
-                  "Set_variable:_ConversationTranscriptFilterExpression_-_Scheduled": {
-                    "type": "SetVariable",
-                    "inputs": {
-                      "name": "ConversationTranscriptFilterExpression",
-                      "value": "<condition attribute=\"createdon\" operator=\"on-or-after\" value=\"@{formatDateTime(addDays(utcNow(), -1), 'yyyy-MM-ddTHH:mm:ssZ')}\" />\n      <condition attribute=\"createdon\" operator=\"on-or-before\" value=\"@{utcNow()}\" />"
-                    },
-                    "runAfter": {
-                      "Set_variable:_CopilotConfigurationFilterExpression_-_Scheduled": [
-                        "Succeeded"
-                      ]
-                    },
-                    "metadata": {
-                      "operationMetadataId": "ea3db569-b9e5-4512-a07b-a01e0aa8a048"
-                    }
+                  "type": "SetVariable",
+                  "inputs": {
+                    "name": "ConversationTranscriptFilterExpression",
+                    "value": "<condition attribute=\"createdon\" operator=\"on-or-after\" value=\"@{formatDateTime(triggerBody()['text_1'], 'yyyy-MM-ddTHH:mm:ssZ')}\" />\n      <condition attribute=\"createdon\" operator=\"on-or-before\" value=\"@{addDays(formatDateTime(triggerBody()['text_2'], 'yyyy-MM-ddTHH:mm:ssZ'), 1)}\" />"
                   }
                 }
               },
@@ -373,8 +334,84 @@
                   "Succeeded"
                 ]
               },
+              "else": {
+                "actions": {
+                  "Set_variable:_CopilotConfigurationFilterExpression_-_Scheduled": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "32bb6d5f-a461-4bdb-8add-f4d4adc0023d"
+                    },
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "CopilotConfigurationFilterExpression",
+                      "value": "statecode eq 0 and contains(cat_configurationtypescodes, '2')"
+                    }
+                  },
+                  "Set_variable:_ConversationTranscriptFilterExpression_-_Scheduled": {
+                    "runAfter": {
+                      "Set_variable:_CopilotConfigurationFilterExpression_-_Scheduled": [
+                        "Succeeded"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "ea3db569-b9e5-4512-a07b-a01e0aa8a048"
+                    },
+                    "type": "SetVariable",
+                    "inputs": {
+                      "name": "ConversationTranscriptFilterExpression",
+                      "value": "<condition attribute=\"createdon\" operator=\"on-or-after\" value=\"@{formatDateTime(addDays(utcNow(), -1), 'yyyy-MM-ddTHH:mm:ssZ')}\" />\n      <condition attribute=\"createdon\" operator=\"on-or-before\" value=\"@{utcNow()}\" />"
+                    }
+                  }
+                }
+              },
+              "expression": {
+                "equals": [
+                  "@triggerBody()['text_3']",
+                  "Manual"
+                ]
+              },
               "metadata": {
                 "operationMetadataId": "492f4cb9-6a1f-410c-9c82-f61377eedc77"
+              },
+              "type": "If"
+            },
+            "Get_Flow_Endpoint": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dc8e743d-1408-445c-8614-ee97abfcad5e"
+              },
+              "type": "Compose",
+              "inputs": "@if(equals(parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'), 'https://make.powerautomate.com/'), 'https://make.powerautomate.com/', parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'))"
+            },
+            "Add_a_new_row:_Logs": {
+              "runAfter": {
+                "Get_Flow_Endpoint": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1ff98c93-94ce-4fe2-948d-285e6e86c1ab"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotstudiokitlogses",
+                  "item/cat_executionstatuscode": 2,
+                  "item/cat_CopilotConfigurationId@odata.bind": "@if(equals(triggerBody()?['text_3'], 'Manual'), concat('/cat_copilotconfigurations(', triggerBody()?['text'], ')'), null)",
+                  "item/cat_cloudflowinstanceurl": "@{outputs('Get_Flow_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
+                  "item/cat_cloudflowname": "Conversation KPI | Copy Transcripts (Child)",
+                  "item/cat_enddate": "@if(equals(triggerBody()['text_3'], 'Manual'), formatDateTime(triggerBody()['text_2'], 'yyyy-MM-ddTHH:mm:ssZ'), null)",
+                  "item/cat_startdate": "@if(equals(triggerBody()['text_3'], 'Manual'), formatDateTime(triggerBody()['text_1'], 'yyyy-MM-ddTHH:mm:ssZ'), null)"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
               }
             }
           },
@@ -385,9 +422,18 @@
           },
           "metadata": {
             "operationMetadataId": "9bda3686-84e9-4fde-939b-7455d7182198"
-          }
+          },
+          "type": "Scope"
         },
         "Initialize_variable:_ErrorMessage": {
+          "runAfter": {
+            "Initialize_variable:_ConversationTranscriptFilterExpression": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ea84130f-dc6d-4e6a-8f0c-750e262c2e67"
+          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -396,35 +442,22 @@
                 "type": "string"
               }
             ]
-          },
-          "runAfter": {
-            "Initialize_variable:_ConversationTranscriptFilterExpression": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "ea84130f-dc6d-4e6a-8f0c-750e262c2e67"
           }
         },
         "Scope:_Catch": {
-          "type": "Scope",
           "actions": {
             "Filter_array:_Error_Actions": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
+              },
               "type": "Query",
               "inputs": {
                 "from": "@result('Scope:_Try')",
                 "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
-              },
-              "metadata": {
-                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
               }
             },
             "Append_to_string_variable:_ErrorMessage2": {
-              "type": "AppendToStringVariable",
-              "inputs": {
-                "name": "ErrorMessage",
-                "value": "@first(body('Filter_array:_Error_Actions'))?['error']?['message']"
-              },
               "runAfter": {
                 "Filter_array:_Error_Actions": [
                   "Succeeded"
@@ -432,6 +465,11 @@
               },
               "metadata": {
                 "operationMetadataId": "7e6d43a5-9637-45f1-8be3-33fcce591038"
+              },
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "ErrorMessage",
+                "value": "@first(body('Filter_array:_Error_Actions'))?['error']?['message']"
               }
             }
           },
@@ -444,15 +482,27 @@
           },
           "metadata": {
             "operationMetadataId": "4f2e4827-62c8-4225-94cd-14089e7ac8f7"
-          }
+          },
+          "type": "Scope"
         },
         "Scope:_Finally": {
-          "type": "Scope",
           "actions": {
             "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {
+                "Update_a_row:_Logs": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "23216dd2-8de7-4205-be4d-475f3e204294"
+              },
               "type": "Response",
               "kind": "PowerApp",
               "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "response": "Flow execution completed."
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -461,47 +511,34 @@
                       "x-ms-dynamically-added": true,
                       "type": "string"
                     }
-                  },
-                  "additionalProperties": {}
-                },
-                "statusCode": 200,
-                "body": {
-                  "response": "Flow execution completed."
+                  }
                 }
-              },
-              "runAfter": {
-                "Update_a_row:_Logs": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "23216dd2-8de7-4205-be4d-475f3e204294"
               }
             },
             "Get_a_row_by_ID:_Logs": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "a3a2e5f5-5d45-4d03-91e6-4008a239ac6c"
+              },
               "type": "OpenApiConnection",
               "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
                 "parameters": {
                   "entityName": "cat_copilotstudiokitlogses",
                   "recordId": "@outputs('Add_a_new_row:_Logs')?['body/cat_copilotstudiokitlogsid']",
                   "$select": "cat_errormessage, cat_executionstatuscode"
                 },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                  "operationId": "GetItem",
-                  "connectionName": "shared_commondataserviceforapps_1"
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                 }
-              },
-              "metadata": {
-                "operationMetadataId": "a3a2e5f5-5d45-4d03-91e6-4008a239ac6c"
               }
             },
             "Append_to_string_variable:_ErrorMessage3": {
-              "type": "AppendToStringVariable",
-              "inputs": {
-                "name": "ErrorMessage",
-                "value": "@outputs('Get_a_row_by_ID:_Logs')?['body/cat_errormessage']"
-              },
               "runAfter": {
                 "Get_a_row_by_ID:_Logs": [
                   "Succeeded"
@@ -509,23 +546,14 @@
               },
               "metadata": {
                 "operationMetadataId": "86ab41de-9df9-42ee-b285-eb5c2d62dd1a"
+              },
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "ErrorMessage",
+                "value": "@outputs('Get_a_row_by_ID:_Logs')?['body/cat_errormessage']"
               }
             },
             "Update_a_row:_Logs": {
-              "type": "OpenApiConnection",
-              "inputs": {
-                "parameters": {
-                  "entityName": "cat_copilotstudiokitlogses",
-                  "recordId": "@outputs('Add_a_new_row:_Logs')?['body/cat_copilotstudiokitlogsid']",
-                  "item/cat_executionstatuscode": "@if(not(empty(variables('ErrorMessage'))), 4, 3)",
-                  "item/cat_errormessage": "@if(not(empty(variables('ErrorMessage'))), variables('ErrorMessage'), null)"
-                },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                  "operationId": "UpdateRecord",
-                  "connectionName": "shared_commondataserviceforapps_1"
-                }
-              },
               "runAfter": {
                 "Append_to_string_variable:_ErrorMessage3": [
                   "Succeeded"
@@ -533,6 +561,24 @@
               },
               "metadata": {
                 "operationMetadataId": "9f447776-551f-41e3-a432-ecfb376e623f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotstudiokitlogses",
+                  "recordId": "@outputs('Add_a_new_row:_Logs')?['body/cat_copilotstudiokitlogsid']",
+                  "item/cat_executionstatuscode": "@if(not(empty(variables('ErrorMessage'))), 4, 3)",
+                  "item/cat_errormessage": "@if(not(empty(variables('ErrorMessage'))), variables('ErrorMessage'), null)"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
               }
             }
           },
@@ -546,11 +592,12 @@
           },
           "metadata": {
             "operationMetadataId": "3b16a931-71ef-4a27-b6c8-cea6a9fc38f1"
-          }
+          },
+          "type": "Scope"
         }
       }
     },
-    "templateName": null
+    "templateName": ""
   },
   "schemaVersion": "1.0.0.0"
 }

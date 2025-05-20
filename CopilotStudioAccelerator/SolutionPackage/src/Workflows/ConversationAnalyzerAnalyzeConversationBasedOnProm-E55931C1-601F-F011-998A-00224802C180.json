@@ -1,0 +1,1007 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "e0ee10b9-7363-4ca1-ad44-2b36f2bed559"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "AgentId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Agent Id",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "EnvironmentUrl",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Dataverse Environment Url",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "PromptId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Conversation Analyzer Prompt Id",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "PromptName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Conversation Analyzer Prompt Name",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_4": {
+                  "title": "UserPrompt",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "User Prompt",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2",
+                "text_3"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Scope:_Try": {
+          "actions": {
+            "Scope:_Execute_Conversation_Analyzer_Prompt": {
+              "actions": {
+                "Apply_to_each:_recent_transcript": {
+                  "foreach": "@outputs('List_rows:_Recent_transcripts_from_host')?['body/value']",
+                  "actions": {
+                    "Parse_JSON:_Content": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "c32d717f-16cc-4008-8d09-e1ec8cbe908d"
+                      },
+                      "type": "ParseJson",
+                      "inputs": {
+                        "content": "@items('Apply_to_each:_recent_transcript')?['content']",
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "activities": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": "string"
+                                  },
+                                  "from": {
+                                    "type": "object",
+                                    "properties": {
+                                      "role": {
+                                        "type": "integer"
+                                      },
+                                      "id": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "text": {
+                                    "type": "string"
+                                  },
+                                  "timestamp": {
+                                    "type": "integer"
+                                  },
+                                  "attachments": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "contentType": {
+                                          "type": "string"
+                                        },
+                                        "content": {
+                                          "oneOf": [
+                                            {
+                                              "type": "object"
+                                            },
+                                            {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "type": {
+                                                    "type": "string"
+                                                  },
+                                                  "id": {
+                                                    "type": "string"
+                                                  },
+                                                  "timestamp": {
+                                                    "type": "integer"
+                                                  },
+                                                  "serviceUrl": {
+                                                    "type": "string"
+                                                  },
+                                                  "channelId": {
+                                                    "type": "string"
+                                                  },
+                                                  "from": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "conversation": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      }
+                                                    }
+                                                  },
+                                                  "recipient": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "type": "string"
+                                                      },
+                                                      "name": {
+                                                        "type": "string"
+                                                      },
+                                                      "role": {
+                                                        "type": "integer"
+                                                      }
+                                                    }
+                                                  },
+                                                  "membersAdded": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "membersRemoved": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "reactionsAdded": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "reactionsRemoved": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "text": {
+                                                    "type": "string"
+                                                  },
+                                                  "attachments": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "entities": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  },
+                                                  "replyToId": {
+                                                    "type": "string"
+                                                  },
+                                                  "value": {
+                                                    "type": "object"
+                                                  },
+                                                  "name": {
+                                                    "type": "string"
+                                                  },
+                                                  "listenFor": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "string"
+                                                    }
+                                                  },
+                                                  "textHighlights": {
+                                                    "type": "array",
+                                                    "items": {
+                                                      "type": "object"
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "type": "string"
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "suggestedActions": {
+                                    "type": "object",
+                                    "properties": {
+                                      "to": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "actions": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "type": {
+                                              "type": "string"
+                                            },
+                                            "title": {
+                                              "type": "string"
+                                            },
+                                            "text": {
+                                              "type": "string"
+                                            },
+                                            "value": {
+                                              "type": "string"
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Filter:_Messages": {
+                      "runAfter": {
+                        "Parse_JSON:_Content": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "13de6016-3193-4e1c-9fc6-f178b1b43d81"
+                      },
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Parse_JSON:_Content')?['activities']",
+                        "where": "@equals(item()?['type'], 'message')"
+                      }
+                    },
+                    "Switch": {
+                      "runAfter": {
+                        "Join:_Messages": [
+                          "Succeeded"
+                        ]
+                      },
+                      "cases": {
+                        "Case": {
+                          "case": "PII Analysis",
+                          "actions": {
+                            "Run_a_prompt:_PII_Analysis": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "5a3c6ed8-7d31-406a-8e14-f3e083ef07ab",
+                                "flowSystemMetadata": {
+                                  "portalOperationId": "aibuilderpredict_customprompt",
+                                  "portalOperationGroup": "aibuilder",
+                                  "portalOperationApiDisplayNameOverride": "AI Builder",
+                                  "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
+                                  "portalOperationBrandColorOverride": "#0A76C4",
+                                  "portalOperationApiTierOverride": "Standard"
+                                }
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "aibuilderpredict_customprompt",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "recordId": "fd7e5beb-7b6c-434e-8491-730de80bdb60",
+                                  "item/requestv2/AgentConversation": "@body('Join:_Messages')"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Add_a_new_row:_Conversation_Analyzer_for_PII": {
+                              "runAfter": {
+                                "Parse_JSON:_PII_Response": [
+                                  "Succeeded",
+                                  "Skipped"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "4065d7af-cb13-474f-8dc8-d0edc312fc66"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "cat_conversationanalyzers",
+                                  "item/cat_name": "@items('Apply_to_each:_recent_transcript')?['name']",
+                                  "item/cat_messages": "@length(body('Select:_Bot_User_Messages'))",
+                                  "item/cat_agentid": "@triggerBody()['text']",
+                                  "item/cat_content": "@items('Apply_to_each:_recent_transcript')?['content']",
+                                  "item/cat_conversationdurationseconds": "@sub(last(body('Parse_JSON:_Content')?['activities'])?['timestamp'], first(body('Parse_JSON:_Content')?['activities'])?['timestamp'])",
+                                  "item/cat_conversationid": "@items('Apply_to_each:_recent_transcript')?['conversationtranscriptid']",
+                                  "item/cat_Prompt@odata.bind": "cat_conversationanalyzerprompts(@{triggerBody()['text_2']})",
+                                  "item/cat_promptresult": "@coalesce(outputs('Run_a_prompt:_PII_Analysis')?['body/responsev2/predictionOutput/text'], outputs('Compose:_PII_Error_Response'))",
+                                  "item/cat_summary": "@coalesce(body('Parse_JSON:_PII_Response')?['summary']?['convSummary'], 'Unable to evaluate due to sensitive or unsupported content.')"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Parse_JSON:_PII_Response": {
+                              "runAfter": {
+                                "Compose:_PII_Error_Response": [
+                                  "Skipped"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "be104e79-df64-41e9-a71d-e9d02bafd4d9"
+                              },
+                              "type": "ParseJson",
+                              "inputs": {
+                                "content": "@outputs('Run_a_prompt:_PII_Analysis')?['body/responsev2/predictionOutput/text']",
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "summary": {
+                                      "type": "object",
+                                      "properties": {
+                                        "totalPIIItems": {
+                                          "type": "string"
+                                        },
+                                        "containsPII": {
+                                          "type": "boolean"
+                                        },
+                                        "highestSeverity": {
+                                          "type": "string"
+                                        },
+                                        "convSummary": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "pii": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "type": {
+                                            "type": "string"
+                                          },
+                                          "value": {
+                                            "type": "string"
+                                          },
+                                          "message": {
+                                            "type": "string"
+                                          },
+                                          "confidencescore": {
+                                            "type": "string"
+                                          },
+                                          "severity": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "type",
+                                          "value",
+                                          "message",
+                                          "confidencescore",
+                                          "severity"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "Compose:_PII_Error_Response": {
+                              "runAfter": {
+                                "Run_a_prompt:_PII_Analysis": [
+                                  "Failed",
+                                  "TimedOut"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "22ba43d3-3c4b-49fd-a120-4fd21e7e3cae"
+                              },
+                              "type": "Compose",
+                              "inputs": {
+                                "summary": {
+                                  "totalPIIItems": "NA",
+                                  "containsPII": false,
+                                  "highestSeverity": "0",
+                                  "convSummary": "Unable to evaluate due to sensitive or unsupported content."
+                                },
+                                "pii": []
+                              }
+                            }
+                          }
+                        },
+                        "Case_2": {
+                          "case": "Sentiment Analysis",
+                          "actions": {
+                            "Run_a_prompt:_Sentiment_Analysis": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "13e5486b-73fd-44ae-973d-65bd3cf295b1",
+                                "flowSystemMetadata": {
+                                  "portalOperationId": "aibuilderpredict_customprompt",
+                                  "portalOperationGroup": "aibuilder",
+                                  "portalOperationApiDisplayNameOverride": "AI Builder",
+                                  "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
+                                  "portalOperationBrandColorOverride": "#0A76C4",
+                                  "portalOperationApiTierOverride": "Standard"
+                                }
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "aibuilderpredict_customprompt",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "recordId": "44930ac1-d6b5-41a1-b369-e7d7d89f1918",
+                                  "item/requestv2/AgentConversation": "@body('Join:_Messages')"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Add_a_new_row:_Conversation_Analyzer_for_Sentiments": {
+                              "runAfter": {
+                                "Parse_JSON:_Sentiment_Response": [
+                                  "Succeeded",
+                                  "Skipped"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "4065d7af-cb13-474f-8dc8-d0edc312fc66"
+                              },
+                              "type": "OpenApiConnection",
+                              "inputs": {
+                                "host": {
+                                  "connectionName": "shared_commondataserviceforapps",
+                                  "operationId": "CreateRecord",
+                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                },
+                                "parameters": {
+                                  "entityName": "cat_conversationanalyzers",
+                                  "item/cat_name": "@items('Apply_to_each:_recent_transcript')?['name']",
+                                  "item/cat_messages": "@length(body('Select:_Bot_User_Messages'))",
+                                  "item/cat_agentid": "@triggerBody()['text']",
+                                  "item/cat_content": "@items('Apply_to_each:_recent_transcript')?['content']",
+                                  "item/cat_conversationdurationseconds": "@sub(last(body('Parse_JSON:_Content')?['activities'])?['timestamp'], first(body('Parse_JSON:_Content')?['activities'])?['timestamp'])",
+                                  "item/cat_conversationid": "@items('Apply_to_each:_recent_transcript')?['conversationtranscriptid']",
+                                  "item/cat_Prompt@odata.bind": "cat_conversationanalyzerprompts(@{triggerBody()['text_2']})",
+                                  "item/cat_promptresult": "@coalesce(outputs('Run_a_prompt:_Sentiment_Analysis')?['body/responsev2/predictionOutput/text'], outputs('Compose:_Sentiment_Error_Response'))",
+                                  "item/cat_summary": "@coalesce(body('Parse_JSON:_Sentiment_Response')?['summary']?['convSummary'], 'Unable to evaluate due to sensitive or unsupported content.')"
+                                },
+                                "authentication": "@parameters('$authentication')"
+                              }
+                            },
+                            "Parse_JSON:_Sentiment_Response": {
+                              "runAfter": {
+                                "Compose:_Sentiment_Error_Response": [
+                                  "Skipped"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "7b181bd3-7324-41ba-9182-50921948f713"
+                              },
+                              "type": "ParseJson",
+                              "inputs": {
+                                "content": "@outputs('Run_a_prompt:_Sentiment_Analysis')?['body/responsev2/predictionOutput/text']",
+                                "schema": {
+                                  "type": "object",
+                                  "properties": {
+                                    "summary": {
+                                      "type": "object",
+                                      "properties": {
+                                        "overallSentiment": {
+                                          "type": "string"
+                                        },
+                                        "dominantEmotion": {
+                                          "type": "string"
+                                        },
+                                        "averageSentimentScore": {
+                                          "type": "string"
+                                        },
+                                        "convSummary": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    },
+                                    "sentiments": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "sentiment": {
+                                            "type": "string"
+                                          },
+                                          "sentimentScore": {
+                                            "type": "string"
+                                          },
+                                          "emotion": {
+                                            "type": "string"
+                                          },
+                                          "emotionIntensity": {
+                                            "type": "string"
+                                          },
+                                          "sentimentVariability": {
+                                            "type": "string"
+                                          },
+                                          "summary": {
+                                            "type": "string"
+                                          },
+                                          "confidenceScore": {
+                                            "type": "string"
+                                          },
+                                          "message": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "sentiment",
+                                          "sentimentScore",
+                                          "emotion",
+                                          "emotionIntensity",
+                                          "sentimentVariability",
+                                          "summary",
+                                          "confidenceScore",
+                                          "message"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "Compose:_Sentiment_Error_Response": {
+                              "runAfter": {
+                                "Run_a_prompt:_Sentiment_Analysis": [
+                                  "Failed",
+                                  "TimedOut"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "369409dc-574b-44cb-8ee3-7e42a86b9467"
+                              },
+                              "type": "Compose",
+                              "inputs": {
+                                "summary": {
+                                  "overallSentiment": "NA",
+                                  "dominantEmotion": "Mixed",
+                                  "averageSentimentScore": "0",
+                                  "convSummary": "Unable to evaluate due to sensitive or unsupported content."
+                                },
+                                "sentiments": []
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "default": {
+                        "actions": {
+                          "Run_a_prompt:_Custom_Prompt_Analysis": {
+                            "runAfter": {},
+                            "metadata": {
+                              "operationMetadataId": "f8ae1e61-9e0b-403d-aa5d-19c8f0f00643",
+                              "flowSystemMetadata": {
+                                "portalOperationId": "aibuilderpredict_customprompt",
+                                "portalOperationGroup": "aibuilder",
+                                "portalOperationApiDisplayNameOverride": "AI Builder",
+                                "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
+                                "portalOperationBrandColorOverride": "#0A76C4",
+                                "portalOperationApiTierOverride": "Standard"
+                              }
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "aibuilderpredict_customprompt",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "recordId": "a80ccc4d-28a4-4a10-8196-4bc71f6b76fc",
+                                "item/requestv2/UserPrompt": "@triggerBody()['text_4']",
+                                "item/requestv2/AgentConversation": "@body('Join:_Messages')"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          },
+                          "Add_a_new_row:_Conversation_Analyzer_for_Custom_Prompt": {
+                            "runAfter": {
+                              "Parse_JSON:_Custom_Prompt_Response": [
+                                "Succeeded",
+                                "Skipped"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "572ca3dc-5010-4a6f-ae4d-1787a807cfe5"
+                            },
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "host": {
+                                "connectionName": "shared_commondataserviceforapps",
+                                "operationId": "CreateRecord",
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                              },
+                              "parameters": {
+                                "entityName": "cat_conversationanalyzers",
+                                "item/cat_name": "@items('Apply_to_each:_recent_transcript')?['name']",
+                                "item/cat_messages": "@length(body('Select:_Bot_User_Messages'))",
+                                "item/cat_agentid": "@triggerBody()['text']",
+                                "item/cat_content": "@items('Apply_to_each:_recent_transcript')?['content']",
+                                "item/cat_conversationdurationseconds": "@sub(last(body('Parse_JSON:_Content')?['activities'])?['timestamp'], first(body('Parse_JSON:_Content')?['activities'])?['timestamp'])",
+                                "item/cat_conversationid": "@items('Apply_to_each:_recent_transcript')?['conversationtranscriptid']",
+                                "item/cat_Prompt@odata.bind": "cat_conversationanalyzerprompts(@{triggerBody()['text_2']})",
+                                "item/cat_promptresult": "@coalesce(outputs('Run_a_prompt:_Custom_Prompt_Analysis')?['body/responsev2/predictionOutput/text'], outputs('Compose:_Custom_Prompt_Error_Response'))",
+                                "item/cat_summary": "@coalesce(body('Parse_JSON:_Custom_Prompt_Response')?['convSummary'], 'Unable to evaluate due to sensitive or unsupported content.')"
+                              },
+                              "authentication": "@parameters('$authentication')"
+                            }
+                          },
+                          "Parse_JSON:_Custom_Prompt_Response": {
+                            "runAfter": {
+                              "Compose:_Custom_Prompt_Error_Response": [
+                                "Skipped"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "fd71e067-b11e-42da-b887-498feaf1eeb8"
+                            },
+                            "type": "ParseJson",
+                            "inputs": {
+                              "content": "@outputs('Run_a_prompt:_Custom_Prompt_Analysis')?['body/responsev2/predictionOutput/text']",
+                              "schema": {
+                                "type": "object",
+                                "properties": {
+                                  "result": {
+                                    "type": "string"
+                                  },
+                                  "convSummary": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Compose:_Custom_Prompt_Error_Response": {
+                            "runAfter": {
+                              "Run_a_prompt:_Custom_Prompt_Analysis": [
+                                "Failed",
+                                "TimedOut"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "436a1a74-19df-4a90-9cef-3d424ee40edd"
+                            },
+                            "type": "Compose",
+                            "inputs": {
+                              "result": "NA",
+                              "convSummary": "Unable to evaluate due to sensitive or unsupported content."
+                            }
+                          }
+                        }
+                      },
+                      "expression": "@triggerBody()['text_3']",
+                      "metadata": {
+                        "operationMetadataId": "dcae75bb-85f5-48ac-ac13-c203c45c9c51"
+                      },
+                      "type": "Switch"
+                    },
+                    "Select:_Bot_User_Messages": {
+                      "runAfter": {
+                        "Filter:_Messages": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "ae33df15-fd43-459a-8a2e-4780d316528f"
+                      },
+                      "type": "Select",
+                      "inputs": {
+                        "from": "@body('Filter:_Messages')",
+                        "select": "@if(equals(item()?['from']?['role'], 0), concat('Bot says: ', coalesce(item()?['text'], '')), concat('User says: ', coalesce(item()?['text'], '')))"
+                      }
+                    },
+                    "Join:_Messages": {
+                      "runAfter": {
+                        "Select:_Bot_User_Messages": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "e7d45053-5329-4b09-9ae5-fb85c24da764"
+                      },
+                      "type": "Join",
+                      "inputs": {
+                        "from": "@body('Select:_Bot_User_Messages')",
+                        "joinWith": ";"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "List_rows:_Recent_transcripts_from_host": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "3391dec0-4824-4d09-be29-78f619badbf4"
+                  },
+                  "type": "Foreach",
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 20
+                    }
+                  }
+                },
+                "List_rows:_Recent_transcripts_from_host": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "91eecc1b-1bfb-4de2-a669-a47da60b2a6a"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecordsWithOrganization",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "organization": "@triggerBody()['text_1']",
+                      "entityName": "conversationtranscripts",
+                      "$select": "name, content, conversationtranscriptid",
+                      "$filter": "_bot_conversationtranscriptid_value eq '@{triggerBody()['text']}'",
+                      "$orderby": "createdon desc",
+                      "$top": 100
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              },
+              "runAfter": {
+                "Scope:_Delete_existing_records": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9d2b8a22-8ca6-4eec-a2c6-ccaaca2ede73"
+              },
+              "type": "Scope"
+            },
+            "Scope:_Delete_existing_records": {
+              "actions": {
+                "List_rows:_Conversation_Analyzer": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "cc0b03ff-e778-4fd5-bba7-0465b177d9ae"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "host": {
+                      "connectionName": "shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                    },
+                    "parameters": {
+                      "entityName": "cat_conversationanalyzers",
+                      "$select": "cat_conversationanalyzerid",
+                      "$filter": "cat_agentid eq '@{triggerBody()['text']}' and _cat_prompt_value eq '@{triggerBody()['text_2']}'"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Apply_to_each:_Conversation_Analyzer": {
+                  "foreach": "@outputs('List_rows:_Conversation_Analyzer')?['body/value']",
+                  "actions": {
+                    "Delete_a_row:_Delete_existing_Conversation_Analyzer_records": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "bad0e6fb-7c2e-4d10-8cf7-a6fba8a0e4cc"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps",
+                          "operationId": "DeleteRecord",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "entityName": "cat_conversationanalyzers",
+                          "recordId": "@items('Apply_to_each:_Conversation_Analyzer')?['cat_conversationanalyzerid']"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "List_rows:_Conversation_Analyzer": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "892e2eec-f76b-4c7b-90ac-8e65bb12e25d"
+                  },
+                  "type": "Foreach",
+                  "runtimeConfiguration": {
+                    "concurrency": {
+                      "repetitions": 20
+                    }
+                  }
+                }
+              },
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "3d408a09-110b-4c27-906a-4083d4f24f41"
+              },
+              "type": "Scope"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_ErrorMessage": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "eba63fed-d86f-4381-920d-caa1753220a8"
+          },
+          "type": "Scope"
+        },
+        "Scope:_Catch": {
+          "actions": {
+            "Filter_array:_Error_Actions": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@result('Scope:_Try')",
+                "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
+              }
+            },
+            "Set_variable:_ErrorMessage": {
+              "runAfter": {
+                "Filter_array:_Error_Actions": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "ee38e0e1-03cd-48d8-9933-d73f7204b0f7"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "ErrorMessage",
+                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}"
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Try": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a89e7d5d-22c3-46df-ab6f-e51181e86e6e"
+          },
+          "type": "Scope"
+        },
+        "Initialize_variable:_ErrorMessage": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "84dc8095-fa63-4f71-aaa9-ed2863a636bb"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ErrorMessage",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Scope:_Finally": {
+          "actions": {
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "9b4ac5d7-ab46-4fe5-a0b9-572e5d1d7994"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "errormessage": "@variables('ErrorMessage')"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "errormessage": {
+                      "title": "ErrorMessage",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Catch": [
+              "Succeeded",
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3b16a931-71ef-4a27-b6c8-cea6a9fc38f1"
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
