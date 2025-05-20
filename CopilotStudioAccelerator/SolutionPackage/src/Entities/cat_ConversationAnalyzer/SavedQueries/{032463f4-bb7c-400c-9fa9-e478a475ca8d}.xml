@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{032463f4-bb7c-400c-9fa9-e478a475ca8d}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_conversationanalyzerid">
+          <cell name="cat_name" width="218" />
+          <cell name="cat_conversationid" width="184" />
+          <cell name="cat_agentid" width="100" />
+          <cell name="cat_messages" width="105" />
+          <cell name="cat_conversationdurationseconds" width="226" />
+          <cell name="createdon" width="105" />
+          <cell name="cat_prompt" width="100" />
+          <cell name="cat_summary" width="100" />
+          <cell name="cat_promptresult" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_conversationanalyzer">
+          <attribute name="cat_conversationanalyzerid" />
+          <attribute name="cat_name" />
+          <attribute name="cat_conversationid" />
+          <attribute name="cat_agentid" />
+          <attribute name="cat_prompt" />
+          <attribute name="cat_promptresult" />
+          <attribute name="cat_conversationdurationseconds" />
+          <attribute name="createdon" />
+          <order attribute="createdon" descending="true" />
+          <attribute name="cat_messages" />
+          <attribute name="cat_summary" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="All Conversation Analyzers" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

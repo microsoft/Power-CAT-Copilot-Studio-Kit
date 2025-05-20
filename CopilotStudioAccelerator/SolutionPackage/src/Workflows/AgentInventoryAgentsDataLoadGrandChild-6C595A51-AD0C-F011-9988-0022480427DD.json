@@ -22,6 +22,13 @@
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
+        },
+        "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "https://make.powerautomate.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_PowerAutomateEndpoint"
+          }
         }
       },
       "triggers": {
@@ -182,7 +189,7 @@
             }
           },
           "runAfter": {
-            "Initialize_variable:_Prompts": [
+            "Compose:_Power_Automate_Endpoint": [
               "Succeeded"
             ]
           },
@@ -225,7 +232,7 @@
             },
             "Append_to_string_variable:_Add_error_message": {
               "runAfter": {
-                "Filter_array:_Error_Actions": [
+                "Compose:_Flow_URL": [
                   "Succeeded"
                 ]
               },
@@ -235,7 +242,7 @@
               "type": "AppendToStringVariable",
               "inputs": {
                 "name": "ErrorMessage",
-                "value": "@first(body('Filter_array:_Error_Actions'))?['error']?['message']"
+                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']} url: @{outputs('Compose:_Flow_URL')}"
               }
             },
             "Respond_to_a_Power_App_or_flow_2": {
@@ -294,6 +301,18 @@
                   "message": "@variables('ErrorMessage')"
                 }
               }
+            },
+            "Compose:_Flow_URL": {
+              "runAfter": {
+                "Filter_array:_Error_Actions": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "95bf6bdf-24d8-4f4d-9be3-051c5eb7aa5a"
+              },
+              "type": "Compose",
+              "inputs": "@{outputs('Compose:_Power_Automate_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}"
             }
           },
           "runAfter": {
@@ -368,6 +387,18 @@
             "operationMetadataId": "bffbefa7-d0db-4789-ae78-7324feea8f9c"
           },
           "type": "Scope"
+        },
+        "Compose:_Power_Automate_Endpoint": {
+          "runAfter": {
+            "Initialize_variable:_Prompts": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "165a395f-624a-4eaf-ada1-b517871c3c24"
+          },
+          "type": "Compose",
+          "inputs": "@if(equals(parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'), 'https://make.powerautomate.com/'), 'https://make.powerautomate.com/', parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'))"
         }
       },
       "outputs": {}

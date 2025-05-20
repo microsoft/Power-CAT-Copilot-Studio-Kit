@@ -1,16 +1,7 @@
 {
   "properties": {
     "connectionReferences": {
-      "shared_commondataserviceforapps": {
-        "runtimeSource": "embedded",
-        "connection": {
-          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
-        },
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        }
-      },
-      "shared_commondataserviceforapps_1": {
+      "shared_commondataserviceforapps_2": {
         "runtimeSource": "embedded",
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
@@ -31,6 +22,14 @@
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
+        },
+        "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "https://make.powerautomate.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows, primarily for GCC (Government Community Cloud) environments. This can be left as it is for non-GCC organizations where the standard environment is used."
+          }
         }
       },
       "triggers": {
@@ -55,27 +54,6 @@
       "actions": {
         "Scope:_Try": {
           "actions": {
-            "Add_a_new_row:_Logs": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps",
-                  "operationId": "CreateRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "entityName": "cat_copilotstudiokitlogses",
-                  "item/cat_executionstatuscode": 2,
-                  "item/cat_cloudflowinstanceurl": "https://make.powerautomate.com/environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
-                  "item/cat_cloudflowname": "Conversation KPI Generate Conversation KPIs Scheduled"
-                },
-                "authentication": "@parameters('$authentication')"
-              }
-            },
             "List_rows:_Agent_Trascripts": {
               "runAfter": {
                 "Add_a_new_row:_Logs": [
@@ -88,7 +66,7 @@
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
+                  "connectionName": "shared_commondataserviceforapps_2",
                   "operationId": "ListRecords",
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },
@@ -144,7 +122,7 @@
                   "type": "OpenApiConnection",
                   "inputs": {
                     "host": {
-                      "connectionName": "shared_commondataserviceforapps_1",
+                      "connectionName": "shared_commondataserviceforapps_2",
                       "operationId": "PerformUnboundAction",
                       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                     },
@@ -169,6 +147,39 @@
                 "concurrency": {
                   "repetitions": 25
                 }
+              }
+            },
+            "Get_Flow_Endpoint": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "dc8e743d-1408-445c-8614-ee97abfcad5e"
+              },
+              "type": "Compose",
+              "inputs": "@if(equals(parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'), 'https://make.powerautomate.com/'), 'https://make.powerautomate.com/', parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'))"
+            },
+            "Add_a_new_row:_Logs": {
+              "runAfter": {
+                "Get_Flow_Endpoint": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps_2",
+                  "operationId": "CreateRecord",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "cat_copilotstudiokitlogses",
+                  "item/cat_executionstatuscode": 2,
+                  "item/cat_cloudflowinstanceurl": "@{outputs('Get_Flow_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
+                  "item/cat_cloudflowname": "Conversation KPI | Generate Conversation KPIs Scheduler"
+                },
+                "authentication": "@parameters('$authentication')"
               }
             }
           },
@@ -248,7 +259,7 @@
               "type": "OpenApiConnection",
               "inputs": {
                 "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
+                  "connectionName": "shared_commondataserviceforapps_2",
                   "operationId": "UpdateRecord",
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                 },

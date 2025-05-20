@@ -54,25 +54,16 @@
             <Title LCID="1033" Title="Dashboard" />
           </Titles>
         </SubArea>
-        <SubArea Id="SubArea_ConversationKPIs" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilotkpi" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Details" />
-          </Titles>
-        </SubArea>
       </Group>
       <Group Id="group_AITools" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
           <Title LCID="1033" Title="Tools" />
         </Titles>
-        <SubArea Id="subarea_PromptAdvisor" VectorIcon="/WebResources/cat_prompt" Icon="/WebResources/cat_prompt" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_promptadvisorstudio_6e1ce">
+        <SubArea Id="subarea_87a218ef" VectorIcon="/WebResources/cat_/powercat/img/powerbi.svg" Icon="/WebResources/cat_/powercat/img/powerbi.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_agentinventory_0b104">
           <Titles>
-            <Title LCID="1033" Title="Prompt Advisor" />
+            <Title LCID="1033" Title="Agent Inventory" />
           </Titles>
-        </SubArea>
-        <SubArea Id="subarea_9b17bf07" VectorIcon="/WebResources/cat_/powercat/img/copilotcard.svg" Icon="/WebResources/cat_/powercat/img/copilotcard.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_adaptivecards_4476e">
-          <Titles>
-            <Title LCID="1033" Title="Adaptive Cards" />
-          </Titles>
+          <Privilege Entity="cat_agentdetails" Privilege="Read" />
         </SubArea>
         <SubArea Id="subarea_218c1f30" VectorIcon="/WebResources/mspp_web_forms.svg" Icon="/WebResources/mspp_web_forms.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_webchatcustomizer_48d6e">
           <Titles>
@@ -84,11 +75,21 @@
             <Title LCID="1033" Title="Agent Review Tool" />
           </Titles>
         </SubArea>
-        <SubArea Id="subarea_87a218ef" VectorIcon="/WebResources/cat_/powercat/img/powerbi.svg" Icon="/WebResources/cat_/powercat/img/powerbi.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_agentinventory_0b104">
+        <SubArea Id="subarea_4093aa44" VectorIcon="/WebResources/cat_/powercat/img/conversationanalyzer.svg" Icon="/WebResources/cat_/powercat/img/conversationanalyzer.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_conversationanalyser_c058b">
           <Titles>
-            <Title LCID="1033" Title="Agent Inventory" />
+            <Title LCID="1033" Title="Conversation Analyzer" />
           </Titles>
           <Privilege Entity="cat_agentdetails" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="subarea_9b17bf07" VectorIcon="/WebResources/cat_/powercat/img/copilotcard.svg" Icon="/WebResources/cat_/powercat/img/copilotcard.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_adaptivecards_4476e">
+          <Titles>
+            <Title LCID="1033" Title="Adaptive Cards" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="subarea_PromptAdvisor" VectorIcon="/WebResources/cat_prompt" Icon="/WebResources/cat_prompt" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_promptadvisorstudio_6e1ce">
+          <Titles>
+            <Title LCID="1033" Title="Prompt Advisor" />
+          </Titles>
         </SubArea>
       </Group>
     </Area>

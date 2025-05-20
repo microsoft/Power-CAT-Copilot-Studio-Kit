@@ -27,7 +27,8 @@
           "defaultValue": "https://make.powerautomate.com/",
           "type": "String",
           "metadata": {
-            "schemaName": "cat_PowerAutomateEndpoint"
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows, primarily for GCC (Government Community Cloud) environments. This can be left as it is for non-GCC organizations where the standard environment is used."
           }
         }
       },
@@ -110,6 +111,7 @@
                   "EnvironmentName": "@triggerBody()['text_1']",
                   "EnvironmentID": "@triggerBody()['text']",
                   "EnvironmentType": "@triggerBody()['text_2']",
+                  "EnvironmentUrl": "@triggerBody()['text_3']",
                   "AgentCreatedDate": "@item()?['createdon']",
                   "AgentCreatedBy": "@item()?['_createdby_value@OData.Community.Display.V1.FormattedValue']",
                   "AgentModifiedDate": "@item()?['modifiedon']",
@@ -119,7 +121,8 @@
                   "EndUserAuthenticationType": "@item()?['authenticationmode@OData.Community.Display.V1.FormattedValue']",
                   "Configuration": "@item()?['configuration']",
                   "SynchronizationStatus": "@item()?['synchronizationstatus']",
-                  "IsManaged": "@item()?['ismanaged']"
+                  "IsManaged": "@item()?['ismanaged']",
+                  "IsTranscriptAvailable": "@false"
                 }
               }
             },
@@ -143,6 +146,9 @@
                 "authentication": {
                   "type": "Raw",
                   "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                },
+                "retryPolicy": {
+                  "type": "none"
                 }
               },
               "runtimeConfiguration": {
@@ -216,7 +222,7 @@
                     },
                     "Compose:_Agent_Input_Plugin": {
                       "runAfter": {
-                        "Select:_Agent_Components_Data": [
+                        "Compose:_Update_Conversation_Transcript_Property": [
                           "Succeeded"
                         ]
                       },
@@ -225,13 +231,13 @@
                       },
                       "type": "Compose",
                       "inputs": {
-                        "AgentDetails": "@items('Apply_to_each:_Agents')",
+                        "AgentDetails": "@outputs('Compose:_Update_Conversation_Transcript_Property')",
                         "AgentComponentDetails": "@body('Select:_Agent_Components_Data')"
                       }
                     },
                     "Scope:_Update_refresh_status_and_error_log": {
                       "actions": {
-                        "Condition:_Check_plugin_output": {
+                        "Condition:_Check_plugin_and_components_update_output": {
                           "actions": {
                             "Update_a_row:_Update_agent_refresh_status_as_success": {
                               "runAfter": {},
@@ -337,13 +343,16 @@
                                     "type": "AppendToStringVariable",
                                     "inputs": {
                                       "name": "ErrorMessage",
-                                      "value": "AgentID: '@{items('Apply_to_each:_Agents')?['ID']}', Error: '@{if(empty(body('Perform_an_unbound_action:_Agent_Inventory_Data_Load')?['error/message']),null,body('Perform_an_unbound_action:_Agent_Inventory_Data_Load')?['error/message'])} @{if(empty(outputs('Run_a_Child_Flow:_Agent_Inventory_grandchild_for_component_update')?['Body']?['errormessage']),null,outputs('Run_a_Child_Flow:_Agent_Inventory_grandchild_for_component_update')?['Body']?['errormessage'])}'\n"
+                                      "value": "AgentID: @{items('Apply_to_each:_Agents')?['ID']}@{if(\n    not(empty(body('Perform_an_unbound_action:_Agent_Inventory_Data_Load')?['error/message'])),\n    concat(\n        ', PluginError: \"',\n        body('Perform_an_unbound_action:_Agent_Inventory_Data_Load')?['error/message'],\n        '\"'\n    ),\n    ''\n)}@{if(\n    or(\n        not(empty(outputs('Run_a_Child_Flow:_Agent_Inventory_grandchild_for_component_update')?['Body']?['errormessage'])),\n        not(empty(outputs('Compose:_Flow_Connection_Update_Error')))\n    ),\n    concat(\n        ', ComponentError: \"',\n        if(\n            empty(outputs('Run_a_Child_Flow:_Agent_Inventory_grandchild_for_component_update')?['Body']?['errormessage']),\n            '',\n            concat(\n                'PromptUpdateError: ''',\n                outputs('Run_a_Child_Flow:_Agent_Inventory_grandchild_for_component_update')?['Body']?['errormessage'],\n                ''''\n            )\n        ),\n        '  ',\n        if(\n            empty(outputs('Compose:_Flow_Connection_Update_Error')),\n            '',\n            concat(\n                'ConnectionUpdateError: ',\n                outputs('Compose:_Flow_Connection_Update_Error')\n            )\n        ),\n        '\"'\n    ),\n    ''\n)}, "
                                     }
                                   }
                                 },
                                 "runAfter": {
                                   "Condition:_Check_if_agent_data_exists_for_updating_refresh_status_as_unsuccess": [
-                                    "Succeeded"
+                                    "Succeeded",
+                                    "Failed",
+                                    "Skipped",
+                                    "TimedOut"
                                   ]
                                 },
                                 "expression": {
@@ -357,6 +366,12 @@
                                     {
                                       "equals": [
                                         "@not(empty(outputs('Run_a_Child_Flow:_Agent_Inventory_grandchild_for_component_update')?['Body']?['errormessage']))",
+                                        true
+                                      ]
+                                    },
+                                    {
+                                      "equals": [
+                                        "@not(empty(outputs('Compose:_Flow_Connection_Update_Error')))",
                                         true
                                       ]
                                     }
@@ -381,8 +396,14 @@
                               },
                               {
                                 "equals": [
+                                  "@empty(outputs('Compose:_Flow_Connection_Update_Error'))",
+                                  "@true"
+                                ]
+                              },
+                              {
+                                "equals": [
                                   "@empty(outputs('Run_a_Child_Flow:_Agent_Inventory_grandchild_for_component_update')?['Body']?['errormessage'])",
-                                  true
+                                  "@true"
                                 ]
                               }
                             ]
@@ -446,7 +467,7 @@
                                 "parameters": {
                                   "entityName": "cat_agentdetailses",
                                   "recordId": "@outputs('Compose:_PluginOutput')",
-                                  "$select": "cat_prompts"
+                                  "$select": "cat_prompts, cat_connections"
                                 },
                                 "authentication": {
                                   "type": "Raw",
@@ -501,6 +522,318 @@
                                 "operationMetadataId": "ce2345f5-b2fe-46c3-a5a9-322c265609d9"
                               },
                               "type": "Scope"
+                            },
+                            "Condition:_Updating_the_values_of_connections": {
+                              "actions": {
+                                "Parse_JSON:_Parse_Connection_data": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "e2f41666-9480-4393-8b0f-7421cfc01724"
+                                  },
+                                  "type": "ParseJson",
+                                  "inputs": {
+                                    "content": "@outputs('Get_a_row_by_ID:_Get_added_agent')?['body/cat_connections']",
+                                    "schema": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "Name": {
+                                            "type": "string"
+                                          },
+                                          "Type": {
+                                            "type": "string"
+                                          },
+                                          "Connection": {
+                                            "type": "string"
+                                          },
+                                          "ConnectionMode": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "Filter_array:_Filter_Flow_Connections": {
+                                  "runAfter": {
+                                    "Parse_JSON:_Parse_Connection_data": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "ebbed8f3-76c9-4ccc-b6a5-4a82d48db769"
+                                  },
+                                  "type": "Query",
+                                  "inputs": {
+                                    "from": "@body('Parse_JSON:_Parse_Connection_data')",
+                                    "where": "@equals(item()?['Type'], 'Flow')"
+                                  }
+                                },
+                                "Condition:_Check_if_flows_exists": {
+                                  "actions": {
+                                    "Select:_Flow_Id": {
+                                      "runAfter": {},
+                                      "metadata": {
+                                        "operationMetadataId": "1563279d-fae4-4829-aef3-019eb6353714"
+                                      },
+                                      "type": "Select",
+                                      "inputs": {
+                                        "from": "@body('Filter_array:_Filter_Flow_Connections')",
+                                        "select": "@concat('workflowid eq ',item()?['Connection'])"
+                                      }
+                                    },
+                                    "List_rows_from_selected_environment:_List_Flow": {
+                                      "runAfter": {
+                                        "Select:_Flow_Id": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "11c0889e-9cfc-448d-ae0b-9aa920683c75"
+                                      },
+                                      "type": "OpenApiConnection",
+                                      "inputs": {
+                                        "host": {
+                                          "connectionName": "shared_commondataserviceforapps_1",
+                                          "operationId": "ListRecordsWithOrganization",
+                                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                        },
+                                        "parameters": {
+                                          "organization": "@triggerBody()['text_3']",
+                                          "entityName": "workflows",
+                                          "$select": "clientdata, name",
+                                          "$filter": "@join(body('Select:_Flow_Id'),' or ')"
+                                        },
+                                        "authentication": {
+                                          "type": "Raw",
+                                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                        }
+                                      }
+                                    },
+                                    "Select:_Flow_Data": {
+                                      "runAfter": {
+                                        "List_rows_from_selected_environment:_List_Flow": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "5f2c56f8-21c1-4176-8bbb-9a258350d632"
+                                      },
+                                      "type": "Select",
+                                      "inputs": {
+                                        "from": "@outputs('List_rows_from_selected_environment:_List_Flow')?['body/value']",
+                                        "select": {
+                                          "name": "@item()?['name']",
+                                          "clientdata": "@if(not(empty(json(item()?['clientdata'])?['properties']?['connectionReferences'])),json(item()?['clientdata'])?['properties']?['connectionReferences'],'')"
+                                        }
+                                      }
+                                    },
+                                    "Filter_array:_Flows_having_connections": {
+                                      "runAfter": {
+                                        "Select:_Flow_Data": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "0b9a868d-964a-43ec-bfec-8e06e07f732a"
+                                      },
+                                      "type": "Query",
+                                      "inputs": {
+                                        "from": "@body('Select:_Flow_Data')",
+                                        "where": "@not(equals(item()?['clientdata'], ''))"
+                                      }
+                                    },
+                                    "Condition:_Check_if_flows_having_connections": {
+                                      "actions": {
+                                        "Perform_an_unbound_action:_Extract_Flow_Data": {
+                                          "runAfter": {},
+                                          "metadata": {
+                                            "operationMetadataId": "8b348014-704b-497e-924e-47bcd90cfb00"
+                                          },
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "host": {
+                                              "connectionName": "shared_commondataserviceforapps_1",
+                                              "operationId": "PerformUnboundAction",
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                            },
+                                            "parameters": {
+                                              "actionName": "cat_ExtractWorkFlowData",
+                                              "item/cat_ExtractWorkFlowInput": "@body('Filter_array:_Flows_having_connections')"
+                                            },
+                                            "authentication": {
+                                              "type": "Raw",
+                                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                            }
+                                          }
+                                        },
+                                        "Compose:_Parse_Flow_Data_Output": {
+                                          "runAfter": {
+                                            "Perform_an_unbound_action:_Extract_Flow_Data": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "07b051f5-02d0-4a60-9608-d9dfc1df30ab"
+                                          },
+                                          "type": "Compose",
+                                          "inputs": "@if(not(empty(outputs('Perform_an_unbound_action:_Extract_Flow_Data')?['body/cat_ExtractWorkFlowOutput'])),json(outputs('Perform_an_unbound_action:_Extract_Flow_Data')?['body/cat_ExtractWorkFlowOutput']),'')"
+                                        },
+                                        "Select:_Flow_Data_Output": {
+                                          "runAfter": {
+                                            "Compose:_Parse_Flow_Data_Output": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "2e5a2f5e-cdf4-484d-a942-4f7297a37749"
+                                          },
+                                          "type": "Select",
+                                          "inputs": {
+                                            "from": "@outputs('Compose:_Parse_Flow_Data_Output')",
+                                            "select": {
+                                              "Name": "@concat('FlowName - ', item()?['FlowName'])",
+                                              "Type": "Flow",
+                                              "Connection": "@item()?['Name']",
+                                              "ConnectionMode": "@if(or(and(equals(item()?['RuntimeSource'], 'embedded'), equals(item()?['Impersonation'], '')), and(equals(item()?['RuntimeSource'], 'embedded'), equals(item()?['Impersonation'], '{}'))), 'Maker', 'Invoker')"
+                                            }
+                                          }
+                                        },
+                                        "Filter_array:_Filter_Flow_Maker_Auth_Context": {
+                                          "runAfter": {
+                                            "Select:_Flow_Data_Output": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "7698a78a-0f3d-42e7-8e61-d93235923807"
+                                          },
+                                          "type": "Query",
+                                          "inputs": {
+                                            "from": "@body('Select:_Flow_Data_Output')",
+                                            "where": "@equals(item()?['ConnectionMode'], 'Maker')"
+                                          }
+                                        }
+                                      },
+                                      "runAfter": {
+                                        "Filter_array:_Flows_having_connections": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "expression": {
+                                        "greater": [
+                                          "@length(body('Filter_array:_Flows_having_connections'))",
+                                          0
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "699106cc-a839-4ede-9d22-7de64dbcfa7c"
+                                      },
+                                      "type": "If"
+                                    },
+                                    "Filter_array:_Filter_Agent_Connections": {
+                                      "runAfter": {
+                                        "Condition:_Check_if_flows_having_connections": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "e4df3634-30e3-4546-9b0b-157c4841192c"
+                                      },
+                                      "type": "Query",
+                                      "inputs": {
+                                        "from": "@body('Parse_JSON:_Parse_Connection_data')",
+                                        "where": "@equals(item()?['Type'], 'Agent')"
+                                      }
+                                    },
+                                    "Compose:_Combine_Agent_and_Flow_Connections": {
+                                      "runAfter": {
+                                        "Filter_array:_Filter_Agent_Connections": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "8e6b357d-46cd-4cf2-bca1-0f264f640791"
+                                      },
+                                      "type": "Compose",
+                                      "inputs": "@if(not(empty(body('Select:_Flow_Data_Output'))),union(body('Filter_array:_Filter_Agent_Connections'), body('Select:_Flow_Data_Output')),body('Filter_array:_Filter_Agent_Connections'))"
+                                    },
+                                    "Update_a_row:_Update_Connection_Value": {
+                                      "runAfter": {
+                                        "Compose:_Combine_Agent_and_Flow_Connections": [
+                                          "Succeeded"
+                                        ]
+                                      },
+                                      "metadata": {
+                                        "operationMetadataId": "60e520fd-e0a3-4077-84b4-b69d65177b98"
+                                      },
+                                      "type": "OpenApiConnection",
+                                      "inputs": {
+                                        "host": {
+                                          "connectionName": "shared_commondataserviceforapps_1",
+                                          "operationId": "UpdateOnlyRecord",
+                                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                        },
+                                        "parameters": {
+                                          "entityName": "cat_agentdetailses",
+                                          "recordId": "@outputs('Compose:_PluginOutput')",
+                                          "item/cat_connections": "@if(not(empty(outputs('Compose:_Combine_Agent_and_Flow_Connections'))),string(outputs('Compose:_Combine_Agent_and_Flow_Connections')),'')",
+                                          "item/cat_usescloudflowauthcontext": "@if(not(empty(body('Filter_array:_Filter_Flow_Maker_Auth_Context'))), true, false)"
+                                        },
+                                        "authentication": {
+                                          "type": "Raw",
+                                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "runAfter": {
+                                    "Filter_array:_Filter_Flow_Connections": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "expression": {
+                                    "greater": [
+                                      "@length(body('Filter_array:_Filter_Flow_Connections'))",
+                                      0
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "1698881a-5287-4c53-b8a7-8a5e2fccbb9e"
+                                  },
+                                  "type": "If"
+                                },
+                                "Compose:_Flow_Connection_Update_Error": {
+                                  "runAfter": {
+                                    "Condition:_Check_if_flows_exists": [
+                                      "Failed",
+                                      "Skipped",
+                                      "TimedOut"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "9229b142-11d0-492c-bd89-b0d2b166a0f7"
+                                  },
+                                  "type": "Compose",
+                                  "inputs": "Flow connections update is failed with error"
+                                }
+                              },
+                              "runAfter": {
+                                "Get_a_row_by_ID:_Get_added_agent": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "expression": {
+                                "equals": [
+                                  "@not(empty(outputs('Get_a_row_by_ID:_Get_added_agent')?['body/cat_connections']))",
+                                  true
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "5dcd5b33-f07e-4f0d-ad30-ace981a66411"
+                              },
+                              "type": "If"
                             }
                           },
                           "runAfter": {
@@ -543,6 +876,47 @@
                         "operationMetadataId": "d56ea9cd-205b-4ec6-998d-783c2ec3ae7f"
                       },
                       "type": "Scope"
+                    },
+                    "List_rows_from_selected_environment:_Fetch_Conversation_Transcript": {
+                      "runAfter": {
+                        "Select:_Agent_Components_Data": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "4413ea93-89d5-4df4-a3db-02b952c65c6d"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "ListRecordsWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "@triggerBody()['text_3']",
+                          "entityName": "conversationtranscripts",
+                          "$select": "conversationtranscriptid",
+                          "$filter": "_bot_conversationtranscriptid_value eq '@{items('Apply_to_each:_Agents')?['id']}'",
+                          "$top": 1
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      }
+                    },
+                    "Compose:_Update_Conversation_Transcript_Property": {
+                      "runAfter": {
+                        "List_rows_from_selected_environment:_Fetch_Conversation_Transcript": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "95f60346-90c5-43d3-8ee7-6c869384aefa"
+                      },
+                      "type": "Compose",
+                      "inputs": "@setProperty(items('Apply_to_each:_Agents'),'IsTranscriptAvailable',if(empty(outputs('List_rows_from_selected_environment:_Fetch_Conversation_Transcript')?['body/value']),false,true))"
                     }
                   },
                   "runAfter": {},
@@ -552,7 +926,7 @@
                   "type": "Foreach",
                   "runtimeConfiguration": {
                     "concurrency": {
-                      "repetitions": 40
+                      "repetitions": 20
                     }
                   }
                 }
@@ -639,7 +1013,7 @@
                       "operationMetadataId": "9b9809bc-fa8f-49bd-b9f9-62fde3598d14"
                     },
                     "type": "Compose",
-                    "inputs": "[Env: '@{triggerBody()['text_1']}', Error: '@{variables('ErrorMessage')}', FlowUrl: @{outputs('Compose:_Flow_URL')}]"
+                    "inputs": "FlowUrl: @{outputs('Compose:_Flow_URL')}, Error: '@{variables('ErrorMessage')}'"
                   },
                   "Terminate": {
                     "runAfter": {
@@ -793,7 +1167,7 @@
                     "operationMetadataId": "df6824da-5229-4827-8a48-b776758351c7"
                   },
                   "type": "Compose",
-                  "inputs": "[Env: '@{triggerBody()['text_1']}', Error: '@{variables('ErrorMessage')}', FlowUrl: @{outputs('Compose:_Flow_URL_2')}]"
+                  "inputs": "FlowUrl: @{outputs('Compose:_Flow_URL_2')}, Error: '@{variables('ErrorMessage')}'"
                 }
               },
               "runAfter": {},
