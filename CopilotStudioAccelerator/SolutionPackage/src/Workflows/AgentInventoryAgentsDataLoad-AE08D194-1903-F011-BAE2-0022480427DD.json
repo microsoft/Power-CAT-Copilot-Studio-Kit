@@ -256,6 +256,11 @@
                       "api-version": "2018-10-01"
                     },
                     "authentication": "@parameters('$authentication')"
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 100000
+                    }
                   }
                 },
                 "Add_a_new_row:_Add_logs_in_log_table": {
@@ -291,120 +296,176 @@
                     "Apply_to_each:_All_Environments": {
                       "foreach": "@outputs('List_Environments_as_Admin:_Fetch_All_Environments')?['body/value']",
                       "actions": {
-                        "Condition:_Check_if_there_is_any_error_mesage": {
-                          "actions": {
-                            "Get_a_row_by_ID:_Get_Log": {
-                              "runAfter": {
-                                "Compose:_ErrorMessage": [
-                                  "Succeeded"
-                                ]
-                              },
-                              "metadata": {
-                                "operationMetadataId": "5e38519a-32b7-4328-ba20-52a09871b2ac"
-                              },
-                              "type": "OpenApiConnection",
-                              "inputs": {
-                                "host": {
-                                  "connectionName": "shared_commondataserviceforapps_1",
-                                  "operationId": "GetItem",
-                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                                },
-                                "parameters": {
-                                  "entityName": "cat_copilotstudiokitlogses",
-                                  "recordId": "@outputs('Add_a_new_row:_Add_logs_in_log_table')?['body/cat_copilotstudiokitlogsid']",
-                                  "$select": "cat_errormessage"
-                                },
-                                "authentication": "@parameters('$authentication')"
-                              }
-                            },
-                            "Update_a_row:_Error_Message_in_logs": {
-                              "runAfter": {
-                                "Get_a_row_by_ID:_Get_Log": [
-                                  "Succeeded"
-                                ]
-                              },
-                              "metadata": {
-                                "operationMetadataId": "7ea3309c-a4eb-4344-8242-bf970775590f"
-                              },
-                              "type": "OpenApiConnection",
-                              "inputs": {
-                                "host": {
-                                  "connectionName": "shared_commondataserviceforapps_1",
-                                  "operationId": "UpdateOnlyRecord",
-                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                                },
-                                "parameters": {
-                                  "entityName": "cat_copilotstudiokitlogses",
-                                  "recordId": "@outputs('Add_a_new_row:_Add_logs_in_log_table')?['body/cat_copilotstudiokitlogsid']",
-                                  "item/cat_errormessage": "@concat(outputs('Get_a_row_by_ID:_Get_Log')?['body']?['cat_errormessage'],outputs('Compose:_ErrorMessage'))"
-                                },
-                                "authentication": "@parameters('$authentication')"
-                              }
-                            },
-                            "Compose:_ErrorMessage": {
-                              "runAfter": {},
-                              "metadata": {
-                                "operationMetadataId": "dbd16917-0e83-49d7-a6bb-12b99e06caa4"
-                              },
-                              "type": "Compose",
-                              "inputs": "@{body('Run_a_Child_Flow:_Agent_Inventory_Child')?['errormessage']}\n"
-                            }
-                          },
-                          "runAfter": {
-                            "Run_a_Child_Flow:_Agent_Inventory_Child": [
-                              "Succeeded"
-                            ]
-                          },
-                          "expression": {
-                            "equals": [
-                              "@not(empty(outputs('Run_a_Child_Flow:_Agent_Inventory_Child')?['Body']?['errormessage']))",
-                              true
-                            ]
-                          },
+                        "List_rows_from_selected_environment:_Check_if_environment_has_agent": {
+                          "runAfter": {},
                           "metadata": {
-                            "operationMetadataId": "bc450b2a-5dea-4891-808a-b1983a1cae77"
+                            "operationMetadataId": "7222d322-6e2c-41df-bfd0-e2d9f0cb65fb"
                           },
-                          "type": "If"
-                        },
-                        "Run_a_Child_Flow:_Agent_Inventory_Child": {
-                          "runAfter": {
-                            "Compose:_Child_Flow_Input": [
-                              "Succeeded"
-                            ]
-                          },
-                          "metadata": {
-                            "operationMetadataId": "8c63477b-40eb-440c-a4b4-03dd48c6ce9a"
-                          },
-                          "type": "Workflow",
+                          "type": "OpenApiConnection",
                           "inputs": {
                             "host": {
-                              "workflowReferenceName": "c7db6d55-e004-f011-bae2-0022480427dd"
+                              "connectionName": "shared_commondataserviceforapps_1",
+                              "operationId": "ListRecordsWithOrganization",
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
                             },
-                            "body": {
-                              "text": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentID']",
-                              "text_1": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentName']",
-                              "text_3": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentURL']",
-                              "text_4": "@outputs('Compose:_Child_Flow_Input')?['WorkFlowID']",
-                              "text_2": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentType']"
+                            "parameters": {
+                              "organization": "@items('Apply_to_each:_All_Environments')?['properties/linkedEnvironmentMetadata/instanceUrl']",
+                              "entityName": "bots",
+                              "$select": "botid",
+                              "$top": 1
                             },
+                            "authentication": "@parameters('$authentication')",
                             "retryPolicy": {
                               "type": "none"
                             }
                           }
                         },
-                        "Compose:_Child_Flow_Input": {
-                          "runAfter": {},
-                          "metadata": {
-                            "operationMetadataId": "74268243-32a0-4e02-b106-3adabce20a34"
+                        "Condition:_Check_if_environment_has_agent": {
+                          "actions": {
+                            "Compose:_Child_Flow_Input": {
+                              "runAfter": {},
+                              "metadata": {
+                                "operationMetadataId": "74268243-32a0-4e02-b106-3adabce20a34"
+                              },
+                              "type": "Compose",
+                              "inputs": {
+                                "EnvironmentID": "@items('Apply_to_each:_All_Environments')?['name']",
+                                "EnvironmentName": "@if(empty(items('Apply_to_each:_All_Environments')?['properties/linkedEnvironmentMetadata/friendlyName']),items('Apply_to_each:_All_Environments')?['properties/displayName'],items('Apply_to_each:_All_Environments')?['properties/linkedEnvironmentMetadata/friendlyName'])",
+                                "EnvironmentURL": "@items('Apply_to_each:_All_Environments')?['properties/linkedEnvironmentMetadata/instanceUrl']",
+                                "EnvironmentType": "@items('Apply_to_each:_All_Environments')?['properties/environmentSku']",
+                                "WorkFlowID": "@outputs('Compose:_WorkFlowID')"
+                              }
+                            },
+                            "Run_a_Child_Flow:_Agent_Inventory_Child": {
+                              "runAfter": {
+                                "Compose:_Child_Flow_Input": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "8c63477b-40eb-440c-a4b4-03dd48c6ce9a"
+                              },
+                              "type": "Workflow",
+                              "inputs": {
+                                "host": {
+                                  "workflowReferenceName": "c7db6d55-e004-f011-bae2-0022480427dd"
+                                },
+                                "body": {
+                                  "text": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentID']",
+                                  "text_1": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentName']",
+                                  "text_3": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentURL']",
+                                  "text_4": "@outputs('Compose:_Child_Flow_Input')?['WorkFlowID']",
+                                  "text_2": "@outputs('Compose:_Child_Flow_Input')?['EnvironmentType']"
+                                },
+                                "retryPolicy": {
+                                  "type": "none"
+                                }
+                              }
+                            },
+                            "Condition:_Check_if_there_is_any_error_mesage": {
+                              "actions": {
+                                "Get_a_row_by_ID:_Get_Log": {
+                                  "runAfter": {
+                                    "Compose:_ErrorMessage": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "5e38519a-32b7-4328-ba20-52a09871b2ac"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_commondataserviceforapps_1",
+                                      "operationId": "GetItem",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                    },
+                                    "parameters": {
+                                      "entityName": "cat_copilotstudiokitlogses",
+                                      "recordId": "@outputs('Add_a_new_row:_Add_logs_in_log_table')?['body/cat_copilotstudiokitlogsid']",
+                                      "$select": "cat_errormessage"
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  }
+                                },
+                                "Update_a_row:_Error_Message_in_logs": {
+                                  "runAfter": {
+                                    "Get_a_row_by_ID:_Get_Log": [
+                                      "Succeeded"
+                                    ]
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "7ea3309c-a4eb-4344-8242-bf970775590f"
+                                  },
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "host": {
+                                      "connectionName": "shared_commondataserviceforapps_1",
+                                      "operationId": "UpdateOnlyRecord",
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                                    },
+                                    "parameters": {
+                                      "entityName": "cat_copilotstudiokitlogses",
+                                      "recordId": "@outputs('Add_a_new_row:_Add_logs_in_log_table')?['body/cat_copilotstudiokitlogsid']",
+                                      "item/cat_errormessage": "@concat(outputs('Get_a_row_by_ID:_Get_Log')?['body']?['cat_errormessage'],outputs('Compose:_ErrorMessage'))"
+                                    },
+                                    "authentication": "@parameters('$authentication')"
+                                  }
+                                },
+                                "Compose:_ErrorMessage": {
+                                  "runAfter": {},
+                                  "metadata": {
+                                    "operationMetadataId": "dbd16917-0e83-49d7-a6bb-12b99e06caa4"
+                                  },
+                                  "type": "Compose",
+                                  "inputs": "[Env: @{outputs('Compose:_Child_Flow_Input')?['EnvironmentName']}, Error: @{outputs('Run_a_Child_Flow:_Agent_Inventory_Child')?['error']?['message']} ChildFlowError:\"@{body('Run_a_Child_Flow:_Agent_Inventory_Child')?['errormessage']}\"]\n"
+                                }
+                              },
+                              "runAfter": {
+                                "Run_a_Child_Flow:_Agent_Inventory_Child": [
+                                  "Succeeded",
+                                  "Failed",
+                                  "Skipped",
+                                  "TimedOut"
+                                ]
+                              },
+                              "expression": {
+                                "or": [
+                                  {
+                                    "equals": [
+                                      "@not(empty(outputs('Run_a_Child_Flow:_Agent_Inventory_Child')?['Body']?['errormessage']))",
+                                      true
+                                    ]
+                                  },
+                                  {
+                                    "equals": [
+                                      "@not(empty(outputs('Run_a_Child_Flow:_Agent_Inventory_Child')?['error']?['message']))",
+                                      true
+                                    ]
+                                  }
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "bc450b2a-5dea-4891-808a-b1983a1cae77"
+                              },
+                              "type": "If"
+                            }
                           },
-                          "type": "Compose",
-                          "inputs": {
-                            "EnvironmentID": "@items('Apply_to_each:_All_Environments')?['name']",
-                            "EnvironmentName": "@if(empty(items('Apply_to_each:_All_Environments')?['properties/linkedEnvironmentMetadata/friendlyName']),items('Apply_to_each:_All_Environments')?['properties/displayName'],items('Apply_to_each:_All_Environments')?['properties/linkedEnvironmentMetadata/friendlyName'])",
-                            "EnvironmentURL": "@items('Apply_to_each:_All_Environments')?['properties/linkedEnvironmentMetadata/instanceUrl']",
-                            "EnvironmentType": "@items('Apply_to_each:_All_Environments')?['properties/environmentSku']",
-                            "WorkFlowID": "@outputs('Compose:_WorkFlowID')"
-                          }
+                          "runAfter": {
+                            "List_rows_from_selected_environment:_Check_if_environment_has_agent": [
+                              "Succeeded"
+                            ]
+                          },
+                          "expression": {
+                            "greater": [
+                              "@length(outputs('List_rows_from_selected_environment:_Check_if_environment_has_agent')?['body/value'])",
+                              0
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "ff78f9b0-cd64-4dde-a1f9-647f4288fb53"
+                          },
+                          "type": "If"
                         }
                       },
                       "runAfter": {},
@@ -414,7 +475,7 @@
                       "type": "Foreach",
                       "runtimeConfiguration": {
                         "concurrency": {
-                          "repetitions": 40
+                          "repetitions": 20
                         }
                       }
                     },
@@ -479,7 +540,7 @@
                           "type": "Foreach",
                           "runtimeConfiguration": {
                             "concurrency": {
-                              "repetitions": 40
+                              "repetitions": 20
                             }
                           }
                         }

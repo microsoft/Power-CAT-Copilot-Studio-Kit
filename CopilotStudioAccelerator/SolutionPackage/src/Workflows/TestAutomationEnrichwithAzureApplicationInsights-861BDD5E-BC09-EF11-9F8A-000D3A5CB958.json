@@ -37,14 +37,15 @@
           "type": "Int",
           "metadata": {
             "schemaName": "cat_DelayforAzureApplicationInsightsEnrichment",
-            "description": "Delay for Azure Application Insights Enrichment"
+            "description": "This will be used to validate Generative Answer type of tests using Application Insight result."
           }
         },
         "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
-          "defaultValue": "https://make.powerautomate.com/",
+          "defaultValue": "https://make.gov.powerautomate.com/",
           "type": "String",
           "metadata": {
-            "schemaName": "cat_PowerAutomateEndpoint"
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows, primarily for GCC (Government Community Cloud) environments. This can be left as it is for non-GCC organizations where the standard environment is used."
           }
         }
       },
@@ -89,8 +90,8 @@
             },
             "parameters": {
               "entityName": "cat_copilottestresults",
-              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_responsereceivedtimestamp",
-              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}' \nand statecode eq 0 \nand cat_resultcode ne 4 \nand (cat_CopilotTestId/cat_testtypecode eq 4 or cat_CopilotTestId/cat_testtypecode eq 5) \nand _cat_parent_value eq null",
+              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_responsereceivedtimestamp, cat_resultcode",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}' \nand statecode eq 0 \nand cat_resultcode ne 2 and cat_resultcode ne 3 and cat_resultcode ne 4 \nand (cat_CopilotTestId/cat_testtypecode eq 4 or cat_CopilotTestId/cat_testtypecode eq 5) \nand _cat_parent_value eq null",
               "$orderby": "createdon asc",
               "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance,cat_testtypecode)"
             },
@@ -376,11 +377,7 @@
                               "Condition:_Check_to_continue_Multiturn_processing": {
                                 "actions": {
                                   "Update_a_row:_Agent_Child_Result": {
-                                    "runAfter": {
-                                      "Set_variable:_MultiTurnResult": [
-                                        "Succeeded"
-                                      ]
-                                    },
+                                    "runAfter": {},
                                     "metadata": {
                                       "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
                                     },
@@ -394,7 +391,7 @@
                                       "parameters": {
                                         "entityName": "cat_copilottestresults",
                                         "recordId": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestresultid']",
-                                        "item/cat_resultcode": "@variables('MultiturnResult')",
+                                        "item/cat_resultcode": "@if(\r\n    empty(body('Filter_array:_Child_Test_App_Insights_Result')),\r\n    if(\r\n        or(\r\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\r\n        ),\r\n        3,\r\n        if(\r\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n            5,\r\n            3\r\n        )\r\n    ),\r\n    if(\r\n        equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\r\n        if(\r\n\t\t\tstartsWith(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Filtered'),\r\n            1,\r\n            2\r\n        ),\r\n        if(\r\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\r\n            if(\r\n                or(\r\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'No Search Results'),\r\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Answer not Found in Search Results')\r\n                ),\r\n                1,\r\n                2\r\n            ),\r\n            if(\r\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\r\n                5,\r\n                3\r\n            )\r\n        )\r\n    )\r\n)",
                                         "item/cat_appinsightsresult": "@if(\n    empty(body('Filter_array:_Child_Test_App_Insights_Result')),\n\t'No Azure Application Insights Result',\n\tbody('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result']\n)",
                                         "item/cat_resultreason": "@if(\n        empty(body('Filter_array:_Child_Test_App_Insights_Result')),\n    if(\n        or(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        'Impossible to evaluate: no Azure Application Insights result',\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            'No Azure Application Insights result, but result can still be assessed with AI Builder',\n            'Impossible to evaluate: no Azure Application Insights result'\n        )\n    ),\n    if(\n        equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n            startsWith(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Filtered'),\n            'Answer was moderated',\n            'Moderation was expected'\n        ),\n        if(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'No Search Results'),\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Answer not Found in Search Results')\n                ),\n                'Answer was not generated because of no search results',\n                'No search results were expected'\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n               'Result still needs to be assessed by AI Builder',\n               'Could not assess the answer'\n            )\n        )\n    )\n)"
                                       },
@@ -403,6 +400,17 @@
                                   },
                                   "Condition:_Check_for_Critical_Tests": {
                                     "actions": {
+                                      "Set_variable:_MultiTurnResult": {
+                                        "runAfter": {},
+                                        "metadata": {
+                                          "operationMetadataId": "de1eb8f4-e6e9-4e0a-9ad3-d844c1f73367"
+                                        },
+                                        "type": "SetVariable",
+                                        "inputs": {
+                                          "name": "MultiturnResult",
+                                          "value": "@if(\n    empty(body('Filter_array:_Child_Test_App_Insights_Result')),\n    if(\n        or(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        3,\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            5,\n            3\n        )\n    ),\n    if(\n        equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n\t\t\tstartsWith(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Filtered'),\n            1,\n            2\n        ),\n        if(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'No Search Results'),\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Answer not Found in Search Results')\n                ),\n                1,\n                2\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n                5,\n                3\n            )\n        )\n    )\n)"
+                                        }
+                                      },
                                       "Condition:_Check_if_test_failed_or_error_out": {
                                         "actions": {
                                           "Set_variable:_ContinueMultiTurnProcessing": {
@@ -432,7 +440,11 @@
                                             }
                                           }
                                         },
-                                        "runAfter": {},
+                                        "runAfter": {
+                                          "Set_variable:_MultiTurnResult": [
+                                            "Succeeded"
+                                          ]
+                                        },
                                         "else": {
                                           "actions": {
                                             "Set_variable:_MultiTurnPendingResult": {
@@ -491,17 +503,6 @@
                                       "operationMetadataId": "724a24dc-dd7c-44fb-a5ef-4a7358f99bd9"
                                     },
                                     "type": "If"
-                                  },
-                                  "Set_variable:_MultiTurnResult": {
-                                    "runAfter": {},
-                                    "metadata": {
-                                      "operationMetadataId": "de1eb8f4-e6e9-4e0a-9ad3-d844c1f73367"
-                                    },
-                                    "type": "SetVariable",
-                                    "inputs": {
-                                      "name": "MultiturnResult",
-                                      "value": "@if(\n    empty(body('Filter_array:_Child_Test_App_Insights_Result')),\n    if(\n        or(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4)\n        ),\n        3,\n        if(\n            equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n            5,\n            3\n        )\n    ),\n    if(\n        equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 3),\n        if(\n\t\t\tstartsWith(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Filtered'),\n            1,\n            2\n        ),\n        if(\n            equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 4),\n            if(\n                or(\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'No Search Results'),\n                    equals(body('Filter_array:_Child_Test_App_Insights_Result')[0]?['Result'], 'Answer not Found in Search Results')\n                ),\n                1,\n                2\n            ),\n            if(\n                equals(outputs('Get_Copilot_Configuration')?['body/cat_isgeneratedanswersanalysisenabled'], true),\n                5,\n                3\n            )\n        )\n    )\n)"
-                                    }
                                   }
                                 },
                                 "runAfter": {
@@ -550,7 +551,7 @@
                               "parameters": {
                                 "entityName": "cat_copilottestresults",
                                 "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
-                                "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tvariables('MultiturnResult')\r\n)"
+                                "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tif( greater(variables('MultiturnResult'), 0), \r\n\t\tvariables('MultiturnResult'), \r\n\t\titems('Apply_to_each_Generative_Answers_Result')?['cat_resultcode']\r\n\t)\r\n)"
                               },
                               "authentication": "@parameters('$authentication')"
                             }
@@ -996,7 +997,8 @@
             "variables": [
               {
                 "name": "MultiturnResult",
-                "type": "integer"
+                "type": "integer",
+                "value": 0
               }
             ]
           }

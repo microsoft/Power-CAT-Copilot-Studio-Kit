@@ -24,10 +24,11 @@
           "type": "SecureObject"
         },
         "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
-          "defaultValue": "https://make.powerautomate.com/",
+          "defaultValue": "https://make.gov.powerautomate.com/",
           "type": "String",
           "metadata": {
-            "schemaName": "cat_PowerAutomateEndpoint"
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows, primarily for GCC (Government Community Cloud) environments. This can be left as it is for non-GCC organizations where the standard environment is used."
           }
         }
       },
@@ -92,8 +93,8 @@
             },
             "parameters": {
               "entityName": "cat_copilottestresults",
-              "$select": "cat_name, cat_copilottestresultid, cat_response",
-              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  \nand statecode eq 0  \nand cat_resultcode ne 4  \nand (cat_CopilotTestId/cat_testtypecode eq 5 or (cat_CopilotTestId/cat_testtypecode eq 4 and (cat_CopilotTestId/cat_generativeansweroutcomecode eq 1 or cat_CopilotTestId/cat_generativeansweroutcomecode eq 2)))\nand _cat_parent_value eq null",
+              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_resultcode",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  \nand statecode eq 0  \nand cat_resultcode ne 2 and cat_resultcode ne 3 and cat_resultcode ne 4 \nand (cat_CopilotTestId/cat_testtypecode eq 5 or (cat_CopilotTestId/cat_testtypecode eq 4 and (cat_CopilotTestId/cat_generativeansweroutcomecode eq 1 or cat_CopilotTestId/cat_generativeansweroutcomecode eq 2)))\nand _cat_parent_value eq null",
               "$orderby": "createdon asc",
               "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance,cat_testtypecode )"
             },
@@ -210,24 +211,9 @@
                                       "authentication": "@parameters('$authentication')"
                                     }
                                   },
-                                  "Set_variable:_MultiturnResult": {
-                                    "runAfter": {
-                                      "Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match": [
-                                        "Succeeded"
-                                      ]
-                                    },
-                                    "metadata": {
-                                      "operationMetadataId": "10a861a0-6cfa-444b-8ace-326c93d33f98"
-                                    },
-                                    "type": "SetVariable",
-                                    "inputs": {
-                                      "name": "MultiturnResult",
-                                      "value": "@if(\n    equals(\n        string(\n            int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text'])\n        ),\n        outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']\n    ),\n    int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']),\n    4\n)"
-                                    }
-                                  },
                                   "Update_a_row:_Child_Agent_Test_Results": {
                                     "runAfter": {
-                                      "Set_variable:_MultiturnResult": [
+                                      "Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match": [
                                         "Succeeded"
                                       ]
                                     },
@@ -244,7 +230,7 @@
                                       "parameters": {
                                         "entityName": "cat_copilottestresults",
                                         "recordId": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestresultid']",
-                                        "item/cat_resultcode": "@variables('MultiturnResult')",
+                                        "item/cat_resultcode": "@if(\r\n    equals(\r\n        string(\r\n            int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text'])\r\n        ),\r\n        outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']\r\n    ),\r\n    int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']),\r\n    4\r\n)",
                                         "item/cat_resultreason": "@\n    if(\n        equals(\n            string(\n                int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text'])\n            ), \n            outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']\n        ), \n        'AI-generated assessment of the response. Please review.', \n        'Error when assessing the response with AI'\n    )\n"
                                       },
                                       "authentication": "@parameters('$authentication')"
@@ -252,6 +238,17 @@
                                   },
                                   "Condition:_Check_for_Critical_Tests": {
                                     "actions": {
+                                      "Set_variable:_MultiturnResult": {
+                                        "runAfter": {},
+                                        "metadata": {
+                                          "operationMetadataId": "10a861a0-6cfa-444b-8ace-326c93d33f98"
+                                        },
+                                        "type": "SetVariable",
+                                        "inputs": {
+                                          "name": "MultiturnResult",
+                                          "value": "@if(\n    equals(\n        string(\n            int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text'])\n        ),\n        outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']\n    ),\n    int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']),\n    4\n)"
+                                        }
+                                      },
                                       "Condition:_Check_if_test_failed_or_error_out": {
                                         "actions": {
                                           "Set_variable:_ContinueMultiTurnProcessing": {
@@ -281,7 +278,11 @@
                                             }
                                           }
                                         },
-                                        "runAfter": {},
+                                        "runAfter": {
+                                          "Set_variable:_MultiturnResult": [
+                                            "Succeeded"
+                                          ]
+                                        },
                                         "else": {
                                           "actions": {
                                             "Set_variable:_MultiTurnPendingResult": {
@@ -380,7 +381,7 @@
                               "parameters": {
                                 "entityName": "cat_copilottestresults",
                                 "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
-                                "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tvariables('MultiturnResult')\r\n)"
+                                "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tif( greater(variables('MultiturnResult'), 0), \r\n\t\tvariables('MultiturnResult'), \r\n\t\titems('Apply_to_each_Generative_Answers_Result')?['cat_resultcode']\r\n\t)\r\n)"
                               },
                               "authentication": "@parameters('$authentication')"
                             }
@@ -599,7 +600,8 @@
             "variables": [
               {
                 "name": "MultiturnResult",
-                "type": "integer"
+                "type": "integer",
+                "value": 0
               }
             ]
           }
