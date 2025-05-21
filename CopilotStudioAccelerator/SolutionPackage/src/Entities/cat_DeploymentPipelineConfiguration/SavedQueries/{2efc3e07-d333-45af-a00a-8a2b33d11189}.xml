@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{2efc3e07-d333-45af-a00a-8a2b33d11189}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_deploymentpipelineconfigurationid">
+          <cell name="cat_name" width="114" />
+          <cell name="cat_agentconfiguration" width="175" />
+          <cell name="cat_agenttestset" width="159" />
+          <cell name="cat_deploymentpipelinename" width="252" />
+          <cell name="cat_passingpercentage" width="148" />
+          <cell name="statecode" width="100" />
+          <cell name="createdon" width="125" />
+          <cell name="ownerid" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_deploymentpipelineconfiguration">
+          <attribute name="cat_deploymentpipelineconfigurationid" />
+          <attribute name="cat_name" />
+          <attribute name="createdon" />
+          <order attribute="cat_name" descending="false" />
+          <attribute name="cat_agentconfiguration" />
+          <attribute name="cat_agenttestset" />
+          <attribute name="cat_deploymentpipelinename" />
+          <attribute name="cat_passingpercentage" />
+          <attribute name="statecode" />
+          <attribute name="ownerid" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Deployment Pipeline Configurations" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

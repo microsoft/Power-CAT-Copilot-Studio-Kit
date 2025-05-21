@@ -1,0 +1,264 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "ca1f09f8-3d44-4e8a-8d5a-5dd47189ef7f"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text_2": {
+                  "description": "ID of the Solution",
+                  "title": "Solution ID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text_2"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Check_if_any_results_came_back_in_Solution_Components": {
+          "actions": {
+            "No_Connection_References_Found_Return_Empty_Array": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "e52ffa51-2bc3-448c-9004-91dfabaf539c"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "connrecords": "[]"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "connrecords": {
+                      "title": "ConnRecords",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_Connection_Reference_IDs": [
+              "Succeeded"
+            ]
+          },
+          "else": {
+            "actions": {
+              "Check_if_any_results_came_back_in_Connection_References": {
+                "actions": {
+                  "No_Solution_Components_Found_Return_Empty_Array": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "38edb002-5289-4093-912e-fbde8e5984d4"
+                    },
+                    "type": "Response",
+                    "kind": "PowerApp",
+                    "inputs": {
+                      "statusCode": 200,
+                      "body": {
+                        "connrecords": "[]"
+                      },
+                      "schema": {
+                        "type": "object",
+                        "properties": {
+                          "connrecords": {
+                            "title": "ConnRecords",
+                            "x-ms-dynamically-added": true,
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "runAfter": {
+                  "Retrieve_the_Solution_Connection_References": [
+                    "Succeeded"
+                  ]
+                },
+                "else": {
+                  "actions": {
+                    "Respond_with_Connection_References": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "06ec0513-b2a2-47cf-87cc-6e0008c11a82"
+                      },
+                      "type": "Response",
+                      "kind": "PowerApp",
+                      "inputs": {
+                        "statusCode": 200,
+                        "body": {
+                          "connrecords": "@{outputs('Retrieve_the_Solution_Connection_References')?['body/value']}"
+                        },
+                        "schema": {
+                          "type": "object",
+                          "properties": {
+                            "connrecords": {
+                              "title": "ConnRecords",
+                              "x-ms-dynamically-added": true,
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "expression": {
+                  "equals": [
+                    "@length(body('Retrieve_the_Solution_Connection_References')?['value'])",
+                    0
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "c6ecdcfa-44b5-4056-bea6-ff8b76078106"
+                },
+                "type": "If"
+              },
+              "Retrieve_the_Solution_Connection_References": {
+                "runAfter": {
+                  "Compose_Expression": [
+                    "Succeeded"
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "f94a35aa-acf9-4d3e-8441-63f01afd5c52"
+                },
+                "type": "OpenApiConnection",
+                "inputs": {
+                  "host": {
+                    "connectionName": "shared_commondataserviceforapps",
+                    "operationId": "ListRecords",
+                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                  },
+                  "parameters": {
+                    "entityName": "connectionreferences",
+                    "$filter": "@outputs('Compose_Expression')",
+                    "$orderby": "connectionreferencedisplayname asc",
+                    "$expand": "CustomConnectorId($select=name)"
+                  },
+                  "authentication": "@parameters('$authentication')"
+                }
+              },
+              "Select_Ids": {
+                "runAfter": {},
+                "metadata": {
+                  "operationMetadataId": "d3616519-1db7-4b71-9bac-cdfbb65d4e4d"
+                },
+                "type": "Select",
+                "inputs": {
+                  "from": "@outputs('Retrieve_Solution_Components_That_Could_Be_Connection_References')?['body/value']",
+                  "select": "@concat('connectionreferenceid eq ''', item()?['objectid'], '''')"
+                }
+              },
+              "Compose_Expression": {
+                "runAfter": {
+                  "Select_Ids": [
+                    "Succeeded"
+                  ]
+                },
+                "metadata": {
+                  "operationMetadataId": "c692eee4-62db-484a-bcfe-b1fbf2e966de"
+                },
+                "type": "Compose",
+                "inputs": "@concat('(', join(body('Select_Ids'), ' or '), ')')\n"
+              }
+            }
+          },
+          "expression": {
+            "equals": [
+              "@length(body('Retrieve_Solution_Components_That_Could_Be_Connection_References')?['value'])",
+              0
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "790a9d70-b0aa-47a8-ae8e-180314e43da5"
+          },
+          "type": "If"
+        },
+        "Initialize_Connection_Reference_IDs": {
+          "runAfter": {
+            "Retrieve_Solution_Components_That_Could_Be_Connection_References": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "0eb55c67-1a59-41c0-8eec-7d20e2983226"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ConnectionReferenceIds",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "Retrieve_Solution_Components_That_Could_Be_Connection_References": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "f8ed7354-1a60-4aad-b87c-13446353a2d3"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "solutioncomponents",
+              "$filter": "_solutionid_value eq '@{triggerBody()['text_2']}' and componenttype gt 10000"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}
