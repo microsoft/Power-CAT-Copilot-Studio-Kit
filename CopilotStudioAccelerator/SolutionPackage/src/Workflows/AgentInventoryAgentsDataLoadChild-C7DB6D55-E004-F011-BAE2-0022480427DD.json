@@ -28,7 +28,7 @@
           "type": "String",
           "metadata": {
             "schemaName": "cat_PowerAutomateEndpoint",
-            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows, primarily for GCC (Government Community Cloud) environments. This can be left as it is for non-GCC organizations where the standard environment is used."
+            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows. This is primarily relevant for GCC (Government Community Cloud) environments. For non-GCC organizations using the standard environment, this value can be left unchanged."
           }
         }
       },
@@ -162,35 +162,6 @@
                 "Apply_to_each:_Agents": {
                   "foreach": "@body('Select:_Agents_Data')",
                   "actions": {
-                    "List_rows_from_selected_environment:_Fetch_Agent_Components": {
-                      "runAfter": {},
-                      "metadata": {
-                        "operationMetadataId": "4413ea93-89d5-4df4-a3db-02b952c65c6d"
-                      },
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "host": {
-                          "connectionName": "shared_commondataserviceforapps_1",
-                          "operationId": "ListRecordsWithOrganization",
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                        },
-                        "parameters": {
-                          "organization": "@triggerBody()['text_3']",
-                          "entityName": "botcomponents",
-                          "$select": "botcomponentid,componenttype,data,description,filedata,filedata_name,name,schemaname,createdon,_createdby_value,modifiedon,_modifiedby_value",
-                          "$filter": "_parentbotid_value eq '@{item()?['id']}'"
-                        },
-                        "authentication": {
-                          "type": "Raw",
-                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                        }
-                      },
-                      "runtimeConfiguration": {
-                        "paginationPolicy": {
-                          "minimumItemCount": 50000
-                        }
-                      }
-                    },
                     "Select:_Agent_Components_Data": {
                       "runAfter": {
                         "List_rows_from_selected_environment:_Fetch_Agent_Components": [
@@ -222,7 +193,7 @@
                     },
                     "Compose:_Agent_Input_Plugin": {
                       "runAfter": {
-                        "Compose:_Update_Conversation_Transcript_Property": [
+                        "Select:_Agent_Components_Data": [
                           "Succeeded"
                         ]
                       },
@@ -493,9 +464,6 @@
                                           "text": "@triggerBody()['text_3']",
                                           "text_1": "@outputs('Get_a_row_by_ID:_Get_added_agent')?['body/cat_prompts']",
                                           "text_2": "@outputs('Compose:_PluginOutput')"
-                                        },
-                                        "retryPolicy": {
-                                          "type": "none"
                                         }
                                       }
                                     }
@@ -877,12 +845,56 @@
                       },
                       "type": "Scope"
                     },
-                    "List_rows_from_selected_environment:_Fetch_Conversation_Transcript": {
+                    "List_rows_from_selected_environment:_Fetch_Agent_Components": {
                       "runAfter": {
-                        "Select:_Agent_Components_Data": [
+                        "Compose:_Update_Conversation_Transcript_Property": [
                           "Succeeded"
                         ]
                       },
+                      "metadata": {
+                        "operationMetadataId": "4413ea93-89d5-4df4-a3db-02b952c65c6d"
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "host": {
+                          "connectionName": "shared_commondataserviceforapps_1",
+                          "operationId": "ListRecordsWithOrganization",
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                        },
+                        "parameters": {
+                          "organization": "@triggerBody()['text_3']",
+                          "entityName": "botcomponents",
+                          "$select": "botcomponentid,componenttype,data,description,filedata,filedata_name,name,schemaname,createdon,_createdby_value,modifiedon,_modifiedby_value",
+                          "$filter": "_parentbotid_value eq '@{item()?['id']}'"
+                        },
+                        "authentication": {
+                          "type": "Raw",
+                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        }
+                      },
+                      "runtimeConfiguration": {
+                        "paginationPolicy": {
+                          "minimumItemCount": 50000
+                        }
+                      }
+                    },
+                    "Compose:_Update_Conversation_Transcript_Property": {
+                      "runAfter": {
+                        "List_rows_from_selected_environment:_Fetch_Conversation_Transcript": [
+                          "Succeeded",
+                          "Failed",
+                          "Skipped",
+                          "TimedOut"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "95f60346-90c5-43d3-8ee7-6c869384aefa"
+                      },
+                      "type": "Compose",
+                      "inputs": "@setProperty(items('Apply_to_each:_Agents'), 'IsTranscriptAvailable', if(empty(outputs('List_rows_from_selected_environment:_Fetch_Conversation_Transcript')?['body/value']), false, true))"
+                    },
+                    "List_rows_from_selected_environment:_Fetch_Conversation_Transcript": {
+                      "runAfter": {},
                       "metadata": {
                         "operationMetadataId": "4413ea93-89d5-4df4-a3db-02b952c65c6d"
                       },
@@ -905,18 +917,6 @@
                           "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                         }
                       }
-                    },
-                    "Compose:_Update_Conversation_Transcript_Property": {
-                      "runAfter": {
-                        "List_rows_from_selected_environment:_Fetch_Conversation_Transcript": [
-                          "Succeeded"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "95f60346-90c5-43d3-8ee7-6c869384aefa"
-                      },
-                      "type": "Compose",
-                      "inputs": "@setProperty(items('Apply_to_each:_Agents'),'IsTranscriptAvailable',if(empty(outputs('List_rows_from_selected_environment:_Fetch_Conversation_Transcript')?['body/value']),false,true))"
                     }
                   },
                   "runAfter": {},
