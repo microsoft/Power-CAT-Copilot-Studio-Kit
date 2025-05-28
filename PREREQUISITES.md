@@ -18,7 +18,7 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
 ## Dependencies
 
 * This solution requires PCF Components to be enabled for the Dataverse Environment before you install any of the solution files.  You can find details of how to turn that feature on in the public documentation page below,
-  * [Enabling Power Apps Component Framework Feature](https://learn.microsoft.com/en-us/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature)
+  * [Enabling Power Apps Component Framework Feature](https://learn.microsoft.com/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature)
  
 * Copilot Studio Kit is using advanced components from the Creator Kit, please make sure to deploy it before deploying Copilot Studio Kit
   * [Creator Kit installation instructions](https://learn.microsoft.com/power-platform/guidance/creator-kit/setup)
