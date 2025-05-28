@@ -49,6 +49,8 @@ More information on [Agent Review Tool](./AGENT_REVIEW_TOOL.md)
 
 # Setup instructions and documentation
 
+There is a Setup Wizard in the Kit which allows easy editing of connection references and environment variablesm as well as turning on cloud flows. After deploying the Kit from either AppSource or GitHub, you may access the Setup Wizard from the Home-page of the Copilot Studio Kit. Please see additional information [here](./SETUP_WIZARD.md).
+
 - [Prerequisites](./PREREQUISITES.md)
 - [Installation instructions](./INSTALLATION_INSTRUCTIONS.md)
 - [Configure users and teams](/SETUP_USERS_AND_TEAMS.md)
