@@ -3,6 +3,9 @@ Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.m
 > [!NOTE]
 > Before you download and install the Copilot Studio Kit, ensure that you [enable code components](https://learn.microsoft.com/en-us/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature) in your environment first.
 
+> [!NOTE]
+> May 2025 release onwards the Copilot Studio Kit has had a **setup wizard**, which allows viewing and editing connection references, environment variables and set up cloud flows. Please see more information from [here](./SETUP_WIZARD.md).
+
 # Installing the Power Cat Copilot Studio Kit ([Appsource](http://aka.ms/DownloadCopilotStudioKit))
 
 ## Deploy from AppSource
