@@ -1,4 +1,4 @@
-# Technical information about Copilot Studio Kit
+![image](https://github.com/user-attachments/assets/b98007ab-5f2e-4123-9d14-670cb9084b7e)# Technical information about Copilot Studio Kit
 ## Environment variables
 
 | Name | Description  | Notes |
@@ -62,6 +62,24 @@
 | Uses Enhanced Search Results | Dataverse | bot |
 | Uses HTTP Requests | Dataverse | botcomponent |
 | Uses Skills | Dataverse | bot |
+| Type | Dataverse | other |
+| Autonomous Agent | Dataverse | botcomponent  |
+| Uses Classic Generative Answers Sources | Dataverse | botcomponent |
+| Uses MCP | Dataverse | botcomponent |
+| Uses Customized response | Dataverse | botcomponent |
+| Uses Connector Maker Auth Context | Dataverse | botcomponent |
+| Uses Cloud Flow Auth Context | Dataverse | processes |
+| Classic Data Sources | Dataverse | botcomponent |
+| Connections | Dataverse | botcomponent, processes |
+| Agent Triggers | Dataverse | botcomponent |
+| Uses Custom Knowledges Sources | Dataverse | botcomponent |
+| Uses Deep Reasoning Models | Dataverse | bot |
+| Uses File Input | Dataverse | bot |
+| EnvironmentUrl | Dataverse | Environments List |
+| IsTranscriptAvailable | Dataverse | Conversation Transcript |
+
+
+
 
 
 
