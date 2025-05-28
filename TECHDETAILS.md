@@ -3,7 +3,7 @@
 
 | Name | Description  | Notes |
 | :-- | :-- | :-- |
-| Agent Token Endpoint | Token endpoint for Copilot Studio custom agent which will be used for webchat preview in WebChat Playground and Adaptive Cards Gallery features | Optional. Emulator is used if not set. |
+| Agent Token Endpoint | Token endpoint for Copilot Studio custom agent which will be used for webchat preview in WebChat Playground and Adaptive Cards Gallery features | Optional. Emulator is used if not set. Please see [here](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/psimolin-may-release/ADAPTIVE_CARDS_GALLERY.md#setup-note) for setup information. |
 | Conversation KPIs Report | Holds Conversation KPIs report and workspace details. | Required for embedded Conversation KPIs dashboard. [More details](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/INSTALLATION_INSTRUCTIONS.md#configure-the-embedded-conversation-kpi-dashboard) |
 | Dataverse URL | URL of the Copilot Studio custom agent Dataverse instance | Required for SharePoint synchronization. |
 | Delay for Azure Application Insights Enrichment (Minutes) | Delay between running the test case and trying to fetch additional information from App Insights | Default value 5 minutes |
