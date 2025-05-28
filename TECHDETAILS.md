@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b98007ab-5f2e-4123-9d14-670cb9084b7e)# Technical information about Copilot Studio Kit
+# Technical information about Copilot Studio Kit
 ## Environment variables
 
 | Name | Description  | Notes |
