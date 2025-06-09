@@ -36,14 +36,14 @@ Please see the common and optional configuration steps below.
 1. Download the latest version of the Power CAT Copilot Studio Kit **managed** solution by going to the latest GitHub Release below: <br>
    [Power Cat Copilot Studio Kit Latest GitHub Releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) 
 
-## Install CopilotStudioAccelerator.zip
+## Install CopilotStudioKit.zip
 
 1. Go to **[make.powerapps.com](https://make.powerapps.com/)**
 1. Select to the **environment** in which you want to install the Power CAT Copilot Studio Kit.
 1. Go to **Solutions**
 1. Select **Import Solution**
 1. Select **Browse**
-1. Select **CopilotStudioAccelerator.zip**
+1. Select **CopilotStudioKit.zip**
 1. Select **Next**
 1. After reviewing the solution information, select **Next**
 1. If prompted, create the required **connections**, and select **Import**.
@@ -59,7 +59,7 @@ If you have earlier version of Copilot Studio Kit installed and want to upgrade 
 1. Go to **Solutions**
 1. Select **Import Solution**
 1. Select **Browse**
-1. Select **CopilotStudioAccelerator.zip**
+1. Select **CopilotStudioKit.zip**
 1. Select **Next**
 1. Power Apps will recognize that this is an upgrade to an existing managed solution.
 1. Confirm that you want to upgrade the existing solution by clicking **Next**
