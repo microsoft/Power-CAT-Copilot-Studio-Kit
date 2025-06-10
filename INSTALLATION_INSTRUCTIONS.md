@@ -85,10 +85,6 @@ Please note that the connection to the SharePoint should point to the source Sha
 1. Locate "**Copilot Studio Kit - SharePoint**" and open it for editing.
 1. Ensure all required fields are filled and the selected connection is valid. Create new connection to SharePoint as required.
 1. Click **Save**
-1. Select **Environment variables**
-1. Locate and select **Dataverse URL**
-1. Replace placeholder in the **Current Value** with the actual **Dataverse URL** pointing to the Dataverse instance associated with your **Copilot Studio agents**, for example: https://org123.crm.dynamics.com/
-1. Click **Save**
 
 ## Configure Agent Inventory
 Following steps are **optional** and required only if you plan to use the **Agent Inventory** feature. You can also set these later at any time before using the feature.
