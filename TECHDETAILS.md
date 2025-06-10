@@ -3,7 +3,7 @@
 
 | Name | Description  | Notes |
 | :-- | :-- | :-- |
-| Agent Token Endpoint | Token endpoint for Copilot Studio custom agent which will be used for webchat preview in WebChat Playground and Adaptive Cards Gallery features | Optional. Emulator is used if not set. |
+| Agent Token Endpoint | Token endpoint for Copilot Studio custom agent which will be used for webchat preview in WebChat Playground and Adaptive Cards Gallery features | Optional. Emulator is used if not set. Please see [here](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/psimolin-may-release/ADAPTIVE_CARDS_GALLERY.md#setup-note) for setup information. |
 | Conversation KPIs Report | Holds Conversation KPIs report and workspace details. | Required for embedded Conversation KPIs dashboard. [More details](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/INSTALLATION_INSTRUCTIONS.md#configure-the-embedded-conversation-kpi-dashboard) |
 | Dataverse URL | URL of the Copilot Studio custom agent Dataverse instance | Required for SharePoint synchronization. |
 | Delay for Azure Application Insights Enrichment (Minutes) | Delay between running the test case and trying to fetch additional information from App Insights | Default value 5 minutes |
@@ -62,6 +62,24 @@
 | Uses Enhanced Search Results | Dataverse | bot |
 | Uses HTTP Requests | Dataverse | botcomponent |
 | Uses Skills | Dataverse | bot |
+| Type | Dataverse | other |
+| Autonomous Agent | Dataverse | botcomponent  |
+| Uses Classic Generative Answers Sources | Dataverse | botcomponent |
+| Uses MCP | Dataverse | botcomponent |
+| Uses Customized response | Dataverse | botcomponent |
+| Uses Connector Maker Auth Context | Dataverse | botcomponent |
+| Uses Cloud Flow Auth Context | Dataverse | processes |
+| Classic Data Sources | Dataverse | botcomponent |
+| Connections | Dataverse | botcomponent, processes |
+| Agent Triggers | Dataverse | botcomponent |
+| Uses Custom Knowledges Sources | Dataverse | botcomponent |
+| Uses Deep Reasoning Models | Dataverse | bot |
+| Uses File Input | Dataverse | bot |
+| EnvironmentUrl | Dataverse | Environments List |
+| IsTranscriptAvailable | Dataverse | Conversation Transcript |
+
+
+
 
 
 
