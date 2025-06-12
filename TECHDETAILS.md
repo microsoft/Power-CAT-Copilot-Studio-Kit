@@ -8,7 +8,6 @@
 | Dataverse URL | URL of the Copilot Studio custom agent Dataverse instance | Required for SharePoint synchronization. |
 | Delay for Azure Application Insights Enrichment (Minutes) | Delay between running the test case and trying to fetch additional information from App Insights | Default value 5 minutes |
 | Delay for Conversation Transcripts Enrichment (Minutes) | Delay between running the test case and trying to fetch additional information from conversation transcript | Default value 60 minutes |
-| Power Automate Endpoint | Power Automate domain to use on links to flows. | Can be adjusted if using the Kit in GCC |
 
 ## Connection references
 
@@ -27,10 +26,9 @@
 | Office 365 Outlook | | Used in Agent Review Tool |
 | Power Platform for Admins | | Used in Agent Inventory |
 | Microsoft Entra ID | | |
-| Office 365 Outlook | | |
 | [Legacy] Microsoft Dataverse | | |
 | Direct Line channels in Copilot Studio | | Used in Test Automation |
-| Power Apps for Makers | | Used in Setup Wizard |
+| Power Apps for Makers | | Used in the Setup Wizard |
 
 ## Agent Inventory data sources
 | Field | Source  | Source detail |
