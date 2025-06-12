@@ -1,4 +1,9 @@
 # Troubleshoot errors in Power CAT Copilot Studio Kit
+## AppForbidden or other DLP errors
+
+Ensure that you have the following connectors allowed in the DLP policy
+
+![image](https://github.com/user-attachments/assets/5fc5ead4-72d4-427b-b354-12940a00a0d8)
 
 ## Authentication errors
 
