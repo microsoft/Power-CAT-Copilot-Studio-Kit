@@ -25,8 +25,12 @@
 | Microsoft Dataverse | Provides access to Microsoft Dataverse actions and triggers for Power Platform environments. | Used everywhere in Kit |
 | Sharepoint |  | Used in SharePoint synchronization |
 | Office 365 Outlook | | Used in Agent Review Tool |
-| Power platform for admins | | Used in Agent Inventory |
+| Power Platform for Admins | | Used in Agent Inventory |
 | Microsoft Entra ID | | |
+| Office 365 Outlook | | |
+| [Legacy] Microsoft Dataverse | | |
+| Direct Line channels in Copilot Studio | | Used in Test Automation |
+| Power Apps for Makers | | Used in Setup Wizard |
 
 ## Agent Inventory data sources
 | Field | Source  | Source detail |
