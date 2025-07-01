@@ -25,10 +25,10 @@
 | Sharepoint |  | Used in SharePoint synchronization |
 | Office 365 Outlook | | Used in Agent Review Tool |
 | Power Platform for Admins | | Used in Agent Inventory |
-| Microsoft Entra ID | | |
+| Microsoft Entra ID | Used to obtain a user access token for connecting to the agent during test automation when the agent is configured with manual authentication. | Used in Test Automation |
 | [Legacy] Microsoft Dataverse | | |
 | Direct Line channels in Copilot Studio | | Used in Test Automation |
-| Power Apps for Makers | | Used in the Setup Wizard |
+| Power Apps for Makers | Used to get or create the required connections in the Power Platform environment. | Used in the Setup Wizard |
 
 ## Agent Inventory data sources
 | Field | Source  | Source detail |
