@@ -28,7 +28,7 @@ This feature allows users to automate the testing and deployment of Copilot Stud
 - Configure the Pipeline: Provide a pipeline name and link development environments.
 - Configure Deployment Stages: Add deployment stages to define target environments and enable pre-export and pre-deployment steps.
 - Trigger on Deployment Request: The flow is triggered when a deployment request is initiated for a solution that includes a Copilot Studio Agent.
-- Run Automated Tests: The flow pauses the deployment, runs automated tests, evaluates test results, and decides whether to proceed with deployment based on the test outcomes
+- Run Automated Tests: The flow pauses the deployment, runs automated tests, evaluates test results, and decides whether to proceed with deployment based on the test outcomes.
 
 ## Detailed documentation
 
