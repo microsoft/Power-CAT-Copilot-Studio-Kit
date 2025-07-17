@@ -14,7 +14,7 @@ This feature allows users to automate the testing and deployment of Copilot Stud
 
 *Governed Deployment*: Enforce governance and control over the deployment process, reducing manual steps and errors.
 
-## Requirements**
+## Requirements
 
 *Pipeline Host Environment*: The central control point for the deployment process.
 
@@ -22,7 +22,7 @@ This feature allows users to automate the testing and deployment of Copilot Stud
 
 *Target (Prod) Environment*: The final destination for deployment, where the agent is published after passing all validation checks.
 
-## High-Level Steps**
+## High-Level Steps
 
 - Open the Deployment Pipeline Configuration App: Launch the app from the Power Apps portal to create and manage deployment pipelines.
 - Configure the Pipeline: Provide a pipeline name and link development environments.
@@ -30,7 +30,7 @@ This feature allows users to automate the testing and deployment of Copilot Stud
 - Trigger on Deployment Request: The flow is triggered when a deployment request is initiated for a solution that includes a Copilot Studio Agent.
 - Run Automated Tests: The flow pauses the deployment, runs automated tests, evaluates test results, and decides whether to proceed with deployment based on the test outcomes
 
-## Detailed documentation**
+## Detailed documentation
 
 [Automated Testing and Deployment of Copilot Studio Agents Overview](https://github.com/user-attachments/files/21301068/Automated.Testing.and.Deployment.of.Copilot.Studio.Agents.Overview.pdf)
 
