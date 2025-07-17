@@ -15,6 +15,7 @@
           <cell name="cat_name" width="150" />
           <cell name="a_0e6cff8d1ff14a0f871ecbace9ab6081.cat_testutterance" width="203" />
           <cell name="a_1d00e1ab60a4497ba375b8b7ac277036.cat_expectedattachmentsjson" width="285" />
+          <cell name="a_1d00e1ab60a4497ba375b8b7ac277036.cat_validationinstructions" width="241" />
           <cell name="cat_response" width="189" />
           <cell name="cat_attachmentsjson" width="148" />
           <cell name="cat_resultcode" width="125" />
@@ -47,6 +48,7 @@
           <attribute name="cat_attachmentsjson" />
           <link-entity alias="a_1d00e1ab60a4497ba375b8b7ac277036" name="cat_copilottest" to="cat_copilottestid" from="cat_copilottestid" link-type="outer" visible="false">
             <attribute name="cat_expectedattachmentsjson" />
+            <attribute name="cat_validationinstructions" />
           </link-entity>
           <attribute name="cat_resultreason" />
           <link-entity name="cat_copilottestrun" alias="ac" link-type="inner" from="cat_copilottestrunid" to="cat_copilottestrunid">

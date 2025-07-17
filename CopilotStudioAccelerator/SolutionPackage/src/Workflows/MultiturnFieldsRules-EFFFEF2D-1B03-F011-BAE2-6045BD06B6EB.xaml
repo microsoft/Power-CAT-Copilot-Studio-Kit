@@ -148,8 +148,17 @@
                     <Sequence DisplayName="SetVisibilityStep34: Hide field Recognized Intent Score">
                       <mcwc:SetVisibility ControlId="cat_recognizedintentscore" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep34_41: Hide Comparison Operator">
+                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep34_47: Hide field Actual Tools">
+                      <mcwc:SetVisibility ControlId="cat_actualtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep41: Hide Comparison Operator">
                       <mcwc:SetVisibility ControlId="cat_comparisonoperator" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep43: Hide Expected Tools">
+                      <mcwc:SetVisibility ControlId="cat_expectedtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep45: Hide Pass Threshold">
+                      <mcwc:SetVisibility ControlId="cat_passthreshold" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>
@@ -234,11 +243,20 @@
                     <Sequence DisplayName="SetVisibilityStep40: Show field Triggered Topic / Event">
                       <mcwc:SetVisibility ControlId="cat_recognizedtopicname" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep41: Show field Recognized Intent Score">
+                    <Sequence DisplayName="SetVisibilityStep41426: Show field Recognized Intent Score">
                       <mcwc:SetVisibility ControlId="cat_recognizedintentscore" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep41_42: Show Comparison Operator">
+                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep41426_48: Show field Actual Tools">
+                      <mcwc:SetVisibility ControlId="cat_actualtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep42: Show Comparison Operator">
                       <mcwc:SetVisibility ControlId="cat_comparisonoperator" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep44: Show Expected Tools">
+                      <mcwc:SetVisibility ControlId="cat_expectedtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep46: Show Pass Threshold">
+                      <mcwc:SetVisibility ControlId="cat_passthreshold" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>

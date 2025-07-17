@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25042.234" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.25042.00234">
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.25062.200" OrganizationSchemaType="Full" CRMServerServiceabilityVersion="9.2.25062.00200">
   <Entities />
   <Roles />
   <Workflows />
@@ -134,6 +134,52 @@
       </AIConfigurations>
     </AIModel>
     <AIModel>
+      <msdyn_aimodelid>{74048e9d-133f-4801-8ea9-5bd7dbd0bc62}</msdyn_aimodelid>
+      <msdyn_name>Classify agent</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{7ed41c35-1396-456f-ac30-e3d0e407539d}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{7ed41c35-1396-456f-ac30-e3d0e407539d}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":" You are an AI classifier that analyzes agent instructions and classifies them with precision.\n\nFor each instruction, return:\n\n1. Type – One of:\n   - Assistant\n   - Collaborator\n   - Performer\n   - Advisor\n   - Orchestrator\n   - Retriever\n\n2. Behavior – Select only one behavior that best describes how the agent completes the instruction:\n   - Sense\n   - Decide\n   - Act\n   - Respond\n   - Collaborate\n   - Reflect\n\n3. Value – Choose the most accurate value benefit from this list:\n   - Time saved\n   - Improved accuracy\n   - Faster decisions\n   - Higher customer satisfaction\n   - Better access to knowledge\n   - Increased productivity\n   - Reduced operational costs\n   - Faster onboarding\n   - Improved compliance\n   - Smarter recommendations\n\n4. How to write the value formula**:\n\nThe `value formula` must describe **how the benefit is calculated** in a **quantifiable format** using available before-and-after or input/output metrics.\n\nUse a structure like:\n- **Time saved** – average time before – average time now  \n- **Improved accuracy** – number of issues before – number of issues now  \n- **Faster decisions** – decision cycle time before – cycle time now  \n- **Reduced cost** – cost per task before – cost per task now  \n- **Increased productivity** – output per person before – after\n\nDo not explain how the agent works — focus on **how value is measured** using real metrics or KPIs.\n\nExamples:\n\nInstruction: \"Monitor product inventory and automatically reorder when stock falls below minimum levels.\"\n{\n  \"agentid\": \"unknown\",\n  \"behavior\": \"Act\",\n  \"type\": \"Orchestrator\",\n  \"value\": \"Reduced operational costs\",\n  \"value formula\": \"By automating inventory control and minimizing manual restocking effort.\"\n}\n\nInstruction: \"Provide a summary of the customer’s recent support history and suggest the next best action.\"\n{\n  \"agentid\": \"unknown\",\n  \"behavior\": \"Decide\",\n  \"type\": \"Advisor\",\n  \"value\": \"Smarter recommendations\",\n  \"value formula\": \"By analyzing historical interactions to suggest optimal next steps.\"\n}\n\nInstruction: \"Retrieve the latest employee handbook and highlight travel reimbursement policies.\"\n{\n  \"agentid\": \"unknown\",\n  \"behavior\": \"Act\",\n  \"type\": \"Retriever\",\n  \"value\": \"Better access to knowledge\",\n  \"value formula\": \"By locating and surfacing specific policy sections instantly.\"\n}\n\nReturn your output in this exact JSON format:\n\nagentid\nbehavior\ntype\nvalue\nvalue formula\n\nInput:\n     "},{"type":"inputVariable","id":"Description"},{"type":"literal","text":"  "},{"type":"inputVariable","id":"Instructions"},{"type":"literal","text":" "}],"definitions":{"inputs":[{"id":"Description","text":"Description","type":"text"},{"id":"Instructions","text":"Instructions","type":"text"}],"formulas":[],"data":[],"output":{"formats":["json"],"jsonSchema":{"type":"object","properties":{"agentid":{"type":"string"},"behavior":{"type":"string"},"type":{"type":"string"},"value":{"type":"string"},"value formula":{"type":"string"}}},"jsonExamples":[{"agentid":"unknown","behavior":"Respond","type":"Assistant","value":"Better access to knowledge","value formula":"By providing accurate information based on user queries."}]}},"modelParameters":{"modelType":"default","gptParameters":{"temperature":0}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null}}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>74048e9d-133f-4801-8ea9-5bd7dbd0bc62_6/17/2025 2:56:11 PM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWST2/CMAzFvwryuZdJ0w69sT9Iu6wSIO5u60KmkFSJg6gQ331NAoyRILGcIr/fe3asHGDRUzPTZou8ImOFVlA+FfCpesdzrflDseABygO8C9tLHL5wS1ACFDBlNqJ2TDbIZBsjeg4Jt/S1WEAVLiih7FBaKmA59J5ajHlqDUff3rJxjcdsmvZHfSQO21ZE5k0rpj2nmdMEuQ4e2/3mvqKll+dz+nHMrxz/d135KZaxcfKATihhN3NCm9vuLKiTk5yxx3U5Q22c1EecoKr+psb3fHhyXNOItil5FjID1LTBndAmNV2UjItD4dYRqhl6h9Jl8Fi+x0+68es7iXd8Fznxx/MD2TgbEz8DAAA=</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{74048e9d-133f-4801-8ea9-5bd7dbd0bc62}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{b456b333-8b4b-f011-877a-00224802c180}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{b456b333-8b4b-f011-877a-00224802c180}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>fdfeac1a-815c-423f-84b0-7e0c80ba6ca0</msdyn_modeldata>
+          <msdyn_name>Custom prompt 17/06/2025, 15:54:25_6/17/2025 2:56:09 PM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{74048e9d-133f-4801-8ea9-5bd7dbd0bc62}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+    <AIModel>
       <msdyn_aimodelid>{0ebe7217-deac-4d24-8ea1-67237f416b1b}</msdyn_aimodelid>
       <msdyn_name>AI Generative Answer Match</msdyn_name>
       <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
@@ -218,6 +264,52 @@
       </msdyn_modelrundataspecification>
           <msdyn_type>190690000</msdyn_type>
           <msdyn_aimodelid>{fd7e5beb-7b6c-434e-8491-730de80bdb60}</msdyn_aimodelid>
+          <statecode>2</statecode>
+          <statuscode>6</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+      </AIConfigurations>
+    </AIModel>
+    <AIModel>
+      <msdyn_aimodelid>{412d327f-8348-401b-9287-d88f136ec471}</msdyn_aimodelid>
+      <msdyn_name>Adaptive Card AI Validation</msdyn_name>
+      <msdyn_templateid>{edfdb190-3791-45d8-9a6c-8f90a37c278a}</msdyn_templateid>
+      <statecode>1</statecode>
+      <statuscode>1</statuscode>
+      <IsCustomizable>1</IsCustomizable>
+      <msdyn_activerunconfigurationid>{44fa694a-d929-46a5-8a65-773db7261a6c}</msdyn_activerunconfigurationid>
+      <AIConfigurations>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{44fa694a-d929-46a5-8a65-773db7261a6c}</msdyn_aiconfigurationid>
+          <msdyn_customconfiguration>{"version":"GptDynamicPrompt-2","prompt":[{"type":"literal","text":"**Task: You are an expert Adaptive Card validator.**\n\n### Task Description  \nYour task is to evaluate whether the provided Adaptive Card JSON meets the given instruction.\n\n### Instructions to Evaluate  \n- **Instruction**: "},{"type":"inputVariable","id":"instruction"},{"type":"literal","text":" \n- **AdaptiveCardJson**: "},{"type":"inputVariable","id":"response"},{"type":"literal","text":" \n\n### Evaluation Criteria  \n- Return 1 if the AdaptiveCardJson satisfies the instruction fully and correctly.  \n- Return 2 if the AdaptiveCardJson fails to meet the instruction in any way.\n\n### Guidelines  \n- Check for required fields, elements, types, labels, values, layout, and any formatting as mentioned in the instruction.  \n- Be strict and precise in the evaluation. Even partial mismatches should return 2.  \n- Ignore minor variations unless the instruction explicitly allows flexibility.\n\n### Output Format  \n- Return only a single whole number: 1 or 2.  \n- Do NOT include any label, explanation, or extra characters—only the number.\n\n### Example Evaluations\n\n- **Example #1:**  \n  - **Instruction**: \"This adaptive card should contain a title.\"  \n  - **AdaptiveCardJson**:\n{\n  \"type\": \"AdaptiveCard\",\n  \"version\": \"1.3\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Employee Details\",\n      \"weight\": \"Bolder\",\n      \"size\": \"Large\"\n    }\n  ]\n}\n  - **Output**: 1\n\n- **Example #2:**  \n  - **Instruction**: \"This adaptive card should have a title 'Registration Information'.\"  \n  - **AdaptiveCardJson**:\n{\n  \"type\": \"AdaptiveCard\",\n  \"version\": \"1.5\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Registration Information!\",\n      \"wrap\": true,\n      \"style\": \"heading\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"registrationNumber\",\n      \"placeholder\": \"Enter your registration number\",\n      \"label\": \"Registration Number\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"email\",\n      \"placeholder\": \"Enter your email address\",\n      \"label\": \"Email\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Action.Submit\",\n      \"title\": \"Submit\"\n    }\n  ],\n  \"$schema\": \"https://adaptivecards.io/schemas/adaptive-card.json\"\n}\n  - **Output**: 1\n\n- **Example #3:**  \n  - **Instruction**: \"This adaptive card should have a title 'Order Details'.\"  \n  - **AdaptiveCardJson**:\n{\n  \"type\": \"AdaptiveCard\",\n  \"version\": \"1.5\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Registration Information!\",\n      \"wrap\": true,\n      \"style\": \"heading\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"registrationNumber\",\n      \"placeholder\": \"Enter your registration number\",\n      \"label\": \"Registration Number\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"email\",\n      \"placeholder\": \"Enter your email address\",\n      \"label\": \"Email\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Action.Submit\",\n      \"title\": \"Submit\"\n    }\n  ],\n  \"$schema\": \"https://adaptivecards.io/schemas/adaptive-card.json\"\n}\n  - **Output**: 2\n\n- **Example #4:**  \n  - **Instruction**: \"This adaptive card must include a 'Submit' button.\"  \n  - **AdaptiveCardJson**:\n{\n  \"type\": \"AdaptiveCard\",\n  \"version\": \"1.5\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Registration Information!\",\n      \"wrap\": true,\n      \"style\": \"heading\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"registrationNumber\",\n      \"placeholder\": \"Enter your registration number\",\n      \"label\": \"Registration Number\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"email\",\n      \"placeholder\": \"Enter your email address\",\n      \"label\": \"Email\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Action.Submit\",\n      \"title\": \"Submit\"\n    }\n  ],\n  \"$schema\": \"https://adaptivecards.io/schemas/adaptive-card.json\"\n}\n  - **Output**: 1\n\n- **Example #5:**  \n  - **Instruction**: \"This adaptive card must include 'registration number' and 'full name' fields.\"  \n  - **AdaptiveCardJson**:\n{\n  \"type\": \"AdaptiveCard\",\n  \"version\": \"1.5\",\n  \"body\": [\n    {\n      \"type\": \"TextBlock\",\n      \"text\": \"Registration Information!\",\n      \"wrap\": true,\n      \"style\": \"heading\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"registrationNumber\",\n      \"placeholder\": \"Enter your registration number\",\n      \"label\": \"Registration Number\"\n    },\n    {\n      \"type\": \"Input.Text\",\n      \"id\": \"email\",\n      \"placeholder\": \"Enter your email address\",\n      \"label\": \"Email\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"type\": \"Action.Submit\",\n      \"title\": \"Submit\"\n    }\n  ],\n  \"$schema\": \"https://adaptivecards.io/schemas/adaptive-card.json\"\n}\n  - **Output**: 2\n\n### Reminder  \n- Output only the number `1` or `2`. Nothing else.\n"}],"definitions":{"inputs":[{"id":"instruction","text":"instruction","type":"text","quickTestValue":"This adaptive card should have a title 'Registration Details'."},{"id":"response","text":"response","type":"text","quickTestValue":"{\n    \"type\": \"AdaptiveCard\",\n    \"version\": \"1.5\",\n    \"body\": [\n        {\n            \"type\": \"TextBlock\",\n            \"text\": \"Registration Details!\",\n            \"wrap\": true,\n            \"style\": \"heading\"\n        },\n        {\n            \"type\": \"Input.Text\",\n            \"id\": \"registrationNumber\",\n            \"placeholder\": \"Enter your registration number\",\n            \"label\": \"Registration Number\"\n        },\n        {\n            \"type\": \"Input.Text\",\n            \"id\": \"fullName\",\n            \"placeholder\": \"Enter your full name\",\n            \"label\": \"Full Name\"\n        },\n        {\n            \"type\": \"Input.Text\",\n            \"id\": \"email\",\n            \"placeholder\": \"Enter your email address\",\n            \"label\": \"Email\"\n        }\n    ],\n    \"actions\": [\n        {\n            \"type\": \"Action.Submit\",\n            \"title\": \"Submit\"\n        }\n    ],\n    \"$schema\": \"https://adaptivecards.io/schemas/adaptive-card.json\"\n}"}],"formulas":[],"data":[],"output":{"formats":["text"]}},"modelParameters":{"modelType":"default","gptParameters":{"temperature":0}},"settings":{"recordRetrievalLimit":30,"shouldPreserveRecordLinks":null,"runtime":null},"code":""}</msdyn_customconfiguration>
+          <msdyn_majoriterationnumber>3</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_name>412d327f-8348-401b-9287-d88f136ec471_7/7/2025 12:18:22 PM</msdyn_name>
+          <msdyn_modelrundataspecification>H4sIAAAAAAAACpWQywrCMBBFf0VmnY0gLrLzCW4s2OI+tlMN1CRkpmAp/rup9VGMC90NnJszN9NC6jBfW39WvEdP2hqQYwEb42reWcsrw5obkC0sNblKNVt1RpAAAmbMXh9qRuqwNsS+zvlu+EwPoYDEdYOqQJaqIhSQNa5LpcFnjnAV4JGcNYSx6UV+0aii0H1mYQ3jhWPfLIoMxaH02ztXhNPJ034N/qTmf8/0vUXWL44+UGqj6bRDRd+uur7T0QNHz0PFG3Gs6fLfAQAA</msdyn_modelrundataspecification>
+          <msdyn_type>190690001</msdyn_type>
+          <msdyn_aimodelid>{412d327f-8348-401b-9287-d88f136ec471}</msdyn_aimodelid>
+          <msdyn_trainedmodelaiconfigurationpareid>{1b135c89-045b-f011-bec2-002248095f4f}</msdyn_trainedmodelaiconfigurationpareid>
+          <statecode>2</statecode>
+          <statuscode>7</statuscode>
+          <IsCustomizable>1</IsCustomizable>
+          <msdyn_templateversion>1</msdyn_templateversion>
+        </AIConfiguration>
+        <AIConfiguration>
+          <msdyn_aiconfigurationid>{1b135c89-045b-f011-bec2-002248095f4f}</msdyn_aiconfigurationid>
+          <msdyn_majoriterationnumber>1</msdyn_majoriterationnumber>
+          <msdyn_minoriterationnumber>0</msdyn_minoriterationnumber>
+          <msdyn_modeldata>25274dcb-e1a0-43eb-8489-5d55ce2c9ee1</msdyn_modeldata>
+          <msdyn_name>Adaptive Card AI Validation_7/7/2025 7:32:34 AM</msdyn_name>
+          <msdyn_modelrundataspecification>
+        {
+          "schemaVersion": 2,
+          "input": {},
+          "output": {}
+        }
+      </msdyn_modelrundataspecification>
+          <msdyn_type>190690000</msdyn_type>
+          <msdyn_aimodelid>{412d327f-8348-401b-9287-d88f136ec471}</msdyn_aimodelid>
           <statecode>2</statecode>
           <statuscode>6</statuscode>
           <IsCustomizable>1</IsCustomizable>

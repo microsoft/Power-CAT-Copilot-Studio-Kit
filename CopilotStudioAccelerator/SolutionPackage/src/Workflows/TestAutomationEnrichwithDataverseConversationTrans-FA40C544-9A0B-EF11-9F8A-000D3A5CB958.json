@@ -40,12 +40,12 @@
             "description": "This will be used in intent recognition during Topic match testing. "
           }
         },
-        "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
-          "defaultValue": "https://make.powerautomate.com/",
+        "Power Automate Region (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "Commercial",
           "type": "String",
           "metadata": {
             "schemaName": "cat_PowerAutomateEndpoint",
-            "description": "Specifies the Power Automate maker portal URL used to configure or trigger flows. This is primarily relevant for GCC (Government Community Cloud) environments. For non-GCC organizations using the standard environment, this value can be left unchanged."
+            "description": "Specify your Power Automate environment region/cloud: Commercial, GCC, GCC High, or DoD."
           }
         }
       },
@@ -1288,7 +1288,7 @@
         },
         "Perform_a_bound_action:_Update_Rollup_Columns": {
           "runAfter": {
-            "Apply_to_each_Result": [
+            "Run_a_Child_Flow:_Validate_Agent_Plans": [
               "Succeeded"
             ]
           },
@@ -1419,7 +1419,7 @@
             "operationMetadataId": "8f498882-4850-4987-8f29-db3f3fcb904f"
           },
           "type": "Compose",
-          "inputs": "@if(equals(parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'),'https://make.powerautomate.com/'),'https://make.powerautomate.com/',parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'))"
+          "inputs": "@if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc'), 'https://make.gov.powerautomate.us/', \r\n    if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc(high)'), 'https://make.high.powerautomate.us/', \r\n        if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'dod'), 'https://make.powerautomate.appsplatform.us/', \r\n            'https://make.powerautomate.com/'\r\n        )\r\n    )\r\n)"
         },
         "Initialize_variable:_TopicMatch": {
           "runAfter": {
@@ -1439,6 +1439,29 @@
                 "value": false
               }
             ]
+          }
+        },
+        "Run_a_Child_Flow:_Validate_Agent_Plans": {
+          "runAfter": {
+            "Apply_to_each_Result": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "09ba6a46-d89f-416b-ba01-e2f8a82723b3"
+          },
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "af6b06fb-4553-f011-877b-7c1e524ac215"
+            },
+            "body": {
+              "text": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
+              "text_1": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
+            },
+            "retryPolicy": {
+              "type": "none"
+            }
           }
         }
       }

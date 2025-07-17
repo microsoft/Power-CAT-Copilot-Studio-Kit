@@ -224,17 +224,41 @@
                       </cell>
                     </row>
                     <row>
+                      <cell id="{d970da10-1545-4450-b0ab-6f0e2732c6c9}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Scope" languagecode="1033" />
+                        </labels>
+                        <control id="cat_scope" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_scope" disabled="false" />
+                      </cell>
+                      <cell id="{49c6e9ea-078a-4a34-9274-6e28d94ee2cc}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Secret Location" languagecode="1033" />
+                        </labels>
+                        <control id="cat_userauthsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_userauthsecretlocationcode" disabled="false" />
+                      </cell>
                       <cell id="{84512a7a-fb8b-4363-8375-653b95f69877}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Client Secret" languagecode="1033" />
                         </labels>
                         <control id="cat_clientsecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientsecret" disabled="false" />
                       </cell>
-                      <cell id="{d970da10-1545-4450-b0ab-6f0e2732c6c9}" locklevel="0" colspan="2" rowspan="1" visible="false">
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{48c652d0-2ba0-42ed-8945-84fac75abbb4}">
                         <labels>
-                          <label description="Scope" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_scope" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_scope" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{409ba76e-bd58-4d87-bbfb-04816106e34c}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{836f3dd0-ec17-4f7a-a216-8c61cd9b092b}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Environment Variable" languagecode="1033" />
+                        </labels>
+                        <control id="cat_userauthenvironmentvariable" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_userauthenvironmentvariable" disabled="false" />
                       </cell>
                     </row>
                   </rows>
@@ -344,34 +368,25 @@
                   </labels>
                   <rows>
                     <row>
-                      <cell id="{4a6394bb-7379-425e-b47a-684eef62822e}" locklevel="0" colspan="1" rowspan="1">
+                      <cell id="{4a6394bb-7379-425e-b47a-684eef62822e}" locklevel="0" colspan="3" rowspan="1">
                         <labels>
                           <label description="Enrich With Conversation Transcripts" languagecode="1033" />
                         </labels>
                         <control id="cat_isenrichedwithconversationtranscripts" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_isenrichedwithconversationtranscripts" disabled="false" uniqueid="{90c83743-1187-476c-9fac-2849a7634cb6}" />
                       </cell>
+                    </row>
+                    <row>
                       <cell id="{bd451d04-8da3-4af4-baa0-9f1db323db60}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Dataverse URL" languagecode="1033" />
                         </labels>
                         <control id="cat_dataverseurl" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_dataverseurl" disabled="false" />
                       </cell>
-                      <cell id="{e0f93859-8878-4e96-a774-aa931b1d3873}">
+                      <cell id="{ad4dffb3-1aa5-4c5a-b54e-a935f353c592}" locklevel="0" colspan="1" rowspan="1" visible="true">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Agent ID (botid)" languagecode="1033" />
                         </labels>
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{4fae5c02-2bda-406b-964f-eada76887e8b}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell locklevel="0" id="{d24630aa-c781-4512-b877-80a8749db404}" showlabel="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
+                        <control id="cat_copilotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_copilotid" disabled="false" />
                       </cell>
                       <cell id="{9bd4b4d1-3fec-4b9e-9f1b-dea543296876}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
@@ -1126,6 +1141,11 @@
           <Handlers>
             <Handler functionName="hideAndShowConversationKPISettings" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{5e10d0d3-e86a-4bdf-8537-662977e88272}" enabled="true" parameters="" passExecutionContext="true" />
             <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{d0631a4a-a801-4a4c-b589-dd8fe3c9575b}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="cat_userauthsecretlocationcode">
+          <Handlers>
+            <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{e3a9d762-e9a3-4c4d-8463-e7afca085838}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
       </events>

@@ -68,10 +68,13 @@
                     <Sequence DisplayName="SetVisibilityStep3: Show Expected Topic Name">
                       <mcwc:SetVisibility ControlId="cat_expectedtopicname" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep6: Hide Expected Response">
+                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
                     <Sequence DisplayName="SetMessageStep5: Topic Match Recommendation">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -155,12 +158,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Topic Match, available only when Enrich With Conversation Transcripts is enabled, compares the expected and triggered topic names. For this type of test, the Expected Response isn't required. Select Apply to see an example (existing values will be overwritten)." LabelId="96d3b608-766b-4123-8134-7784667edd1a" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Topic Match, available only when Enrich With Conversation Transcripts is enabled, compares the expected and triggered topic names. For this type of test, the Expected Response isn't required. Select Apply to see an example (existing values will be overwritten)." LabelId="5fe57d36-d028-4809-8857-8fde5c267bab" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">dabeb8ba-3c4d-4b56-895b-b0f5f6be826c</s:Guid>
-                              <x:String x:Key="UniqueName">id_71caecb203fd4e14adabf5c5f2692d04ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">2f2537ca-a540-4303-9f62-59f179050067</s:Guid>
+                              <x:String x:Key="UniqueName">id_ffa631133073482ca975dd1073ccbef9ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -181,7 +184,7 @@
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "True" }]</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "true" }]</InArgument>
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
               </InArgument>

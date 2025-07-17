@@ -118,9 +118,25 @@
                       </cell>
                     </row>
                     <row>
+                      <cell id="{ab40140e-7d33-4b50-aab3-26cf5b2b1ea0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Expected Tools" languagecode="1033" />
+                        </labels>
+                        <control id="cat_expectedtools" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_expectedtools" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{3a9b9d8b-0e37-45a3-93a0-c6ebb8116e16}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Pass Threshold %" languagecode="1033" />
+                        </labels>
+                        <control id="cat_passthreshold" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_passthreshold" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
                       <cell id="{f8a98cc9-d829-42b4-b4db-f8dcead5464a}" locklevel="0" colspan="1" rowspan="5" auto="true">
                         <labels>
-                          <label description="Expected Attachments JSON" languagecode="1033" />
+                          <label description="Expected Attachments JSON / Expected Text / Validation Instructions" languagecode="1033" />
                         </labels>
                         <control id="cat_expectedattachmentsjson" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedattachmentsjson" disabled="true" />
                       </cell>
@@ -263,6 +279,34 @@
                         </labels>
                         <control id="cat_appinsightsresult" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_appinsightsresult" disabled="true" />
                       </cell>
+                    </row>
+                    <row>
+                      <cell id="{16ef9bac-5652-46f3-ad72-6711d00050d7}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Triggered Topic / Event" languagecode="1033" />
+                        </labels>
+                        <control id="cat_recognizedtopicname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_recognizedtopicname" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{fed22d6e-7d0a-4398-a0af-4933ac031951}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Actual Tools" languagecode="1033" />
+                        </labels>
+                        <control id="cat_actualtools" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_actualtools" disabled="true" />
+                      </cell>
+                      <cell locklevel="0" id="{b6a54667-29fc-4cd3-8b75-007a2df05555}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{208cfdec-da26-47ba-b94c-be7029760600}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
                       <cell id="{c88d7dae-bead-4216-b76f-d29bf56566aa}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Triggered Topic ID" languagecode="1033" />
@@ -271,11 +315,10 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{16ef9bac-5652-46f3-ad72-6711d00050d7}" locklevel="0" colspan="1" rowspan="1">
+                      <cell locklevel="0" id="{7575ea92-313e-4c97-ac01-bc6fa1fa356e}">
                         <labels>
-                          <label description="Triggered Topic / Event" languagecode="1033" />
+                          <label description="" languagecode="1033" />
                         </labels>
-                        <control id="cat_recognizedtopicname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_recognizedtopicname" disabled="true" />
                       </cell>
                       <cell id="{ef5fb922-9bd0-4e2e-9191-354b92ee266f}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
@@ -285,7 +328,12 @@
                       </cell>
                     </row>
                     <row>
-                      <cell id="{dbcbf9f3-e9e6-454d-96ae-1a7166c62903}" locklevel="0" colspan="2" rowspan="1">
+                      <cell locklevel="0" id="{d7a46e64-ca85-40e1-a453-df758d559136}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{dbcbf9f3-e9e6-454d-96ae-1a7166c62903}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="Conversation Transcript" languagecode="1033" />
                         </labels>

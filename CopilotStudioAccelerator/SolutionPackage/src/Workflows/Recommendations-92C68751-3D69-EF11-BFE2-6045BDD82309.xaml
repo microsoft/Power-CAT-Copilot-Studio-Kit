@@ -50,7 +50,7 @@
                     <Sequence DisplayName="SetMessageStep1: Name">
                       <mcwc:SetMessage ControlId="cat_name" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -82,12 +82,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="The name doesn't have to be the same as the copilot you target. E.g. &quot;My Copilot&quot;" LabelId="28bd489a-a96e-4384-a849-51cab71b7884" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="The name doesn't have to be the same as the copilot you target. E.g. &quot;My Copilot&quot;" LabelId="0bb67ab7-26c2-483e-a72a-2705a10d27f9" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">2dcf6155-3124-4fd7-b822-9fac3411decf</s:Guid>
-                              <x:String x:Key="UniqueName">id_3f9973c903e5428db4f07ae8059b26ebActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">cbb9ad4f-55c4-4b8a-9bc0-f7cae5e01f51</s:Guid>
+                              <x:String x:Key="UniqueName">id_983269676b3c4b57b1024a91d1f4d653ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -101,7 +101,7 @@
                     <Sequence DisplayName="SetMessageStep2: Region">
                       <mcwc:SetMessage ControlId="cat_regioncode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -130,12 +130,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="This is required to target the appropriate Direct Line endpoint. This is the same region as your Power Platform environment where your copilot is deployed." LabelId="a3976d77-08f3-4abc-bdf0-bccc8c558d7e" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="This is required to target the appropriate Direct Line endpoint. This is the same region as your Power Platform environment where your copilot is deployed." LabelId="d06217e2-23e5-4309-93f0-c26f840fcced" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">1b200c3c-1de4-4171-9042-93a3d55fd033</s:Guid>
-                              <x:String x:Key="UniqueName">id_cbd647c18b0a4384a71d858d25e17e99ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">b169e5fc-c1a0-493a-a7de-07c62edfdc1a</s:Guid>
+                              <x:String x:Key="UniqueName">id_a65f3b4606914d5a86413a7e8ce21bdaActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -149,7 +149,7 @@
                     <Sequence DisplayName="SetMessageStep3: Channel Security">
                       <mcwc:SetMessage ControlId="cat_isdirectlinechannelsecurityenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -178,12 +178,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Check this option if web and Direct Line channel security is enabled.&#xA;That way, a token for the conversation can be obtained in exchange of a secret, instead of using the public Token Endpoint." LabelId="bd30e556-2909-4d1f-8fad-0c6018739b92" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Check this option if web and Direct Line channel security is enabled.&#xA;That way, a token for the conversation can be obtained in exchange of a secret, instead of using the public Token Endpoint." LabelId="a49f822d-379f-4b32-b625-2c5b12b975c5" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">8c7df22a-64fa-4642-a75f-b5b881c99cab</s:Guid>
-                              <x:String x:Key="UniqueName">id_190afa821d224ab5a9aec45eaddb04f2ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">5ab4db16-cdb0-4c7c-9374-5eaf931980ad</s:Guid>
+                              <x:String x:Key="UniqueName">id_e39efe1c4e6d43cf934b44aec8661d99ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -197,7 +197,7 @@
                     <Sequence DisplayName="SetMessageStep4: User Authentication">
                       <mcwc:SetMessage ControlId="cat_userauthenticationcode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -226,12 +226,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Check this option if the copilot requires the user to sign in, using Microsoft Entra ID (manual authentication)" LabelId="ee3e8220-73a8-442e-af4b-d070160690e7" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Check this option if the copilot requires the user to sign in, using Microsoft Entra ID (manual authentication)" LabelId="e83b83cf-0d8b-4a5f-b566-6f10e807ad7f" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">3ad29c1b-03a2-4161-b6b3-17b7c571774f</s:Guid>
-                              <x:String x:Key="UniqueName">id_d5ce03f7f5194604982c97ec83f121eeActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">1e57b3c6-7dcd-40c1-b95c-260e0a793b80</s:Guid>
+                              <x:String x:Key="UniqueName">id_697b7a45303d4d6a8bd375043cfe649dActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -245,7 +245,7 @@
                     <Sequence DisplayName="SetMessageStep5: Enrich With Azure Application Insights&#x9;">
                       <mcwc:SetMessage ControlId="cat_isazureapplicationinsightsenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -274,12 +274,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Option to enrich test results for Generative Answers tests with Azure Application Insights telemetry data, for example to capture the reason a reason wasn't returned (e.g. moderation, no search results, etc.). Only enable if you have configured Azure Application Insights on your copilot. This requires setting a custom app registration to access Azure Application Insights. Refer to the Copilot Studio Kit documentation to learn how to set it up." LabelId="ce65d222-9747-4c3a-8439-fe2e1186ef4f" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Option to enrich test results for Generative Answers tests with Azure Application Insights telemetry data, for example to capture the reason a reason wasn't returned (e.g. moderation, no search results, etc.). Only enable if you have configured Azure Application Insights on your copilot. This requires setting a custom app registration to access Azure Application Insights. Refer to the Copilot Studio Kit documentation to learn how to set it up." LabelId="808caf6c-dc59-405b-89ce-940b466a9b03" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">0e088029-83e3-42ab-8af9-3cdf50457ab1</s:Guid>
-                              <x:String x:Key="UniqueName">id_c542fbe41c384959a5254168ca0ff96aActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">e981e60d-b093-4601-b8e4-a13f015bb474</s:Guid>
+                              <x:String x:Key="UniqueName">id_256d9ce9cb2b426799157c843b1dd9ddActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -293,7 +293,7 @@
                     <Sequence DisplayName="SetMessageStep6: Enrich With Conversation Transcripts&#x9;">
                       <mcwc:SetMessage ControlId="cat_isenrichedwithconversationtranscripts" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -322,26 +322,26 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Option to enrich test results with Conversation Transcripts data stored in Dataverse. This is useful to do &quot;Topic Match&quot; testing and to get additional details, such as intent recognition score. This requires the Dataverse environment where the copilot is deployed to be in the same tenant as the Copilot Studio Kit." LabelId="125a83f3-c2de-45e1-98a1-ff383655a559" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Option to enrich test results with Conversation Transcript data stored in Dataverse. This is required for &quot;Topic Match&quot; and &quot;Plan validation&quot; testing and to get additional details, such as intent recognition score. This requires the Dataverse environment where the agent is deployed to be in the same tenant as the Copilot Studio Kit." LabelId="2ab97426-4a54-40a7-b51e-d00d70c43f92" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">428c0203-cdb2-495d-bda5-3c7c28219139</s:Guid>
-                              <x:String x:Key="UniqueName">id_baf91b83ae2d4218bec1ec3befceb4e4ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">f87dd21f-d045-449e-bf27-5dd1efa48ce2</s:Guid>
+                              <x:String x:Key="UniqueName">id_a19047c940b14bc8993887b452e66351ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
                           </mxswa:ActivityReference>
                         </mcwc:SetMessage.Activities>
                         <mcwc:SetMessage.StepLabels>
-                          <mcwo:StepLabel Description="Azure Application Insights" LabelId="956ae9ab-9ad8-4c42-a79d-93b810fa6e52" LanguageCode="1033" />
+                          <mcwo:StepLabel Description="Conversation Transcript Enrichment" LabelId="956ae9ab-9ad8-4c42-a79d-93b810fa6e52" LanguageCode="1033" />
                         </mcwc:SetMessage.StepLabels>
                       </mcwc:SetMessage>
                     </Sequence>
                     <Sequence DisplayName="SetMessageStep7: Analyze Generated Answer">
                       <mcwc:SetMessage ControlId="cat_isgeneratedanswersanalysisenabled" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilotconfiguration" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
-                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Step_5">
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -370,12 +370,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answers or validation instructions." LabelId="67cfdc17-6adb-4dc9-89c7-9e2fc6eb4db6" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answers or validation instructions." LabelId="291e40b7-02b4-4bca-9274-4ee094cc5e43" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">3c07e2c0-942b-49d0-8883-7dfc0091a4f3</s:Guid>
-                              <x:String x:Key="UniqueName">id_12bf4df48c0b48ba920898f49bd000a7ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">9f049641-6995-4c30-afa2-728f690f7196</s:Guid>
+                              <x:String x:Key="UniqueName">id_4b3eeddd34e14e558cd7e3cd55d1736dActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
