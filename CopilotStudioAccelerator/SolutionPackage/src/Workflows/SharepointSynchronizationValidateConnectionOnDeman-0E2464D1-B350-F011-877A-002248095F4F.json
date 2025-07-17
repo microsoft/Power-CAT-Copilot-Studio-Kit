@@ -1,0 +1,512 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps-1": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_sharepointonline-1": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_DataverseIndexerSharePoint"
+        },
+        "runtimeSource": "invoker"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "undefined",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Please enter your input",
+                  "title": "File Indexer Configuration Id",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "fa3ae532-ea71-4981-843c-e1295005fb34"
+          }
+        }
+      },
+      "actions": {
+        "Initialize_Library_Name": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "LibraryName",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "98031167-47a0-4953-ade9-cb0f18143b1e"
+          }
+        },
+        "Scope:_Try": {
+          "type": "Scope",
+          "actions": {
+            "Get_a_row_by_ID": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilotfileindexerconfigurations",
+                  "recordId": "@triggerBody()?['text']",
+                  "$select": "cat_copilotfileindexerconfigurationid, cat_siteaddress, cat_limitentriestofolder, cat_libraryname, cat_arenesteditemsincluded, cat_includesharepointpages, cat_sharepointfilesfilterquery, cat_sharepointpagesfilterquery"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "connectionName": "shared_commondataserviceforapps-1"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "1cbcb7ab-14aa-4596-bd39-d25f32fefcc2"
+              }
+            },
+            "Get_SharePoint_Files": {
+              "type": "Scope",
+              "actions": {
+                "Get_all_lists_and_libraries": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "dataset": "@outputs('Get_a_row_by_ID')?['body/cat_siteaddress']"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                      "operationId": "GetAllTables",
+                      "connectionName": "shared_sharepointonline-1"
+                    },
+                    "retryPolicy": {
+                      "type": "none"
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "3cf3a7f1-f8f2-4dbb-b9f6-3cbcbde4e787"
+                  }
+                },
+                "For_each": {
+                  "type": "Foreach",
+                  "foreach": "@outputs('Get_all_lists_and_libraries')?['body/value']",
+                  "actions": {
+                    "Condition": {
+                      "type": "If",
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@items('For_each')?['DisplayName']",
+                              "@outputs('Get_a_row_by_ID')?['body/cat_libraryname']"
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Set_variable_Library_Name": {
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "LibraryName",
+                            "value": "@items('For_each')?['Name']"
+                          },
+                          "metadata": {
+                            "operationMetadataId": "33c1e7a8-d5a6-4cf9-a265-ff7b4f53e78c"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      },
+                      "metadata": {
+                        "operationMetadataId": "77d49ae1-805a-4f4a-8e89-d1dfb2e536ba"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Get_all_lists_and_libraries": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "775c8259-bf86-43c5-a41a-21c2bcb4c29e"
+                  }
+                },
+                "Check_Library_Name": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@empty(variables('LibraryName'))",
+                          "@true"
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Append_library_error_message": {
+                      "type": "AppendToStringVariable",
+                      "inputs": {
+                        "name": "ErrMessage",
+                        "value": "Library not found"
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7fc6f7bf-84d5-47e8-90af-53031a1d5e32"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "runAfter": {
+                    "For_each": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "2251df24-d28e-408e-ae87-e2a09c240e44"
+                  }
+                },
+                "Get_files": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "dataset": "@outputs('Get_a_row_by_ID')?['body/cat_siteaddress']",
+                      "table": "@variables('LibraryName')",
+                      "$filter": "FSObjType eq 0 and (File_x0020_Type eq 'doc' or File_x0020_Type eq 'docx' or File_x0020_Type eq 'xls' or File_x0020_Type eq 'xlsx' or File_x0020_Type eq 'ppt' or File_x0020_Type eq 'pptx' or File_x0020_Type eq 'pdf' or File_x0020_Type eq 'txt' or File_x0020_Type eq 'md' or File_x0020_Type eq 'log' or File_x0020_Type eq 'html' or File_x0020_Type eq 'htm' or File_x0020_Type eq 'csv' or File_x0020_Type eq 'xml' or File_x0020_Type eq 'odt' or File_x0020_Type eq 'ods' or File_x0020_Type eq 'odp' or File_x0020_Type eq 'epub' or File_x0020_Type eq 'rtf' or File_x0020_Type eq 'pages' or File_x0020_Type eq 'key' or File_x0020_Type eq 'numbers' or File_x0020_Type eq 'json' or File_x0020_Type eq 'yml' or File_x0020_Type eq 'yaml' or File_x0020_Type eq 'tex' or File_x0020_Type eq 'dot' or File_x0020_Type eq 'text' or File_x0020_Type eq 'shtml' or File_x0020_Type eq 'ehtml' or File_x0020_Type eq 'shtm' or File_x0020_Type eq 'xslt' or File_x0020_Type eq 'xbl' or File_x0020_Type eq 'xsl' or File_x0020_Type eq 'latex')@{if(empty(outputs('Get_a_row_by_ID')?['body/cat_sharepointfilesfilterquery']), '', concat(' and ', outputs('Get_a_row_by_ID')?['body/cat_sharepointfilesfilterquery']))}\n",
+                      "folderPath": "@outputs('Get_a_row_by_ID')?['body/cat_limitentriestofolder']",
+                      "viewScopeOption": "@if(equals(outputs('Get_a_row_by_ID')?['body/cat_arenesteditemsincluded'], true), 'RecursiveAll', 'Default')"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                      "operationId": "GetFileItems",
+                      "connectionName": "shared_sharepointonline-1"
+                    },
+                    "retryPolicy": {
+                      "type": "none"
+                    }
+                  },
+                  "runAfter": {
+                    "Check_Library_Name": [
+                      "Succeeded"
+                    ]
+                  },
+                  "runtimeConfiguration": {
+                    "paginationPolicy": {
+                      "minimumItemCount": 500
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "17453ca1-34a0-4f52-adac-2725aae910f2"
+                  }
+                },
+                "Files_Count": {
+                  "type": "Compose",
+                  "inputs": "@length(outputs('Get_files')?['body/value'])",
+                  "runAfter": {
+                    "Get_files": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "42ed0d8b-977d-439a-84ad-103d6438f7dd"
+                  }
+                },
+                "Validate_Pages": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@outputs('Get_a_row_by_ID')?['body/cat_includesharepointpages']",
+                          "@true"
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Get_pages": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "dataset": "@outputs('Get_a_row_by_ID')?['body/cat_siteaddress']",
+                          "parameters/method": "GET",
+                          "parameters/uri": "_api/web/lists/getbytitle('Site Pages')/items?$select=Title,CanvasContent1,FileLeafRef&$filter=Title ne null and FileLeafRef ne null@{if(empty(outputs('Get_a_row_by_ID')?['body/cat_sharepointpagesfilterquery']), '', concat(' and ', outputs('Get_a_row_by_ID')?['body/cat_sharepointpagesfilterquery']))}"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                          "operationId": "HttpRequest",
+                          "connectionName": "shared_sharepointonline-1"
+                        },
+                        "retryPolicy": {
+                          "type": "none"
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "4051de34-a512-4538-b0d2-5ef9c48a4daa"
+                      }
+                    },
+                    "Pages_Count": {
+                      "type": "Compose",
+                      "inputs": "@length(body('Get_Pages')?['d/results'])",
+                      "runAfter": {
+                        "Get_pages": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "ffa4ceae-1cfe-4d15-80d5-eb424e055b56"
+                      }
+                    },
+                    "Compose:_Get_pages_error_message": {
+                      "type": "Compose",
+                      "inputs": "@if(\r\n  contains(string(outputs('Get_pages')?['body']?['message']), 'is not valid'),\r\n  substring(\r\n    outputs('Get_pages')?['body']?['message'],\r\n    0,\r\n    add(indexOf(outputs('Get_pages')?['body']?['message'], 'is not valid'), 12)\r\n  ),\r\n  'Page operation failed - no pages returned or unknown error'\r\n)\r\n",
+                      "runAfter": {
+                        "Get_pages": [
+                          "Failed",
+                          "TIMEDOUT"
+                        ]
+                      }
+                    },
+                    "Append_get_pages_error_message": {
+                      "type": "AppendToStringVariable",
+                      "inputs": {
+                        "name": "ErrMessage",
+                        "value": "@outputs('Compose:_Get_pages_error_message')"
+                      },
+                      "runAfter": {
+                        "Compose:_Get_pages_error_message": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "7fc6f7bf-84d5-47e8-90af-53031a1d5e32"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "runAfter": {
+                    "Files_Count": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "c9eaca82-8907-4de5-b722-f6db0bdf720a"
+                  }
+                },
+                "Count:_Pages_and_Files_JSON": {
+                  "type": "Compose",
+                  "inputs": {
+                    "Pages_Count": "@outputs('Pages_Count')",
+                    "Files_Count": "@outputs('Files_Count')"
+                  },
+                  "runAfter": {
+                    "Validate_Pages": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "10b31ad3-8d73-4f28-9168-57a96e553dc5"
+                  }
+                },
+                "Compose:_Get_files_error_message": {
+                  "type": "Compose",
+                  "inputs": "@if(\r\n  contains(string(outputs('Get_files')?['body']?['message']), 'The expression'),\r\n  'File operation failed - invalid filter query expression',\r\n  outputs('Get_files')?['body']?['message']\r\n)\r\n",
+                  "runAfter": {
+                    "Get_files": [
+                      "Failed",
+                      "TIMEDOUT"
+                    ]
+                  }
+                },
+                "Append_get_files_error_message": {
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "ErrMessage",
+                    "value": " @{outputs('Compose:_Get_files_error_message')}"
+                  },
+                  "runAfter": {
+                    "Compose:_Get_files_error_message": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "7fc6f7bf-84d5-47e8-90af-53031a1d5e32"
+                  }
+                },
+                "Compose:_Site_address_error_message": {
+                  "type": "Compose",
+                  "inputs": "@if(\r\n  equals(outputs('Get_all_lists_and_libraries')?['statusCode'], 404),\r\n  outputs('Get_all_lists_and_libraries')?['body']?['message'],\r\n  if(\r\n    equals(outputs('Get_all_lists_and_libraries')?['statusCode'], 403),\r\n    outputs('Get_all_lists_and_libraries')?['body']?['odata.error']?['message']?['value'],\r\n    'An unexpected error occurred.'\r\n  )\r\n)\r\n",
+                  "runAfter": {
+                    "Get_all_lists_and_libraries": [
+                      "TimedOut",
+                      "Skipped",
+                      "Failed"
+                    ]
+                  }
+                },
+                "Append_site_address_error_message": {
+                  "type": "AppendToStringVariable",
+                  "inputs": {
+                    "name": "ErrMessage",
+                    "value": "@outputs('Compose:_Site_address_error_message')"
+                  },
+                  "runAfter": {
+                    "Compose:_Site_address_error_message": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "42c2aa8f-671c-49d7-aa2a-47335931e228"
+                  }
+                }
+              },
+              "runAfter": {
+                "Get_a_row_by_ID": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "e95bdd56-3a59-4770-abaa-a0e7e890f6d7"
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_ErrorMessage": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e79a83e1-f6af-4294-bd79-67cf8bdb9cba"
+          }
+        },
+        "Scope:_Catch": {
+          "type": "Scope",
+          "actions": {
+            "Filter_array:_Error_Actions": {
+              "type": "Query",
+              "inputs": {
+                "from": "@result('Scope:_Try')",
+                "where": "@or(\n    equals(item()?['Status'], 'Failed'),\n    equals(item()?['Status'], 'TimedOut'),\n    equals(item()?['Status'], 'NetworkError'),\n    equals(item()?['Status'], 'Unauthorized')\n)"
+              },
+              "metadata": {
+                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Try": [
+              "TimedOut",
+              "Skipped",
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "230089fa-ea8e-4102-8312-7e2128fe1d22"
+          }
+        },
+        "Scope:_Finally": {
+          "type": "Scope",
+          "actions": {
+            "Respond_to_a_Power_App_or_flow": {
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "title": "Count",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    },
+                    "errormessage": {
+                      "title": "ErrorMessage",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  },
+                  "additionalProperties": {}
+                },
+                "statusCode": 200,
+                "body": {
+                  "count": "@{outputs('Count:_Pages_and_Files_JSON')}",
+                  "errormessage": "@{variables('ErrMessage')}"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "3b4c7b30-808d-4eb2-958a-39f641525cfe"
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Catch": [
+              "Succeeded",
+              "TimedOut",
+              "Skipped",
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6b613b12-9a8f-4c1e-a8ce-1512601e0382"
+          }
+        },
+        "Initialize_variable:_ErrorMessage": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ErrMessage",
+                "type": "string"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_Library_Name": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e4f5295f-d8f5-4725-9848-3c1329e1afa4"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

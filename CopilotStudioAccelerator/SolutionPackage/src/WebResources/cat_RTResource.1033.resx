@@ -119,7 +119,7 @@
   </resheader>
   <data name="Patterns" xml:space="preserve">
     <value>{
-    "version": 3,
+    "version": 6,
     "value": [
         {
             "@odata.etag": "W/\"4978721\"",
@@ -817,7 +817,76 @@
 		  "cat_patterntype@OData.Community.Display.V1.FormattedValue": "FlowPattern",
 		  "cat_patterntype": 764860001,
 		  "cat_patternid": "flow-ActionNote"
+		},
+		{
+		  "@odata.etag": "W/\"633081\"",
+		  "cat_patterncategory@OData.Community.Display.V1.FormattedValue": "Usage",
+		  "cat_patterncategory": 764860015,
+		  "cat_patternscore@OData.Community.Display.V1.FormattedValue": "1",
+		  "cat_patternscore": 1,
+		  "cat_patterndoclink": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-generative-actions#best-practices-for-topic-and-action-names-and-descriptions",
+		  "cat_patterndetails": "Meaningful Topic Description",
+		  "cat_patterndetailsid": "bot-ai-EvaluateTopicDescription",
+		  "cat_patternseverity@OData.Community.Display.V1.FormattedValue": "Medium",
+		  "cat_patternseverity": 764860002,
+		  "cat_patternrecommendation": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Add a meaningful description to the topic.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterndescription": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Checks the quality of a topic&#39;s modelDescription via AI.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterntype@OData.Community.Display.V1.FormattedValue": "BotPattern",
+		  "cat_patterntype": 764860002,
+		  "cat_patternid": "bot-ai-EvaluateTopicDescription"
+		},
+		{
+		  "@odata.etag": "W/\"633082\"",
+		  "cat_patterncategory@OData.Community.Display.V1.FormattedValue": "Usage",
+		  "cat_patterncategory": 764860015,
+		  "cat_patternscore@OData.Community.Display.V1.FormattedValue": "1",
+		  "cat_patternscore": 1,
+		  "cat_patterndoclink": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-managing-topic-inputs-outputs",
+		  "cat_patterndetails": "Meaningful Topic Input/Output Variable Description",
+		  "cat_patterndetailsid": "bot-ai-EvaluateTopicInputOutputVariableDescription",
+		  "cat_patternseverity@OData.Community.Display.V1.FormattedValue": "Medium",
+		  "cat_patternseverity": 764860002,
+		  "cat_patternrecommendation": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Add a meaningful description to the input/output variables of the topic.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterndescription": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Checks the quality of a topic&#39;s input/output variables&#39; description via AI.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterntype@OData.Community.Display.V1.FormattedValue": "BotPattern",
+		  "cat_patterntype": 764860002,
+		  "cat_patternid": "bot-ai-EvaluateTopicInputOutputVariableDescription"
+		},
+		{
+		  "@odata.etag": "W/\"633083\"",
+		  "cat_patterncategory@OData.Community.Display.V1.FormattedValue": "Usage",
+		  "cat_patterncategory": 764860015,
+		  "cat_patternscore@OData.Community.Display.V1.FormattedValue": "1",
+		  "cat_patternscore": 1,
+		  "cat_patterndoclink": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-copilot-studio#generative-orchestration",
+		  "cat_patterndetails": "Meaningful Knowledge Description",
+		  "cat_patterndetailsid": "bot-ai-EvaluateKnowledgeDescription",
+		  "cat_patternseverity@OData.Community.Display.V1.FormattedValue": "Medium",
+		  "cat_patternseverity": 764860002,
+		  "cat_patternrecommendation": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Add a meaningful description to the knowledge.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterndescription": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Checks the quality of a knowledge&#39;s description via AI.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterntype@OData.Community.Display.V1.FormattedValue": "BotPattern",
+		  "cat_patterntype": 764860002,
+		  "cat_patternid": "bot-ai-EvaluateKnowledgeDescription"
+		},
+		{
+		  "@odata.etag": "W/\"633084\"",
+		  "cat_patterncategory@OData.Community.Display.V1.FormattedValue": "Usage",
+		  "cat_patterncategory": 764860015,
+		  "cat_patternscore@OData.Community.Display.V1.FormattedValue": "1",
+		  "cat_patternscore": 1,
+		  "cat_patterndoclink": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-generative-actions#authoring-descriptions",
+		  "cat_patterndetails": "Meaningful Action Description",
+		  "cat_patterndetailsid": "bot-ai-EvaluateActionDescription",
+		  "cat_patternseverity@OData.Community.Display.V1.FormattedValue": "Medium",
+		  "cat_patternseverity": 764860002,
+		  "cat_patternrecommendation": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Add a meaningful description to the action.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterndescription": "&lt;div class=\&quot;ck-content\&quot; data-wrapper=\&quot;true\&quot; dir=\&quot;ltr\&quot;&gt;&lt;p style=\&quot;margin: 0;\&quot;&gt;Checks the quality of an action&#39;s modelDescription via AI.&lt;/p&gt;&lt;/div&gt;",
+		  "cat_patterntype@OData.Community.Display.V1.FormattedValue": "BotPattern",
+		  "cat_patterntype": 764860002,
+		  "cat_patternid": "bot-ai-EvaluateActionDescription"
 		}
+
 
 		
     ]

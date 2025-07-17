@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{a5d236d0-8e5c-f011-bec1-6045bd07cf96}" Name="Plan Validation Fields Rule" Description="Click to add description" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <XamlFileName>/Workflows/PlanValidationFieldsRule-A5D236D0-8E5C-F011-BEC1-6045BD07CF96.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>2</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>20250522.21</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ProcessTriggerScope>1</ProcessTriggerScope>
+  <ModernFlowType>0</ModernFlowType>
+  <PrimaryEntity>cat_CopilotTest</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Plan Validation Fields Rule" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1033" description="Click to add description" />
+  </Descriptions>
+  <labels>
+    <steplabels id="{c339d113-0024-4357-b3f5-2efd5d761da6}">
+      <label languagecode="1033" description="Plan Validation" />
+    </steplabels>
+    <steplabels id="{8694f576-fad4-4f20-a918-659e2bec845f}">
+      <label languagecode="1033" description="Plan validation test type requires Conversation Transcript Enrichment to be enabled. Plan validation allows maker to validate if specified tools are present in the dynamic plan generated for the test utterance by custom agent with generative orchestration enabled." />
+    </steplabels>
+  </labels>
+</Workflow>

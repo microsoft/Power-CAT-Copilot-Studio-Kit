@@ -2,40 +2,38 @@
   "properties": {
     "connectionReferences": {
       "shared_commondataserviceforapps_1": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        }
+        "runtimeSource": "embedded"
       }
     },
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
-        },
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
         },
-        "Power Automate Endpoint (cat_PowerAutomateEndpoint)": {
-          "defaultValue": "https://make.powerautomate.com/",
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "Power Automate Region/Cloud (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "Commercial",
           "type": "String",
           "metadata": {
-            "schemaName": "cat_PowerAutomateEndpoint"
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specify your Power Automate environment region/cloud: Commercial, GCC, GCC High, or DoD."
           }
         }
       },
       "triggers": {
         "manual": {
-          "metadata": {
-            "operationMetadataId": "baa01911-a29c-4452-b27d-4e6949b1b4b7"
-          },
           "type": "Request",
           "kind": "Button",
           "inputs": {
@@ -70,48 +68,40 @@
                 "text_2"
               ]
             }
+          },
+          "metadata": {
+            "operationMetadataId": "baa01911-a29c-4452-b27d-4e6949b1b4b7"
           }
         }
       },
       "actions": {
         "Scope:_Try": {
+          "type": "Scope",
           "actions": {
             "Apply_to_each:_For_all_the_prompts": {
+              "type": "Foreach",
               "foreach": "@body('Parse_JSON:_Prompts_value')",
               "actions": {
                 "Get_a_row_by_ID_from_selected_environment:_Get_AiModel_of_prompts": {
-                  "runAfter": {},
-                  "metadata": {
-                    "operationMetadataId": "a39c74e0-d7d8-4e7d-a8bd-41bf7b8736c3"
-                  },
                   "type": "OpenApiConnection",
                   "inputs": {
-                    "host": {
-                      "connectionName": "shared_commondataserviceforapps_1",
-                      "operationId": "GetItemWithOrganization",
-                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                    },
                     "parameters": {
                       "organization": "@triggerBody()['text']",
                       "entityName": "msdyn_aimodels",
                       "recordId": "@items('Apply_to_each:_For_all_the_prompts')?['Value']",
                       "$select": "msdyn_name,_msdyn_templateid_value"
                     },
-                    "authentication": {
-                      "type": "Raw",
-                      "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "GetItemWithOrganization",
+                      "connectionName": "shared_commondataserviceforapps_1"
                     }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "a39c74e0-d7d8-4e7d-a8bd-41bf7b8736c3"
                   }
                 },
                 "Append_to_array_variable:_Prompts": {
-                  "runAfter": {
-                    "Get_a_row_by_ID_from_selected_environment:_Get_AiModel_of_prompts": [
-                      "Succeeded"
-                    ]
-                  },
-                  "metadata": {
-                    "operationMetadataId": "da7d4d0e-7221-4df6-8766-5db39ec1fe91"
-                  },
                   "type": "AppendToArrayVariable",
                   "inputs": {
                     "name": "Prompts",
@@ -120,6 +110,14 @@
                       "Name": "@body('Get_a_row_by_ID_from_selected_environment:_Get_AiModel_of_prompts')?['msdyn_name']",
                       "Value": "@body('Get_a_row_by_ID_from_selected_environment:_Get_AiModel_of_prompts')?['_msdyn_templateid_value@OData.Community.Display.V1.FormattedValue']"
                     }
+                  },
+                  "runAfter": {
+                    "Get_a_row_by_ID_from_selected_environment:_Get_AiModel_of_prompts": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "da7d4d0e-7221-4df6-8766-5db39ec1fe91"
                   }
                 }
               },
@@ -130,14 +128,9 @@
               },
               "metadata": {
                 "operationMetadataId": "87f18bc0-3981-4dee-bd4f-673422f33aa6"
-              },
-              "type": "Foreach"
+              }
             },
             "Parse_JSON:_Prompts_value": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "ce4161b2-a8a9-4d00-be1c-852eb78195a5"
-              },
               "type": "ParseJson",
               "inputs": {
                 "content": "@triggerBody()['text_1']",
@@ -158,9 +151,25 @@
                     }
                   }
                 }
+              },
+              "metadata": {
+                "operationMetadataId": "ce4161b2-a8a9-4d00-be1c-852eb78195a5"
               }
             },
             "Update_a_row:_Update_prompts_in_agent_details": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_agentdetailses",
+                  "recordId": "@triggerBody()['text_2']",
+                  "item/cat_prompts": "@string(variables('Prompts'))"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
               "runAfter": {
                 "Apply_to_each:_For_all_the_prompts": [
                   "Succeeded"
@@ -168,23 +177,6 @@
               },
               "metadata": {
                 "operationMetadataId": "aadaeb95-2f7a-4391-8623-f9817d6c6dc5"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "UpdateOnlyRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "entityName": "cat_agentdetailses",
-                  "recordId": "@triggerBody()['text_2']",
-                  "item/cat_prompts": "@string(variables('Prompts'))"
-                },
-                "authentication": {
-                  "type": "Raw",
-                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                }
               }
             }
           },
@@ -195,18 +187,9 @@
           },
           "metadata": {
             "operationMetadataId": "47b9904d-76bf-4c6e-936d-0e1037027ff2"
-          },
-          "type": "Scope"
+          }
         },
         "Initialize_variable:_Prompts": {
-          "runAfter": {
-            "Initialize_variable:_ErrorMessage": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "bf34afa8-7f8f-48cc-9507-faf8f6073637"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -215,22 +198,35 @@
                 "type": "array"
               }
             ]
+          },
+          "runAfter": {
+            "Initialize_variable:_ErrorMessage": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bf34afa8-7f8f-48cc-9507-faf8f6073637"
           }
         },
         "Scope:_Catch": {
+          "type": "Scope",
           "actions": {
             "Filter_array:_Error_Actions": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "6145c2ba-e81c-41d8-aeaa-fd302a7bb5d0"
-              },
               "type": "Query",
               "inputs": {
                 "from": "@result('Scope:_Try')",
                 "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
+              },
+              "metadata": {
+                "operationMetadataId": "6145c2ba-e81c-41d8-aeaa-fd302a7bb5d0"
               }
             },
             "Append_to_string_variable:_Add_error_message": {
+              "type": "AppendToStringVariable",
+              "inputs": {
+                "name": "ErrorMessage",
+                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']} url: @{outputs('Compose:_Flow_URL')}"
+              },
               "runAfter": {
                 "Compose:_Flow_URL": [
                   "Succeeded"
@@ -238,33 +234,12 @@
               },
               "metadata": {
                 "operationMetadataId": "d3919e17-82d2-4f85-acde-84b34f4b99c3"
-              },
-              "type": "AppendToStringVariable",
-              "inputs": {
-                "name": "ErrorMessage",
-                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']} url: @{outputs('Compose:_Flow_URL')}"
               }
             },
             "Respond_to_a_Power_App_or_flow_2": {
-              "runAfter": {
-                "Append_to_string_variable:_Add_error_message": [
-                  "Succeeded",
-                  "Failed",
-                  "Skipped",
-                  "TimedOut"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "656cf9e1-d92b-4842-9cfa-9e6cb57a877d"
-              },
               "type": "Response",
               "kind": "PowerApp",
               "inputs": {
-                "statusCode": 200,
-                "body": {
-                  "response": "Flow Execution Completed",
-                  "errormessage": "@variables('ErrorMessage')"
-                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -278,11 +253,35 @@
                       "x-ms-dynamically-added": true,
                       "type": "string"
                     }
-                  }
+                  },
+                  "additionalProperties": {}
+                },
+                "statusCode": 200,
+                "body": {
+                  "response": "Flow Execution Completed",
+                  "errormessage": "@variables('ErrorMessage')"
                 }
+              },
+              "runAfter": {
+                "Append_to_string_variable:_Add_error_message": [
+                  "Succeeded",
+                  "Failed",
+                  "Skipped",
+                  "TimedOut"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "656cf9e1-d92b-4842-9cfa-9e6cb57a877d"
               }
             },
             "Terminate": {
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "message": "@variables('ErrorMessage')"
+                }
+              },
               "runAfter": {
                 "Respond_to_a_Power_App_or_flow_2": [
                   "Succeeded",
@@ -293,16 +292,11 @@
               },
               "metadata": {
                 "operationMetadataId": "a4c7e144-fae4-4165-9313-3f29c87670f9"
-              },
-              "type": "Terminate",
-              "inputs": {
-                "runStatus": "Failed",
-                "runError": {
-                  "message": "@variables('ErrorMessage')"
-                }
               }
             },
             "Compose:_Flow_URL": {
+              "type": "Compose",
+              "inputs": "@{outputs('Compose:_Power_Automate_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
               "runAfter": {
                 "Filter_array:_Error_Actions": [
                   "Succeeded"
@@ -310,9 +304,7 @@
               },
               "metadata": {
                 "operationMetadataId": "95bf6bdf-24d8-4f4d-9be3-051c5eb7aa5a"
-              },
-              "type": "Compose",
-              "inputs": "@{outputs('Compose:_Power_Automate_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}"
+              }
             }
           },
           "runAfter": {
@@ -324,14 +316,9 @@
           },
           "metadata": {
             "operationMetadataId": "1eaac062-858b-4d0f-b75a-ea273b80e2b4"
-          },
-          "type": "Scope"
+          }
         },
         "Initialize_variable:_ErrorMessage": {
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "859683c5-ce1d-40a1-9bb7-bbb8928fc554"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -340,23 +327,19 @@
                 "type": "string"
               }
             ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "859683c5-ce1d-40a1-9bb7-bbb8928fc554"
           }
         },
         "Scope:_Finally": {
+          "type": "Scope",
           "actions": {
             "Respond_to_a_Power_App_or_flow": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "656cf9e1-d92b-4842-9cfa-9e6cb57a877d"
-              },
               "type": "Response",
               "kind": "PowerApp",
               "inputs": {
-                "statusCode": 200,
-                "body": {
-                  "response": "Flow Execution Completed",
-                  "errormessage": "@variables('ErrorMessage')"
-                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -370,8 +353,17 @@
                       "x-ms-dynamically-added": true,
                       "type": "string"
                     }
-                  }
+                  },
+                  "additionalProperties": {}
+                },
+                "statusCode": 200,
+                "body": {
+                  "response": "Flow Execution Completed",
+                  "errormessage": "@variables('ErrorMessage')"
                 }
+              },
+              "metadata": {
+                "operationMetadataId": "656cf9e1-d92b-4842-9cfa-9e6cb57a877d"
               }
             }
           },
@@ -385,10 +377,11 @@
           },
           "metadata": {
             "operationMetadataId": "bffbefa7-d0db-4789-ae78-7324feea8f9c"
-          },
-          "type": "Scope"
+          }
         },
         "Compose:_Power_Automate_Endpoint": {
+          "type": "Compose",
+          "inputs": "@if(equals(toLower(parameters('Power Automate Region/Cloud (cat_PowerAutomateEndpoint)')), 'gcc'), 'https://make.gov.powerautomate.us/', \r\n    if(equals(toLower(parameters('Power Automate Region/Cloud (cat_PowerAutomateEndpoint)')), 'gcc(high)'), 'https://make.high.powerautomate.us/', \r\n        if(equals(toLower(parameters('Power Automate Region/Cloud (cat_PowerAutomateEndpoint)')), 'dod'), 'https://make.powerautomate.appsplatform.us/', \r\n            'https://make.powerautomate.com/'\r\n        )\r\n    )\r\n)",
           "runAfter": {
             "Initialize_variable:_Prompts": [
               "Succeeded"
@@ -396,14 +389,12 @@
           },
           "metadata": {
             "operationMetadataId": "165a395f-624a-4eaf-ada1-b517871c3c24"
-          },
-          "type": "Compose",
-          "inputs": "@if(equals(parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'), 'https://make.powerautomate.com/'), 'https://make.powerautomate.com/', parameters('Power Automate Endpoint (cat_PowerAutomateEndpoint)'))"
+          }
         }
       },
       "outputs": {}
     },
-    "templateName": ""
+    "templateName": null
   },
   "schemaVersion": "1.0.0.0"
 }
