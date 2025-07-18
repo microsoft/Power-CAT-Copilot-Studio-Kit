@@ -29,7 +29,7 @@ The cloud flow "**Value Summary | Initialize agent value inventory**" must be ma
 
 ## Dataverse table
 
-1. **Agent Value**
+### Agent Value
 The Agent value table is the core metadata table in V1 of the agent value component. It stores the classification output for each agent, including:
 
 * Agent type
@@ -54,7 +54,7 @@ This table is automatically populated by Power Automate flows using AI tools pro
 
 ## Power Automate Flows
 
-1. Value summary | Initialize agent value inventory
+### Value summary | Initialize agent value inventory
 
 > **Important:** This flow must be enabled and run manually in order to populate the Agent Value table. Only agents with completed metadata (description and instructions) will be classified.
 
@@ -71,7 +71,7 @@ This table is automatically populated by Power Automate flows using AI tools pro
 - Environment Display Name
 - Classification date
 
-2. Value summary | New agent classification
+### Value summary | New agent classification
 
 **Triggered:** When a new row is added to Agent Details
 **Purpose:** Runs classification immediately for new agents
