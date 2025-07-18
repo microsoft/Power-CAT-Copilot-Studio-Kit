@@ -22,7 +22,7 @@ The primary purpose of the feature is to allow makers to use custom prompts to a
 
 <img width="1922" height="1146" alt="custom_prompt" src="https://github.com/user-attachments/assets/9f09ab47-61a4-41a4-9990-9ca655c725d5" />
 
-Custom prompt is automatically saved when new analysis is started. It can be reused later from the prompt selection drop down list.
+The custom prompt is automatically saved when a new analysis is started. It can be reused later from the prompt selection drop down list.
 
 When the analysis is started, it will take a moment to process. After the processing is finished, results will be presented.
 
