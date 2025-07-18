@@ -4,7 +4,7 @@ Conversation analyzer allows makers to analyze the conversation transcripts of t
 
 ## Conversation Analyzer overview
 
-After navigating to the conversation analyzer feature, list of agents is shown. Conversation Analyzer uses the agent data in the Agent Inventory, so it must be populated first before using conversation analyzer.
+After navigating to the conversation analyzer feature, a list of agents is shown. Conversation Analyzer uses the agent data in the Agent Inventory, so it must be populated first before using conversation analyzer.
 
 The list of agents has "Action" column that has either "Analyze" or "View Results" hyperlink in it. "View Results" indicates that the recent transcripts have already been analyzed and can be viewed.
 
