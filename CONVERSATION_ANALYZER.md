@@ -18,7 +18,7 @@ After selecting an agent and clicking "Analyze" from the action, prompt selectio
 
 <img width="1921" height="933" alt="prompt_selection" src="https://github.com/user-attachments/assets/4fb54aa8-79cb-49c3-8902-adec928e6065" />
 
-The primary purpose of the feature is to allow makers to use custom prompts to analyze the conversations with. New custom prompt can be created by ticking the "Create a custom prompt" checkbox, entering a descriptive name for the custom prompt and entering the prompt in the "Prompt" multiline textbox.
+The primary purpose of the feature is to allow makers to use custom prompts to analyze the conversations with. A new custom prompt can be created by ticking the "Create a custom prompt" checkbox, entering a descriptive name for the custom prompt and entering the prompt in the "Prompt" multiline textbox.
 
 <img width="1922" height="1146" alt="custom_prompt" src="https://github.com/user-attachments/assets/9f09ab47-61a4-41a4-9990-9ca655c725d5" />
 
