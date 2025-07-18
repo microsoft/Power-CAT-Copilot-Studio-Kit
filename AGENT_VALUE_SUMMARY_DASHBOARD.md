@@ -90,3 +90,5 @@ Given an agent's instructions and description, assign it:
 - A dominant Behavior
 - A Value benefit it most likely delivers
 - A simple formula or signal to measure this value
+
+Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
