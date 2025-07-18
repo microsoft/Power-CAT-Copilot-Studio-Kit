@@ -32,7 +32,7 @@ If "View Results" is selected from the agent selections screen, analysis results
 
 <img width="1921" height="1147" alt="analysis_ready" src="https://github.com/user-attachments/assets/055c6343-2a43-40c0-ab21-8149afa5c800" />
 
-Conversation Id, summary of the conversation, duration of the conversation, prompt used and analysis creation date are shown. Depending on the prompt, summary may already provide valuable insights. Conversation and analysis details can be shown by pressing "View Results" from the "Action" column.
+Conversation Id, summary of the conversation, duration of the conversation, prompt used and analysis creation date are shown. Depending on the prompt, the summary may already provide valuable insights. Conversation and analysis details can be shown by pressing "View Results" from the "Action" column.
 
 ## Conversation analysis details
 
