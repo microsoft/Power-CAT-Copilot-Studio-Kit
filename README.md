@@ -22,7 +22,7 @@ SharePoint synchronization allows makers to configure periodical selective conte
 
 More information on [SharePoint synchronization](./FILE_SYNCHRONIZATION.md)
 
-## Prompt Advisor (being deprecated)
+## Prompt Advisor
 Prompt Advisor allows makers to develop effective prompts while learning useful prompt engineering skills. Prompts entered in the advisor tool will be analyzed and receive a confidence evaluation with detailed reasoning for the score. Advisor also provides a list of suggested refined prompts implementing various prompt techniques. Makers can select from these optimized prompts to iteratively refine and improve their input.
 
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
@@ -37,7 +37,7 @@ Adaptive Cards Gallery provides makers with a dozen built-in adaptive card templ
 
 More information on [Adaptive Cards Gallery](./ADAPTIVE_CARDS_GALLERY.md)
 
-## Agent Inventory (*New!*) (Preview)
+## Agent Inventory (*New!*)
 Agent Inventory provides administrators with a tenant-wide view to all Copilot Studio custom agents in their organization, including detailed information on the features they are using, authentication mode, knowledge sources, orchestration type and more. Agent Inventory ships with a dashboard and the data can be exported for use in other applications.
 
 More information on [Agent Inventory](./AGENT_INVENTORY.md)
@@ -46,6 +46,27 @@ More information on [Agent Inventory](./AGENT_INVENTORY.md)
 Agent Review Tool is a solution analysis tool that can be used to review your agents for any potential issues or anti-patterns that might have negative impact on the performance or the security of your agent. After analysing the solution, Agent Review Tool presents the findings in easy to interpret format, with severity and details on how to address the issue.
 
 More information on [Agent Review Tool](./AGENT_REVIEW_TOOL.md)
+
+## Conversation Analyzer (*New!*) (Preview)
+
+Conversation Analyzer allows makers to analyze the conversations of their custom agents using custom prompts to get additional insights.
+
+More information on [Conversation Analyzer](./CONVERSATION_ANALYZER.md)
+
+## Agent Value dashboard (*New!*) (Preview)
+
+The Agent Value Component is a modular tool for classifying agents in Microsoft Copilot Studio by type, behavior, and value, helping organizations understand their role, align them with strategy, and measure their impact. Results are presented visually on Agent Value dashboard.
+
+More information on [Agent Value dashboard](./AGENT_VALUE_SUMMARY_DASHBOARD.md)
+
+## Automated testing using Power Platform Pipelines (*New!*) (Advanced)
+
+This feature allows users to automate the testing and deployment of Copilot Studio custom agents using Power Platform Pipelines. The goal is to ensure that agents are automatically validated through test runs before they are deployed to target environments (production). By integrating Power Automate flows with Dataverse and the Copilot Studio Kit, this approach introduces a quality gate into the deployment process. Only agents that pass the required amount of test cases are allowed to proceed, ensuring higher reliability and reducing manual intervention. This method supports continuous delivery practices and enhances the overall governance of the deployment lifecycle.
+
+More information on [automated testing using Power Platform Pipelines](./AUTOMATED_TESTING.md)
+
+
+
 
 # Setup instructions and documentation
 
