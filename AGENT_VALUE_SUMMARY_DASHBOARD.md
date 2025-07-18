@@ -41,7 +41,7 @@ This table is automatically populated by Power Automate flows using AI tools pro
 
 ### Table schema
 
-| Column name| Type | Description |
+| Column name | Type | Description |
 |:-----------|:------|:-------------|
 | AgentId | Guid | Id of classified agent|
 | Name | Text | Agent display name |
@@ -64,12 +64,12 @@ This table is automatically populated by Power Automate flows using AI tools pro
 * Filter agents with missing metadata
 * Call AI Builder 'Run a prompt' action with the embedded classification prompt
 * Parse and update:
-- Agent Type
-- Agent Behavior
-- Agent Value Benefit
-- Environment Id
-- Environment Display Name
-- Classification date
+1. Agent Type
+1. Agent Behavior
+1. Agent Value Benefit
+1. Environment Id
+1. Environment Display Name
+1. Classification date
 
 ### Value summary | New agent classification
 
