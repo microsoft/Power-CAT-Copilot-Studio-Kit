@@ -101,7 +101,8 @@ Note: These fields are mandatory for all configuration types.
 | **Include SharePoint Pages** | No | Optionally you can include SharePoint pages in the synchronization.|
 | **SharePoint Pages Filter Query** | No | Optionally you can specify additional filters to use when selecting pages to be synchronized. Leave empty for no additional filtering. Example: **PublicContent eq 'true'**|
 
-4. **Save**
+4. Optionally you can validate your **File Indexer Configuration** by pressing **Validate Connection** from the command bar.
+5. **Save**
 
 ![file sync](https://github.com/user-attachments/assets/90bc990a-646c-4311-863f-6c5cba43a48d)
 
