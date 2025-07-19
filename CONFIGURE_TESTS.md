@@ -15,10 +15,11 @@
 | Test Type | Description |
 | --- | --- | 
 | **Response Match** | This is the simplest type of test, and it can be immediately evaluated. It compares the agent response with the expected response using selected comparison operator. By default, exact match ("equals") is used. Other available comparison operators are "Does not equal", "Contains", "Does not contain", "Begins with", "Does not begin with", "Ends with" and "Does not end with". |
-| **Attachments (Adaptive Cards, etc.)** | Compares the agent attachments JSON response with the expected attachments JSON. <br> Note: this is the full array of attachments |
+| **Attachments (Adaptive Cards, etc.)** | Compares the agent attachments JSON response with the expected attachments JSON. <br> Note: this is the full array of attachments. By default, exact match ("equals") is used. Other available comparison operators are "Does not equal", "Contains", "Does not contain". There is a special comparison operator called "AI Validation" which leverages LLM to validate the attachment based on validation instructions provided by the maker, similarly to generative answers. |
 | **Topic Match** | _Only available when Dataverse enrichment is configured._ <br> When the Dataverse enrichment step completes, compares the expected topic name and the triggered topic name. <br><br>Since the May release, Topic Match test type also supports *multi-topic match* with custom agents that have generative orchestration enabled. In multi-topic matching, the topics are separated with comma, eg. "**Topic1,Topic2**". |
 | **Generative Answers** | _Only available if AI Builder enrichment is configured._ <br> Uses a large language model to assess if the AI-generated answer is close to a sample answer or honors validation instructions. <br> When _Azure Application Insights enrichment_ is configured, negative tests, such as Moderation or No Search Results can also be tested. | 
 | **Multi-turn** | Multi-turn test consists of one or more test cases of other types, e.g. response match, attachments, topic match and/or generative answers. All child tests in a multi-turn test are executed within the same conversation context in the specified order. Multi-turn tests are useful for testing a scenario end-to-end, and for testing custom agents with generative orchestration. | 
+| **Plan Validation** | Plan validation test allows maker to validate that the dynamic plan of custom agent includes the expected tools. This test type is meant for Copilot Studio custom agents that have generative orchestration enabled. | 
 
 ## Create a new test
 
@@ -42,8 +43,12 @@ From the Tests subgrid, select **New Agent Test**
 | **Expected Generative Answers Outcome** | Depends | Mandatory for the Generative Answers type of test. Should be either _Answered_ or _Not Answered_. <br> When Azure Application Insights enrichment is enabled, you may choose _Moderated_ or _No Search Results_. |
 | **Expected Topic Name** | Depends | Mandatory for Topic Match type of test. <br> Name of the topic that is expected to be triggered. Multi-topic match is supported with custom agents that have generative orchestration enabled. In the case of multi-topic match, topics are entered comma-separated, e.g. "Topic1,Topic2". Do not add extra whitespace. Multi-topic matching ensures that the expected topics are among the topics in the plan. |
 | **Expected Attachments JSON** | Depends | Mandatory for Attachments (Adaptive Cards, etc.) type of test. <br> Full attachments JSON array that is expected from the agent response. |
+| **Expected Tools** | Depends | Mandatory for Plan Validation type of test. <br> Comma separated list of expected tools (Tools, Actions and Connected agents). No extra whitespace, order does not matter. Example "Weather,Climate change" |
+| **Pass Threshold %** | Depends | Mandatory for Plan Validation type of test. <br> Percentage of expected tools that needs to be included in the dynamic plan for the test to pass. 100% means all expected tools need to be in the dynamic plan for the test to succeed. Additional tools present in the dynamic plan are not taken into account. |
 
-If the test-type is multi-turn, you can specify one or more child tests of *regular* types. Each child test also has an order and criticality attached to it. Order defines the order of execution within the same conversation context (within multi-turn test case), and criticality defines if the child test case **has** to pass for the multi-turn test execution to continue.
+### Multi-turn
+
+If the test type is multi-turn, you can specify one or more child tests of *regular* types. Each child test also has an order and criticality attached to it. Order defines the order of execution within the same conversation context (within multi-turn test case), and criticality defines if the child test case **has** to pass for the multi-turn test execution to continue.
 
 ![multiturn test setup](https://github.com/user-attachments/assets/cea90fa3-2db7-4616-9c3a-21be8d86da3c)
 
@@ -52,6 +57,14 @@ Any child tests that require post-testing evalution, such as topic match or gene
 ![multiturn results view](https://github.com/user-attachments/assets/bf070846-5444-42a9-b07d-f588667dd465)
 
 Non-critical child test cases can be used to "feed" information to custom agents with generative orchestration, or if the response simply does not matter, but is building up to the following critical tests.
+
+### Plan validation
+
+If the test type is plan validation, maker can specify a comma separated list of tool names that are expected to be included in the dynamic plan for the test utterance. Tools, actions and connected agents can be included. No extra whitespace is allowed and the order in the expected tools field does not matter. Pass threshold % specifies the required portion of expected tools that need to be in the dynamic plan for the test to succeed. This test leverages conversation transcripts and will be evaluated post actual test run as an enrichment activity.
+
+<img width="1744" height="1017" alt="plan validation" src="https://github.com/user-attachments/assets/ebc83984-1e66-47c1-a2d7-bf06c0a0bac3" />
+
+Read more about generative orchestration from [Microsoft Learn](https://learn.microsoft.com/microsoft-copilot-studio/advanced-generative-actions).
 
 ## Use Excel to bulk create or update tests
 
@@ -74,6 +87,10 @@ Please be aware that if you are importing **multi-turn child tests**, you have t
 Users may duplicate a full test set by selecting the **Duplicate Test Set** command.
 
 ![image](https://github.com/microsoft/Powercat-Copilotstudio-Accelerator/assets/37898885/a31e9c83-1321-46e3-a887-defa47521a9d)
+
+## Duplicating a Test Case
+
+Users may duplicate a single test case by selecting the **Duplicate Test Case** command. This is especially useful when creating variants of single test case (varying just the location, time, amount, etc.)
 
 ## Next step
 - [Run tests](./RUN_TESTS.md)
