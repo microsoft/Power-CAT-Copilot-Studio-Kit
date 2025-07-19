@@ -37,7 +37,7 @@ Adaptive Cards Gallery provides makers with a dozen built-in adaptive card templ
 
 More information on [Adaptive Cards Gallery](./ADAPTIVE_CARDS_GALLERY.md)
 
-## Agent Inventory (*New!*) (Preview)
+## Agent Inventory (*New!*)
 Agent Inventory provides administrators with a tenant-wide view to all Copilot Studio custom agents in their organization, including detailed information on the features they are using, authentication mode, knowledge sources, orchestration type and more. Agent Inventory ships with a dashboard and the data can be exported for use in other applications.
 
 More information on [Agent Inventory](./AGENT_INVENTORY.md)
