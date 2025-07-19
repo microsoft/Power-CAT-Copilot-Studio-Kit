@@ -22,7 +22,7 @@ SharePoint synchronization allows makers to configure periodical selective conte
 
 More information on [SharePoint synchronization](./FILE_SYNCHRONIZATION.md)
 
-## Prompt Advisor (being deprecated)
+## Prompt Advisor
 Prompt Advisor allows makers to develop effective prompts while learning useful prompt engineering skills. Prompts entered in the advisor tool will be analyzed and receive a confidence evaluation with detailed reasoning for the score. Advisor also provides a list of suggested refined prompts implementing various prompt techniques. Makers can select from these optimized prompts to iteratively refine and improve their input.
 
 More information on [Prompt Advisor](./PROMPT_ADVISOR.md)
@@ -46,6 +46,11 @@ More information on [Agent Inventory](./AGENT_INVENTORY.md)
 Agent Review Tool is a solution analysis tool that can be used to review your agents for any potential issues or anti-patterns that might have negative impact on the performance or the security of your agent. After analysing the solution, Agent Review Tool presents the findings in easy to interpret format, with severity and details on how to address the issue.
 
 More information on [Agent Review Tool](./AGENT_REVIEW_TOOL.md)
+
+## Conversation Analyzer (*New!*) (Preview)
+Conversation Analyzer allows makers to analyze the conversations of their custom agents using custom prompts to get additional insights.
+
+More information on [Conversation Analyzer](./CONVERSATION_ANALYZER.md)
 
 # Setup instructions and documentation
 
