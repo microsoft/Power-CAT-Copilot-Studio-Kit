@@ -12,6 +12,8 @@ Benefits of using SharePoint synchronization (compared to using SharePoint site 
 
 Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details and how to configure SharePoint synchronization. SharePoint synchronization is automatically performed daily and it can be run on-demand by selecting "**Sync Files**" from the agent configuration.
 
+You can do a dry run validation of your configuration by pressing "Validate Connection".
+
 You can read more on the approach from [this article in Linkedin](https://www.linkedin.com/pulse/sync-your-sharepoint-library-dataverse-how-hybrid-approach-r%C3%A9mi-dyon-8lyle)
 
 Read more on how to configure agent for [SharePoint synchronization](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-file-synchronization)
