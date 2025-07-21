@@ -52,6 +52,18 @@ Conversation Analyzer allows makers to analyze the conversations of their custom
 
 More information on [Conversation Analyzer](./CONVERSATION_ANALYZER.md)
 
+## Agent Value dashboard (*New!*) (Preview)
+
+The Agent Value Component is a modular tool for classifying agents in Microsoft Copilot Studio by type, behavior, and value, helping organizations understand their role, align them with strategy, and measure their impact. Results are presented visually on Agent Value dashboard.
+
+More information on [Agent Value dashboard](./AGENT_VALUE_SUMMARY_DASHBOARD.md)
+
+## Automated testing using Power Platform Pipelines (*New!*) (Advanced)
+
+This feature allows users to automate the testing and deployment of Copilot Studio custom agents using Power Platform Pipelines. The goal is to ensure that agents are automatically validated through test runs before they are deployed to target environments (production). By integrating Power Automate flows with Dataverse and the Copilot Studio Kit, this approach introduces a quality gate into the deployment process. Only agents that pass the required amount of test cases are allowed to proceed, ensuring higher reliability and reducing manual intervention. This method supports continuous delivery practices and enhances the overall governance of the deployment lifecycle.
+
+More information on [automated testing using Power Platform Pipelines](./AUTOMATED_TESTING.md)
+
 # Setup instructions and documentation
 
 There is a Setup Wizard in the Kit which allows easy editing of connection references and environment variables as well as turning on cloud flows. After deploying the Kit from either AppSource or GitHub, you may access the Setup Wizard from the Home-page of the Copilot Studio Kit. Please see additional information [here](./SETUP_WIZARD.md).
