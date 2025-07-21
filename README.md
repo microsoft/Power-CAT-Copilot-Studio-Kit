@@ -52,7 +52,7 @@ Conversation Analyzer allows makers to analyze the conversations of their custom
 
 More information on [Conversation Analyzer](./CONVERSATION_ANALYZER.md)
 
-## Agent Value dashboard (*New!*) (Preview)
+## Agent Value Summary dashboard (*New!*) (Preview)
 
 The Agent Value Component is a modular tool for classifying agents in Microsoft Copilot Studio by type, behavior, and value, helping organizations understand their role, align them with strategy, and measure their impact. Results are presented visually on Agent Value dashboard.
 
