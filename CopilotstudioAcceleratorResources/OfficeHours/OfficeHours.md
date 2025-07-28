@@ -1,6 +1,6 @@
 # Copilot Studio Kit Office Hours
 
-Join the Copilot Studio Kit Office hours held on the second Wednesday of each month between 7:00AM and 8:00AM Pacific Standard Time (PST).
+Join the Copilot Studio Kit Office Hours, held bi-weekly.
 
 [Download calendar file to add to Calendar](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours.ics)
 
