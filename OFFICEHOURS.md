@@ -24,5 +24,5 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | July 9 | Confirmed |
 | July 23 | Confirmed |
 | Aug 6 | Confirmed |
-| Aug 20 | TBC |
+| Aug 20 | Confirmed |
 
