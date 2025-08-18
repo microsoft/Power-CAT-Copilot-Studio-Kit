@@ -34,7 +34,7 @@ Terminology
 | Environment ID | cat_environmentid | Text | Power Platform Admin connector — `List environments as admin` output: `name` (instance identifier) | V1 | Unique identifier for the environment (instance name). |
 | Environment Type | cat_environmenttype | Text | Power Platform Admin connector — `List environments as admin` output: `properties.environmentSku` | V1 | Environment SKU/type (e.g., Production, Development). |
 | Description | cat_description | Multiline Text | Dataverse: Table `botcomponent` where `componenttypename` = Custom GPT (15) → `description` column | V1 | Human-readable description of the agent. |
-| Instructions |  | Multiline Text | Dataverse: Table `botcomponent` (Custom GPT) → YAML `data` column → `instructions` property | V1 | Admin-facing instructions or usage guidance for the agent. |
+| Instructions | cat_Instructions | Multiline Text | Dataverse: Table `botcomponent` (Custom GPT) → YAML `data` column → `instructions` property | V1 | Admin-facing instructions or usage guidance for the agent. |
 | Agent Created Date | cat_agentcreateddate | DateTime | Dataverse: Table `bot` → `createdon` column | V1 | Creation timestamp for the agent. |
 | Agent Modified Date | cat_agentmodifieddate | DateTime | Dataverse: Table `bot` → `modifiedon` column | V1 | Last modification timestamp for the agent. |
 | Agent Created By | cat_agentcreatedby | Text | Dataverse: Table `bot` → `createdby` column | V1 | User who created the agent. |
@@ -46,28 +46,28 @@ Terminology
 | Default Application ID | cat_defaultapplicationid | Text | Dataverse: Table `bot` → `synchronizationstatus` JSON → `applicationId` property | V1 | Default application ID associated with the agent. |
 | Uses Gen AI | cat_usesgenai | Boolean | Derived: true if agent uses any of actions, prompts, knowledge sources, MCP, customized responses, classic generative sources, AI knowledge, or has generative orchestration | V1 | Indicates whether the agent uses generative AI capabilities. |
 | Orchestration Type | cat_orchestrationtype | Text | Dataverse: Table `bot` → `configuration` JSON → `GenerativeActionsEnabled` (true → generative; otherwise classic) | V1 | Orchestration type (generative or classic). |
-| Autonomous Agent |  | Boolean | Dataverse: Table `botcomponent` → `componenttypename` = External Trigger (17) → presence = true | V2 | True if the agent contains an external trigger component (autonomous). |
+| Autonomous Agent | cat_AutonomousAgent | Boolean | Dataverse: Table `botcomponent` → `componenttypename` = External Trigger (17) → presence = true | V2 | True if the agent contains an external trigger component (autonomous). |
 | Uses Enhanced Search Results | cat_usesenhancedsearchresults | Boolean | Dataverse: Table `bot` → `configuration` JSON → `isSemanticSearchEnabled` (true → true) | V1 | Indicates whether semantic/enhanced search is enabled. |
 | Uses Tools | cat_usesactions | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `TaskDialog` → true | V1 | True if the agent uses tool/action nodes. |
 | Uses AI Knowledge | cat_usesaiknowledge | Boolean | Dataverse: Table `bot` → `configuration` JSON → `useModelKnowledge` (true → true) | V1 | Indicates whether the agent is allowed to use general AI knowledge. |
-| Uses Knowledge Sources |  | Boolean | Dataverse: Table `botcomponent` where `componenttypename` = Bot File Attachment (KnowledgeSources) → `data.KnowledgeSourceConfiguration` present → true | V1 | True if any knowledge sources are configured. |
-| Uses Classic Generative Answers Sources |  | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data.searchAndSummarizeContent` contains classic sources (publicdatasource, sharePointSearchDataSource, customdatasource, azureopenaionyourdatasource) → true | V2 | True if classic generative answer sources are configured. |
+| Uses Knowledge Sources | cat_UsesKnowledgeSources | Boolean | Dataverse: Table `botcomponent` where `componenttypename` = Bot File Attachment (KnowledgeSources) → `data.KnowledgeSourceConfiguration` present → true | V1 | True if any knowledge sources are configured. |
+| Uses Classic Generative Answers Sources | cat_UsesClassicGenerativeAnswersSources | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data.searchAndSummarizeContent` contains classic sources (publicdatasource, sharePointSearchDataSource, customdatasource, azureopenaionyourdatasource) → true | V2 | True if classic generative answer sources are configured. |
 | Uses Prompts | cat_usesaibuilderprompts | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `InvokeAIBuilderModelAction` → true | V1 | True if AI Builder prompts are used. |
-| Uses MCP |  | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `kind: InvokeExternalAgentTaskAction` → true | V2 | True if Model Context Protocol (MCP) actions are present. |
-| Uses Customized response |  | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `kind: AnswerQuestionWithAI` → true | V2 | True if customized response nodes are present. |
+| Uses MCP | cat_UsesMCP | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `kind: InvokeExternalAgentTaskAction` → true | V2 | True if Model Context Protocol (MCP) actions are present. |
+| Uses Customized response | cat_UsesCustomizedResponse | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `kind: AnswerQuestionWithAI` → true | V2 | True if customized response nodes are present. |
 | Uses Generative Topics |  | Boolean | Dataverse: Topic/action inspection → presence of `InvokeAgentTaskAction` → true | V3 | True if generative topic actions (InvokeAgentTaskAction) are used. |
-| Uses Connector Maker Auth Context |  | Boolean | Dataverse: `botcomponent.data` → `connectionProperties.mode` = `maker` → true | V2 | True if any connector is configured to run in maker authentication mode. |
-| Uses Cloud Flow Auth Context |  | Boolean | Dataverse: Table `processes` → `clientdata.connectionreferences` + `impersonation`/`runtimesource` logic (impersonation = {} or embedded runtimesource → maker; impersonation.source=invoker → invoker) | V2 | Indicates whether invoked cloud flows require maker or invoker auth context. |
+| Uses Connector Maker Auth Context | cat_UsesConnectorMakerAuthContext | Boolean | Dataverse: `botcomponent.data` → `connectionProperties.mode` = `maker` → true | V2 | True if any connector is configured to run in maker authentication mode. |
+| Uses Cloud Flow Auth Context | cat_UsesCloudFlowAuthContext | Boolean | Dataverse: Table `processes` → `clientdata.connectionreferences` + `impersonation`/`runtimesource` logic (impersonation = {} or embedded runtimesource → maker; impersonation.source=invoker → invoker) | V2 | Indicates whether invoked cloud flows require maker or invoker auth context. |
 | End-User Authentication Type | cat_enduserauthenticationtype | Text | Dataverse: Table `bot` → `authenticationmode` column | V1 | End-user authentication mode for the agent. |
 | Requires Secured Access (Direct Line) |  | Boolean | (Web channel security setting — may not be available from Dataverse) | V3 | Indicates whether Direct Line (web channel) requires secured access. |
 | Uses HTTP Requests | cat_useshttprequests | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `HttpRequestAction` → true | V1 | True if the agent issues HTTP request actions. |
 | Uses Skills | cat_usesskills | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `InvokeSkillAction` → true | V2 | True if the agent invokes skills. |
 | Knowledge Sources | cat_knowledgesources | Multiline Text | Dataverse: `botcomponent` (KnowledgeSources) → `data.KnowledgeSourceConfiguration` | V1 | List of configured knowledge sources (raw configuration). |
-| Classic Data Sources |  | Multiline Text | Dataverse: Table `botcomponent` (Topic v2) → `data.searchAndSummarizeContent` (publicdatasource, sharePointSearchDataSource, customdatasource, azureopenaionyourdatasource) | V2 | List of classic data sources referenced by the agent. |
+| Classic Data Sources | cat_ClassicDataSources | Multiline Text | Dataverse: Table `botcomponent` (Topic v2) → `data.searchAndSummarizeContent` (publicdatasource, sharePointSearchDataSource, customdatasource, azureopenaionyourdatasource) | V2 | List of classic data sources referenced by the agent. |
 | Http Request Actions | cat_httprequestactions | Multiline Text | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `HttpRequestAction` entries | V1 | List of configured HTTP request actions. |
 | Prompts | cat_aibuilderpromts | Multiline Text | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `InvokeAIBuilderModelAction` entries | V1 | List of AI Builder prompts used by the agent. |
-| Connections |  | Multiline Text | Agent connections: `botcomponent.data.connectionreference` + `connectionProperties.mode`; Flow connections: `processes.clientdata.connectionreferences` (api name, impersonation, runtimesource) — derive connection name and auth mode (maker or invoker) | V2 | Connector/flow connection names and inferred auth modes (maker/invoker). |
-| Agent Triggers |  | Multiline Text | Dataverse: Table `botcomponent` → `componenttypename` = External Trigger (17) → `data.triggerConnectionType` | V2 | List of trigger connectors used by the agent. |
+| Connections | cat_Connections | Multiline Text | Agent connections: `botcomponent.data.connectionreference` + `connectionProperties.mode`; Flow connections: `processes.clientdata.connectionreferences` (api name, impersonation, runtimesource) — derive connection name and auth mode (maker or invoker) | V2 | Connector/flow connection names and inferred auth modes (maker/invoker). |
+| Agent Triggers | cat_AgentTriggers | Multiline Text | Dataverse: Table `botcomponent` → `componenttypename` = External Trigger (17) → `data.triggerConnectionType` | V2 | List of trigger connectors used by the agent. |
 | Usage Info |  | Multiline Text | Licensing API — usage report endpoints (see Usage reporting endpoints section) | V3 | Usage and licensing information (sourced from Licensing API). |
 | Uses Custom Knowledges Sources | cat_UsesCustomKnowledgesSources | Boolean | Dataverse: Table `botcomponent` (Topic v2) → `data` starts with `kind: AdaptiveDialog` and `beginDialog.kind: OnKnowledgeRequested` → true | V2 | True if custom adaptive knowledge-request dialogs are present. |
 | Uses Deep Reasoning Models | cat_UsesDeepReasoningModels | Boolean | Dataverse: Table `bot` → `configuration.optInUseLatestModels` (true → true) | V2 | True if the agent opts into latest/deeper reasoning models. |
@@ -107,7 +107,5 @@ The following rules summarize how derived and boolean fields are detected. They 
 - Uses Deep Reasoning Models — `bot.configuration.optInUseLatestModels` true → true.
 - Uses File Input — `bot.configuration.isFileAnalysisEnabled` true → true.
 - IsTranscriptAvailable — Presence in Conversation Transcript table.
-
-If you need more detail for a specific field, I can paste the original verbatim CSV cell for that field.
 
 ---
