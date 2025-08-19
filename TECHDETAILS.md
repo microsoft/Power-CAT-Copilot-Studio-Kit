@@ -31,54 +31,7 @@
 | Power Apps for Makers | Used to get or create the required connections in the Power Platform environment. | Used in the Setup Wizard |
 
 ## Agent Inventory data sources
-| Field | Source  | Source detail |
-| :-- | :-- | :-- |
-| Name | Dataverse | bot |
-| Description | Dataverse | botcomponent |
-| Environment Name | Environments List | displayName  |
-| Environment Type | Environments List | environmentSku |
-| Orchestration Type | Dataverse | bot - GenerativeActionsEnabled |
-| Uses Gen AI | Calculated | true if actions, prompts, knowledge sources, MCP, customized responses, classic generative answer sources, AI knowledge, generative orchestration |
-| Uses Actions | Dataverse | botcomponent |
-| Uses Prompts | Dataverse | botcomponent |
-| Uses Knowledge Sources | Dataverse | multiple locations |
-| Agent Created By | Dataverse | bot |
-| Agent Created Date | Dataverse | bot |
-| Agent ID | Dataverse | bot |
-| Agent Modified By | Dataverse | bot |
-| Agent Modified Date | Dataverse | bot |
-| Created By | Dataverse | bot |
-| Default Application ID | Dataverse | bot |
-| End User Authentication Type | Dataverse | bot |
-| Environment ID | Environments List | name |
-| Http Request Actions | Dataverse | botcomponent |
-| Instructions | Dataverse | botcomponent |
-| Knowledge Sources | Dataverse | multiple locations |
-| Managed State | Dataverse | bot |
-| Modified By | Dataverse | bot |
-| Prompts | Dataverse | botcomponent |
-| Published | Dataverse | bot|
-| Published By | Dataverse | bot |
-| Published Date | Dataverse | bot |
-| Uses AI Knowledge | Dataverse | bot |
-| Uses Enhanced Search Results | Dataverse | bot |
-| Uses HTTP Requests | Dataverse | botcomponent |
-| Uses Skills | Dataverse | bot |
-| Type | Dataverse | other |
-| Autonomous Agent | Dataverse | botcomponent  |
-| Uses Classic Generative Answers Sources | Dataverse | botcomponent |
-| Uses MCP | Dataverse | botcomponent |
-| Uses Customized response | Dataverse | botcomponent |
-| Uses Connector Maker Auth Context | Dataverse | botcomponent |
-| Uses Cloud Flow Auth Context | Dataverse | processes |
-| Classic Data Sources | Dataverse | botcomponent |
-| Connections | Dataverse | botcomponent, processes |
-| Agent Triggers | Dataverse | botcomponent |
-| Uses Custom Knowledges Sources | Dataverse | botcomponent |
-| Uses Deep Reasoning Models | Dataverse | bot |
-| Uses File Input | Dataverse | bot |
-| EnvironmentUrl | Dataverse | Environments List |
-| IsTranscriptAvailable | Dataverse | Conversation Transcript |
+Please refer to the [Agent Inventory -Data Source](AGENT_INVENTORY_DATA_SOURCE.md) file for more information.
 
 
 
