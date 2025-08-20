@@ -1,13 +1,13 @@
-# Microsoft Authentication Guide
+# Agent Test Runner Guide
 
 ## 📋 **Table of Contents**
 
 1. [Architecture](#architecture)
 2. [Azure App Registration Setup](#azure-app-registration-setup)
-3. [Environment ID and Agent Identifier Setup](#environment-id-and-agent-identifier-setup)
+3. [Getting Environment ID & Agent Identifier](#getting-environment-id--agent-identifier-schema-name)
 4. [Troubleshooting Guide](#troubleshooting-guide)
 
-## 🏗️ **Architecture**
+## Architecture
 
 The Agent Test Runner uses a **direct browser-to-Agent SDK** architecture that is efficient for testing scenarios.
 
@@ -78,7 +78,7 @@ graph TB
     PCF --> DV
 ```
 
-## 🔐 **Azure App Registration Setup**
+## Azure App Registration Setup
 
 ### **Step 1: Create Azure App Registration**
 
@@ -142,7 +142,7 @@ Based on the [Microsoft Agents Sample Documentation](https://github.com/microsof
 3. **Verify Account Types**
    - Ensure **Accounts in this organizational directory only** is selected
 
-### 🔧 **Getting Environment ID & Agent Identifier (Schema Name)**
+### Getting Environment ID & Agent Identifier (Schema Name)
 
 1. **Navigate to Copilot Studio**
 
@@ -177,7 +177,7 @@ Create **Agent Configuration** record in Dataverse with the values from previous
 | **Environment ID**      | Environment ID from previous section | `11111111-2222-3333-4444-555555555555` |
 | **Agent Identifier**    | Schema name from previous section    | `cr123_testagent`                      |
 
-## 🔧 **Troubleshooting Guide**
+## Troubleshooting Guide
 
 ### **Authentication Errors**
 
