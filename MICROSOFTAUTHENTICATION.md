@@ -1,15 +1,14 @@
-# Agent Test Runner Guide
+# Microsoft Authentication Guide
 
 ## 📋 **Table of Contents**
 
 1. [Architecture](#architecture)
-2. [Azure App Registration Setup](#azure-app-registration-setup)
-3. [Getting Environment ID & Agent Identifier](#getting-environment-id--agent-identifier-schema-name)
-4. [Troubleshooting Guide](#troubleshooting-guide)
+2. [Microsoft Authentication Setup](#microsoft-authentication-setup)
+3. [Troubleshooting Guide](#troubleshooting-guide)
 
 ## Architecture
 
-The Agent Test Runner uses a **direct browser-to-Agent SDK** architecture that is efficient for testing scenarios.
+The Microsoft Authentication uses a **direct browser-to-Agent SDK** architecture that is efficient for testing scenarios.
 
 ### **Current Flow Architecture**
 
@@ -78,7 +77,7 @@ graph TB
     PCF --> DV
 ```
 
-## Azure App Registration Setup
+## Microsoft Authentication Setup
 
 ### **Step 1: Create Azure App Registration**
 
@@ -142,7 +141,7 @@ Based on the [Microsoft Agents Sample Documentation](https://github.com/microsof
 3. **Verify Account Types**
    - Ensure **Accounts in this organizational directory only** is selected
 
-### Getting Environment ID & Agent Identifier (Schema Name)
+### **Step 4: Getting Environment ID & Agent Identifier (Schema Name)**
 
 1. **Navigate to Copilot Studio**
 
@@ -165,7 +164,7 @@ Based on the [Microsoft Agents Sample Documentation](https://github.com/microsof
    - Note the **Environment ID** value
    - Note the **Schema name** value. This is your **Agent Identifier**. Format: `cr123_agentname` or similar
 
-### **Step 4: Configure Agent Configuration**
+### **Step 5: Configure Agent Configuration**
 
 Create **Agent Configuration** record in Dataverse with the values from previous steps:
 
@@ -261,7 +260,6 @@ Create **Agent Configuration** record in Dataverse with the values from previous
   1. **For End Users in Model-Driven Apps**:
      - This is typically a deployment/configuration issue
      - Contact your system administrator or developer
-     - The control needs to be redeployed with proper external service configurations
      - No user action can resolve this - it requires admin/developer intervention
   2. **For System Administrators**:
      - Check if organizational security policies are blocking external calls
