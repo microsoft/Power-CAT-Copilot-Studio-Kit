@@ -2,7 +2,8 @@
 
 Join the Copilot Studio Kit Office Hours, held bi-weekly.
 
-[Download calendar file to add to Calendar](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours.ics)
+[Download calendar file to add to Calendar](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours.ics)
+
 
 ## Description
 This meeting is a regular open forum for customers and partners to learn and ask questions about the Power Platform Copilot Studio Kit. Come prepared to ask questions about existing features, learn how something works and new features you'd like to see.
