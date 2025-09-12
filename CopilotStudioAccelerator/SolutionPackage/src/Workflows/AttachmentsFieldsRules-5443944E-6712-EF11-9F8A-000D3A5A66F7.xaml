@@ -19,20 +19,28 @@
         <sco:Collection x:TypeArguments="Variable" x:Key="Variables">
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_condition" />
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_1" />
-          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_2" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_2" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_3" />
-          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_4" />
-          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_5" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_4" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_5" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_6" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_7" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_8" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_9" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_10" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_11" />
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep3_condition" />
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep3_1" />
-          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_2" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep3_2" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_3" />
-          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep3_4" />
-          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_5" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_4" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep3_5" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_6" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_7" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_8" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep3_9" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_10" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_11" />
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep4_condition" />
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep4_1" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep4_2" />
@@ -41,13 +49,24 @@
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep4_5" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep4_6" />
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep5_condition" />
-          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep5_1" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep5_1" />
           <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep5_2" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep5_3" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep5_4" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep5_5" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep5_6" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep6_condition" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep6_1" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep6_2" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep6_3" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep6_4" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep6_5" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep6_6" />
           <Variable x:TypeArguments="x:Boolean" Default="False" Name="True" />
-          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep6_1" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep7_1" />
         </sco:Collection>
         <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
-          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep2_2]">
+          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep2_3]">
             <mxswa:GetEntityProperty.TargetType>
               <InArgument x:TypeArguments="s:Type">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
@@ -63,18 +82,18 @@
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_3]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_4]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep2_3 }]</InArgument>
-              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_2]</InArgument>
-              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_1]</OutArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep2_4 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_3]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_2]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
-          <mxswa:GetEntityProperty Attribute="cat_comparisonoperator" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep2_5]">
+          <mxswa:GetEntityProperty Attribute="cat_comparisonoperator" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep2_6]">
             <mxswa:GetEntityProperty.TargetType>
               <InArgument x:TypeArguments="s:Type">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
@@ -90,7 +109,7 @@
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_6]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_7]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
@@ -100,22 +119,57 @@
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_7]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_8]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep2_6, ConditionBranchStep2_7 }]</InArgument>
-              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_5]</InArgument>
-              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_4]</OutArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep2_7, ConditionBranchStep2_8 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_6]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_5]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateLogicalCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateLogicalCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:LogicalOperator" x:Key="LogicalOperator">And</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="LeftOperand">[ConditionBranchStep2_2]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep2_5]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_1]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:GetEntityProperty Attribute="cat_operationtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep2_10]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "1", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_11]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep2_11 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_10]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_9]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateLogicalCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateLogicalCondition">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="mxsq:LogicalOperator" x:Key="LogicalOperator">And</InArgument>
               <InArgument x:TypeArguments="x:Boolean" x:Key="LeftOperand">[ConditionBranchStep2_1]</InArgument>
-              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep2_4]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep2_9]</InArgument>
               <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_condition]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
@@ -160,6 +214,30 @@
                       <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep19" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                       <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                     </Sequence>
+                    <Sequence DisplayName="SetFieldRequiredLevelStep32: Set Adaptive Card Payload Not Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_adaptivecardpayload" ControlType="standard" DisplayName="SetFieldRequiredLevelStep32" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep33: Hide Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetAttributeValueStep34: Clear Adaptive Card Payload">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep34_1" />
+                      </Sequence.Variables>
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mxswa:SetEntityProperty Attribute="cat_adaptivecardpayload" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep34_1]">
+                        <mxswa:SetEntityProperty.TargetType>
+                          <InArgument x:TypeArguments="s:Type">
+                            <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                          </InArgument>
+                        </mxswa:SetEntityProperty.TargetType>
+                      </mxswa:SetEntityProperty>
+                      <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep34" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                      <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                    </Sequence>
                     <Sequence DisplayName="SetMessageStep5: External Attachments JSON">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
@@ -167,6 +245,32 @@
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep5: Set Operation Type">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep5_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "1", "Picklist" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep5_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_operationtypecode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep5_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep5" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
                                 <Sequence DisplayName="SetAttributeValueStep1: Set Attachments JSON">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1_1" />
@@ -263,12 +367,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Describe the array of attachments the copilot is expected to return that will contain the JSON records for the Adaptive Cards or Basic Cards. Select Apply to see an example (existing values will be overwritten)." LabelId="f0be1569-8097-4615-937c-e6ba2b2885d7" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Describe the array of attachments the copilot is expected to return that will contain the JSON records for the Adaptive Cards or Basic Cards. Select Apply to see an example (existing values will be overwritten)." LabelId="b84d9874-eab4-47e7-aefd-8670f01a97bc" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">2b9ffa7e-2b7e-40d4-84e7-0cacd3b65d4d</s:Guid>
-                              <x:String x:Key="UniqueName">id_aa37333294754195b2798ae5929274a6ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">cc6a2d62-7c22-4d49-92cf-723603d50335</s:Guid>
+                              <x:String x:Key="UniqueName">id_e7fa3737d8e8461dae3fc6d703452c15ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -283,10 +387,10 @@
                 </mxswa:ActivityReference.Properties>
               </mxswa:ActivityReference>
               <x:Null x:Key="Else" />
-              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.) And Comparison Operator = Equals Or Does Not Equals</x:String>
+              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.) And Comparison Operator = Equals Or Does Not Equals And Operation Type = Comparison Operator</x:String>
             </mxswa:ActivityReference.Properties>
           </mxswa:ActivityReference>
-          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep3_2]">
+          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep3_3]">
             <mxswa:GetEntityProperty.TargetType>
               <InArgument x:TypeArguments="s:Type">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
@@ -302,18 +406,18 @@
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_3]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_4]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep3_3 }]</InArgument>
-              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep3_2]</InArgument>
-              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_1]</OutArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep3_4 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep3_3]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_2]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
-          <mxswa:GetEntityProperty Attribute="cat_comparisonoperator" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep3_5]">
+          <mxswa:GetEntityProperty Attribute="cat_comparisonoperator" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep3_6]">
             <mxswa:GetEntityProperty.TargetType>
               <InArgument x:TypeArguments="s:Type">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
@@ -329,7 +433,7 @@
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_6]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_7]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
@@ -339,22 +443,57 @@
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_7]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_8]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep3_6, ConditionBranchStep3_7 }]</InArgument>
-              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep3_5]</InArgument>
-              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_4]</OutArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep3_7, ConditionBranchStep3_8 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep3_6]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_5]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateLogicalCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateLogicalCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:LogicalOperator" x:Key="LogicalOperator">And</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="LeftOperand">[ConditionBranchStep3_2]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep3_5]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_1]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:GetEntityProperty Attribute="cat_operationtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep3_10]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "1", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_11]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep3_11 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep3_10]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_9]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateLogicalCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateLogicalCondition">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="mxsq:LogicalOperator" x:Key="LogicalOperator">And</InArgument>
               <InArgument x:TypeArguments="x:Boolean" x:Key="LeftOperand">[ConditionBranchStep3_1]</InArgument>
-              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep3_4]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep3_9]</InArgument>
               <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_condition]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
@@ -375,14 +514,6 @@
                     <Sequence DisplayName="SetVisibilityStep15: Hide Expected Attachments JSON">
                       <mcwc:SetVisibility ControlId="cat_expectedattachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
-                    <Sequence DisplayName="SetFieldRequiredLevelStep17: Set Validation Instructions Required">
-                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
-                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
-                      <mcwc:SetFieldRequiredLevel ControlId="cat_validationinstructions" ControlType="standard" DisplayName="SetFieldRequiredLevelStep17" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep18: Show Validation Instructions">
-                      <mcwc:SetVisibility ControlId="cat_validationinstructions" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
-                    </Sequence>
                     <Sequence DisplayName="SetAttributeValueStep20: Clear Expected Attachments JSON">
                       <Sequence.Variables>
                         <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep20_1" />
@@ -399,13 +530,71 @@
                       <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep20" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                       <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                     </Sequence>
-                    <Sequence DisplayName="SetMessageStep21: External Attachments JSON For Contains / Not Contain">
+                    <Sequence DisplayName="SetFieldRequiredLevelStep17: Set Validation Instructions Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_validationinstructions" ControlType="standard" DisplayName="SetFieldRequiredLevelStep17" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep18: Show Validation Instructions">
+                      <mcwc:SetVisibility ControlId="cat_validationinstructions" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetFieldRequiredLevelStep35: Set Adaptive Card Payload Not Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_adaptivecardpayload" ControlType="standard" DisplayName="SetFieldRequiredLevelStep35" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep36: Hide Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetAttributeValueStep37: Clear Adaptive Card Payload">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep37_1" />
+                      </Sequence.Variables>
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mxswa:SetEntityProperty Attribute="cat_adaptivecardpayload" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep37_1]">
+                        <mxswa:SetEntityProperty.TargetType>
+                          <InArgument x:TypeArguments="s:Type">
+                            <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                          </InArgument>
+                        </mxswa:SetEntityProperty.TargetType>
+                      </mxswa:SetEntityProperty>
+                      <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep37" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                      <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep21: Expected Text For Contains / Not Contain">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
                           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep5745: Set Operation Type">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep5745_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "1", "Picklist" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep5745_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_operationtypecode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep5745_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep5745" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
                                 <Sequence DisplayName="SetAttributeValueStep1362: Set Validation Instructions">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1362_1" />
@@ -502,12 +691,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Validate the attachment (adaptive card) in the agent's response using the selected comparison operator. Enter the expected string, select a comparison operator, and the agent's response will be compared to the string using the selected operator to determine the test case result. Select Apply to see an example (existing values will be overwritten)." LabelId="f309d2fb-5e74-4737-a509-4be9b2d58b89" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Validate the attachment (adaptive card) in the agent's response using the selected comparison operator. Enter the expected string, select a comparison operator, and the agent's response will be compared to the string using the selected operator to determine the test case result. Select Apply to see an example (existing values will be overwritten)." LabelId="6b03abb9-236a-4d10-be9d-44e4c269dee7" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">55ec805f-81fc-4534-b6dd-bef3b04ed5ec</s:Guid>
-                              <x:String x:Key="UniqueName">id_541466aca40248b2b1474177e6e1d35aActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">2ca25fad-097a-4c83-9b00-29bd4cc12e99</s:Guid>
+                              <x:String x:Key="UniqueName">id_a1cd6e63dd0c437ea03b74e8b040ddf7ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -522,7 +711,7 @@
                 </mxswa:ActivityReference.Properties>
               </mxswa:ActivityReference>
               <x:Null x:Key="Else" />
-              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.) And Comparison Operator = Contains Or Does Not Contains</x:String>
+              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.) And Comparison Operator = Contains Or Does Not Contains And Operation Type = Comparison Operator</x:String>
             </mxswa:ActivityReference.Properties>
           </mxswa:ActivityReference>
           <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep4_2]">
@@ -552,7 +741,7 @@
               <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep4_1]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
-          <mxswa:GetEntityProperty Attribute="cat_comparisonoperator" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep4_5]">
+          <mxswa:GetEntityProperty Attribute="cat_operationtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep4_5]">
             <mxswa:GetEntityProperty.TargetType>
               <InArgument x:TypeArguments="s:Type">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
@@ -564,7 +753,7 @@
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "10", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "2", "Picklist" }]</InArgument>
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
@@ -596,6 +785,259 @@
                 <mxswa:ActivityReference.Properties>
                   <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                   <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                    <Sequence DisplayName="SetFieldRequiredLevelStep39: Set Expected Attachments JSON Not Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_expectedattachmentsjson" ControlType="standard" DisplayName="SetFieldRequiredLevelStep39" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep40: Hide Expected Attachments JSON">
+                      <mcwc:SetVisibility ControlId="cat_expectedattachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetAttributeValueStep41: Clear Expected Attachments JSON">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep41_1" />
+                      </Sequence.Variables>
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mxswa:SetEntityProperty Attribute="cat_expectedattachmentsjson" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep41_1]">
+                        <mxswa:SetEntityProperty.TargetType>
+                          <InArgument x:TypeArguments="s:Type">
+                            <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                          </InArgument>
+                        </mxswa:SetEntityProperty.TargetType>
+                      </mxswa:SetEntityProperty>
+                      <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep41" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                      <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                    </Sequence>
+                    <Sequence DisplayName="SetFieldRequiredLevelStep42: Set Validation Instructions Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_validationinstructions" ControlType="standard" DisplayName="SetFieldRequiredLevelStep42" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep43: Show Validation Instructions">
+                      <mcwc:SetVisibility ControlId="cat_validationinstructions" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetFieldRequiredLevelStep44: Set Adaptive Card Payload Not Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_adaptivecardpayload" ControlType="standard" DisplayName="SetFieldRequiredLevelStep44" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep45: Hide Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetAttributeValueStep46: Clear Adaptive Card Payload">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep46_1" />
+                      </Sequence.Variables>
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mxswa:SetEntityProperty Attribute="cat_adaptivecardpayload" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep46_1]">
+                        <mxswa:SetEntityProperty.TargetType>
+                          <InArgument x:TypeArguments="s:Type">
+                            <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                          </InArgument>
+                        </mxswa:SetEntityProperty.TargetType>
+                      </mxswa:SetEntityProperty>
+                      <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep46" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                      <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep47: Validation Instruction for AI Validation">
+                      <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
+                        <mcwc:SetMessage.Activities>
+                          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
+                            <mxswa:ActivityReference.Properties>
+                              <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                              <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep5156: Set Operation Type">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep5156_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "2", "Picklist" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep5156_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_operationtypecode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep5156_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep5156" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                                <Sequence DisplayName="SetAttributeValueStep1362658: Set Validation Instructions">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1362658_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "Feedback Form", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep1362658_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_validationinstructions" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep1362658_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1362658" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                                <Sequence DisplayName="SetAttributeValueStep3662647: Set Test Utterance">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep3662647_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "I want to provide feedback on this copilot", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep3662647_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_testutterance" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep3662647_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep3662647" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                                <Sequence DisplayName="SetAttributeValueStep2862796: Clear Expected Response">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep2862796_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:SetEntityProperty Attribute="cat_expectedresponse" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep2862796_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep2862796" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
+                              </sco:Collection>
+                              <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
+                                <mcwo:StepLabel Description="Validate the attachment (e.g., an adaptive card) in the agent's response using AI. AI will use the validation instructions to determine the test case result. Select Apply to see an example (existing values will be overwritten)." LabelId="a6ce1fc0-5377-49a4-b277-0b045e103df5" LanguageCode="1033" />
+                              </sco:Collection>
+                              <x:Null x:Key="ActionId" />
+                              <x:Int32 x:Key="ActionType">4</x:Int32>
+                              <s:Guid x:Key="ProcessId">73747b15-fea2-46c1-9e17-f05d3b47bc19</s:Guid>
+                              <x:String x:Key="UniqueName">id_4859243f1a2043ac9c643e355c35c971ActionStep</x:String>
+                              <x:Null x:Key="TriggerEvents" />
+                              <x:Null x:Key="ActionControl" />
+                            </mxswa:ActivityReference.Properties>
+                          </mxswa:ActivityReference>
+                        </mcwc:SetMessage.Activities>
+                        <mcwc:SetMessage.StepLabels>
+                          <mcwo:StepLabel Description="Attachments (e.g. Adaptive Cards)" LabelId="6082eb1c-223a-44ec-8bfd-bf7eb16f4830" LanguageCode="1033" />
+                        </mcwc:SetMessage.StepLabels>
+                      </mcwc:SetMessage>
+                    </Sequence>
+                  </sco:Collection>
+                </mxswa:ActivityReference.Properties>
+              </mxswa:ActivityReference>
+              <x:Null x:Key="Else" />
+              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.) And Operation Type = AI Validation</x:String>
+            </mxswa:ActivityReference.Properties>
+          </mxswa:ActivityReference>
+          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep5_2]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "3", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep5_3]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep5_3 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep5_2]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep5_1]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:GetEntityProperty Attribute="cat_operationtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep5_5]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "3", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep5_6]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep5_6 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep5_5]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep5_4]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateLogicalCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateLogicalCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:LogicalOperator" x:Key="LogicalOperator">And</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="LeftOperand">[ConditionBranchStep5_1]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep5_4]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep5_condition]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep5">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[ConditionBranchStep5_condition]</InArgument>
+            </mxswa:ActivityReference.Arguments>
+            <mxswa:ActivityReference.Properties>
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep5">
+                <mxswa:ActivityReference.Properties>
+                  <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                  <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
                     <Sequence DisplayName="SetFieldRequiredLevelStep23: Set Expected Attachments JSON Not Required">
                       <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                       <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
@@ -603,14 +1045,6 @@
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep24: Hide Expected Attachments JSON">
                       <mcwc:SetVisibility ControlId="cat_expectedattachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
-                    </Sequence>
-                    <Sequence DisplayName="SetFieldRequiredLevelStep25: Set Validation Instructions Required">
-                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
-                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
-                      <mcwc:SetFieldRequiredLevel ControlId="cat_validationinstructions" ControlType="standard" DisplayName="SetFieldRequiredLevelStep25" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep26: Show Validation Instructions">
-                      <mcwc:SetVisibility ControlId="cat_validationinstructions" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
                     <Sequence DisplayName="SetAttributeValueStep27: Clear Expected Attachments JSON">
                       <Sequence.Variables>
@@ -628,40 +1062,72 @@
                       <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep27" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                       <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                     </Sequence>
-                    <Sequence DisplayName="SetMessageStep28: External Attachments JSON For Ai Validation">
+                    <Sequence DisplayName="SetFieldRequiredLevelStep25: Set Validation Instructions Not Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_validationinstructions" ControlType="standard" DisplayName="SetFieldRequiredLevelStep25" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep26: Hide Validation Instructions">
+                      <mcwc:SetVisibility ControlId="cat_validationinstructions" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetAttributeValueStep48: Clear Validation Instructions">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep48_1" />
+                      </Sequence.Variables>
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mxswa:SetEntityProperty Attribute="cat_validationinstructions" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep48_1]">
+                        <mxswa:SetEntityProperty.TargetType>
+                          <InArgument x:TypeArguments="s:Type">
+                            <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                          </InArgument>
+                        </mxswa:SetEntityProperty.TargetType>
+                      </mxswa:SetEntityProperty>
+                      <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep48" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                      <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                    </Sequence>
+                    <Sequence DisplayName="SetFieldRequiredLevelStep49: Set Adaptive Card Payload Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_adaptivecardpayload" ControlType="standard" DisplayName="SetFieldRequiredLevelStep49" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep50: Show Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetMessageStep28: Expected Response JSON For Adaptive Card Payload">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
                           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ActionComposite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ActionStep5: Action step">
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
-                                <Sequence DisplayName="SetAttributeValueStep1268: Set Validation Instructions">
+                                <Sequence DisplayName="SetAttributeValueStep4489: Set Operation Type">
                                   <Sequence.Variables>
-                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1268_1" />
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep4489_1" />
                                   </Sequence.Variables>
                                   <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                                   <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
                                   <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
                                     <mxswa:ActivityReference.Arguments>
                                       <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "This adaptive card should have title.", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "3", "Picklist" }]</InArgument>
                                       <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
-                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
                                       </InArgument>
-                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep1268_1]</OutArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep4489_1]</OutArgument>
                                     </mxswa:ActivityReference.Arguments>
                                   </mxswa:ActivityReference>
-                                  <mxswa:SetEntityProperty Attribute="cat_validationinstructions" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep1268_1]">
+                                  <mxswa:SetEntityProperty Attribute="cat_operationtypecode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep4489_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
-                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
                                       </InArgument>
                                     </mxswa:SetEntityProperty.TargetType>
                                   </mxswa:SetEntityProperty>
-                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep1268" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep4489" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
-                                <Sequence DisplayName="SetAttributeValueStep3967: Set Test Utterance">
+                                <Sequence DisplayName="SetAttributeValueStep3967: Set Adaptive Card Payload">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep3967_1" />
                                   </Sequence.Variables>
@@ -670,14 +1136,14 @@
                                   <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
                                     <mxswa:ActivityReference.Arguments>
                                       <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "I want to provide feedback on this copilot", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "{ &amp;#34;&amp;#34;action&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Submit&amp;#34;&amp;#34;&amp;#44; &amp;#34;&amp;#34;first_name&amp;#34;&amp;#34;: &amp;#34;&amp;#34;Agent&amp;#34;&amp;#34; }", "String" }]</InArgument>
                                       <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
                                       </InArgument>
                                       <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep3967_1]</OutArgument>
                                     </mxswa:ActivityReference.Arguments>
                                   </mxswa:ActivityReference>
-                                  <mxswa:SetEntityProperty Attribute="cat_testutterance" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep3967_1]">
+                                  <mxswa:SetEntityProperty Attribute="cat_adaptivecardpayload" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep3967_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
@@ -687,12 +1153,22 @@
                                   <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep3967" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                                   <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                                 </Sequence>
-                                <Sequence DisplayName="SetAttributeValueStep2406: Clear Expected Response">
+                                <Sequence DisplayName="SetAttributeValueStep2406: Set Expected Response">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep2406_1" />
                                   </Sequence.Variables>
                                   <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
                                   <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.String, "Thank you Agent", "String" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep2406_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
                                   <mxswa:SetEntityProperty Attribute="cat_expectedresponse" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep2406_1]">
                                     <mxswa:SetEntityProperty.TargetType>
                                       <InArgument x:TypeArguments="s:Type">
@@ -712,7 +1188,7 @@
                                   <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
                                     <mxswa:ActivityReference.Arguments>
                                       <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "10", "Picklist" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "1", "Picklist" }]</InArgument>
                                       <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                                         <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
                                       </InArgument>
@@ -731,12 +1207,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Validate the attachment (e.g., an adaptive card) in the agent's response using AI. You can enter validation instructions, which will be passed to the AI. It will validate the response based on these instructions and determine the test case result. Select Apply to see an example (existing values will be overwritten)." LabelId="49676ae9-ffaf-4b16-9388-2955d56a8cf9" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Adaptive Card Invoke Actions submits JSON payload to the agent, typically as input to adaptive card. Select Apply to see an example (existing values will be overwritten)." LabelId="4de274dd-71a5-4fd8-b4fd-148bd3ab62f8" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">50d9c101-a6e9-4027-8917-d29b46e3c139</s:Guid>
-                              <x:String x:Key="UniqueName">id_25df768e2cfe4a5db320596ab7900e48ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">6929a691-830f-4dde-91a9-7fb18430f246</s:Guid>
+                              <x:String x:Key="UniqueName">id_4d9a417dc92c4ef38029e9a1b79dbd60ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -751,10 +1227,10 @@
                 </mxswa:ActivityReference.Properties>
               </mxswa:ActivityReference>
               <x:Null x:Key="Else" />
-              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.) And Comparison Operator = AI Validation</x:String>
+              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.) And Operation Type = Invoke Action</x:String>
             </mxswa:ActivityReference.Properties>
           </mxswa:ActivityReference>
-          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep5_1]">
+          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep6_2]">
             <mxswa:GetEntityProperty.TargetType>
               <InArgument x:TypeArguments="s:Type">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
@@ -766,27 +1242,62 @@
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "3" }]</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "3", "Picklist" }]</InArgument>
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
-                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep5_2]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep6_3]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
-              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep5_2 }]</InArgument>
-              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep5_1]</InArgument>
-              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep5_condition]</OutArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep6_3 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep6_2]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep6_1]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
-          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep5">
+          <mxswa:GetEntityProperty Attribute="cat_operationtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep6_5]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
             <mxswa:ActivityReference.Arguments>
-              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[ConditionBranchStep5_condition]</InArgument>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "1", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep6_6]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep6_6 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep6_5]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep6_4]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateLogicalCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateLogicalCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:LogicalOperator" x:Key="LogicalOperator">And</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="LeftOperand">[ConditionBranchStep6_1]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep6_4]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep6_condition]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep6">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[ConditionBranchStep6_condition]</InArgument>
             </mxswa:ActivityReference.Arguments>
             <mxswa:ActivityReference.Properties>
-              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep5">
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep6">
                 <mxswa:ActivityReference.Properties>
                   <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                   <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -822,6 +1333,30 @@
                       <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep29" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
                       <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
                     </Sequence>
+                    <Sequence DisplayName="SetFieldRequiredLevelStep51: Set Adaptive Card Payload Not Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_adaptivecardpayload" ControlType="standard" DisplayName="SetFieldRequiredLevelStep51" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep52: Hide Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetAttributeValueStep53: Clear Adaptive Card Payload">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep53_1" />
+                      </Sequence.Variables>
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mxswa:SetEntityProperty Attribute="cat_adaptivecardpayload" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep53_1]">
+                        <mxswa:SetEntityProperty.TargetType>
+                          <InArgument x:TypeArguments="s:Type">
+                            <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:String" />
+                          </InArgument>
+                        </mxswa:SetEntityProperty.TargetType>
+                      </mxswa:SetEntityProperty>
+                      <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep53" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                      <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                    </Sequence>
                     <Sequence DisplayName="SetMessageStep12: External Attachments JSON">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
@@ -829,6 +1364,32 @@
                             <mxswa:ActivityReference.Properties>
                               <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                               <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                                <Sequence DisplayName="SetAttributeValueStep5856: Set Operation Type">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep5856_1" />
+                                  </Sequence.Variables>
+                                  <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                                  <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                                  <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+                                    <mxswa:ActivityReference.Arguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+                                      <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "1", "Picklist" }]</InArgument>
+                                      <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                      <OutArgument x:TypeArguments="x:Object" x:Key="Result">[SetAttributeValueStep5856_1]</OutArgument>
+                                    </mxswa:ActivityReference.Arguments>
+                                  </mxswa:ActivityReference>
+                                  <mxswa:SetEntityProperty Attribute="cat_operationtypecode" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" Value="[SetAttributeValueStep5856_1]">
+                                    <mxswa:SetEntityProperty.TargetType>
+                                      <InArgument x:TypeArguments="s:Type">
+                                        <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+                                      </InArgument>
+                                    </mxswa:SetEntityProperty.TargetType>
+                                  </mxswa:SetEntityProperty>
+                                  <mcwc:SetAttributeValue DisplayName="SetAttributeValueStep5856" Entity="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" EntityName="cat_copilottest" />
+                                  <Assign x:TypeArguments="mxs:Entity" To="[InputEntities(&quot;primaryEntity&quot;)]" Value="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" />
+                                </Sequence>
                                 <Sequence DisplayName="SetAttributeValueStep1267: Set Attachments JSON">
                                   <Sequence.Variables>
                                     <Variable x:TypeArguments="x:Object" Name="SetAttributeValueStep1267_1" />
@@ -925,12 +1486,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Describe the array of attachments the copilot is expected to return that will contain the JSON records for the Adaptive Cards or Basic Cards. Select Apply to see an example (existing values will be overwritten)." LabelId="2da78551-6e62-479a-ab7a-05215bbf3854" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Describe the array of attachments the copilot is expected to return that will contain the JSON records for the Adaptive Cards or Basic Cards. Select Apply to see an example (existing values will be overwritten)." LabelId="cad0af05-509f-44b1-9759-f3389181822d" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">fb885b65-f2bd-48ff-ae78-d4bd99f99129</s:Guid>
-                              <x:String x:Key="UniqueName">id_56f9eb7dcfee4287b926b0c5496ff5d2ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">4d9a1939-ede2-4873-918a-e9b29d7e3c9c</s:Guid>
+                              <x:String x:Key="UniqueName">id_4456f81bf7b9446cb2d6e1fcf317ba39ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
@@ -945,7 +1506,7 @@
                 </mxswa:ActivityReference.Properties>
               </mxswa:ActivityReference>
               <x:Null x:Key="Else" />
-              <x:String x:Key="Description">If Test Type = Attachments (Adaptive Cards, etc.)</x:String>
+              <x:String x:Key="Description">If Test Type Equals Attachments (Adaptive Cards, etc.) AND Operation Type Equals [Comparison Operator</x:String>
             </mxswa:ActivityReference.Properties>
           </mxswa:ActivityReference>
           <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
@@ -955,15 +1516,15 @@
               <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
                 <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
               </InArgument>
-              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep6_1]</OutArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep7_1]</OutArgument>
             </mxswa:ActivityReference.Arguments>
           </mxswa:ActivityReference>
-          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep6">
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep7">
             <mxswa:ActivityReference.Arguments>
               <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[True]</InArgument>
             </mxswa:ActivityReference.Arguments>
             <mxswa:ActivityReference.Properties>
-              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep6">
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep7">
                 <mxswa:ActivityReference.Properties>
                   <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                   <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
@@ -982,6 +1543,14 @@
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep31: Hide Validation Instructions">
                       <mcwc:SetVisibility ControlId="cat_validationinstructions" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetFieldRequiredLevelStep54: Set Adaptive Card Payload Not Required">
+                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
+                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
+                      <mcwc:SetFieldRequiredLevel ControlId="cat_adaptivecardpayload" ControlType="standard" DisplayName="SetFieldRequiredLevelStep54" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep55: Hide Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>

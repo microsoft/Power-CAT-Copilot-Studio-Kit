@@ -13,6 +13,46 @@
         <Description description="" languagecode="1033" />
       </Descriptions>
       <attributes>
+        <attribute PhysicalName="cat_AgentIdentifier">
+          <Type>nvarchar</Type>
+          <Name>cat_agentidentifier</Name>
+          <LogicalName>cat_agentidentifier</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>text</Format>
+          <MaxLength>100</MaxLength>
+          <Length>200</Length>
+          <displaynames>
+            <displayname description="Agent Identifier" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Schema name from the Copilot Studio agent metadata, used as a unique identifier for the agent." languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="cat_AzureAppInsightsApplicationId">
           <Type>nvarchar</Type>
           <Name>cat_azureappinsightsapplicationid</Name>
@@ -844,6 +884,46 @@
             <Description description="" languagecode="1033" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="cat_EnvironmentId">
+          <Type>nvarchar</Type>
+          <Name>cat_environmentid</Name>
+          <LogicalName>cat_environmentid</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>text</Format>
+          <MaxLength>36</MaxLength>
+          <Length>72</Length>
+          <displaynames>
+            <displayname description="Environment Id" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Unique identifier of the environment where the Copilot Studio agent is configured." languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="cat_GenerativeAIProviderCode">
           <Type>picklist</Type>
           <Name>cat_generativeaiprovidercode</Name>
@@ -1507,7 +1587,7 @@
             <displayname description="User Auth Environment Variable" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="Holds the name of the environment variable configured to retrieve a secret from Azure Key Vault." languagecode="1033" />
+            <Description description="Name of the environment variable configured to retrieve the secret from Azure Key Vault." languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="cat_UserAuthSecretLocationCode">
@@ -1546,7 +1626,7 @@
             <displayname description="User Auth Secret Location" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="User Auth Secret Location is a choice column that specifies where the user authentication secret is stored, either in Dataverse or Azure Key Vault." languagecode="1033" />
+            <Description description="User authentication secret location. Either Dataverse or Azure Key Vault" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedBy">

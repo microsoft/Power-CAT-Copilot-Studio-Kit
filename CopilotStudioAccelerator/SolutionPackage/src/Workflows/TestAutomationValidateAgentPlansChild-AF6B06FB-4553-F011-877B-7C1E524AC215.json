@@ -65,11 +65,19 @@
                   "x-ms-dynamically-added": true,
                   "description": "Please enter your input",
                   "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "ErrorDetails",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
                 }
               },
               "required": [
                 "text",
-                "text_1"
+                "text_1",
+                "text_2"
               ]
             }
           }
@@ -107,7 +115,11 @@
           "foreach": "@outputs('Get_Copilot_Test_Results')?['body/value']",
           "actions": {
             "List_rows_from_selected_environment:_Get_Conversation_Transcripts": {
-              "runAfter": {},
+              "runAfter": {
+                "Set_variable:_TranscriptActivities": [
+                  "Succeeded"
+                ]
+              },
               "metadata": {
                 "operationMetadataId": "70031cec-f284-4b6b-931d-2e6b8593896e"
               },
@@ -122,7 +134,8 @@
                   "organization": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']",
                   "entityName": "conversationtranscripts",
                   "$select": "content",
-                  "$filter": "startswith(name, '@{items('Apply_to_each:_Test_Result')?['cat_name']}')"
+                  "$filter": "startswith(name, '@{items('Apply_to_each:_Test_Result')?['cat_name']}')",
+                  "$orderby": "createdon asc"
                 },
                 "authentication": {
                   "type": "Raw",
@@ -139,7 +152,7 @@
                   },
                   "type": "ParseJson",
                   "inputs": {
-                    "content": "@outputs('List_rows_from_selected_environment:_Get_Conversation_Transcripts')?['body/value'][0]?['content']",
+                    "content": "@outputs('Combined_Conversation_Transcripts')",
                     "schema": {
                       "type": "object",
                       "properties": {
@@ -263,7 +276,7 @@
                                   "type": "Query",
                                   "inputs": {
                                     "from": "@outputs('List_rows_from_selected_environment:_Read_Agent_Bot_Components')?['body/value']",
-                                    "where": "@equals(item()?['schemaname'], items('Apply_to_each:_Steps'))"
+                                    "where": "@or(\n    equals(item()?['schemaname'], items('Apply_to_each:_Steps')),\n    and(\n        startsWith(items('Apply_to_each:_Steps'), 'MCP:'),\n        equals(\n            split(items('Apply_to_each:_Steps'), ':')[1],\n            item()?['schemaname']\n        )\n    )\n)"
                                   }
                                 },
                                 "Condition:_Check_for_Valid_Tools": {
@@ -286,7 +299,7 @@
                                         "operationMetadataId": "edbfef32-7740-4046-80e9-e7eb48d2fd96"
                                       },
                                       "type": "Compose",
-                                      "inputs": "@if(\n  contains(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName: '),\n  trim(\n    replace(\n      replace(\n        coalesce(\n          if(contains(outputs('Compose:_Tool_Record')?['data'], 'modelDescription:'), split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], 'modelDescription:')[0], null),\n          if(contains(outputs('Compose:_Tool_Record')?['data'], 'outputs:'), split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], 'outputs:')[0], null),\n          if(contains(outputs('Compose:_Tool_Record')?['data'], 'action:'), split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], 'action:')[0], null),\n          split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], '\\r\\n')[0]\n        ),\n        '\\r\\n', ''\n      ),\n      '\\n', ''\n    )\n  ),\n  null\n)"
+                                      "inputs": "@if(\n    startsWith(items('Apply_to_each:_Steps'), 'MCP:'),\n    last(split(items('Apply_to_each:_Steps'), ':')),\n\tif(\n\t  contains(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName: '),\n\t  trim(\n\t\treplace(\n\t\t  replace(\n\t\t\tcoalesce(\n\t\t\t  if(contains(outputs('Compose:_Tool_Record')?['data'], 'modelDescription:'), split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], 'modelDescription:')[0], null),\n\t\t\t  if(contains(outputs('Compose:_Tool_Record')?['data'], 'outputs:'), split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], 'outputs:')[0], null),\n\t\t\t  if(contains(outputs('Compose:_Tool_Record')?['data'], 'action:'), split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], 'action:')[0], null),\n\t\t\t  split(split(outputs('Compose:_Tool_Record')?['data'], 'modelDisplayName:')[1], '\\r\\n')[0]\n\t\t\t),\n\t\t\t'\\r\\n', ''\n\t\t  ),\n\t\t  '\\n', ''\n\t\t)\n\t  ),\n\t  null\n\t)\n)"
                                     },
                                     "Compose:_Flow_Id": {
                                       "runAfter": {
@@ -639,7 +652,7 @@
                                 }
                               },
                               "Apply_to_each:_DynamicPlanReceived_Multitun": {
-                                "foreach": "@body('Filter_array:_DynamicPlanReceived_Multiturn')",
+                                "foreach": "@if( not(empty(body('Filter_array:_DynamicPlanReceived_Multiturn'))),\r\n\tbody('Filter_array:_DynamicPlanReceived_Multiturn'),\r\n\tbody('Filter_array:_Previous_DynamicPlanReceived_Element')\r\n)",
                                 "actions": {
                                   "Apply_to_each:_Steps_Multiturn": {
                                     "foreach": "@items('Apply_to_each:_DynamicPlanReceived_Multitun')?['activity']?['value']?['steps']",
@@ -652,7 +665,7 @@
                                         "type": "Query",
                                         "inputs": {
                                           "from": "@outputs('List_rows_from_selected_environment:_Read_Agent_Bot_Components')?['body/value']",
-                                          "where": "@equals(item()?['schemaname'], items('Apply_to_each:_Steps_Multiturn'))"
+                                          "where": "@or(\n    equals(item()?['schemaname'], items('Apply_to_each:_Steps_Multiturn')),\n    and(\n        startsWith(items('Apply_to_each:_Steps_Multiturn'), 'MCP:'),\n        equals(\n            split(items('Apply_to_each:_Steps_Multiturn'), ':')[1],\n            item()?['schemaname']\n        )\n    )\n)"
                                         }
                                       },
                                       "Condition:_Check_for_Valid_Tools_Multiturn": {
@@ -675,7 +688,7 @@
                                               "operationMetadataId": "edbfef32-7740-4046-80e9-e7eb48d2fd96"
                                             },
                                             "type": "Compose",
-                                            "inputs": "@if(\n  contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName: '),\n  trim(\n    replace(\n      replace(\n        coalesce(\n          if(contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDescription:'), split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], 'modelDescription:')[0], null),\n          if(contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'outputs:'), split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], 'outputs:')[0], null),\n          if(contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'action:'), split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], 'action:')[0], null),\n          split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], '\\r\\n')[0]\n        ),\n        '\\r\\n', ''\n      ),\n      '\\n', ''\n    )\n  ),\n  null\n)"
+                                            "inputs": "@if(\n    startsWith(items('Apply_to_each:_Steps_Multiturn'), 'MCP:'),\n    last(split(items('Apply_to_each:_Steps_Multiturn'), ':')),\n    if(\n\t  contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName: '),\n\t  trim(\n\t\treplace(\n\t\t  replace(\n\t\t\tcoalesce(\n\t\t\t  if(contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDescription:'), split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], 'modelDescription:')[0], null),\n\t\t\t  if(contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'outputs:'), split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], 'outputs:')[0], null),\n\t\t\t  if(contains(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'action:'), split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], 'action:')[0], null),\n\t\t\t  split(split(outputs('Compose:_Tool_Record_Multiturn')?['data'], 'modelDisplayName:')[1], '\\r\\n')[0]\n\t\t\t),\n\t\t\t'\\r\\n', ''\n\t\t  ),\n\t\t  '\\n', ''\n\t\t)\n\t  ),\n\t  null\n\t)\n  )\n"
                                           },
                                           "Compose:_Flow_Id_Multiturn": {
                                             "runAfter": {
@@ -773,7 +786,7 @@
                                   }
                                 },
                                 "runAfter": {
-                                  "Filter_array:_DynamicPlanReceived_Multiturn": [
+                                  "Filter_array:_Previous_DynamicPlanReceived_Element": [
                                     "Succeeded"
                                   ]
                                 },
@@ -859,6 +872,21 @@
                                 "inputs": {
                                   "from": "@body('Select:_Add_index_property')",
                                   "where": "@and(equals(item()?['activity']?['type'], 'message'), equals(item()?['activity']?['from']?['role'], 1), equals(item()?['activity']?['text'], items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testutterance']))"
+                                }
+                              },
+                              "Filter_array:_Previous_DynamicPlanReceived_Element": {
+                                "runAfter": {
+                                  "Filter_array:_DynamicPlanReceived_Multiturn": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "c95bdf43-6b2c-4027-857a-962cd31dc5a6"
+                                },
+                                "type": "Query",
+                                "inputs": {
+                                  "from": "@body('Select:_Add_index_property')",
+                                  "where": "@and(\n\tequals(item()?['activity']?['valueType'], 'DynamicPlanReceived'), \n\tless(item()?['index'], first(body('Filter_array:_Current_Element'))?['index'])\n)"
                                 }
                               }
                             },
@@ -963,7 +991,7 @@
                       },
                       "Update_a_row:_Parent_Multiturn_Agent_Test_Result": {
                         "runAfter": {
-                          "Compose": [
+                          "Apply_to_each:_Child_Agent_Test_Results": [
                             "Succeeded"
                           ]
                         },
@@ -987,18 +1015,6 @@
                             "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
                           }
                         }
-                      },
-                      "Compose": {
-                        "runAfter": {
-                          "Apply_to_each:_Child_Agent_Test_Results": [
-                            "Succeeded"
-                          ]
-                        },
-                        "metadata": {
-                          "operationMetadataId": "9bbd5a9a-db3a-4531-93f4-0d10c8357c69"
-                        },
-                        "type": "Compose",
-                        "inputs": "@{greater(length(outputs('List_rows:_Get_Child_Test_Results')?['body/value']), 0)}\n\n@{items('Apply_to_each:_Test_Result')?['cat_resultcode']}\n\n@{if( greater(length(outputs('List_rows:_Get_Child_Test_Results')?['body/value']), 0), \r\n\tif(variables('MultiturnPendingResult'), \r\n\t\t5, \r\n\t\tif(greater(variables('MultiturnResult'), 0), \r\n\t\t\tvariables('MultiturnResult'), \r\n\t\t\titems('Apply_to_each:_Test_Result')?['cat_resultcode']\r\n\t\t)\r\n\t), \r\n\titems('Apply_to_each:_Test_Result')?['cat_resultcode']\r\n)}"
                       }
                     }
                   },
@@ -1017,7 +1033,7 @@
                 }
               },
               "runAfter": {
-                "List_rows_from_selected_environment:_Get_Conversation_Transcripts": [
+                "Combined_Conversation_Transcripts": [
                   "Succeeded"
                 ]
               },
@@ -1060,6 +1076,76 @@
                 "operationMetadataId": "ff1b91a3-8dab-4853-a8d3-9ab64088a325"
               },
               "type": "If"
+            },
+            "Set_variable:_TranscriptActivities": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "1d35bc8b-864e-48ce-8c81-2fa84154e032"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "TranscriptActivities",
+                "value": []
+              }
+            },
+            "Apply_to_each_Conversation_Transcript": {
+              "foreach": "@outputs('List_rows_from_selected_environment:_Get_Conversation_Transcripts')?['body/value']",
+              "actions": {
+                "Extract_Conversation_Activities": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "6424bec4-94cb-499a-87a3-a7f21ab9473e"
+                  },
+                  "type": "Compose",
+                  "inputs": "@json(items('Apply_to_each_Conversation_Transcript')?['content'])?['activities']"
+                },
+                "Apply_to_each_Activities_Value": {
+                  "foreach": "@outputs('Extract_Conversation_Activities')",
+                  "actions": {
+                    "Append_to_array_variable:_AllActivities": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "00d9e00c-0e8e-4b2e-bbda-08cdd476d74b"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "TranscriptActivities",
+                        "value": "@item()"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Extract_Conversation_Activities": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "78dbeaec-00c2-49f4-821a-b64e0fb63f31"
+                  },
+                  "type": "Foreach"
+                }
+              },
+              "runAfter": {
+                "List_rows_from_selected_environment:_Get_Conversation_Transcripts": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "ec2bae92-6cf2-4240-ab42-8f98c7567b61"
+              },
+              "type": "Foreach"
+            },
+            "Combined_Conversation_Transcripts": {
+              "runAfter": {
+                "Apply_to_each_Conversation_Transcript": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "2ed5c6e0-4787-4c78-af25-56aae86d85db"
+              },
+              "type": "Compose",
+              "inputs": "@json(\r\n   concat(\r\n      '{\"activities\":',\r\n      string(\r\n         union(\r\n            variables('TranscriptActivities'),\r\n            variables('TranscriptActivities')\r\n         )\r\n      ),\r\n      '}'\r\n   )\r\n)\r\n"
             }
           },
           "runAfter": {
@@ -1190,7 +1276,7 @@
         },
         "Get_Flow_Endpoint": {
           "runAfter": {
-            "Initialize_variable:_MultiturnPendingResult": [
+            "Initialize_variable:_TranscriptActivities": [
               "Succeeded"
             ]
           },
@@ -1298,7 +1384,7 @@
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerBody()['text_1']",
               "item/cat_dataverseenrichmentstatuscode": 3,
-              "item/cat_errordetails": "@concat(\n  outputs('Update_Copilot_Test_Run:_Running')?['body/cat_errordetails'],\n  '<br/>',\n  '<strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"',\n  outputs('Get_Flow_Endpoint'),\n  'environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)"
+              "item/cat_errordetails": "@concat(\n  triggerBody()['text_2'],\n  '<br/>',\n  '<strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"',\n  outputs('Get_Flow_Endpoint'),\n  'environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)"
             },
             "authentication": {
               "type": "Raw",
@@ -1420,6 +1506,25 @@
               "type": "Raw",
               "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
             }
+          }
+        },
+        "Initialize_variable:_TranscriptActivities": {
+          "runAfter": {
+            "Initialize_variable:_MultiturnPendingResult": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "85000595-c941-483a-8c4e-9ebb17b52df8"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "TranscriptActivities",
+                "type": "array"
+              }
+            ]
           }
         }
       }

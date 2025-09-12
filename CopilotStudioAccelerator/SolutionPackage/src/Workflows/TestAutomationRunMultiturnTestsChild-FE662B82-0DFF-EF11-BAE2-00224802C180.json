@@ -2,33 +2,30 @@
   "properties": {
     "connectionReferences": {
       "shared_commondataserviceforapps_1": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        }
+        "runtimeSource": "embedded"
       }
     },
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
-        },
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
         }
       },
       "triggers": {
         "manual": {
-          "metadata": {
-            "operationMetadataId": "a2bccfe2-6feb-47f7-bffe-dc8a94216e2d"
-          },
           "type": "Request",
           "kind": "Button",
           "inputs": {
@@ -119,15 +116,14 @@
                 "boolean_2"
               ]
             }
+          },
+          "metadata": {
+            "operationMetadataId": "a2bccfe2-6feb-47f7-bffe-dc8a94216e2d"
           }
         }
       },
       "actions": {
         "Initialize_variable:_ContinueMultiturnProcessing": {
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "bfa823e7-3504-432e-990e-589d29149f0b"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -137,17 +133,13 @@
                 "value": "@true"
               }
             ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "bfa823e7-3504-432e-990e-589d29149f0b"
           }
         },
         "Initialize_variable:_MultiturnResult": {
-          "runAfter": {
-            "Initialize_variable:_ContinueMultiturnProcessing": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "a3125a46-5313-4d02-bbfb-057eceb6cd97"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -157,17 +149,17 @@
                 "value": 1
               }
             ]
-          }
-        },
-        "Initialize_variable:_MultiturnPendingResult": {
+          },
           "runAfter": {
-            "Initialize_variable:_MultiturnResult": [
+            "Initialize_variable:_ContinueMultiturnProcessing": [
               "Succeeded"
             ]
           },
           "metadata": {
-            "operationMetadataId": "cd2678c6-278c-4208-b809-513e48fa9363"
-          },
+            "operationMetadataId": "a3125a46-5313-4d02-bbfb-057eceb6cd97"
+          }
+        },
+        "Initialize_variable:_MultiturnPendingResult": {
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -177,11 +169,33 @@
                 "value": "@false"
               }
             ]
+          },
+          "runAfter": {
+            "Initialize_variable:_MultiturnResult": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cd2678c6-278c-4208-b809-513e48fa9363"
           }
         },
         "Scope:_Try": {
+          "type": "Scope",
           "actions": {
             "Initiate_Conversation_For_Multiturn_Test": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "actionName": "cat_InitiateConversation",
+                  "item/cat_Token": "@triggerBody()['text_3']",
+                  "item/cat_BotFrameworkUri": "@triggerBody()['text_6']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
               "runAfter": {
                 "List_rows:_Get_Child_Agent_Tests": [
                   "Succeeded"
@@ -189,41 +203,11 @@
               },
               "metadata": {
                 "operationMetadataId": "7af2e74d-db42-4a35-940f-24b9d8e80da4"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "PerformUnboundAction",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "actionName": "cat_InitiateConversation",
-                  "item/cat_Token": "@triggerBody()['text_3']",
-                  "item/cat_BotFrameworkUri": "@triggerBody()['text_6']"
-                },
-                "authentication": {
-                  "type": "Raw",
-                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                }
               }
             },
             "Add_a_new_row:_Agent_Test_Results_for_Multiturn_Test": {
-              "runAfter": {
-                "Initiate_Conversation_For_Multiturn_Test": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "245488e3-60d0-432d-aff5-b9ac129aac95"
-              },
               "type": "OpenApiConnection",
               "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "CreateRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
                 "parameters": {
                   "entityName": "cat_copilottestresults",
                   "item/cat_CopilotTestId@odata.bind": "cat_copilottests(@{triggerBody()['text_2']})",
@@ -232,46 +216,36 @@
                   "item/cat_resultcode": 5,
                   "item/cat_testtypecode": 5
                 },
-                "authentication": {
-                  "type": "Raw",
-                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
                 }
+              },
+              "runAfter": {
+                "Initiate_Conversation_For_Multiturn_Test": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "245488e3-60d0-432d-aff5-b9ac129aac95"
               }
             },
             "Apply_to_each:_Child_Test": {
+              "type": "Foreach",
               "foreach": "@outputs('List_rows:_Get_Child_Agent_Tests')?['body/value']",
               "actions": {
                 "Condition:_Check_to_continue_Multiturn_processing": {
+                  "type": "If",
+                  "expression": {
+                    "equals": [
+                      "@variables('ContinueMultiTurnProcessing')",
+                      "@true"
+                    ]
+                  },
                   "actions": {
                     "Condition:_If_External_Variables_MultiTurn": {
-                      "actions": {
-                        "Send_pvaSetContext_Event_MultiTurn": {
-                          "runAfter": {},
-                          "metadata": {
-                            "operationMetadataId": "74f0f5db-0738-4006-a8b7-61d7f1b0562e"
-                          },
-                          "type": "OpenApiConnection",
-                          "inputs": {
-                            "host": {
-                              "connectionName": "shared_commondataserviceforapps_1",
-                              "operationId": "PerformUnboundAction",
-                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                            },
-                            "parameters": {
-                              "actionName": "cat_SendMessageOrEvent",
-                              "item/cat_ConverationId": "@triggerBody()['text_4']",
-                              "item/cat_Token": "@triggerBody()['text_3']",
-                              "item/cat_Body": "{\n  \"type\": \"event\",\n  \"from\": {\n    \"id\": \"@{triggerBody()['text']}\"\n  },\n  \"name\": \"pvaSetContext\",\n  \"value\": @{json(items('Apply_to_each:_Child_Test')?['cat_externalvariablesjson'])}\n}",
-                              "item/cat_BotFrameworkUri": "@triggerBody()['text_6']"
-                            },
-                            "authentication": {
-                              "type": "Raw",
-                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                            }
-                          }
-                        }
-                      },
-                      "runAfter": {},
+                      "type": "If",
                       "expression": {
                         "not": {
                           "equals": [
@@ -280,25 +254,47 @@
                           ]
                         }
                       },
-                      "metadata": {
-                        "operationMetadataId": "550099ac-1e76-48c1-826c-bdfdcd6a2582"
-                      },
-                      "type": "If"
-                    },
-                    "Condition:_If_Send_startConversation_Event_MultiTurn": {
                       "actions": {
-                        "Send_startConversation_Event_MultiTurn": {
-                          "runAfter": {},
-                          "metadata": {
-                            "operationMetadataId": "74f0f5db-0738-4006-a8b7-61d7f1b0562e"
-                          },
+                        "Send_pvaSetContext_Event_MultiTurn": {
                           "type": "OpenApiConnection",
                           "inputs": {
-                            "host": {
-                              "connectionName": "shared_commondataserviceforapps_1",
-                              "operationId": "PerformUnboundAction",
-                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                            "parameters": {
+                              "actionName": "cat_SendMessageOrEvent",
+                              "item/cat_ConverationId": "@triggerBody()['text_4']",
+                              "item/cat_Token": "@triggerBody()['text_3']",
+                              "item/cat_Body": "{\n  \"type\": \"event\",\n  \"from\": {\n    \"id\": \"@{triggerBody()['text']}\"\n  },\n  \"name\": \"pvaSetContext\",\n  \"value\": @{json(items('Apply_to_each:_Child_Test')?['cat_externalvariablesjson'])}\n}",
+                              "item/cat_BotFrameworkUri": "@triggerBody()['text_6']"
                             },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "PerformUnboundAction",
+                              "connectionName": "shared_commondataserviceforapps_1"
+                            }
+                          },
+                          "metadata": {
+                            "operationMetadataId": "74f0f5db-0738-4006-a8b7-61d7f1b0562e"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      },
+                      "metadata": {
+                        "operationMetadataId": "550099ac-1e76-48c1-826c-bdfdcd6a2582"
+                      }
+                    },
+                    "Condition:_If_Send_startConversation_Event_MultiTurn": {
+                      "type": "If",
+                      "expression": {
+                        "equals": [
+                          "@items('Apply_to_each:_Child_Test')?['cat_isstartconversationeventsent']",
+                          true
+                        ]
+                      },
+                      "actions": {
+                        "Send_startConversation_Event_MultiTurn": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
                             "parameters": {
                               "actionName": "cat_SendMessageOrEvent",
                               "item/cat_ConverationId": "@triggerBody()['text_4']",
@@ -306,30 +302,45 @@
                               "item/cat_Body": "{\n  \"type\": \"event\",\n  \"from\": {\n    \"id\": \"@{triggerBody()['text']}\"\n  },\n  \"name\": \"startConversation\"\n}",
                               "item/cat_BotFrameworkUri": "@triggerBody()['text_6']"
                             },
-                            "authentication": {
-                              "type": "Raw",
-                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "PerformUnboundAction",
+                              "connectionName": "shared_commondataserviceforapps_1"
                             }
+                          },
+                          "metadata": {
+                            "operationMetadataId": "74f0f5db-0738-4006-a8b7-61d7f1b0562e"
                           }
                         }
+                      },
+                      "else": {
+                        "actions": {}
                       },
                       "runAfter": {
                         "Condition:_If_External_Variables_MultiTurn": [
                           "Succeeded"
                         ]
                       },
-                      "expression": {
-                        "equals": [
-                          "@items('Apply_to_each:_Child_Test')?['cat_isstartconversationeventsent']",
-                          true
-                        ]
-                      },
                       "metadata": {
                         "operationMetadataId": "550099ac-1e76-48c1-826c-bdfdcd6a2582"
-                      },
-                      "type": "If"
+                      }
                     },
                     "Send_Test_Utterance_for_child_test": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "actionName": "cat_SendMessageOrEvent",
+                          "item/cat_ConverationId": "@triggerBody()['text_4']",
+                          "item/cat_Token": "@triggerBody()['text_3']",
+                          "item/cat_Body": "{\n  \"type\": \"message\",\n  \"from\": {\n    \"id\": \"@{triggerBody()?['text']}\"\n  },\n  \"@{if(equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3), 'value' , 'text')}\": @{if(\r\n  equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3),\r\n  json(string(items('Apply_to_each:_Child_Test')?['cat_adaptivecardpayload'])),\r\n  concat(\r\n    '\"',\r\n    replace(items('Apply_to_each:_Child_Test')?['cat_testutterance'], '\"', '\\\"'),\r\n    '\"'\r\n  )\r\n)\r\n}\n}",
+                          "item/cat_BotFrameworkUri": "@triggerBody()['text_6']"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "PerformUnboundAction",
+                          "connectionName": "shared_commondataserviceforapps_1"
+                        }
+                      },
                       "runAfter": {
                         "Condition:_If_Send_startConversation_Event_MultiTurn": [
                           "Succeeded"
@@ -337,43 +348,43 @@
                       },
                       "metadata": {
                         "operationMetadataId": "db472735-2a7d-4906-921e-227c71ece895"
-                      },
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "host": {
-                          "connectionName": "shared_commondataserviceforapps_1",
-                          "operationId": "PerformUnboundAction",
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                        },
-                        "parameters": {
-                          "actionName": "cat_SendMessageOrEvent",
-                          "item/cat_ConverationId": "@triggerBody()['text_4']",
-                          "item/cat_Token": "@triggerBody()['text_3']",
-                          "item/cat_Body": "{\n  \"type\": \"message\",\n  \"from\": {\n    \"id\": \"@{triggerBody()['text']}\"\n  },\n  \"text\": \"@{replace(items('Apply_to_each:_Child_Test')?['cat_testutterance'], '\"', '\\\"')}\"\n}",
-                          "item/cat_BotFrameworkUri": "@triggerBody()['text_6']"
-                        },
-                        "authentication": {
-                          "type": "Raw",
-                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                        }
                       }
                     },
                     "Do_until_bot_responds_or_till_timeout_for_child_test": {
+                      "type": "Until",
+                      "expression": "@if(equals(items('Apply_to_each:_Child_Test')?['cat_isstartconversationeventsent'], true), greater(length(body('Filter_array:_Messages_from_Bot_for_child_test')), 1), greater(length(body('Filter_array:_Messages_from_Bot_for_child_test')), 0))",
+                      "limit": {
+                        "count": 25,
+                        "timeout": "PT3M"
+                      },
                       "actions": {
                         "Delay_before_fetching_responses_for_child_test": {
-                          "runAfter": {},
-                          "metadata": {
-                            "operationMetadataId": "4c00dfa0-1ae9-4896-a472-0546a41ffdc8"
-                          },
                           "type": "Wait",
                           "inputs": {
                             "interval": {
                               "count": "@if(equals(items('Apply_to_each:_Child_Test')?['cat_secondsbeforegettinganswer'], null),\n\tif( equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 4),\n\t\t10,\n\t\t5\n\t),\n\titems('Apply_to_each:_Child_Test')?['cat_secondsbeforegettinganswer']\n)",
                               "unit": "Second"
                             }
+                          },
+                          "metadata": {
+                            "operationMetadataId": "4c00dfa0-1ae9-4896-a472-0546a41ffdc8"
                           }
                         },
                         "Get_Activities_for_child_test": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "actionName": "cat_GetResponse",
+                              "item/cat_ConverationId": "@triggerBody()['text_4']",
+                              "item/cat_BotFrameworkUri": "@triggerBody()['text_6']",
+                              "item/cat_Token": "@triggerBody()['text_3']"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "PerformUnboundAction",
+                              "connectionName": "shared_commondataserviceforapps_1"
+                            }
+                          },
                           "runAfter": {
                             "Delay_before_fetching_responses_for_child_test": [
                               "Succeeded"
@@ -381,35 +392,9 @@
                           },
                           "metadata": {
                             "operationMetadataId": "72c0569d-987b-4416-a1da-36ace14c56f5"
-                          },
-                          "type": "OpenApiConnection",
-                          "inputs": {
-                            "host": {
-                              "connectionName": "shared_commondataserviceforapps_1",
-                              "operationId": "PerformUnboundAction",
-                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                            },
-                            "parameters": {
-                              "actionName": "cat_GetResponse",
-                              "item/cat_ConverationId": "@triggerBody()['text_4']",
-                              "item/cat_BotFrameworkUri": "@triggerBody()['text_6']",
-                              "item/cat_Token": "@triggerBody()['text_3']"
-                            },
-                            "authentication": {
-                              "type": "Raw",
-                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                            }
                           }
                         },
                         "Parse_Activities_Response_for_child_test": {
-                          "runAfter": {
-                            "Get_Activities_for_child_test": [
-                              "Succeeded"
-                            ]
-                          },
-                          "metadata": {
-                            "operationMetadataId": "488c476d-25f0-40c4-af46-e09b56f26102"
-                          },
                           "type": "ParseJson",
                           "inputs": {
                             "content": "@outputs('Get_Activities_for_child_test')?['body/cat_Response']",
@@ -608,9 +593,22 @@
                                 }
                               }
                             }
+                          },
+                          "runAfter": {
+                            "Get_Activities_for_child_test": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "488c476d-25f0-40c4-af46-e09b56f26102"
                           }
                         },
                         "Filter_array:_Activities_of_type_Message_for_child_test": {
+                          "type": "Query",
+                          "inputs": {
+                            "from": "@body('Parse_Activities_Response_for_child_test')?['activities']",
+                            "where": "@equals(item()?['type'], 'message')"
+                          },
                           "runAfter": {
                             "Parse_Activities_Response_for_child_test": [
                               "Succeeded"
@@ -618,14 +616,14 @@
                           },
                           "metadata": {
                             "operationMetadataId": "83d3803e-42d9-4d1b-8963-78732c59190a"
-                          },
-                          "type": "Query",
-                          "inputs": {
-                            "from": "@body('Parse_Activities_Response_for_child_test')?['activities']",
-                            "where": "@equals(item()?['type'], 'message')"
                           }
                         },
                         "Filter_array:_Messages_from_Bot_for_child_test": {
+                          "type": "Query",
+                          "inputs": {
+                            "from": "@body('Filter_array:_Activities_of_type_Message_for_child_test')",
+                            "where": "@and(\r\n    equals(item()?['from']?['role'], 'bot'),\r\n    greaterOrEquals(item()?['timestamp'], outputs('Compose:_CurrentTimestamp')),\r\n    empty(first(item()?['attachments'])?['content']?['tokenExchangeResource']?['id']),\r\n    or(\r\n        equals(first(item()?['attachments'])?['contentType'], 'application/vnd.microsoft.card.adaptive'),\r\n        and(\r\n            not(empty(item()?['text'])), \r\n            not(\r\n                or(\r\n                    contains(toLower(item()?['text']), 'need you to sign in'),\r\n                    contains(toLower(item()?['text']), 'please sign in'),\r\n                    contains(toLower(item()?['text']), 'sign in to continue'),\r\n                    contains(toLower(item()?['text']), 'log in to access'),\r\n                    contains(toLower(item()?['text']), 'sign-in required'),\r\n                    contains(toLower(item()?['text']), 'click here to log in')\r\n                )\r\n            )\r\n        )\r\n    )\r\n)"
+                          },
                           "runAfter": {
                             "Filter_array:_Activities_of_type_Message_for_child_test": [
                               "Succeeded"
@@ -633,11 +631,6 @@
                           },
                           "metadata": {
                             "operationMetadataId": "2e772575-37e2-42f7-ba6d-e3e5c92a5136"
-                          },
-                          "type": "Query",
-                          "inputs": {
-                            "from": "@body('Filter_array:_Activities_of_type_Message_for_child_test')",
-                            "where": "@and(\n    equals(item()?['from']?['role'], 'bot'),\n    greaterOrEquals(item()?['timestamp'], outputs('Compose:_CurrentTimestamp')),\n    empty(first(item()?['attachments'])?['content']?['tokenExchangeResource']?['id']),\n    or(\n        equals(first(item()?['attachments'])?['contentType'], 'application/vnd.microsoft.card.adaptive'),\n        and(\n            not(empty(item()?['text'])), \n            not(\n                or(\n                    contains(toLower(item()?['text']), 'need you to sign in'),\n                    contains(toLower(item()?['text']), 'please sign in'),\n                    contains(toLower(item()?['text']), 'sign in to continue'),\n                    contains(toLower(item()?['text']), 'log in to access'),\n                    contains(toLower(item()?['text']), 'sign-in required'),\n                    contains(toLower(item()?['text']), 'click here to log in')\n                )\n            )\n        )\n    )\n)"
                           }
                         }
                       },
@@ -646,17 +639,16 @@
                           "Succeeded"
                         ]
                       },
-                      "expression": "@if(equals(items('Apply_to_each:_Child_Test')?['cat_isstartconversationeventsent'], true), greater(length(body('Filter_array:_Messages_from_Bot_for_child_test')), 1), greater(length(body('Filter_array:_Messages_from_Bot_for_child_test')), 0))",
-                      "limit": {
-                        "count": 25,
-                        "timeout": "PT3M"
-                      },
                       "metadata": {
                         "operationMetadataId": "5a6cbf30-8aba-4d78-8839-f23760e40e57"
-                      },
-                      "type": "Until"
+                      }
                     },
                     "Filter_array:_Messages_from_User_for_child_test": {
+                      "type": "Query",
+                      "inputs": {
+                        "from": "@body('Filter_array:_Activities_of_type_Message_for_child_test')",
+                        "where": "@not(equals(item()?['from']?['role'], 'bot'))"
+                      },
                       "runAfter": {
                         "Do_until_bot_responds_or_till_timeout_for_child_test": [
                           "Succeeded"
@@ -664,14 +656,11 @@
                       },
                       "metadata": {
                         "operationMetadataId": "2e772575-37e2-42f7-ba6d-e3e5c92a5136"
-                      },
-                      "type": "Query",
-                      "inputs": {
-                        "from": "@body('Filter_array:_Activities_of_type_Message_for_child_test')",
-                        "where": "@not(equals(item()?['from']?['role'], 'bot'))"
                       }
                     },
                     "Message_Position_for_child_test": {
+                      "type": "Compose",
+                      "inputs": "@\r\n    if(\r\n        not(equals(items('Apply_to_each:_Child_Test')?['cat_expectedpositionoftheresponseactivity'], null)), \r\n        int(items('Apply_to_each:_Child_Test')?['cat_expectedpositionoftheresponseactivity']), \r\n        if(\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_isstartconversationeventsent'], true), \r\n            if(\r\n                greater(length(body('Filter_array:_Activities_of_type_Message_for_child_test')), 1), \r\n                1, \r\n                0\r\n            ), \r\n            0\r\n        )\r\n    )\r\n",
                       "runAfter": {
                         "Filter_array:_Messages_from_User_for_child_test": [
                           "Succeeded"
@@ -679,37 +668,23 @@
                       },
                       "metadata": {
                         "operationMetadataId": "1cb65d3c-ed22-42f2-b6c4-dab6e07bd180"
-                      },
-                      "type": "Compose",
-                      "inputs": "@\n    if(\n        not(equals(items('Apply_to_each:_Child_Test')?['cat_expectedpositionoftheresponseactivity'], null)), \n        int(items('Apply_to_each:_Child_Test')?['cat_expectedpositionoftheresponseactivity']), \n        if(\n            equals(items('Apply_to_each:_Child_Test')?['cat_isstartconversationeventsent'], true), \n            if(\n                greater(length(body('Filter_array:_Activities_of_type_Message_for_child_test')), 1), \n                1, \n                0\n            ), \n            0\n        )\n    )\n"
+                      }
                     },
                     "Add_a_new_row:_Child_Multiturn_Test_Results": {
-                      "runAfter": {
-                        "Compose:_Attachments_Result_Reason": [
-                          "Succeeded"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "0b9c4307-ba2a-4da1-a0db-31ea0b0ca541"
-                      },
                       "type": "OpenApiConnection",
                       "inputs": {
-                        "host": {
-                          "connectionName": "shared_commondataserviceforapps_1",
-                          "operationId": "CreateRecord",
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                        },
                         "parameters": {
                           "entityName": "cat_copilottestresults",
                           "item/cat_CopilotTestId@odata.bind": "cat_copilottests(@{items('Apply_to_each:_Child_Test')?['cat_copilottestid']})",
                           "item/cat_CopilotTestRunId@odata.bind": "cat_copilottestruns(@{triggerBody()['text']})",
                           "item/cat_name": "@triggerBody()['text_4']",
-                          "item/cat_resultcode": "@if(\r\n\t\tor( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))),\r\n        4, \r\n        if(\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3), \r\n            if(\r\n                equals(outputs('Compose:_Attachments_Result'),true), \r\n                1, \r\n                2\r\n            ), \r\n            if(\r\n                not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])), \r\n                if(\r\n                    or(\r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'ContentError'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'DataLossPreventionViolation'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionException'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionBadRequest'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionTimedOut'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'InvalidContent'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'InfiniteLoopInBotContent'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'LatestPublishedVersionNotFound'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'RedirectToDisabledDialog'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'RedirectToNonExistentDialog'), \r\n                        contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'SystemError')\r\n                    ), \r\n                    4, \r\n                    if(\r\n                        equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 1), \r\n                        if(\r\n\t\t\t\t\t\t\tor(\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tor(\r\n\t\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n\t\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)\r\n\t\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\t\tequals(\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse'],\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\r\n\t\t\t\t\t\t\t\t\t)\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\r\n\t\t\t\t\t\t\t\t\tnot(equals(\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse'],\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\r\n\t\t\t\t\t\t\t\t\t))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n\t\t\t\t\t\t\t\t\tcontains(\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\r\n\t\t\t\t\t\t\t\t\t)\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n\t\t\t\t\t\t\t\t\tnot(contains(\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 5),\r\n\t\t\t\t\t\t\t\t\tstartsWith(\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t)\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 6),\r\n\t\t\t\t\t\t\t\t\tnot(startsWith(\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\r\n\t\t\t\t\t\t\t\t\t))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 7),\r\n\t\t\t\t\t\t\t\t\tendsWith(\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\r\n\t\t\t\t\t\t\t\t\t)\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 8),\r\n\t\t\t\t\t\t\t\t\tnot(endsWith(\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\r\n\t\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\r\n\t\t\t\t\t\t\t\t\t))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 9),\r\n\t\t\t\t\t\t\t\t\tnot(empty(\r\n\t\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\r\n\t\t\t\t\t\t\t\t\t))\r\n\t\t\t\t\t\t\t\t)\r\n\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t1,\r\n\t\t\t\t\t\t\t2\r\n\t\t\t\t\t\t), \r\n                        if(\r\n                            or( equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 2), equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 6) ), \r\n                            if(\r\n                                equals(triggerBody()['boolean'], true), \r\n                                5, \r\n                                3\r\n                            ), \r\n                            if(\r\n                                equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 4), \r\n                                if(\r\n                                    or(\r\n                                        equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 1), \r\n                                        equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 2)\r\n                                    ), \r\n                                    if(\r\n                                        equals(triggerBody()['boolean_1'], true), \r\n                                        5, \r\n                                        3\r\n                                    ), \r\n                                    if(\r\n                                        or(\r\n                                            equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 3), \r\n                                            equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 4)\r\n                                        ), \r\n                                        if(\r\n                                            equals(triggerBody()['boolean_2'], true), \r\n                                            5, \r\n                                            3\r\n                                        ), \r\n                                        3\r\n                                    )\r\n                                ), \r\n                                5\r\n                            )\r\n                        )\r\n                    )\r\n                ), \r\n                3\r\n            )\r\n        )\r\n    )",
+                          "item/cat_resultcode": "@if(\r\n  or(\r\n    empty(body('Filter_array:_Messages_from_Bot_for_child_test')),\r\n    lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))\r\n  ),\r\n  if(\r\n    and(\r\n      equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\r\n      equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3)\r\n    ),\r\n    if(outputs('Compose:_Attachments_Result'), 1, 2),\r\n    4\r\n  ),\r\n  if(\r\n    equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\r\n    if(or(and(equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null), equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10)),\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 2)), \r\n        if(equals(triggerBody()['boolean_1'], true),5,3), if(outputs('Compose:_Attachments_Result'), 1, 2)),\r\n    if(\r\n      or(\r\n        not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),\r\n        not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']))\r\n      ),\r\n      if(\r\n        and(\r\n          not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),\r\n          or(\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'ContentError'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'DataLossPreventionViolation'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionException'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionBadRequest'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionTimedOut'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'InvalidContent'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'InfiniteLoopInBotContent'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'LatestPublishedVersionNotFound'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'RedirectToDisabledDialog'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'RedirectToNonExistentDialog'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'SystemError')\r\n          )\r\n        ),\r\n        4,\r\n        if(\r\n          equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 1),\r\n          if(\r\n            or(\r\n              not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),\r\n              not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']))\r\n            ),\r\n            if(\r\n              or(\r\n                and(\r\n                  or(\r\n                    equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n                    equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)\r\n                  ),\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'], body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\r\n                  not(equals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'], body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']))\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n                  contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n                  not(contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 5),\r\n                  startsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 6),\r\n                  not(startsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 7),\r\n                  endsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 8),\r\n                  not(endsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n                ),\r\n                and(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 9),\r\n                  not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']))\r\n                )\r\n              ),\r\n              1,\r\n              2\r\n            ),\r\n            4\r\n          ),\r\n          if(\r\n            or(\r\n              equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 2),\r\n              equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 6)\r\n            ),\r\n            if(equals(triggerBody()?['boolean'], true), 5, 3),\r\n            if(\r\n              equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 4),\r\n              if(\r\n                or(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 1),\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 2)\r\n                ),\r\n                if(equals(triggerBody()?['boolean_1'], true), 5, 3),\r\n                if(\r\n                  or(\r\n                    equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 3),\r\n                    equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 4)\r\n                  ),\r\n                  if(equals(triggerBody()?['boolean_2'], true), 5, 3),\r\n                  3\r\n                )\r\n              ),\r\n              5\r\n            )\r\n          )\r\n        )\r\n      ),\r\n      3\r\n    )\r\n  )\r\n)\r\n",
                           "item/cat_testtypecode": "@items('Apply_to_each:_Child_Test')?['cat_testtypecode']",
+                          "item/cat_adaptivecardpayload": "@items('Apply_to_each:_Child_Test')?['cat_adaptivecardpayload']",
                           "item/cat_appinsightsmessage": "@if(\n    and ( \n\t\tgreater(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test')), not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['channelData']))\n\t), \n    if(\n        equals( body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['channelData']?['pva:gpt-feedback']?['message'], \n            items('Apply_to_each:_Child_Test')?['cat_testutterance']\n        ), \n        '', \n        body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['channelData']?['pva:gpt-feedback']?['message']\n    ), \n    ''\n)",
-                          "item/cat_attachmentsjson": "@\n    if(\n        or( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))), \n        null, \n        if(\n            empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']), \n            null, \n            string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])\n        )\n    )\n",
-                          "item/cat_comparisonoperator": "@items('Apply_to_each:_Child_Test')?['cat_comparisonoperator']",
-                          "item/cat_expectedattachmentsjson": "@if(\r\n    or(\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10)\r\n    ),\r\n    items('Apply_to_each:_Child_Test')?['cat_validationinstructions'],\r\n    items('Apply_to_each:_Child_Test')?['cat_expectedattachmentsjson']\r\n)",
+                          "item/cat_attachmentsjson": "@\r\n    if(\r\n        or( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))), \r\n        null, \r\n        if(\r\n            empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']), \r\n            null, \r\n            string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])\r\n        )\r\n    )\r\n",
+                          "item/cat_comparisonoperator": "@if(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10), null, items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'] )\r\n",
+                          "item/cat_expectedattachmentsjson": "@if(\r\n    or(\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 2),\r\n        and(\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null),\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10)\r\n        )\r\n    ),\r\n    items('Apply_to_each:_Child_Test')?['cat_validationinstructions'],\r\n    items('Apply_to_each:_Child_Test')?['cat_expectedattachmentsjson']\r\n)",
                           "item/cat_generativeansweroutcomecode": "@items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode']",
                           "item/cat_expectedpositionoftheresponseactivity": "@items('Apply_to_each:_Child_Test')?['cat_expectedpositionoftheresponseactivity']",
                           "item/cat_expectedresponse": "@items('Apply_to_each:_Child_Test')?['cat_expectedresponse']",
@@ -718,84 +693,53 @@
                           "item/cat_externalvariablesjson": "@items('Apply_to_each:_Child_Test')?['cat_externalvariablesjson']",
                           "item/cat_latencyms": "@\n    if(\n        or(\n            or( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))),\n            empty(body('Filter_array:_Messages_from_User_for_child_test'))\n        ), \n        null, \n        div(\n            sub(\n                ticks(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['timestamp']), \n                ticks(body('Filter_array:_Messages_from_User_for_child_test')[0]?['timestamp'])\n            ), \n            10000\n        )\n    )\n",
                           "item/cat_messagesenttimestamp": "@\n    if(\n        empty(body('Filter_array:_Messages_from_User_for_child_test')),\n        null, \n        body('Filter_array:_Messages_from_User_for_child_test')[0]?['timestamp']\n    )\n",
+                          "item/cat_operationtypecode": "@if(\r\n  and(\r\n    equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null),\r\n    equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10)\r\n  ),\r\n  2,\r\n  if(equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null),\r\n    1,\r\n    items('Apply_to_each:_Child_Test')?['cat_operationtypecode']\r\n  )\r\n)",
                           "item/ownerid@odata.bind": "@triggerBody()['text_5']",
                           "item/cat_Parent@odata.bind": "cat_copilottestresults(@{outputs('Add_a_new_row:_Agent_Test_Results_for_Multiturn_Test')?['body/cat_copilottestresultid']})",
                           "item/cat_passthreshold": "@items('Apply_to_each:_Child_Test')?['cat_passthreshold']",
-                          "item/cat_response": "@\n    if(\n        or( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))), \n        'No response', \n        if(\n            empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']), \n            if(\n                not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])), \n                'No response, but attachments (Adaptive Cards, etc.)', \n                'No response'\n            ), \n            body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\n        )\n    )\n",
+                          "item/cat_response": "@\r\n    if(\r\n        or( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))), \r\n        'No response', \r\n        if(\r\n            empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']), \r\n            if(\r\n                not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])), \r\n                'No response, but attachments (Adaptive Cards, etc.)', \r\n                'No response'\r\n            ), \r\n            body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\r\n        )\r\n    )\r\n",
                           "item/cat_responsereceivedtimestamp": "@\n    if(\n        or( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))),\n        null, \n        body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['timestamp']\n    )\n",
-                          "item/cat_resultreason": "@if(\n\tor( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))),\n\t'No response from the bot, possibly due to the Expected Position of the Response Message column value for the given test.',\n\tif(\n\t\tequals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\n\t\toutputs('Compose:_Attachments_Result_Reason'),\n\t\tif(\n\t\t\tnot(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),\n\t\t\tif(\n\t\t\t\tor(\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'ContentError'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'DataLossPreventionViolation'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionException'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionBadRequest'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionTimedOut'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'InvalidContent'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'InfiniteLoopInBotContent'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'LatestPublishedVersionNotFound'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'RedirectToDisabledDialog'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'RedirectToNonExistentDialog'),\n\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'SystemError')\n\t\t\t\t),\n\t\t\t\t'The bot returned an error',\n\t\t\t\tif(\n\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 1),\n\t\t\t\t\tif(\n\t\t\t\t\t\tor(\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tor(\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)\n\t\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t\tequals(\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse'],\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\n\t\t\t\t\t\t\t\tnot(equals(\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse'],\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\n\t\t\t\t\t\t\t\t))\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\n\t\t\t\t\t\t\t\tcontains(\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\n\t\t\t\t\t\t\t\tnot(contains(\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\t\t\t\t\n\t\t\t\t\t\t\t\t))\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 5),\n\t\t\t\t\t\t\t\tstartsWith(\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\t\t\t\t\t\t\t\t\t\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 6),\n\t\t\t\t\t\t\t\tnot(startsWith(\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\n\t\t\t\t\t\t\t\t))\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 7),\n\t\t\t\t\t\t\t\tendsWith(\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 8),\n\t\t\t\t\t\t\t\tnot(endsWith(\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],\n\t\t\t\t\t\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse']\n\t\t\t\t\t\t\t\t))\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\tand(\n\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 9),\n\t\t\t\t\t\t\t\tnot(empty(\n\t\t\t\t\t\t\t\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\n\t\t\t\t\t\t\t\t))\n\t\t\t\t\t\t\t)\n\t\t\t\t\t\t),\n\t\t\t\t\t\t'Exact match between the expected message and the received message as per comparison operator',\n\t\t\t\t\t\t'Not an exact match between the expected response and received message as per comparison operator'\n\t\t\t\t\t),\n\t\t\t\t\tif(\n\t\t\t\t\t\tor( equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 2), equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 6)),\n\t\t\t\t\t\tif(\n\t\t\t\t\t\t\tequals(triggerBody()['boolean'], true),\n\t\t\t\t\t\t\t'Pending analysis of Conversation Transcripts',\n\t\t\t\t\t\t\t'Cannot be evaluated without Conversation Transcripts enrichment'\n\t\t\t\t\t\t),\n\t\t\t\t\t\tif(\n\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 4),\n\t\t\t\t\t\t\tif(\n\t\t\t\t\t\t\t\tor(\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 1),\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 2)\n\t\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t\tif(\n\t\t\t\t\t\t\t\t\tequals(triggerBody()['boolean_1'], true),\n\t\t\t\t\t\t\t\t\t'Pending analysis with AI Builder',\n\t\t\t\t\t\t\t\t\t'Cannot be evaluated without AI Builder analysis'\n\t\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t\tif(\n\t\t\t\t\t\t\t\t\tor(\n\t\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 3),\n\t\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 4)\n\t\t\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t\t\tif(\n\t\t\t\t\t\t\t\t\t\tequals(triggerBody()['boolean_1'], true),\n\t\t\t\t\t\t\t\t\t\t'Pending analysis with Azure Application Insights',\n\t\t\t\t\t\t\t\t\t\t'Cannot be evaluated without Azure Application Insights enrichment'\n\t\t\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t\t\t'Answer could not be evaluated'\n\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t'Pending analysis'\n\t\t\t\t\t\t)\n\t\t\t\t\t)\n\t\t\t\t)\n\t\t\t),\n\t\t\t'Answer could not be evaluated'\n\t\t)\n\t)\n)",
+                          "item/cat_resultreason": "@if(\r\n  or(empty(body('Filter_array:_Messages_from_Bot_for_child_test')),lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))),\r\n  if(\r\n    and(equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3)),\r\n    outputs('Compose:_Attachments_Result_Reason'),'No response from the bot, possibly due to the Expected Position of the Response Message column value for the given test.'\r\n  \t),\r\n\tif(\r\n\t\tequals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\r\n\t\tif(\r\n  \t\t\tor(and(equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null), equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10)),\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 2)),\r\n  \t\t\tif(equals(triggerBody()['boolean_1'], true),'Pending analysis with AI Builder','Cannot be evaluated without AI Builder analysis'),\r\n  \t\t\toutputs('Compose:_Attachments_Result_Reason')\r\n\t\t),\r\n\t\tif(\r\n\t\t\tor(not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']))),\r\n\t\t\tif(\r\n\t\t\t\tand(\r\n          \t\t\tnot(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),\r\n\t\t\t\t\tor(\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'ContentError'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'DataLossPreventionViolation'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionException'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionBadRequest'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionTimedOut'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'InvalidContent'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'InfiniteLoopInBotContent'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'LatestPublishedVersionNotFound'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'RedirectToDisabledDialog'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'RedirectToNonExistentDialog'),\r\n\t\t\t\t\t\tcontains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'SystemError')\r\n\t\t\t\t\t)\r\n\t\t\t\t),\r\n\t\t\t\t'The bot returned an error',\r\n\t\t\t\tif(\r\n\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 1),\r\n\t\t\t\t\tif(\r\n\t\t\t\t\t\tor(not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']))),\r\n\t\t\t\t\t\tif(\r\n\t\t\t\t\t\t\tor(\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tor(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)),\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'],body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\r\n\t\t\t\t\t\t\t\t\tnot(equals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'],body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n\t\t\t\t\t\t\t\t\tcontains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n\t\t\t\t\t\t\t\t\tnot(contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 5),\r\n\t\t\t\t\t\t\t\t\tstartsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 6),\r\n\t\t\t\t\t\t\t\t\tnot(startsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 7),\r\n\t\t\t\t\t\t\t\t\tendsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 8),\r\n\t\t\t\t\t\t\t\t\tnot(endsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'],items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\tand(\r\n\t\t\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 9),\r\n\t\t\t\t\t\t\t\t\tnot(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']))\r\n\t\t\t\t\t\t\t\t)\r\n\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t'Exact match between the expected message and the received message as per comparison operator','Not an exact match between the expected response and received message as per comparison operator'\r\n\t\t\t\t\t\t),\r\n\t\t\t\t\t\t'The bot returned an error'\r\n\t\t\t\t\t),\r\n\t\t\t\t\tif(\r\n\t\t\t\t\t\tor( equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 2), equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 6)),\r\n\t\t\t\t\t\tif(\r\n\t\t\t\t\t\t\tequals(triggerBody()['boolean'], true),\r\n\t\t\t\t\t\t\t'Pending analysis of Conversation Transcripts','Cannot be evaluated without Conversation Transcripts enrichment'\r\n\t\t\t\t\t\t),\r\n\t\t\t\t\t\tif(\r\n\t\t\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 4),\r\n\t\t\t\t\t\t\tif(\r\n\t\t\t\t\t\t\t\tor(equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 1),equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 2)),\r\n\t\t\t\t\t\t\t\tif(equals(triggerBody()['boolean_1'], true),'Pending analysis with AI Builder','Cannot be evaluated without AI Builder analysis'),\r\n\t\t\t\t\t\t\t\tif(\r\n\t\t\t\t\t\t\t\t\tor(equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 3),equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 4)),\r\n\t\t\t\t\t\t\t\t\tif(\r\n\t\t\t\t\t\t\t\t\t\tequals(triggerBody()['boolean_2'], true),\r\n\t\t\t\t\t\t\t\t\t\t'Pending analysis with Azure Application Insights','Cannot be evaluated without Azure Application Insights enrichment'\r\n\t\t\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t\t\t'Answer could not be evaluated'\r\n\t\t\t\t\t\t\t\t)\r\n\t\t\t\t\t\t\t),\r\n\t\t\t\t\t\t\t'Pending analysis'\r\n\t\t\t\t\t\t)\r\n\t\t\t\t\t)\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\t'Answer could not be evaluated'\r\n\t\t)\r\n\t)\r\n)",
                           "item/cat_isstartconversationeventsent": "@items('Apply_to_each:_Child_Test')?['cat_isstartconversationeventsent']",
                           "item/cat_suggestedactionsjson": "@\n    if(\n        or( empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))),\n        null,\n        if(\n            empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['suggestedActions']),\n            null,\n            string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['suggestedActions'])\n        )\n    )\n",
                           "item/cat_testutterance": "@items('Apply_to_each:_Child_Test')?['cat_testutterance']"
                         },
-                        "authentication": {
-                          "type": "Raw",
-                          "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                          "operationId": "CreateRecord",
+                          "connectionName": "shared_commondataserviceforapps_1"
                         }
+                      },
+                      "runAfter": {
+                        "Compose:_Attachments_Result_Reason": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "0b9c4307-ba2a-4da1-a0db-31ea0b0ca541"
                       }
                     },
                     "Condition:_Check_for_Critical_Tests": {
+                      "type": "If",
+                      "expression": {
+                        "equals": [
+                          "@items('Apply_to_each:_Child_Test')?['cat_critical']",
+                          "@true"
+                        ]
+                      },
                       "actions": {
                         "Set_variable:_MutiturnResult": {
-                          "runAfter": {},
-                          "metadata": {
-                            "operationMetadataId": "8a1fb229-650d-4f7e-855e-49a0cbc48bc2"
-                          },
                           "type": "SetVariable",
                           "inputs": {
                             "name": "MultiTurnResult",
-                            "value": "@if(or(empty(body('Filter_array:_Messages_from_Bot_for_child_test')), lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))), 4, if(equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3), if(equals(outputs('Compose:_Attachments_Result'),true), 1, 2), if(not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])), if(or(contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'ContentError'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'DataLossPreventionViolation'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionException'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionBadRequest'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'FlowActionTimedOut'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'InvalidContent'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'InfiniteLoopInBotContent'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'LatestPublishedVersionNotFound'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'RedirectToDisabledDialog'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'RedirectToNonExistentDialog'), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], 'SystemError')), 4, if(equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 1), if(or(and(or(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1), equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)), equals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'], body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2), not(equals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'], body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']))), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3), contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4), not(contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 5), startsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 6), not(startsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 7), endsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 8), not(endsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))), and(equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 9), not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])))), 1, 2), if(equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 2), if(equals(triggerBody()['boolean'], true), 5, 3), if(equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 4), if(or(equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 1), equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 2)), if(equals(triggerBody()['boolean_1'], true), 5, 3), if(or(equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 3), equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 4)), if(equals(triggerBody()['boolean_2'], true), 5, 3), 3)), 5)))), 3)))"
+                            "value": "@if(\r\n  or(\r\n    empty(body('Filter_array:_Messages_from_Bot_for_child_test')),\r\n    lessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))\r\n  ),\r\n  if(\r\n    and(\r\n      equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\r\n      equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3)\r\n    ),\r\n    if(outputs('Compose:_Attachments_Result'), 1, 2),\r\n    4\r\n  ),\r\n  if(\r\n    equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\r\n    if(\r\n      or(and(equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null), equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10)),\r\n      equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 2)),\r\n      5,\r\n      if(outputs('Compose:_Attachments_Result'), 1, 2)\r\n    ),\r\n    if(\r\n      or(\r\n        not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),\r\n        not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']))\r\n      ),\r\n      if(\r\n        and(\r\n          not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])),\r\n          or(\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'ContentError'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'DataLossPreventionViolation'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionException'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionBadRequest'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'FlowActionTimedOut'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'InvalidContent'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'InfiniteLoopInBotContent'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'LatestPublishedVersionNotFound'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'RedirectToDisabledDialog'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'RedirectToNonExistentDialog'),\r\n            contains(coalesce(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], ''), 'SystemError')\r\n          )\r\n        ),\r\n        4,\r\n        if(\r\n          equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 1),\r\n          if(\r\n            or(\r\n              and(\r\n                or(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)\r\n                ),\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'], body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'])\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\r\n                not(equals(items('Apply_to_each:_Child_Test')?['cat_expectedresponse'], body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']))\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n                contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n                not(contains(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 5),\r\n                startsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 6),\r\n                not(startsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 7),\r\n                endsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 8),\r\n                not(endsWith(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text'], items('Apply_to_each:_Child_Test')?['cat_expectedresponse']))\r\n              ),\r\n              and(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 9),\r\n                not(empty(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']))\r\n              )\r\n            ),\r\n            1,\r\n            2\r\n          ),\r\n          if(\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 2),\r\n            if(equals(triggerBody()?['boolean'], true), 5, 3),\r\n            if(\r\n              equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 4),\r\n              if(\r\n                or(\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 1),\r\n                  equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 2)\r\n                ),\r\n                if(equals(triggerBody()?['boolean_1'], true), 5, 3),\r\n                if(\r\n                  or(\r\n                    equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 3),\r\n                    equals(items('Apply_to_each:_Child_Test')?['cat_generativeansweroutcomecode'], 4)\r\n                  ),\r\n                  if(equals(triggerBody()?['boolean_2'], true), 5, 3),\r\n                  3\r\n                )\r\n              ),\r\n              5\r\n            )\r\n          )\r\n        )\r\n      ),\r\n      3\r\n    )\r\n  )\r\n)\r\n"
+                          },
+                          "metadata": {
+                            "operationMetadataId": "8a1fb229-650d-4f7e-855e-49a0cbc48bc2"
                           }
                         },
                         "Condition:_Check_if_Test_failed_or_errored_out": {
-                          "actions": {
-                            "Set_variable:_ContinueMultiTurnProcessing": {
-                              "runAfter": {},
-                              "metadata": {
-                                "operationMetadataId": "7f503c7c-6031-4e23-9f70-0bc5822b4bd1"
-                              },
-                              "type": "SetVariable",
-                              "inputs": {
-                                "name": "ContinueMultiTurnProcessing",
-                                "value": "@false"
-                              }
-                            },
-                            "Set_variable:_MultiTurnPendingResult_2": {
-                              "runAfter": {
-                                "Set_variable:_ContinueMultiTurnProcessing": [
-                                  "Succeeded"
-                                ]
-                              },
-                              "metadata": {
-                                "operationMetadataId": "b94a866c-fad9-420a-9d00-dccd476cd217"
-                              },
-                              "type": "SetVariable",
-                              "inputs": {
-                                "name": "MultiturnPendingResult",
-                                "value": "@false"
-                              }
-                            }
-                          },
-                          "runAfter": {
-                            "Set_variable:_MutiturnResult": [
-                              "Succeeded"
-                            ]
-                          },
-                          "else": {
-                            "actions": {
-                              "Set_variable:_MultiTurnPendingResult": {
-                                "runAfter": {},
-                                "metadata": {
-                                  "operationMetadataId": "57daf672-6860-4ea7-a978-7c8a98af5ce7"
-                                },
-                                "type": "SetVariable",
-                                "inputs": {
-                                  "name": "MultiTurnPendingResult",
-                                  "value": "@if(equals(variables('MultiturnResult'), 5), true, false)"
-                                }
-                              }
-                            }
-                          },
+                          "type": "If",
                           "expression": {
                             "and": [
                               {
@@ -822,113 +766,84 @@
                               }
                             ]
                           },
+                          "actions": {
+                            "Set_variable:_ContinueMultiTurnProcessing": {
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "ContinueMultiTurnProcessing",
+                                "value": "@false"
+                              },
+                              "metadata": {
+                                "operationMetadataId": "7f503c7c-6031-4e23-9f70-0bc5822b4bd1"
+                              }
+                            },
+                            "Set_variable:_MultiTurnPendingResult_2": {
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "MultiturnPendingResult",
+                                "value": "@false"
+                              },
+                              "runAfter": {
+                                "Set_variable:_ContinueMultiTurnProcessing": [
+                                  "Succeeded"
+                                ]
+                              },
+                              "metadata": {
+                                "operationMetadataId": "b94a866c-fad9-420a-9d00-dccd476cd217"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {
+                              "Set_variable:_MultiTurnPendingResult": {
+                                "type": "SetVariable",
+                                "inputs": {
+                                  "name": "MultiTurnPendingResult",
+                                  "value": "@if(equals(variables('MultiturnResult'), 5), true, false)"
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "57daf672-6860-4ea7-a978-7c8a98af5ce7"
+                                }
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "Set_variable:_MutiturnResult": [
+                              "Succeeded"
+                            ]
+                          },
                           "metadata": {
                             "operationMetadataId": "ae6c2233-5a05-4546-b1f5-6c828cacd149"
-                          },
-                          "type": "If"
+                          }
                         }
+                      },
+                      "else": {
+                        "actions": {}
                       },
                       "runAfter": {
                         "Add_a_new_row:_Child_Multiturn_Test_Results": [
                           "Succeeded"
                         ]
                       },
-                      "expression": {
-                        "equals": [
-                          "@items('Apply_to_each:_Child_Test')?['cat_critical']",
-                          "@true"
-                        ]
-                      },
                       "metadata": {
                         "operationMetadataId": "07aa1699-6edb-4f21-a6f5-70018f04d417"
-                      },
-                      "type": "If"
+                      }
                     },
                     "Compose:_Attachments_Result": {
+                      "type": "Compose",
+                      "inputs": "@if(\r\n  equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\r\n  if(\r\n\tand(\r\n\t  or(\r\n      \tequals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 1),\r\n\t\tequals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null)\r\n\t  ),\r\n      not(empty(\r\n        body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']))\r\n\t),\r\n      or(\r\n        and(\r\n          or(\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)\r\n          ),\r\n          equals(\r\n            json(string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])),\r\n            json(string(items('Apply_to_each:_Child_Test')?['cat_expectedattachmentsjson']))\r\n          )\r\n        ),\r\n        and(\r\n          equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\r\n          not(equals(\r\n            json(string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])),\r\n            json(string(items('Apply_to_each:_Child_Test')?['cat_expectedattachmentsjson']))\r\n          ))\r\n        ),\r\n        and(\r\n          equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n          contains(\r\n            string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']),\r\n            string(items('Apply_to_each:_Child_Test')?['cat_validationinstructions'])\r\n          )\r\n        ),\r\n        and(\r\n          equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n          not(contains(\r\n            string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']),\r\n            string(items('Apply_to_each:_Child_Test')?['cat_validationinstructions'])\r\n          ))\r\n        )\r\n      ),\r\n\t  \r\n\tif(\r\n\t\tequals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3),\r\n\t\tor(\r\n\t\t\tand(\r\n\t\t\t\tor(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)\r\n\t\t\t\t),\r\n\t\t\t\tequals(\r\n\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse'],\r\n\t\t\t\toutputs('Compose:_Attachment_Empty_Array_Check_for_Response')\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\r\n\t\t\t\tnot(equals(\r\n\t\t\t\titems('Apply_to_each:_Child_Test')?['cat_expectedresponse'],\r\n\t\t\t\toutputs('Compose:_Attachment_Empty_Array_Check_for_Response')\r\n\t\t\t\t))\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n\t\t\t\tcontains(\r\n\t\t\t\tif(empty(outputs('Compose:_Attachment_Empty_Array_Check_for_Response')), '', outputs('Compose:_Attachment_Empty_Array_Check_for_Response')),\r\n\t\t\t\tif(empty(items('Apply_to_each:_Child_Test')?['cat_expectedresponse']), '', items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n\t\t\t\tnot(contains(\r\n\t\t\t\tif(empty(outputs('Compose:_Attachment_Empty_Array_Check_for_Response')), '', outputs('Compose:_Attachment_Empty_Array_Check_for_Response')),\r\n\t\t\t\tif(empty(items('Apply_to_each:_Child_Test')?['cat_expectedresponse']), '', items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t))\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 5),\r\n\t\t\t\tstartsWith(\r\n\t\t\t\tif(empty(outputs('Compose:_Attachment_Empty_Array_Check_for_Response')), '', outputs('Compose:_Attachment_Empty_Array_Check_for_Response')),\r\n\t\t\t\tif(empty(items('Apply_to_each:_Child_Test')?['cat_expectedresponse']), '', items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 6),\r\n\t\t\t\tnot(startsWith(\r\n\t\t\t\tif(empty(outputs('Compose:_Attachment_Empty_Array_Check_for_Response')), '', outputs('Compose:_Attachment_Empty_Array_Check_for_Response')),\r\n\t\t\t\tif(empty(items('Apply_to_each:_Child_Test')?['cat_expectedresponse']), '', items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t))\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 7),\r\n\t\t\t\tendsWith(\r\n\t\t\t\tif(empty(outputs('Compose:_Attachment_Empty_Array_Check_for_Response')), '', outputs('Compose:_Attachment_Empty_Array_Check_for_Response')),\r\n\t\t\t\tif(empty(items('Apply_to_each:_Child_Test')?['cat_expectedresponse']), '', items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 8),\r\n\t\t\t\tnot(endsWith(\r\n\t\t\t\tif(empty(outputs('Compose:_Attachment_Empty_Array_Check_for_Response')), '', outputs('Compose:_Attachment_Empty_Array_Check_for_Response')),\r\n\t\t\t\tif(empty(items('Apply_to_each:_Child_Test')?['cat_expectedresponse']), '', items('Apply_to_each:_Child_Test')?['cat_expectedresponse'])\r\n\t\t\t\t))\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 9),\r\n\t\t\t\tnot(empty(\r\n\t\t\t\toutputs('Compose:_Attachment_Empty_Array_Check_for_Response')\r\n\t\t\t\t))\r\n\t\t\t)\r\n\t\t),\r\n\t\tfalse\r\n\t  )\r\n\t),\r\n\tfalse\r\n)",
                       "runAfter": {
-                        "Condition:_Adaptive_Card_AI_Validation": [
+                        "Compose:_Attachment_Empty_Array_Check_for_Response": [
                           "Succeeded"
                         ]
                       },
                       "metadata": {
                         "operationMetadataId": "a112b7b5-840c-4bf7-be0f-1c1676bd407f"
-                      },
-                      "type": "Compose",
-                      "inputs": "@if(\r\n    equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3), \r\n\tif(\r\n\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10),\r\n\t\tif(\r\n\t\t\tequals(outputs('Compose:_Adaptive_Card_AI_Validation_Output'),'1'),\r\n\t\t\ttrue,\r\n\t\t\tfalse\r\n\t\t),\r\n\t\tor(\r\n\t\t\tand(\r\n\t\t\t\tor(\r\n\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n\t\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], null)\r\n\t\t\t\t),\r\n\t\t\t\tequals(\r\n\t\t\t\t\tjson(string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])),\r\n\t\t\t\t\tjson(string(items('Apply_to_each:_Child_Test')?['cat_expectedattachmentsjson']))\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2),\r\n\t\t\t\tnot(equals(\r\n\t\t\t\t\tjson(string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments'])),\r\n\t\t\t\t\tjson(string(items('Apply_to_each:_Child_Test')?['cat_expectedattachmentsjson']))\r\n\t\t\t\t))\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n\t\t\t\tcontains(\r\n\t\t\t\t\tstring(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']),\r\n\t\t\t\t\tstring(items('Apply_to_each:_Child_Test')?['cat_validationinstructions'])\r\n\t\t\t\t)\r\n\t\t\t),\r\n\t\t\tand(\r\n\t\t\t\tequals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4),\r\n\t\t\t\tnot(contains(\r\n\t\t\t\t\tstring(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']),\r\n\t\t\t\t\tstring(items('Apply_to_each:_Child_Test')?['cat_validationinstructions'])\r\n\t\t\t\t))\r\n\t\t\t)\r\n\t\t)\r\n\t),\r\n\tfalse\r\n)"
-                    },
-                    "Condition:_Adaptive_Card_AI_Validation": {
-                      "actions": {
-                        "Run_a_prompt:_Adaptive_Card_AI_Validation": {
-                          "runAfter": {},
-                          "metadata": {
-                            "operationMetadataId": "5475eb9a-922d-4b53-a3a9-e400be98a171",
-                            "flowSystemMetadata": {
-                              "portalOperationId": "aibuilderpredict_customprompt",
-                              "portalOperationGroup": "aibuilder",
-                              "portalOperationApiDisplayNameOverride": "AI Builder",
-                              "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
-                              "portalOperationBrandColorOverride": "#0A76C4",
-                              "portalOperationApiTierOverride": "Standard"
-                            }
-                          },
-                          "type": "OpenApiConnection",
-                          "inputs": {
-                            "host": {
-                              "connectionName": "shared_commondataserviceforapps_1",
-                              "operationId": "aibuilderpredict_customprompt",
-                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                            },
-                            "parameters": {
-                              "recordId": "412d327f-8348-401b-9287-d88f136ec471",
-                              "item/requestv2/instruction": "@items('Apply_to_each:_Child_Test')?['cat_validationinstructions']",
-                              "item/requestv2/response": "@json(string(body('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['attachments']))"
-                            },
-                            "authentication": {
-                              "type": "Raw",
-                              "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                            }
-                          }
-                        },
-                        "Compose:_Adaptive_Card_AI_Validation_Output": {
-                          "runAfter": {
-                            "Run_a_prompt:_Adaptive_Card_AI_Validation": [
-                              "Succeeded"
-                            ]
-                          },
-                          "metadata": {
-                            "operationMetadataId": "b83086fa-d6a6-4bb0-965e-0ccd7adbf927"
-                          },
-                          "type": "Compose",
-                          "inputs": "@outputs('Run_a_prompt:_Adaptive_Card_AI_Validation')?['body/responsev2/predictionOutput/text']"
-                        }
-                      },
-                      "runAfter": {
-                        "Message_Position_for_child_test": [
-                          "Succeeded"
-                        ]
-                      },
-                      "expression": {
-                        "and": [
-                          {
-                            "equals": [
-                              "@items('Apply_to_each:_Child_Test')?['cat_testtypecode']",
-                              3
-                            ]
-                          },
-                          {
-                            "equals": [
-                              "@items('Apply_to_each:_Child_Test')?['cat_comparisonoperator']",
-                              10
-                            ]
-                          }
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "5475216b-056b-41a2-be26-493c93b29ca6"
-                      },
-                      "type": "If"
+                      }
                     },
                     "Compose:_Attachments_Result_Reason": {
+                      "type": "Compose",
+                      "inputs": "@if (\r\n  equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3),\r\n  if (\r\n    and(\r\n      or(\r\n      \tequals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 1),\r\n\t\t    equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], null)\r\n\t    ),\r\n      or(\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2)\r\n      )\r\n    ),\r\n    if (\r\n      outputs('Compose:_Attachments_Result'),\r\n      'Exact match between the expected attachment(s) JSON and the received attachment(s) JSON as per comparison operator',\r\n      'Not an exact match between the expected attachment(s) JSON and the received attachment(s) JSON as per comparison operator'\r\n    ),\r\n    if (\r\n      and(\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 1),\r\n        or(\r\n          equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n          equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4)\r\n        )\r\n      ),\r\n      if (\r\n        outputs('Compose:_Attachments_Result'),\r\n        'Expected text is correctly matched in the received attachment(s) JSON based on the comparison operator',\r\n        'Expected text does not match the received attachment(s) JSON based on the comparison operator'\r\n      ),\r\n      if (\r\n        equals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3),\r\n        if (\r\n          outputs('Compose:_Attachments_Result'),\r\n          'Exact match between the expected response and the received message as per comparison operator',\r\n          'Not an exact match between the expected response and received message as per comparison operator'\r\n        ),\r\n        'Operation type is missing. Please select a valid operation type to proceed with the adaptive card test execution'\r\n      )\r\n    )\r\n  ),\r\n  ''\r\n)",
                       "runAfter": {
                         "Compose:_Attachments_Result": [
                           "Succeeded"
@@ -936,41 +851,48 @@
                       },
                       "metadata": {
                         "operationMetadataId": "a1caad74-61fb-4e0a-9a30-df34e1efdc08"
-                      },
+                      }
+                    },
+                    "Compose:_Attachment_Empty_Array_Check_for_Response": {
                       "type": "Compose",
-                      "inputs": "@if(\r\n    equals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3), \r\n\tif(\r\n\t\tor(\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 1),\r\n            equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 2)\r\n        ),\r\n        if(\r\n            outputs('Compose:_Attachments_Result'),\r\n            'Exact match between the expected attachment(s) JSON and the received attachment(s) JSON as per comparison operator',\r\n            'Not an exact match between the expected attachment(s) JSON and the received attachment(s) JSON as per comparison operator'\r\n        ),\r\n        if(\r\n            or(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 3),\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 4)\r\n            ),\r\n            if(\r\n                outputs('Compose:_Attachments_Result'),\r\n                'Expected text is correctly matched in the received attachment(s) JSON based on the comparison operator',\r\n                'Expected text does not match the received attachment(s) JSON based on the comparison operator'\r\n            ),\r\n            if(\r\n                equals(items('Apply_to_each:_Child_Test')?['cat_comparisonoperator'], 10),\r\n                if(\r\n                    outputs('Compose:_Attachments_Result'),\r\n                    'Attachment(s) JSON received from the bot has been validated and meets the given instructions',\r\n                    'Attachment(s) JSON received from the bot has been validated but does not meets the given instructions'\r\n                ),\r\n                'Unable to evaluate'\r\n            )\r\n        )\r\n\t),\r\n\t''\r\n)"
+                      "inputs": "@if(\r\n\tand(\r\n\t\tequals(items('Apply_to_each:_Child_Test')?['cat_operationtypecode'], 3),\r\n\t\tequals(items('Apply_to_each:_Child_Test')?['cat_testtypecode'], 3)\r\n\t),\r\n\tif(\r\n\t\tor( \r\n\t\t\tempty(body('Filter_array:_Messages_from_Bot_for_child_test')), \r\n\t\t\tlessOrEquals(length(body('Filter_array:_Messages_from_Bot_for_child_test')), outputs('Message_Position_for_child_test'))\r\n\t\t),\r\n\t\tnull,\r\n\t\tbody('Filter_array:_Messages_from_Bot_for_child_test')[outputs('Message_Position_for_child_test')]?['text']\r\n\t),\r\n\tnull\r\n)",
+                      "runAfter": {
+                        "Message_Position_for_child_test": [
+                          "Succeeded"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "fb18cc5f-7852-4d19-80c7-f9e7bcda3c28"
+                      }
                     }
+                  },
+                  "else": {
+                    "actions": {}
                   },
                   "runAfter": {
                     "Compose:_CurrentTimestamp": [
                       "Succeeded"
                     ]
                   },
-                  "expression": {
-                    "equals": [
-                      "@variables('ContinueMultiTurnProcessing')",
-                      "@true"
-                    ]
-                  },
                   "metadata": {
                     "operationMetadataId": "4108f015-6273-4a57-b055-7167c6f4423f"
-                  },
-                  "type": "If"
+                  }
                 },
                 "Delay_for_next_test_run": {
-                  "runAfter": {},
-                  "metadata": {
-                    "operationMetadataId": "22fc1556-e03f-4275-b5c0-9358e9b915e6"
-                  },
                   "type": "Wait",
                   "inputs": {
                     "interval": {
                       "count": 1,
                       "unit": "Second"
                     }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "22fc1556-e03f-4275-b5c0-9358e9b915e6"
                   }
                 },
                 "Compose:_CurrentTimestamp": {
+                  "type": "Compose",
+                  "inputs": "@utcNow()",
                   "runAfter": {
                     "Delay_for_next_test_run": [
                       "Succeeded"
@@ -978,9 +900,7 @@
                   },
                   "metadata": {
                     "operationMetadataId": "68cb610f-b99d-40c2-9fc7-d9d8776af984"
-                  },
-                  "type": "Compose",
-                  "inputs": "@utcNow()"
+                  }
                 }
               },
               "runAfter": {
@@ -990,10 +910,22 @@
               },
               "metadata": {
                 "operationMetadataId": "3205f8ab-494e-434c-894c-99b293055eaa"
-              },
-              "type": "Foreach"
+              }
             },
             "Update_a_row:_MultiTurn_Agent_Test_Result": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilottestresults",
+                  "recordId": "@outputs('Add_a_new_row:_Agent_Test_Results_for_Multiturn_Test')?['body/cat_copilottestresultid']",
+                  "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tvariables('MultiturnResult')\r\n)"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
               "runAfter": {
                 "Apply_to_each:_Child_Test": [
                   "Succeeded"
@@ -1001,45 +933,23 @@
               },
               "metadata": {
                 "operationMetadataId": "ff42dc5a-8d98-4f47-bd96-5da07a1e5c4f"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "UpdateOnlyRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "entityName": "cat_copilottestresults",
-                  "recordId": "@outputs('Add_a_new_row:_Agent_Test_Results_for_Multiturn_Test')?['body/cat_copilottestresultid']",
-                  "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tvariables('MultiturnResult')\r\n)"
-                },
-                "authentication": {
-                  "type": "Raw",
-                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
-                }
               }
             },
             "List_rows:_Get_Child_Agent_Tests": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "513b51fd-bab2-41f3-aeff-881b12158e37"
-              },
               "type": "OpenApiConnection",
               "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "ListRecords",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
                 "parameters": {
                   "entityName": "cat_copilottests",
-                  "fetchXml": "<fetch>\n    <entity name=\"cat_copilottest\">\n        <attribute name=\"cat_name\"/>\n        <attribute name=\"cat_testutterance\"/>\n        <attribute name=\"cat_copilottestid\"/>\n        <attribute name=\"cat_expectedresponse\"/>\n        <attribute name=\"cat_testtypecode\"/>\n        <attribute name=\"cat_generativeansweroutcomecode\"/>\n        <attribute name=\"cat_expectedpositionoftheresponseactivity\"/>\n        <attribute name=\"cat_expectedtopicname\"/>\n        <attribute name=\"cat_isstartconversationeventsent\"/>\n        <attribute name=\"cat_externalvariablesjson\"/>\n        <attribute name=\"cat_expectedattachmentsjson\"/>\n        <attribute name=\"cat_validationinstructions\"/>\n        <attribute name=\"cat_secondsbeforegettinganswer\"/>\n        <attribute name=\"cat_critical\"/>\n        <attribute name=\"cat_comparisonoperator\"/>\n        <attribute name=\"cat_expectedtools\"/>\n        <attribute name=\"cat_passthreshold\"/>\n         <order attribute=\"cat_order\" descending=\"false\"/>\n        <filter type=\"and\">\n            <condition attribute=\"cat_copilottestsetid\" operator=\"eq\" value=\"@{triggerBody()['text_1']}\" />\n            <condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />\n            <condition attribute=\"cat_parent\" operator=\"eq\" value=\"@{triggerBody()['text_2']}\" />\n           <condition attribute=\"cat_testtypecode\" operator=\"ne\" value=\"5\" />\n        </filter>\n    </entity>\n</fetch>"
+                  "fetchXml": "<fetch>\n    <entity name=\"cat_copilottest\">\n        <attribute name=\"cat_name\"/>\n        <attribute name=\"cat_adaptivecardpayload\"/>\n        <attribute name=\"cat_testutterance\"/>\n        <attribute name=\"cat_copilottestid\"/>\n        <attribute name=\"cat_expectedresponse\"/>\n        <attribute name=\"cat_testtypecode\"/>\n        <attribute name=\"cat_generativeansweroutcomecode\"/>\n        <attribute name=\"cat_expectedpositionoftheresponseactivity\"/>\n        <attribute name=\"cat_expectedtopicname\"/>\n        <attribute name=\"cat_isstartconversationeventsent\"/>\n        <attribute name=\"cat_externalvariablesjson\"/>\n        <attribute name=\"cat_expectedattachmentsjson\"/>\n        <attribute name=\"cat_validationinstructions\"/>\n        <attribute name=\"cat_secondsbeforegettinganswer\"/>\n        <attribute name=\"cat_critical\"/>\n        <attribute name=\"cat_operationtypecode\"/>\n        <attribute name=\"cat_comparisonoperator\"/>\n        <attribute name=\"cat_expectedtools\"/>\n        <attribute name=\"cat_passthreshold\"/>\n         <order attribute=\"cat_order\" descending=\"false\"/>\n        <filter type=\"and\">\n            <condition attribute=\"cat_copilottestsetid\" operator=\"eq\" value=\"@{triggerBody()['text_1']}\" />\n            <condition attribute=\"statecode\" operator=\"eq\" value=\"0\" />\n            <condition attribute=\"cat_parent\" operator=\"eq\" value=\"@{triggerBody()['text_2']}\" />\n           <condition attribute=\"cat_testtypecode\" operator=\"ne\" value=\"5\" />\n        </filter>\n    </entity>\n</fetch>"
                 },
-                "authentication": {
-                  "type": "Raw",
-                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps_1"
                 }
+              },
+              "metadata": {
+                "operationMetadataId": "513b51fd-bab2-41f3-aeff-881b12158e37"
               }
             }
           },
@@ -1050,31 +960,22 @@
           },
           "metadata": {
             "operationMetadataId": "75c31a0c-a785-47d0-910e-ebca27aca135"
-          },
-          "type": "Scope"
+          }
         },
         "Scope:_Catch": {
+          "type": "Scope",
           "actions": {
             "Filter_array:_Error_Actions": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
-              },
               "type": "Query",
               "inputs": {
                 "from": "@result('Scope:_Try')",
                 "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
+              },
+              "metadata": {
+                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
               }
             },
             "Terminate": {
-              "runAfter": {
-                "Filter_array:_Error_Actions": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "c90cfba0-5d85-41cd-a3a1-ba97f79cf4b1"
-              },
               "type": "Terminate",
               "inputs": {
                 "runStatus": "Failed",
@@ -1082,6 +983,14 @@
                   "code": "MULTITURNERROR",
                   "message": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}"
                 }
+              },
+              "runAfter": {
+                "Filter_array:_Error_Actions": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "c90cfba0-5d85-41cd-a3a1-ba97f79cf4b1"
               }
             }
           },
@@ -1094,23 +1003,15 @@
           },
           "metadata": {
             "operationMetadataId": "4f2e4827-62c8-4225-94cd-14089e7ac8f7"
-          },
-          "type": "Scope"
+          }
         },
         "Scope:_Finally": {
+          "type": "Scope",
           "actions": {
             "Respond_to_a_Power_App_or_flow": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "e8410b00-0fc0-421a-a0fc-f48f67f959d5"
-              },
               "type": "Response",
               "kind": "PowerApp",
               "inputs": {
-                "statusCode": 200,
-                "body": {
-                  "response": "Flow completed."
-                },
                 "schema": {
                   "type": "object",
                   "properties": {
@@ -1119,8 +1020,16 @@
                       "x-ms-dynamically-added": true,
                       "type": "string"
                     }
-                  }
+                  },
+                  "additionalProperties": {}
+                },
+                "statusCode": 200,
+                "body": {
+                  "response": "Flow completed."
                 }
+              },
+              "metadata": {
+                "operationMetadataId": "e8410b00-0fc0-421a-a0fc-f48f67f959d5"
               }
             }
           },
@@ -1134,12 +1043,11 @@
           },
           "metadata": {
             "operationMetadataId": "3b16a931-71ef-4a27-b6c8-cea6a9fc38f1"
-          },
-          "type": "Scope"
+          }
         }
       }
     },
-    "templateName": ""
+    "templateName": null
   },
   "schemaVersion": "1.0.0.0"
 }

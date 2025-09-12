@@ -110,6 +110,7 @@
               directLine: newDirectLine,
               styleOptions,
               store: createCustomStore(),
+              locale: urlParams.get('INJECT_LANGUAGE') || 'en-US',
             },
             webchatElement
           );
@@ -140,6 +141,7 @@
               directLine,
               styleOptions,
               store: createCustomStore(),
+              locale: urlParams.get('INJECT_LANGUAGE') || 'en-US',
             },
             document.getElementById("webchat")
           );

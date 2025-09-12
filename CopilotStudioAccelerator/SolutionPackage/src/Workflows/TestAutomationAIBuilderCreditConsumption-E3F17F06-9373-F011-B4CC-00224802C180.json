@@ -1,0 +1,205 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "ad02b7ea-7c74-4228-a989-fbbd139d1b5f"
+          },
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "ID",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Scope:_Try": {
+          "actions": {
+            "Get_a_row_by_ID:_AI_Builder_Consumption": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "91be9a20-8008-43a5-bce1-030783e8ee8f"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "msdyn_aievents",
+                  "recordId": "@triggerBody()['text']",
+                  "$select": "msdyn_creditconsumed"
+                },
+                "authentication": {
+                  "type": "Raw",
+                  "value": "@json(decodeBase64(triggerOutputs().headers['X-MS-APIM-Tokens']))['$ConnectionKey']"
+                }
+              }
+            },
+            "Compose:_Get_Credit_Consumed": {
+              "runAfter": {
+                "Get_a_row_by_ID:_AI_Builder_Consumption": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "793980f2-0980-4c82-86a5-02f116542f11"
+              },
+              "type": "Compose",
+              "inputs": "@if(not(empty(outputs('Get_a_row_by_ID:_AI_Builder_Consumption')?['body'])),outputs('Get_a_row_by_ID:_AI_Builder_Consumption')?['body/msdyn_creditconsumed'],0)"
+            }
+          },
+          "runAfter": {
+            "Delay": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "c1608fe4-4a52-46b2-890f-7ea74368309a"
+          },
+          "type": "Scope"
+        },
+        "Scope:_Catch": {
+          "actions": {
+            "Filter_array:_Error_Actions": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "d7d83bc2-c0ae-4057-b986-81991bc25652"
+              },
+              "type": "Query",
+              "inputs": {
+                "from": "@result('Scope:_Try')",
+                "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
+              }
+            },
+            "Terminate": {
+              "runAfter": {
+                "Filter_array:_Error_Actions": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "dfd4a3e1-6d08-40e2-9345-70a2da7a46b9"
+              },
+              "type": "Terminate",
+              "inputs": {
+                "runStatus": "Failed",
+                "runError": {
+                  "code": "CREDITCONSUMEDERROR",
+                  "message": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Try": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "8ec47729-db80-4da1-9dfc-ddcb66410a03"
+          },
+          "type": "Scope"
+        },
+        "Scope:_Finally": {
+          "actions": {
+            "Respond_to_a_Power_App_or_flow": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "e3ff9fd5-8232-4587-b418-5905ffd5871d"
+              },
+              "type": "Response",
+              "kind": "PowerApp",
+              "inputs": {
+                "statusCode": 200,
+                "body": {
+                  "aibuildercreditconsumed": "@{outputs('Compose:_Get_Credit_Consumed')}"
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "aibuildercreditconsumed": {
+                      "title": "AIBuilderCreditConsumed",
+                      "x-ms-dynamically-added": true,
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Catch": [
+              "Succeeded",
+              "Failed",
+              "TimedOut",
+              "Skipped"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3f4a19c4-feda-4a60-8b5d-a2f9e0101613"
+          },
+          "type": "Scope"
+        },
+        "Delay": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "2d0535c5-ae87-402b-a1de-e217bf811e76"
+          },
+          "type": "Wait",
+          "inputs": {
+            "interval": {
+              "count": 5,
+              "unit": "Second"
+            }
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

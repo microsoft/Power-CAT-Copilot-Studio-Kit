@@ -134,6 +134,73 @@
                     <row />
                   </rows>
                 </section>
+                <section name="tab_general_section_userauthentication" id="bc8fdbd0-1c5b-496a-bc64-c3704c680972" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
+                  <labels>
+                    <label description="User Authentication" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{a02d38ed-b353-45cf-9bd7-6bd8e6203926}" locklevel="0" colspan="1" rowspan="1" visible="true">
+                        <labels>
+                          <label description="User Authentication" languagecode="1033" />
+                        </labels>
+                        <control id="cat_userauthenticationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_userauthenticationcode" disabled="false" />
+                      </cell>
+                      <cell id="{044014e2-ced0-4487-8348-66271f4dbd16}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Client ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_clientid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientid" disabled="false" />
+                      </cell>
+                      <cell id="{b004fda3-0f0c-43bc-9037-c96674369acd}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Tenant ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_tenantid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_tenantid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{d970da10-1545-4450-b0ab-6f0e2732c6c9}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Scope" languagecode="1033" />
+                        </labels>
+                        <control id="cat_scope" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_scope" disabled="false" />
+                      </cell>
+                      <cell id="{49c6e9ea-078a-4a34-9274-6e28d94ee2cc}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Secret Location" languagecode="1033" />
+                        </labels>
+                        <control id="cat_userauthsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_userauthsecretlocationcode" disabled="false" />
+                      </cell>
+                      <cell id="{84512a7a-fb8b-4363-8375-653b95f69877}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_clientsecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientsecret" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a16854f6-d58e-4a06-91a9-7c120435715d}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_agentidentifier" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_agentidentifier" disabled="false" />
+                      </cell>
+                      <cell id="{77e07bc4-4578-4795-af93-b068d077cc39}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_environmentid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_environmentid" disabled="false" />
+                      </cell>
+                      <cell id="{836f3dd0-ec17-4f7a-a216-8c61cd9b092b}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Environment Variable" languagecode="1033" />
+                        </labels>
+                        <control id="cat_userauthenvironmentvariable" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_userauthenvironmentvariable" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
                 <section name="tab_general_section_directlinesettings" id="358faf45-0bac-46c6-9d74-f8021a17faf6" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
                   <labels>
                     <label description="Direct Line Settings" languagecode="1033" />
@@ -194,71 +261,6 @@
                           <label description="Environment Variable" languagecode="1033" />
                         </labels>
                         <control id="cat_directlinechannelsecurityenvironmentvariable" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_directlinechannelsecurityenvironmentvariable" disabled="false" />
-                      </cell>
-                    </row>
-                  </rows>
-                </section>
-                <section name="tab_general_section_userauthentication" id="bc8fdbd0-1c5b-496a-bc64-c3704c680972" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115" visible="false">
-                  <labels>
-                    <label description="User Authentication" languagecode="1033" />
-                  </labels>
-                  <rows>
-                    <row>
-                      <cell id="{a02d38ed-b353-45cf-9bd7-6bd8e6203926}" locklevel="0" colspan="1" rowspan="1" visible="true">
-                        <labels>
-                          <label description="User Authentication" languagecode="1033" />
-                        </labels>
-                        <control id="cat_userauthenticationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_userauthenticationcode" disabled="false" />
-                      </cell>
-                      <cell id="{044014e2-ced0-4487-8348-66271f4dbd16}" locklevel="0" colspan="1" rowspan="1" visible="false">
-                        <labels>
-                          <label description="Client ID" languagecode="1033" />
-                        </labels>
-                        <control id="cat_clientid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientid" disabled="false" />
-                      </cell>
-                      <cell id="{b004fda3-0f0c-43bc-9037-c96674369acd}" locklevel="0" colspan="1" rowspan="1" visible="false">
-                        <labels>
-                          <label description="Tenant ID" languagecode="1033" />
-                        </labels>
-                        <control id="cat_tenantid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_tenantid" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell id="{d970da10-1545-4450-b0ab-6f0e2732c6c9}" locklevel="0" colspan="1" rowspan="1" visible="false">
-                        <labels>
-                          <label description="Scope" languagecode="1033" />
-                        </labels>
-                        <control id="cat_scope" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_scope" disabled="false" />
-                      </cell>
-                      <cell id="{49c6e9ea-078a-4a34-9274-6e28d94ee2cc}" locklevel="0" colspan="1" rowspan="1">
-                        <labels>
-                          <label description="Secret Location" languagecode="1033" />
-                        </labels>
-                        <control id="cat_userauthsecretlocationcode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_userauthsecretlocationcode" disabled="false" />
-                      </cell>
-                      <cell id="{84512a7a-fb8b-4363-8375-653b95f69877}" locklevel="0" colspan="1" rowspan="1" visible="false">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                        <control id="cat_clientsecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientsecret" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{48c652d0-2ba0-42ed-8945-84fac75abbb4}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell locklevel="0" id="{409ba76e-bd58-4d87-bbfb-04816106e34c}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
-                      </cell>
-                      <cell id="{836f3dd0-ec17-4f7a-a216-8c61cd9b092b}" locklevel="0" colspan="1" rowspan="1" visible="false">
-                        <labels>
-                          <label description="Environment Variable" languagecode="1033" />
-                        </labels>
-                        <control id="cat_userauthenvironmentvariable" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_userauthenvironmentvariable" disabled="false" />
                       </cell>
                     </row>
                   </rows>

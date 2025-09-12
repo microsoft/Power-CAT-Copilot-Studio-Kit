@@ -62,6 +62,14 @@
                       </cell>
                     </row>
                     <row>
+                      <cell id="{440e841c-8cbb-4697-b82d-c9bafc08b1d3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_operationtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_operationtypecode" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
                       <cell id="{aaa3742d-476b-4e78-922b-2e5ac0927794}" locklevel="0" colspan="1" rowspan="1">
                         <labels>
                           <label description="" languagecode="1033" />
@@ -85,6 +93,17 @@
                         <control id="cat_testutterance" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_testutterance" disabled="true" />
                       </cell>
                     </row>
+                    <row>
+                      <cell id="{49c52e9b-1a38-4ff2-8961-f4b683303c88}" locklevel="0" colspan="1" rowspan="4">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_adaptivecardpayload" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_adaptivecardpayload" disabled="true" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
                     <row>
                       <cell id="{dc8b828f-6758-4db7-b537-fe6d7b92fe06}" locklevel="0" colspan="1" rowspan="1" auto="true">
                         <labels>
@@ -265,6 +284,23 @@
                         <control id="cat_response" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_response" disabled="true" />
                       </cell>
                     </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_actual_complete_response" id="483c6bb6-d4a1-4c63-9ae5-42cda320c980" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Top" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Actual Complete Response" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{1cefe62c-aa8d-47d3-8cd4-287e1140feba}" locklevel="0" colspan="1" rowspan="2" visible="true" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                        <control id="cat_actualcompleteresponse" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_actualcompleteresponse" disabled="true" uniqueid="{c088fffe-e258-44e5-b57e-7bf0afb4083d}" />
+                      </cell>
+                    </row>
+                    <row />
                   </rows>
                 </section>
                 <section name="tab_general_section_enrichedresults" id="fc7855d6-d01b-40aa-b10e-beb06fe9a344" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="11" labelwidth="115">
@@ -920,6 +956,34 @@
               <DateTimeFormat type="Enum" static="true">none</DateTimeFormat>
               <DateOnlyFormat type="Enum" static="true">none</DateOnlyFormat>
               <EnableStatusColumn type="Enum" static="true">yes</EnableStatusColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{c088fffe-e258-44e5-b57e-7bf0afb4083d}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_actualcompleteresponse</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_actualcompleteresponse</Value>
+              <Height type="Whole.None" static="true">20</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_actualcompleteresponse</Value>
+              <Height type="Whole.None" static="true">20</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_actualcompleteresponse</Value>
+              <Height type="Whole.None" static="true">20</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
             </parameters>
           </customControl>
         </controlDescription>

@@ -155,16 +155,34 @@ function setChoicesForComparisonOperatorOnFormLoad(executionContext) {
     ("use strict");
     const formContext = executionContext.getFormContext();
     const comparisonControl = formContext.getControl("cat_comparisonoperator");
+    const operationTypeAttr = formContext.getAttribute("cat_operationtypecode");
 
     if (comparisonControl && fullComparisonOptions.length === 0) {
         const options = formContext.getAttribute("cat_comparisonoperator").getOptions();
-        fullComparisonOptions = options.map(opt => ({
+        // Cache only the first 9 options (excluding AI Validation)
+        fullComparisonOptions = options.slice(0, 9).map(opt => ({
             text: opt.text,
             value: opt.value
         }));
     }
+
+    // Add onChange handlers for operation type and comparison operator
+    if (operationTypeAttr) {
+        operationTypeAttr.removeOnChange(setChoicesForComparisonOperator);
+        operationTypeAttr.addOnChange(setChoicesForComparisonOperator);
+        operationTypeAttr.removeOnChange(updateValidationInstructionField);
+        operationTypeAttr.addOnChange(updateValidationInstructionField);
+    }
+
+    const comparisonAttr = formContext.getAttribute("cat_comparisonoperator");
+    if (comparisonAttr) {
+        comparisonAttr.removeOnChange(updateValidationInstructionField);
+        comparisonAttr.addOnChange(updateValidationInstructionField);
+    }
+
     // Initial filtering on load
     setChoicesForComparisonOperator(executionContext);
+    updateValidationInstructionField(executionContext);
 }
 
 /**
@@ -178,26 +196,31 @@ function setChoicesForComparisonOperator(executionContext) {
     const testTypeValue = formContext.getAttribute("cat_testtypecode")?.getValue();
     const comparisonControl = formContext.getControl("cat_comparisonoperator");
     const comparisonAttr = formContext.getAttribute("cat_comparisonoperator");
+    const operationTypeValue = formContext.getAttribute("cat_operationtypecode")?.getValue();
 
-    if (!testTypeValue || !comparisonControl || !comparisonAttr) return;
+    if (!testTypeValue || !comparisonControl || !comparisonAttr || !operationTypeValue) return;
 
     const TestType = {
         RESPONSE_OR_OTHERS: 1,
         ATTACHMENTS: 3
     };
 
-     // Sort full options by value in ascending order like choices 1 2 3 4 5 6 7 8 9
+    const OperationType = {
+        COMPARISON_OPERATOR: 1,
+        AI_VALIDATION: 2,
+        INVOKE_ACTIONS: 3
+    };
+
+    // Sort full options by value in ascending order (1 through 9)
     const sortedOptions = [...fullComparisonOptions].sort((a, b) => a.value - b.value);
 
-    // Define allowed options for each test type
-    const comparisonOperatorOptions = {
-        [TestType.RESPONSE_OR_OTHERS]: fullComparisonOptions.slice(0, -1), // all choices except last(AI Validation)
-        [TestType.ATTACHMENTS]: [...sortedOptions.slice(0, 4), sortedOptions[sortedOptions.length - 1]] 
-        // first 4 options 1 2 3 4 - equals, not equals, contains, not contains and last one(AI Validation)
-    };
-    
-    const optionsToSet = comparisonOperatorOptions[testTypeValue] || [];
+    let optionsToSet = [];
 
+    if (testTypeValue === TestType.ATTACHMENTS && operationTypeValue === OperationType.COMPARISON_OPERATOR) {
+        optionsToSet = sortedOptions.slice(0, 4); // First 4 choices only for Comparison Operator
+    } else {
+        optionsToSet = sortedOptions; // All 9 choices for everything else (including AI Validation and Invoke Actions)
+    }
     // Clear current options
     comparisonControl.clearOptions();
 
@@ -206,10 +229,10 @@ function setChoicesForComparisonOperator(executionContext) {
     });
 
     //get the current value
-   const selectedValue = comparisonAttr.getValue();
+    const selectedValue = comparisonAttr.getValue();
 
-   //and check if it should be allowed to show in choices, if not allowed set to the first choice
-   const isValidValue = optionsToSet.some(opt => opt.value === selectedValue);
+    //and check if it should be allowed to show in choices, if not allowed set to the first choice
+    const isValidValue = optionsToSet.some(opt => opt.value === selectedValue);
     if (!isValidValue) {
         const defaultOption = optionsToSet[0]; // First option from sorted list
         if (defaultOption) {
@@ -220,8 +243,8 @@ function setChoicesForComparisonOperator(executionContext) {
     }
 }
 
-/** @globalvariable previousComparisonOperator used for holding the previous selection of choice and isInitialLoad flag for form load */
-let previousComparisonOperator = null;
+/** @globalvariable previousOperationType used for tracking changes, and isInitialLoad flag for form load */
+let previousOperationType = null;
 let isInitialLoad = true;
 
 /**
@@ -229,54 +252,82 @@ let isInitialLoad = true;
  * @executionContext Get the executionContext.
  */
 function updateValidationInstructionField(executionContext) {
-    ("use strict");
+    "use strict";
     const formContext = executionContext.getFormContext();
 
     const testTypeAttr = formContext.getAttribute("cat_testtypecode");
     const comparisonAttr = formContext.getAttribute("cat_comparisonoperator");
     const detailAttr = formContext.getAttribute("cat_validationinstructions");
     const detailControl = formContext.getControl("cat_validationinstructions");
+    const operationTypeAttr = formContext.getAttribute("cat_operationtypecode");
 
-    if (!testTypeAttr || !comparisonAttr || !detailAttr || !detailControl) return;
+    if (!testTypeAttr || !comparisonAttr || !detailAttr || !detailControl || !operationTypeAttr) return;
 
     const testTypeValue = testTypeAttr.getValue();
-    const currentValue = comparisonAttr.getValue();
+    const operationTypeValue = operationTypeAttr.getValue();
+    const comparisonValue = comparisonAttr.getValue();
+
+    const TestType = {
+        ATTACHMENTS: 3,
+        GENERATIVE_ANSWER: 4
+    };
+
+    const OperationType = {
+        COMPARISON_OPERATOR: 1,
+        AI_VALIDATION: 2,
+        INVOKE_ACTIONS: 3
+    };
 
     const ComparisonOperator = {
         CONTAINS: 3,
-        NOT_CONTAINS: 4
+        DOES_NOT_CONTAIN: 4
     };
 
-    const TestType = {
-        ATTACHMENTS: 3
-    };
-
-    // Dynamically get values for "Contains" and "Does Not Contain"
-    const containsOrNotContains = fullComparisonOptions
-        .filter(option => option.value === ComparisonOperator.CONTAINS || option.value === ComparisonOperator.NOT_CONTAINS)
-        .map(option => option.value);
-
-    // 1. Update label based on current value
-    if (containsOrNotContains.includes(currentValue)){
+    // Update label based on operation type and comparison operator
+    if (operationTypeValue === OperationType.COMPARISON_OPERATOR &&
+        (testTypeValue === TestType.ATTACHMENTS ||
+            comparisonValue === ComparisonOperator.CONTAINS ||
+            comparisonValue === ComparisonOperator.DOES_NOT_CONTAIN)) {
         detailControl.setLabel("Expected Text");
     } else {
         detailControl.setLabel("Validation Instructions");
     }
 
-    // 2. Clear field if switching between AI Validation and Contains/Not Contains
-    if (!isInitialLoad && testTypeValue === TestType.ATTACHMENTS && previousComparisonOperator !== null) {
-        // Assume last option is "AI Validation"
-        const aiValidationValue = fullComparisonOptions[fullComparisonOptions.length - 1].value;
+    // Clear field when switching between AI Validation and Comparison Operator
+    if (!isInitialLoad && previousOperationType !== null && testTypeValue === TestType.ATTACHMENTS) {
+        const switchedFromAIToComparison = previousOperationType === OperationType.AI_VALIDATION &&
+            operationTypeValue === OperationType.COMPARISON_OPERATOR;
 
-        const movedFromAIToContains = previousComparisonOperator === aiValidationValue && containsOrNotContains.includes(currentValue);
-        const movedFromContainsToAI = containsOrNotContains.includes(previousComparisonOperator) && currentValue === aiValidationValue;
+        const switchedFromComparisonToAI = previousOperationType === OperationType.COMPARISON_OPERATOR &&
+            operationTypeValue === OperationType.AI_VALIDATION;
 
-        if (movedFromAIToContains || movedFromContainsToAI) {
+        if (switchedFromAIToComparison || switchedFromComparisonToAI) {
             detailAttr.setValue(null);
         }
     }
 
-    // 3. Update the previous value
-    previousComparisonOperator = currentValue;
+    previousOperationType = operationTypeValue;
     isInitialLoad = false;
+}
+
+/**
+ * @function updateGenerativeAnswerLabels function to update labels specific to Generative Answer test type
+ * @executionContext Get the executionContext.
+ */
+function updateGenerativeAnswerLabels(executionContext) {
+    "use strict";
+    const formContext = executionContext.getFormContext();
+
+    const testTypeAttr = formContext.getAttribute("cat_testtypecode");
+    const expectedResponseControl = formContext.getControl("cat_expectedresponse");
+
+    if (!testTypeAttr || !expectedResponseControl) return;
+
+    const testTypeValue = testTypeAttr.getValue();
+
+    if (testTypeValue === 4) { // Generative Answer test type
+        expectedResponseControl.setLabel("Expected Response/Validation Instructions");
+    } else {
+        expectedResponseControl.setLabel("Expected Response");
+    }
 }
