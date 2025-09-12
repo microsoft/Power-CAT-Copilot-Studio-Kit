@@ -68,9 +68,6 @@
                     <Sequence DisplayName="SetVisibilityStep3: Show Expected Topic Name">
                       <mcwc:SetVisibility ControlId="cat_expectedtopicname" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep6: Hide Expected Response">
-                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
-                    </Sequence>
                     <Sequence DisplayName="SetMessageStep5: Topic Match Recommendation">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
@@ -158,12 +155,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Topic Match, available only when Enrich With Conversation Transcripts is enabled, compares the expected and triggered topic names. For this type of test, the Expected Response isn't required. Select Apply to see an example (existing values will be overwritten)." LabelId="5fe57d36-d028-4809-8857-8fde5c267bab" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Topic Match, available only when Enrich With Conversation Transcripts is enabled, compares the expected and triggered topic names. For this type of test, the Expected Response isn't required. Select Apply to see an example (existing values will be overwritten)." LabelId="46a1e729-8fd0-4474-961c-44d7fd2d197a" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">2f2537ca-a540-4303-9f62-59f179050067</s:Guid>
-                              <x:String x:Key="UniqueName">id_ffa631133073482ca975dd1073ccbef9ActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">d4585032-70fe-4fe0-aba0-b438247da598</s:Guid>
+                              <x:String x:Key="UniqueName">id_07dfc6e8e46f40378cbe69910e8b6b79ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>

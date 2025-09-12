@@ -118,15 +118,23 @@
                         </labels>
                       </cell>
                     </row>
-                    <row height="auto">
-                      <cell id="{fc92ebf5-be49-40c4-b4ad-976f73da838e}">
+                    <row />
+                    <row>
+                      <cell id="{59971908-bf50-45ac-8ae2-3ba68096828a}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
-                          <label description="" languagecode="1033" />
+                          <label description="Adaptive Card Payload" languagecode="1033" />
                         </labels>
+                        <control id="cat_adaptivecardpayload" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_adaptivecardpayload" disabled="false" uniqueid="{c1d4562b-c7d1-4c32-b132-1e9072f21150}" />
+                      </cell>
+                      <cell id="{ae68652e-93ef-4b25-b105-ba44cccfa39e}" locklevel="0" colspan="1" rowspan="1" visible="false">
+                        <labels>
+                          <label description="Operation Type" languagecode="1033" />
+                        </labels>
+                        <control id="cat_operationtypecode" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_operationtypecode" disabled="false" />
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{6aed9aba-96d5-44e6-9229-1f46f91a375d}" showlabel="false">
+                      <cell locklevel="0" id="{20cfbfb3-b32e-491d-a84e-5781291d40a5}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -139,7 +147,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{0e995dc6-909b-47e3-9c90-0f6d92c922b1}" showlabel="false">
+                      <cell locklevel="0" id="{f4054efa-eb78-4b0e-b34a-820274317e20}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -152,7 +160,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{f4054efa-eb78-4b0e-b34a-820274317e20}" showlabel="false">
+                      <cell locklevel="0" id="{47219285-eaca-4bdd-8f2b-c436745c7cb4}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -165,7 +173,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{47219285-eaca-4bdd-8f2b-c436745c7cb4}" showlabel="false">
+                      <cell locklevel="0" id="{5c516f21-3acf-4c0e-aa3c-25a1ec094d04}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -175,13 +183,6 @@
                           <label description="Expected Attachments JSON" languagecode="1033" />
                         </labels>
                         <control id="cat_expectedattachmentsjson" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_expectedattachmentsjson" disabled="false" uniqueid="{ad1cecba-baac-4a7e-9165-38eb496b887f}" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{5c516f21-3acf-4c0e-aa3c-25a1ec094d04}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
                       </cell>
                     </row>
                     <row>
@@ -211,18 +212,18 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
-                      <cell id="{4e67d13f-e2a4-4815-8924-2b4291e176d3}" locklevel="0" colspan="1" rowspan="5" visible="false">
-                        <labels>
-                          <label description="Validation Instructions" languagecode="1033" />
-                        </labels>
-                        <control id="cat_validationinstructions" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_validationinstructions" disabled="false" />
-                      </cell>
                     </row>
                     <row>
                       <cell locklevel="0" id="{440d526d-0d77-40bc-a57d-c431d314739f}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
+                      </cell>
+                      <cell id="{4e67d13f-e2a4-4815-8924-2b4291e176d3}" locklevel="0" colspan="1" rowspan="5" visible="false">
+                        <labels>
+                          <label description="Validation Instructions" languagecode="1033" />
+                        </labels>
+                        <control id="cat_validationinstructions" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_validationinstructions" disabled="false" />
                       </cell>
                     </row>
                     <row>
@@ -252,6 +253,13 @@
                           <label description="" languagecode="1033" />
                         </labels>
                       </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{7b20c829-27ed-465a-8ce3-f8d965aa1c4a}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
                       <cell id="{8b2a0b86-efcc-4c81-8790-f3148b4789a3}" locklevel="0" colspan="1" rowspan="1" visible="false">
                         <labels>
                           <label description="Expected Tools" languagecode="1033" />
@@ -260,7 +268,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{7b20c829-27ed-465a-8ce3-f8d965aa1c4a}" showlabel="false">
+                      <cell locklevel="0" id="{d6c5217a-8bce-4255-a775-afc2559fe000}" showlabel="false">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -273,7 +281,7 @@
                       </cell>
                     </row>
                     <row>
-                      <cell locklevel="0" id="{d6c5217a-8bce-4255-a775-afc2559fe000}" showlabel="false">
+                      <cell locklevel="0" id="{6ee46ed8-2f71-4d82-9cca-0f0851522c82}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -283,13 +291,6 @@
                           <label description="Expected Response" languagecode="1033" />
                         </labels>
                         <control id="cat_expectedresponse" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_expectedresponse" disabled="false" />
-                      </cell>
-                    </row>
-                    <row>
-                      <cell locklevel="0" id="{6ee46ed8-2f71-4d82-9cca-0f0851522c82}">
-                        <labels>
-                          <label description="" languagecode="1033" />
-                        </labels>
                       </cell>
                     </row>
                     <row>
@@ -308,6 +309,13 @@
                     </row>
                     <row>
                       <cell locklevel="0" id="{f8fb1f00-2a0b-416d-b624-11c0597a3ad4}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{861bd9a9-b95f-42fe-85e2-a5dfee5e5334}">
                         <labels>
                           <label description="" languagecode="1033" />
                         </labels>
@@ -946,6 +954,34 @@
             </parameters>
           </customControl>
         </controlDescription>
+        <controlDescription forControl="{c1d4562b-c7d1-4c32-b132-1e9072f21150}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_adaptivecardpayload</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_adaptivecardpayload</Value>
+              <Height type="Whole.None" static="true">22</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_adaptivecardpayload</Value>
+              <Height type="Whole.None" static="true">22</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_adaptivecardpayload</Value>
+              <Height type="Whole.None" static="true">22</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
       </controlDescriptions>
       <Navigation>
         <NavBar />
@@ -987,17 +1023,24 @@
             <Handler functionName="setTestOrder" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{569fda5a-92ac-4ef4-8180-d45230ab83c7}" enabled="true" parameters="" passExecutionContext="true" />
             <Handler functionName="setChoicesForComparisonOperatorOnFormLoad" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{4b48ddef-4f17-4ce7-9a80-4e1c9787f0e9}" enabled="true" parameters="" passExecutionContext="true" />
             <Handler functionName="updateValidationInstructionField" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{fffa7d37-4c76-4b3b-9613-3a6523e3a375}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="updateGenerativeAnswerLabels" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{aa20b2e1-02e3-4ddb-8aad-202d54d097d3}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
         <event name="onchange" application="false" active="false" attribute="cat_testtypecode">
           <Handlers>
             <Handler functionName="setMultiTurnControlsVisibility" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{aa8dc942-83c3-4928-874c-010e7ee9e924}" enabled="true" parameters="" passExecutionContext="true" />
             <Handler functionName="setChoicesForComparisonOperator" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{570f0940-e4e3-4863-8d87-0bda356df847}" enabled="true" parameters="" passExecutionContext="true" />
+            <Handler functionName="updateGenerativeAnswerLabels" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{54fe3ae0-4d7d-49b2-b38a-3536f0660b5b}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
         <event name="onchange" application="false" active="false" attribute="cat_comparisonoperator">
           <Handlers>
             <Handler functionName="updateValidationInstructionField" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{df6cbc0d-294c-4854-ba27-b3a56fba1fe3}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="cat_operationtypecode">
+          <Handlers>
+            <Handler functionName="updateValidationInstructionField" libraryName="cat_/powercat/js/copilottest_main.js" handlerUniqueId="{f9efcbfe-404e-4a5a-9335-ceb28aa9f218}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
       </events>

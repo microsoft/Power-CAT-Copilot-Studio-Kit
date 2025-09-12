@@ -36,7 +36,7 @@
               "type": "object",
               "properties": {
                 "text": {
-                  "title": "Solution ID",
+                  "title": "Solution IDs",
                   "type": "string",
                   "x-ms-dynamically-added": true,
                   "description": "ID of the Solution",
@@ -51,146 +51,200 @@
         }
       },
       "actions": {
-        "Check_if_there_are_any_components_returned": {
-          "actions": {
-            "No_Solution_Components_Found_Return_Empty_Array": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "9f183e87-291e-40d6-9c13-365120c9ba8d"
-              },
-              "type": "Response",
-              "kind": "PowerApp",
-              "inputs": {
-                "statusCode": 200,
-                "body": {
-                  "workflowrecords": "[]"
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "workflowrecords": {
-                      "title": "WorkflowRecords",
-                      "x-ms-dynamically-added": true,
-                      "type": "string"
-                    }
+        "Parse_JSON:_SolutionId_Array": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "7214ac9f-6808-47f3-a3ae-d6ab9e46de90"
+          },
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()['text']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
                   }
                 }
               }
             }
-          },
+          }
+        },
+        "Initialize_variable:_WorkFlows": {
           "runAfter": {
-            "Get_Solution_Components": [
+            "Parse_JSON:_SolutionId_Array": [
               "Succeeded"
             ]
           },
-          "else": {
-            "actions": {
-              "Retrieve_Workflow_Records": {
-                "runAfter": {
-                  "Compose_Expression": [
-                    "Succeeded"
-                  ]
-                },
-                "metadata": {
-                  "operationMetadataId": "6d81c200-06cb-4dac-b1fd-7dc43f5c577e"
-                },
-                "type": "OpenApiConnection",
-                "inputs": {
-                  "host": {
-                    "connectionName": "shared_commondataserviceforapps",
-                    "operationId": "ListRecords",
-                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                  },
-                  "parameters": {
-                    "entityName": "workflows",
-                    "$filter": "@outputs('Compose_Expression')",
-                    "$orderby": "name asc"
-                  },
-                  "authentication": "@parameters('$authentication')"
-                }
-              },
-              "Select_Ids": {
-                "runAfter": {},
-                "metadata": {
-                  "operationMetadataId": "f0d7e37a-fd8e-46e1-b3dd-c551c6894c99"
-                },
-                "type": "Select",
-                "inputs": {
-                  "from": "@outputs('Get_Solution_Components')?['body/value']",
-                  "select": "@concat('workflowid eq ''', item()?['objectid'], '''')"
-                }
-              },
-              "Compose_Expression": {
-                "runAfter": {
-                  "Select_Ids": [
-                    "Succeeded"
-                  ]
-                },
-                "metadata": {
-                  "operationMetadataId": "793f688a-66f3-4894-b1c0-aaa49f49e55e"
-                },
-                "type": "Compose",
-                "inputs": "@concat('(', join(body('Select_Ids'), ' or '), ')')\r\n"
-              },
-              "Respond_to_a_Power_App": {
-                "runAfter": {
-                  "Retrieve_Workflow_Records": [
-                    "Succeeded"
-                  ]
-                },
-                "metadata": {
-                  "operationMetadataId": "6bfc4f8c-f84e-4286-bfb3-9225e458b285"
-                },
-                "type": "Response",
-                "kind": "PowerApp",
-                "inputs": {
-                  "statusCode": 200,
-                  "body": {
-                    "workflowrecords": "@{outputs('Retrieve_Workflow_Records')?['body/value']}"
-                  },
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "workflowrecords": {
-                        "title": "WorkflowRecords",
-                        "x-ms-dynamically-added": true,
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
+          "metadata": {
+            "operationMetadataId": "2d2c9d08-5b75-4bbc-b176-e1d384df5c0b"
           },
-          "expression": {
-            "equals": [
-              "@length(body('Get_Solution_Components')?['value'])",
-              0
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "WorkFlows",
+                "type": "array"
+              }
+            ]
+          }
+        },
+        "Respond_to_a_Power_App": {
+          "runAfter": {
+            "Apply_to_each:_Solutions": [
+              "Succeeded"
             ]
           },
           "metadata": {
-            "operationMetadataId": "94a0421c-2712-4cb2-b420-97d809891f88"
+            "operationMetadataId": "6bfc4f8c-f84e-4286-bfb3-9225e458b285"
           },
-          "type": "If"
-        },
-        "Get_Solution_Components": {
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "5ba1fc35-995a-46ac-bfd9-2ed498876d73"
-          },
-          "type": "OpenApiConnection",
+          "type": "Response",
+          "kind": "PowerApp",
           "inputs": {
-            "host": {
-              "connectionName": "shared_commondataserviceforapps",
-              "operationId": "ListRecords",
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            "statusCode": 200,
+            "body": {
+              "workflowrecords": "@{if(not(empty(variables('WorkFlows'))),variables('WorkFlows'),'[]')}"
             },
-            "parameters": {
-              "entityName": "solutioncomponents",
-              "$filter": "_solutionid_value eq '@{triggerBody()['text']}' and componenttype eq 29"
-            },
-            "authentication": "@parameters('$authentication')"
+            "schema": {
+              "type": "object",
+              "properties": {
+                "workflowrecords": {
+                  "title": "WorkflowRecords",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
           }
+        },
+        "Apply_to_each:_Solutions": {
+          "foreach": "@body('Parse_JSON:_SolutionId_Array')",
+          "actions": {
+            "Get_Solution_Components": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "5ba1fc35-995a-46ac-bfd9-2ed498876d73"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "entityName": "solutioncomponents",
+                  "$filter": "_solutionid_value eq '@{items('Apply_to_each:_Solutions')?['Id']}' and componenttype eq 29"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Check_if_there_are_any_components_returned": {
+              "actions": {},
+              "runAfter": {
+                "Get_Solution_Components": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Retrieve_Workflow_Records": {
+                    "runAfter": {
+                      "Compose_Expression": [
+                        "Succeeded"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "6d81c200-06cb-4dac-b1fd-7dc43f5c577e"
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "host": {
+                        "connectionName": "shared_commondataserviceforapps",
+                        "operationId": "ListRecords",
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                      },
+                      "parameters": {
+                        "entityName": "workflows",
+                        "$filter": "@outputs('Compose_Expression')",
+                        "$orderby": "name asc"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  },
+                  "Select_Ids": {
+                    "runAfter": {},
+                    "metadata": {
+                      "operationMetadataId": "f0d7e37a-fd8e-46e1-b3dd-c551c6894c99"
+                    },
+                    "type": "Select",
+                    "inputs": {
+                      "from": "@outputs('Get_Solution_Components')?['body/value']",
+                      "select": "@concat('workflowid eq ''', item()?['objectid'], '''')"
+                    }
+                  },
+                  "Compose_Expression": {
+                    "runAfter": {
+                      "Select_Ids": [
+                        "Succeeded"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "793f688a-66f3-4894-b1c0-aaa49f49e55e"
+                    },
+                    "type": "Compose",
+                    "inputs": "@concat('(', join(body('Select_Ids'), ' or '), ')')\r\n"
+                  },
+                  "Apply_to_each:_Workflows": {
+                    "foreach": "@outputs('Retrieve_Workflow_Records')?['body/value']",
+                    "actions": {
+                      "Append_to_array_variable": {
+                        "runAfter": {},
+                        "metadata": {
+                          "operationMetadataId": "1b11604e-e56f-44eb-8ae2-69b57c76041a"
+                        },
+                        "type": "AppendToArrayVariable",
+                        "inputs": {
+                          "name": "WorkFlows",
+                          "value": "@items('Apply_to_each:_Workflows')"
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Retrieve_Workflow_Records": [
+                        "Succeeded"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "dd526e73-0e9f-42dc-8f3b-4f2b3c0b310c"
+                    },
+                    "type": "Foreach"
+                  }
+                }
+              },
+              "expression": {
+                "equals": [
+                  "@length(body('Get_Solution_Components')?['value'])",
+                  0
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "94a0421c-2712-4cb2-b420-97d809891f88"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Initialize_variable:_WorkFlows": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "ab4a5781-33cf-4f00-ba3e-b39e82a9cae1"
+          },
+          "type": "Foreach"
         }
       },
       "outputs": {}

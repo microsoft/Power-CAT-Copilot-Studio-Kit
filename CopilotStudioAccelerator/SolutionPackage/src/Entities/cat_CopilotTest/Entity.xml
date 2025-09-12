@@ -13,6 +13,45 @@
         <Description description="" languagecode="1033" />
       </Descriptions>
       <attributes>
+        <attribute PhysicalName="cat_AdaptiveCardPayload">
+          <Type>ntext</Type>
+          <Name>cat_adaptivecardpayload</Name>
+          <LogicalName>cat_adaptivecardpayload</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>1.0</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <Format>text</Format>
+          <MaxLength>2000</MaxLength>
+          <displaynames>
+            <displayname description="Adaptive Card Payload" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="JSON payload for an input or form-type adaptive card" languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="cat_ComparisonOperator">
           <Type>picklist</Type>
           <Name>cat_comparisonoperator</Name>
@@ -345,7 +384,7 @@
             <displayname description="Expected Tools" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="Specifies the display names of agent tools to be triggered during the Plan Validation process, separated by commas (e.g., tool1, tool2, tool3)" languagecode="1033" />
+            <Description description="Display names of agent tools to be triggered during the Plan Validation process, separated by commas (e.g., tool1, tool2, tool3)" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="cat_ExpectedTopicName">
@@ -608,6 +647,45 @@
             <Description description="" languagecode="1033" />
           </Descriptions>
         </attribute>
+        <attribute PhysicalName="cat_OperationTypeCode">
+          <Type>picklist</Type>
+          <Name>cat_operationtypecode</Name>
+          <LogicalName>cat_operationtypecode</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <ValidForUpdateApi>1</ValidForUpdateApi>
+          <ValidForReadApi>1</ValidForReadApi>
+          <ValidForCreateApi>1</ValidForCreateApi>
+          <IsCustomField>1</IsCustomField>
+          <IsAuditEnabled>1</IsAuditEnabled>
+          <IsSecured>0</IsSecured>
+          <IntroducedVersion>20250728.1</IntroducedVersion>
+          <IsCustomizable>1</IsCustomizable>
+          <IsRenameable>1</IsRenameable>
+          <CanModifySearchSettings>1</CanModifySearchSettings>
+          <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+          <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+          <SourceType>0</SourceType>
+          <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+          <IsSortableEnabled>0</IsSortableEnabled>
+          <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+          <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+          <IsDataSourceSecret>0</IsDataSourceSecret>
+          <AutoNumberFormat></AutoNumberFormat>
+          <IsSearchable>0</IsSearchable>
+          <IsFilterable>0</IsFilterable>
+          <IsRetrievable>0</IsRetrievable>
+          <IsLocalizable>0</IsLocalizable>
+          <AppDefaultValue>1</AppDefaultValue>
+          <OptionSetName>cat_operationtype</OptionSetName>
+          <displaynames>
+            <displayname description="Operation Type" languagecode="1033" />
+          </displaynames>
+          <Descriptions>
+            <Description description="Attachment test type supports Comparison Operator for string comparison, AI Validation for generative validation, or invoke Action for submitting adaptive cards with input" languagecode="1033" />
+          </Descriptions>
+        </attribute>
         <attribute PhysicalName="cat_Order">
           <Type>int</Type>
           <Name>cat_order</Name>
@@ -724,7 +802,7 @@
             <displayname description="Pass Threshold %" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="Specify the minimum percentage (whole number only) of expected tools that must be triggered during Plan Validation" languagecode="1033" />
+            <Description description="Minimum percentage (whole number only) of expected tools that must be triggered during Plan Validation" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="cat_SecondsBeforeGettingAnswer">
@@ -881,7 +959,7 @@
             <displayname description="Validation Instructions" languagecode="1033" />
           </displaynames>
           <Descriptions>
-            <Description description="Specifies the validation criteria according to the selected operator. For &quot;Contains&quot; or &quot;Does Not Contain&quot;, enter the expected text. For &quot;AI Validation&quot;, provide detailed instructions to evaluate the adaptive card" languagecode="1033" />
+            <Description description="Specifies the validation criteria according to the selected operator. For &quot;Contains&quot; or &quot;Does Not Contain&quot;, enter the expected text. For &quot;AI Validation&quot;, provide detailed instructions for AI how to evaluate the adaptive card" languagecode="1033" />
           </Descriptions>
         </attribute>
         <attribute PhysicalName="CreatedBy">

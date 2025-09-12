@@ -62,11 +62,6 @@
                 <mxswa:ActivityReference.Properties>
                   <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                   <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
-                    <Sequence DisplayName="SetFieldRequiredLevelStep1: Set Test Utterance as Not Business Required">
-                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
-                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
-                      <mcwc:SetFieldRequiredLevel ControlId="cat_testutterance" ControlType="standard" DisplayName="SetFieldRequiredLevelStep1" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="None" />
-                    </Sequence>
                     <Sequence DisplayName="SetVisibilityStep3: Hide field Critical">
                       <mcwc:SetVisibility ControlId="cat_critical" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
@@ -75,12 +70,6 @@
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep15: Hide field Parent">
                       <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep21: Hide field Test Utterance">
-                      <mcwc:SetVisibility ControlId="cat_testutterance" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep10: Hide field Expected Response">
-                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep4: Hide field Send startConversation Event">
                       <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
@@ -91,7 +80,7 @@
                     <Sequence DisplayName="SetVisibilityStep23: Hide field External Variables JSON">
                       <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep23_29: Hide Seconds Before Getting Answer">
+                    <Sequence DisplayName="SetVisibilityStep29: Hide Seconds Before Getting Answer">
                       <mcwc:SetVisibility ControlId="cat_secondsbeforegettinganswer" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
                   </sco:Collection>
@@ -127,11 +116,6 @@
                 <mxswa:ActivityReference.Properties>
                   <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                   <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
-                    <Sequence DisplayName="SetFieldRequiredLevelStep2: Set Test Utterance as Business Required">
-                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
-                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
-                      <mcwc:SetFieldRequiredLevel ControlId="cat_testutterance" ControlType="standard" DisplayName="SetFieldRequiredLevelStep2" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
-                    </Sequence>
                     <Sequence DisplayName="SetVisibilityStep5: Show field Critical">
                       <mcwc:SetVisibility ControlId="cat_critical" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
@@ -140,12 +124,6 @@
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep16: Show field Parent">
                       <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep20: Show field Test Utterance">
-                      <mcwc:SetVisibility ControlId="cat_testutterance" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep6: Show field Expected Response">
-                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep8: Show field Send startConversation Event">
                       <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
@@ -156,7 +134,7 @@
                     <Sequence DisplayName="SetVisibilityStep26: Show field External Variables JSON">
                       <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep26_30: Show Seconds Before Getting Answer">
+                    <Sequence DisplayName="SetVisibilityStep30: Show Seconds Before Getting Answer">
                       <mcwc:SetVisibility ControlId="cat_secondsbeforegettinganswer" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
                   </sco:Collection>
@@ -185,11 +163,6 @@
                 <mxswa:ActivityReference.Properties>
                   <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
                   <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
-                    <Sequence DisplayName="SetFieldRequiredLevelStep20: Set Test Utterance as Business Required">
-                      <Assign x:TypeArguments="mxs:Entity" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;)]" Value="[New Entity(&quot;cat_copilottest&quot;)]" />
-                      <Assign x:TypeArguments="s:Guid" To="[CreatedEntities(&quot;primaryEntity#Temp&quot;).Id]" Value="[InputEntities(&quot;primaryEntity&quot;).Id]" />
-                      <mcwc:SetFieldRequiredLevel ControlId="cat_testutterance" ControlType="standard" DisplayName="SetFieldRequiredLevelStep20" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" RequiredLevel="Required" />
-                    </Sequence>
                     <Sequence DisplayName="SetVisibilityStep21981: Hide field Critical">
                       <mcwc:SetVisibility ControlId="cat_critical" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
                     </Sequence>
@@ -198,12 +171,6 @@
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep23957: Show field Parent">
                       <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep24359: Show field Test Utterance">
-                      <mcwc:SetVisibility ControlId="cat_testutterance" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
-                    </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep25: Show field Expected Response">
-                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep26102: Show field Send startConversation Event">
                       <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
@@ -214,7 +181,7 @@
                     <Sequence DisplayName="SetVisibilityStep28: Show field External Variables JSON">
                       <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep28_31: Show Seconds Before Getting Answer">
+                    <Sequence DisplayName="SetVisibilityStep31: Show Seconds Before Getting Answer">
                       <mcwc:SetVisibility ControlId="cat_secondsbeforegettinganswer" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
                   </sco:Collection>

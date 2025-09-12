@@ -131,7 +131,10 @@ function setFieldVisibilityForEachSections(executionContext) {
             true,
             "required"
         );
-
+        clearAndHideFields(formContext, [
+            "cat_agentidentifier",
+            "cat_environmentid"
+        ]);
         // No Authentication and Test Automation
     } else if (userAuth === 1 && configurationTypeValues.includes(1)) {
         clearAndHideFields(formContext, [
@@ -140,8 +143,48 @@ function setFieldVisibilityForEachSections(executionContext) {
             "cat_scope",
             "cat_userauthsecretlocationcode",
             "cat_clientsecret",
+            "cat_userauthenvironmentvariable",
+            "cat_agentidentifier",
+            "cat_environmentid"
+        ]);
+    } else if (userAuth === 3 && configurationTypeValues.includes(1)) {
+        setFieldVisibility(
+            formContext,
+            ["cat_agentidentifier", "cat_environmentid", "cat_clientid", "cat_tenantid"],
+            true,
+            "required"
+        );
+        clearAndHideFields(formContext, [
+            "cat_scope",
+            "cat_userauthsecretlocationcode",
+            "cat_clientsecret",
             "cat_userauthenvironmentvariable"
         ]);
+    }
+    
+    const directLineSection = formContext.ui.tabs.get("tab_general").sections.get("tab_general_section_directlinesettings");
+    if (userAuth === 3 && configurationTypeValues.includes(1)) {
+        if (directLineSection) {
+            directLineSection.setVisible(false);
+            clearAndHideFields(formContext, [
+                "cat_isdirectlinechannelsecurityenabled",
+                "cat_directlinechannelsecretlocationcode",
+                "cat_directlinechannelsecuritysecret",
+                "cat_directlinechannelsecurityenvironmentvariable",
+                "cat_tokenendpoint"
+            ]);
+        }
+    }
+    else if((userAuth === 1 && configurationTypeValues.includes(1)) || (userAuth === 2 && configurationTypeValues.includes(1)) || configurationTypeValues.includes(1)){
+        if (directLineSection) {
+            directLineSection.setVisible(true);
+            setFieldVisibility(formContext, ["cat_isdirectlinechannelsecurityenabled","cat_tokenendpoint"], true, "required");
+            const dlSecurityAttribute = formContext.getAttribute("cat_isdirectlinechannelsecurityenabled");
+            // Ensure the Direct Line Channel Security Attribute is set to false if it is null
+            if (dlSecurityAttribute && dlSecurityAttribute.getValue() === null) {
+                dlSecurityAttribute.setValue(false);
+            }
+        }
     }
 
     // User Authentication Secret Location Rule
