@@ -64,8 +64,8 @@
                 "parameters": {
                   "actionName": "cat_CalculateRollup",
                   "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-                  "item/cat_TargetEntityName": "cat_copilottestrun",
-                  "item/cat_TargetFieldName": "cat_tests"
+                  "item/cat_TargetFieldName": "cat_tests",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -89,8 +89,8 @@
                 "parameters": {
                   "actionName": "cat_CalculateRollup",
                   "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-                  "item/cat_TargetEntityName": "cat_copilottestrun",
-                  "item/cat_TargetFieldName": "cat_success"
+                  "item/cat_TargetFieldName": "cat_success",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -114,8 +114,8 @@
                 "parameters": {
                   "actionName": "cat_CalculateRollup",
                   "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-                  "item/cat_TargetEntityName": "cat_copilottestrun",
-                  "item/cat_TargetFieldName": "cat_failed"
+                  "item/cat_TargetFieldName": "cat_failed",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -139,8 +139,8 @@
                 "parameters": {
                   "actionName": "cat_CalculateRollup",
                   "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-                  "item/cat_TargetEntityName": "cat_copilottestrun",
-                  "item/cat_TargetFieldName": "cat_unknown"
+                  "item/cat_TargetFieldName": "cat_unknown",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -164,8 +164,8 @@
                 "parameters": {
                   "actionName": "cat_CalculateRollup",
                   "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-                  "item/cat_TargetEntityName": "cat_copilottestrun",
-                  "item/cat_TargetFieldName": "cat_error"
+                  "item/cat_TargetFieldName": "cat_error",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -189,8 +189,8 @@
                 "parameters": {
                   "actionName": "cat_CalculateRollup",
                   "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-                  "item/cat_TargetEntityName": "cat_copilottestrun",
-                  "item/cat_TargetFieldName": "cat_pending"
+                  "item/cat_TargetFieldName": "cat_pending",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -214,8 +214,33 @@
                 "parameters": {
                   "actionName": "cat_CalculateRollup",
                   "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-                  "item/cat_TargetEntityName": "cat_copilottestrun",
-                  "item/cat_TargetFieldName": "cat_averagelatencyms"
+                  "item/cat_TargetFieldName": "cat_averagelatencyms",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Calculate_Rollup_Column_-_Total_AI_Builder_Credit_Consumed": {
+              "runAfter": {
+                "Calculate_Rollup_Column_-_Average_Latency": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9c1eab88-1c4e-4001-9c34-f7c579b8878e"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "host": {
+                  "connectionName": "shared_commondataserviceforapps",
+                  "operationId": "PerformUnboundAction",
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+                },
+                "parameters": {
+                  "actionName": "cat_CalculateRollup",
+                  "item/cat_TargetEntityId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+                  "item/cat_TargetFieldName": "cat_totalaibuildercreditconsumed",
+                  "item/cat_TargetEntityName": "cat_copilottestrun"
                 },
                 "authentication": "@parameters('$authentication')"
               }

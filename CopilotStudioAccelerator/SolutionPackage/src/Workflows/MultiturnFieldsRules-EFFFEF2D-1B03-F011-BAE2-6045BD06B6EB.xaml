@@ -148,7 +148,7 @@
                     <Sequence DisplayName="SetVisibilityStep34: Hide field Recognized Intent Score">
                       <mcwc:SetVisibility ControlId="cat_recognizedintentscore" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep34_47: Hide field Actual Tools">
+                    <Sequence DisplayName="SetVisibilityStep47: Hide field Actual Tools">
                       <mcwc:SetVisibility ControlId="cat_actualtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep41: Hide Comparison Operator">
@@ -159,6 +159,15 @@
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep45: Hide Pass Threshold">
                       <mcwc:SetVisibility ControlId="cat_passthreshold" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep49: Hide Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep51: Hide Operation Type">
+                      <mcwc:SetVisibility ControlId="cat_operationtypecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep51_53: Hide Actual Complete Response">
+                      <mcwc:SetVisibility ControlId="cat_actualcompleteresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>
@@ -246,7 +255,7 @@
                     <Sequence DisplayName="SetVisibilityStep41426: Show field Recognized Intent Score">
                       <mcwc:SetVisibility ControlId="cat_recognizedintentscore" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep41426_48: Show field Actual Tools">
+                    <Sequence DisplayName="SetVisibilityStep48: Show field Actual Tools">
                       <mcwc:SetVisibility ControlId="cat_actualtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep42: Show Comparison Operator">
@@ -257,6 +266,15 @@
                     </Sequence>
                     <Sequence DisplayName="SetVisibilityStep46: Show Pass Threshold">
                       <mcwc:SetVisibility ControlId="cat_passthreshold" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep50: Show Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep52: Show Operation Type">
+                      <mcwc:SetVisibility ControlId="cat_operationtypecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep_SetVisibilityStep52_54: Show Actual Complete Response">
+                      <mcwc:SetVisibility ControlId="cat_actualcompleteresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
                     </Sequence>
                   </sco:Collection>
                 </mxswa:ActivityReference.Properties>

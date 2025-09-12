@@ -33,7 +33,7 @@
           "type": "SecureObject"
         },
         "Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)": {
-          "defaultValue": 60,
+          "defaultValue": 25,
           "type": "Int",
           "metadata": {
             "schemaName": "cat_DelayforConversationTranscriptsEnrichment",
@@ -122,7 +122,11 @@
           "foreach": "@outputs('Get_Copilot_Test_Results')?['body/value']",
           "actions": {
             "Get_Conversation_Transcripts": {
-              "runAfter": {},
+              "runAfter": {
+                "Set_variable:_TranscriptActivities": [
+                  "Succeeded"
+                ]
+              },
               "metadata": {
                 "operationMetadataId": "70031cec-f284-4b6b-931d-2e6b8593896e"
               },
@@ -137,7 +141,8 @@
                   "organization": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']",
                   "entityName": "conversationtranscripts",
                   "$select": "content, metadata",
-                  "$filter": "startswith(name, '@{items('Apply_to_each_Result')?['cat_name']}')"
+                  "$filter": "startswith(name, '@{items('Apply_to_each_Result')?['cat_name']}')",
+                  "$orderby": "createdon asc"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -151,7 +156,7 @@
                   },
                   "type": "ParseJson",
                   "inputs": {
-                    "content": "@outputs('Get_Conversation_Transcripts')['body/value'][0]['content']",
+                    "content": "@outputs('Combined_Conversation_Transcripts')",
                     "schema": {
                       "type": "object",
                       "properties": {
@@ -212,6 +217,12 @@
                                   },
                                   {
                                     "type": "string"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object"
+                                    }
                                   }
                                 ]
                               },
@@ -558,9 +569,13 @@
                             }
                           },
                           "expression": {
-                            "greater": [
-                              "@length(outputs('Compose:_Topic_Array'))",
-                              1
+                            "and": [
+                              {
+                                "greater": [
+                                  "@length(outputs('Compose:_Topic_Array'))",
+                                  1
+                                ]
+                              }
                             ]
                           },
                           "metadata": {
@@ -857,7 +872,7 @@
                                                 "workflowReferenceName": "42853375-172c-f011-8c4e-002248095f4f"
                                               },
                                               "body": {
-                                                "text": "@string(first(body('Filter_array:_Dynamic_Plan_for_child_test'))?['activity'])",
+                                                "text": "@if( not(empty(body('Filter_array:_Dynamic_Plan_for_child_test'))),\r\n\tstring(first(body('Filter_array:_Dynamic_Plan_for_child_test'))?['activity']),\r\n\tstring(first(body('Filter_array:_Previous_DynamicPlanReceived_Element'))?['activity'])\r\n)",
                                                 "text_1": "@outputs('Get_Conversation_Transcripts')['body/value'][0]['metadata']",
                                                 "text_2": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_expectedtopicname']",
                                                 "text_3": "@outputs('Get_Copilot_Configuration')?['body/cat_dataverseurl']"
@@ -866,20 +881,35 @@
                                           }
                                         },
                                         "runAfter": {
-                                          "Filter_array:_Dynamic_Plan_for_child_test": [
+                                          "Filter_array:_Previous_DynamicPlanReceived_Element": [
                                             "Succeeded"
                                           ]
                                         },
                                         "expression": {
-                                          "greater": [
-                                            "@length(body('Filter_array:_Dynamic_Plan_for_child_test'))",
-                                            0
+                                          "equals": [
+                                            "@or( greater(length(body('Filter_array:_Dynamic_Plan_for_child_test')), 0) , greater(length(body('Filter_array:_Previous_DynamicPlanReceived_Element')), 0))",
+                                            "@true"
                                           ]
                                         },
                                         "metadata": {
                                           "operationMetadataId": "3451fd77-f810-41bd-97d6-56cd80136f67"
                                         },
                                         "type": "If"
+                                      },
+                                      "Filter_array:_Previous_DynamicPlanReceived_Element": {
+                                        "runAfter": {
+                                          "Filter_array:_Dynamic_Plan_for_child_test": [
+                                            "Succeeded"
+                                          ]
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "f9c47310-97c1-464a-b01b-4cb43e84d78a"
+                                        },
+                                        "type": "Query",
+                                        "inputs": {
+                                          "from": "@body('Select:_Add_index_property')",
+                                          "where": "@and(\n\tequals(item()?['activity']?['valueType'], 'DynamicPlanReceived'), \n\tless(item()?['index'], first(body('Filter_array:_Current_Element'))?['index'])\n)"
+                                        }
                                       }
                                     },
                                     "runAfter": {
@@ -1055,9 +1085,13 @@
                                       }
                                     },
                                     "expression": {
-                                      "greater": [
-                                        "@length(outputs('Compose:_Topic_Array_MultiTurn'))",
-                                        1
+                                      "and": [
+                                        {
+                                          "greater": [
+                                            "@length(outputs('Compose:_Topic_Array_MultiTurn'))",
+                                            1
+                                          ]
+                                        }
                                       ]
                                     },
                                     "metadata": {
@@ -1153,7 +1187,7 @@
                 }
               },
               "runAfter": {
-                "Get_Conversation_Transcripts": [
+                "Combined_Conversation_Transcripts": [
                   "Succeeded"
                 ]
               },
@@ -1176,7 +1210,7 @@
                         "recordId": "@items('Apply_to_each_Result')?['cat_copilottestresultid']",
                         "item/cat_name": "@items('Apply_to_each_Result')?['cat_name']",
                         "item/cat_resultcode": "@if(\n    equals(\n        items('Apply_to_each_Result')?['cat_resultcode'], \n        5\n    ), \n    4, \n    items('Apply_to_each_Result')?['cat_resultcode']\n)",
-                        "item/cat_resultreason": "@{if(\n    equals(\n        items('Apply_to_each_Result')?['cat_resultcode'], \n        5\n    ), \n    'Conversation Transcript could not be retrieved', \n    items('Apply_to_each_Result')?['cat_resultcode']\n)}"
+                        "item/cat_resultreason": "@if(\n    equals(\n        items('Apply_to_each_Result')?['cat_resultcode'], \n        5\n    ), \n    'Conversation Transcript could not be retrieved', \n    items('Apply_to_each_Result')?['cat_resultcode']\n)"
                       },
                       "authentication": "@parameters('$authentication')"
                     }
@@ -1197,6 +1231,76 @@
                 "operationMetadataId": "8b3c79f8-bbb7-4c68-9c78-078afd27ca17"
               },
               "type": "If"
+            },
+            "Set_variable:_TranscriptActivities": {
+              "runAfter": {},
+              "metadata": {
+                "operationMetadataId": "c3d48bab-1128-4dda-adb7-6f986a8be3be"
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "TranscriptActivities",
+                "value": []
+              }
+            },
+            "Apply_to_each_Conversation_Transcript": {
+              "foreach": "@outputs('Get_Conversation_Transcripts')?['body/value']",
+              "actions": {
+                "Extract_Conversation_Activities": {
+                  "runAfter": {},
+                  "metadata": {
+                    "operationMetadataId": "bfd87fc0-b5c7-40a6-8b5b-cedeb1ad573c"
+                  },
+                  "type": "Compose",
+                  "inputs": "@json(items('Apply_to_each_Conversation_Transcript')?['content'])?['activities']"
+                },
+                "Apply_to_each_Activities_Value": {
+                  "foreach": "@outputs('Extract_Conversation_Activities')",
+                  "actions": {
+                    "Append_to_array_variable:_AllActivities": {
+                      "runAfter": {},
+                      "metadata": {
+                        "operationMetadataId": "ce8818fe-7bf4-4fde-b27f-6b17283308f9"
+                      },
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "TranscriptActivities",
+                        "value": "@item()"
+                      }
+                    }
+                  },
+                  "runAfter": {
+                    "Extract_Conversation_Activities": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "b277ec40-ab4c-4a29-b429-c449c5ec691d"
+                  },
+                  "type": "Foreach"
+                }
+              },
+              "runAfter": {
+                "Get_Conversation_Transcripts": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "a7cbcb62-fa98-464d-ad0d-066f76f4e893"
+              },
+              "type": "Foreach"
+            },
+            "Combined_Conversation_Transcripts": {
+              "runAfter": {
+                "Apply_to_each_Conversation_Transcript": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "a0c9db08-c408-4b50-82a5-b16dd98911d2"
+              },
+              "type": "Compose",
+              "inputs": "@json(\r\n   concat(\r\n      '{\"activities\":',\r\n      string(\r\n         union(\r\n            variables('TranscriptActivities'),\r\n            variables('TranscriptActivities')\r\n         )\r\n      ),\r\n      '}'\r\n   )\r\n)\r\n"
             }
           },
           "runAfter": {
@@ -1253,8 +1357,7 @@
             "parameters": {
               "entityName": "cat_copilottestruns",
               "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
-              "item/cat_dataverseenrichmentstatuscode": 3,
-              "item/cat_errordetails": "@concat(\r\n  outputs('Update_Copilot_Test_Run:_Running')?['body/cat_errordetails'],\r\n  '<br/>',\r\n  '<strong>',\r\n  workflow()?['tags']?['flowDisplayName'],\r\n  '</strong> flow run: <a href=\"',\r\n  outputs('Get_Flow_Endpoint'),\r\n  'environments/',\r\n  workflow()?['tags']?['environmentName'],\r\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\r\n  workflow()?['name'],\r\n  '/runs/',\r\n  workflow()?['run']?['name'],\r\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\r\n)"
+              "item/cat_dataverseenrichmentstatuscode": 3
             },
             "authentication": "@parameters('$authentication')"
           }
@@ -1329,7 +1432,7 @@
                 "type": "Wait",
                 "inputs": {
                   "interval": {
-                    "count": "@if(equals(parameters('Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)'), null), 60, parameters('Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)'))",
+                    "count": "@if(equals(parameters('Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)'), null), 25, parameters('Delay for Conversation Transcripts Enrichment (Minutes) (cat_DelayforConversationTranscriptsEnrichment)'))",
                     "unit": "Minute"
                   }
                 }
@@ -1411,7 +1514,7 @@
         },
         "Get_Flow_Endpoint": {
           "runAfter": {
-            "Initialize_variable:_TopicMatch": [
+            "Initialize_variable:_TranscriptActivities": [
               "Succeeded"
             ]
           },
@@ -1457,11 +1560,28 @@
             },
             "body": {
               "text": "@triggerOutputs()?['body/InputParameters/CopilotConfigurationId']",
-              "text_1": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
-            },
-            "retryPolicy": {
-              "type": "none"
+              "text_1": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "text_2": "@concat(\n  outputs('Update_Copilot_Test_Run:_Running')?['body/cat_errordetails'],\n  '<br/>',\n  '<strong>',\n  workflow()?['tags']?['flowDisplayName'],\n  '</strong> flow run: <a href=\"',\n  outputs('Get_Flow_Endpoint'),\n  'environments/',\n  workflow()?['tags']?['environmentName'],\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\n  workflow()?['name'],\n  '/runs/',\n  workflow()?['run']?['name'],\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\n)"
             }
+          }
+        },
+        "Initialize_variable:_TranscriptActivities": {
+          "runAfter": {
+            "Initialize_variable:_TopicMatch": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "493c41e7-7cb5-4e1e-9b28-1d680e043bc4"
+          },
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "TranscriptActivities",
+                "type": "array"
+              }
+            ]
           }
         }
       }

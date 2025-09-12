@@ -76,9 +76,6 @@
                     <Sequence DisplayName="SetVisibilityStep7: Show Pass Threshold">
                       <mcwc:SetVisibility ControlId="cat_passthreshold" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
                     </Sequence>
-                    <Sequence DisplayName="SetVisibilityStep10: Hide Expected Response">
-                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
-                    </Sequence>
                     <Sequence DisplayName="SetMessageStep11: Plan Validation">
                       <mcwc:SetMessage ControlId="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Level="RECOMMENDATION">
                         <mcwc:SetMessage.Activities>
@@ -166,12 +163,12 @@
                                 </Sequence>
                               </sco:Collection>
                               <sco:Collection x:TypeArguments="mcwo:StepLabel" x:Key="StepLabels">
-                                <mcwo:StepLabel Description="Plan validation test type requires Conversation Transcript Enrichment to be enabled. Plan validation allows maker to validate if specified tools are present in the dynamic plan generated for the test utterance by custom agent with generative orchestration enabled." LabelId="8694f576-fad4-4f20-a918-659e2bec845f" LanguageCode="1033" />
+                                <mcwo:StepLabel Description="Plan validation allows maker to validate if specified tools are present in the dynamic plan generated for the test utterance by custom agent with generative orchestration enabled. Conversation Transcript Enrichment is required" LabelId="f0232168-e42c-4343-ab3b-49b6ffc70461" LanguageCode="1033" />
                               </sco:Collection>
                               <x:Null x:Key="ActionId" />
                               <x:Int32 x:Key="ActionType">4</x:Int32>
-                              <s:Guid x:Key="ProcessId">bc91ed9d-a587-4594-9d9a-abcbc7ccf6d6</s:Guid>
-                              <x:String x:Key="UniqueName">id_b1d338a7f6134b94b8b5b360482266ebActionStep</x:String>
+                              <s:Guid x:Key="ProcessId">b856517e-fe5a-4a20-b568-b008e818f54b</s:Guid>
+                              <x:String x:Key="UniqueName">id_5a473b42716b4686816189610930bcc0ActionStep</x:String>
                               <x:Null x:Key="TriggerEvents" />
                               <x:Null x:Key="ActionControl" />
                             </mxswa:ActivityReference.Properties>
