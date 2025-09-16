@@ -28,6 +28,35 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 
 ![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
 
+## Using Usage Metrics in Agent Inventory 
+You can view usage details for your agent over the past 30 days in **Agent Inventory**.
+
+### Prerequisites 
+
+Before using the usage metrics feature:
+
+1. **Install** the **Copilot Studio Kit main solution**.
+2. **Ensure** that the connector **HTTP with Microsoft Entra ID (preauthorized)** is allowed in your environment.
+
+### Installation Instructions 
+
+To enable usage metrics on top of the Copilot Studio Kit main solution, you must **import the `AgentInventoryUsage` solution**, available in the **September release Assets directory**.
+
+During the import process, create a connection using the licensing host URL: https://licensing.powerplatform.microsoft.com/
+
+### How Usage Metrics Are Updated 
+
+Usage data in the **Agent Details** table is refreshed in two ways:
+
+1. **Automatically** every day at **3:00 AM server time**.
+2. **Manually** when you perform an **Agent Sync** operation.
+
+### Where to View Usage Data 
+
+In the **Agent Inventory Dashboard**, check the **Agents grid**.
+If the field **Usage Metrics Available** is set to **Yes**, a **Usage Data** section will appear in the **Agent Details** page.
+
+
 > [!NOTE]
 > It is important to understand that the visibility to the agents is *limited* and *controlled* by the connection references in the solution. **Copilot Studio Kit - Power Platform for Admins** is used to fetch the list of environments in the tenant and **Copilot Studio Kit - Dataverse** is used to gather the agent information from the environments. For full visibility, the connection references have to be configured with account having Power Platform admin role and system admin level permission to all the environments. Other accounts can be used as well, but the visibility of the agent inventory is limited to the environments the user has system admin access to.
 
