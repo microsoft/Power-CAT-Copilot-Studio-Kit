@@ -117,7 +117,7 @@ Based on the [Microsoft Agents Sample Documentation](https://github.com/microsof
    - Under **CopilotStudio**, check **CopilotStudio.Copilots.Invoke**
    - Click **Add permissions**
 
-3. **Grant Admin Consent** (Optional but recommended)
+3. **Grant Admin Consent**
    - Click **Grant admin consent for [your organization]**
 
 > **Note:** If you don't see "Power Platform API" in the list, you need to add it to your tenant. Follow the instructions at [Power Platform API Authentication](https://learn.microsoft.com/power-platform/admin/programmability-authentication-v2#step-2-configure-api-permissions) Step 2.
