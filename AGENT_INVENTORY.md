@@ -29,7 +29,7 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 ![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
 
 ## Using Usage Metrics in Agent Inventory 
-You can view usage details for your agent over the past 30 days in **Agent Inventory**.
+You can view usage details for your agent over the past 30 days in **Agent Inventory**. Agent Usage Metrics is distributed as an optional separate solution due to its connector requirements.
 
 ### Prerequisites 
 
@@ -56,6 +56,7 @@ Usage data in the **Agent Details** table is refreshed in two ways:
 In the **Agent Inventory Dashboard**, check the **Agents grid**.
 If the field **Usage Metrics Available** is set to **Yes**, a **Usage Data** section will appear in the **Agent Details** page.
 
+![1757887427508](https://github.com/user-attachments/assets/f21cc4bd-b14e-45cb-87fc-85be6a7740f1)
 
 > [!NOTE]
 > It is important to understand that the visibility to the agents is *limited* and *controlled* by the connection references in the solution. **Copilot Studio Kit - Power Platform for Admins** is used to fetch the list of environments in the tenant and **Copilot Studio Kit - Dataverse** is used to gather the agent information from the environments. For full visibility, the connection references have to be configured with account having Power Platform admin role and system admin level permission to all the environments. Other accounts can be used as well, but the visibility of the agent inventory is limited to the environments the user has system admin access to.
