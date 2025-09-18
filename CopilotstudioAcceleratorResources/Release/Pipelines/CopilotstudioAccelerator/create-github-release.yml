@@ -82,6 +82,27 @@ steps:
         Write-Host "Conversation.KPIs.zip not found. Skipping."
     }
 
+    # Copy all files from Artifacts folder to release assets
+    Write-Host "Checking for files in the /Release/Artifacts/ folder..."
+    $artifactsFolder = "$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\Artifacts\"
+    
+    if (Test-Path $artifactsFolder) {
+        Write-Host "Artifacts folder found. Copying all files to releaseassets..."
+        $artifactFiles = Get-ChildItem -Path $artifactsFolder -File -Recurse
+        
+        if ($artifactFiles) {
+            foreach ($file in $artifactFiles) {
+                Write-Host "Copying artifact file: $($file.Name)"
+                Copy-Item -Path $file.FullName -Destination "$(Pipeline.Workspace)\releaseassets" -Force
+            }
+            Write-Host "Successfully copied $($artifactFiles.Count) artifact file(s) to release assets."
+        } else {
+            Write-Host "Artifacts folder is empty. No files to copy."
+        }
+    } else {
+        Write-Host "Artifacts folder not found at: $artifactsFolder. Skipping artifact file copying."
+    }
+
     <#
     # Compress to CopilotStudioKit.zip
     Write-Host "Creating CopilotStudioKit.zip (Managed + Collateral)..."
