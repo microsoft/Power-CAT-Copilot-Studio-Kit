@@ -1,35 +1,30 @@
-### 🤖 Issue Closure Log
+🤖 Issue Closure Log
 
-### [Issue #402 - Limited access in Copilot Studio Kit despite correct roles](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/402)
+### [Issue #403 - "GenAIToolPlannerRateLimitReached" error - Test run execution](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/403)
 
 **Problem:**  
-I currently only have access to a single screen in Copilot Studio Kit, which includes the Features Setup Wizard, Configure Agent, and Test Runs History. However, my account has been assigned the following roles: Copilot Kit Studio - Administrator, Copilot Kit Studio - Configurator, Copilot Kit Studio - Tester/KPI Viewer. What am I missing to have access to all the features of the Kit?
+Users getting "GenAIToolPlannerRateLimitReached" error when executing tests, wondering if this relates to Dataverse environment quotas and how to monitor request usage.
 
 **Root Cause:**  
-The issue was due to additional requirements beyond role assignment, such as Data Loss Prevention (DLP) policies, environment type, licensing, and flow activation.
+The `GenAIToolPlannerRateLimitReached` error occurs when the Copilot Studio (Dataverse) environment exceeds its allocated quota for AI-powered operations. This is directly related to the environment's usage limits for generative orchestration.
 
 **Solution Applied:**  
-1. **Review Data Loss Prevention (DLP) Policies:**  
-   - Ensure all required connectors (Dataverse, SharePoint, Power Platform as Admin, Office 365 Outlook, Microsoft Entra ID, Power Apps for Makers) are allowed in your environment’s DLP policies. Restricted connectors can block feature access even with correct roles.
-2. **Check Environment and Licensing:**  
-   - Confirm your environment is not a preview or restricted developer environment and has proper licensing for all required connectors and features.
-3. **Reinstall or Refresh the Kit:**  
-   - If issues persist, reinstall the Copilot Studio Kit from AppSource and use the Setup Wizard to reconfigure the environment.
-4. **Activate All Required Flows:**  
-   - Make sure all Power Automate flows are activated. Toggle setup wizard flows off/on after DLP policy updates.
-5. **Update to the Latest Version:**  
-   - Ensure you are using the latest version of the kit, as recent releases may have changed UI options and feature availability.
+1. **Confirm Quota Limitation**  
+   - This error means the environment has hit its quota for AI operations.
+2. **Monitor Current Usage and Quotas**  
+   - Regularly check the environment's usage and quota status to avoid hitting the limit. See the [Dataverse Quota Monitoring](https://learn.microsoft.com/power-platform/admin/view-quotas) guide.
+3. **Resolution Options**  
+   - Wait for the quota to reset (typically after a set period).
+   - If frequently reaching the quota, consider upgrading the environment's capacity.
+4. **Reference Official Documentation**  
+   - For detailed guidance, refer to [Microsoft's documentation on API request limits and allocations](https://learn.microsoft.com/power-platform/admin/api-request-limits-allocations).
 
 **Download/Reference Links:**  
-- 📚 [Power CAT Copilot Studio Kit – Access Troubleshooting Guide](#)
-- 📚 [Power Platform DLP Policies Documentation](https://learn.microsoft.com/power-platform/admin/wp-data-loss-prevention)
-- 📚 [Copilot Studio Kit Installation Guide](#)
+- 📚 [Microsoft Learn: Error Codes and Quota Management](https://learn.microsoft.com/power-platform/admin/api-request-limits-allocations)  
+- 📚 [Dataverse Quota Monitoring](https://learn.microsoft.com/power-platform/admin/view-quotas)
 
 **Outcome:**  
-The user was able to gain full access to all features of the Copilot Studio Kit after following the provided steps.
+Monitoring and managing the Dataverse environment's AI operation quotas is essential to prevent disruptions during test execution. If the error persists, review usage patterns and consider capacity upgrades.
 
 ---
 
-This automated log entry is based on the resolution of the issue. If further assistance is needed, a maintainer will follow up.
-
----
