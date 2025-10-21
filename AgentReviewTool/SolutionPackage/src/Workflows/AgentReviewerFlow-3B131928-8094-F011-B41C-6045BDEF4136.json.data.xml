@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{3b131928-8094-f011-b41c-6045bdef4136}" Name="Agent Reviewer Flow" Description="This flow starts when a manual trigger is activated and receives a text input. It then generates a document containing details about a Copilot component using AI Builder. Next, it reviews the generated document with another AI Builder action. Finally, the flow responds with the review result, sending it back to the requester. Each step depends on the successful completion of the previous one, ensuring a logical sequence from input to document generation, review, and response." xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <JsonFileName>/Workflows/AgentReviewerFlow-3B131928-8094-F011-B41C-6045BDEF4136.json</JsonFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>5</Category>
+  <Mode>0</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ModernFlowType>1</ModernFlowType>
+  <PrimaryEntity>none</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Agent Reviewer Flow" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1033" description="This flow starts when a manual trigger is activated and receives a text input. It then generates a document containing details about a Copilot component using AI Builder. Next, it reviews the generated document with another AI Builder action. Finally, the flow responds with the review result, sending it back to the requester. Each step depends on the successful completion of the previous one, ensuring a logical sequence from input to document generation, review, and response." />
+  </Descriptions>
+</Workflow>

@@ -1,0 +1,22 @@
+kind: TaskDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: Review_20Results
+    name: Review Results
+    shouldPromptUser: true
+
+  - kind: AutomaticTaskInput
+    propertyName: Extraction_20Details
+    name: Extraction Details
+    shouldPromptUser: true
+
+modelDisplayName: Stage C - Agent Review Report Generation
+modelDescription: This tool help in Agent Review Report generation as PDF File.
+action:
+  kind: InvokeAIPluginTaskAction
+  entityKey: aiplugin.name=msdynaip_StageCAgentReviewReportGeneration_1760882637666,operationid=msdynaip_StageCAgentReviewReportGeneration_1760882637666
+  primaryConnectionReference:
+    kind: InvokerConnectionReference
+
+outputMode: All
+triggerCondition: false

@@ -1,0 +1,522 @@
+kind: AdaptiveDialog
+modelDescription: This topic helps review the agent which the user wish to review. Whenever a user wish to review this starting is suppose to be the starting point.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  actions:
+    - kind: InvokeConnectorAction
+      id: invokeConnectorAction_9k8NWj
+      input:
+        binding:
+          $select: name,botid,componentidunique
+          entityName: bots
+          organization: current
+          x-ms-odata-metadata-full: false
+
+      output:
+        kind: SingleVariableOutputBinding
+        variable: Topic.ListRecordsWithOrganization
+
+      connectionReference: cat_AgentReviewToolDataverseConnectionRef
+      connectionProperties:
+        mode: Invoker
+
+      dynamicOutputSchema:
+        kind: Record
+        properties:
+          @odata.nextLink:
+            displayName: Next link
+            description: The url to fetch next page data.
+            visibility: Advanced
+            order: 1
+            type: String
+
+          value:
+            order: 0
+            type:
+              kind: Table
+              properties:
+                _createdby_value:
+                  displayName: Created By (Value)
+                  description: Unique identifier of the user who created the record.
+                  visibility: Advanced
+                  order: 12
+                  type: String
+
+                _createdby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Created By (Type)
+                  description: Unique identifier of the user who created the record.
+                  visibility: Advanced
+                  order: 11
+                  type: String
+
+                _createdonbehalfby_value:
+                  displayName: Created By (Delegate) (Value)
+                  description: Unique identifier of the delegate user who created the record.
+                  visibility: Advanced
+                  order: 10
+                  type: String
+
+                _createdonbehalfby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Created By (Delegate) (Type)
+                  description: Unique identifier of the delegate user who created the record.
+                  visibility: Advanced
+                  order: 9
+                  type: String
+
+                _modifiedby_value:
+                  displayName: Modified By (Value)
+                  description: Unique identifier of the user who modified the record.
+                  visibility: Advanced
+                  order: 22
+                  type: String
+
+                _modifiedby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Modified By (Type)
+                  description: Unique identifier of the user who modified the record.
+                  visibility: Advanced
+                  order: 21
+                  type: String
+
+                _modifiedonbehalfby_value:
+                  displayName: Modified By (Delegate) (Value)
+                  description: Unique identifier of the delegate user who modified the record.
+                  visibility: Advanced
+                  order: 20
+                  type: String
+
+                _modifiedonbehalfby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Modified By (Delegate) (Type)
+                  description: Unique identifier of the delegate user who modified the record.
+                  visibility: Advanced
+                  order: 19
+                  type: String
+
+                _ownerid_value:
+                  displayName: Owner (Value)
+                  description: Owner Id
+                  visibility: Advanced
+                  order: 28
+                  type: String
+
+                _ownerid_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Owner (Type)
+                  description: Owner Id
+                  visibility: Advanced
+                  order: 27
+                  type: String
+
+                _owningbusinessunit_value:
+                  displayName: Owning Business Unit (Value)
+                  description: Unique identifier for the business unit that owns the record
+                  visibility: Advanced
+                  order: 30
+                  type: String
+
+                _owningbusinessunit_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Owning Business Unit (Type)
+                  description: Unique identifier for the business unit that owns the record
+                  visibility: Advanced
+                  order: 29
+                  type: String
+
+                _owningteam_value:
+                  displayName: Owning Team (Value)
+                  description: Unique identifier for the team that owns the record.
+                  visibility: Advanced
+                  order: 32
+                  type: String
+
+                _owningteam_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Owning Team (Type)
+                  description: Unique identifier for the team that owns the record.
+                  visibility: Advanced
+                  order: 31
+                  type: String
+
+                _owninguser_value:
+                  displayName: Owning User (Value)
+                  description: Unique identifier for the user that owns the record.
+                  visibility: Advanced
+                  order: 34
+                  type: String
+
+                _owninguser_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Owning User (Type)
+                  description: Unique identifier for the user that owns the record.
+                  visibility: Advanced
+                  order: 33
+                  type: String
+
+                _providerconnectionreferenceid_value:
+                  displayName: Provider connection reference (Value)
+                  description: Unique identifier for Connection Reference associated with Copilot.
+                  visibility: Advanced
+                  order: 36
+                  type: String
+
+                _providerconnectionreferenceid_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Provider connection reference (Type)
+                  description: Unique identifier for Connection Reference associated with Copilot.
+                  visibility: Advanced
+                  order: 35
+                  type: String
+
+                _publishedby_value:
+                  displayName: Published By (Value)
+                  description: Unique identifier of the user who last published the bot.
+                  visibility: Advanced
+                  order: 38
+                  type: String
+
+                _publishedby_value@Microsoft.Dynamics.CRM.lookuplogicalname:
+                  displayName: Published By (Type)
+                  description: Unique identifier of the user who last published the bot.
+                  visibility: Advanced
+                  order: 37
+                  type: String
+
+                @odata.id:
+                  displayName: OData Id
+                  description: OData row id
+                  order: 25
+                  type: String
+
+                accesscontrolpolicy:
+                  displayName: Access Control Policy
+                  description: Defines which users may interact with the bot.
+                  order: 0
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                applicationmanifestinformation:
+                  displayName: Application Manifest Information
+                  description: Stores information with application manifest data such as Teams application information.
+                  visibility: Advanced
+                  order: 1
+                  type: String
+
+                authenticationconfiguration:
+                  displayName: Authentication Configuration Information
+                  description: Stores information for the authentication configuration.
+                  visibility: Advanced
+                  order: 2
+                  type: String
+
+                authenticationmode:
+                  displayName: Authentication Mode
+                  description: Defines how the bot should be authenticated to the user.
+                  order: 3
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                authenticationtrigger:
+                  displayName: Authentication trigger
+                  description: Defines at which point authentication for the bot should be triggered. Security can be enforced at the bot entry point, removing the need for explicit authentication nodes in the dialog flow.
+                  order: 4
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                authorizedsecuritygroupids:
+                  displayName: Authorized Security Groups
+                  description: Contains a comma-delimited list of up to 20 Azure Active Directory Group IDs that are allowed to interact with the bot. This field is ignored if Access Control Policy is not set to Group membership.
+                  visibility: Advanced
+                  order: 5
+                  type: String
+
+                botid:
+                  displayName: Bot
+                  description: Unique identifier of the Copilot.
+                  visibility: Advanced
+                  order: 6
+                  type: String
+
+                componentidunique:
+                  displayName: Row id unique
+                  description: For internal use only.
+                  order: 42
+                  type: String
+
+                componentstate:
+                  displayName: Component State
+                  description: For internal use only.
+                  order: 7
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                configuration:
+                  displayName: Configuration
+                  description: Used to store content of bot configuration data.
+                  visibility: Advanced
+                  order: 8
+                  type: String
+
+                createdon:
+                  displayName: Created On
+                  description: Date and time when the record was created.
+                  visibility: Advanced
+                  order: 13
+                  type: DateTime
+
+                iconbase64:
+                  displayName: Icon (Base64)
+                  description: Used to visually identify your bot in channels and services. Represented in a base64 encoded string. Must be in PNG format, and no larger than 100KB in size. This value can be changed at any time.
+                  visibility: Advanced
+                  order: 14
+                  type: String
+
+                importsequencenumber:
+                  displayName: Import Sequence Number
+                  description: Sequence number of the import that created this record.
+                  visibility: Advanced
+                  order: 15
+                  type: Number
+
+                iscustomizable:
+                  displayName: Is Customizable
+                  description: For internal use only.
+                  order: 16
+                  type: Boolean
+
+                ismanaged:
+                  displayName: Is Managed
+                  description: Indicates whether the solution component is part of a managed solution.
+                  order: 17
+                  type: Boolean
+
+                language:
+                  displayName: Language
+                  description: The language identifier (LCID) of this Copilot.
+                  order: 18
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                modifiedon:
+                  displayName: Modified On
+                  description: Date and time when the record was modified.
+                  visibility: Advanced
+                  order: 23
+                  type: DateTime
+
+                name:
+                  displayName: Name
+                  description: The display name of the Copilot.
+                  visibility: Advanced
+                  order: 24
+                  type: String
+
+                origin:
+                  displayName: Origin
+                  description: Used to identify the origin used to create the bot.
+                  visibility: Advanced
+                  order: 26
+                  type: String
+
+                overriddencreatedon:
+                  displayName: Record Created On
+                  description: Date and time that the record was migrated.
+                  visibility: Advanced
+                  order: 40
+                  type: DateTime
+
+                overwritetime:
+                  displayName: Record Overwrite Time
+                  description: For internal use only.
+                  order: 41
+                  type: DateTime
+
+                publishedon:
+                  displayName: Published On
+                  description: Date and time when the Copilot was last published
+                  visibility: Advanced
+                  order: 39
+                  type: DateTime
+
+                runtimeprovider:
+                  displayName: Runtime provider
+                  order: 43
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                schemaname:
+                  displayName: SchemaName
+                  description: Unique name identifying the Copilot.
+                  order: 44
+                  type: String
+
+                solutionid:
+                  displayName: Solution
+                  description: Unique identifier of the associated solution.
+                  order: 45
+                  type: String
+
+                statecode:
+                  displayName: Status
+                  description: Status of the Copilot
+                  visibility: Advanced
+                  order: 46
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                statuscode:
+                  displayName: Status Reason
+                  description: Reason for the status of the Copilot
+                  visibility: Advanced
+                  order: 47
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: Number
+
+                supportedlanguages:
+                  displayName: Supported languages
+                  description: The list of supported languages by this bot
+                  visibility: Advanced
+                  order: 48
+                  dynamicValuesConfig:
+                    capability: List
+
+                  type: String
+
+                synchronizationstatus:
+                  displayName: SynchronizationStatus
+                  description: Used to store information about the synchronization operations of the bot
+                  visibility: Advanced
+                  order: 49
+                  type: String
+
+                template:
+                  displayName: Template
+                  description: Used to identify the template and version used for the bot default content
+                  visibility: Advanced
+                  order: 50
+                  type: String
+
+                timezoneruleversionnumber:
+                  displayName: Time Zone Rule Version Number
+                  description: For internal use only.
+                  visibility: Advanced
+                  order: 51
+                  type: Number
+
+                utcconversiontimezonecode:
+                  displayName: UTC Conversion Time Zone Code
+                  description: Time zone code that was in use when the record was created.
+                  visibility: Advanced
+                  order: 52
+                  type: Number
+
+                versionnumber:
+                  displayName: Version Number
+                  description: Version Number
+                  visibility: Advanced
+                  order: 53
+                  type: Number
+
+      operationId: ListRecordsWithOrganization
+
+    - kind: AdaptiveCardPrompt
+      id: RHenja
+      card: |
+        ={
+            type: "AdaptiveCard",
+            version: "1.5",
+            '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+            body: [
+                {
+                    type: "TextBlock",
+                    text: "Select Agent to Review",
+                    wrap: true,
+                    size: "Medium",
+                    weight: "Bolder"
+                },
+                {
+                    type: "Container",
+                    backgroundImage: {
+                        url: "https://raw.githubusercontent.com/Ramakrishnan24689/AgentReviewTool/refs/heads/main/A%20futuristic%20robotic%20arm%20with%20streamlined%2C%20articulated%20joints%20and%20vibrant%20blue%20LED%20accents%2C%20position.jpeg"
+                    },
+                    minHeight: "180px",
+                    roundedCorners: true,
+                    items: [
+                        {
+                            type: "ColumnSet",
+                            columns: [
+                                {
+                                    type: "Column",
+                                    width: "stretch",
+                                    verticalContentAlignment: "Top",
+                                    roundedCorners: true
+                                }
+                            ],
+                            horizontalAlignment: "Right",
+                            targetWidth: "AtLeast:Narrow",
+                            spacing: "Medium"
+                        }
+                    ],
+                    targetWidth: "AtLeast:Standard"
+                },
+                {
+                    type: "Input.ChoiceSet",
+                    id: "selectedAgentId",
+                    label: "Choose an Agent",
+                    placeholder: "Start typing...",
+                    isRequired: true,
+                    errorMessage: "Please select an agent",
+                    isMultiSelect: false,
+                    style: "compact",
+                    choices: ForAll(Topic.ListRecordsWithOrganization.value,{ title: ThisRecord.name, value: ThisRecord.componentidunique}),
+                    spacing: "Medium"
+                },
+                {
+                    type: "ActionSet",
+                    actions: [
+                        {
+                            type: "Action.Submit",
+                            title: "Review",
+                            style: "positive",
+                            tooltip: "Start Review",
+                            iconUrl: "icon:Sparkle",
+                            id: "deviceSubmittedId"
+                        }
+                    ],
+                    spacing: "Medium"
+                }
+            ]
+        }
+      output:
+        binding:
+          selectedAgentId: Topic.selectedAgentId
+
+      outputType:
+        properties:
+          selectedAgentId: String
+
+    - kind: SendActivity
+      id: sendActivity_R0EqfP
+      activity: You have selected an Agent with Bot ID - {Topic.selectedAgentId}. Please wait while I evaluate your agent.
+
+    - kind: BeginDialog
+      id: wByCIv
+      input:
+        binding:
+          text: =Topic.selectedAgentId
+
+      dialog: cr306_agentReviewer.action.AgentReviewer
+      output:
+        binding:
+          file_url: Topic.file_url
+          review_result: Topic.review_result

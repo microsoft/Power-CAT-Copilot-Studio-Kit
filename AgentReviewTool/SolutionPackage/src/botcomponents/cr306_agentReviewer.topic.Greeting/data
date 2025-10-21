@@ -1,0 +1,29 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    displayName: Greeting
+    includeInOnSelectIntent: false
+    triggerQueries:
+      - Good afternoon
+      - Good morning
+      - Hello
+      - Hey
+      - Hi
+
+  actions:
+    - kind: SendActivity
+      id: sendMessage_abmysR
+      activity:
+        text:
+          - Hello, how can I help you today?
+        speak:
+          - Hello, <break strength="medium" /> how can I help?
+
+    - kind: BeginDialog
+      id: JU5bGY
+      dialog: cr306_agentReviewer.topic.ConversationStart
+
+    - kind: CancelAllDialogs
+      id: cancelAllDialogs_01At22

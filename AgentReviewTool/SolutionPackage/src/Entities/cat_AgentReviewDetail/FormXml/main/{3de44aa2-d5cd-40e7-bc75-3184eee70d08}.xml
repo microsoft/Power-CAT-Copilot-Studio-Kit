@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{3de44aa2-d5cd-40e7-bc75-3184eee70d08}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{cc371a1a-458a-4107-a4b7-b4c0444287a2}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{4cd68fe7-e2ac-4567-9d7a-3df7fea7daa2}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ff50b705-f8c2-4024-8200-e076c58b70d4}">
+                        <labels>
+                          <label description="Review Name" languagecode="1033" />
+                        </labels>
+                        <control id="cat_reviewname" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_reviewname" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4ed1faa9-3501-4d8c-b4ba-1367e5e11865}">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{729ea102-68ce-42b4-86c8-de3098547741}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent Review Report " languagecode="1033" />
+                        </labels>
+                        <control id="cat_agentreviewreport" classid="{0A7FF475-B016-4687-9CE5-042BFDBD6519}" datafieldname="cat_agentreviewreport" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{61afc838-4892-4041-a059-f22149e076af}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{cd254446-6e3e-4f26-88e7-2b54ba13ae45}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{580f600e-dd21-484f-925f-ec550d0e007e}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{29dfb9ed-021c-4fa0-833c-7ab32e827511}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{e6586f60-3ad3-4014-80b5-40f1b4e497a8}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{01f6fcfe-4ad3-45ae-a311-eb1dc52468fc}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{8242fd79-53d4-4779-b05f-de6221855213}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{708d84fa-b84f-4d69-ac3c-e43421de2cee}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

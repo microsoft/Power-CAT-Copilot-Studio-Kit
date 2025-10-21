@@ -1,0 +1,83 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\PowerCAT.PackageDeployer.Package.csproj": {}
+  },
+  "projects": {
+    "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\PowerCAT.PackageDeployer.Package.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\PowerCAT.PackageDeployer.Package.csproj",
+        "projectName": "PowerCAT.PackageDeployer.Package",
+        "projectPath": "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\PowerCAT.PackageDeployer.Package.csproj",
+        "packagesPath": "C:\\Users\\v-rapentyala\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\v-rapentyala\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "Microsoft.CrmSdk.XrmTooling.CoreAssembly": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.1.1.65, )"
+            },
+            "Microsoft.CrmSdk.XrmTooling.PackageDeployment": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.1.0.184, )"
+            },
+            "Microsoft.PowerApps.MSBuild.PDPackage": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.*, )"
+            },
+            "Microsoft.PowerShell.5.1.ReferenceAssemblies": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "System.Text.Json": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
