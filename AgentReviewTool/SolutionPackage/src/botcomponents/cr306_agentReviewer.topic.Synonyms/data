@@ -1,0 +1,13 @@
+kind: AdaptiveDialog
+modelDescription: This topic helps in identifying  synonyms for a given word
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: BeginDialog
+      id: ymui9Y
+      dialog: cr306_agentReviewer.action.CodeInterpretertest-Synonyms
+
+inputType: {}
+outputType: {}

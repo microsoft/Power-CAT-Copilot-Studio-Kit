@@ -1,0 +1,341 @@
+kind: TaskDialog
+response:
+  activity:
+    attachments:
+      - kind: AdaptiveCardTemplate
+        cardContent: |
+          ={
+            type: "AdaptiveCard",
+            '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+            version: "1.6",
+            body: [
+              // Header
+              {
+                type: "TextBlock",
+                text: "Agent Evaluation Summary",
+                weight: "Bolder",
+                size: "Large",
+                wrap: true
+              },
+
+              // Gauge label
+              {
+                type: "TextBlock",
+                text: "Overall Score",
+                spacing: "Small",
+                isSubtle: true
+              },
+
+              // Gauge chart (single colored segment)
+              {
+                type: "Chart.Gauge",
+                title: "Overall Score",
+                value: Value(ParseJSON(Topic.Output.review_result).overall_score),
+                valueFormat: "Number",
+                colorSet: "categorical",
+                segments: [
+                  {
+                    legend: "Score",
+                    size: 100,
+                    color: "good"
+                  }
+                ]
+              },
+
+              // Core details
+              {
+                type: "FactSet",
+                facts: [
+                  { title: "Agent Name:", value: Text(ParseJSON(Topic.Output.review_result).BotName) },
+                  { title: "Bot ID:", value: Text(ParseJSON(Topic.Output.review_result).BotId) },
+                  {
+                    title: "Type:",
+                    value: If(ParseJSON(Topic.Output.review_result).IsGenerativeOrchestration, "Generative Orchestration", "Classic")
+                  },
+                  { title: "Score:", value: Text(ParseJSON(Topic.Output.review_result).overall_score) & " / 100" }
+                ],
+                spacing: "Medium"
+              },
+
+              // Summary
+              {
+                type: "TextBlock",
+                text: "Review Summary",
+                weight: "Bolder",
+                spacing: "Medium"
+              },
+              {
+                type: "TextBlock",
+                text: "The agent scored " & Text(ParseJSON(Topic.Output.review_result).overall_score) & "/100. Expand patterns below for findings and recommendations.",
+                wrap: true
+              },
+
+              // Patterns header
+              {
+                type: "TextBlock",
+                text: "Patterns",
+                weight: "Bolder",
+                spacing: "Medium"
+              },
+
+              // Patterns list (expandable)
+              {
+                type: "Container",
+                items: ForAll(
+                  FirstN(ParseJSON(Topic.Output.review_result).Patterns, 10),
+                  {
+                    type: "Container",
+                    spacing: "Small",
+                    separator: true,
+                    items: [
+                      // Title row with caret icons that toggle visibility
+                      {
+                        type: "ColumnSet",
+                        columns: [
+                          {
+                            type: "Column",
+                            width: "stretch",
+                            items: [
+                              {
+                                type: "TextBlock",
+                                text: ThisRecord.title,
+                                weight: "Bolder",
+                                wrap: true
+                              },
+                              {
+                                type: "TextBlock",
+                                text: ThisRecord.description,
+                                isSubtle: true,
+                                wrap: true,
+                                spacing: "None"
+                              }
+                            ]
+                          },
+                          {
+                            type: "Column",
+                            width: "auto",
+                            verticalContentAlignment: "Center",
+                            items: [
+                              // caret down (visible initially)
+                              {
+                                type: "Image",
+                                id: "icon_down_" & Substitute(ThisRecord.pattern, " ", "_"),
+                                url: "https://adaptivecards.io/content/down.png",
+                                altText: "Expand",
+                                width: "18px",
+                                selectAction: {
+                                  type: "Action.ToggleVisibility",
+                                  targetElements: [
+                                    "detail_" & Substitute(ThisRecord.pattern, " ", "_"),
+                                    "icon_down_" & Substitute(ThisRecord.pattern, " ", "_"),
+                                    "icon_up_" & Substitute(ThisRecord.pattern, " ", "_")
+                                  ]
+                                }
+                              },
+                              // caret up (hidden initially)
+                              {
+                                type: "Image",
+                                id: "icon_up_" & Substitute(ThisRecord.pattern, " ", "_"),
+                                url: "https://adaptivecards.io/content/up.png",
+                                altText: "Collapse",
+                                width: "18px",
+                                isVisible: false,
+                                selectAction: {
+                                  type: "Action.ToggleVisibility",
+                                  targetElements: [
+                                    "detail_" & Substitute(ThisRecord.pattern, " ", "_"),
+                                    "icon_down_" & Substitute(ThisRecord.pattern, " ", "_"),
+                                    "icon_up_" & Substitute(ThisRecord.pattern, " ", "_")
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        ],
+                        spacing: "Small"
+                      },
+
+                      // Detail container (collapsed by default)
+                      {
+                        type: "Container",
+                        id: "detail_" & Substitute(ThisRecord.pattern, " ", "_"),
+                        isVisible: false,
+                        spacing: "Small",
+                        items: [
+                          // Docs
+                          {
+                            type: "TextBlock",
+                            text: "Docs:",
+                            weight: "Bolder",
+                            spacing: "Small"
+                          },
+                          {
+                            type: "Container",
+                            items: If(
+                              IsBlank(ThisRecord.docs),
+                              [
+                                { type: "TextBlock", text: "No docs provided", isSubtle: true }
+                              ],
+                              ForAll(
+                                ThisRecord.docs,
+                                { type: "TextBlock", text: "- " & ThisRecord.item, wrap: true, color: "Accent", spacing: "None" }
+                              )
+                            )
+                          },
+
+                          // Items / findings
+                          {
+                            type: "TextBlock",
+                            text: "Findings:",
+                            weight: "Bolder",
+                            spacing: "Small"
+                          },
+                          {
+                            type: "Container",
+                            items: If(
+                              IsBlank(ThisRecord.items),
+                              [
+                                { type: "TextBlock", text: "No findings reported for this pattern.", isSubtle: true, wrap: true }
+                              ],
+                              ForAll(
+                                ThisRecord.items,
+                                {
+                                  type: "Container",
+                                  spacing: "Small",
+                                  items: [
+                                    {
+                                      type: "TextBlock",
+                                      text: If( !IsBlank(ThisRecord.concise_score), "Quality: " & ThisRecord.concise_score, "" ),
+                                      weight: "Bolder",
+                                      wrap: true,
+                                      spacing: "None"
+                                    },
+                                    {
+                                      type: "TextBlock",
+                                      text: If(ThisRecord.present = false, "Present: No", If(ThisRecord.present = true, "Present: Yes", "")),
+                                      isSubtle: true,
+                                      wrap: true,
+                                      spacing: "None"
+                                    },
+                                    {
+                                      type: "TextBlock",
+                                      text: If( !IsBlank(ThisRecord.recommendation), "Recommendation: " & ThisRecord.recommendation, "" ),
+                                      wrap: true,
+                                      spacing: "Small"
+                                    },
+                                    {
+                                      type: "TextBlock",
+                                      text: If( ThisRecord.missing_best_practices, "Missing best practices: " & Concat(Table(ThisRecord.missing_best_practices), Value.item & ", "), "" ),
+                                      wrap: true,
+                                      spacing: "None"
+                                    }
+                                  ]
+                                }
+                              )
+                            )
+                          },
+
+                          // Evidence examples
+                          {
+                            type: "TextBlock",
+                            text: "Evidence examples:",
+                            weight: "Bolder",
+                            spacing: "Small"
+                          },
+                          {
+                            type: "Container",
+                            items: If(
+                              IsBlank(ThisRecord.evidence_examples),
+                              [ { type: "TextBlock", text: "None provided", isSubtle: true, wrap: true } ],
+                              ForAll(
+                                ThisRecord.evidence_examples,
+                                { type: "TextBlock", text: "- " & ThisRecord.item, wrap: true, isSubtle: true, spacing: "None" }
+                              )
+                            )
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                )
+              },
+
+              // Recommendations summary
+              {
+                type: "TextBlock",
+                text: "Recommendations (Summary)",
+                weight: "Bolder",
+                spacing: "Medium"
+              },
+              {
+                type: "Container",
+                items: If(
+                  CountRows(ParseJSON(Topic.Output.review_result).Patterns) = 0,
+                  [ { type: "TextBlock", text: "No recommendations available.", isSubtle: true } ],
+                  [
+                    {
+                      type: "TextBlock",
+                      text:
+                        Concat(
+                          Filter(
+                            Table(ParseJSON(Topic.Output.review_result).Patterns),
+                            ThisRecord.Value.pattern = "agent_instruction_issues" || ThisRecord.Value.pattern = "model_metadata_quality"
+                          ),
+                          First(ThisRecord.Value.items).recommendation,
+                          Char(10)
+                        ),
+                      wrap: true
+                    }
+                  ]
+                )
+              },
+
+              // References
+              {
+                type: "TextBlock",
+                text: "References",
+                weight: "Bolder",
+                spacing: "Medium"
+              },
+              {
+                type: "Container",
+                items: [
+                  { type: "TextBlock", text: "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-instructions#writing-great-instructions", color: "Accent", wrap: true },
+                  { type: "TextBlock", text: "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-mode-guidance", color: "Accent", wrap: true },
+                  { type: "TextBlock", text: "https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/trigger-phrases-best-practices", color: "Accent", wrap: true }
+                ]
+              }
+            ],
+
+            actions: [
+              {
+                type: "Action.OpenUrl",
+                title: "Download PDF",
+                url: Topic.Output.file_url,
+                iconUrl: "icon:ArrowDownload"
+              }
+            ],
+
+            fallbackText:
+              "Agent Evaluation summary: " &
+              ParseJSON(Topic.Output.review_result).BotName &
+              " - Score: " &
+              Text(ParseJSON(Topic.Output.review_result).overall_score)
+          }
+
+  mode: Strict
+
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: text
+
+modelDescription: A tool to review an agent aka bot whenever its id is provided
+outputs:
+  - propertyName: review_result
+
+action:
+  kind: InvokeFlowTaskAction
+  flowId: 3b131928-8094-f011-b41c-6045bdef4136
+
+outputMode: All
+triggerCondition: false

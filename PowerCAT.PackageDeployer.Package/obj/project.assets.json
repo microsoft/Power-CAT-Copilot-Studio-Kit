@@ -1,0 +1,1190 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.7.2": {
+      "Microsoft.Bcl.AsyncInterfaces/9.0.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "compile": {
+          "lib/net462/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net462/_._": {}
+        }
+      },
+      "Microsoft.CrmSdk.CoreAssemblies/9.0.2.51": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "6.0.7"
+        },
+        "frameworkAssemblies": [
+          "System.Core",
+          "System.DirectoryServices",
+          "System.DirectoryServices.AccountManagement",
+          "System.IdentityModel",
+          "System.Runtime.Serialization",
+          "System.Security",
+          "System.ServiceModel",
+          "System.ServiceModel.Web",
+          "System.Web",
+          "System.Xml",
+          "System.Xml.Linq"
+        ],
+        "compile": {
+          "lib/net462/Microsoft.Crm.Sdk.Proxy.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.Xrm.Sdk.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.Crm.Sdk.Proxy.dll": {
+            "related": ".xml"
+          },
+          "lib/net462/Microsoft.Xrm.Sdk.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.CrmSdk.Deployment/9.0.2.34": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CrmSdk.CoreAssemblies": "9.0.2"
+        },
+        "frameworkAssemblies": [
+          "System.Web.Services"
+        ],
+        "compile": {
+          "lib/net462/Microsoft.Xrm.Sdk.Deployment.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.Xrm.Sdk.Deployment.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.CrmSdk.Workflow/9.0.2.42": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CrmSdk.CoreAssemblies": "9.0.2.42"
+        },
+        "frameworkAssemblies": [
+          "PresentationFramework",
+          "System.Activities",
+          "System.Activities.Presentation",
+          "System.Workflow.Activities",
+          "System.Workflow.ComponentModel",
+          "System.Workflow.Runtime"
+        ],
+        "compile": {
+          "lib/net462/Microsoft.Xrm.Sdk.Workflow.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.Xrm.Sdk.Workflow.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.CrmSdk.XrmTooling.CoreAssembly/9.1.1.65": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CrmSdk.CoreAssemblies": "9.0.2.51",
+          "Microsoft.CrmSdk.Deployment": "9.0.2.34",
+          "Microsoft.CrmSdk.Workflow": "9.0.2.42",
+          "Microsoft.IdentityModel.Clients.ActiveDirectory": "3.19.8",
+          "Microsoft.Rest.ClientRuntime": "2.3.24",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/net462/Microsoft.Rest.ClientRuntime.dll": {},
+          "lib/net462/Microsoft.Xrm.Tooling.Connector.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.Rest.ClientRuntime.dll": {},
+          "lib/net462/Microsoft.Xrm.Tooling.Connector.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.CrmSdk.XrmTooling.PackageDeployment/9.1.0.184": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CrmSdk.XrmTooling.CoreAssembly": "9.1.1.49"
+        },
+        "compile": {
+          "lib/net462/Microsoft.Xrm.Tooling.PackageDeployment.CrmPackageExtentionBase.dll": {
+            "related": ".XML"
+          }
+        },
+        "runtime": {
+          "lib/net462/Microsoft.Xrm.Tooling.PackageDeployment.CrmPackageExtentionBase.dll": {
+            "related": ".XML"
+          }
+        }
+      },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/3.19.8": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll": {
+            "related": ".Platform.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll": {
+            "related": ".xml"
+          },
+          "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll": {
+            "related": ".Platform.xml;.xml"
+          }
+        }
+      },
+      "Microsoft.PowerApps.MSBuild.PDPackage/1.49.4": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.PowerApps.MSBuild.PDPackage.props": {},
+          "build/Microsoft.PowerApps.MSBuild.PDPackage.targets": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Microsoft.PowerApps.MSBuild.PDPackage.props": {},
+          "buildMultiTargeting/Microsoft.PowerApps.MSBuild.PDPackage.targets": {}
+        }
+      },
+      "Microsoft.PowerShell.5.1.ReferenceAssemblies/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net461/System.Management.Automation.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.Management.Automation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Rest.ClientRuntime/2.3.24": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "frameworkAssemblies": [
+          "System.Net",
+          "System.Net.Http",
+          "System.Net.Http.WebRequest",
+          "System.Runtime",
+          "System.Runtime.Serialization"
+        ],
+        "compile": {
+          "lib/net461/Microsoft.Rest.ClientRuntime.dll": {
+            "related": ".runtimeconfig.json"
+          }
+        },
+        "runtime": {
+          "lib/net461/Microsoft.Rest.ClientRuntime.dll": {
+            "related": ".runtimeconfig.json"
+          }
+        }
+      },
+      "Newtonsoft.Json/13.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Buffers/4.5.1": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net45/System.Buffers.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.Buffers.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.IO.Pipelines/9.0.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Memory": "4.5.5",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "compile": {
+          "lib/net462/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/System.IO.Pipelines.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net462/_._": {}
+        }
+      },
+      "System.Memory/4.5.5": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Numerics.Vectors": "4.5.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "frameworkAssemblies": [
+          "System",
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/net461/System.Memory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.Memory.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Numerics.Vectors/4.5.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "System.Numerics",
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.Text.Encodings.Web/9.0.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "compile": {
+          "lib/net462/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net462/_._": {}
+        }
+      },
+      "System.Text.Json/9.0.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "9.0.4",
+          "System.Buffers": "4.5.1",
+          "System.IO.Pipelines": "9.0.4",
+          "System.Memory": "4.5.5",
+          "System.Runtime.CompilerServices.Unsafe": "6.0.0",
+          "System.Text.Encodings.Web": "9.0.4",
+          "System.Threading.Tasks.Extensions": "4.5.4",
+          "System.ValueTuple": "4.5.0"
+        },
+        "compile": {
+          "lib/net462/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net462/System.Text.Json.targets": {}
+        }
+      },
+      "System.Threading.Tasks.Extensions/4.5.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.3"
+        },
+        "frameworkAssemblies": [
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/net461/System.Threading.Tasks.Extensions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net461/System.Threading.Tasks.Extensions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "System.ValueTuple/4.5.0": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "mscorlib"
+        ],
+        "compile": {
+          "ref/net47/System.ValueTuple.dll": {}
+        },
+        "runtime": {
+          "lib/net47/System.ValueTuple.dll": {
+            "related": ".xml"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Microsoft.Bcl.AsyncInterfaces/9.0.4": {
+      "sha512": "9VGI5kxIvrNG2mqLQZnUR6y/3fcnygD8eNpHR+CqfbnIXvea6nehnYknDKQTxZVPMpzpNca+7DxLBmpdB3q0Bw==",
+      "type": "package",
+      "path": "microsoft.bcl.asyncinterfaces/9.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Bcl.AsyncInterfaces.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Bcl.AsyncInterfaces.targets",
+        "lib/net462/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/net462/Microsoft.Bcl.AsyncInterfaces.xml",
+        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/netstandard2.0/Microsoft.Bcl.AsyncInterfaces.xml",
+        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll",
+        "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.xml",
+        "microsoft.bcl.asyncinterfaces.9.0.4.nupkg.sha512",
+        "microsoft.bcl.asyncinterfaces.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.CrmSdk.CoreAssemblies/9.0.2.51": {
+      "sha512": "CuLXnbPoPoFQNAaP6ai2iDKjS0lDJxJ+UoYFYsG0MsHOE3OOeDHJex2M+cL40JcxE4g+bWrpd9VxumEbzig1Gw==",
+      "type": "package",
+      "path": "microsoft.crmsdk.coreassemblies/9.0.2.51",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/Dataverse.128x128.png",
+        "lib/LicenseTerms.docx",
+        "lib/Other Redistributable.txt",
+        "lib/Third Party Notices for Dynamics 365 SDK.docx",
+        "lib/net462/Microsoft.Crm.Sdk.Proxy.dll",
+        "lib/net462/Microsoft.Crm.Sdk.Proxy.xml",
+        "lib/net462/Microsoft.Xrm.Sdk.dll",
+        "lib/net462/Microsoft.Xrm.Sdk.xml",
+        "microsoft.crmsdk.coreassemblies.9.0.2.51.nupkg.sha512",
+        "microsoft.crmsdk.coreassemblies.nuspec"
+      ]
+    },
+    "Microsoft.CrmSdk.Deployment/9.0.2.34": {
+      "sha512": "zh4XLqkTT5NEfdmilVSIgTez3oviWyXfgbNOf6H5tnO6xrebdtUWHT8PGaFY7Z4u64eY5Vge6Vcw9cB1NvIZJw==",
+      "type": "package",
+      "path": "microsoft.crmsdk.deployment/9.0.2.34",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/LicenseTerms.docx",
+        "lib/net462/Microsoft.Xrm.Sdk.Deployment.dll",
+        "lib/net462/Microsoft.Xrm.Sdk.Deployment.xml",
+        "lib/net462/Other Redistributable.txt",
+        "lib/net462/Third Party Notices for Dynamics 365 SDK.docx",
+        "microsoft.crmsdk.deployment.9.0.2.34.nupkg.sha512",
+        "microsoft.crmsdk.deployment.nuspec"
+      ]
+    },
+    "Microsoft.CrmSdk.Workflow/9.0.2.42": {
+      "sha512": "J/5yOLSOP7o+H3gl5i601m74+ug9KZnT8T/aNk0bcfXuxzSSQ/O1ZDfwzDqZVu0jXwVp8DJA7X7mtP6ZMZB6nA==",
+      "type": "package",
+      "path": "microsoft.crmsdk.workflow/9.0.2.42",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/Dataverse.128x128.png",
+        "lib/LicenseTerms.docx",
+        "lib/Other Redistributable.txt",
+        "lib/Third Party Notices for Dynamics 365 SDK.docx",
+        "lib/net462/Microsoft.Xrm.Sdk.Workflow.dll",
+        "lib/net462/Microsoft.Xrm.Sdk.Workflow.xml",
+        "microsoft.crmsdk.workflow.9.0.2.42.nupkg.sha512",
+        "microsoft.crmsdk.workflow.nuspec"
+      ]
+    },
+    "Microsoft.CrmSdk.XrmTooling.CoreAssembly/9.1.1.65": {
+      "sha512": "dHQMgZr/KuTpX2SZc6y32dAKf6xjFZMR7kBg11BKAnK9aVIf751LKC7L5fIazOKCPQ47/NMmQ0LqPg7H6Xmz6g==",
+      "type": "package",
+      "path": "microsoft.crmsdk.xrmtooling.coreassembly/9.1.1.65",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/Dataverse.128x128.png",
+        "lib/net462/Microsoft.Rest.ClientRuntime.dll",
+        "lib/net462/Microsoft.Xrm.Tooling.Connector.dll",
+        "lib/net462/Microsoft.Xrm.Tooling.Connector.xml",
+        "lib/net462/Other Redistributable.txt",
+        "lib/net462/Third Party Notices for Dynamics 365 SDK.docx",
+        "microsoft.crmsdk.xrmtooling.coreassembly.9.1.1.65.nupkg.sha512",
+        "microsoft.crmsdk.xrmtooling.coreassembly.nuspec"
+      ]
+    },
+    "Microsoft.CrmSdk.XrmTooling.PackageDeployment/9.1.0.184": {
+      "sha512": "0WZvcXUYM/I/6kRlP5nctnClGMEiMeisf0AiiQm5W1aCMtWdYJuFsTd4yaBH9aeuZnfWMvWLAV3fa+quAnRsqg==",
+      "type": "package",
+      "path": "microsoft.crmsdk.xrmtooling.packagedeployment/9.1.0.184",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/Dataverse.128x128.png",
+        "lib/net462/Microsoft.Xrm.Tooling.PackageDeployment.CrmPackageExtentionBase.XML",
+        "lib/net462/Microsoft.Xrm.Tooling.PackageDeployment.CrmPackageExtentionBase.dll",
+        "lib/net462/Other Redistributable.txt",
+        "lib/net462/Third Party Notices for Dynamics 365 SDK.docx",
+        "microsoft.crmsdk.xrmtooling.packagedeployment.9.1.0.184.nupkg.sha512",
+        "microsoft.crmsdk.xrmtooling.packagedeployment.nuspec"
+      ]
+    },
+    "Microsoft.IdentityModel.Clients.ActiveDirectory/3.19.8": {
+      "sha512": "PRTE+0vg/e+wNFDBEPdZlDVVwopyOZtGnbg0B4ANxR0eeZKoEwfumBoAIO6iC91jRLMTpCfYXTArmn8BpyLIIg==",
+      "type": "package",
+      "path": "microsoft.identitymodel.clients.activedirectory/3.19.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/MonoAndroid7/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
+        "lib/MonoAndroid7/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
+        "lib/MonoAndroid7/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/MonoAndroid7/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
+        "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
+        "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
+        "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/Xamarin.iOS10/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
+        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
+        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
+        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
+        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
+        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
+        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
+        "lib/netstandard1.1/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
+        "lib/netstandard1.1/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
+        "lib/netstandard1.1/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/netstandard1.1/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
+        "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
+        "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
+        "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/netstandard1.3/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
+        "lib/portable-net45+win/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.dll",
+        "lib/portable-net45+win/Microsoft.IdentityModel.Clients.ActiveDirectory.Platform.xml",
+        "lib/portable-net45+win/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/portable-net45+win/Microsoft.IdentityModel.Clients.ActiveDirectory.xml",
+        "microsoft.identitymodel.clients.activedirectory.3.19.8.nupkg.sha512",
+        "microsoft.identitymodel.clients.activedirectory.nuspec"
+      ]
+    },
+    "Microsoft.PowerApps.MSBuild.PDPackage/1.49.4": {
+      "sha512": "zBVvGuhyUQeenTda1XxRbp33dMRZ/QS9FpqP5+66QlDYkSCsbjZd7FZ4JYa0zVSTetUYMQAsEbkqcVkIiBSlbg==",
+      "type": "package",
+      "path": "microsoft.powerapps.msbuild.pdpackage/1.49.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "3rdPartyNotice.txt",
+        "LICENSE.txt",
+        "build/Microsoft.PowerApps.MSBuild.PDPackage.props",
+        "build/Microsoft.PowerApps.MSBuild.PDPackage.targets",
+        "build/PDPackage.Build.targets",
+        "build/PDPackage.DefaultItems.targets",
+        "build/PDPackage.Packaging.targets",
+        "build/PDPackage.Publish.targets",
+        "buildMultiTargeting/Microsoft.PowerApps.MSBuild.PDPackage.props",
+        "buildMultiTargeting/Microsoft.PowerApps.MSBuild.PDPackage.targets",
+        "microsoft.powerapps.msbuild.pdpackage.1.49.4.nupkg.sha512",
+        "microsoft.powerapps.msbuild.pdpackage.nuspec",
+        "tasks/Microsoft.PowerApps.MSBuild.PDPackage.tasks",
+        "tasks/net472/Microsoft.Deployment.Compression.Cab.dll",
+        "tasks/net472/Microsoft.Deployment.Compression.dll",
+        "tasks/net472/Microsoft.PowerPlatform.MSBuild.PDPackage.Tasks.dll",
+        "tasks/net472/Microsoft.PowerPlatform.MSBuild.PDPackage.Tasks.pdb",
+        "tasks/net472/Microsoft.PowerPlatform.MSBuild.PDPackage.Tasks.tasks",
+        "tasks/net472/Microsoft.PowerPlatform.MSBuild.Telemetry.Tasks.dll",
+        "tasks/net472/Microsoft.PowerPlatform.MSBuild.Telemetry.Tasks.pdb",
+        "tasks/net472/Microsoft.PowerPlatform.MSBuild.Telemetry.Tasks.tasks",
+        "tasks/net472/Newtonsoft.Json.dll",
+        "tasks/net472/SolutionPackagerLib.dll",
+        "tasks/net472/System.Configuration.ConfigurationManager.dll",
+        "tasks/net472/System.Drawing.Common.dll",
+        "tasks/net472/System.IO.Packaging.dll",
+        "tasks/net472/System.Security.AccessControl.dll",
+        "tasks/net472/System.Security.Permissions.dll",
+        "tasks/net472/System.Security.Principal.Windows.dll",
+        "tasks/net472/System.ValueTuple.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.ApplicationInsights.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.Bcl.AsyncInterfaces.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.Extensions.DependencyInjection.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.Extensions.Logging.Abstractions.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.Extensions.Logging.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.Extensions.Options.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.Extensions.Primitives.dll",
+        "tasks/net472/ppbtTelemetryRecorder/Microsoft.PowerPlatform.Tooling.BatchedTelemetry.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Buffers.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Diagnostics.DiagnosticSource.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.IO.Pipelines.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Memory.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Numerics.Vectors.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Runtime.CompilerServices.Unsafe.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Text.Encodings.Web.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Text.Json.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.Threading.Tasks.Extensions.dll",
+        "tasks/net472/ppbtTelemetryRecorder/System.ValueTuple.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/Microsoft.ApplicationInsights.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/Microsoft.Bcl.AsyncInterfaces.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/Microsoft.PowerPlatform.Tooling.BatchedTelemetry.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/Microsoft.PowerPlatform.Tooling.BatchedTelemetry.xml",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Buffers.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Diagnostics.DiagnosticSource.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Memory.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Numerics.Vectors.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Runtime.CompilerServices.Unsafe.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Text.Encodings.Web.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Text.Json.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.Threading.Tasks.Extensions.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/System.ValueTuple.dll",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/pacTelemetryUpload.exe",
+        "tasks/net472/ppbtTelemetryRecorder/bt-uploader/pacTelemetryUpload.exe.config",
+        "tasks/net472/ppbtTelemetryRecorder/ppbtTelemetryRecorder.exe",
+        "tasks/net472/ppbtTelemetryRecorder/ppbtTelemetryRecorder.exe.config",
+        "tasks/net472/ppbtTelemetryRecorder/ppbtTelemetryRecorder.pdb",
+        "tasks/net6.0/Microsoft.Deployment.Compression.Cab.dll",
+        "tasks/net6.0/Microsoft.Deployment.Compression.dll",
+        "tasks/net6.0/Microsoft.PowerPlatform.MSBuild.PDPackage.Tasks.deps.json",
+        "tasks/net6.0/Microsoft.PowerPlatform.MSBuild.PDPackage.Tasks.dll",
+        "tasks/net6.0/Microsoft.PowerPlatform.MSBuild.PDPackage.Tasks.pdb",
+        "tasks/net6.0/Microsoft.PowerPlatform.MSBuild.PDPackage.Tasks.tasks",
+        "tasks/net6.0/Microsoft.PowerPlatform.MSBuild.Telemetry.Tasks.dll",
+        "tasks/net6.0/Microsoft.PowerPlatform.MSBuild.Telemetry.Tasks.pdb",
+        "tasks/net6.0/Microsoft.PowerPlatform.MSBuild.Telemetry.Tasks.tasks",
+        "tasks/net6.0/Microsoft.Win32.SystemEvents.dll",
+        "tasks/net6.0/Newtonsoft.Json.dll",
+        "tasks/net6.0/SolutionPackagerLib.dll",
+        "tasks/net6.0/System.ComponentModel.Composition.dll",
+        "tasks/net6.0/System.Configuration.ConfigurationManager.dll",
+        "tasks/net6.0/System.Drawing.Common.dll",
+        "tasks/net6.0/System.IO.Packaging.dll",
+        "tasks/net6.0/System.Security.Cryptography.ProtectedData.dll",
+        "tasks/net6.0/System.Security.Permissions.dll",
+        "tasks/net6.0/System.Windows.Extensions.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.ApplicationInsights.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.Bcl.AsyncInterfaces.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.Extensions.DependencyInjection.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.Extensions.Logging.Abstractions.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.Extensions.Logging.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.Extensions.Options.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.Extensions.Primitives.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/Microsoft.PowerPlatform.Tooling.BatchedTelemetry.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/System.IO.Pipelines.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/System.Text.Encodings.Web.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/System.Text.Json.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/Microsoft.ApplicationInsights.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/Microsoft.PowerPlatform.Tooling.BatchedTelemetry.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/Microsoft.PowerPlatform.Tooling.BatchedTelemetry.xml",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/System.Text.Encodings.Web.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/System.Text.Json.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/pacTelemetryUpload.deps.json",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/pacTelemetryUpload.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/pacTelemetryUpload.dll.config",
+        "tasks/net6.0/ppbtTelemetryRecorder/bt-uploader/pacTelemetryUpload.runtimeconfig.json",
+        "tasks/net6.0/ppbtTelemetryRecorder/ppbtTelemetryRecorder.deps.json",
+        "tasks/net6.0/ppbtTelemetryRecorder/ppbtTelemetryRecorder.dll",
+        "tasks/net6.0/ppbtTelemetryRecorder/ppbtTelemetryRecorder.dll.config",
+        "tasks/net6.0/ppbtTelemetryRecorder/ppbtTelemetryRecorder.pdb",
+        "tasks/net6.0/ppbtTelemetryRecorder/ppbtTelemetryRecorder.runtimeconfig.json",
+        "tasks/net6.0/runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll",
+        "tasks/net6.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll",
+        "tasks/net6.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll"
+      ]
+    },
+    "Microsoft.PowerShell.5.1.ReferenceAssemblies/1.0.0": {
+      "sha512": "ty38eq/iyDtNIBaoe1o5MGepGR9Al3uDUwchVikbrJwH277JC8br3DVlaIgc996UyCe+J07Fubq9OByCc8CWEw==",
+      "type": "package",
+      "path": "microsoft.powershell.5.1.referenceassemblies/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Microsoft.Management.Infrastructure.CimCmdlets.dll",
+        "lib/net461/Microsoft.Management.Infrastructure.Native.dll",
+        "lib/net461/Microsoft.Management.Infrastructure.dll",
+        "lib/net461/Microsoft.PowerShell.Activities.dll",
+        "lib/net461/Microsoft.PowerShell.Activities.xml",
+        "lib/net461/Microsoft.PowerShell.Commands.Diagnostics.dll",
+        "lib/net461/Microsoft.PowerShell.Commands.Management.dll",
+        "lib/net461/Microsoft.PowerShell.Commands.Management.xml",
+        "lib/net461/Microsoft.PowerShell.Commands.Utility.dll",
+        "lib/net461/Microsoft.PowerShell.Commands.Utility.xml",
+        "lib/net461/Microsoft.PowerShell.ConsoleHost.dll",
+        "lib/net461/Microsoft.PowerShell.ConsoleHost.xml",
+        "lib/net461/Microsoft.PowerShell.Core.Activities.dll",
+        "lib/net461/Microsoft.PowerShell.Core.Activities.xml",
+        "lib/net461/Microsoft.PowerShell.Diagnostics.Activities.dll",
+        "lib/net461/Microsoft.PowerShell.Diagnostics.Activities.xml",
+        "lib/net461/Microsoft.PowerShell.Editor.dll",
+        "lib/net461/Microsoft.PowerShell.GPowerShell.dll",
+        "lib/net461/Microsoft.PowerShell.GPowerShell.xml",
+        "lib/net461/Microsoft.PowerShell.GraphicalHost.dll",
+        "lib/net461/Microsoft.PowerShell.GraphicalHost.xml",
+        "lib/net461/Microsoft.PowerShell.ISECommon.dll",
+        "lib/net461/Microsoft.PowerShell.ISECommon.xml",
+        "lib/net461/Microsoft.PowerShell.Management.Activities.dll",
+        "lib/net461/Microsoft.PowerShell.Management.Activities.xml",
+        "lib/net461/Microsoft.PowerShell.PSReadLine.xml",
+        "lib/net461/Microsoft.PowerShell.Security.Activities.dll",
+        "lib/net461/Microsoft.PowerShell.Security.Activities.xml",
+        "lib/net461/Microsoft.PowerShell.Security.dll",
+        "lib/net461/Microsoft.PowerShell.Security.xml",
+        "lib/net461/Microsoft.PowerShell.Utility.Activities.dll",
+        "lib/net461/Microsoft.PowerShell.Utility.Activities.xml",
+        "lib/net461/Microsoft.Powershell.PSReadline.dll",
+        "lib/net461/Microsoft.Powershell.Workflow.ServiceCore.dll",
+        "lib/net461/Microsoft.Powershell.Workflow.ServiceCore.xml",
+        "lib/net461/System.Management.Automation.dll",
+        "lib/net461/System.Management.Automation.xml",
+        "microsoft.powershell.5.1.referenceassemblies.1.0.0.nupkg.sha512",
+        "microsoft.powershell.5.1.referenceassemblies.nuspec"
+      ]
+    },
+    "Microsoft.Rest.ClientRuntime/2.3.24": {
+      "sha512": "hZH7XgM3eV2jFrnq7Yf0nBD4WVXQzDrer2gEY7HMNiwio2hwDsTHO6LWuueNQAfRpNp4W7mKxcXpwXUiuVIlYw==",
+      "type": "package",
+      "path": "microsoft.rest.clientruntime/2.3.24",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net452/Microsoft.Rest.ClientRuntime.dll",
+        "lib/net452/Microsoft.Rest.ClientRuntime.runtimeconfig.json",
+        "lib/net461/Microsoft.Rest.ClientRuntime.dll",
+        "lib/net461/Microsoft.Rest.ClientRuntime.runtimeconfig.json",
+        "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.dll",
+        "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.runtimeconfig.json",
+        "lib/netstandard2.0/Microsoft.Rest.ClientRuntime.dll",
+        "lib/netstandard2.0/Microsoft.Rest.ClientRuntime.runtimeconfig.json",
+        "microsoft.rest.clientruntime.2.3.24.nupkg.sha512",
+        "microsoft.rest.clientruntime.nuspec"
+      ]
+    },
+    "Newtonsoft.Json/13.0.1": {
+      "sha512": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.1.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "System.Buffers/4.5.1": {
+      "sha512": "Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+      "type": "package",
+      "path": "system.buffers/4.5.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Buffers.dll",
+        "lib/net461/System.Buffers.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.1/System.Buffers.dll",
+        "lib/netstandard1.1/System.Buffers.xml",
+        "lib/netstandard2.0/System.Buffers.dll",
+        "lib/netstandard2.0/System.Buffers.xml",
+        "lib/uap10.0.16299/_._",
+        "ref/net45/System.Buffers.dll",
+        "ref/net45/System.Buffers.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.1/System.Buffers.dll",
+        "ref/netstandard1.1/System.Buffers.xml",
+        "ref/netstandard2.0/System.Buffers.dll",
+        "ref/netstandard2.0/System.Buffers.xml",
+        "ref/uap10.0.16299/_._",
+        "system.buffers.4.5.1.nupkg.sha512",
+        "system.buffers.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.IO.Pipelines/9.0.4": {
+      "sha512": "luF2Xba+lTe2GOoNQdZLe8q7K6s7nSpWZl9jIwWNMszN4/Yv0lmxk9HISgMmwdyZ83i3UhAGXaSY9o6IJBUuuA==",
+      "type": "package",
+      "path": "system.io.pipelines/9.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.IO.Pipelines.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.IO.Pipelines.targets",
+        "lib/net462/System.IO.Pipelines.dll",
+        "lib/net462/System.IO.Pipelines.xml",
+        "lib/net8.0/System.IO.Pipelines.dll",
+        "lib/net8.0/System.IO.Pipelines.xml",
+        "lib/net9.0/System.IO.Pipelines.dll",
+        "lib/net9.0/System.IO.Pipelines.xml",
+        "lib/netstandard2.0/System.IO.Pipelines.dll",
+        "lib/netstandard2.0/System.IO.Pipelines.xml",
+        "system.io.pipelines.9.0.4.nupkg.sha512",
+        "system.io.pipelines.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Memory/4.5.5": {
+      "sha512": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw==",
+      "type": "package",
+      "path": "system.memory/4.5.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Memory.dll",
+        "lib/net461/System.Memory.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.5.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Numerics.Vectors/4.5.0": {
+      "sha512": "QQTlPTl06J/iiDbJCiepZ4H//BVraReU4O4EoRw1U02H5TLUIT7xn3GnDp9AXPSlJUDyFs4uWjWafNX6WrAojQ==",
+      "type": "package",
+      "path": "system.numerics.vectors/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Numerics.Vectors.dll",
+        "lib/net46/System.Numerics.Vectors.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.Numerics.Vectors.dll",
+        "lib/netstandard1.0/System.Numerics.Vectors.xml",
+        "lib/netstandard2.0/System.Numerics.Vectors.dll",
+        "lib/netstandard2.0/System.Numerics.Vectors.xml",
+        "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.dll",
+        "lib/portable-net45+win8+wp8+wpa81/System.Numerics.Vectors.xml",
+        "lib/uap10.0.16299/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/System.Numerics.Vectors.dll",
+        "ref/net45/System.Numerics.Vectors.xml",
+        "ref/net46/System.Numerics.Vectors.dll",
+        "ref/net46/System.Numerics.Vectors.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.0/System.Numerics.Vectors.dll",
+        "ref/netstandard1.0/System.Numerics.Vectors.xml",
+        "ref/netstandard2.0/System.Numerics.Vectors.dll",
+        "ref/netstandard2.0/System.Numerics.Vectors.xml",
+        "ref/uap10.0.16299/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.numerics.vectors.4.5.0.nupkg.sha512",
+        "system.numerics.vectors.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Runtime.CompilerServices.Unsafe/6.0.0": {
+      "sha512": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.targets",
+        "buildTransitive/netcoreapp3.1/_._",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net461/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/net6.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp3.1/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Text.Encodings.Web/9.0.4": {
+      "sha512": "V+5cCPpk1S2ngekUs9nDrQLHGiWFZMg8BthADQr+Fwi59a8DdHFu26S2oi9Bfgv+d67bqmkPqctJXMEXiimXUg==",
+      "type": "package",
+      "path": "system.text.encodings.web/9.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Text.Encodings.Web.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Text.Encodings.Web.targets",
+        "lib/net462/System.Text.Encodings.Web.dll",
+        "lib/net462/System.Text.Encodings.Web.xml",
+        "lib/net8.0/System.Text.Encodings.Web.dll",
+        "lib/net8.0/System.Text.Encodings.Web.xml",
+        "lib/net9.0/System.Text.Encodings.Web.dll",
+        "lib/net9.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.0/System.Text.Encodings.Web.xml",
+        "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.xml",
+        "runtimes/browser/lib/net9.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net9.0/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.9.0.4.nupkg.sha512",
+        "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Text.Json/9.0.4": {
+      "sha512": "pYtmpcO6R3Ef1XilZEHgXP2xBPVORbYEzRP7dl0IAAbN8Dm+kfwio8aCKle97rAWXOExr292MuxWYurIuwN62g==",
+      "type": "package",
+      "path": "system.text.json/9.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/roslyn3.11/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn3.11/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.0/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.4/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "buildTransitive/net461/System.Text.Json.targets",
+        "buildTransitive/net462/System.Text.Json.targets",
+        "buildTransitive/net8.0/System.Text.Json.targets",
+        "buildTransitive/netcoreapp2.0/System.Text.Json.targets",
+        "buildTransitive/netstandard2.0/System.Text.Json.targets",
+        "lib/net462/System.Text.Json.dll",
+        "lib/net462/System.Text.Json.xml",
+        "lib/net8.0/System.Text.Json.dll",
+        "lib/net8.0/System.Text.Json.xml",
+        "lib/net9.0/System.Text.Json.dll",
+        "lib/net9.0/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.9.0.4.nupkg.sha512",
+        "system.text.json.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Threading.Tasks.Extensions/4.5.4": {
+      "sha512": "zteT+G8xuGu6mS+mzDzYXbzS7rd3K6Fjb9RiZlYlJPam2/hU7JCBZBVEcywNuR+oZ1ncTvc/cq0faRr3P01OVg==",
+      "type": "package",
+      "path": "system.threading.tasks.extensions/4.5.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.Threading.Tasks.Extensions.dll",
+        "lib/net461/System.Threading.Tasks.Extensions.xml",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard1.0/System.Threading.Tasks.Extensions.xml",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll",
+        "lib/netstandard2.0/System.Threading.Tasks.Extensions.xml",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.dll",
+        "lib/portable-net45+win8+wp8+wpa81/System.Threading.Tasks.Extensions.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/netcoreapp2.1/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.threading.tasks.extensions.4.5.4.nupkg.sha512",
+        "system.threading.tasks.extensions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.ValueTuple/4.5.0": {
+      "sha512": "okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
+      "type": "package",
+      "path": "system.valuetuple/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net461/System.ValueTuple.dll",
+        "lib/net461/System.ValueTuple.xml",
+        "lib/net47/System.ValueTuple.dll",
+        "lib/net47/System.ValueTuple.xml",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.0/System.ValueTuple.dll",
+        "lib/netstandard1.0/System.ValueTuple.xml",
+        "lib/netstandard2.0/_._",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "lib/portable-net40+sl4+win8+wp8/System.ValueTuple.xml",
+        "lib/uap10.0.16299/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net461/System.ValueTuple.dll",
+        "ref/net47/System.ValueTuple.dll",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/_._",
+        "ref/portable-net40+sl4+win8+wp8/System.ValueTuple.dll",
+        "ref/uap10.0.16299/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "system.valuetuple.4.5.0.nupkg.sha512",
+        "system.valuetuple.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.7.2": [
+      "Microsoft.CrmSdk.XrmTooling.CoreAssembly >= 9.1.1.65",
+      "Microsoft.CrmSdk.XrmTooling.PackageDeployment >= 9.1.0.184",
+      "Microsoft.PowerApps.MSBuild.PDPackage >= 1.*",
+      "Microsoft.PowerShell.5.1.ReferenceAssemblies >= 1.0.0",
+      "System.Text.Json >= 9.0.4"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\v-rapentyala\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\PowerCAT.PackageDeployer.Package.csproj",
+      "projectName": "PowerCAT.PackageDeployer.Package",
+      "projectPath": "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\PowerCAT.PackageDeployer.Package.csproj",
+      "packagesPath": "C:\\Users\\v-rapentyala\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\GitRepo\\Power-CAT-Copilot-Studio-Kit\\PowerCAT.PackageDeployer.Package\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\v-rapentyala\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net472"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net472": {
+        "targetAlias": "net472",
+        "dependencies": {
+          "Microsoft.CrmSdk.XrmTooling.CoreAssembly": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[9.1.1.65, )"
+          },
+          "Microsoft.CrmSdk.XrmTooling.PackageDeployment": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[9.1.0.184, )"
+          },
+          "Microsoft.PowerApps.MSBuild.PDPackage": {
+            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[1.*, )"
+          },
+          "Microsoft.PowerShell.5.1.ReferenceAssemblies": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          },
+          "System.Text.Json": {
+            "target": "Package",
+            "version": "[9.0.4, )"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

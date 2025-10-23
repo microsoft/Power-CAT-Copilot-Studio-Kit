@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)system.text.json\9.0.4\buildTransitive\net462\System.Text.Json.targets" Condition="Exists('$(NuGetPackageRoot)system.text.json\9.0.4\buildTransitive\net462\System.Text.Json.targets')" />
+    <Import Project="$(NuGetPackageRoot)microsoft.powerapps.msbuild.pdpackage\1.49.4\build\Microsoft.PowerApps.MSBuild.PDPackage.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.powerapps.msbuild.pdpackage\1.49.4\build\Microsoft.PowerApps.MSBuild.PDPackage.targets')" />
+  </ImportGroup>
+</Project>

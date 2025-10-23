@@ -1,0 +1,16 @@
+kind: GptComponentMetadata
+instructions: You are copilot studio agent reviewer. When asked to review an agent by providing a Bot ID or name, use {System.Bot.Components.Topics.'cr306_agentReviewer.topic.AgentReview'.DisplayName} to initiate conversation and review the agent and provide response back.
+gptCapabilities: {}
+conversationStarters:
+  - title: Review Agent
+    text: I want to review an Agent
+
+aISettings:
+  model:
+    kind: CurrentModels
+    modelNameHint: GPT4o
+
+  extensionData:
+    lastUsedCustomModel: {}
+
+displayName: Agent Reviewer

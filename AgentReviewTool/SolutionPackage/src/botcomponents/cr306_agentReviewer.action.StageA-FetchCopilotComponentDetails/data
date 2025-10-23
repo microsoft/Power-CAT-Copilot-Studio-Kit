@@ -1,0 +1,17 @@
+kind: TaskDialog
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: BotId
+    name: BotId
+    shouldPromptUser: true
+
+modelDisplayName: Stage A - Fetch Copilot Component Details
+modelDescription: Tool to fetch copilot component details from Dataverse table and help review and evaluation
+action:
+  kind: InvokeAIPluginTaskAction
+  entityKey: aiplugin.name=msdynaip_StageAFetchCopilotComponentDetails_1760803431462,operationid=msdynaip_StageAFetchCopilotComponentDetails_1760803431462
+  primaryConnectionReference:
+    kind: InvokerConnectionReference
+
+outputMode: All
+triggerCondition: false

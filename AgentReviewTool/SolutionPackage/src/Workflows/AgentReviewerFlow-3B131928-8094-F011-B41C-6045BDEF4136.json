@@ -1,0 +1,194 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_AgentReviewToolDataverseConnectionRef"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "description": "Please enter your input",
+                  "title": "BotID",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Scope": {
+          "type": "Scope",
+          "actions": {
+            "Add_a_new_row_to_Solution_Review": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_agentreviewdetails",
+                  "item/cat_reviewname": "@outputs('Run_a_prompt_-_Collect_Copilot_and_Component_Details')?['body/responsev2/predictionOutput/structuredOutput/BotName']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Run_a_prompt_-_Generate_Review_Result_as_PDF": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Upload_a_file_or_an_image": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "x-ms-file-name": "@first(outputs('Run_a_prompt_-_Generate_Review_Result_as_PDF')?['body/responsev2/predictionOutput/files'])?['file_name']",
+                  "entityName": "cat_agentreviewdetails",
+                  "recordId": "@outputs('Add_a_new_row_to_Solution_Review')?['body/cat_agentreviewdetailid']",
+                  "fileImageFieldName": "cat_agentreviewreport",
+                  "item": "@base64ToBinary(first(outputs('Run_a_prompt_-_Generate_Review_Result_as_PDF')?['body/responsev2/predictionOutput/files'])?['base64_content'])"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateEntityFileImageFieldContent",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Add_a_new_row_to_Solution_Review": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Run_a_prompt_-_Collect_Copilot_and_Component_Details": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "recordId": "78f117f0-481a-4325-b6c1-aa3ac2487121",
+                  "item/requestv2/BotId": "@triggerBody()?['text']"
+                },
+                "host": {
+                  "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+                  "operationId": "aibuilderpredict_customprompt",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              }
+            },
+            "Run_a_prompt_-_Evaluate_Agent": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "recordId": "b141656b-8546-437a-968e-94cce6c8be1c",
+                  "item/requestv2/Copilot_20Details": "@outputs('Run_a_prompt_-_Collect_Copilot_and_Component_Details')?['body/responsev2/predictionOutput/text']"
+                },
+                "host": {
+                  "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+                  "operationId": "aibuilderpredict_customprompt",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Run_a_prompt_-_Collect_Copilot_and_Component_Details": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Run_a_prompt_-_Generate_Review_Result_as_PDF": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "recordId": "6a468cc0-f628-43b3-93c4-d003f1536678",
+                  "item/requestv2/Review_20Results": "@outputs('Run_a_prompt_-_Evaluate_Agent')?['body/responsev2/predictionOutput/text']",
+                  "item/requestv2/Extraction_20Details": "@outputs('Run_a_prompt_-_Collect_Copilot_and_Component_Details')?['body/responsev2/predictionOutput/text']"
+                },
+                "host": {
+                  "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+                  "operationId": "aibuilderpredict_customprompt",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Run_a_prompt_-_Evaluate_Agent": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {}
+        },
+        "Respond_to_the_agent": {
+          "type": "Response",
+          "kind": "Skills",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "review_result": {
+                  "title": "Review Result",
+                  "description": "This output contains review result from Agent review evaluation",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "file_url": {
+                  "title": "File URL",
+                  "description": "This output contains File URL of the Agent Response Review Result PDF File",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "review_result": "@{outputs('Run_a_prompt_-_Evaluate_Agent')?['body/responsev2/predictionOutput/text']}",
+              "file_url": "@{concat(\r\n  outputs('Add_a_new_row_to_Solution_Review')?['body/@odata.id'],\r\n  '/cat_agentreviewreport/$value'\r\n)}"
+            }
+          },
+          "runAfter": {
+            "Scope": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {},
+      "description": "This flow starts when a manual trigger is activated and receives a text input. It then generates a document containing details about a Copilot component using AI Builder. Next, it reviews the generated document with another AI Builder action. Finally, the flow responds with the review result, sending it back to the requester. Each step depends on the successful completion of the previous one, ensuring a logical sequence from input to document generation, review, and response."
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}
