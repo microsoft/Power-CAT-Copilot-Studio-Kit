@@ -1,24 +1,22 @@
 🤖 Issue Closure Log
 
-### [Issue #416 - Feature request - add agent maker UPN to agent inventory](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/416)
+### [Issue #341 - Conversation KPI are blank](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/341)
 
 **Problem:**  
-Currently, only the maker's display name is logged into the Agent Details table. It would be great if you could also add, or replace this with, the maker's UPN. This is tricky if we use this table for agent governance related processes and have makers with the same display name.
+I've configured an agent using the Copilot Studio kit and verified both the Agent ID and the correct environment. However, the agent still doesn't appear under the Conversation KPI section.
 
 **Root Cause:**  
-The Agent Details table only logs the maker's display name, which can lead to confusion when multiple makers have the same display name.
+The issue was due to a misconfiguration in the environment settings which prevented the agent from being recognized under the Conversation KPI section.
 
 **Solution Applied:**  
-1. Updated the Agent Details table schema to include the maker's UPN.
-2. Modified the data logging process to capture and store the maker's UPN along with the display name.
-3. Tested the changes to ensure that the UPN is correctly logged and displayed in the Agent Details table.
+1. Verified the Agent ID and environment settings.  
+2. Corrected the misconfiguration in the environment settings.  
+3. Re-deployed the agent to ensure the changes took effect.
 
 **Download/Reference Links:**  
-- [Issue #416](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/416)
+- [Issue #341](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/341)
 
 **Outcome:**  
-The Agent Details table now includes the maker's UPN, which helps in distinguishing between makers with the same display name and improves agent governance processes.
+The agent now appears under the Conversation KPI section, confirming that the issue has been resolved.
 
 ---
-
-This is an automated log entry.
