@@ -29,5 +29,8 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | Sep 17 | Confirmed |
 | Oct 1 | Confirmed |
 | Oct 15 | Confirmed |
-| Oct 29 | Cancelled |
+| Oct 29 | Cancelled (PPCC) |
+| Nov 12 | TBC |
+| Nov 26 | TBC |
+
 
