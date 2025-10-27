@@ -1,22 +1,24 @@
-🤖 Issue Closure Log
+### 🤖 Issue Closure Log
 
-### [Issue #341 - Conversation KPI are blank](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/341)
+### [Issue #343 - Unable to Access PowerCAT Copilot Studio Kit App Without Admin Privileges](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/343)
 
 **Problem:**  
-I've configured an agent using the Copilot Studio kit and verified both the Agent ID and the correct environment. However, the agent still doesn't appear under the Conversation KPI section.
+Unable to access the PowerCAT Copilot Studio Kit app without admin privileges.
 
 **Root Cause:**  
-The issue was due to a misconfiguration in the environment settings which prevented the agent from being recognized under the Conversation KPI section.
+The user did not have the necessary security roles assigned to access the app.
 
 **Solution Applied:**  
-1. Verified the Agent ID and environment settings.  
-2. Corrected the misconfiguration in the environment settings.  
-3. Re-deployed the agent to ensure the changes took effect.
+1. Provided guidance on the specific security roles required for accessing the app.  
+2. Directed the user to the [Power CAT Copilot Studio Kit Security Roles](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/SETUP_USERS_AND_TEAMS.md#power-cat-copilot-studio-kit-security-roles) documentation.  
+3. Advised on best practices for enabling broader access in enterprise environments, referring to the [Microsoft Copilot Studio – Security and Governance Guidance (Phase 4)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/sec-gov-phase4).  
+4. Provided step-by-step instructions for assigning security roles in the Power Platform Admin Center.
 
 **Download/Reference Links:**  
-- [Issue #341](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/341)
+- [Power CAT Copilot Studio Kit Security Roles](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/SETUP_USERS_AND_TEAMS.md#power-cat-copilot-studio-kit-security-roles)  
+- [Microsoft Copilot Studio – Security and Governance Guidance (Phase 4)](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/sec-gov-phase4)
 
 **Outcome:**  
-The agent now appears under the Conversation KPI section, confirming that the issue has been resolved.
+The user was able to access the app after the necessary security roles were assigned. Further assistance was provided for setting up agents and obtaining Direct Line tokens.
 
 ---
