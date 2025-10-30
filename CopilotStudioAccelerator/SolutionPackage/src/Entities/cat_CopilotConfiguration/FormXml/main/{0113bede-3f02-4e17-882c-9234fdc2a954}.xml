@@ -176,7 +176,7 @@
                         <labels>
                           <label description="Client Secret" languagecode="1033" />
                         </labels>
-                        <control id="cat_clientsecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_clientsecret" disabled="false" />
+                        <control id="cat_clientsecret" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_clientsecret" disabled="false" uniqueid="{7090fa28-8dde-40a3-88d6-2e3c6c0b4744}" />
                       </cell>
                     </row>
                     <row>
@@ -241,7 +241,7 @@
                         <labels>
                           <label description="Secret" languagecode="1033" />
                         </labels>
-                        <control id="cat_directlinechannelsecuritysecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_directlinechannelsecuritysecret" disabled="false" />
+                        <control id="cat_directlinechannelsecuritysecret" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_directlinechannelsecuritysecret" disabled="false" uniqueid="{1ec0c854-1512-4c88-93e0-c788c2a2127a}" />
                       </cell>
                     </row>
                     <row>
@@ -323,7 +323,7 @@
                         <labels>
                           <label description="App Insights Secret" languagecode="1033" />
                         </labels>
-                        <control id="cat_azureappinsightssecret" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_azureappinsightssecret" disabled="false" />
+                        <control id="cat_azureappinsightssecret" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_azureappinsightssecret" disabled="false" uniqueid="{58def59d-3558-43d8-a662-3780ca97f4c7}" />
                       </cell>
                     </row>
                     <row>
@@ -1062,6 +1062,72 @@
             </parameters>
           </customControl>
         </controlDescription>
+        <controlDescription forControl="{7090fa28-8dde-40a3-88d6-2e3c6c0b4744}">
+          <customControl id="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}">
+            <parameters>
+              <datafieldname>cat_clientsecret</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_clientsecret</Value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_clientsecret</Value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_clientsecret</Value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{1ec0c854-1512-4c88-93e0-c788c2a2127a}">
+          <customControl id="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}">
+            <parameters>
+              <datafieldname>cat_directlinechannelsecuritysecret</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_directlinechannelsecuritysecret</Value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_directlinechannelsecuritysecret</Value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_directlinechannelsecuritysecret</Value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{58def59d-3558-43d8-a662-3780ca97f4c7}">
+          <customControl id="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}">
+            <parameters>
+              <datafieldname>cat_azureappinsightssecret</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_azureappinsightssecret</Value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_azureappinsightssecret</Value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.ColumnMask">
+            <parameters>
+              <Value type="SingleLine.Text">cat_azureappinsightssecret</Value>
+            </parameters>
+          </customControl>
+        </controlDescription>
       </controlDescriptions>
       <Navigation>
         <NavBar />
@@ -1148,6 +1214,11 @@
         <event name="onchange" application="false" active="false" attribute="cat_userauthsecretlocationcode">
           <Handlers>
             <Handler functionName="setFieldVisibilityForEachSections" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{e3a9d762-e9a3-4c4d-8463-e7afca085838}" enabled="true" parameters="" passExecutionContext="true" />
+          </Handlers>
+        </event>
+        <event name="onchange" application="false" active="false" attribute="cat_trackedvariables">
+          <Handlers>
+            <Handler functionName="validateTrackedVariablesOnChange" libraryName="cat_/powercat/js/copilotconfiguration_main.js" handlerUniqueId="{bef7bec8-48b8-485b-b70a-f620c5b08865}" enabled="true" parameters="" passExecutionContext="true" />
           </Handlers>
         </event>
       </events>

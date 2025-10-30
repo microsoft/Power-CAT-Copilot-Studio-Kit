@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CustomActions>
+    <CustomAction Id="cat.Mscrm.OpenRecordItem.Mscrm.HomeGrid.CustomAction" Location="Mscrm.HomepageGrid.cat_compliancecase.MainTab.Management.Controls._children" Sequence="28">
+      <CommandUIDefinition>
+        <Button Command="Mscrm.OpenRecordItem" Id="Mscrm.OpenRecordItem" Sequence="28" TemplateAlias="o1" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="Mscrm.OpenRecordItem">
+      <EnableRules>
+        <EnableRule Id="cat.cat_compliancecase.Hidden.EnableRule" />
+      </EnableRules>
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="navigateToCase" Library="$webresource:cat_/powercat/js/compliancecases_main.js">
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules />
+    <EnableRules>
+      <EnableRule Id="cat.cat_compliancecase.Hidden.EnableRule">
+        <ValueRule Field="hidden" Value="hidden" />
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels />
+</RibbonDiffXml>

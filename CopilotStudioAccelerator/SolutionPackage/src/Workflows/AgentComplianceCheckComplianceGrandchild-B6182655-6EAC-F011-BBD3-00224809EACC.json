@@ -1,0 +1,493 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "type": "Request",
+          "kind": "Button",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "Input",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "JSON object",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "description": "Array of Threshold Configs",
+                  "title": "ComplianceRules",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "text_2": {
+                  "description": "Array of Action policies",
+                  "title": "ActionPolicies",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "required": [
+                "text",
+                "text_1",
+                "text_2"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "80cba93e-1e5a-436c-8216-2a80a3577543"
+          }
+        }
+      },
+      "actions": {
+        "Initialize_KeyValue_Table": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varTable",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "55a3a005-67da-4495-a4c9-5f79979529c7"
+          }
+        },
+        "Remove_CB": {
+          "type": "SetVariable",
+          "inputs": {
+            "name": "Input",
+            "value": "@replace(replace(string(triggerBody()?['text']), '{', ''), '}', '')"
+          },
+          "runAfter": {
+            "Remove_Curly_Braces": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Remove_Curly_Braces": {
+          "type": "Compose",
+          "inputs": "@replace(replace(string(triggerBody()?['text']), '{', ''), '}', '')",
+          "runAfter": {
+            "Parse_Action_Policies": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "782babe1-ffe5-4ec7-a9e6-16541eb3e06a"
+          }
+        },
+        "Split_into_Key_Val_Pairs": {
+          "type": "Compose",
+          "inputs": "@split(\r\n    replace(\r\n        replace(variables('Input'), '{', ''), \r\n        '}', ''\r\n    ), \r\n    '\",\"'\r\n)\r\n",
+          "runAfter": {
+            "Remove_CB": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Initialize_input": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "Input",
+                "type": "string",
+                "value": "@string(triggerBody()?['text'])"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_KeyValue_Table": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Parse_Thresholds": {
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()?['text_1']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@@odata.id": {
+                    "type": "string"
+                  },
+                  "cat_thresholdconfigid": {
+                    "type": "string"
+                  },
+                  "cat_configid": {
+                    "type": "string"
+                  },
+                  "cat_filtercolumn": {
+                    "type": "string"
+                  },
+                  "cat_defaultvalue": {
+                    "type": "string"
+                  },
+                  "statuscode@OData.Community.Display.V1.FormattedValue": {
+                    "type": "string"
+                  },
+                  "cat_filteroperator@OData.Community.Display.V1.FormattedValue": {
+                    "type": "string"
+                  },
+                  "cat_filteroperator": {
+                    "type": "integer"
+                  },
+                  "cat_risklevel@OData.Community.Display.V1.FormattedValue": {
+                    "type": "string"
+                  },
+                  "cat_risklevel": {
+                    "type": "integer"
+                  },
+                  "cat_mitigation": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "cat_filtercolumn",
+                  "cat_defaultvalue",
+                  "cat_risklevel@OData.Community.Display.V1.FormattedValue",
+                  "cat_risklevel",
+                  "cat_configid"
+                ]
+              }
+            }
+          },
+          "runAfter": {
+            "Initialize_Violations_Table": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Parse_Action_Policies": {
+          "type": "ParseJson",
+          "inputs": {
+            "content": "@triggerBody()?['text_2']",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "cat_description": {
+                    "type": "string"
+                  },
+                  "statecode@OData.Community.Display.V1.FormattedValue": {
+                    "type": "string"
+                  },
+                  "statecode": {
+                    "type": "integer"
+                  },
+                  "cat_actionpolicyid": {
+                    "type": "string"
+                  },
+                  "cat_sladays@OData.Community.Display.V1.FormattedValue": {
+                    "type": "string"
+                  },
+                  "cat_sladays": {
+                    "type": "integer"
+                  },
+                  "cat_policyid": {
+                    "type": "string"
+                  },
+                  "cat_enforcementaction@OData.Community.Display.V1.FormattedValue": {
+                    "type": "string"
+                  },
+                  "cat_enforcementaction": {
+                    "type": "integer"
+                  },
+                  "cat_risklevel@OData.Community.Display.V1.FormattedValue": {
+                    "type": "string"
+                  },
+                  "cat_risklevel": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "cat_description",
+                  "statecode@OData.Community.Display.V1.FormattedValue",
+                  "statecode",
+                  "cat_actionpolicyid",
+                  "cat_sladays@OData.Community.Display.V1.FormattedValue",
+                  "cat_sladays",
+                  "cat_policyid",
+                  "cat_enforcementaction@OData.Community.Display.V1.FormattedValue",
+                  "cat_enforcementaction",
+                  "cat_risklevel@OData.Community.Display.V1.FormattedValue",
+                  "cat_risklevel"
+                ]
+              }
+            }
+          },
+          "runAfter": {
+            "Parse_Thresholds": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Initialize_Violations_Table": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varViolations",
+                "type": "array",
+                "value": []
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_input": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Get_Highest_Risk": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varHighestRisk",
+                "type": "integer",
+                "value": "@last(sort(variables('varViolations'),'cat_risklevel'))?['cat_risklevel']"
+              }
+            ]
+          },
+          "runAfter": {
+            "All_Violations": [
+              "Succeeded"
+            ]
+          }
+        },
+        "All_Violations": {
+          "type": "Compose",
+          "inputs": "@variables('varViolations')",
+          "runAfter": {
+            "KV_Pairs_Not_Empty": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Initialize_variable": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "varViolationsPsv",
+                "type": "array"
+              }
+            ]
+          },
+          "runAfter": {}
+        },
+        "KV_Pairs_Not_Empty": {
+          "type": "If",
+          "expression": {
+            "and": [
+              {
+                "greater": [
+                  "@length(outputs('Split_into_Key_Val_Pairs'))",
+                  0
+                ]
+              },
+              {
+                "not": {
+                  "equals": [
+                    "@first(outputs('Split_into_Key_Val_Pairs'))",
+                    ""
+                  ]
+                }
+              }
+            ]
+          },
+          "actions": {
+            "Apply_to_each_Param": {
+              "type": "Foreach",
+              "foreach": "@outputs('Split_into_Key_Val_Pairs')",
+              "actions": {
+                "Append_to_array_variable": {
+                  "type": "AppendToArrayVariable",
+                  "inputs": {
+                    "name": "varTable",
+                    "value": {
+                      "Key": "@trim(replace(split(items('Apply_to_each_Param'), ':')[0], '\"', ''))",
+                      "Value": "@trim(replace(split(items('Apply_to_each_Param'), ':')[1], '\"', ''))"
+                    }
+                  },
+                  "runAfter": {
+                    "Value": [
+                      "Succeeded"
+                    ]
+                  }
+                },
+                "Key": {
+                  "type": "Compose",
+                  "inputs": "@trim(replace(split(items('Apply_to_each_Param'), ':')[0], '\"', ''))"
+                },
+                "Value": {
+                  "type": "Compose",
+                  "inputs": "@trim(replace(split(items('Apply_to_each_Param'), ':')[1], '\"', ''))",
+                  "runAfter": {
+                    "Key": [
+                      "Succeeded"
+                    ]
+                  }
+                },
+                "Match_Violation": {
+                  "type": "Query",
+                  "inputs": {
+                    "from": "@body('Parse_Thresholds')",
+                    "where": "@and(equals(item()['cat_filtercolumn'],outputs('Key')),equals(item()['cat_defaultvalue'],outputs('Value')))"
+                  },
+                  "runAfter": {
+                    "Append_to_array_variable": [
+                      "Succeeded"
+                    ]
+                  }
+                },
+                "Check_Violation": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "greater": [
+                          "@length(body('Match_Violation'))",
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Append_Violation": {
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "varViolations",
+                        "value": "@first(body('Match_Violation'))"
+                      }
+                    },
+                    "Append_to_array_variable_1": {
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "varViolationsPsv",
+                        "value": "@first(body('Match_Violation'))?['cat_configid']"
+                      },
+                      "runAfter": {
+                        "Append_Violation": [
+                          "Succeeded"
+                        ]
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "runAfter": {
+                    "Match_Violation": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "else": {
+            "actions": {}
+          },
+          "runAfter": {
+            "Split_into_Key_Val_Pairs": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Get_Policy": {
+          "type": "Query",
+          "inputs": {
+            "from": "@body('Parse_Action_Policies')",
+            "where": "@equals(item()?['cat_risklevel'],variables('varHighestRisk'))"
+          },
+          "runAfter": {
+            "Get_Highest_Risk": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "violations": {
+                  "title": "violations",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "risklevel": {
+                  "title": "riskLevel",
+                  "type": "number",
+                  "x-ms-content-hint": "NUMBER",
+                  "x-ms-dynamically-added": true
+                },
+                "violationspsv": {
+                  "title": "violationsPsv",
+                  "type": "string",
+                  "x-ms-content-hint": "TEXT",
+                  "x-ms-dynamically-added": true
+                },
+                "sladays": {
+                  "title": "slaDays",
+                  "type": "number",
+                  "x-ms-content-hint": "NUMBER",
+                  "x-ms-dynamically-added": true
+                }
+              },
+              "additionalProperties": {}
+            },
+            "statusCode": 200,
+            "body": {
+              "violations": "@{variables('varViolations')}",
+              "risklevel": "@last(sort(variables('varViolations'),'cat_risklevel'))?['cat_risklevel']",
+              "violationspsv": "@{join(variables('varViolationsPsv'),' | ')}",
+              "sladays": "@first(body('Get_Policy'))?['cat_sladays']"
+            }
+          },
+          "runAfter": {
+            "Get_Policy": [
+              "Succeeded"
+            ]
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

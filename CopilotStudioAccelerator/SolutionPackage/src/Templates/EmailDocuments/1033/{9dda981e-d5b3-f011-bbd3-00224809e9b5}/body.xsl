@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" ?><xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"><xsl:output method="text" indent="no"/><xsl:template match="/data"><![CDATA[<div data-wrapper="true" dir="ltr" style="font-family:&quot;Segoe UI&quot;; font-size:9pt">
+<p style="margin:0">Your case <strong>{{CaseID}}</strong> has been approved after review. You may proceed with the next steps outlined in your compliance workflow.</p>
+<p style="margin:0">&nbsp;</p>
+<p style="margin:0">Please note:<br>
+Even though the case is approved, if <strong>intake is not completed</strong> or <strong>
+violations are not resolved by the SLA deadline</strong>, automation will enforce the
+<strong>policy action associated with the assigned risk level</strong>.</p>
+<p style="margin:0">If all intake requirements and violations have already been completed,
+<strong>no further action is required other than continuing to comply with company policy</strong>.</p>
+<p style="margin:0">&nbsp;</p>
+<p style="margin:0"><strong>Next steps:</strong></p>
+<ul>
+<li>Complete any remaining intake requirements promptly.</li><li>Address all identified violations and confirm remediation.</li><li>Monitor the SLA timeline to avoid automated enforcement.</li></ul>
+<p style="margin:0">&nbsp;</p>
+<p style="margin:0">Thank you for your attention to this matter. Timely compliance ensures smooth operations and minimizes risk exposure.</p>
+<p style="margin:0">&nbsp;</p>
+<p style="margin:0">— The Copilot Studio Compliance Team<br>
+{{AdminAlias}}</p>
+</div>]]></xsl:template></xsl:stylesheet>

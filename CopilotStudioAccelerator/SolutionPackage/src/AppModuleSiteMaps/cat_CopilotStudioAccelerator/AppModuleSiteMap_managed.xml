@@ -14,7 +14,7 @@
         <Titles>
           <Title LCID="1033" Title="Quick links" />
         </Titles>
-        <SubArea Id="subarea_home" VectorIcon="/WebResources/cat_/powercat/img/home.svg" Icon="/WebResources/cat_/powercat/img/home.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_home_c8017">
+        <SubArea Id="subarea_a58cd22d" VectorIcon="/WebResources/cat_/powercat/img/home.svg" Icon="/WebResources/cat_/powercat/img/home.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_homecoe_70fca">
           <Titles>
             <Title LCID="1033" Title="Home" />
           </Titles>
@@ -30,24 +30,9 @@
           </Titles>
         </SubArea>
       </Group>
-      <Group Id="group_test" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+      <Group Id="group_7ad51f38" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
         <Titles>
-          <Title LCID="1033" Title="Test" />
-        </Titles>
-        <SubArea Id="subarea_copilottestset" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottestset" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Test Sets" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_copilottestruns" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottestrun" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
-          <Titles>
-            <Title LCID="1033" Title="Test Runs" />
-          </Titles>
-        </SubArea>
-      </Group>
-      <Group Id="group_AITools" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
-        <Titles>
-          <Title LCID="1033" Title="Tools" />
+          <Title LCID="1033" Title="Administration" />
         </Titles>
         <SubArea Id="subarea_87a218ef" VectorIcon="/WebResources/cat_/powercat/img/agentinventory" Icon="/WebResources/cat_/powercat/img/agentinventory" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_agentinventory_0b104">
           <Titles>
@@ -59,25 +44,11 @@
           <Titles>
             <Title LCID="1033" Title="Conversation KPIs" />
           </Titles>
+          <Privilege Entity="cat_copilotkpi" Privilege="Create,Read,Write" />
         </SubArea>
         <SubArea Id="subarea_0574cbee" VectorIcon="/WebResources/cat_/powercat/img/copilotkpi.svg" Icon="/WebResources/cat_/powercat/img/copilotkpi.svg" Entity="cat_copilotkpi" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
           <Titles>
             <Title LCID="1033" Title="KPIs Details View" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_AgentValueSummary" VectorIcon="/WebResources/cat_/powercat/img/agentvaluesummary.svg" Icon="/WebResources/cat_/powercat/img/agentvaluesummary.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_agentvaluesummary_d89a0">
-          <Titles>
-            <Title LCID="1033" Title="Agent Value Summary" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_218c1f30" VectorIcon="/WebResources/mspp_web_forms.svg" Icon="/WebResources/mspp_web_forms.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_webchatcustomizer_48d6e">
-          <Titles>
-            <Title LCID="1033" Title="Webchat Playground" />
-          </Titles>
-        </SubArea>
-        <SubArea Id="subarea_8d3d1ae1" VectorIcon="/WebResources/cat_/powercat/img/codereview.svg" Icon="/WebResources/cat_/powercat/img/codereview.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_homepage_f8fb3">
-          <Titles>
-            <Title LCID="1033" Title="Agent Review Tool" />
           </Titles>
         </SubArea>
         <SubArea Id="subarea_4093aa44" VectorIcon="/WebResources/cat_/powercat/img/conversationanalyzer.svg" Icon="/WebResources/cat_/powercat/img/conversationanalyzer.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_conversationanalyser_c058b">
@@ -85,6 +56,47 @@
             <Title LCID="1033" Title="Conversation Analyzer" />
           </Titles>
           <Privilege Entity="cat_agentdetails" Privilege="Read" />
+        </SubArea>
+        <SubArea Id="subarea_AgentValueSummary" VectorIcon="/WebResources/cat_/powercat/img/agentvaluesummary.svg" Icon="/WebResources/cat_/powercat/img/agentvaluesummary.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_agentvaluesummary_d89a0">
+          <Titles>
+            <Title LCID="1033" Title="Agent Value Summary" />
+          </Titles>
+          <Privilege Entity="cat_agentvalue" Privilege="Create,Read,Write" />
+        </SubArea>
+      </Group>
+      <Group Id="group_112f9c11" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+        <Titles>
+          <Title LCID="1033" Title="Governance" />
+        </Titles>
+        <SubArea Id="subarea_1fdea9e2" VectorIcon="/WebResources/cat_cat_compliancehub" Icon="/WebResources/cat_cat_compliancehub" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_compliancehub_329f8">
+          <Titles>
+            <Title LCID="1033" Title="Compliance Hub" />
+          </Titles>
+        </SubArea>
+      </Group>
+      <Group Id="group_productivity" ResourceId="SitemapDesigner.NewGroup" DescriptionResourceId="SitemapDesigner.NewGroup" IntroducedVersion="7.0.0.0" IsProfile="false" ToolTipResourseId="SitemapDesigner.Unknown">
+        <Titles>
+          <Title LCID="1033" Title="Productivity" />
+        </Titles>
+        <SubArea Id="subarea_218c1f30" VectorIcon="/WebResources/mspp_web_forms.svg" Icon="/WebResources/mspp_web_forms.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_webchatcustomizer_48d6e">
+          <Titles>
+            <Title LCID="1033" Title="Webchat Playground" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="subarea_copilottestset" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottestset" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Test Sets" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="subarea_copilottestruns" Icon="/_imgs/imagestrips/transparent_spacer.gif" Entity="cat_copilottestrun" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA">
+          <Titles>
+            <Title LCID="1033" Title="Test Runs" />
+          </Titles>
+        </SubArea>
+        <SubArea Id="subarea_8d3d1ae1" VectorIcon="/WebResources/cat_/powercat/img/codereview.svg" Icon="/WebResources/cat_/powercat/img/codereview.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_homepage_f8fb3">
+          <Titles>
+            <Title LCID="1033" Title="Agent Review Tool" />
+          </Titles>
         </SubArea>
         <SubArea Id="subarea_9b17bf07" VectorIcon="/WebResources/cat_/powercat/img/copilotcard.svg" Icon="/WebResources/cat_/powercat/img/copilotcard.svg" Client="All,Outlook,OutlookLaptopClient,OutlookWorkstationClient,Web" AvailableOffline="true" PassParams="false" Sku="All,OnPremise,Live,SPLA" Page="cat_adaptivecards_4476e">
           <Titles>
