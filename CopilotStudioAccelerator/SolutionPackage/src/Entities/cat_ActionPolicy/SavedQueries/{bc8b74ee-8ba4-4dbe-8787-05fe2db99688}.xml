@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{bc8b74ee-8ba4-4dbe-8787-05fe2db99688}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_policyid" select="1" icon="1" preview="1">
+        <row name="result" id="cat_actionpolicyid">
+          <cell name="cat_risklevel" width="102" />
+          <cell name="cat_sladays" width="100" />
+          <cell name="cat_enforcementaction" width="256" />
+          <cell name="cat_description" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_actionpolicy">
+          <attribute name="cat_actionpolicyid" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cat_risklevel" />
+          <attribute name="cat_sladays" />
+          <attribute name="cat_enforcementaction" />
+          <attribute name="cat_description" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Action Policies" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

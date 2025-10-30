@@ -1,0 +1,834 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps-1": {
+        "impersonation": {},
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      },
+      "shared_powerplatformforadmins-1": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorPowerPlatformforAdmins"
+        },
+        "api": {
+          "name": "shared_powerplatformforadmins"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "App ID (cat_AppID)": {
+          "defaultValue": "1351a93b-ce0e-41ed-9036-e191f1d272d1",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_AppID"
+          }
+        },
+        "Instance Url (cat_InstanceUrl)": {
+          "defaultValue": "https://copilotstudiokit-dev.crm.dynamics.com/",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_InstanceUrl"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "e4cd9a5f-81a5-4334-99c7-c3f1ee661956"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "required": []
+            }
+          }
+        }
+      },
+      "actions": {
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Scope:_Add_Fact_Count_Queries_If_Empty": [
+              "Succeeded"
+            ]
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {},
+              "additionalProperties": {}
+            },
+            "statusCode": 200
+          }
+        },
+        "Scope:_Update_App_ID": {
+          "actions": {
+            "Check_If_AppID_Needs_Update": {
+              "actions": {
+                "Compose": {
+                  "metadata": {
+                    "operationMetadataId": "e1e63a57-7816-4d70-8c8c-14459b53c1a2"
+                  },
+                  "type": "Compose",
+                  "inputs": "uniquename eq 'cat_CopilotStudioAccelerator'"
+                },
+                "Find_Copilot_Studio_Kit_App": {
+                  "runAfter": {
+                    "Compose": [
+                      "Succeeded"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "a94e9ecb-f5cd-4d13-9a77-19ad1b9634af"
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "appmodules",
+                      "$filter": "uniquename eq 'cat_CopilotStudioAccelerator'",
+                      "$top": 1
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "connectionName": "shared_commondataserviceforapps-1"
+                    }
+                  }
+                },
+                "App_ID": {
+                  "runAfter": {
+                    "Find_Copilot_Studio_Kit_App": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Compose",
+                  "inputs": "@first(outputs('Find_Copilot_Studio_Kit_App')?['body/value'])?['appmoduleidunique']"
+                },
+                "Get_Environment_Variable_Definition": {
+                  "runAfter": {
+                    "App_ID": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "environmentvariabledefinitions",
+                      "$filter": "schemaname eq 'cat_AppID'"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "connectionName": "shared_commondataserviceforapps-1"
+                    }
+                  }
+                },
+                "List_Existing_EV_Values": {
+                  "runAfter": {
+                    "Get_Environment_Variable_Definition": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "environmentvariablevalues",
+                      "$filter": "schemaname eq 'cat_AppID'"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "connectionName": "shared_commondataserviceforapps-1"
+                    }
+                  }
+                },
+                "If_Already_Assigned": {
+                  "actions": {},
+                  "runAfter": {
+                    "List_Existing_EV_Values": [
+                      "Succeeded"
+                    ]
+                  },
+                  "else": {
+                    "actions": {
+                      "Add_a_new_row": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "environmentvariablevalues",
+                            "item/schemaname": "cat_AppID",
+                            "item/iscustomizable": true,
+                            "item/EnvironmentVariableDefinitionId@odata.bind": "@first(outputs('Get_Environment_Variable_Definition')?['body/value'])?['environmentvariabledefinitionidunique']",
+                            "item/value": "@outputs('App_ID')"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "greater": [
+                          "@length(outputs('List_Existing_EV_Values')?['body/value'])",
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "type": "If"
+                }
+              },
+              "else": {
+                "actions": {}
+              },
+              "expression": {
+                "or": [
+                  {
+                    "equals": [
+                      "@parameters('App ID (cat_AppID)')",
+                      "NEEDS_UPDATE"
+                    ]
+                  },
+                  {
+                    "equals": [
+                      "@length(parameters('App ID (cat_AppID)'))",
+                      0
+                    ]
+                  }
+                ]
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Scope:_Update_Instance_Url": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Scope:_Add_Thresholds_If_Empty": {
+          "actions": {
+            "List_Thresholds": {
+              "metadata": {
+                "operationMetadataId": "d2b3d84d-427d-429f-b155-dc7bf8760a57"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_thresholdconfigs",
+                  "$select": "cat_thresholdconfigid"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps-1"
+                }
+              }
+            },
+            "Check_if_Thresholds_Table_Has_Data": {
+              "actions": {},
+              "runAfter": {
+                "List_Thresholds": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Load_Threshold_Data_If_Empty": {
+                    "runAfter": {
+                      "Default_Thresholds": [
+                        "Succeeded"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "4077f4fb-a349-4386-9208-4da88d812dc2"
+                    },
+                    "type": "ParseJson",
+                    "inputs": {
+                      "content": "@outputs('Default_Thresholds')",
+                      "schema": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "cat_category": {
+                              "type": "integer"
+                            },
+                            "cat_description": {
+                              "type": "string"
+                            },
+                            "cat_filtercolumn": {
+                              "type": "string"
+                            },
+                            "statecode": {
+                              "type": "integer"
+                            },
+                            "cat_configid": {
+                              "type": "string"
+                            },
+                            "cat_defaultvalue": {
+                              "type": "string"
+                            },
+                            "cat_mitigation": {
+                              "type": "string"
+                            },
+                            "cat_filteroperator": {
+                              "type": "integer"
+                            },
+                            "cat_risklevel": {
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "cat_category",
+                            "cat_description",
+                            "cat_filtercolumn",
+                            "statecode",
+                            "cat_configid",
+                            "cat_defaultvalue",
+                            "cat_mitigation",
+                            "cat_filteroperator",
+                            "cat_risklevel"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Default_Thresholds": {
+                    "metadata": {
+                      "operationMetadataId": "3daa8ad2-909c-4745-90bd-f5a3eb1ec9c9"
+                    },
+                    "type": "Compose",
+                    "inputs": [
+                      {
+                        "cat_category": 335350000,
+                        "cat_description": "Require review for agents using Microsoft Authentication",
+                        "cat_filtercolumn": "cat_enduserauthenticationtype",
+                        "statecode": 1,
+                        "cat_configid": "Microsoft Authentication",
+                        "cat_defaultvalue": "Integrated",
+                        "cat_mitigation": "Admin review only",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 1,
+                        "cat_enabled": true
+                      },
+                      {
+                        "cat_category": 335350000,
+                        "cat_description": "Generic OAuth2 (API Key) authentication is not permitted",
+                        "cat_filtercolumn": "cat_enduserauthenticationtype",
+                        "statecode": 0,
+                        "cat_configid": "Generic OAuth2",
+                        "cat_defaultvalue": "OAuth2",
+                        "cat_mitigation": "OAuth not permitted; change auth settings to Microsoft Auth",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 2,
+                        "cat_enabled": true
+                      },
+                      {
+                        "cat_category": 335350000,
+                        "cat_description": "No Authentication is not permitted",
+                        "cat_filtercolumn": "cat_enduserauthenticationtype",
+                        "statecode": 0,
+                        "cat_configid": "No Authentication",
+                        "cat_defaultvalue": "None",
+                        "cat_mitigation": "No Auth not permitted; change authentication to Microsoft",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 3,
+                        "cat_enabled": true
+                      },
+                      {
+                        "cat_category": 335350001,
+                        "cat_description": "Require review for published agents",
+                        "cat_filtercolumn": "cat_published",
+                        "statecode": 0,
+                        "cat_configid": "Published Agents",
+                        "cat_defaultvalue": "true",
+                        "cat_mitigation": "Admin review only",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 1,
+                        "cat_enabled": true
+                      },
+                      {
+                        "cat_category": 335350001,
+                        "cat_description": "Require review for draft agents",
+                        "cat_filtercolumn": "cat_published",
+                        "statecode": 1,
+                        "cat_configid": "Draft Agents",
+                        "cat_defaultvalue": "false",
+                        "cat_mitigation": "Admin review only",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 1,
+                        "cat_enabled": false
+                      },
+                      {
+                        "cat_category": 335350002,
+                        "cat_description": "Require review for agents in production environments",
+                        "cat_filtercolumn": "cat_environmenttype",
+                        "statecode": 0,
+                        "cat_configid": "Production environments",
+                        "cat_defaultvalue": "Production",
+                        "cat_mitigation": "Admin review only",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 1,
+                        "cat_enabled": true
+                      },
+                      {
+                        "cat_category": 335350003,
+                        "cat_description": "Agents not allowed to use maker auth credentials",
+                        "cat_filtercolumn": "cat_usesconnectormakerauthcontext",
+                        "statecode": 0,
+                        "cat_configid": "Maker auth credentials",
+                        "cat_defaultvalue": "true",
+                        "cat_mitigation": "Maker authentication not allowed; adjust to run only user",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 2,
+                        "cat_enabled": true
+                      },
+                      {
+                        "cat_category": 335350004,
+                        "cat_description": "Require review for prompt usage",
+                        "cat_filtercolumn": "cat_usesprompts",
+                        "statecode": 0,
+                        "cat_configid": "Uses Prompts",
+                        "cat_defaultvalue": "true",
+                        "cat_mitigation": "Admin review only",
+                        "cat_filteroperator": 335350000,
+                        "cat_risklevel": 1,
+                        "cat_enabled": true
+                      }
+                    ]
+                  },
+                  "For_each": {
+                    "foreach": "@outputs('Load_Threshold_Data_If_Empty')['body']",
+                    "actions": {
+                      "Add_Default_Threshold_Config": {
+                        "metadata": {
+                          "operationMetadataId": "ef2c5bfe-251d-4254-95e5-c1a9f66ef25c"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "cat_thresholdconfigs",
+                            "item/cat_category": "@item()['cat_category']",
+                            "item/cat_description": "@items('For_each')['cat_description']",
+                            "item/cat_enabled": "@item()?['cat_enabled']",
+                            "item/cat_filtercolumn": "@items('For_each')['cat_filtercolumn']",
+                            "item/cat_filteroperator": "@items('For_each')['cat_filteroperator']",
+                            "item/cat_mitigation": "@items('For_each')['cat_mitigation']",
+                            "item/cat_risklevel": "@items('For_each')['cat_risklevel']",
+                            "item/cat_configid": "@items('For_each')['cat_configid']",
+                            "item/cat_defaultvalue": "@items('For_each')['cat_defaultvalue']"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Load_Threshold_Data_If_Empty": [
+                        "Succeeded"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "d80daa4f-d4e8-445d-b801-0a67e292dc54"
+                    },
+                    "type": "Foreach"
+                  }
+                }
+              },
+              "expression": {
+                "and": [
+                  {
+                    "greater": [
+                      "@length(outputs('List_Thresholds')?['body/value'])",
+                      0
+                    ]
+                  }
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "7e87f102-ce9f-4d69-a009-2ed33ce5fc7f"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Scope:_Update_App_ID": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Scope:_Add_Action_Policies_If_Empty": {
+          "actions": {
+            "List_Policies": {
+              "metadata": {
+                "operationMetadataId": "65d377c4-b863-4014-8e14-f0092818ce12"
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_actionpolicies",
+                  "$select": "cat_description,statecode,cat_actionpolicyid,cat_sladays,cat_policyid,cat_enforcementaction,cat_risklevel"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps-1"
+                }
+              }
+            },
+            "Check_if_Action_Policies_Has_Data": {
+              "actions": {},
+              "runAfter": {
+                "List_Policies": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Default_Action_Policies": {
+                    "metadata": {
+                      "operationMetadataId": "4a7a96c8-c7f8-4f5e-83ff-b29cc4cccc08"
+                    },
+                    "type": "Compose",
+                    "inputs": [
+                      {
+                        "cat_sladays": 11,
+                        "cat_risklevel": 1,
+                        "cat_description": "Admin reviews agent and reminders to fill business justification are sent out.",
+                        "cat_enforcementaction": 335350001
+                      },
+                      {
+                        "cat_sladays": 0,
+                        "cat_risklevel": 2,
+                        "cat_description": "Agent disabled if overdue",
+                        "cat_enforcementaction": 335350000
+                      },
+                      {
+                        "cat_sladays": 0,
+                        "cat_risklevel": 3,
+                        "cat_description": "Agent deleted if overdue",
+                        "cat_enforcementaction": 335350002
+                      }
+                    ]
+                  },
+                  "Apply_to_each": {
+                    "foreach": "@outputs('Default_Action_Policies')",
+                    "actions": {
+                      "Add_Default_Policy": {
+                        "metadata": {
+                          "operationMetadataId": "4b253149-4da2-43fb-b541-301a5920e767"
+                        },
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "cat_actionpolicies",
+                            "item/cat_description": "@item()?['cat_description']",
+                            "item/cat_enabled": true,
+                            "item/cat_enforcementaction": "@item()?['cat_enforcementaction']",
+                            "item/cat_risklevel": "@item()?['cat_risklevel']",
+                            "item/cat_sladays": "@item()?['cat_sladays']"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Default_Action_Policies": [
+                        "Succeeded"
+                      ]
+                    },
+                    "metadata": {
+                      "operationMetadataId": "e6a4eda8-e36c-4804-a339-1cde8d9635f8"
+                    },
+                    "type": "Foreach"
+                  }
+                }
+              },
+              "expression": {
+                "and": [
+                  {
+                    "greater": [
+                      "@length(outputs('List_Policies')?['body/value'])",
+                      0
+                    ]
+                  }
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "6806923f-9190-4c1c-bbed-99e856e80b7c"
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Scope:_Add_Thresholds_If_Empty": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Scope:_Update_Instance_Url": {
+          "actions": {
+            "Check_If_Instance_Url_Needs_Update": {
+              "actions": {
+                "InstanceUrl": {
+                  "runAfter": {
+                    "Get_Environment_as_Admin": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "Compose",
+                  "inputs": "@outputs('Get_Environment_as_Admin')?['body/properties/linkedEnvironmentMetadata/instanceUrl']"
+                },
+                "Get_Environment_as_Admin": {
+                  "runAfter": {
+                    "Workflow": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "environment": "@outputs('Workflow')?['tags']?['environmentName']",
+                      "api-version": "2018-10-01"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_powerplatformforadmins",
+                      "operationId": "GetSingleEnvironment",
+                      "connectionName": "shared_powerplatformforadmins-1"
+                    }
+                  }
+                },
+                "Workflow": {
+                  "type": "Compose",
+                  "inputs": "@workflow()"
+                },
+                "Get_Environment_Variable_Definition_For_Instance_Url": {
+                  "runAfter": {
+                    "InstanceUrl": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "environmentvariabledefinitions",
+                      "$filter": "schemaname eq 'cat_InstanceUrl'",
+                      "x-ms-odata-metadata-full": true
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "connectionName": "shared_commondataserviceforapps-1"
+                    }
+                  }
+                },
+                "List_Existing_EV_Values_1": {
+                  "runAfter": {
+                    "Get_Environment_Variable_Definition_For_Instance_Url": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "environmentvariablevalues",
+                      "$filter": "schemaname eq 'cat_InstanceUrl'"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "ListRecords",
+                      "connectionName": "shared_commondataserviceforapps-1"
+                    }
+                  }
+                },
+                "Condition_1": {
+                  "actions": {},
+                  "runAfter": {
+                    "List_Existing_EV_Values_1": [
+                      "Succeeded"
+                    ]
+                  },
+                  "else": {
+                    "actions": {
+                      "Add_a_new_Value_for_Instance_Url": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "environmentvariablevalues",
+                            "item/schemaname": "cat_InstanceUrl",
+                            "item/EnvironmentVariableDefinitionId@odata.bind": "@first(outputs('Get_Environment_Variable_Definition_For_Instance_Url')?['body/value'])?['@odata.editLink']",
+                            "item/value": "@outputs('InstanceUrl')"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "greater": [
+                          "@length(outputs('List_Existing_EV_Values_1')?['body/value'])",
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "type": "If"
+                }
+              },
+              "else": {
+                "actions": {}
+              },
+              "expression": {
+                "or": [
+                  {
+                    "equals": [
+                      "@parameters('Instance Url (cat_InstanceUrl)')",
+                      "NEEDS_UPDATE"
+                    ]
+                  },
+                  {
+                    "equals": [
+                      "@length(parameters('Instance Url (cat_InstanceUrl)'))",
+                      0
+                    ]
+                  }
+                ]
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {},
+          "type": "Scope"
+        },
+        "Scope:_Add_Fact_Count_Queries_If_Empty": {
+          "actions": {
+            "Check_If_Fact_Count_Table_Has_Data": {
+              "actions": {},
+              "runAfter": {
+                "List_rows": [
+                  "Succeeded"
+                ]
+              },
+              "else": {
+                "actions": {
+                  "Default_Fact_Count_Data": {
+                    "type": "Compose",
+                    "inputs": [
+                      {
+                        "cat_filterlabel": "Total agents",
+                        "cat_filterdefinition": "<fetch aggregate=\"true\"><entity name=\"cat_agentdetails\"><attribute name=\"cat_agentid\" alias=\"RowCount\" aggregate=\"count\" distinct=\"true\" /></entity></fetch>",
+                        "cat_tablelogicalname": "cat_agentdetailses"
+                      }
+                    ]
+                  },
+                  "Apply_to_each_Default_Fact_Count": {
+                    "foreach": "@outputs('Default_Fact_Count_Data')",
+                    "actions": {
+                      "Add_a_new_row_1": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "cat_agentfactrowcountses",
+                            "item/cat_filterlabel": "@item()?['cat_filterlabel']",
+                            "item/cat_filterdefinition": "@item()?['cat_filterdefinition']",
+                            "item/cat_tablelogicalname": "@item()?['cat_tablelogicalname']"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "CreateRecord",
+                            "connectionName": "shared_commondataserviceforapps-1"
+                          }
+                        }
+                      }
+                    },
+                    "runAfter": {
+                      "Default_Fact_Count_Data": [
+                        "Succeeded"
+                      ]
+                    },
+                    "type": "Foreach"
+                  }
+                }
+              },
+              "expression": {
+                "and": [
+                  {
+                    "greater": [
+                      "@length(outputs('List_rows')?['body/value'])",
+                      0
+                    ]
+                  }
+                ]
+              },
+              "type": "If"
+            },
+            "List_rows": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_agentfactrowcountses"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps-1"
+                }
+              }
+            }
+          },
+          "runAfter": {
+            "Scope:_Add_Action_Policies_If_Empty": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

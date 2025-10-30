@@ -2,29 +2,29 @@
   "properties": {
     "connectionReferences": {
       "shared_commondataserviceforapps_1": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        }
+        "runtimeSource": "embedded"
       }
     },
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
-        },
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
         },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
         "Enable Value Component (cat_Enablevaluecomponent)": {
-          "defaultValue": false,
+          "defaultValue": true,
           "type": "Bool",
           "metadata": {
             "schemaName": "cat_Enablevaluecomponent",
@@ -34,31 +34,54 @@
       },
       "triggers": {
         "When_a_row_is_added,_modified_or_deleted": {
-          "metadata": {
-            "operationMetadataId": "12dce763-6c34-46a5-ac9a-82a5fe0ae570"
-          },
           "type": "OpenApiConnectionWebhook",
           "inputs": {
-            "host": {
-              "connectionName": "shared_commondataserviceforapps_1",
-              "operationId": "SubscribeWebhookTrigger",
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-            },
             "parameters": {
               "subscriptionRequest/message": 1,
               "subscriptionRequest/entityname": "cat_agentdetails",
               "subscriptionRequest/scope": 4,
               "subscriptionRequest/filterexpression": "cat_description ne null and cat_instructions ne null"
             },
-            "authentication": "@parameters('$authentication')"
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "12dce763-6c34-46a5-ac9a-82a5fe0ae570"
           }
         }
       },
       "actions": {
         "Condition": {
+          "type": "If",
+          "expression": {
+            "equals": [
+              "@parameters('Enable Value Component (cat_Enablevaluecomponent)')",
+              true
+            ]
+          },
           "actions": {
             "Run_a_prompt": {
-              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "recordId": "74048e9d-133f-4801-8ea9-5bd7dbd0bc62",
+                  "item/requestv2/Description": "@triggerOutputs()?['body/cat_description']",
+                  "item/requestv2/Instructions": "@triggerOutputs()?['body/cat_instructions']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "aibuilderpredict_customprompt",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "runAfter": {
+                "For_each:_Delete_the_duplicate_record_in_agent_values": [
+                  "SUCCEEDED"
+                ]
+              },
               "metadata": {
                 "operationMetadataId": "0ec995cf-46fd-4843-88d0-eb35662ff90c",
                 "flowSystemMetadata": {
@@ -69,38 +92,11 @@
                   "portalOperationBrandColorOverride": "#0A76C4",
                   "portalOperationApiTierOverride": "Standard"
                 }
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "aibuilderpredict_customprompt",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "recordId": "74048e9d-133f-4801-8ea9-5bd7dbd0bc62",
-                  "item/requestv2/Description": "@triggerOutputs()?['body/cat_description']",
-                  "item/requestv2/Instructions": "@triggerOutputs()?['body/cat_instructions']"
-                },
-                "authentication": "@parameters('$authentication')"
               }
             },
             "Add_a_new_row": {
-              "runAfter": {
-                "Run_a_prompt": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "9fc35a82-f647-404c-bf7a-1a87489c15a7"
-              },
               "type": "OpenApiConnection",
               "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "CreateRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
                 "parameters": {
                   "entityName": "cat_agentvalues",
                   "item/cat_name": "@triggerOutputs()?['body/cat_name']",
@@ -112,25 +108,73 @@
                   "item/cat_environmentdisplayname": "@triggerOutputs()?['body/cat_environmentname']",
                   "item/cat_environmentid": "@triggerOutputs()?['body/cat_environmentid']"
                 },
-                "authentication": "@parameters('$authentication')"
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "runAfter": {
+                "Run_a_prompt": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9fc35a82-f647-404c-bf7a-1a87489c15a7"
+              }
+            },
+            "List_rows_from_agent_values": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_agentvalues",
+                  "$select": "cat_agentvalueid",
+                  "$filter": "cat_agentid eq '@{triggerOutputs()?['body/cat_agentid']}' and cat_environmentid eq '@{triggerOutputs()?['body/cat_environmentid']}'"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "ListRecords",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              }
+            },
+            "For_each:_Delete_the_duplicate_record_in_agent_values": {
+              "type": "foreach",
+              "foreach": "@outputs('List_rows_from_agent_values')?['body/value']",
+              "actions": {
+                "Delete_a_row_from_agent_values": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "entityName": "cat_agentvalues",
+                      "recordId": "@item()?['cat_agentvalueid']"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                      "operationId": "DeleteRecord",
+                      "connectionName": "shared_commondataserviceforapps_1"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "List_rows_from_agent_values": [
+                  "SUCCEEDED"
+                ]
               }
             }
           },
-          "runAfter": {},
-          "expression": {
-            "equals": [
-              "@parameters('Enable Value Component (cat_Enablevaluecomponent)')",
-              true
-            ]
+          "else": {
+            "actions": {}
           },
+          "runAfter": {},
           "metadata": {
             "operationMetadataId": "012685f5-8f64-46aa-8ff4-354214f4b8b8"
-          },
-          "type": "If"
+          }
         }
       }
     },
-    "templateName": ""
+    "templateName": null
   },
   "schemaVersion": "1.0.0.0"
 }
