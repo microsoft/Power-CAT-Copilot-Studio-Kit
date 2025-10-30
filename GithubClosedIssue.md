@@ -1,25 +1,23 @@
-🤖 Issue Closure Log
+### 🤖 Issue Closure Log
 
-### [Issue #332 - Import warning - This solution was exported from a [Full] environment, which has more components than the current [Standard] environment. When you import, some components may be missing.](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/332)
+### [Issue #412 - Empty Conversation KPIs and PowerBi report](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/412)
 
 **Problem:**  
-When importing the solution CopilotStudioKit_20250912.1_managed.zip into a GCC tenant, an error message is displayed indicating that the solution was exported from a [Full] environment, which has more components than the current [Standard] environment, potentially causing some components to be missing.
+The user was unable to see data under Conversation KPI on Copilot Studio Kit and PowerBi. Despite completing all steps, the logs ran but the table remained empty. Additionally, PowerBI reports were created but data was not fetched correctly.
 
 **Root Cause:**  
-The solution was exported from a Dynamics (full) environment, which includes additional tables and components not present in a standard environment.
+The issue was caused by a language mismatch between the Copilot Studio (Italian) and PowerApps (English), which led to data fetching errors.
 
 **Solution Applied:**  
-1. Verified the components and dependencies required by the solution.
-2. Updated the installation instructions to include a note about the environment requirements.
-3. Provided links to relevant documentation for further guidance.
+1. Verified the language settings for both Copilot Studio and PowerApps.
+2. Aligned the language settings to ensure consistency.
+3. Re-ran the data fetching schedule to ensure data was correctly populated.
 
 **Download/Reference Links:**  
-- [Issue #332](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/332)
-- [Schema Type Mismatch on Solution Import](https://learn.microsoft.com/en-us/troubleshoot/power-platform/dataverse/working-with-solutions/schematype-mismatch-on-solution-import)
-- [Organization Detail API Reference](https://learn.microsoft.com/en-us/power-apps/developer/data-platform/webapi/reference/organizationdetail?view=dataverse-latest#remarks)
+- [Issue #412](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues/412)
 
 **Outcome:**  
-The solution import process now includes clear instructions regarding environment requirements, reducing the likelihood of missing components during import.
+The issue was resolved by aligning the language settings, which allowed the data to be fetched and displayed correctly in both Conversation KPIs and PowerBI reports.
 
 ---
 
