@@ -16,13 +16,17 @@ The list of agents has "Action" column that has either "Analyze" or "View Result
 
 After selecting an agent and clicking "Analyze" from the action, prompt selection screen is shown. The feature ships with two precanned prompts, "Sentiment Analysis" and "PII Analysis".
 
-<img width="1921" height="933" alt="prompt_selection" src="https://github.com/user-attachments/assets/4fb54aa8-79cb-49c3-8902-adec928e6065" />
+![Copilot Studio Kit - New Analysis](https://github.com/user-attachments/assets/50aed206-b3d5-4a30-a464-4a6696d437e4)
 
-The primary purpose of the feature is to allow makers to use custom prompts to analyze the conversations with. A new custom prompt can be created by ticking the "Create a custom prompt" checkbox, entering a descriptive name for the custom prompt and entering the prompt in the "Prompt" multiline textbox.
 
-<img width="1922" height="1146" alt="custom_prompt" src="https://github.com/user-attachments/assets/9f09ab47-61a4-41a4-9990-9ca655c725d5" />
+The primary purpose of the feature is to allow makers to use custom prompts to analyze the conversations with. To create a new custom prompt or updating an existing custom prompt, go to the **Manage Prompts** page, enter a descriptive name in the Prompt Name field, and add your prompt text in the **Prompt** textbox.
 
-The custom prompt is automatically saved when a new analysis is started. It can be reused later from the prompt selection drop down list.
+![Copilot Studio Kit - Manage Prompts](https://github.com/user-attachments/assets/86707fda-3291-4512-9d8e-5594667f3536)
+
+![Copilot Studio Kit - Manage Prompts - Edit](https://github.com/user-attachments/assets/27718f22-4ae1-4498-93d8-66c75cfeb0fe)
+
+
+Once the custom prompt is saved, it becomes available for future use in the prompt selection dropdown list.
 
 When the analysis is started, it will take a moment to process. After the processing is finished, results will be presented.
 
