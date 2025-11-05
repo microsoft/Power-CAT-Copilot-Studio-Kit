@@ -71,6 +71,26 @@ Terminology
 | 42 | Uses File Input | cat_UsesFileInput | Boolean | Dataverse: Table `bot` → `configuration.isFileAnalysisEnabled` (true → true) | V2 | True if file analysis/input is enabled. |
 | 43 | EnvironmentUrl | cat_EnvironmentUrl | Text | Power Platform Admin connector — `List environments as admin` output: instance URL | V2 | Environment instance URL. |
 | 44 | IsTranscriptAvailable | cat_IsTranscriptAvailable | Text | Dataverse: `conversationtranscript` table — presence indicates availability | V2 | Indicates whether conversation transcripts exist for the agent. |
+| 45 | Agent Created By ADID | cat_agentcreatedbyadid | Text | Dataverse: `systemuser` table — ADID or Azure Object ID | V3 | Azure active directory id of created by user. |
+| 46 | Agent Test Configured | cat_agenttestconfigured | Boolean | Agent Test Run table and Agent Test Case table exists for the agent is considered as agent test configured | V3 | Test case configured for the agent in the copilot studio kit test automation. |
+| 47 | Last Usage Date | cat_lastusagedate | Date | Agent last usage date from the usage metrics data from power platform admin center | V3 | Agent last usage date from the usage metrics data from power platform admin center |
+| 48 | Last Usage Feature | cat_lastusagefeature | Text | Agent last usage feature from the usage metrics data from power platform admin center | V3 | Agent last usage feature from the usage metrics data from power platform admin center |
+| 49 | Template | cat_template | Text | Dataverse: `bot` table — template | V3 | Used to identify the template and version used for the bot default content. |
+| 50 | Usage Agent Action (Billed) | cat_usageagentactionbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent. |
+| 51 | Usage Agent Action (Non-Billed) | cat_usageagentactionnonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
+| 52 | Usage Agent Flow Actions (Billed) | cat_usageagentflowactionsbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent |
+| 53 | Usage Agent Flow Actions (Non-Billed) | cat_usageagentflowactionsnonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
+| 54 | Usage Classic Answer (Billed) | cat_usageclassicanswerbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent |
+| 55 | Usage Classic Answer (Non-Billed) | cat_usageclassicanswernonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
+| 56 | Usage Generative Answer (Billed) | cat_usagegenerativeanswerbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent |
+| 57 | Usage Generative Answer (Non-Billed) | cat_usagegenerativeanswernonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
+| 58 | Usage Text And Gen AI Tools Basic (Billed) | cat_usagetextandgenaitoolsbasicbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent |
+| 59 | Usage Text And Gen AI Tools Basic (Non-Billed) | cat_usagetextandgenaitoolsbasicnonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
+| 60 | Usage Text And Gen AI Tools Premium (Billed) | cat_usagetextandgenaitoolspremiumbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent |
+| 61 | Usage Text And Gen AI Tools Premium (Non-Billed) | cat_usagetextandgenaitoolspremiumnonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
+| 62 | Usage Text And Gen AI Tools Standard (Billed) | cat_usagetextandgenaitoolsstandardbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent |
+| 63 | Usage Text And Gen AI Tools Standard (Non-Billed) | cat_usagetextandgenaitoolsstandardnonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
+| 64 | Usage Data | cat_usagedata | Multiple line of text (json) | Agent usage datafrom the power platform admin center as json | V3 | Agent usage data in json |
 
 ---
 
@@ -123,5 +143,25 @@ Below are concise detection rules for each derived or boolean field (refer to sc
 - Uses File Input (`cat_UsesFileInput`): `bot.configuration.isFileAnalysisEnabled` = true.
 - EnvironmentUrl (`cat_EnvironmentUrl`): admin connector `List environments as admin` → instance URL.
 - IsTranscriptAvailable (`cat_IsTranscriptAvailable`): true when records exist for the agent in `conversationtranscript`.
+- Agent Created By ADID (`cat_agentcreatedbyadid`): `systemuser` table → ADID or Azure Object ID of the user who created the agent.
+- Agent Test Configured (`cat_agenttestconfigured`): true when test run exists in Agent Test Run and test case exists in Agent Test Case table for the agent (Copilot Studio Kit test automation).
+- Last Usage Date (`cat_lastusagedate`): last usage date from usage metrics in Power Platform Admin Center.
+- Last Usage Feature (`cat_lastusagefeature`): last usage feature from usage metrics in Power Platform Admin Center.
+- Template (`cat_template`): `bot` table → identifies template and version used for bot default content.
+- Usage Agent Action (Billed) (`cat_usageagentactionbilled`): agent billed usage from usage metrics in Power Platform Admin Center.
+- Usage Agent Flow Actions (Billed) (`cat_usageagentflowactionsbilled`): agent billed usage from usage metrics in Power Platform Admin Center.
+- Usage Classic Answer (Billed) (`cat_usageclassicanswerbilled`): agent billed usage from usage metrics in Power Platform Admin Center.
+- Usage Generative Answer (Billed) (`cat_usagegenerativeanswerbilled`): agent billed usage from usage metrics in Power Platform Admin Center.
+- Usage Text And GenAI Tools Basic (Billed) (`cat_usagetextandgenaitoolsbasicbilled`): agent billed usage from usage metrics in Power Platform Admin Center.
+- Usage Text And GenAI Tools Premium (Billed) (`cat_usagetextandgenaitoolspremiumbilled`): agent billed usage from usage metrics in Power Platform Admin Center.
+- Usage Text And GenAI Tools Standard (Billed) (`cat_usagetextandgenaitoolsstandardbilled`): agent billed usage from usage metrics in Power Platform Admin Center.
+- Usage Agent Action (Non-Billed) (`cat_usageagentactionnonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
+- Usage Agent Flow Actions (Non-Billed) (`cat_usageagentflowactionsnonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
+- Usage Classic Answer (Non-Billed) (`cat_usageclassicanswernonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
+- Usage Generative Answer (Non-Billed) (`cat_usagegenerativeanswernonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
+- Usage Text And GenAI Tools Basic (Non-Billed) (`cat_usagetextandgenaitoolsbasicnonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
+- Usage Text And GenAI Tools Premium (Non-Billed) (`cat_usagetextandgenaitoolspremiumnonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
+- Usage Text And GenAI Tools Standard (Non-Billed) (`cat_usagetextandgenaitoolsstandardnonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
+- UsageData (`cat_usagedata`): agent usage from usage metrics in Power Platform Admin Center as json.
 
 ---
