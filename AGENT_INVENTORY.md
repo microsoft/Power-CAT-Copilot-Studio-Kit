@@ -20,7 +20,8 @@ Selecting an agent and pressing *View details* brings up a detailed view of the 
 the environment, creation time and creator, and detailed information the usage of different features such as actions, generative AI, skills, prompts,
 knowledge sources and more.
 
-![agent inventory detailed view](https://github.com/user-attachments/assets/02dd5e90-9810-4bce-b500-df03cee118c6)
+![Copilot Studio Kit - Agent Details](https://github.com/user-attachments/assets/5e4e4344-2b0b-4ee6-91d9-7bc87f047fbe)
+
 
 ## List view
 
@@ -50,15 +51,16 @@ During the import process, create a connection using the licensing host URL: htt
 
 Usage data in the **Agent Details** table is refreshed in two ways:
 
-1. **Automatically** every day at **3:00 AM server time**.
+1. **Automatically** when the Agent inventory runs on a daily schedule.  
 2. **Manually** when you perform an **Agent Sync** operation.
 
-### Where to View Usage Data 
+### Where to View Usage Metrics 
 
-In the **Agent Inventory Dashboard**, check the **Agents grid**.
-If the field **Usage Metrics Available** is set to **Yes**, a **Usage Data** section will appear in the **Agent Details** page.
+In the **Agent Inventory Dashboard**, review the **Agents** grid. 
+If the **Total Usage/Month** field contains a value, the **Usage Metrics** section will be displayed on the **Agent Details** page.
 
-![1757887427508](https://github.com/user-attachments/assets/f21cc4bd-b14e-45cb-87fc-85be6a7740f1)
+![Copilot Studio Kit - Agent Details With Usage](https://github.com/user-attachments/assets/197f0539-016c-4c26-8439-e2382fab9349)
+
 
 > [!NOTE]
 > It is important to understand that the visibility to the agents is *limited* and *controlled* by the connection references in the solution. **Copilot Studio Kit - Power Platform for Admins** is used to fetch the list of environments in the tenant and **Copilot Studio Kit - Dataverse** is used to gather the agent information from the environments. For full visibility, the connection references have to be configured with account having Power Platform admin role and system admin level permission to all the environments. Other accounts can be used as well, but the visibility of the agent inventory is limited to the environments the user has system admin access to.
