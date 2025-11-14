@@ -30,23 +30,32 @@ Setup and configure the governance components using the Copilot Studio Kit setup
 1. Use the setup wizard to enable the flows and environment variables.
 1. To use compliance hub processes, enable all the flow starting with "Agent Compliance" and "Agent Inventory". 
 1. Environment variables: 
-   - **Admin Group**: Provide M365 group object IDs for the “Admin Group”. These will be used to manage where approvals and admin notifications are sent.
-   - **Agent Maker Group**:
-   - **Compliance support alias**: The email alias that will be used in the signature of notifications sent to makers.
-   - **Require Admin Consent Before Sending Notification**: Enabled by default. This is recommended if admins should approve cases before notifications are sent to the maker. Note that the SLA for the maker to submit details will not start until the notification is sent. 
+    | Display Name| Description| Requires manual input |
+    |--------------------------------------------|-----------------------------------------------------------------------------|------------------------|
+    | Admin Approval Before Maker Notification   | Determines if admin approval is needed before notifying makers | |
+    | App ID | Unique identifier for the Copilot Studio Kit application | Yes |
+    | Case Intake SLA | Service Level Agreement for case intake timing | |
+    | Case Review SLA                          | SLA for reviewing cases in the compliance process                          |                    |
+    | Case Summary Email Frequency               | How often case summary emails are sent                                     |                    |
+    | Compliance Admin Group ID                  | Group ID for compliance administrators                                     |                   Yes | 
+    | Compliance Documentation Link              | URL to compliance documentation                                            |                   Yes (optional) |
+    | Compliance Support Contact Alias           | Email alias for compliance support                                         | Yes (optional)                   |
+    | Instance Url                               | URL of the environment instance                                            | Yes                   |
+    | Maker Team ID                              | Team ID for makers in the organization                                     | Yes                   |
+    | Power Automate Region                      | Region where Power Automate resources are hosted                           |                    |
+    | Require Case For No Risk                   | Indicates if a case is required even when risk is low                      |                     |
+    | Send Case Alerts To Maker Via Email        | Enables email alerts for makers when cases are triggered                   |                     |
+    | Send Case Alerts To Maker Via Teams | Enables Teams alerts for makers when cases are triggered | |
 
-        > **Important:**</br>
-        > Enabled is recommended during initial configuration to avoid excessive notifications or preventing unwanted governance action automation on non-compliant cases (quarantine or delete). Once compliance thresholds are configured, this can be disabled in the Compliance Hub settings page, which will allow notices and policy enforcement to happen automatically.
-
-    - **Create case for every agent**: Disabled by default. When disabled, cases are only created for agents that violate a compliance threshold. If enabled, a case will be created for all agents, even if there is no violation. 
-    
-        > **Note**: </br>
-        > If makers do not submit intake details within the SLA, the configured no risk enforcement will be implemented.
-
-•	Open the Compliance Hub page under the Governance area in the navigation.
+> **Important:**</br>
+> - **Require Admin Consent For Notification** - We recommend enabling this variable during initial configuration to avoid excessive notifications or preventing unwanted governance action automation on non-compliant cases (quarantine or delete). This will not send notifications or start any SLA countdowns unless an admin decides to send the notification on the case details screen in compliance hub. Once thresholds are configured, this can be disabled in the Compliance Hub settings page, which will allow notices and policy enforcement to happen automatically.
+>
+> - **Create case for every agent**: Disabled by default. When disabled, cases are only created for agents that violate a compliance threshold. If enabled, a case will be created for all agents, even if there is no violation. 
+> - If makers do not submit intake details within the SLA, the configured no risk enforcement will be implemented.
+><br>
 
 ## Configure governance policies
-In the Agent Governance Hub, governance policies are implemented through configurable controls that:
+Governance policies are implemented through configurable controls that:
 - Define what is considered compliant or non-compliant agent behavior (e.g., authentication methods, sharing scope, connector usage).
 - Specify what actions should be taken when agents do not meet compliance standards.
 - Ensure visibility, accountability, and auditability for all agents in the tenant.
@@ -76,24 +85,25 @@ Set actions (Manual, Quarantine, Delete) and SLA timers for each risk level.
 ## Conduct compliance reviews (admin)
 
 1. Monitor compliance cases
-- Navigate to Compliance Cases in the app.
-- Filter cases by status (Open, SLA Breach, Approved, Expired) and risk level.
+   - Navigate to Compliance Cases in the app.
+   - Filter cases by status (Open, SLA Breach, Approved, Expired) and risk level.
 
-2. Review case details
-•	Open a compliance case to view:
-o	Triggered thresholds
-o	Maker’s intake (business justification, owner confirmation). 
-o	Automated scan results (DLP/connectors/knowledge sources)
-o	SLA countdown and event timeline
+2. Review case details. Open a compliance case record to view:
+   - Triggered thresholds
+   - Maker's intake (business justification, owner confirmation). 
+   - Automated scan results (DLP/connectors/knowledge sources)
+   - SLA countdown and event timeline
 3. Approve or reject cases
-•	Use the Approve/Reject command bar to make decisions.
-•	Add audit notes for documentation.
-•	If intake is incomplete or violations persist past SLA, enforcement actions are triggered automatically.
+   - Use the Approve/Reject command bar to make decisions.
+   - Add audit notes for documentation.
+   - If intake is incomplete or violations persist past SLA, enforcement actions are triggered automatically.
 4. Audit and reporting
-•	Use dashboards and charts for trend analysis (e.g., SLA breaches over time, top risk factors).
-•	Maintain thorough documentation for all compliance cases.
+   - Use dashboards and charts for trend analysis (e.g., distribution of important case statuses, risk level distribution).
+   - Maintain thorough documentation for all compliance cases.
+   - Enable auditing in the PPAC environment settings to ensure case level auditing is available.
+   - Timeline activities are also posted on cases for historical account.
 
-Agent maker responsibilities
+## Agent maker responsibilities
 1. Respond to notifications
 •	When a compliance case is opened, you’ll receive a Microsoft Teams notification linked to your case.
 2. Complete intake
