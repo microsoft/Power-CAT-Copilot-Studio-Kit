@@ -1,8 +1,8 @@
 # Power CAT Copilot Studio Kit
 
-The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers develop and test custom agents, use large language model to validate AI-generated content, optimize prompts, and track aggregated key performance indicators of their custom agents.
+The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers develop, govern, and test custom agents, use a large language model to validate AI-generated content, optimize prompts, and track aggregated key performance indicators of their custom agents.
 
-![kit_main](https://github.com/user-attachments/assets/d1e4db45-aa35-41df-b5f2-6737a320fdad)
+<img width="1879" height="1136" alt="new_landing_page" src="https://github.com/user-attachments/assets/e0dbbb47-d92b-489e-b517-a0b9cc336b81" />
 
 # Features
 ## Testing capabilities  
@@ -11,6 +11,13 @@ Copilot Studio Kit allows makers to configure agents, tests and test sets, and u
 ***Copilot Studio Kit test automation now supports multi-turn testing using all supported test types.***
 
 More information on [testing capabilities](./TESTING_CAPABILITIES.md) 
+
+## Compliance Hub *(New!)*
+Compliance Hub helps organizations define and enforce governance policies for Copilot Studio agents at scale. It continuously evaluates agent configurations collected via Agent Inventory against configurable risk thresholds, automatically creating compliance cases when violations are detected and tracking them through an SLA-driven review lifecycle.
+
+Administrators can configure thresholds, risk levels, SLA timers and enforcement actions (manual review, quarantine, delete), while makers are guided to remediate issues through Teams/Outlook notifications, intake forms, and dashboards showing open cases and compliance posture. This enables makers to innovate freely within Copilot Studio, while ensuring a consistent, auditable level of compliance across all agents.
+
+More information on [Compliance Hub](./COMPLIANCE_HUB.md) 
 
 ## Conversation KPIs
 Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
@@ -37,28 +44,28 @@ Adaptive Cards Gallery provides makers with a dozen built-in adaptive card templ
 
 More information on [Adaptive Cards Gallery](./ADAPTIVE_CARDS_GALLERY.md)
 
-## Agent Inventory (*New!*)
+## Agent Inventory
 Agent Inventory provides administrators with a tenant-wide view to all Copilot Studio custom agents in their organization, including detailed information on the features they are using, authentication mode, knowledge sources, orchestration type and more. Agent Inventory ships with a dashboard and the data can be exported for use in other applications.
 
 More information on [Agent Inventory](./AGENT_INVENTORY.md)
 
-## Agent Review Tool (*New!*)
-Agent Review Tool is a solution analysis tool that can be used to review your agents for any potential issues or anti-patterns that might have negative impact on the performance or the security of your agent. After analysing the solution, Agent Review Tool presents the findings in easy to interpret format, with severity and details on how to address the issue.
+## Agent Review Tool
+Agent Review Tool is a solution analysis tool that can be used to review your agents for any potential issues or anti-patterns that might have negative impact on the performance or the security of your agent. After analyzing the solution, Agent Review Tool presents the findings in easy to interpret format, with severity and details on how to address the issue.
 
 More information on [Agent Review Tool](./AGENT_REVIEW_TOOL.md)
 
-## Conversation Analyzer (*New!*) (Preview)
+## Conversation Analyzer
 Conversation Analyzer allows makers to analyze the conversations of their custom agents using custom prompts to get additional insights.
 
 More information on [Conversation Analyzer](./CONVERSATION_ANALYZER.md)
 
-## Agent Value Summary dashboard (*New!*) (Preview)
+## Agent Value Summary dashboard
 
 The Agent Value Component is a modular tool for classifying agents in Microsoft Copilot Studio by type, behavior, and value, helping organizations understand their role, align them with strategy, and measure their impact. Results are presented visually on Agent Value dashboard.
 
 More information on [Agent Value dashboard](./AGENT_VALUE_SUMMARY_DASHBOARD.md)
 
-## Automated testing using Power Platform Pipelines (*New!*) (Advanced)
+## Automated testing using Power Platform Pipelines (Advanced)
 
 This feature allows users to automate the testing and deployment of Copilot Studio custom agents using Power Platform Pipelines. The goal is to ensure that agents are automatically validated through test runs before they are deployed to target environments (production). By integrating Power Automate flows with Dataverse and the Copilot Studio Kit, this approach introduces a quality gate into the deployment process. Only agents that pass the required amount of test cases are allowed to proceed, ensuring higher reliability and reducing manual intervention. This method supports continuous delivery practices and enhances the overall governance of the deployment lifecycle.
 
