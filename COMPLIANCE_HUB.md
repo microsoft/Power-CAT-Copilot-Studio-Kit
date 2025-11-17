@@ -2,6 +2,8 @@
 
 The Agent Governance Hub enables organizations using Copilot Studio to balance innovation with compliance. It provides visibility, automated compliance enforcement, and clear workflows for both administrators and makers. The system implements continuous compliance monitoring — agents are created freely within Power Platform admin center configurations, but compliance is enforced after creation based on configurable risk thresholds. If compliance is not achieved within a defined SLA, automated enforcement actions (such as quarantine or delete) are applied.
 
+![alt text](./media/ch_0.png)
+
 ## Key concepts
 - Continuous compliance monitoring: Agents are created without friction within allowed limits configured by admin center controls; compliance is enforced post-creation if risk thresholds are breached.
 - Compliance case: Automatically created when an agent breaches a risk threshold. Tracks remediation, SLA, and enforcement.
@@ -10,13 +12,21 @@ The Agent Governance Hub enables organizations using Copilot Studio to balance i
 
 ## Roles and responsibilities
 
+There are two main personas involved in the main agent compliance workstream: agent administrator and maker.
+
 ### Administrator
+
+
+The scope of the agent admin depends on the organization, however, the admin responsibilities for managing compliance commonly falls under the responsibility of either Microsoft tenant admin, Power Platform admin or the Agent/AI Center Of Excellence team.
 - Configure compliance thresholds, risk levels, enforcement actions, and SLA timers.
 - Monitor agent inventory and compliance posture.
 - Review, approve, or reject compliance cases.
 - Maintain audit trails and documentation.
 
 ### Maker
+
+A maker in the context of compliance hub is anyone who has created a Copilot Studio agent in the Microsoft tenant.
+
 - Receives notifications when compliance thresholds are breached.
 - Provides business justification and confirms ownership for non-compliant agents.
 - Remediates compliance issues within the SLA.
@@ -26,47 +36,71 @@ The Agent Governance Hub enables organizations using Copilot Studio to balance i
 
 Setup and configure the governance components using the Copilot Studio Kit setup wizard.
 
-1. Install and launch the Copilot Studio Kit. Follow the [Copilot Studio kit setup instructions](LINK).
-1. Use the setup wizard to enable the flows and environment variables.
-1. To use compliance hub processes, enable all the flow starting with "Agent Compliance" and "Agent Inventory". 
-1. Environment variables: 
+1. Install and launch the Copilot Studio Kit. Follow the [Copilot Studio kit setup instructions](LINK) for the essential install steps to instal the base solution and [agent inventory](./AGENT_INVENTORY.md) before setting up the compliance components.
+
+1. Run the **setup wizard**.
+
+1. Update the **compliance hub environment variables**: 
+
+   Below are a list of the environment variables used in the solution. Variables with "requires manual input" = "Yes" means you must provide the value in the setup wizard, otherwise it's recommended to leave the default values as is.
+
+
     | Display Name| Description| Requires manual input |
     |--------------------------------------------|-----------------------------------------------------------------------------|------------------------|
-    | Admin Approval Before Maker Notification   | Determines if admin approval is needed before notifying makers | |
     | App ID | Unique identifier for the Copilot Studio Kit application | Yes |
-    | Case Intake SLA | Service Level Agreement for case intake timing | |
-    | Case Review SLA                          | SLA for reviewing cases in the compliance process                          |                    |
-    | Case Summary Email Frequency               | How often case summary emails are sent                                     |                    |
     | Compliance Admin Group ID                  | Group ID for compliance administrators                                     |                   Yes | 
     | Compliance Documentation Link              | URL to compliance documentation                                            |                   Yes (optional) |
     | Compliance Support Contact Alias           | Email alias for compliance support                                         | Yes (optional)                   |
     | Instance Url                               | URL of the environment instance                                            | Yes                   |
     | Maker Team ID                              | Team ID for makers in the organization                                     | Yes                   |
-    | Power Automate Region                      | Region where Power Automate resources are hosted                           |                    |
-    | Require Case For No Risk                   | Indicates if a case is required even when risk is low                      |                     |
-    | Send Case Alerts To Maker Via Email        | Enables email alerts for makers when cases are triggered                   |                     |
-    | Send Case Alerts To Maker Via Teams | Enables Teams alerts for makers when cases are triggered | |
 
-> **Important:**</br>
-> - **Require Admin Consent For Notification** - We recommend enabling this variable during initial configuration to avoid excessive notifications or preventing unwanted governance action automation on non-compliant cases (quarantine or delete). This will not send notifications or start any SLA countdowns unless an admin decides to send the notification on the case details screen in compliance hub. Once thresholds are configured, this can be disabled in the Compliance Hub settings page, which will allow notices and policy enforcement to happen automatically.
->
-> - **Create case for every agent**: Disabled by default. When disabled, cases are only created for agents that violate a compliance threshold. If enabled, a case will be created for all agents, even if there is no violation. 
-> - If makers do not submit intake details within the SLA, the configured no risk enforcement will be implemented.
-><br>
+   > **Important:**</br>
+   > - **Require Admin Consent For Notification** - We recommend enabling this variable during initial configuration to avoid excessive notifications or preventing unwanted governance action automation on non-compliant cases (quarantine or delete). This will not send notifications or start any SLA countdowns unless an admin decides to send the notification on the case details screen in compliance hub. Once thresholds are configured, this can be disabled in the Compliance Hub settings page, which will allow notices and policy enforcement to happen automatically.
+   >
+   > - **Create case for every agent**: Disabled by default. When disabled, cases are only created for agents that violate a compliance threshold. If enabled, a case will be created for all agents, even if there is no violation. 
+
+   The following environment variables do not require additional configuration. The default values are recommended for first time setup. You may update values at your discretion during solution import or in the compliance hub settings page.
+
+   
+    | Display Name| Description| Default value |
+    |--------------------------------------------|-----------------------------------------------------------------------------|------------------------|
+    | Admin Approval Before Maker Notification   | Determines if admin approval is needed before notifying makers | Yes |
+    | Case Intake SLA | Service Level Agreement for case intake timing | 3 days |
+    | Case Review SLA | SLA for admins to review cases in the compliance process | 5 days  |
+    | Case Summary Email Frequency | How often case summary emails are sent |WEEKLY|
+    | Require Case For No Risk | Indicates if a case is required even when risk is low | Yes |
+    | Send Case Alerts To Maker Via Email | Enables email alerts for makers when cases are triggered | Yes |
+    | Send Case Alerts To Maker Via Teams | Enables Teams alerts for makers when cases are triggered | Yes |
+
+
+1. **Enable the agent inventory and agent compliance cloud flows**
+
+   Enable all flows starting with "Agent Compliance |" and "Agent Inventory |". First enable flows marked as "(Grandchild)", then "(Child)".
+
+
 
 ## Configure governance policies
-Governance policies are implemented through configurable controls that:
-- Define what is considered compliant or non-compliant agent behavior (e.g., authentication methods, sharing scope, connector usage).
-- Specify what actions should be taken when agents do not meet compliance standards.
-- Ensure visibility, accountability, and auditability for all agents in the tenant.
+Governance policies in compliance hub are configured by:
+- Defining compliance 'violations' (by associating an agent configuration with a risk severity).
+- Specifying actions taken when volations occur (for each severity: high, medium and low).
 
-The following governance components are used to define and enforce the policies and procedures that best define your organization's threat tolerance.
+The following components can be configured to define and enforce the compliance policies that best define your organization's requirements.
 
 ### Compliance thresholds (`Threshold Config` table)
-Each row defines risk thresholds for a specific agent attribute represented in the Agent Details table. This defines your threat tolerance.
+This is how 'violations' are defined in compliance hub. Each row in the `Threshold Config` table must be associated with a specific agent attribute (aka property/column) and a specific value. It is designed to be fully customizable within the scope of the agent components represented in Copilot Studio Kit's `Agent Details` custom table properties.
+
+![alt text](./media/ch_1.png)
+Screenshot: Default configurations for Threshold Config table.
+
+Each row contains the following fields used to construct a filter on the `Agent Detail` table. If the filter returns true for that agent, it will be flagged as a violation.
+
+- **Filter Column**: (Text) The logical name of the column that is evaluated.
+- **Filter Operator**: (Choice) The operator of the filter.
+- **Default Value**: (Text) The value of the column that is evaluated.
+
 
 ### Enforcement actions (`Action Policies` table)
-Set actions (Manual, Quarantine, Delete) and SLA timers for each risk level.
+Customize actions (Manual, Quarantine, Delete) and SLA timers for each risk level (Low, Medium, High).
 
 #### Example: Enforcement Actions by Risk Level
 
@@ -82,7 +116,22 @@ Set actions (Manual, Quarantine, Delete) and SLA timers for each risk level.
 - Access Inventory for a wholistic list of agents.
 - Adjust settings for thresholds, action policies, email templates, and environment variables as needed on the Settings page.
 
-## Conduct compliance reviews (admin)
+## Compliance review lifecycle
+
+The compliance case lifecycle is a specialized approval process designed to help identify and manage agents that  violate the compliance policies defined in this tool.
+
+The case stages define the current position in the lifecycle and next actions available, and shown below.
+
+![alt text](./media/ch_2.png)
+
+### Run compliance scans
+
+The compliance scan is an asynchronous process that finds violations based on data in `Agent Details` table, using the governance policies defined. 
+
+Compliance scans are automatically run after the Agent Inventory scan is completed. The compliance scan can also be manually triggered in the compliance hub landing page.
+
+The compliance scan will create new or update existing `Compliance Case` rows for violations. 
+
 
 1. Monitor compliance cases
    - Navigate to Compliance Cases in the app.
@@ -104,19 +153,18 @@ Set actions (Manual, Quarantine, Delete) and SLA timers for each risk level.
    - Timeline activities are also posted on cases for historical account.
 
 ## Agent maker responsibilities
-1. Respond to notifications
-•	When a compliance case is opened, you’ll receive a Microsoft Teams notification linked to your case.
-2. Complete intake
-•	The Microsoft Teams notification is an adaptive card that accepts three input fields that can be submitted back to your case.
-•	Provide required business justification, data classification, and expected number of users, and submit the form.
-3. Remediate issues
-•	Fix any compliance violations identified in the case that are medium or high risk.
-•	Resubmit or save your intake to trigger re-evaluation.
-4. Monitor SLA
-•	Track the SLA countdown via notifications that are sent daily. You’ll receive reminders as the SLA deadline approaches.
-•	Failure to comply within the SLA may result in agent quarantine or deletion.
 
-Process flow
+When a compliance case is opened, you'll receive a Microsoft Teams notification linked to your case.
+
+1. **Complete intake**. The Microsoft Teams notification is an adaptive card that accepts three input fields that can be submitted back to your case.
+
+   Provide required business justification, data classification, and expected number of users, and submit the form.
+
+1. **Remediate issues**. Fix any compliance violations identified in the case that are medium or high risk. Re-evaluation happens daily, and you will be notified if the agent is not compliant yet.
+
+1. **Monitor SLA**. Track the SLA countdown via notifications that are sent daily. You’ll receive reminders as the SLA deadline approaches. Failure to comply within the SLA may result in agent quarantine or deletion.
+
+## Process flow
 Below is a high-level process for agents violating compliance thresholds:
  
 Summary:
