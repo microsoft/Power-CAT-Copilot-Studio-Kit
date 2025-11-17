@@ -210,6 +210,22 @@ The case stages define the current position in the lifecycle and next actions av
 ![Compliance Case Lifecycle](./media/ch_2.png)
 *Figure 3: Compliance case lifecycle showing stages from case creation through resolution or enforcement*
 
+### Compliance enforcement workflow
+
+Below is a high-level process for agents violating compliance thresholds:
+
+1. Agent is created or updated.
+2. Daily automated detection checks for compliance.
+3. If thresholds are breached:
+   - Compliance case is opened.
+   - Maker is notified and must complete intake.
+   - SLA countdown begins.
+4. Admin reviews case and intake.
+5. If compliant, case is approved.
+6. If not compliant within SLA, enforcement action is applied (delete).
+
+![Flowchart of the high level overview of the compliance process flow](media/ch_6.png)
+
 ### Run compliance scans
 
 The compliance scan is an asynchronous process that finds violations based on data in the `Agent Details` table, using the governance policies defined. 
@@ -300,22 +316,6 @@ When a compliance case is opened, you'll receive a Microsoft Teams notification 
 - Remediation: Provide detailed business justification and general intake.
 - Timeline: Admin review required within 5 days
 
-## Process flow
-
-Below is a high-level process for agents violating compliance thresholds:
-
-### Compliance enforcement workflow
-
-1. Agent is created or updated.
-2. Automated detection checks for compliance.
-3. If thresholds are breached:
-   - Compliance case is opened.
-   - Maker is notified and must complete intake.
-   - SLA countdown begins.
-4. Admin reviews case and intake.
-5. If compliant, case is approved.
-6. If not compliant within SLA, enforcement action is applied.
-
 ## Reference: Data model and policies
 
 ### Key Tables
@@ -330,21 +330,21 @@ Below is a high-level process for agents violating compliance thresholds:
 
 ## FAQs and troubleshooting
 
-### General Questions
+### General questions
 
 **Q: What happens if I don't complete intake within the SLA?**
 
 A: The system will automatically apply the configured enforcement action (e.g., quarantine or delete the agent). You'll receive daily reminder notifications as the SLA deadline approaches.
 
-**Q: How do I know which compliance issues to fix?**
+**Q: How do I know which compliance issues to fix as a maker?**
 
 A: Review the checklist and findings in your compliance case. Automated checks highlight any "Fail" items that need to be addressed. Focus on high and medium risk violations first.
 
-**Q: Who do I contact for help?**
+**Q: Who do I contact for help as a maker?**
 
 A: Use the contact information provided in your notification email or reach out to your CoE Admin team. The compliance support contact alias is configured in the environment variables.
 
-**Q: Can I request an SLA extension?**
+**Q: Can I request an SLA extension as a maker?**
 
 A: Contact your compliance administrator to discuss SLA extensions. Extensions must be documented in the case audit notes.
 
