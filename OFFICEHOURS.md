@@ -41,6 +41,6 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | Dec 3 | Confirmed | APAC |
 | Dec 10 | Confirmed | US |
 | Dec 17 | TBC | APAC |
-| Dec 24 | TBC | US |
+| Dec 24 | Cancelled | US |
 
 
