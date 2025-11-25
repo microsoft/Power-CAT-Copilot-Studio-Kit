@@ -23,21 +23,21 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 # Upcoming office hours
 | Date | Status | Slot |
 | :-- | :-- | :-- |
-| May 14 | Confirmed | |
-| May 28 | Confirmed | |
-| June 11 | Confirmed ||
-| June 25 | Confirmed ||
-| July 9 | Confirmed ||
-| July 23 | Confirmed ||
-| Aug 6 | Confirmed ||
-| Aug 20 | Confirmed ||
-| Sep 3 | Confirmed ||
-| Sep 17 | Confirmed ||
-| Oct 1 | Confirmed ||
-| Oct 15 | Confirmed ||
-| Oct 29 | Cancelled (PPCC) ||
-| Nov 12 | Confirmed ||
-| Nov 26 | Confirmed ||
+| May 14 | Confirmed | N/A |
+| May 28 | Confirmed | N/A |
+| June 11 | Confirmed | N/A |
+| June 25 | Confirmed | N/A |
+| July 9 | Confirmed | N/A |
+| July 23 | Confirmed | N/A |
+| Aug 6 | Confirmed | N/A |
+| Aug 20 | Confirmed | N/A |
+| Sep 3 | Confirmed | N/A |
+| Sep 17 | Confirmed | N/A |
+| Oct 1 | Confirmed | N/A |
+| Oct 15 | Confirmed | N/A |
+| Oct 29 | Cancelled (PPCC) | N/A |
+| Nov 12 | Confirmed | N/A |
+| Nov 26 | Confirmed | N/A |
 | Dec 3 | Confirmed | APAC |
 | Dec 10 | Confirmed | US |
 | Dec 17 | TBC | APAC |
