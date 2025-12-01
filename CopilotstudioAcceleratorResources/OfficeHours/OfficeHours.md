@@ -1,8 +1,12 @@
 # Copilot Studio Kit Office Hours
 
-Join the Copilot Studio Kit Office Hours, held bi-weekly.
+The Copilot Studio Kit team hosts bi-weekly public Office Hours to help users ask questions, provide feedback, and explore new capabilities.
 
-[Download calendar file to add to Calendar](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours.ics)
+There are two regional time slots, and you may join either (or both) depending on your preferred time zone.
+
+[Download USA Office Hours Calendar](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-USA.ics)
+
+[Download APAC Office Hours Calendar](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-APAC.ics)
 
 
 ## Description
