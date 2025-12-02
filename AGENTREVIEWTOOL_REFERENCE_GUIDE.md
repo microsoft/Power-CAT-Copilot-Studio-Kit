@@ -4,9 +4,9 @@
 
 Your agent receives **two main scores**:
 
-- **Pattern Score**: Percentage of passed technical checks (8 local + 6 AI patterns = 14 total)
+- **Pattern Score**: Percentage of passed technical checks (7 patterns)
 - **Instruction Score**: AI compliance percentage based on prompt quality analysis
-- **Overall Score**: Weighted combination emphasizing instruction quality (70%) over patterns (30%)
+- **Overall Score**: Balanced combination (50% pattern score + 50% instruction score)
 
 **Score Ranges:**
 - 🟢 **80-100**: Excellent - Production ready
@@ -18,14 +18,16 @@ Your agent receives **two main scores**:
 ## 🔧 Pattern Analysis (Technical Structure)
 
 ### **Model Naming Issues**
-- **Missing Model Name**: Topics lack clear, descriptive names
-- **Missing Model Description**: Topics need detailed purpose explanations
-- **Fix**: Use specific names like "CustomerSupport_FAQ" instead of "Topic1"
+- **Missing Model Name**: Topics lack proper names - name itself is missing and needs to be defined to explain the topic's purpose
+- **Missing Model Description**: Topics lack proper descriptions - description itself is missing and needs to be defined to explain detailed purpose
+- **Fix**: Define meaningful topic names like "CustomerSupport_FAQ" and add detailed descriptions explaining what each topic handles
 
 ### **Variable Issues** 
-- **Missing Variable Names**: Variables have generic names (Variable1, Variable2)
-- **Missing Variable Descriptions**: Variables lack clear purpose documentation
-- **Fix**: Use descriptive names like "CustomerEmail" with clear descriptions
+- **Missing Input Variable Name**: Input variables lack proper names - name itself is missing and needs to be defined to explain its purpose
+- **Missing Input Variable Description**: Input variables lack clear purpose documentation
+- **Missing Output Variable Name**: Output variables lack proper names - name itself is missing and needs to be defined to explain its purpose  
+- **Missing Output Variable Description**: Output variables lack documentation about what they return
+- **Fix**: Define meaningful variable names that explain their purpose (e.g., "CustomerEmail", "ProcessedOrderStatus") and add clear descriptions of purpose and data format
 
 ### **Architecture Issues**
 
@@ -41,16 +43,7 @@ Your agent receives **two main scores**:
 
 #### **Missing Test Cases**
 - **Problem**: Topics don't have conversation test scenarios to verify correct behavior
-- **Why it matters**: Without testing, you can't ensure the agent handles different user inputs properly
-- **Examples**: 
-  - Booking topic not tested with invalid dates
-  - FAQ topic not tested with typos or variations
-  - Payment topic not tested with error scenarios
-- **Fix**:
-  - Create test cases for each conversation path
-  - Include positive scenarios (happy path)
-  - Include negative scenarios (errors, edge cases)
-  - Test with different phrasings and user input styles
+- **Why it matters**: Without testing, you can't ensure the agent handles different user inputs properly and responds to them correctly.
 
 ### **Evaluation Issues**
 - **Unclear Patterns**: AI identifies vague naming or unclear component purposes
@@ -60,40 +53,53 @@ Your agent receives **two main scores**:
 
 ## 📝 Instruction Analysis (AI Prompt Quality)
 
-### **Security & Privacy** 🔴 **High Priority**
-- **Personal Information Exposure**: Instructions may leak user data
-- **Authentication Bypass**: Potential security vulnerabilities
-- **Action**: Remove data collection instructions, maintain access controls
+### **Safety Issues** 🔴 **High Priority**
+- **Privacy & Sensitive Data**: Guidelines for handling personal/sensitive information
+- **Prompt Injection Protection**: Safeguards against manipulation attempts  
+- **Advice Disclaimers**: Disclaimers for sensitive advice domains
+- **Link Safety**: Ensures only safe/verified links are shared (Medium priority)
+- **Action**: Remove PII collection, add injection defenses, include appropriate disclaimers
 
-### **Content Quality** 🟡 **Medium Priority**  
-- **Inappropriate Content**: Risk of offensive responses
-- **Bias and Discrimination**: Unfair treatment patterns
-- **Misinformation Risk**: Potential false information
-- **Action**: Add content guidelines, bias checks, fact-checking requirements
+### **Quality Issues** 🔴 **High Priority**  
+- **Fallback When Uncertain**: What to do when agent lacks information
+- **Accuracy & Quality**: Emphasizes factual accuracy and response quality
+- **Citations & Sources**: Requires citing sources and providing references (Medium priority)
+- **Action**: Define fallback responses, require fact-checking, mandate source citations
 
-### **Technical Issues** 🟢 **Low Priority**
-- **Unclear Role Definition**: Agent purpose not specified
-- **Missing Error Handling**: No guidance for failures
-- **Inconsistent Tone**: Communication style varies
-- **Action**: Define clear role, add error scenarios, establish consistent tone
+### **Scope Issues** 🔴 **High Priority**
+- **Scope Definition**: Clearly defines what topics the agent should respond to
+- **Out-of-Scope Handling**: How to handle requests outside defined scope (Medium priority)
+- **Action**: Define clear scope boundaries, create out-of-scope response templates
+
+### **User Experience Issues** 🟡 **Medium/Low Priority**
+- **Clarifying Questions**: Handles ambiguous queries with clarification requests (Medium)
+- **Persona & Tone**: Agent's communication style and personality (Low)
+- **Formatting Guidelines**: Response formatting and structure rules (Low)
+- **Action**: Add clarification prompts, define consistent tone, establish format standards
 
 ---
 
 ## 🎯 Quick Action Guide
 
 ### **High Severity Issues** (Fix First)
-- Security vulnerabilities → Remove immediately
-- Missing critical components → Add required elements
-- Authentication bypasses → Implement proper controls
+- Privacy & sensitive data handling → Remove PII collection, add safeguards
+- Prompt injection vulnerabilities → Add protection against manipulation
+- Missing fallback responses → Define what to do when uncertain
+- Scope definition missing → Clearly define agent's purpose and boundaries
+- Advice without disclaimers → Add appropriate warnings for sensitive topics
 
 ### **Medium Severity Issues** (Fix Next)
-- Unclear instructions → Rewrite with specifics
-- Missing test cases → Create comprehensive tests
-- Bias patterns → Add fairness guidelines
+- Out-of-scope handling → Create templates for off-topic requests
+- Missing test cases → Create comprehensive conversation tests
+- Citations & sources missing → Require fact verification and references
+- Clarifying questions → Handle ambiguous queries properly
+- Link safety → Ensure only verified links are shared
 
 ### **Low Severity Issues** (Polish)
-- Naming consistency → Use descriptive names
-- Minor optimizations → Improve where possible
+- Variable/topic naming → Use descriptive names instead of generic ones
+- Persona & tone inconsistency → Define consistent communication style
+- Formatting guidelines → Establish response structure standards
+- Missing descriptions → Add purpose documentation for all components
 
 ---
 
