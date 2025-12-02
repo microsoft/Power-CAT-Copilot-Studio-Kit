@@ -9,8 +9,20 @@
 
 This meeting is a regular open forum for customers and partners to learn and ask questions about the Copilot Studio Kit.
 
-You can join the meeting using this link:
+There are two regional time slots, and you may join either (or both) depending on your preferred time zone.
+
+[Download US Office Hours Calendar information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-USA.ics)
+
+[Download APAC Office Hours Calendar information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-APAC.ics)
+
+
+You can also join the US office hours meeting using this link:
 https://aka.ms/CopilotStudioKitOfficeHoursJoin
+
+You can also join the APAC office hours meeting using this link:
+https://aka.ms/CopilotStudioKitOfficeHoursJoinAPAC
+
+
 
 Please note:
 
