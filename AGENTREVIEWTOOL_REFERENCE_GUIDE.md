@@ -33,7 +33,7 @@ Your agent receives **two main scores**:
 
 #### **Excessive Tools**
 - **Problem**: Agent has more than 25 tools/actions/plugins configured
-- **Why it matters**: Too many tools slow response times, confuse the AI about which tool to use, and increase failure rates
+- **Impact**: Too many tools slow response times, confuse the AI about which tool to use, and increase failure rates
 - **Examples**: 30+ different API connectors, multiple overlapping actions, redundant tools
 - **Fix**: 
   - Review all tools and remove duplicates
@@ -43,7 +43,7 @@ Your agent receives **two main scores**:
 
 #### **Missing Test Cases**
 - **Problem**: Topics don't have conversation test scenarios to verify correct behavior
-- **Why it matters**: Without testing, you can't ensure the agent handles different user inputs properly and responds to them correctly.
+- **Impact**: Without testing, you can't ensure the agent handles different user inputs properly and responds to them correctly.
 
 ### **Evaluation Issues**
 - **Unclear Patterns**: AI identifies vague naming or unclear component purposes
