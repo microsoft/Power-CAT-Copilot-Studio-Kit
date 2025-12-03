@@ -2,54 +2,63 @@
   "properties": {
     "connectionReferences": {
       "shared_commondataserviceforapps_1": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        }
+        "runtimeSource": "embedded"
       },
       "shared_office365groups": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_office365groups"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_sharedoffice365groups_a8194"
         },
-        "api": {
-          "name": "shared_office365groups"
-        }
+        "runtimeSource": "embedded"
       },
       "shared_approvals": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_approvals"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_sharedapprovals_9d76b"
         },
+        "runtimeSource": "embedded"
+      },
+      "shared_powerplatformforadmins": {
         "api": {
-          "name": "shared_approvals"
-        }
+          "name": "shared_powerplatformforadmins"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorPowerPlatformforAdmins"
+        },
+        "runtimeSource": "embedded"
       }
     },
     "definition": {
       "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
       "contentVersion": "1.0.0.0",
       "parameters": {
-        "$connections": {
-          "defaultValue": {},
-          "type": "Object"
-        },
         "$authentication": {
           "defaultValue": {},
           "type": "SecureObject"
         },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
         "Instance Url (cat_InstanceUrl)": {
-          "defaultValue": "https://copilotstudiokit-dev.crm.dynamics.com/",
+          "defaultValue": "https://agent-compliance.crm.dynamics.com",
           "type": "String",
           "metadata": {
             "schemaName": "cat_InstanceUrl"
           }
         },
         "App ID (cat_AppID)": {
-          "defaultValue": "1351a93b-ce0e-41ed-9036-e191f1d272d1",
+          "defaultValue": "35ad3de2-8e74-4f0f-bce8-a9aefb9feba7",
           "type": "String",
           "metadata": {
             "schemaName": "cat_AppID"
@@ -74,32 +83,27 @@
       },
       "triggers": {
         "When_an_action_is_performed:_Start_Admin_Approval": {
-          "metadata": {
-            "operationMetadataId": "376485e2-9450-4bcd-8d1e-6bfd4470800c"
-          },
           "type": "OpenApiConnectionWebhook",
           "inputs": {
-            "host": {
-              "connectionName": "shared_commondataserviceforapps_1",
-              "operationId": "BusinessEventsTrigger",
-              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-            },
             "parameters": {
               "catalog": "allcatalog",
               "category": "allcategory",
               "subscriptionRequest/entityname": "cat_compliancecase",
               "subscriptionRequest/sdkmessagename": "cat_StartAdminApproval"
             },
-            "authentication": "@parameters('$authentication')"
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "BusinessEventsTrigger",
+              "connectionName": "shared_commondataserviceforapps_1"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "376485e2-9450-4bcd-8d1e-6bfd4470800c"
           }
         }
       },
       "actions": {
         "Initialize_variable:_ErrorMessage": {
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "84dc8095-fa63-4f71-aaa9-ed2863a636bb"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -108,34 +112,25 @@
                 "type": "string"
               }
             ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "84dc8095-fa63-4f71-aaa9-ed2863a636bb"
           }
         },
         "Scope:_Try": {
+          "type": "Scope",
           "actions": {
             "Get_Flow_Endpoint": {
-              "runAfter": {},
+              "type": "Compose",
+              "inputs": "@if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc'), 'https://make.gov.powerautomate.us/', \r\n    if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc(high)'), 'https://make.high.powerautomate.us/', \r\n        if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'dod'), 'https://make.powerautomate.appsplatform.us/', \r\n            'https://make.powerautomate.com/'\r\n        )\r\n    )\r\n)",
               "metadata": {
                 "operationMetadataId": "dc8e743d-1408-445c-8614-ee97abfcad5e"
-              },
-              "type": "Compose",
-              "inputs": "@if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc'), 'https://make.gov.powerautomate.us/', \r\n    if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc(high)'), 'https://make.high.powerautomate.us/', \r\n        if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'dod'), 'https://make.powerautomate.appsplatform.us/', \r\n            'https://make.powerautomate.com/'\r\n        )\r\n    )\r\n)"
+              }
             },
             "Add_a_new_row:_Logs": {
-              "runAfter": {
-                "Get_Flow_Endpoint": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
-              },
               "type": "OpenApiConnection",
               "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "CreateRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
                 "parameters": {
                   "entityName": "cat_copilotstudiokitlogses",
                   "item/cat_executionstatuscode": 2,
@@ -143,10 +138,34 @@
                   "item/cat_cloudflowname": "Agent Compliance | Start Admin Approval",
                   "item/cat_ComplianceCase@odata.bind": "/cat_compliancecases(@{triggerOutputs()?['body/InputParameters/target/Id']})"
                 },
-                "authentication": "@parameters('$authentication')"
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "runAfter": {
+                "Get_Flow_Endpoint": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
               }
             },
             "Get_Case": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_compliancecases",
+                  "recordId": "@triggerOutputs()?['body/InputParameters/target/Id']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "GetItem",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
               "runAfter": {
                 "Add_a_new_row:_Logs": [
                   "Succeeded"
@@ -154,22 +173,20 @@
               },
               "metadata": {
                 "operationMetadataId": "85c2792a-ad05-4691-a02e-e37a809c9e24"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "GetItem",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "entityName": "cat_compliancecases",
-                  "recordId": "@triggerOutputs()?['body/InputParameters/target/Id']"
-                },
-                "authentication": "@parameters('$authentication')"
               }
             },
             "List_group_members": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "groupId": "@parameters('Compliance Admin Group ID (cat_GovernanceAdminAlias)')"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365groups",
+                  "operationId": "ListGroupMembers",
+                  "connectionName": "shared_office365groups"
+                }
+              },
               "runAfter": {
                 "Get_Case": [
                   "Succeeded"
@@ -177,32 +194,20 @@
               },
               "metadata": {
                 "operationMetadataId": "7d0fcf98-982e-4d61-a51b-caa8e346b7b9"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_office365groups",
-                  "operationId": "ListGroupMembers",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365groups"
-                },
-                "parameters": {
-                  "groupId": "@parameters('Compliance Admin Group ID (cat_GovernanceAdminAlias)')"
-                },
-                "authentication": "@parameters('$authentication')"
               }
             },
             "Apply_to_each": {
+              "type": "Foreach",
               "foreach": "@outputs('List_group_members')?['body/value']",
               "actions": {
                 "Append_to_array_variable": {
-                  "runAfter": {},
-                  "metadata": {
-                    "operationMetadataId": "54a600f6-af36-4483-856b-9478dfa77425"
-                  },
                   "type": "AppendToArrayVariable",
                   "inputs": {
                     "name": "varAdmins",
                     "value": "@items('Apply_to_each')?['userPrincipalName']"
+                  },
+                  "metadata": {
+                    "operationMetadataId": "54a600f6-af36-4483-856b-9478dfa77425"
                   }
                 }
               },
@@ -213,10 +218,11 @@
               },
               "metadata": {
                 "operationMetadataId": "6f7424b9-84d1-4116-813b-7e853e78e5d6"
-              },
-              "type": "Foreach"
+              }
             },
             "Admins_Expanded": {
+              "type": "Compose",
+              "inputs": "@join(variables('varAdmins'),';')",
               "runAfter": {
                 "Apply_to_each": [
                   "Succeeded"
@@ -224,26 +230,11 @@
               },
               "metadata": {
                 "operationMetadataId": "c440c5c2-8b21-45fe-a448-9fc83d7218f4"
-              },
-              "type": "Compose",
-              "inputs": "@join(variables('varAdmins'),';')"
+              }
             },
             "Create_an_approval": {
-              "runAfter": {
-                "Admins_Expanded": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "be7e89d8-7395-4933-a0a8-e7802b9a1f39"
-              },
               "type": "OpenApiConnection",
               "inputs": {
-                "host": {
-                  "connectionName": "shared_approvals",
-                  "operationId": "CreateAnApproval",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals"
-                },
                 "parameters": {
                   "approvalType": "Basic",
                   "ApprovalCreationInput/title": "@{outputs('Get_Case')?['body/cat_caseid']} - Approve agent case",
@@ -254,10 +245,36 @@
                   "ApprovalCreationInput/enableNotifications": true,
                   "ApprovalCreationInput/enableReassignment": false
                 },
-                "authentication": "@parameters('$authentication')"
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals",
+                  "operationId": "CreateAnApproval",
+                  "connectionName": "shared_approvals"
+                }
+              },
+              "runAfter": {
+                "Get_Environment_as_Admin": [
+                  "SUCCEEDED"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "be7e89d8-7395-4933-a0a8-e7802b9a1f39"
               }
             },
             "Add_Approval_To_Case": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_compliancecases",
+                  "recordId": "@outputs('Get_Case')?['body/cat_compliancecaseid']",
+                  "item/cat_Approval@odata.bind": "/msdyn_flow_approvals(@{outputs('Create_an_approval')?['body/name']})",
+                  "item/cat_expirydate": "@addDays(utcNow(),\r\nif(greaterOrEquals(dayOfWeek(utcNow()),4),\r\n7,\r\n5))"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateOnlyRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
               "runAfter": {
                 "Create_an_approval": [
                   "Succeeded"
@@ -265,39 +282,11 @@
               },
               "metadata": {
                 "operationMetadataId": "1dd396ba-afb7-4cfa-863f-17f2e57fbd3e"
-              },
-              "type": "OpenApiConnection",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "UpdateOnlyRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
-                "parameters": {
-                  "entityName": "cat_compliancecases",
-                  "recordId": "@outputs('Get_Case')?['body/cat_compliancecaseid']",
-                  "item/cat_Approval@odata.bind": "/msdyn_flow_approvals(@{outputs('Create_an_approval')?['body/name']})",
-                  "item/cat_expirydate": "@addDays(utcNow(),\r\nif(greaterOrEquals(dayOfWeek(utcNow()),4),\r\n7,\r\n5))"
-                },
-                "authentication": "@parameters('$authentication')"
               }
             },
             "Add_Note_-_Approval_Sent_To_Admin": {
-              "runAfter": {
-                "Add_Approval_To_Case": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "f064f65e-0baa-4577-904f-dc59cdb7a95b"
-              },
               "type": "OpenApiConnection",
               "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "CreateRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
                 "parameters": {
                   "entityName": "annotations",
                   "item/subject": "Approval sent to admin",
@@ -305,10 +294,33 @@
                   "item/isdocument": false,
                   "item/objectid_cat_compliancecase@odata.bind": "/cat_compliancecases(@{outputs('Add_Approval_To_Case')?['body/cat_compliancecaseid']})"
                 },
-                "authentication": "@parameters('$authentication')"
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "runAfter": {
+                "Add_Approval_To_Case": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "f064f65e-0baa-4577-904f-dc59cdb7a95b"
               }
             },
             "Wait_for_an_approval": {
+              "type": "OpenApiConnectionWebhook",
+              "inputs": {
+                "parameters": {
+                  "approvalName": "@outputs('Create_an_approval')?['body/name']"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals",
+                  "operationId": "WaitForAnApproval",
+                  "connectionName": "shared_approvals"
+                }
+              },
               "runAfter": {
                 "Add_Note_-_Approval_Sent_To_Admin": [
                   "Succeeded"
@@ -316,66 +328,10 @@
               },
               "metadata": {
                 "operationMetadataId": "2ad1c2f6-d6cb-45cd-86c8-f65eaa9725f2"
-              },
-              "type": "OpenApiConnectionWebhook",
-              "inputs": {
-                "host": {
-                  "connectionName": "shared_approvals",
-                  "operationId": "WaitForAnApproval",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_approvals"
-                },
-                "parameters": {
-                  "approvalName": "@outputs('Create_an_approval')?['body/name']"
-                },
-                "authentication": "@parameters('$authentication')"
               }
             },
             "Condition": {
-              "actions": {
-                "Approve_Case": {
-                  "runAfter": {},
-                  "metadata": {
-                    "operationMetadataId": "3adf3b90-ca0f-4dbf-912c-b4d827e747e5"
-                  },
-                  "type": "Workflow",
-                  "inputs": {
-                    "host": {
-                      "workflowReferenceName": "1b0980bf-d3b3-f011-bbd3-00224809e9b5"
-                    },
-                    "body": {
-                      "text": "@outputs('Get_Case')?['body/cat_compliancecaseid']",
-                      "text_1": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['responder/userPrincipalName']",
-                      "text_2": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['comments']"
-                    }
-                  }
-                }
-              },
-              "runAfter": {
-                "Wait_for_an_approval": [
-                  "Succeeded"
-                ]
-              },
-              "else": {
-                "actions": {
-                  "Reject_Case": {
-                    "runAfter": {},
-                    "metadata": {
-                      "operationMetadataId": "bb328f23-adff-4a01-aa23-56040a120b65"
-                    },
-                    "type": "Workflow",
-                    "inputs": {
-                      "host": {
-                        "workflowReferenceName": "19525d74-d5b3-f011-bbd3-00224809e9b5"
-                      },
-                      "body": {
-                        "text": "@outputs('Get_Case')?['body/cat_compliancecaseid']",
-                        "text_1": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['responder/userPrincipalName']",
-                        "text_2": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['comments']"
-                      }
-                    }
-                  }
-                }
-              },
+              "type": "If",
               "expression": {
                 "and": [
                   {
@@ -386,10 +342,71 @@
                   }
                 ]
               },
+              "actions": {
+                "Approve_Case": {
+                  "type": "Workflow",
+                  "inputs": {
+                    "host": {
+                      "workflowReferenceName": "1b0980bf-d3b3-f011-bbd3-00224809e9b5"
+                    },
+                    "body": {
+                      "text": "@outputs('Get_Case')?['body/cat_compliancecaseid']",
+                      "text_1": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['responder/userPrincipalName']",
+                      "text_2": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['comments']"
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "3adf3b90-ca0f-4dbf-912c-b4d827e747e5"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Reject_Case": {
+                    "type": "Workflow",
+                    "inputs": {
+                      "host": {
+                        "workflowReferenceName": "19525d74-d5b3-f011-bbd3-00224809e9b5"
+                      },
+                      "body": {
+                        "text": "@outputs('Get_Case')?['body/cat_compliancecaseid']",
+                        "text_1": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['responder/userPrincipalName']",
+                        "text_2": "@first(outputs('Wait_for_an_approval')?['body/responses'])?['comments']"
+                      }
+                    },
+                    "metadata": {
+                      "operationMetadataId": "bb328f23-adff-4a01-aa23-56040a120b65"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Wait_for_an_approval": [
+                  "Succeeded"
+                ]
+              },
               "metadata": {
                 "operationMetadataId": "9ec9e480-fd46-4c41-a92f-286df6a4db5f"
+              }
+            },
+            "Get_Environment_as_Admin": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "environment": "@workflow()?['tags']?['environmentName']",
+                  "api-version": "2018-10-01"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_powerplatformforadmins",
+                  "operationId": "GetSingleEnvironment",
+                  "connectionName": "shared_powerplatformforadmins"
+                }
               },
-              "type": "If"
+              "runAfter": {
+                "Admins_Expanded": [
+                  "Succeeded"
+                ]
+              }
             }
           },
           "runAfter": {
@@ -399,23 +416,27 @@
           },
           "metadata": {
             "operationMetadataId": "2154bd30-5b34-4076-9e1d-2126b6061270"
-          },
-          "type": "Scope"
+          }
         },
         "Scope:_Catch": {
+          "type": "Scope",
           "actions": {
             "Filter_array:_Error_Actions": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
-              },
               "type": "Query",
               "inputs": {
                 "from": "@result('Scope:_Try')",
                 "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
+              },
+              "metadata": {
+                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
               }
             },
             "Set_variable:_ErrorMessage": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "ErrorMessage",
+                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}"
+              },
               "runAfter": {
                 "Filter_array:_Error_Actions": [
                   "Succeeded"
@@ -423,11 +444,6 @@
               },
               "metadata": {
                 "operationMetadataId": "ee38e0e1-03cd-48d8-9933-d73f7204b0f7"
-              },
-              "type": "SetVariable",
-              "inputs": {
-                "name": "ErrorMessage",
-                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}"
               }
             }
           },
@@ -440,30 +456,28 @@
           },
           "metadata": {
             "operationMetadataId": "4f2e4827-62c8-4225-94cd-14089e7ac8f7"
-          },
-          "type": "Scope"
+          }
         },
         "Scope:_Finally": {
+          "type": "Scope",
           "actions": {
             "Update_a_row:_Logs": {
-              "runAfter": {},
-              "metadata": {
-                "operationMetadataId": "9f447776-551f-41e3-a432-ecfb376e623f"
-              },
               "type": "OpenApiConnection",
               "inputs": {
-                "host": {
-                  "connectionName": "shared_commondataserviceforapps_1",
-                  "operationId": "UpdateRecord",
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
-                },
                 "parameters": {
                   "entityName": "cat_copilotstudiokitlogses",
                   "recordId": "@outputs('Add_a_new_row:_Logs')?['body/cat_copilotstudiokitlogsid']",
                   "item/cat_executionstatuscode": "@if(not(empty(variables('ErrorMessage'))), 4, 3)",
                   "item/cat_errormessage": "@if(not(empty(variables('ErrorMessage'))), variables('ErrorMessage'), null)"
                 },
-                "authentication": "@parameters('$authentication')"
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "connectionName": "shared_commondataserviceforapps_1"
+                }
+              },
+              "metadata": {
+                "operationMetadataId": "9f447776-551f-41e3-a432-ecfb376e623f"
               }
             }
           },
@@ -477,18 +491,9 @@
           },
           "metadata": {
             "operationMetadataId": "3b16a931-71ef-4a27-b6c8-cea6a9fc38f1"
-          },
-          "type": "Scope"
+          }
         },
         "Initialize_variable": {
-          "runAfter": {
-            "Initialize_variable:_ErrorMessage": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "724cadec-5ee2-4e93-bbdb-669cc0d2324f"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -497,11 +502,19 @@
                 "type": "array"
               }
             ]
+          },
+          "runAfter": {
+            "Initialize_variable:_ErrorMessage": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "724cadec-5ee2-4e93-bbdb-669cc0d2324f"
           }
         }
       }
     },
-    "templateName": ""
+    "templateName": null
   },
   "schemaVersion": "1.0.0.0"
 }

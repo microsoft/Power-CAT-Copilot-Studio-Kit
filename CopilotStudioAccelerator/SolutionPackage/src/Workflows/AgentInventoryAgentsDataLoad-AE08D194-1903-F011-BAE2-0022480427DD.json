@@ -95,7 +95,7 @@
                   "type": "AppendToStringVariable",
                   "inputs": {
                     "name": "ErrorMessage",
-                    "value": "@first(body('Filter_array:_Error_Actions'))?['error']?['message']"
+                    "value": "@if(\r\n\tnot(empty(first(body('Filter_array:_Error_Actions'))?['error']?['message'])),\r\n\tfirst(body('Filter_array:_Error_Actions'))?['error']?['message'],\r\n\tif(\r\n\t\tnot(empty(first(body('Filter_array:_Error_Actions'))?['body/error']?['message'])),\r\n\t\tfirst(body('Filter_array:_Error_Actions'))?['body/error']?['message'],\r\n\t\tif(\r\n\t\t\tnot(empty(first(body('Filter_array:_Error_Actions'))?['outputs/body/error']?['message'])),\r\n\t\t\tfirst(body('Filter_array:_Error_Actions'))?['outputs/body/error']?['message'],\r\n\t\t\tif(\r\n\t\t\t\tnot(empty(first(body('Filter_array:_Error_Actions'))?['outputs/body']?['message'])),\r\n\t\t\t\tfirst(body('Filter_array:_Error_Actions'))?['outputs/body']?['message'],\r\n\t\t\t\t'Error occured'\r\n\t\t\t)\r\n\t\t)\r\n\t)\r\n)"
                   }
                 }
               },
@@ -739,7 +739,7 @@
             "parameters": {
               "entityName": "cat_copilotstudiokitlogses",
               "$select": "cat_executionstatuscode",
-              "$filter": "cat_cloudflowname eq 'Agent Inventory | Agents Data Load'",
+              "$filter": "cat_cloudflowname eq 'Agent Inventory | Agents Data Load' or cat_cloudflowname eq 'Agent Inventory | Usage Data Load' or cat_cloudflowname eq 'Agent Inventory | Agents Data Load Scheduler' or cat_cloudflowname eq 'Agent Inventory | Usage Data Load Scheduler'",
               "$orderby": "createdon desc",
               "$top": 1
             },

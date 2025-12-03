@@ -39,6 +39,14 @@
             "schemaName": "cat_PowerAutomateEndpoint",
             "description": "Specify your Power Automate environment region/cloud: Commercial, GCC, GCC High, or DoD."
           }
+        },
+        "Compliance Support Contact Alias (cat_ComplianceSupportContactAlias)": {
+          "defaultValue": "contoso-coe-support@powercattools.com",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_ComplianceSupportContactAlias",
+            "description": "Email alias users can contact for support regarding the compliance system"
+          }
         }
       },
       "triggers": {
@@ -239,7 +247,7 @@
                     },
                     "body": {
                       "text": "AgentCompliance_Quarantine",
-                      "text_1": "{\n\"AgentName\":\"@{first(outputs('Find_Agent')?['body/value'])?['cat_name']}\",\n\"AdminAlias\":\"agent-coe@contoso.com\"\n}",
+                      "text_1": "{\n\"AgentName\":\"@{first(outputs('Find_Agent')?['body/value'])?['cat_name']}\",\n\"AdminAlias\":\"@{parameters('Compliance Support Contact Alias (cat_ComplianceSupportContactAlias)')}\"\n}",
                       "text_3": "@outputs('Update_Case')?['body/cat_owneremail']"
                     }
                   },

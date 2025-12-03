@@ -143,31 +143,6 @@
                 "operationMetadataId": "dc8e743d-1408-445c-8614-ee97abfcad5e"
               }
             },
-            "Add_a_new_row:_Logs": {
-              "type": "OpenApiConnection",
-              "inputs": {
-                "parameters": {
-                  "entityName": "cat_copilotstudiokitlogses",
-                  "item/cat_executionstatuscode": 2,
-                  "item/cat_cloudflowinstanceurl": "@{outputs('Get_Flow_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/73fbfa55-8642-43d0-ab47-f15fab5813a4/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
-                  "item/cat_cloudflowname": "Agent Compliance | Update Case",
-                  "item/cat_ComplianceCase@odata.bind": "/cat_compliancecases(@{body('Parse_Case')?['cat_compliancecaseid']})"
-                },
-                "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                  "operationId": "CreateRecord",
-                  "connectionName": "shared_commondataserviceforapps"
-                }
-              },
-              "runAfter": {
-                "Parse_Case": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
-              }
-            },
             "Check_Compliance": {
               "type": "Workflow",
               "inputs": {
@@ -181,8 +156,8 @@
                 }
               },
               "runAfter": {
-                "Add_a_new_row:_Logs": [
-                  "Succeeded"
+                "Update_a_row:_Link_Compliance_Case": [
+                  "SUCCEEDED"
                 ]
               },
               "metadata": {
@@ -208,8 +183,7 @@
                   "entityName": "cat_compliancecases",
                   "recordId": "@body('Parse_Case')?['cat_compliancecaseid']",
                   "item/cat_risklevel": "@outputs('Risk_Level')",
-                  "item/cat_violations": "@body('Check_Compliance')?['violationspsv']",
-                  "item/cat_violationsjson": "@body('Check_Compliance')?['violations']"
+                  "item/cat_violations": "@body('Check_Compliance')?['violationspsv']"
                 },
                 "host": {
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -854,9 +828,6 @@
                           "cat_thresholdconfigid": {
                             "type": "string"
                           },
-                          "cat_mitigation": {
-                            "type": "string"
-                          },
                           "cat_defaultvalue": {
                             "type": "string"
                           },
@@ -926,8 +897,8 @@
                 }
               },
               "runAfter": {
-                "Get_Flow_Endpoint": [
-                  "Succeeded"
+                "Add_a_new_row:_Logs": [
+                  "SUCCEEDED"
                 ]
               },
               "metadata": {
@@ -944,6 +915,9 @@
                     "type": "object",
                     "properties": {
                       "@@odata.id": {
+                        "type": "string"
+                      },
+                      "cat_thresholdconfigid": {
                         "type": "string"
                       }
                     }
@@ -990,14 +964,136 @@
                 }
               },
               "runAfter": {
+                "Compose": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "For_each": {
+              "type": "Foreach",
+              "foreach": "@outputs('Parse_Old_Violations')['body']",
+              "actions": {
+                "Condition": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "greater": [
+                          "@length(item()?['@odata.id'])",
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Append_to_array_variable": {
+                      "type": "AppendToArrayVariable",
+                      "inputs": {
+                        "name": "OldThresholds",
+                        "value": "@items('For_each')?['@odata.id']"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {
+                      "Get_Threshold_To_Unrelate": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "cat_thresholdconfigs",
+                            "recordId": "@item()?['cat_thresholdconfigid']",
+                            "x-ms-odata-metadata-full": true,
+                            "$select": "cat_thresholdconfigid"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "GetItem",
+                            "connectionName": "shared_commondataserviceforapps"
+                          }
+                        }
+                      },
+                      "Append_to_array_variable_1": {
+                        "type": "AppendToArrayVariable",
+                        "inputs": {
+                          "name": "OldThresholds",
+                          "value": "@outputs('Get_Threshold_To_Unrelate')?['body/@odata.id']"
+                        },
+                        "runAfter": {
+                          "Get_Threshold_To_Unrelate": [
+                            "Succeeded"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "runAfter": {
                 "Parse_Old_Violations": [
                   "Succeeded"
                 ]
               }
+            },
+            "Compose": {
+              "type": "Compose",
+              "inputs": "@variables('OldThresholds')",
+              "runAfter": {
+                "For_each": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Update_a_row:_Link_Compliance_Case": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilotstudiokitlogses",
+                  "recordId": "@outputs('Add_a_new_row:_Logs')?['body/cat_copilotstudiokitlogsid']",
+                  "item/cat_executionstatuscode": 2,
+                  "item/cat_ComplianceCase@odata.bind": "/cat_compliancecases(@{body('Parse_Case')?['cat_compliancecaseid']})"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "UpdateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Parse_Case": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "9f447776-551f-41e3-a432-ecfb376e623f"
+              }
+            },
+            "Add_a_new_row:_Logs": {
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "entityName": "cat_copilotstudiokitlogses",
+                  "item/cat_executionstatuscode": 2,
+                  "item/cat_cloudflowinstanceurl": "@{outputs('Get_Flow_Endpoint')}environments/@{workflow()?['tags']?['environmentName']}/solutions/73fbfa55-8642-43d0-ab47-f15fab5813a4/flows/@{workflow()?['name']}/runs/@{workflow()?['run']?['name']}",
+                  "item/cat_cloudflowname": "Agent Compliance | Update Case"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                  "operationId": "CreateRecord",
+                  "connectionName": "shared_commondataserviceforapps"
+                }
+              },
+              "runAfter": {
+                "Get_Flow_Endpoint": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
+              }
             }
           },
           "runAfter": {
-            "Initialize_variable:_ErrorMessage": [
+            "Initialize_variable": [
               "Succeeded"
             ]
           },
@@ -1078,6 +1174,22 @@
           },
           "metadata": {
             "operationMetadataId": "3b16a931-71ef-4a27-b6c8-cea6a9fc38f1"
+          }
+        },
+        "Initialize_variable": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "OldThresholds",
+                "type": "array"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable:_ErrorMessage": [
+              "Succeeded"
+            ]
           }
         }
       }
