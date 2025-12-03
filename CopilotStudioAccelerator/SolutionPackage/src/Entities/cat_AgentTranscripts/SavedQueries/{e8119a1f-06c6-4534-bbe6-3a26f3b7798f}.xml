@@ -18,6 +18,8 @@
           <cell name="cat_conversationdate" width="188" />
           <cell name="ownerid" width="141" />
           <cell name="a_56bb6055734d4727a2d039578cfa1d0b.cat_dataverseurl" width="257" />
+          <cell name="cat_batchid" width="100" />
+          <cell name="cat_parent" width="100" />
         </row>
       </grid>
     </layoutxml>
@@ -37,6 +39,8 @@
           <link-entity alias="a_56bb6055734d4727a2d039578cfa1d0b" name="cat_copilotconfiguration" to="cat_agentconfiguration" from="cat_copilotconfigurationid" link-type="outer" visible="false">
             <attribute name="cat_dataverseurl" />
           </link-entity>
+          <attribute name="cat_batchid" />
+          <attribute name="cat_parent" />
         </entity>
       </fetch>
     </fetchxml>
