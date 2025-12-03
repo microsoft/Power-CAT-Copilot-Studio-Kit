@@ -1,8 +1,40 @@
 {
     "EnvironmentVariables":  [
                                  {
+                                     "SchemaName":  "cat_AgentTokenEndpoint",
+                                     "Value":  "#{environmentvariable.cat_AgentTokenEndpoint}#"
+                                 },
+                                 {
                                      "SchemaName":  "cat_PowerAutomateEndpoint",
                                      "Value":  "#{environmentvariable.cat_PowerAutomateEndpoint}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_AppID",
+                                     "Value":  "#{environmentvariable.cat_AppID}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_AgentMakerTeamID",
+                                     "Value":  "#{environmentvariable.cat_AgentMakerTeamID}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_CaseSummaryEmailFrequency",
+                                     "Value":  "#{environmentvariable.cat_CaseSummaryEmailFrequency}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_ComplianceDocumentationLink",
+                                     "Value":  "#{environmentvariable.cat_ComplianceDocumentationLink}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_ComplianceSupportContactAlias",
+                                     "Value":  "#{environmentvariable.cat_ComplianceSupportContactAlias}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_GovernanceAdminAlias",
+                                     "Value":  "#{environmentvariable.cat_GovernanceAdminAlias}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_InstanceUrl",
+                                     "Value":  "#{environmentvariable.cat_InstanceUrl}#"
                                  },
                                  {
                                      "SchemaName":  "cat_DelayforAzureApplicationInsightsEnrichment",
@@ -11,6 +43,14 @@
                                  {
                                      "SchemaName":  "cat_DelayforConversationTranscriptsEnrichment",
                                      "Value":  "#{environmentvariable.cat_DelayforConversationTranscriptsEnrichment}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_CaseIntakeSLA",
+                                     "Value":  "#{environmentvariable.cat_CaseIntakeSLA}#"
+                                 },
+                                 {
+                                     "SchemaName":  "cat_CaseReviewSLA",
+                                     "Value":  "#{environmentvariable.cat_CaseReviewSLA}#"
                                  }
                              ],
     "ConnectionReferences":  [
