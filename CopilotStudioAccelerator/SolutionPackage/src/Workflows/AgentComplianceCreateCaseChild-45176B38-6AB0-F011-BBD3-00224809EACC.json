@@ -2,41 +2,40 @@
   "properties": {
     "connectionReferences": {
       "shared_commondataserviceforapps": {
-        "impersonation": {},
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
         },
-        "api": {
-          "name": "shared_commondataserviceforapps"
-        }
+        "runtimeSource": "embedded"
       },
       "shared_office365users": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_office365users"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_sharedoffice365users_ceff6"
         },
-        "api": {
-          "name": "shared_office365users"
-        }
+        "runtimeSource": "embedded"
       },
       "shared_powerplatformforadmins-1": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_powerplatformforadmins"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorPowerPlatformforAdmins"
         },
-        "api": {
-          "name": "shared_powerplatformforadmins"
-        }
+        "runtimeSource": "embedded"
       },
       "shared_office365groups": {
-        "runtimeSource": "embedded",
+        "api": {
+          "name": "shared_office365groups"
+        },
         "connection": {
           "connectionReferenceLogicalName": "cat_sharedoffice365groups_a8194"
         },
-        "api": {
-          "name": "shared_office365groups"
-        }
+        "runtimeSource": "embedded"
       }
     },
     "definition": {
@@ -75,7 +74,7 @@
           }
         },
         "Compliance Support Contact Alias (cat_ComplianceSupportContactAlias)": {
-          "defaultValue": "agent-coe-admins@powercattools.onmicrosoft.com",
+          "defaultValue": "contoso-coe-support@powercattools.com",
           "type": "String",
           "metadata": {
             "schemaName": "cat_ComplianceSupportContactAlias",
@@ -83,7 +82,7 @@
           }
         },
         "Compliance Documentation Link (cat_ComplianceDocumentationLink)": {
-          "defaultValue": "https://aka.ms/guidanceLink",
+          "defaultValue": "aka.ms/guidanceLink",
           "type": "String",
           "metadata": {
             "schemaName": "cat_ComplianceDocumentationLink",
@@ -101,9 +100,6 @@
       },
       "triggers": {
         "manual": {
-          "metadata": {
-            "operationMetadataId": "40b65f2e-55f0-4746-b153-591409bba8f7"
-          },
           "type": "Request",
           "kind": "Button",
           "inputs": {
@@ -138,19 +134,14 @@
                 "text_2"
               ]
             }
+          },
+          "metadata": {
+            "operationMetadataId": "40b65f2e-55f0-4746-b153-591409bba8f7"
           }
         }
       },
       "actions": {
         "Respond_to_a_Power_App_or_flow": {
-          "runAfter": {
-            "Scope:_Finally": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "24f77ac9-155c-4e1f-9366-7222046c0b34"
-          },
           "type": "Response",
           "kind": "PowerApp",
           "inputs": {
@@ -169,19 +160,20 @@
             "body": {
               "caseid": "@{outputs('Add_Case')?['body/cat_compliancecaseid']}"
             }
+          },
+          "runAfter": {
+            "Scope:_Finally": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "24f77ac9-155c-4e1f-9366-7222046c0b34"
           }
         },
         "Scope:_Try": {
+          "type": "Scope",
           "actions": {
             "Parse_Agent": {
-              "runAfter": {
-                "Add_a_new_row:_Logs": [
-                  "Succeeded"
-                ]
-              },
-              "metadata": {
-                "operationMetadataId": "01605996-5681-4072-a90d-a7c20044a895"
-              },
               "type": "ParseJson",
               "inputs": {
                 "content": "@triggerBody()['text']",
@@ -280,24 +272,24 @@
                     }
                   }
                 }
-              }
-            },
-            "Get_Flow_Endpoint": {
-              "metadata": {
-                "operationMetadataId": "dc8e743d-1408-445c-8614-ee97abfcad5e"
               },
-              "type": "Compose",
-              "inputs": "@if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc'), 'https://make.gov.powerautomate.us/', \r\n    if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc(high)'), 'https://make.high.powerautomate.us/', \r\n        if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'dod'), 'https://make.powerautomate.appsplatform.us/', \r\n            'https://make.powerautomate.com/'\r\n        )\r\n    )\r\n)"
-            },
-            "Add_a_new_row:_Logs": {
               "runAfter": {
-                "Get_Flow_Endpoint": [
+                "Add_a_new_row:_Logs": [
                   "Succeeded"
                 ]
               },
               "metadata": {
-                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
-              },
+                "operationMetadataId": "01605996-5681-4072-a90d-a7c20044a895"
+              }
+            },
+            "Get_Flow_Endpoint": {
+              "type": "Compose",
+              "inputs": "@if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc'), 'https://make.gov.powerautomate.us/', \r\n    if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc(high)'), 'https://make.high.powerautomate.us/', \r\n        if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'dod'), 'https://make.powerautomate.appsplatform.us/', \r\n            'https://make.powerautomate.com/'\r\n        )\r\n    )\r\n)",
+              "metadata": {
+                "operationMetadataId": "dc8e743d-1408-445c-8614-ee97abfcad5e"
+              }
+            },
+            "Add_a_new_row:_Logs": {
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
@@ -311,17 +303,17 @@
                   "operationId": "CreateRecord",
                   "connectionName": "shared_commondataserviceforapps"
                 }
-              }
-            },
-            "Check_Compliance": {
+              },
               "runAfter": {
-                "Scope:_Catch_Find_Owner": [
+                "Get_Flow_Endpoint": [
                   "Succeeded"
                 ]
               },
               "metadata": {
-                "operationMetadataId": "cc25878e-261d-4a30-8255-0460f1b9aa4e"
-              },
+                "operationMetadataId": "1743ccd2-b8bb-4cee-9823-870ee9d4d438"
+              }
+            },
+            "Check_Compliance": {
               "type": "Workflow",
               "inputs": {
                 "host": {
@@ -332,14 +324,36 @@
                   "text_1": "@triggerBody()['text_1']",
                   "text_2": "@triggerBody()['text_2']"
                 }
+              },
+              "runAfter": {
+                "Scope:_Catch_Find_Owner": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "cc25878e-261d-4a30-8255-0460f1b9aa4e"
               }
             },
             "Needs_Case": {
+              "type": "If",
+              "expression": {
+                "or": [
+                  {
+                    "greater": [
+                      "@outputs('Risk_Level')",
+                      0
+                    ]
+                  },
+                  {
+                    "equals": [
+                      "@parameters('Require Case For No Risk (cat_RequireCaseForNoRisk)')",
+                      "@true"
+                    ]
+                  }
+                ]
+              },
               "actions": {
                 "Parse_Violations": {
-                  "metadata": {
-                    "operationMetadataId": "8ecc35ff-93ca-4fc0-82e9-d34789e8e298"
-                  },
                   "type": "ParseJson",
                   "inputs": {
                     "content": "@body('Check_Compliance')?['violations']",
@@ -387,17 +401,12 @@
                         ]
                       }
                     }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "8ecc35ff-93ca-4fc0-82e9-d34789e8e298"
                   }
                 },
                 "Add_Case": {
-                  "runAfter": {
-                    "Parse_Violations": [
-                      "Succeeded"
-                    ]
-                  },
-                  "metadata": {
-                    "operationMetadataId": "9ea2cb1c-92bf-4819-830d-826cd0c337f0"
-                  },
                   "type": "OpenApiConnection",
                   "inputs": {
                     "parameters": {
@@ -415,17 +424,17 @@
                       "operationId": "CreateRecord",
                       "connectionName": "shared_commondataserviceforapps"
                     }
-                  }
-                },
-                "Add_Note": {
+                  },
                   "runAfter": {
-                    "Apply_to_each_Violation": [
+                    "Parse_Violations": [
                       "Succeeded"
                     ]
                   },
                   "metadata": {
-                    "operationMetadataId": "15154f6a-bd57-4c1a-8691-9ddb2a2df986"
-                  },
+                    "operationMetadataId": "9ea2cb1c-92bf-4819-830d-826cd0c337f0"
+                  }
+                },
+                "Add_Note": {
                   "type": "OpenApiConnection",
                   "inputs": {
                     "parameters": {
@@ -439,21 +448,32 @@
                       "operationId": "CreateRecord",
                       "connectionName": "shared_commondataserviceforapps"
                     }
-                  }
-                },
-                "Approval_Needed_To_Send_Intake_Request": {
-                  "actions": {},
+                  },
                   "runAfter": {
-                    "Add_Note": [
+                    "Apply_to_each_Violation": [
                       "Succeeded"
                     ]
                   },
+                  "metadata": {
+                    "operationMetadataId": "15154f6a-bd57-4c1a-8691-9ddb2a2df986"
+                  }
+                },
+                "Approval_Needed_To_Send_Intake_Request": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@parameters('Admin Approval Before Maker Notification (cat_AdminApprovalBeforeMakerNotification)')",
+                          "@true"
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {},
                   "else": {
                     "actions": {
                       "Send_Intake_Notice": {
-                        "metadata": {
-                          "operationMetadataId": "e83bd10b-b5e4-4eac-b3e4-b4cc2bcd1688"
-                        },
                         "type": "OpenApiConnection",
                         "inputs": {
                           "parameters": {
@@ -466,32 +486,27 @@
                             "operationId": "PerformBoundAction",
                             "connectionName": "shared_commondataserviceforapps"
                           }
+                        },
+                        "metadata": {
+                          "operationMetadataId": "e83bd10b-b5e4-4eac-b3e4-b4cc2bcd1688"
                         }
                       }
                     }
                   },
-                  "expression": {
-                    "and": [
-                      {
-                        "equals": [
-                          "@parameters('Admin Approval Before Maker Notification (cat_AdminApprovalBeforeMakerNotification)')",
-                          "@true"
-                        ]
-                      }
+                  "runAfter": {
+                    "Add_Note": [
+                      "Succeeded"
                     ]
                   },
                   "metadata": {
                     "operationMetadataId": "65fdbc85-0da0-4e53-b718-149bbdd68ac4"
-                  },
-                  "type": "If"
+                  }
                 },
                 "Apply_to_each_Violation": {
+                  "type": "Foreach",
                   "foreach": "@body('Parse_Violations')",
                   "actions": {
                     "Relate_rows": {
-                      "metadata": {
-                        "operationMetadataId": "3d43bb59-0c72-42e0-961f-765cab29d0eb"
-                      },
                       "type": "OpenApiConnection",
                       "inputs": {
                         "parameters": {
@@ -505,6 +520,9 @@
                           "operationId": "AssociateEntities",
                           "connectionName": "shared_commondataserviceforapps"
                         }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "3d43bb59-0c72-42e0-961f-765cab29d0eb"
                       }
                     }
                   },
@@ -515,52 +533,36 @@
                   },
                   "metadata": {
                     "operationMetadataId": "2691943b-6932-4431-ba59-a9a45190cdcf"
-                  },
-                  "type": "Foreach"
+                  }
                 },
                 "Set_variable": {
-                  "runAfter": {
-                    "Add_Case": [
-                      "Succeeded"
-                    ]
-                  },
                   "type": "SetVariable",
                   "inputs": {
                     "name": "varComplianceCaseID",
                     "value": "@outputs('Add_Case')?['body/cat_compliancecaseid']"
+                  },
+                  "runAfter": {
+                    "Add_Case": [
+                      "Succeeded"
+                    ]
                   }
                 }
+              },
+              "else": {
+                "actions": {}
               },
               "runAfter": {
                 "Risk_Level": [
                   "Succeeded"
                 ]
               },
-              "else": {
-                "actions": {}
-              },
-              "expression": {
-                "or": [
-                  {
-                    "greater": [
-                      "@outputs('Risk_Level')",
-                      0
-                    ]
-                  },
-                  {
-                    "equals": [
-                      "@parameters('Require Case For No Risk (cat_RequireCaseForNoRisk)')",
-                      "@true"
-                    ]
-                  }
-                ]
-              },
               "metadata": {
                 "operationMetadataId": "3d3e24d2-d9db-45ff-886a-fb597f3df5cc"
-              },
-              "type": "If"
+              }
             },
             "Risk_Level": {
+              "type": "Compose",
+              "inputs": "@coalesce(body('Check_Compliance')?['risklevel'],0)",
               "runAfter": {
                 "Check_Compliance": [
                   "Succeeded"
@@ -568,65 +570,13 @@
               },
               "metadata": {
                 "operationMetadataId": "5f7f35ec-4d91-410e-8f1d-bb00ac0d41dd"
-              },
-              "type": "Compose",
-              "inputs": "@coalesce(body('Check_Compliance')?['risklevel'],0)"
+              }
             },
             "Scope:_Find_Owner": {
+              "type": "Scope",
               "actions": {
                 "User_Not_SYSTEM": {
-                  "actions": {
-                    "Get_User_Profile": {
-                      "metadata": {
-                        "operationMetadataId": "ffb9cb56-70e8-42bd-b297-f587e05a905c"
-                      },
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "parameters": {
-                          "id": "@body('Parse_Agent')?['cat_agentcreatedbyadid']"
-                        },
-                        "host": {
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
-                          "operationId": "UserProfile_V2",
-                          "connectionName": "shared_office365users"
-                        }
-                      }
-                    },
-                    "Set_variable:_IsOrphan_True": {
-                      "runAfter": {
-                        "Get_User_Profile": [
-                          "Failed",
-                          "TimedOut"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "bcb56f4e-dde0-481b-b5d0-122f32d71f2d"
-                      },
-                      "type": "SetVariable",
-                      "inputs": {
-                        "name": "IsOrphan",
-                        "value": true
-                      }
-                    },
-                    "Set_variable:_Owner_UPN_Found": {
-                      "runAfter": {
-                        "Get_User_Profile": [
-                          "Succeeded"
-                        ]
-                      },
-                      "metadata": {
-                        "operationMetadataId": "393daea4-da8f-403c-a5df-8256b377cdd4"
-                      },
-                      "type": "SetVariable",
-                      "inputs": {
-                        "name": "Owner",
-                        "value": "@outputs('Get_User_Profile')?['body/userPrincipalName']"
-                      }
-                    }
-                  },
-                  "else": {
-                    "actions": {}
-                  },
+                  "type": "If",
                   "expression": {
                     "and": [
                       {
@@ -639,168 +589,64 @@
                       }
                     ]
                   },
-                  "metadata": {
-                    "operationMetadataId": "dad2e937-cf98-410a-84a4-aa03054e79ca"
-                  },
-                  "type": "If"
-                },
-                "SYSTEM_or_IsOrphan": {
                   "actions": {
-                    "Try:_Set_Admin_As_Owner": {
-                      "actions": {
-                        "Get_Admin_Role": {
-                          "metadata": {
-                            "operationMetadataId": "71547e49-ac5b-4eef-a873-512cd55795d4"
-                          },
-                          "type": "OpenApiConnection",
-                          "inputs": {
-                            "parameters": {
-                              "organization": "@body('Parse_Agent')?['cat_environmenturl']",
-                              "entityName": "roles",
-                              "$select": "roleid,name",
-                              "$filter": "name eq 'System Administrator'",
-                              "$top": 1
-                            },
-                            "host": {
-                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                              "operationId": "ListRecordsWithOrganization",
-                              "connectionName": "shared_commondataserviceforapps"
-                            }
-                          }
+                    "Get_User_Profile": {
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "id": "@body('Parse_Agent')?['cat_agentcreatedbyadid']"
                         },
-                        "List_Admins": {
-                          "runAfter": {
-                            "Get_Admin_Role": [
-                              "Succeeded"
-                            ]
-                          },
-                          "metadata": {
-                            "operationMetadataId": "5e7dfc3e-64e2-48ac-b7ea-daa9017cd3d9"
-                          },
-                          "type": "OpenApiConnection",
-                          "inputs": {
-                            "parameters": {
-                              "organization": "@body('Parse_Agent')?['cat_environmenturl']",
-                              "entityName": "systemusers",
-                              "$select": "fullname,domainname,internalemailaddress,azureactivedirectoryobjectid",
-                              "$filter": "systemuserroles_association/any(r: r/roleid eq @{first(outputs('Get_Admin_Role')?['body/value'])?['roleid']}) and (applicationid eq null) and (isdisabled eq false) and fullname ne 'Delegated Admin'",
-                              "$top": 1
-                            },
-                            "host": {
-                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
-                              "operationId": "ListRecordsWithOrganization",
-                              "connectionName": "shared_commondataserviceforapps"
-                            }
-                          }
-                        },
-                        "Set_Owner_As_Environment_Admin": {
-                          "runAfter": {
-                            "List_Admins": [
-                              "Succeeded"
-                            ]
-                          },
-                          "metadata": {
-                            "operationMetadataId": "e449fed3-4bc9-4a91-98e6-e88b94d090fb"
-                          },
-                          "type": "SetVariable",
-                          "inputs": {
-                            "name": "Owner",
-                            "value": "@first(outputs('List_Admins')?['body/value'])?['domainname']"
-                          }
-                        },
-                        "Get_Environment_as_Admin": {
-                          "runAfter": {
-                            "Get_Admin_Role": [
-                              "Failed",
-                              "Skipped",
-                              "TimedOut"
-                            ]
-                          },
-                          "type": "OpenApiConnection",
-                          "inputs": {
-                            "parameters": {
-                              "environment": "@body('Parse_Agent')?['cat_environmentid']",
-                              "api-version": "2018-10-01"
-                            },
-                            "host": {
-                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_powerplatformforadmins",
-                              "operationId": "GetSingleEnvironment",
-                              "connectionName": "shared_powerplatformforadmins-1"
-                            }
-                          }
-                        },
-                        "Set_Owner_As_Env_Creator": {
-                          "runAfter": {
-                            "Get_Environment_as_Admin": [
-                              "Succeeded"
-                            ]
-                          },
-                          "metadata": {
-                            "operationMetadataId": "e449fed3-4bc9-4a91-98e6-e88b94d090fb"
-                          },
-                          "type": "SetVariable",
-                          "inputs": {
-                            "name": "Owner",
-                            "value": "@outputs('Get_Environment_as_Admin')?['body/properties/createdBy/userPrincipalName']"
-                          }
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+                          "operationId": "UserProfile_V2",
+                          "connectionName": "shared_office365users"
                         }
                       },
                       "metadata": {
-                        "operationMetadataId": "e8c967c9-1385-434e-9e41-7f1ef085f6af"
-                      },
-                      "type": "Scope"
+                        "operationMetadataId": "ffb9cb56-70e8-42bd-b297-f587e05a905c"
+                      }
                     },
-                    "Catch:_Admin_Not_Found": {
-                      "actions": {
-                        "Set_variable:_IsOrphan_No_Admin": {
-                          "metadata": {
-                            "operationMetadataId": "7a56cf6b-82f8-4e24-a4a2-871fce0cf778"
-                          },
-                          "type": "SetVariable",
-                          "inputs": {
-                            "name": "IsOrphan",
-                            "value": true
-                          }
-                        }
+                    "Set_variable:_IsOrphan_True": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "IsOrphan",
+                        "value": true
                       },
                       "runAfter": {
-                        "Try:_Set_Admin_As_Owner": [
+                        "Get_User_Profile": [
                           "Failed",
                           "TimedOut"
                         ]
                       },
                       "metadata": {
-                        "operationMetadataId": "1bf5becd-fe4b-41b5-8323-4a7aeac37433"
-                      },
-                      "type": "Scope"
+                        "operationMetadataId": "bcb56f4e-dde0-481b-b5d0-122f32d71f2d"
+                      }
                     },
-                    "Finally": {
-                      "actions": {},
+                    "Set_variable:_Owner_UPN_Found": {
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "Owner",
+                        "value": "@outputs('Get_User_Profile')?['body/userPrincipalName']"
+                      },
                       "runAfter": {
-                        "Catch:_Admin_Not_Found": [
-                          "Succeeded",
-                          "Failed",
-                          "Skipped",
-                          "TimedOut"
+                        "Get_User_Profile": [
+                          "Succeeded"
                         ]
                       },
                       "metadata": {
-                        "operationMetadataId": "c1636045-f9d5-4f6f-b4b7-b41af8458f19"
-                      },
-                      "type": "Scope"
+                        "operationMetadataId": "393daea4-da8f-403c-a5df-8256b377cdd4"
+                      }
                     }
-                  },
-                  "runAfter": {
-                    "User_Not_SYSTEM": [
-                      "Succeeded",
-                      "Failed",
-                      "Skipped",
-                      "TimedOut"
-                    ]
                   },
                   "else": {
                     "actions": {}
                   },
+                  "metadata": {
+                    "operationMetadataId": "dad2e937-cf98-410a-84a4-aa03054e79ca"
+                  }
+                },
+                "SYSTEM_or_IsOrphan": {
+                  "type": "If",
                   "expression": {
                     "or": [
                       {
@@ -817,135 +663,314 @@
                       }
                     ]
                   },
-                  "metadata": {
-                    "operationMetadataId": "d04d401e-7ba5-4ac3-92ac-278f32d27602"
-                  },
-                  "type": "If"
-                },
-                "Owner_Found": {
                   "actions": {
-                    "List_group_members": {
-                      "type": "OpenApiConnection",
-                      "inputs": {
-                        "parameters": {
-                          "groupId": "@parameters('Maker Team ID (cat_AgentMakerTeamID)')"
+                    "Try:_Set_Admin_As_Owner": {
+                      "type": "Scope",
+                      "actions": {
+                        "Get_Admin_Role": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "organization": "@body('Parse_Agent')?['cat_environmenturl']",
+                              "entityName": "roles",
+                              "$select": "roleid,name",
+                              "$filter": "name eq 'System Administrator'",
+                              "$top": 1
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "ListRecordsWithOrganization",
+                              "connectionName": "shared_commondataserviceforapps"
+                            }
+                          },
+                          "metadata": {
+                            "operationMetadataId": "71547e49-ac5b-4eef-a873-512cd55795d4"
+                          }
                         },
-                        "host": {
-                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365groups",
-                          "operationId": "ListGroupMembers",
-                          "connectionName": "shared_office365groups"
-                        }
-                      }
-                    },
-                    "Find_Owner_In_Group": {
-                      "runAfter": {
-                        "List_group_members": [
-                          "Succeeded"
-                        ]
-                      },
-                      "type": "Query",
-                      "inputs": {
-                        "from": "@outputs('List_group_members')?['body/value']",
-                        "where": "@equals(item()?['userPrincipalName'],variables('Owner'))"
-                      }
-                    },
-                    "Already_In_Group": {
-                      "actions": {},
-                      "runAfter": {
-                        "Find_Owner_In_Group": [
-                          "Succeeded"
-                        ]
-                      },
-                      "else": {
-                        "actions": {
-                          "Add_member_to_group": {
-                            "type": "OpenApiConnection",
-                            "inputs": {
-                              "parameters": {
-                                "groupId": "@parameters('Maker Team ID (cat_AgentMakerTeamID)')",
-                                "userUpn": "@variables('Owner')"
-                              },
-                              "host": {
-                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365groups",
-                                "operationId": "AddMemberToGroup",
-                                "connectionName": "shared_office365groups"
-                              }
+                        "List_Admins": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "organization": "@body('Parse_Agent')?['cat_environmenturl']",
+                              "entityName": "systemusers",
+                              "$select": "fullname,domainname,internalemailaddress,azureactivedirectoryobjectid",
+                              "$filter": "systemuserroles_association/any(r: r/roleid eq @{first(outputs('Get_Admin_Role')?['body/value'])?['roleid']}) and (applicationid eq null) and (isdisabled eq false) and fullname ne 'Delegated Admin'",
+                              "$top": 1
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                              "operationId": "ListRecordsWithOrganization",
+                              "connectionName": "shared_commondataserviceforapps"
                             }
                           },
-                          "Generate_Compliance_Wiki": {
-                            "runAfter": {
-                              "Add_member_to_group": [
-                                "Succeeded"
-                              ]
+                          "runAfter": {
+                            "Get_Admin_Role": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "5e7dfc3e-64e2-48ac-b7ea-daa9017cd3d9"
+                          }
+                        },
+                        "Set_Owner_As_Environment_Admin": {
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "Owner",
+                            "value": "@first(outputs('List_Admins')?['body/value'])?['domainname']"
+                          },
+                          "runAfter": {
+                            "List_Admins": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "e449fed3-4bc9-4a91-98e6-e88b94d090fb"
+                          }
+                        },
+                        "Get_Environment_as_Admin": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "environment": "@body('Parse_Agent')?['cat_environmentid']",
+                              "api-version": "2018-10-01"
                             },
-                            "type": "OpenApiConnection",
-                            "inputs": {
-                              "parameters": {
-                                "recordId": "ae366c59-3fca-4189-a354-b1a3a0e1fb99",
-                                "item/requestv2/Format": "HTML"
-                              },
-                              "host": {
-                                "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
-                                "operationId": "aibuilderpredict",
-                                "connectionName": "shared_commondataserviceforapps"
-                              }
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_powerplatformforadmins",
+                              "operationId": "GetSingleEnvironment",
+                              "connectionName": "shared_powerplatformforadmins-1"
                             }
                           },
-                          "Send_Welcome_Email": {
-                            "runAfter": {
-                              "Get_Owner_Profile": [
-                                "Succeeded"
-                              ]
-                            },
-                            "type": "Workflow",
-                            "inputs": {
-                              "host": {
-                                "workflowReferenceName": "d559c98c-c1af-f011-bbd3-00224809eacc"
-                              },
-                              "body": {
-                                "text": "AgentCompliance_WelcomeEmail",
-                                "text_1": "{\n\"AgentName\":\"@{triggerBody()?['text_3']}\",\n\"UserFullName\":\"@{outputs('Get_Owner_Profile')?['body/givenName']}\",\n\"ThresholdsMatrix\":\"@{outputs('Generate_Compliance_Wiki')?['body/responsev2/predictionOutput/text']}\",\n\"GuidanceLink\":\"@{parameters('Compliance Documentation Link (cat_ComplianceDocumentationLink)')}\",\n\"AdminContactEmail\":\"@{parameters('Compliance Support Contact Alias (cat_ComplianceSupportContactAlias)')}\"\n}\n",
-                                "text_3": "@outputs('Get_Owner_Profile')?['body/mail']"
-                              }
-                            }
+                          "runAfter": {
+                            "Get_Admin_Role": [
+                              "Failed",
+                              "Skipped",
+                              "TimedOut"
+                            ]
+                          }
+                        },
+                        "Set_Owner_As_Env_Creator": {
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "Owner",
+                            "value": "@outputs('Get_Environment_as_Admin')?['body/properties/createdBy/userPrincipalName']"
                           },
-                          "Get_Owner_Profile": {
-                            "runAfter": {
-                              "Generate_Compliance_Wiki": [
-                                "Succeeded"
-                              ]
-                            },
-                            "type": "OpenApiConnection",
-                            "inputs": {
-                              "parameters": {
-                                "id": "@variables('Owner')"
-                              },
-                              "host": {
-                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
-                                "operationId": "UserProfile_V2",
-                                "connectionName": "shared_office365users"
-                              }
-                            }
+                          "runAfter": {
+                            "Get_Environment_as_Admin": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "e449fed3-4bc9-4a91-98e6-e88b94d090fb"
                           }
                         }
                       },
+                      "metadata": {
+                        "operationMetadataId": "e8c967c9-1385-434e-9e41-7f1ef085f6af"
+                      }
+                    },
+                    "Catch:_Admin_Not_Found": {
+                      "type": "Scope",
+                      "actions": {
+                        "Set_variable:_IsOrphan_No_Admin": {
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "IsOrphan",
+                            "value": true
+                          },
+                          "metadata": {
+                            "operationMetadataId": "7a56cf6b-82f8-4e24-a4a2-871fce0cf778"
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Try:_Set_Admin_As_Owner": [
+                          "Failed",
+                          "TimedOut"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "1bf5becd-fe4b-41b5-8323-4a7aeac37433"
+                      }
+                    },
+                    "Finally": {
+                      "type": "Scope",
+                      "actions": {},
+                      "runAfter": {
+                        "Catch:_Admin_Not_Found": [
+                          "Succeeded",
+                          "Failed",
+                          "Skipped",
+                          "TimedOut"
+                        ]
+                      },
+                      "metadata": {
+                        "operationMetadataId": "c1636045-f9d5-4f6f-b4b7-b41af8458f19"
+                      }
+                    }
+                  },
+                  "else": {
+                    "actions": {}
+                  },
+                  "runAfter": {
+                    "User_Not_SYSTEM": [
+                      "Succeeded",
+                      "Failed",
+                      "Skipped",
+                      "TimedOut"
+                    ]
+                  },
+                  "metadata": {
+                    "operationMetadataId": "d04d401e-7ba5-4ac3-92ac-278f32d27602"
+                  }
+                },
+                "Owner_Found": {
+                  "type": "If",
+                  "expression": {
+                    "and": [
+                      {
+                        "greater": [
+                          "@length(variables('Owner'))",
+                          0
+                        ]
+                      }
+                    ]
+                  },
+                  "actions": {
+                    "Is_Maker_Group_Not_Empty": {
+                      "type": "If",
                       "expression": {
                         "and": [
                           {
                             "greater": [
-                              "@length(body('Find_Owner_In_Group'))",
+                              "@length(parameters('Maker Team ID (cat_AgentMakerTeamID)'))",
                               0
                             ]
                           }
                         ]
                       },
-                      "type": "If"
+                      "actions": {
+                        "List_group_members": {
+                          "type": "OpenApiConnection",
+                          "inputs": {
+                            "parameters": {
+                              "groupId": "@parameters('Maker Team ID (cat_AgentMakerTeamID)')"
+                            },
+                            "host": {
+                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365groups",
+                              "operationId": "ListGroupMembers",
+                              "connectionName": "shared_office365groups"
+                            }
+                          }
+                        },
+                        "Find_Owner_In_Group": {
+                          "type": "Query",
+                          "inputs": {
+                            "from": "@outputs('List_group_members')?['body/value']",
+                            "where": "@equals(item()?['userPrincipalName'],variables('Owner'))"
+                          },
+                          "runAfter": {
+                            "List_group_members": [
+                              "SUCCEEDED"
+                            ]
+                          }
+                        },
+                        "Already_In_Group": {
+                          "type": "If",
+                          "expression": {
+                            "and": [
+                              {
+                                "greater": [
+                                  "@length(body('Find_Owner_In_Group'))",
+                                  0
+                                ]
+                              }
+                            ]
+                          },
+                          "actions": {},
+                          "else": {
+                            "actions": {
+                              "Add_member_to_group": {
+                                "type": "OpenApiConnection",
+                                "inputs": {
+                                  "parameters": {
+                                    "groupId": "@parameters('Maker Team ID (cat_AgentMakerTeamID)')",
+                                    "userUpn": "@variables('Owner')"
+                                  },
+                                  "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365groups",
+                                    "operationId": "AddMemberToGroup",
+                                    "connectionName": "shared_office365groups"
+                                  }
+                                }
+                              },
+                              "Generate_Compliance_Wiki": {
+                                "type": "OpenApiConnection",
+                                "inputs": {
+                                  "parameters": {
+                                    "recordId": "ae366c59-3fca-4189-a354-b1a3a0e1fb99",
+                                    "item/requestv2/Format": "HTML"
+                                  },
+                                  "host": {
+                                    "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+                                    "operationId": "aibuilderpredict",
+                                    "connectionName": "shared_commondataserviceforapps"
+                                  }
+                                },
+                                "runAfter": {
+                                  "Add_member_to_group": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              },
+                              "Send_Welcome_Email": {
+                                "type": "Workflow",
+                                "inputs": {
+                                  "host": {
+                                    "workflowReferenceName": "d559c98c-c1af-f011-bbd3-00224809eacc"
+                                  },
+                                  "body": {
+                                    "text": "AgentCompliance_WelcomeEmail",
+                                    "text_1": "{\n\"AgentName\":\"@{triggerBody()?['text_3']}\",\n\"UserFullName\":\"@{outputs('Get_Owner_Profile')?['body/givenName']}\",\n\"ThresholdsMatrix\":\"@{outputs('Generate_Compliance_Wiki')?['body/responsev2/predictionOutput/text']}\",\n\"GuidanceLink\":\"@{parameters('Compliance Documentation Link (cat_ComplianceDocumentationLink)')}\",\n\"AdminContactEmail\":\"@{parameters('Compliance Support Contact Alias (cat_ComplianceSupportContactAlias)')}\"\n}\n",
+                                    "text_3": "@outputs('Get_Owner_Profile')?['body/mail']"
+                                  }
+                                },
+                                "runAfter": {
+                                  "Get_Owner_Profile": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              },
+                              "Get_Owner_Profile": {
+                                "type": "OpenApiConnection",
+                                "inputs": {
+                                  "parameters": {
+                                    "id": "@variables('Owner')"
+                                  },
+                                  "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+                                    "operationId": "UserProfile_V2",
+                                    "connectionName": "shared_office365users"
+                                  }
+                                },
+                                "runAfter": {
+                                  "Generate_Compliance_Wiki": [
+                                    "Succeeded"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "runAfter": {
+                            "Find_Owner_In_Group": [
+                              "SUCCEEDED"
+                            ]
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      }
                     }
-                  },
-                  "runAfter": {
-                    "SYSTEM_or_IsOrphan": [
-                      "Succeeded"
-                    ]
                   },
                   "else": {
                     "actions": {
@@ -960,45 +985,39 @@
                         }
                       },
                       "Set_variable:_Owner_as_myself": {
-                        "runAfter": {
-                          "Get_my_profile_(V2)": [
-                            "Succeeded"
-                          ]
-                        },
                         "type": "SetVariable",
                         "inputs": {
                           "name": "Owner",
                           "value": "@outputs('Get_my_profile_(V2)')?['body/userPrincipalName']"
+                        },
+                        "runAfter": {
+                          "Get_my_profile_(V2)": [
+                            "Succeeded"
+                          ]
                         }
                       },
                       "Set_variable_1": {
-                        "runAfter": {
-                          "Set_variable:_Owner_as_myself": [
-                            "Succeeded"
-                          ]
-                        },
                         "type": "SetVariable",
                         "inputs": {
                           "name": "IsOrphan",
                           "value": true
+                        },
+                        "runAfter": {
+                          "Set_variable:_Owner_as_myself": [
+                            "Succeeded"
+                          ]
                         }
                       }
                     }
                   },
-                  "expression": {
-                    "and": [
-                      {
-                        "greater": [
-                          "@length(variables('Owner'))",
-                          0
-                        ]
-                      }
+                  "runAfter": {
+                    "SYSTEM_or_IsOrphan": [
+                      "Succeeded"
                     ]
                   },
                   "metadata": {
                     "operationMetadataId": "e9659a6f-d208-4f3a-af2f-5be5c25fa9fb"
-                  },
-                  "type": "If"
+                  }
                 }
               },
               "runAfter": {
@@ -1008,10 +1027,10 @@
               },
               "metadata": {
                 "operationMetadataId": "8d00fdfc-20ed-4fe1-aa0c-0565533cb632"
-              },
-              "type": "Scope"
+              }
             },
             "Scope:_Catch_Find_Owner": {
+              "type": "Scope",
               "actions": {},
               "runAfter": {
                 "Scope:_Find_Owner": [
@@ -1020,8 +1039,7 @@
                   "Skipped",
                   "TimedOut"
                 ]
-              },
-              "type": "Scope"
+              }
             }
           },
           "runAfter": {
@@ -1031,14 +1049,9 @@
           },
           "metadata": {
             "operationMetadataId": "684cbe45-0cf1-41c1-8ef9-2abc372596fd"
-          },
-          "type": "Scope"
+          }
         },
         "Initialize_variable:_ErrorMessage": {
-          "runAfter": {},
-          "metadata": {
-            "operationMetadataId": "84dc8095-fa63-4f71-aaa9-ed2863a636bb"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -1047,21 +1060,31 @@
                 "type": "string"
               }
             ]
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "84dc8095-fa63-4f71-aaa9-ed2863a636bb"
           }
         },
         "Scope:_Catch": {
+          "type": "Scope",
           "actions": {
             "Filter_array:_Error_Actions": {
-              "metadata": {
-                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
-              },
               "type": "Query",
               "inputs": {
                 "from": "@result('Scope:_Try')",
                 "where": "@or(equals(item()?['Status'], 'Failed'), equals(item()?['Status'], 'TimedOut'))"
+              },
+              "metadata": {
+                "operationMetadataId": "318aa9b2-4531-451c-b162-84cf7a4a236e"
               }
             },
             "Set_variable:_ErrorMessage": {
+              "type": "SetVariable",
+              "inputs": {
+                "name": "ErrorMessage",
+                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}"
+              },
               "runAfter": {
                 "Filter_array:_Error_Actions": [
                   "Succeeded"
@@ -1069,11 +1092,6 @@
               },
               "metadata": {
                 "operationMetadataId": "ee38e0e1-03cd-48d8-9933-d73f7204b0f7"
-              },
-              "type": "SetVariable",
-              "inputs": {
-                "name": "ErrorMessage",
-                "value": "@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}"
               }
             }
           },
@@ -1086,15 +1104,12 @@
           },
           "metadata": {
             "operationMetadataId": "4f2e4827-62c8-4225-94cd-14089e7ac8f7"
-          },
-          "type": "Scope"
+          }
         },
         "Scope:_Finally": {
+          "type": "Scope",
           "actions": {
             "Update_a_row:_Logs": {
-              "metadata": {
-                "operationMetadataId": "9f447776-551f-41e3-a432-ecfb376e623f"
-              },
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
@@ -1108,6 +1123,9 @@
                   "operationId": "UpdateRecord",
                   "connectionName": "shared_commondataserviceforapps"
                 }
+              },
+              "metadata": {
+                "operationMetadataId": "9f447776-551f-41e3-a432-ecfb376e623f"
               }
             }
           },
@@ -1121,18 +1139,9 @@
           },
           "metadata": {
             "operationMetadataId": "3b16a931-71ef-4a27-b6c8-cea6a9fc38f1"
-          },
-          "type": "Scope"
+          }
         },
         "Initialize_variable:_IsOrphan": {
-          "runAfter": {
-            "Initialize_variable:_ErrorMessage": [
-              "Succeeded"
-            ]
-          },
-          "metadata": {
-            "operationMetadataId": "264466c6-34f4-4803-81d3-8b811901be74"
-          },
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -1142,17 +1151,17 @@
                 "value": false
               }
             ]
-          }
-        },
-        "Initialize_variable:_Owner": {
+          },
           "runAfter": {
-            "Initialize_variable:_IsOrphan": [
+            "Initialize_variable:_ErrorMessage": [
               "Succeeded"
             ]
           },
           "metadata": {
-            "operationMetadataId": "439a1e27-1de5-47ed-8f5b-fc296457b334"
-          },
+            "operationMetadataId": "264466c6-34f4-4803-81d3-8b811901be74"
+          }
+        },
+        "Initialize_variable:_Owner": {
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -1161,14 +1170,17 @@
                 "type": "string"
               }
             ]
-          }
-        },
-        "Initialize_variable:_Compliance_Case": {
+          },
           "runAfter": {
-            "Initialize_variable:_Owner": [
+            "Initialize_variable:_IsOrphan": [
               "Succeeded"
             ]
           },
+          "metadata": {
+            "operationMetadataId": "439a1e27-1de5-47ed-8f5b-fc296457b334"
+          }
+        },
+        "Initialize_variable:_Compliance_Case": {
           "type": "InitializeVariable",
           "inputs": {
             "variables": [
@@ -1176,6 +1188,11 @@
                 "name": "varComplianceCaseID",
                 "type": "string"
               }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable:_Owner": [
+              "Succeeded"
             ]
           }
         }

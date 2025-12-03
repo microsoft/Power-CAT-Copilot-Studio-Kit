@@ -103,7 +103,7 @@
         },
         "Split_into_Key_Val_Pairs": {
           "type": "Compose",
-          "inputs": "@split(\r\n    replace(\r\n        replace(variables('Input'), '{', ''), \r\n        '}', ''\r\n    ), \r\n    '\",\"'\r\n)\r\n",
+          "inputs": "@split(\r\n    replace(\r\n        replace(variables('Input'), '{', ''), \r\n        '}', ''\r\n    ), \r\n    ',\"'\r\n)\r\n",
           "runAfter": {
             "Remove_CB": [
               "Succeeded"
@@ -289,7 +289,7 @@
           "type": "Compose",
           "inputs": "@variables('varViolations')",
           "runAfter": {
-            "KV_Pairs_Not_Empty": [
+            "Apply_to_each_Threshold_Config": [
               "Succeeded"
             ]
           }
@@ -331,7 +331,7 @@
               "type": "Foreach",
               "foreach": "@outputs('Split_into_Key_Val_Pairs')",
               "actions": {
-                "Append_to_array_variable": {
+                "Append_to_Agent_Parameters": {
                   "type": "AppendToArrayVariable",
                   "inputs": {
                     "name": "varTable",
@@ -358,60 +358,11 @@
                       "Succeeded"
                     ]
                   }
-                },
-                "Match_Violation": {
-                  "type": "Query",
-                  "inputs": {
-                    "from": "@body('Parse_Thresholds')",
-                    "where": "@and(equals(item()['cat_filtercolumn'],outputs('Key')),equals(item()['cat_defaultvalue'],outputs('Value')))"
-                  },
-                  "runAfter": {
-                    "Append_to_array_variable": [
-                      "Succeeded"
-                    ]
-                  }
-                },
-                "Check_Violation": {
-                  "type": "If",
-                  "expression": {
-                    "and": [
-                      {
-                        "greater": [
-                          "@length(body('Match_Violation'))",
-                          0
-                        ]
-                      }
-                    ]
-                  },
-                  "actions": {
-                    "Append_Violation": {
-                      "type": "AppendToArrayVariable",
-                      "inputs": {
-                        "name": "varViolations",
-                        "value": "@first(body('Match_Violation'))"
-                      }
-                    },
-                    "Append_to_array_variable_1": {
-                      "type": "AppendToArrayVariable",
-                      "inputs": {
-                        "name": "varViolationsPsv",
-                        "value": "@first(body('Match_Violation'))?['cat_configid']"
-                      },
-                      "runAfter": {
-                        "Append_Violation": [
-                          "Succeeded"
-                        ]
-                      }
-                    }
-                  },
-                  "else": {
-                    "actions": {}
-                  },
-                  "runAfter": {
-                    "Match_Violation": [
-                      "Succeeded"
-                    ]
-                  }
+                }
+              },
+              "runtimeConfiguration": {
+                "concurrency": {
+                  "repetitions": 20
                 }
               }
             }
@@ -481,6 +432,216 @@
           },
           "runAfter": {
             "Get_Policy": [
+              "Succeeded"
+            ]
+          }
+        },
+        "Apply_to_each_Threshold_Config": {
+          "type": "Foreach",
+          "foreach": "@body('Parse_Thresholds')",
+          "actions": {
+            "Switch": {
+              "type": "Switch",
+              "expression": "@items('Apply_to_each_Threshold_Config')?['cat_filteroperator']",
+              "default": {
+                "actions": {}
+              },
+              "cases": {
+                "Equals": {
+                  "actions": {
+                    "Check_Violation": {
+                      "type": "If",
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              1,
+                              1
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {},
+                      "else": {
+                        "actions": {
+                          "Match_Violation": {
+                            "type": "Query",
+                            "inputs": {
+                              "from": "@variables('varTable')",
+                              "where": "@and(equals(item()['cat_filtercolumn'],outputs('Key')),equals(item()['cat_defaultvalue'],outputs('Value')))"
+                            }
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Equals_Value": [
+                          "Succeeded"
+                        ]
+                      }
+                    },
+                    "Equals_Value": {
+                      "type": "If",
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@outputs('Agent_Value')",
+                              "@items('Apply_to_each_Threshold_Config')?['cat_defaultvalue']"
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Append_Violation": {
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "varViolations",
+                            "value": "@items('Apply_to_each_Threshold_Config')"
+                          }
+                        },
+                        "Append_ConfigID_to_String": {
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "varViolationsPsv",
+                            "value": "@items('Apply_to_each_Threshold_Config')?['cat_configid']"
+                          },
+                          "runAfter": {
+                            "Append_Violation": [
+                              "Succeeded"
+                            ]
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      }
+                    }
+                  },
+                  "case": 335350000
+                },
+                "Not_Equals": {
+                  "actions": {
+                    "Does_Not_Equal_Value": {
+                      "type": "If",
+                      "expression": {
+                        "and": [
+                          {
+                            "not": {
+                              "equals": [
+                                "@outputs('Agent_Value')",
+                                "@items('Apply_to_each_Threshold_Config')?['cat_defaultvalue']"
+                              ]
+                            }
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Append_Violation_1": {
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "varViolations",
+                            "value": "@items('Apply_to_each_Threshold_Config')"
+                          }
+                        },
+                        "Append_ConfigID_to_String_1": {
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "varViolationsPsv",
+                            "value": "@items('Apply_to_each_Threshold_Config')?['cat_configid']"
+                          },
+                          "runAfter": {
+                            "Append_Violation_1": [
+                              "Succeeded"
+                            ]
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      },
+                      "runAfter": {}
+                    }
+                  },
+                  "case": 335350001
+                },
+                "Contains": {
+                  "actions": {
+                    "Contains_Value": {
+                      "type": "If",
+                      "expression": {
+                        "and": [
+                          {
+                            "contains": [
+                              "@outputs('Agent_Value')",
+                              "@items('Apply_to_each_Threshold_Config')?['cat_defaultvalue']"
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Append_Violation_2": {
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "varViolations",
+                            "value": "@items('Apply_to_each_Threshold_Config')"
+                          }
+                        },
+                        "Append_ConfigID_to_String_2": {
+                          "type": "AppendToArrayVariable",
+                          "inputs": {
+                            "name": "varViolationsPsv",
+                            "value": "@items('Apply_to_each_Threshold_Config')?['cat_configid']"
+                          },
+                          "runAfter": {
+                            "Append_Violation_2": [
+                              "Succeeded"
+                            ]
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {}
+                      },
+                      "runAfter": {}
+                    }
+                  },
+                  "case": 335350002
+                }
+              },
+              "runAfter": {
+                "Agent_Value": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Operator": {
+              "type": "Compose",
+              "inputs": "@item()?['cat_filteroperator']"
+            },
+            "Find_Parameter": {
+              "type": "Query",
+              "inputs": {
+                "from": "@variables('varTable')",
+                "where": "@equals(item()?['Key'],items('Apply_to_each_Threshold_Config')?['cat_filtercolumn'])"
+              },
+              "runAfter": {
+                "Operator": [
+                  "Succeeded"
+                ]
+              }
+            },
+            "Agent_Value": {
+              "type": "Compose",
+              "inputs": "@first(body('Find_Parameter'))?['Value']",
+              "runAfter": {
+                "Find_Parameter": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {
+            "KV_Pairs_Not_Empty": [
               "Succeeded"
             ]
           }
