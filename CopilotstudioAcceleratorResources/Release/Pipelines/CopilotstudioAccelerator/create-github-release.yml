@@ -82,9 +82,9 @@ steps:
         Write-Host "Conversation.KPIs.zip not found. Skipping."
     }
 
-    # Copy all files from Artifacts folder to release assets
-    Write-Host "Checking for files in the /Release/Artifacts/ folder..."
-    $artifactsFolder = "$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\Artifacts\"
+    # Copy all files from Artefacts folder to release assets
+    Write-Host "Checking for files in the /Release/Artefacts/ folder..."
+    $artifactsFolder = "$(Build.SourcesDirectory)\Power-CAT-Copilot-Studio-Kit\CopilotstudioAcceleratorResources\Release\Artefacts\"
     
     if (Test-Path $artifactsFolder) {
         Write-Host "Artifacts folder found. Copying all files to releaseassets..."
