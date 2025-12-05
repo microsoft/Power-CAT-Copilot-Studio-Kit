@@ -13,10 +13,22 @@ The Agent Review Tool analyzes two key aspects of Copilot Studio agents that use
 
 ## Prerequisites
 
-- Microsoft Power Platform environment with Copilot Studio
-- Power Apps Component Framework (PCF) support enabled
-- Agent development permissions in Copilot Studio
-- Copilot Studio agent configured with Generative AI Orchestration
+1. **Microsoft Dataverse environment with prompts enabled** in the Power Platform admin center - [Enable or disable AI Builder preview features](https://learn.microsoft.com/en-us/ai-builder/administer#enable-or-disable-ai-builder-preview-features)
+
+2. **Copilot Studio Kit installed**
+
+3. **AI Builder**: Ensure AI Builder credits are assigned to your environment - [AI Builder credit management](https://learn.microsoft.com/en-us/ai-builder/credit-management)
+
+4. **Enable Code Interpreter in Admin Center** (requires Power Platform or System Administrator privilege)
+   
+   Enable at the environment level (admin step):
+   - In Power Platform admin center, go to **Copilot** → **Settings**
+   ![Platform admin center - Copilot Section](./media/art_2.png)
+   - Under **Copilot Studio**, open **Code generation and execution in Copilot Studio**
+   - Select your environment, click **Add**
+   ![Platform admin center - Select environment](./media/art_3.png)
+   - Select "Enables code generation execution in Copilot Studio" and **Save**
+   ![Platform admin center - Code generation and execution in Copilot Studio](./media/art_4.png)
 
 ## Scoring methodology
 
@@ -218,3 +230,4 @@ Complete optimization and consistency improvements:
 
 - [Copilot Studio Best Practices for Generative Actions](https://learn.microsoft.com/en-us/microsoft-copilot-studio/advanced-generative-actions#best-practices)
 - [Writing Great Instructions for Copilot Studio](https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-instructions#writing-great-instructions)
+
