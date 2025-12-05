@@ -1,0 +1,419 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{c00a31fa-73cd-487f-bfa7-c3bbd76a1e7b}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{ee291c1c-d297-4b4d-b047-5ffd71c6d156}" IsUserDefined="1" name="tab_general">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{dfe74176-d727-42a2-bd48-3e93ff32afb2}" columns="111" name="tab_general_section_general">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{d03a1766-37c4-4b7d-8fb9-494651a9ffe9}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
+                      </cell>
+                      <cell id="{388086e1-a61b-4e8b-973f-ee8bcfdd5038}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent Compliance Bot ID" languagecode="1033" />
+                        </labels>
+                        <control id="cat_agentcompliancebotid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_agentcompliancebotid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ae7aeedb-2a26-42e5-bc06-319fae92c3c4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Envt Dataverse URL" languagecode="1033" />
+                        </labels>
+                        <control id="cat_envtdataverseurl" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_envtdataverseurl" disabled="false" />
+                      </cell>
+                      <cell id="{06fe0479-2041-4248-b44c-a324175ba8d0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent Owner" languagecode="1033" />
+                        </labels>
+                        <control id="cat_agentowner" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_agentowner" disabled="false" />
+                      </cell>
+                      <cell id="{6586dc2b-b015-4b7b-bbc7-75f0720ff29e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent Owner Email" languagecode="1033" />
+                        </labels>
+                        <control id="cat_agentowneremail" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_agentowneremail" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a7dcc977-a340-4256-b2e9-59d827cf3aea}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Last Modified" languagecode="1033" />
+                        </labels>
+                        <control id="cat_lastmodified" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_lastmodified" disabled="false" />
+                      </cell>
+                      <cell id="{e1fb7666-6e05-4013-b4fa-dddf43bdf2fa}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Last Published" languagecode="1033" />
+                        </labels>
+                        <control id="cat_lastpublished" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_lastpublished" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{dff4c330-0682-4687-8f7b-af2e01ec80ed}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="tab_general_section_pii" id="21e54619-0476-46a5-b390-bd838c1460cb" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
+                  <labels>
+                    <label description="PII" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{ad9101a8-bd5c-4e9b-b0ea-39b5701d8e3f}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="PII Compliance Status" languagecode="1033" />
+                        </labels>
+                        <control id="cat_piicompliancestatus" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_piicompliancestatus" disabled="false" uniqueid="{672c219d-6abf-48f5-b6c0-ddf85969bc84}" />
+                      </cell>
+                      <cell id="{f10af408-4da2-41b7-a284-af73bf2aca67}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="PII Severity" languagecode="1033" />
+                        </labels>
+                        <control id="cat_piiseverity" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_piiseverity" disabled="false" />
+                      </cell>
+                      <cell id="{3404d9fb-148c-4743-80fc-d8afab8371f0}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Transcripts PII Violoations" languagecode="1033" />
+                        </labels>
+                        <control id="cat_transcriptspiivioloations" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_transcriptspiivioloations" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{05a707bf-a2ac-4cfd-baeb-b2239e927214}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="PII Total Transcripts" languagecode="1033" />
+                        </labels>
+                        <control id="cat_totaltranscripts" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_totaltranscripts" disabled="false" />
+                      </cell>
+                      <cell id="{adee6353-a231-426f-b43a-1f1ff6dc7de1}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Perc Transcripts in PII Violation String" languagecode="1033" />
+                        </labels>
+                        <control id="cat_perctranscriptsinpiiviolationstring" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_perctranscriptsinpiiviolationstring" disabled="false" />
+                      </cell>
+                      <cell id="{23a58510-49ec-4f84-87ab-9c339e63249d}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Perc Transcripts in PII Violation" languagecode="1033" />
+                        </labels>
+                        <control id="cat_perctranscriptsinpiiviolation" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="cat_perctranscriptsinpiiviolation" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ebce5760-de6b-4ac9-a8c8-257ba235ddd4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Last PII Found" languagecode="1033" />
+                        </labels>
+                        <control id="cat_lastpiifound" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_lastpiifound" disabled="false" />
+                      </cell>
+                      <cell id="{8432c516-a2c0-4344-96f8-42a940a7c913}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="PII Severity Color" languagecode="1033" />
+                        </labels>
+                        <control id="cat_piiseveritycolor" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_piiseveritycolor" disabled="false" />
+                      </cell>
+                      <cell id="{43bab896-9c3a-474b-a7fe-0d97a0ddedf4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="PII Compliance Status Color" languagecode="1033" />
+                        </labels>
+                        <control id="cat_piicompliancestatuscolor" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_piicompliancestatuscolor" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9ceaf5a5-518e-4309-ab23-3eace669827d}" locklevel="0" colspan="3" rowspan="7">
+                        <labels>
+                          <label description="Non Compliant Data" languagecode="1033" />
+                        </labels>
+                        <control id="cat_noncompliantdata" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_noncompliantdata" disabled="false" uniqueid="{f6ff1d77-caec-4ed6-a158-51616e77b7aa}" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="tab_general_section_sentimentanalysis" id="6a79d90a-98aa-472e-a382-4db6f894f828" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
+                  <labels>
+                    <label description="Sentiment Analysis" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{5403b471-d4d5-4a13-b1f9-dcb5f4dae901}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Sentiment Analysis Status" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sentimentanalysisstatus" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_sentimentanalysisstatus" disabled="false" uniqueid="{fa58744e-1293-4324-8b2c-d10a00c6ae1a}" />
+                      </cell>
+                      <cell id="{184a8626-910e-49df-b127-b69ad8f2a35d}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Sentiment Total Transcripts" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sentimenttotaltranscripts" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_sentimenttotaltranscripts" disabled="false" />
+                      </cell>
+                      <cell id="{737b4803-a160-406f-abc6-62de7eea0994}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Sentiment Analysis Status Color" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sentimentanalysisstatuscolor" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_sentimentanalysisstatuscolor" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{b6bf3abf-35de-4398-ad8a-4536da63a07c}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Sentiment Score - Monthly Average" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sentimentscoremonthlyaverage" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="cat_sentimentscoremonthlyaverage" disabled="false" />
+                      </cell>
+                      <cell id="{5ba4af01-aab4-4bf5-af4b-78f36cee6df5}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Sentiment Score - Monthly Average Bucketted" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sentimentscoremonthlyaveragebucketted" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_sentimentscoremonthlyaveragebucketted" disabled="false" />
+                      </cell>
+                      <cell id="{9899d778-c093-4c7d-a393-04c25513e4a3}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Transcripts with Low Sentiment" languagecode="1033" />
+                        </labels>
+                        <control id="cat_transcriptswithlowsentiment" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_transcriptswithlowsentiment" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{18bc7b4f-7342-4c4e-a6e3-66f7678bc513}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Perc Transcripts with Low Sentiment" languagecode="1033" />
+                        </labels>
+                        <control id="cat_perctranscriptswithlowsentiment" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="cat_perctranscriptswithlowsentiment" disabled="false" />
+                      </cell>
+                      <cell id="{97d3e794-4b56-4941-81b8-10c4ccc4d30f}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Perc Transcripts with Low Sentiment String" languagecode="1033" />
+                        </labels>
+                        <control id="cat_perctranscriptswithlowsentimentstring" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_perctranscriptswithlowsentimentstring" disabled="false" />
+                      </cell>
+                      <cell id="{200af815-4230-4708-97f7-e4fae583e0bc}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Last Low Sentiment Found" languagecode="1033" />
+                        </labels>
+                        <control id="cat_lastlowsentimentfound" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_lastlowsentimentfound" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{bace7b6c-b9b9-4c34-9ee6-d4e5fa1cdb53}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Sentiment Score - Monthly Average Color" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sentimentscoremonthlyaveragecolor" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_sentimentscoremonthlyaveragecolor" disabled="false" />
+                      </cell>
+                      <cell locklevel="0" id="{70825d52-8341-4f17-92a1-52ce3849e93f}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{77c9067c-a13b-4c2c-a16d-686ba5184de1}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{9be0090d-5f0d-42d3-8258-1e6ba219e235}" locklevel="0" colspan="3" rowspan="1">
+                        <labels>
+                          <label description="User Sentiment Data" languagecode="1033" />
+                        </labels>
+                        <control id="cat_usersentimentdata" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_usersentimentdata" disabled="false" uniqueid="{979ea4a8-3cd8-4298-802b-47a400f390b9}" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{9e303ddb-28ee-4191-b4f6-7d601b38f8cc}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{acefd0e5-5712-47a3-b583-a0cc5ab6abe3}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{caecf7f3-a010-43ff-b27f-3404be1b2de6}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{6ff23ad8-fb61-43e3-8f0b-80af752f6af1}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{16544af1-2269-4ea8-966c-5c35e0be0ac7}" colspan="1" rowspan="1">
+              <labels>
+                <label description="Owner" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{7ee0dac0-f397-4c26-b1a4-6acda262ecdf}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{31a576a3-6cd7-488a-91c5-7c29453407d9}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{7a0096ce-5417-43f2-8756-872797929c1f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4981305d-4f27-40d1-8532-e793b7aabf4f}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+      <controlDescriptions>
+        <controlDescription forControl="{f6ff1d77-caec-4ed6-a158-51616e77b7aa}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_noncompliantdata</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_noncompliantdata</Value>
+              <Height type="Whole.None" static="true">30</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_noncompliantdata</Value>
+              <Height type="Whole.None" static="true">30</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_noncompliantdata</Value>
+              <Height type="Whole.None" static="true">30</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{979ea4a8-3cd8-4298-802b-47a400f390b9}">
+          <customControl id="{E0DECE4B-6FC8-4A8F-A065-082708572369}">
+            <parameters>
+              <datafieldname>cat_usersentimentdata</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_usersentimentdata</Value>
+              <Height type="Whole.None" static="true">30</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_usersentimentdata</Value>
+              <Height type="Whole.None" static="true">30</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="cat_PowerCAT.JsonEditor">
+            <parameters>
+              <Value type="Multiple">cat_usersentimentdata</Value>
+              <Height type="Whole.None" static="true">30</Height>
+              <FileColumn type="Enum" static="true">False</FileColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{672c219d-6abf-48f5-b6c0-ddf85969bc84}">
+          <customControl id="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}">
+            <parameters>
+              <datafieldname>cat_piicompliancestatus</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.OptionSet.OptionSetControl">
+            <parameters>
+              <value type="OptionSet">cat_piicompliancestatus</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.OptionSet.OptionSetControl">
+            <parameters>
+              <value type="OptionSet">cat_piicompliancestatus</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.OptionSet.OptionSetControl">
+            <parameters>
+              <value type="OptionSet">cat_piicompliancestatus</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{fa58744e-1293-4324-8b2c-d10a00c6ae1a}">
+          <customControl id="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}">
+            <parameters>
+              <datafieldname>cat_sentimentanalysisstatus</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.OptionSet.OptionSetControl">
+            <parameters>
+              <value type="OptionSet">cat_sentimentanalysisstatus</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.OptionSet.OptionSetControl">
+            <parameters>
+              <value type="OptionSet">cat_sentimentanalysisstatus</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.OptionSet.OptionSetControl">
+            <parameters>
+              <value type="OptionSet">cat_sentimentanalysisstatus</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

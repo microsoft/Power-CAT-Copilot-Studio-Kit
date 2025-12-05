@@ -125,6 +125,7 @@
                   "IsTranscriptAvailable": "@false",
                   "Template": "@item()?['template']",
                   "AgentCreatedByADID": "",
+                  "AgentCreatedByUPN": "",
                   "AgentCreatedByUserID": "@item()?['_createdby_value']",
                   "SchemaName": "@item()?['schemaname']"
                 }
@@ -1209,7 +1210,7 @@
                           "organization": "@triggerBody()['text_3']",
                           "entityName": "systemusers",
                           "recordId": "@items('Apply_to_each:_Agents')?['AgentCreatedByUserID']",
-                          "$select": "azureactivedirectoryobjectid"
+                          "$select": "azureactivedirectoryobjectid, domainname"
                         },
                         "authentication": {
                           "type": "Raw",
@@ -1230,7 +1231,7 @@
                         "operationMetadataId": "ed742b4d-5995-4fc1-ab6b-6809e570d9f7"
                       },
                       "type": "Compose",
-                      "inputs": "@setProperty(outputs('Compose:_Update_Conversation_Transcript_Property'), 'AgentCreatedByADID', if(empty(outputs('Get_a_row_by_ID_from_selected_environment:_CreatedBy')?['body']), outputs('Compose:_Update_Conversation_Transcript_Property')?['AgentCreatedByADID'], outputs('Get_a_row_by_ID_from_selected_environment:_CreatedBy')?['body/azureactivedirectoryobjectid']))"
+                      "inputs": "@setProperty(\r\n\tsetProperty(\r\n\t\toutputs('Compose:_Update_Conversation_Transcript_Property'), \r\n\t\t'AgentCreatedByADID', \r\n\t\tif(\r\n\t\t\tempty(outputs('Get_a_row_by_ID_from_selected_environment:_CreatedBy')?['body']), \r\n\t\t\toutputs('Compose:_Update_Conversation_Transcript_Property')?['AgentCreatedByADID'], \r\n\t\t\toutputs('Get_a_row_by_ID_from_selected_environment:_CreatedBy')?['body/azureactivedirectoryobjectid']\r\n\t\t)\r\n\t),\r\n\t'AgentCreatedByUPN',\r\n\tif(\r\n\t\tempty(outputs('Get_a_row_by_ID_from_selected_environment:_CreatedBy')?['body']), \r\n\t\toutputs('Compose:_Update_Conversation_Transcript_Property')?['AgentCreatedByUPN'], \r\n\t\toutputs('Get_a_row_by_ID_from_selected_environment:_CreatedBy')?['body/domainname']\r\n\t)\r\n)"
                     }
                   },
                   "runAfter": {},
@@ -1302,7 +1303,7 @@
                     "type": "AppendToStringVariable",
                     "inputs": {
                       "name": "ErrorMessage",
-                      "value": "\n@{first(body('Filter_array:_Error_Actions'))?['error']?['message']}@{first(body('Filter_array:_Error_Actions'))?['outputs/body/error']?['message']}\n"
+                      "value": "\n@{if(\r\n\tnot(empty(first(body('Filter_array:_Error_Actions'))?['error']?['message'])),\r\n\tfirst(body('Filter_array:_Error_Actions'))?['error']?['message'],\r\n\tif(\r\n\t\tnot(empty(first(body('Filter_array:_Error_Actions'))?['body/error']?['message'])),\r\n\t\tfirst(body('Filter_array:_Error_Actions'))?['body/error']?['message'],\r\n\t\tif(\r\n\t\t\tnot(empty(first(body('Filter_array:_Error_Actions'))?['outputs/body/error']?['message'])),\r\n\t\t\tfirst(body('Filter_array:_Error_Actions'))?['outputs/body/error']?['message'],\r\n\t\t\tif(\r\n\t\t\t\tnot(empty(first(body('Filter_array:_Error_Actions'))?['outputs/body']?['message'])),\r\n\t\t\t\tfirst(body('Filter_array:_Error_Actions'))?['outputs/body']?['message'],\r\n\t\t\t\t'Error occured'\r\n\t\t\t)\r\n\t\t)\r\n\t)\r\n)}\n"
                     }
                   },
                   "Compose:_Flow_URL": {
