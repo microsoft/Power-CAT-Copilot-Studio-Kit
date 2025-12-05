@@ -23,7 +23,6 @@ You can also join the APAC office hours meeting using this link:
 https://aka.ms/CopilotStudioKitOfficeHoursJoinAPAC
 
 
-
 Please note:
 
 This session is open to public, will be attended by multiple customers and partners and will be recorded.
@@ -32,27 +31,36 @@ We are unable to do detailed troubleshooting or consulting not relevant to a bro
 
 Remember: You can always raise an issue to the Copilot Studio Kit team in the Github: https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues
 
-# Upcoming office hours
-| Date | Status | Slot |
-| :-- | :-- | :-- |
-| May 14 | Confirmed | N/A |
-| May 28 | Confirmed | N/A |
-| June 11 | Confirmed | N/A |
-| June 25 | Confirmed | N/A |
-| July 9 | Confirmed | N/A |
-| July 23 | Confirmed | N/A |
-| Aug 6 | Confirmed | N/A |
-| Aug 20 | Confirmed | N/A |
-| Sep 3 | Confirmed | N/A |
-| Sep 17 | Confirmed | N/A |
-| Oct 1 | Confirmed | N/A |
-| Oct 15 | Confirmed | N/A |
-| Oct 29 | Cancelled (PPCC) | N/A |
-| Nov 12 | Confirmed | N/A |
-| Nov 26 | Confirmed | N/A |
-| Dec 3 | Confirmed | APAC |
-| Dec 10 | Confirmed | US |
-| Dec 17 | TBC | APAC |
-| Dec 24 | Cancelled | US |
+| Session (US Date / APAC Date) | Status | Regional Slot | Notes |
+|-------------------------------|--------|----------------|--------|
+| May 14 / N/A | Completed | US | Original single-slot schedule (7:30 AM PT) |
+| May 28 / N/A | Completed | US | – |
+| June 11 / N/A | Completed | US | – |
+| June 25 / N/A | Completed | US | – |
+| July 9 / N/A | Completed | US | – |
+| July 23 / N/A | Completed | US | – |
+| Aug 6 / N/A | Completed | US | – |
+| Aug 20 / N/A | Completed | US | – |
+| Sep 3 / N/A | Completed | US | – |
+| Sep 17 / N/A | Completed | US | – |
+| Oct 1 / N/A | Completed | US | – |
+| Oct 15 / N/A | Completed | US | – |
+| Oct 29 / N/A | Cancelled (PPCC) | US | – |
+| Nov 12 / N/A | Completed | US | – |
+| Nov 26 / N/A | Completed | US | – |
+| Dec 3 (US) / Dec 4 (APAC) | Completed | APAC | First APAC-friendly slot (9:05 PM PT → next day APAC) |
+| Dec 10 (US) / N/A | Confirmed | US | – |
+| Dec 17 (US) / Dec 18 (APAC) | TBC | APAC | APAC session occurs next day |
+| Dec 24 (US) / N/A | Cancelled | US | – |
+| Dec 31 (US) / Jan 1 (APAC) | TBC | APAC | APAC session occurs next day |
+| Jan 7 (US) / N/A | TBC | US | – |
+| Jan 14 (US) / Jan 15 (APAC) | TBC | APAC | APAC session occurs next day |
+| Jan 21 (US) / N/A | TBC | US | – |
 
+### Time Zone Converter
+For other time zones, use this converter with the base times:
+- **US Sessions**: Tuesdays 10:05 AM Pacific Time
+- **APAC Sessions**: Wednesdays 9:05 PM Pacific Time
+
+[World Clock Meeting Planner](https://www.timeanddate.com/worldclock/meeting.html)
 
