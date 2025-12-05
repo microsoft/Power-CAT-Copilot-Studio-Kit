@@ -11,9 +11,9 @@ This meeting is a regular open forum for customers and partners to learn and ask
 
 There are two regional time slots, and you may join either (or both) depending on your preferred time zone.
 
-[Download US Office Hours Calendar information](https://raw.githubusercontent.com/microsoft/Power-CAT-Copilot-Studio-Kit/refs/heads/main/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-USA.ics)
+[Download US Office Hours Calendar information](https://cdn.jsdelivr.net/gh/microsoft/Power-CAT-Copilot-Studio-Kit@main/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-USA.ics)
 
-[Download APAC Office Hours Calendar information](https://raw.githubusercontent.com/microsoft/Power-CAT-Copilot-Studio-Kit/refs/heads/main/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-APAC.ics)
+[Download APAC Office Hours Calendar information](https://cdn.jsdelivr.net/gh/microsoft/Power-CAT-Copilot-Studio-Kit@main/CopilotstudioAcceleratorResources/OfficeHours/CopilotStudioKitOfficeHours-APAC.ics)
 
 
 You can also join the US office hours meeting using this link:
