@@ -50,7 +50,7 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | Nov 26 / N/A | Completed | US | – |
 | Dec 3 (US) / Dec 4 (APAC) | Completed | APAC | First APAC-friendly slot (9:05 PM PT → next day APAC) |
 | Dec 10 (US) / N/A | Confirmed | US | – |
-| Dec 17 (US) / Dec 18 (APAC) | TBC | APAC | APAC session occurs next day |
+| Dec 17 (US) / Dec 18 (APAC) | Confirmed | APAC | APAC session occurs next day |
 | Dec 24 (US) / N/A | Cancelled | US | – |
 | Dec 31 (US) / Jan 1 (APAC) | TBC | APAC | APAC session occurs next day |
 | Jan 7 (US) / N/A | TBC | US | – |
