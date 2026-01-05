@@ -53,9 +53,9 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | Dec 17 (US) / Dec 18 (APAC) | Confirmed | APAC | APAC session occurs next day |
 | Dec 24 (US) / N/A | Cancelled | US | – |
 | Dec 31 (US) / Jan 1 (APAC) | TBC | APAC | APAC session occurs next day |
-| Jan 7 (US) / N/A | TBC | US | – |
+| Jan 7 (US) / N/A | Confirmed | US | – |
 | Jan 14 (US) / Jan 15 (APAC) | TBC | APAC | APAC session occurs next day |
-| Jan 21 (US) / N/A | TBC | US | – |
+| Jan 21 (US) / N/A | Confirmed | US | – |
 
 ### Time Zone Converter
 For other time zones, use this converter with the base times:
