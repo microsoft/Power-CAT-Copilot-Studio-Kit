@@ -61,7 +61,6 @@ The Copilot Studio Kit includes two primary security roles designed to support d
 | **SharePoint Synchronization** | Tables for configuring file indexing from SharePoint.                                                         |
 | **Agent Value Summary**        | Tables for tracking agent value metrics.                                                                      |
 | **Common**                     | Shared configuration tables used across multiple features.                                                    |
-| **Unknown**                    | Tables with undefined or legacy purposes.                                                                     |
 
 ---
 
