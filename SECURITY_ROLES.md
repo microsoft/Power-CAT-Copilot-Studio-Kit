@@ -60,7 +60,6 @@ The Copilot Studio Kit includes two primary security roles designed to support d
 | **SharePoint Synchronization** | Tables for configuring file indexing from SharePoint.                                                         |
 | **Agent Value Summary**        | Tables for tracking agent value metrics.                                                                      |
 | **Common**                     | Shared configuration tables used across multiple features.                                                    |
-| **Unknown**                    | Tables with undefined or legacy purposes.                                                                     |
 
 ---
 
@@ -208,7 +207,7 @@ The Administrator role provides comprehensive access to manage all aspects of th
 <td></td>
 </tr>
 <tr>
-<td rowspan="2">Agent Compliance</td>
+<td rowspan="5">Agent Compliance</td>
 <td>Agent Compliance</td>
 <td>🟢</td>
 <td>🟢</td>
@@ -221,14 +220,47 @@ The Administrator role provides comprehensive access to manage all aspects of th
 </tr>
 <tr>
 <td>Compliance Case</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+</tr>
+<tr>
+<td>Agent Fact Row Counts</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+</tr>
+<tr>
+<td>Threshold Config</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+</tr>
+<tr>
+<td>Action Policy</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
 </tr>
 <tr>
 <td>Webchat Playground</td>
@@ -412,40 +444,6 @@ The Administrator role provides comprehensive access to manage all aspects of th
 <td>🟢</td>
 <td>🚫</td>
 <td>🚫</td>
-</tr>
-<tr>
-<td rowspan="3">Unknown</td>
-<td>Agent Fact Row Counts</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-</tr>
-<tr>
-<td>Threshold Config</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-</tr>
-<tr>
-<td>Action Policy</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
 </tr>
 </table>
 
@@ -595,7 +593,7 @@ The Maker role provides access for users who build and test agents, with limited
 <td></td>
 </tr>
 <tr>
-<td rowspan="2">Agent Compliance</td>
+<td rowspan="5">Agent Compliance</td>
 <td>Agent Compliance</td>
 <td>🚫</td>
 <td>🚫</td>
@@ -608,6 +606,39 @@ The Maker role provides access for users who build and test agents, with limited
 </tr>
 <tr>
 <td>Compliance Case</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+</tr>
+<tr>
+<td>Agent Fact Row Counts</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+</tr>
+<tr>
+<td>Threshold Config</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+</tr>
+<tr>
+<td>Action Policy</td>
 <td>🚫</td>
 <td>🚫</td>
 <td>🚫</td>
@@ -800,40 +831,6 @@ The Maker role provides access for users who build and test agents, with limited
 <td>🚫</td>
 <td>🚫</td>
 </tr>
-<tr>
-<td rowspan="3">Unknown</td>
-<td>Agent Fact Row Counts</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-</tr>
-<tr>
-<td>Threshold Config</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-</tr>
-<tr>
-<td>Action Policy</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
 </table>
 
 ---
@@ -845,7 +842,7 @@ The Maker role provides access for users who build and test agents, with limited
 | **Test Automation**       | Full Organization access                            | Full access except User-level for Test Results                         |
 | **Conversation KPI**      | Full Organization access                            | No access                                                              |
 | **Agent Inventory**       | Full Organization access                            | No access                                                              |
-| **Agent Compliance**      | Organization access (except Compliance Case)        | No access                                                              |
+| **Agent Compliance**      | Full Organization access                            | No access                                                              |
 | **Conversation Analyzer** | Full Organization access                            | No access                                                              |
 | **Agent Review Tool**     | Mixed (User for reviews, Organization for patterns) | Mixed (User for reviews, Organization for patterns, no Delete on some) |
 | **SharePoint Sync**       | Organization access                                 | User-level access                                                      |
