@@ -207,18 +207,7 @@ The Administrator role provides comprehensive access to manage all aspects of th
 <td></td>
 </tr>
 <tr>
-<td rowspan="5">Agent Compliance</td>
-<td>Agent Compliance</td>
-<td>🟢</td>
-<td>🟢</td>
-<td>🟢</td>
-<td>🟢</td>
-<td>🟢</td>
-<td>🟢</td>
-<td>🟢</td>
-<td>🟢</td>
-</tr>
-<tr>
+<td rowspan="4">Agent Compliance</td>
 <td>Compliance Case</td>
 <td>🟢</td>
 <td>🟢</td>
@@ -275,7 +264,18 @@ The Administrator role provides comprehensive access to manage all aspects of th
 <td>🟢</td>
 </tr>
 <tr>
-<td rowspan="2">Conversation Analyzer</td>
+<td rowspan="3">Conversation Analyzer</td>
+<td>Agent Compliance</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+<td>🟢</td>
+</tr>
+<tr>
 <td>Conversation Analyzer</td>
 <td>🟢</td>
 <td>🟢</td>
@@ -593,18 +593,7 @@ The Maker role provides access for users who build and test agents, with limited
 <td></td>
 </tr>
 <tr>
-<td rowspan="5">Agent Compliance</td>
-<td>Agent Compliance</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-<td>🚫</td>
-</tr>
-<tr>
+<td rowspan="4">Agent Compliance</td>
 <td>Compliance Case</td>
 <td>🚫</td>
 <td>🚫</td>
@@ -661,7 +650,18 @@ The Maker role provides access for users who build and test agents, with limited
 <td>🟢</td>
 </tr>
 <tr>
-<td rowspan="2">Conversation Analyzer</td>
+<td rowspan="3">Conversation Analyzer</td>
+<td>Agent Compliance</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+<td>🚫</td>
+</tr>
+<tr>
 <td>Conversation Analyzer</td>
 <td>🚫</td>
 <td>🚫</td>
