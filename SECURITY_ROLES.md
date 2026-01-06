@@ -11,18 +11,12 @@ The Copilot Studio Kit includes two primary security roles designed to support d
 | **CSK - Administrator** | Full administrative access to all CSK features. Intended for solution administrators who need to configure, manage, and maintain the entire Copilot Studio Kit. Administrators have Organization-level access to most tables, allowing them to view and manage all records across the organization.             |
 | **CSK - Maker**         | Limited access designed for users who create and test agents. Makers typically have User-level access, allowing them to work with their own records while having read access to shared configuration data. This role is suitable for developers and testers who need to build and validate agent functionality. |
 
-<table>
-<tr>
-<td style="background-color: #f0f0f0; border: 1px solid #ccc; padding: 12px;">
-<strong>⚠️ Note:</strong> The following legacy security roles have been deprecated and should no longer be used. Please migrate users to the new <strong>CSK - Administrator</strong> or <strong>CSK - Maker</strong> roles:
-<ul>
-<li>Copilot Studio Kit - Administrator - Deprecated</li>
-<li>Copilot Studio Kit - Configurator - Deprecated</li>
-<li>Copilot Studio Kit - Tester/KPI Viewer - Deprecated</li>
-</ul>
-</td>
-</tr>
-</table>
+> [!NOTE]
+> The following legacy security roles have been deprecated and should no longer be used. Please migrate users to the new **CSK - Administrator** or **CSK - Maker** roles:
+>
+> - Copilot Studio Kit - Administrator - Deprecated
+> - Copilot Studio Kit - Configurator - Deprecated
+> - Copilot Studio Kit - Tester/KPI Viewer - Deprecated
 
 ---
 
