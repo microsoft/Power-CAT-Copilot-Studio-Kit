@@ -4,7 +4,7 @@ After completing the installation of Power CAT Copilot Studio Kit, you can grant
 
 It's a best practice to security assign roles via Entra ID group and team memberships, but you can also assign them manually and individually to users.
 
-For more informartion on security roles, go to the [Security Roles](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/SECURITY_ROLES.md)
+For more information on security roles, go to the [Security Roles](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/SECURITY_ROLES.md)
 
 ## Navigate to the Power Platform Admin Center
 
