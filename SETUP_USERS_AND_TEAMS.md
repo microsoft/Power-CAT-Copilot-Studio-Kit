@@ -6,11 +6,7 @@ It's a best practice to security assign roles via Entra ID group and team member
 
 ## Power CAT Copilot Studio Kit security roles
 
-| Security role | Description |
-| --- | --- |
-| Power CAT Copilot Studio Kit Administrator | Full permissions on the Power CAT Copilot Studio Kit tables as well on the standard Copilot Studio tables, such as Conversation Transcripts. |
-| Power CAT Copilot Studio Kit Configurator | Full permissions permissions for user-owned Power CAT Copilot Studio Kit tables and Copilot Studio tables. |
-| Power CAT Copilot Studio Kit Tester | Permissions to create and run tests. |
+For security roles, go to the [Security Roles](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/SECURITY_ROLES.md)
 
 ## Navigate to the Power Platform Admin Center
 
