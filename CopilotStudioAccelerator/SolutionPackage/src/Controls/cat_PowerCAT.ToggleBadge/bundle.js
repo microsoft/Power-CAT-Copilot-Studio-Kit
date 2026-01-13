@@ -1,9 +1,0 @@
-/*! For license information please see bundle.js.LICENSE.txt */
-var pcf_tools_652ac3f36e1e4bca82eb3c1dc44e6fad;(()=>{"use strict";var e={d:(t,r)=>{for(var a in r)e.o(r,a)&&!e.o(t,a)&&Object.defineProperty(t,a,{enumerable:!0,get:r[a]})},o:(e,t)=>Object.prototype.hasOwnProperty.call(e,t),r:e=>{"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})}},t={};e.r(t),e.d(t,{ToggleBadge:()=>l});const r=Reactv16,a=FluentUIReactv940;var o=e=>{var{value:t,onText:o,offText:l,size:n}=e,i=!!t;return r.createElement("div",{style:{display:"flex",alignItems:"center"}},r.createElement(a.Badge,{shape:"rounded",size:null!=n?n:"large",color:i?"brand":"informative"},i?"string"==typeof o&&o.length>0?o:"On":"string"==typeof l&&l.length>0?l:"Off"))};class l{init(e,t,r){this.notifyOutputChanged=t}updateView(e){var t,a,l,n,i,d,f,u=null!==(a=null===(t=e.parameters.toggleState)||void 0===t?void 0:t.raw)&&void 0!==a&&a,s=null!==(n=null===(l=e.parameters.onText)||void 0===l?void 0:l.raw)&&void 0!==n?n:"On",c=null!==(d=null===(i=e.parameters.offText)||void 0===i?void 0:i.raw)&&void 0!==d?d:"Off",v=null===(f=e.parameters.size)||void 0===f?void 0:f.raw;return r.createElement(o,{value:u,onText:s,offText:c,size:v})}getOutputs(){return{}}destroy(){}}pcf_tools_652ac3f36e1e4bca82eb3c1dc44e6fad=t})();
-if (window.ComponentFramework && window.ComponentFramework.registerControl) {
-	ComponentFramework.registerControl('PowerCAT.ToggleBadge', pcf_tools_652ac3f36e1e4bca82eb3c1dc44e6fad.ToggleBadge);
-} else {
-	var PowerCAT = PowerCAT || {};
-	PowerCAT.ToggleBadge = pcf_tools_652ac3f36e1e4bca82eb3c1dc44e6fad.ToggleBadge;
-	pcf_tools_652ac3f36e1e4bca82eb3c1dc44e6fad = undefined;
-}
