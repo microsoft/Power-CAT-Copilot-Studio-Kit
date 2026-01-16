@@ -12,6 +12,11 @@
    - [Step 4: Run Initial Sync](#step-4-run-initial-sync)
 5. [Features & Navigation](#features--navigation)
 6. [KPIs & Metrics Reference](#kpis--metrics-reference)
+   - [Daily Metrics](#daily-metrics)
+   - [Topic Metrics](#topic-metrics)
+   - [Error Details](#error-details)
+   - [Tool Metrics](#tool-metrics)
+   - [Action Metrics](#action-metrics)
 7. [Import Queries (KQL)](#import-queries-kql)
 8. [Sync Operations](#sync-operations)
 9. [UI Components Reference](#ui-components-reference)
@@ -61,7 +66,7 @@ flowchart TB
         end
 
         subgraph "Dataverse"
-            DV1[("📊 Metrics Tables<br/>• Daily Metrics<br/>• Topic Metrics<br/>• Error Details<br/>• Tool Metrics<br/>• Action Metrics")]
+            DV1[("📊 Metrics Tables<br/>📊 Daily Metrics<br/>📊 Topic Metrics<br/>📊 Error Details<br/>📊 Tool Metrics<br/>📊 Action Metrics")]
             DV2[("⚙️ Agent Configurations")]
             DV3[("📝 Sync Logs")]
         end
@@ -124,7 +129,7 @@ sequenceDiagram
         PA->>DV: Create Sync Log Entry
     end
 
-    Note over User,AI: Manual Sync Now
+    Note over User,AI: Manual Sync (Sync Now)
     User->>App: Click "Sync Now"
     App->>DV: Update ActionParameters
     DV-->>PA: Trigger Flow (Record Modified)
@@ -151,15 +156,9 @@ Before setting up Agent Insights Hub, ensure you have:
 
 ### Power Platform Requirements
 
-- [ ] System Administrator role in Dataverse environment
-- [ ] Power Automate Premium license (for HTTP connector)
+- [ ] CSK - Administrator / System Administrator role in Dataverse environment
+- [ ] Power Automate Premium license
 - [ ] Copilot Studio Kit solution installed
-
-### Technical Knowledge
-
-- [ ] Basic understanding of Azure AD authentication
-- [ ] Familiarity with KQL (Kusto Query Language) - optional
-- [ ] Power Automate flow management - optional
 
 ---
 
@@ -241,13 +240,6 @@ Agent Insights Hub uses OAuth 2.0 client credentials to securely query Applicati
 4. Click **Add**
 5. **IMPORTANT:** Copy the secret **Value** immediately
 
-**Secret Storage Options:**
-
-| Option                      | Security Level | Configuration                                |
-| --------------------------- | -------------- | -------------------------------------------- |
-| **Key Vault** (Recommended) | High           | `cat_azureappinsightssecretlocationcode = 2` |
-| **Dataverse**               | Medium         | `cat_azureappinsightssecretlocationcode = 1` |
-
 #### 2.3 Grant API Permissions
 
 1. In App Registration → **API permissions**
@@ -271,10 +263,9 @@ Agent Insights Hub uses OAuth 2.0 client credentials to securely query Applicati
 
 From your Application Insights resource, copy:
 
-| Field          | Where to Find    | Store In                            |
-| -------------- | ---------------- | ----------------------------------- |
-| Application ID | API Access blade | `cat_azureappinsightsapplicationid` |
-| Workspace ID   | Properties blade | Used in KQL queries                 |
+| Field          | Where to Find    | Store In              |
+| -------------- | ---------------- | --------------------- |
+| Application ID | API Access blade | `App Insights App ID` |
 
 ---
 
@@ -286,15 +277,15 @@ From your Application Insights resource, copy:
 2. Click **Add Agent** button (+ icon)
 3. Fill in the configuration form:
 
-| Field                   | Description                           | Example                |
-| ----------------------- | ------------------------------------- | ---------------------- |
-| **Name**                | Display name for this config          | `Production HR Bot`    |
-| **Agent Name**          | Exact name from Copilot Studio        | `HR Assistant`         |
-| **App Insights App ID** | Application ID from Azure             | `abc123-...`           |
-| **Tenant ID**           | Azure AD Tenant ID                    | `xyz789-...`           |
-| **Client ID**           | App Registration Client ID            | `def456-...`           |
-| **Secret Location**     | Where secret is stored                | Dataverse or Key Vault |
-| **Secret**              | Client secret value or Key Vault name | `***`                  |
+| Field                   | Description                    | Example             |
+| ----------------------- | ------------------------------ | ------------------- |
+| **Name**                | Display name for this config   | `Production HR Bot` |
+| **Agent Name**          | Exact name from Copilot Studio | `HR Assistant`      |
+| **App Insights App ID** | Application ID from Azure      | `abc123-...`        |
+| **Tenant ID**           | Azure AD Tenant ID             | `xyz789-...`        |
+| **Client ID**           | App Registration Client ID     | `def456-...`        |
+| **Secret Location**     | Where secret is stored         | Dataverse           |
+| **Secret**              | Client secret value            | `***`               |
 
 4. Click **Save**
 
@@ -315,13 +306,13 @@ From your Application Insights resource, copy:
 | Secret               | When Location=1 | Client secret value              |
 | Environment Variable | When Location=2 | Key Vault secret name            |
 
-4. **Upload:** Drag and drop your Excel file
+4. **Paste:** Copy all cells from Excel and paste directly into the import grid
 5. **Review:** Check the preview grid for errors
 6. **Import:** Click **Import All** to create configurations
 
 #### Bulk Import Features
 
-- **Paste from Excel:** Copy cells and paste directly into the grid
+- **Paste from Excel:** Copy cells from Excel and paste directly into the grid
 - **Edit in Grid:** Modify values directly in the spreadsheet-like interface
 - **Row Validation:** Red highlighting shows invalid rows
 - **Progress Tracking:** See real-time import progress
@@ -332,68 +323,74 @@ From your Application Insights resource, copy:
 
 After configuring agents, sync historical data:
 
-#### Sync Now (Incremental)
+#### Sync Now
 
-Syncs yesterday's data for selected agent(s):
+Use the **Sync Now** button to sync data for selected agent(s):
 
-1. Select agent from dropdown (or "All Agents")
-2. Click **Sync Now** button
-3. Wait for confirmation toast message
-4. View results in **Sync Logs** page
+1. Click **Sync now** button on the Overview tab
+2. Select agent configuration:
+   - "All Agents" to sync all configured agents
+   - Or select a specific agent
+3. Set date range using the Start Date and End Date pickers
+   - Maximum range is 365 days
+4. Click **Run**
+5. Monitor progress in the **Sync Logs** tab
 
-#### Generate Metrics (Historical Backfill)
-
-Backfills up to 180 days of historical data:
-
-1. Click **Generate Metrics** button
-2. Select agent configuration
-3. Choose date range:
-   - **Last 7 Days**
-   - **Last 30 Days**
-   - **Last 90 Days**
-   - **Last 180 Days**
-   - **Custom Range**
-4. Click **Generate**
-5. Monitor progress in Sync Logs
-
-> ⚠️ **Note:** Historical backfill may take several minutes depending on data volume.
+> ⚠️ **Note:** Syncing large date ranges may take several minutes depending on data volume. Estimated time is shown in the dialog.
 
 ---
 
 ## Features & Navigation
 
-### Navigation Menu
+### Navigation Structure
 
-| Page              | Icon | Description                                       |
-| ----------------- | ---- | ------------------------------------------------- |
-| **Home**          | 🏠   | Dashboard overview with key metrics and charts    |
-| **Daily Metrics** | 📊   | Day-by-day session, message, and response metrics |
-| **Topic Metrics** | 📑   | Topic performance, completion rates, durations    |
-| **Error Details** | ❌   | Error tracking, codes, and trends                 |
-| **Tool Metrics**  | 🔧   | Action/connector execution times                  |
-| **Sync Logs**     | 📝   | History of sync operations                        |
+Agent Insights Hub uses a two-level navigation structure:
+
+1. **App-Level Navigation (NavRail)** - Collapsible side rail with Home and Features
+2. **Feature-Level Navigation (TabList)** - Horizontal tabs within the Monitoring feature
+
+### App-Level Navigation
+
+| Item                   | Icon                | Description                                        |
+| ---------------------- | ------------------- | -------------------------------------------------- |
+| **Home**               | 🏠                  | App landing page showing available features        |
+| **Agent Insights Hub** | 📊 (DataUsage icon) | Main monitoring feature with tabbed sub-navigation |
+
+### Feature Tab Navigation (Agent Insights Hub)
+
+| Tab               | Description                                                      |
+| ----------------- | ---------------------------------------------------------------- |
+| **Overview**      | Dashboard with key metrics, charts, insights, and action buttons |
+| **Daily Metrics** | Day-by-day session, message, and response time metrics           |
+| **Topics**        | Topic performance, trigger counts, completion rates, durations   |
+| **Actions**       | Node kind execution times, action performance by topic           |
+| **Tools**         | Tool/connector invocation counts, success rates, elapsed times   |
+| **Errors**        | Error tracking, error codes, affected sessions, trends           |
+| **Sync Logs**     | History of sync operations with status and execution details     |
 
 ### Global Filters
 
-All pages share common filters in the header:
+All tabs (except Sync Logs) share common filters in the header bar:
 
-| Filter         | Options                       | Description                    |
-| -------------- | ----------------------------- | ------------------------------ |
-| **Agent**      | All Agents / [Specific Agent] | Filter data by agent           |
-| **Date Range** | Last 7/30/90/180 days, Custom | Time period for metrics        |
-| **Channel**    | All / Teams / WebChat / etc.  | Filter by conversation channel |
-| **Data Mode**  | Production / Test / Both      | Include or exclude test data   |
+| Filter      | Options                                   | Description                    |
+| ----------- | ----------------------------------------- | ------------------------------ |
+| **Agent**   | All Agents / [Specific Agent]             | Filter data by agent           |
+| **Date**    | Last 7/30/90/180/365 days, Custom         | Time period for metrics        |
+| **Channel** | All / Teams / WebChat / DirectLine / etc. | Filter by conversation channel |
+| **Data**    | Production / Test data / All data         | Include or exclude test data   |
+
+> **Note:** Sync Logs tab does not display the global filter bar as it shows all log records.
 
 ### Action Buttons
 
-| Button               | Action                         | Availability     |
-| -------------------- | ------------------------------ | ---------------- |
-| **Add Agent**        | Create new agent configuration | Home page        |
-| **Show Agents**      | View/edit all configurations   | Home page        |
-| **Bulk Import**      | Import multiple configurations | Home page        |
-| **Generate Metrics** | Backfill historical data       | Home page        |
-| **Sync Now**         | Trigger immediate sync         | Home page        |
-| **Export**           | Download data as Excel         | All metric pages |
+| Button          | Action                         | Availability    |
+| --------------- | ------------------------------ | --------------- |
+| **Add Agent**   | Create new agent configuration | Overview tab    |
+| **Show Agents** | View/edit all configurations   | Overview tab    |
+| **Bulk Import** | Import multiple configurations | Overview tab    |
+| **Sync Now**    | Sync data for selected agents  | Overview tab    |
+| **Download**    | Download data as Excel         | All metric tabs |
+| **Refresh**     | Reload sync log data           | Sync Logs tab   |
 
 ---
 
@@ -454,6 +451,47 @@ All pages share common filters in the header:
 | **Avg Elapsed Time** | Mean execution time      | `Total Elapsed / Invocation Count`            |
 | **P90 Elapsed Time** | 90th percentile duration | For SLA monitoring                            |
 | **Max Elapsed Time** | Slowest execution        | For identifying bottlenecks                   |
+
+### Action Metrics
+
+Tracks execution times by action node type for performance investigations, with granularity down to specific topics and actions.
+
+| KPI                      | Description               | Calculation                                |
+| ------------------------ | ------------------------- | ------------------------------------------ |
+| **Node Kind**            | Type of action node       | e.g., InvokeFlowAction, SearchAndSummarize |
+| **Topic ID**             | Associated topic          | Topic where action executed                |
+| **Action ID**            | Specific action instance  | Unique action identifier within topic      |
+| **Execution Count**      | Times action executed     | Count of action executions                 |
+| **Total Elapsed (ms)**   | Sum of all elapsed times  | For weighted average calculations          |
+| **Daily Conversations**  | Distinct conversations    | `dcount(conversationId)` for the day       |
+| **Avg Elapsed Time**     | Mean execution time       | `Total Elapsed / Execution Count`          |
+| **Min/Max Elapsed Time** | Time boundaries           | Fastest and slowest executions             |
+| **Std Dev Elapsed Time** | Time variability          | Standard deviation of elapsed times        |
+| **P10/P50/P90/P95/P99**  | Percentile response times | Distribution analysis for SLAs             |
+
+#### Node Kinds (Action Types)
+
+| Node Kind                   | Description                  |
+| --------------------------- | ---------------------------- |
+| `InvokeFlowAction`          | External Power Automate flow |
+| `InvokeConnectorAction`     | Connector/API call           |
+| `SearchAndSummarizeContent` | Generative answers search    |
+| `HttpRequest`               | HTTP request action          |
+| `SendActivity`              | Send message to user         |
+| `SetVariable`               | Variable assignment          |
+| `ConditionAction`           | If/then branching            |
+| `QuestionAction`            | User input prompt            |
+| `MessageAction`             | Bot message                  |
+| `TopicRedirectAction`       | Redirect to another topic    |
+| `ForEachAction`             | Loop over collection         |
+| `ParseValueAction`          | Parse/transform data         |
+| `CreateRecordAction`        | Dataverse create             |
+| `UpdateRecordAction`        | Dataverse update             |
+| `DeleteRecordAction`        | Dataverse delete             |
+| `ListRecordAction`          | Dataverse query              |
+| `AuthenticateAction`        | Auth/login flow              |
+| `EndConversationAction`     | End session                  |
+| `HandoffAction`             | Transfer to human agent      |
 
 ---
 
@@ -517,9 +555,9 @@ A Power Automate flow runs daily at **2:00 AM UTC** to:
 4. Upsert results into Dataverse tables
 5. Log execution status
 
-### Manual Sync Now
+### Manual Sync (Sync Now)
 
-Triggers immediate sync for selected agent(s):
+Triggers sync for selected agent(s) and date range:
 
 ```mermaid
 flowchart LR
@@ -559,17 +597,6 @@ flowchart LR
 - [ ] Sync has been run (check Sync Logs)
 - [ ] Date range filter includes data dates
 - [ ] Agent filter matches configuration name
-
-**Debug Steps:**
-
-1. Run this query in Application Insights:
-   ```kql
-   customEvents
-   | where timestamp > ago(7d)
-   | where cloud_RoleName == "Microsoft Copilot Studio"
-   | summarize count() by cloud_RoleInstance
-   ```
-2. Verify `cloud_RoleInstance` matches your agent name in configuration
 
 #### 2. Sync Failing with Authentication Error
 
@@ -622,7 +649,6 @@ flowchart LR
 **Checklist:**
 
 - [ ] All required fields populated (Name, Agent Name, App Insights App ID, Tenant ID, Client ID)
-- [ ] GUIDs are in correct format (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx)
 - [ ] No special characters in Name field
 - [ ] Secret provided when Secret Location = Dataverse
 
@@ -672,78 +698,44 @@ flowchart LR
 | Application Insights Overview   | [Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview)                                                                                        |
 | KQL Quick Reference             | [Microsoft Learn](https://learn.microsoft.com/en-us/azure/data-explorer/kql-quick-reference)                                                                                              |
 
-### Related Documentation
-
-| Document              | Location                                                        |
-| --------------------- | --------------------------------------------------------------- |
-| Dataverse Schema      | [DATAVERSE_SCHEMA.md](../../../docs/DATAVERSE_SCHEMA.md)        |
-| Flow Specifications   | [FLOW_SPECIFICATIONS.md](../../../flows/FLOW_SPECIFICATIONS.md) |
-| Azure AD Auth Setup   | [AZURE_AD_AUTH_SETUP.md](../../../docs/AZURE_AD_AUTH_SETUP.md)  |
-| Import Queries README | [Import Queries README](../../../Import%20Queries/README.md)    |
-| KPI Gap Analysis      | [KPI_GAP_ANALYSIS.md](../../../docs/KPI_GAP_ANALYSIS.md)        |
-
-### Source Code
-
-| Component     | Location                                                                   |
-| ------------- | -------------------------------------------------------------------------- |
-| Main App      | [App.tsx](../src/App.tsx)                                                  |
-| Home Page     | [HomePage.tsx](../src/pages/HomePage/HomePage.tsx)                         |
-| Daily Metrics | [DailyMetricsPage.tsx](../src/pages/DailyMetricsPage/DailyMetricsPage.tsx) |
-| Topic Metrics | [TopicMetricsPage.tsx](../src/pages/TopicMetricsPage/TopicMetricsPage.tsx) |
-| Error Details | [ErrorDetailsPage.tsx](../src/pages/ErrorDetailsPage/ErrorDetailsPage.tsx) |
-| Tool Metrics  | [ToolMetricsPage.tsx](../src/pages/ToolMetricsPage/ToolMetricsPage.tsx)    |
-| Sync Logs     | [SyncLogsPage.tsx](../src/pages/SyncLogsPage/SyncLogsPage.tsx)             |
-| Dialogs       | [components/Dialogs/](../src/components/Dialogs/)                          |
-
-### External Tools
-
-| Tool             | Purpose                | Link                                                               |
-| ---------------- | ---------------------- | ------------------------------------------------------------------ |
-| Azure Portal     | Manage Azure resources | [portal.azure.com](https://portal.azure.com)                       |
-| Power Apps Maker | Build Power Apps       | [make.powerapps.com](https://make.powerapps.com)                   |
-| Power Automate   | Manage flows           | [make.powerautomate.com](https://make.powerautomate.com)           |
-| Copilot Studio   | Manage agents          | [copilotstudio.microsoft.com](https://copilotstudio.microsoft.com) |
-
 ---
 
 ## UI Components Reference
 
 ### Action Buttons (Home Page)
 
-| Button          | Icon | Description                      | Action                                                                                |
-| --------------- | ---- | -------------------------------- | ------------------------------------------------------------------------------------- |
-| **Add Agent**   | ➕   | Create a new agent configuration | Opens Add Agent Dialog to configure a new Copilot agent with App Insights credentials |
-| **Show Agents** | 👁️   | View all configured agents       | Opens dialog showing all agent configurations with edit/delete options                |
-| **Bulk Import** | ⬆️   | Import multiple agents at once   | Opens Excel-like grid for bulk configuration import                                   |
-| **Sync Now**    | 🔄   | Trigger immediate data sync      | Opens Generate Metrics Dialog to sync data for selected agent(s)                      |
-| **Export**      | ⬇️   | Export data to Excel             | Downloads current view data as Excel file (available on metric pages)                 |
+The Overview tab displays action buttons in the header area:
+
+| Button          | Icon           | Description                      | Action                                                                                |
+| --------------- | -------------- | -------------------------------- | ------------------------------------------------------------------------------------- |
+| **Sync now**    | 🔄 ArrowSync   | Sync data for selected agents    | Opens Sync Now Dialog to sync data for selected agent(s) and date range               |
+| **Add agent**   | ➕ Add         | Create a new agent configuration | Opens Add Agent Dialog to configure a new Copilot agent with App Insights credentials |
+| **Bulk import** | ⬆️ ArrowUpload | Import multiple agents at once   | Opens Excel-like grid for bulk configuration import                                   |
+| **Show agents** | 👁️ Eye         | View all configured agents       | Opens dialog showing all agent configurations with edit/delete options                |
+
+> **Note:** When no configurations or metrics exist, the page displays an empty state with these same buttons prominently displayed.
 
 ### Key Metrics Cards (Home Page)
 
-The top row displays 6 key metric cards with trend indicators:
+The "Key metrics" section displays 6 metric cards at the top of the Overview tab:
 
-| Metric Card               | Icon | Description                                   | Trend Calculation                          |
-| ------------------------- | ---- | --------------------------------------------- | ------------------------------------------ |
-| **Conversation Sessions** | 💬   | Total unique conversations in selected period | Compares to previous period of same length |
-| **Unique Users**          | 👥   | Distinct users who interacted with agent      | Compares to previous period                |
-| **Responses**             | ↩️   | Total bot responses sent                      | No trend shown                             |
-| **Avg Response**          | ⏱️   | Average response time in seconds              | No trend shown                             |
-| **Duration**              | ⏲️   | Average session duration in minutes           | Compares to previous period                |
-| **Errors**                | ❌   | Total errors occurred                         | Inverted trend (down is good)              |
+| Metric Card               | Icon           | Description                                   | Trend Calculation                          |
+| ------------------------- | -------------- | --------------------------------------------- | ------------------------------------------ |
+| **Conversation sessions** | 💬 Chat        | Total unique conversations in selected period | Compares to previous period of same length |
+| **Unique users**          | 👥 People      | Distinct users who interacted with agent      | Compares to previous period                |
+| **Responses**             | ↩️ ArrowReply  | Total bot responses sent                      | No trend shown                             |
+| **Avg response**          | ⏱️ Gauge       | Average response time in seconds              | No trend shown                             |
+| **Duration**              | ⏲️ Timer       | Average session duration in minutes           | Compares to previous period                |
+| **Errors**                | ❌ ErrorCircle | Total errors occurred                         | Inverted trend (down is good)              |
 
 **Trend Indicators:**
 
 - 🟢 **Green arrow up**: Positive change (more users, sessions)
-- 🔴 **Red arrow up**: Negative change (more errors)
+- 🔴 **Red arrow up**: Negative change (more errors - uses inverted trend logic)
 - ⬇️ **Arrow down**: Decrease from previous period
 - Percentage shows change vs previous period of same length
-
-### Insights Cards
-
-| Card                | Purpose                                                                                                                  |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| **Analysis**        | Auto-generated summary of agent performance including conversation count, unique users, average duration, and error rate |
-| **Recommendations** | AI-powered suggestions based on metrics (e.g., investigate errors if rate >5%, monitor slow responses)                   |
+- **No arrow**: Trend not applicable or no previous data available
+  |
 
 ### Charts Reference
 
@@ -839,8 +831,8 @@ Displays a table of all configured agents with:
 Excel-like spreadsheet interface with:
 
 - **Download Template**: Get Excel template with headers
-- **Upload File**: Drag & drop or click to upload Excel/CSV
-- **Paste from Excel**: Copy cells and paste directly into grid
+- **Paste from Excel**: Copy all cells from Excel and paste directly into grid
+- **Edit in Grid**: Modify values directly in the spreadsheet-like interface
 - **Row Validation**: Real-time validation with error highlighting
 - **Progress Bar**: Shows import progress during bulk create
 - **Import All**: Creates all valid configurations
@@ -856,78 +848,148 @@ Excel-like spreadsheet interface with:
 | Secret               | 200px | Conditional | Client secret value        |
 | Environment Variable | 200px | Conditional | Key Vault reference        |
 
-#### Generate Metrics Dialog (Sync Now)
+#### Sync Now Dialog (GenerateMetricsDialog)
 
-| Field             | Options                       | Description                           |
-| ----------------- | ----------------------------- | ------------------------------------- |
-| Agent             | [Dropdown]                    | Select specific agent or "All Agents" |
-| Date Range        | Last 7/30/90/180 Days, Custom | Period to sync data for               |
-| Custom Start Date | Date picker                   | When "Custom" is selected             |
-| Custom End Date   | Date picker                   | When "Custom" is selected             |
+This dialog is titled "Generate Metrics - Historical Backfill" and triggers the historical backfill flow.
+
+| Field                    | Type        | Options/Description                                               |
+| ------------------------ | ----------- | ----------------------------------------------------------------- |
+| **Select Configuration** | Dropdown    | "Select an agent..." / "All Agents" / [List of configured agents] |
+| **Start Date**           | Date picker | Start date for historical data sync                               |
+| **End Date**             | Date picker | End date for historical data sync                                 |
+
+**Validation Rules:**
+
+- Configuration is required
+- Maximum date range is 365 days
+- Shows estimated processing time based on date range
+
+**Progress & Status:**
+
+- Progress bar during execution
+- Success message: "Historical backfill has been triggered successfully. The flow is running in the background."
+- Error messages displayed if sync fails
 
 ### Page-Specific Features
 
 #### Daily Metrics Page
 
-| Component                | Description                                            |
-| ------------------------ | ------------------------------------------------------ |
-| **Summary Metrics Grid** | Key daily metrics in card format                       |
-| **Sessions Trend Chart** | Line chart showing daily session counts                |
-| **Messages Trend Chart** | Line chart showing daily message volumes               |
-| **Data Table**           | Sortable, filterable table of all daily metric records |
-| **Export Button**        | Download visible data as Excel                         |
+| Component                     | Description                                              |
+| ----------------------------- | -------------------------------------------------------- |
+| **Daily Conversation Volume** | Line chart showing daily session counts over 30 days     |
+| **Daily Active Users**        | Line chart showing daily unique users over 30 days       |
+| **Daily Messages**            | Line chart showing daily message volumes over 30 days    |
+| **Data Table**                | Sortable, filterable table with all daily metric columns |
+| **Download Button**           | Export visible data as Excel                             |
+
+**Data Table Columns:**
+Date, Agent, Channel, Data Source, Sessions, Users, Messages, Responses, Single-Turn, Multi-Turn, Short (<1m), Medium (1-5m), Long (>5m), Avg Duration, P50/P95 Duration, P50/P95/P99 Response, Slow (>16s), Tool Calls, Tool Success, Tool Failures, Errors
 
 #### Topic Metrics Page
 
-| Component                | Description                                             |
-| ------------------------ | ------------------------------------------------------- |
-| **Summary Cards**        | Total triggers, completions, abandonments, avg duration |
-| **Top Topics Bar Chart** | Horizontal bar chart of most triggered topics           |
-| **Completion Rate Pie**  | Donut chart showing completion vs abandonment           |
-| **Topic Duration Trend** | Area chart of average topic duration over time          |
-| **Data Table**           | Full topic metrics with all columns                     |
+| Component                    | Description                                                          |
+| ---------------------------- | -------------------------------------------------------------------- |
+| **Summary Cards**            | Total Triggers, Completed, Abandoned, Avg Duration, Errors, Messages |
+| **Topic Triggers Over Time** | Area chart of trigger counts over time                               |
+| **Top Topics by Triggers**   | Horizontal bar chart of most triggered topics                        |
+| **Completion Status**        | Donut pie chart showing completed vs abandoned vs redirected         |
+| **Topics with Most Errors**  | Horizontal bar chart of topics with highest error counts             |
+| **Messages In vs Out**       | Donut pie chart showing message distribution                         |
+| **Data Table**               | Full topic metrics with all columns                                  |
+| **Download Button**          | Export filtered data as Excel                                        |
 
 #### Error Details Page
 
-| Component                | Description                                         |
-| ------------------------ | --------------------------------------------------- |
-| **Summary Cards**        | Total errors, unique codes, affected sessions/users |
-| **Error Trend Chart**    | Daily error count over time                         |
-| **Error Types Pie**      | Distribution of error codes                         |
-| **Error Code Bar Chart** | Top error codes by occurrence                       |
-| **Data Table**           | Detailed error records with codes, messages, counts |
+| Component                    | Description                                                              |
+| ---------------------------- | ------------------------------------------------------------------------ |
+| **Summary Cards**            | Total Errors, Unique Error Codes, Affected Conversations, Affected Users |
+| **Error Trend Chart**        | Line chart of daily error count over time                                |
+| **Top Error Codes**          | Horizontal bar chart of most frequent error codes                        |
+| **Errors by Channel**        | Donut pie chart showing error distribution by channel                    |
+| **Affected Users Over Time** | Area chart of affected user count trend                                  |
+| **Data Table**               | Detailed error records with codes, messages, counts                      |
+| **Download Button**          | Export filtered data as Excel                                            |
+
+#### Action Metrics Page
+
+| Component                         | Description                                                                                   |
+| --------------------------------- | --------------------------------------------------------------------------------------------- |
+| **Summary Cards**                 | Total executions, avg elapsed time, unique node kinds, conversations                          |
+| **Execution Trend Chart**         | Line chart of daily execution counts over time                                                |
+| **Top Actions Bar Chart**         | Horizontal bar chart of top 10 actions by execution count                                     |
+| **Executions by Node Kind Chart** | Vertical bar chart showing execution distribution by node type                                |
+| **Data Table**                    | Full action metrics with Date, Node Kind, Action ID, Agent, Executions, Avg/P50/P95/Max times |
+| **Download Button**               | Export filtered data as Excel                                                                 |
+
+**Data Table Columns:**
+
+- **Date**: Metric date
+- **Node Kind**: Action type (with color-coded badge)
+- **Action ID**: Specific action identifier
+- **Agent**: Agent name
+- **Executions**: Execution count
+- **Avg Time**: Average elapsed time (ms or seconds)
+- **P50**: 50th percentile elapsed time
+- **P95**: 95th percentile elapsed time
+- **Max**: Maximum elapsed time
 
 #### Tool Metrics Page
 
-| Component               | Description                                   |
-| ----------------------- | --------------------------------------------- |
-| **Summary Cards**       | Total calls, success rate, avg execution time |
-| **Tool Usage Pie**      | Distribution of tool/action invocations       |
-| **Success Rate Bar**    | Success percentage per tool                   |
-| **Response Time Chart** | Average execution time per tool               |
-| **Data Table**          | Full tool metrics data                        |
+| Component                     | Description                                                                                       |
+| ----------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Summary Cards**             | Total Calls, Unique Tools, Success Rate (%), Total Failures, Avg Response Time, P90 Response Time |
+| **Calls by Tool Type**        | Donut pie chart showing distribution of tool/action invocations                                   |
+| **Tool Calls Over Time**      | Area chart showing tool call trend                                                                |
+| **P90 Response Time by Tool** | Horizontal bar chart of P90 execution time per tool                                               |
+| **Tool Failures Over Time**   | Area chart showing failure trend                                                                  |
+| **Data Table**                | Full tool metrics data with searchable, sortable columns                                          |
+| **Download Button**           | Export filtered data as Excel                                                                     |
+
+**Empty State:** If no tool metrics exist for selected filters, displays a helpful message suggesting to adjust filters.
 
 #### Sync Logs Page
 
-| Component            | Description                                                      |
-| -------------------- | ---------------------------------------------------------------- |
-| **Refresh Button**   | Reload sync log data                                             |
-| **Status Badges**    | Color-coded status (Running=blue, Complete=green, Error=red)     |
-| **Data Table**       | Sync execution history with status, dates, record counts, errors |
-| **Link to Flow Run** | Opens Power Automate flow run details                            |
+| Component          | Description                                               |
+| ------------------ | --------------------------------------------------------- |
+| **Refresh Button** | Reload sync log data (ArrowSync icon)                     |
+| **Data Table**     | Sync execution history with searchable, paginated columns |
+
+**Data Table Columns:**
+
+- **Name**: Log record name
+- **Created On**: Timestamp of log creation
+- **Execution Status**: Color-coded badge (Not Started, Running, Complete, Error, Cancelled)
+- **Cloud Flow Name**: Name of the Power Automate flow
+- **Cloud Flow Instance URL**: Link to open flow run in Power Automate
+- **Agent Configuration**: Associated agent configuration name
+- **Start Date / End Date**: Date range for the sync operation
+- **Plugin Name**: Plugin or action that ran
+- **Error Message**: Error details if sync failed
+
+**Status Badge Colors:**
+
+- Subtle (grey): Not Started
+- Informative (blue): Running
+- Success (green): Complete
+- Danger (red): Error
+- Warning (yellow): Cancelled
+
+**Pagination:** Default 25 rows per page, options for 10/25/50/100
 
 ### Global Filter Bar
 
-Present on all pages in the header:
+Present on all tabs except Sync Logs:
 
-| Filter           | Type        | Options                                                    | Default                       |
-| ---------------- | ----------- | ---------------------------------------------------------- | ----------------------------- |
-| **Agent**        | Dropdown    | "All Agents" + list of configured agents                   | All Agents                    |
-| **Date Range**   | Dropdown    | Last 7/30/90/180 Days, Custom                              | Last 90 Days                  |
-| **Custom Start** | Date Picker | Any date                                                   | Hidden unless Custom selected |
-| **Custom End**   | Date Picker | Any date                                                   | Hidden unless Custom selected |
-| **Channel**      | Dropdown    | All, Teams, WebChat, DirectLine, Mobile, WhatsApp, Unknown | All                           |
-| **Data Mode**    | Dropdown    | Production, Test, Both                                     | Production                    |
+| Filter           | Type        | Options                                                   | Default      |
+| ---------------- | ----------- | --------------------------------------------------------- | ------------ |
+| **Agent**        | Dropdown    | "All agents" + list of configured agents                  | All agents   |
+| **Date**         | Dropdown    | Last 7/30/90/180/365 days, Custom range                   | Last 90 days |
+| **Custom Start** | Date Picker | Any date (shown when "Custom range" selected)             | Hidden       |
+| **Custom End**   | Date Picker | Any date (shown when "Custom range" selected)             | Hidden       |
+| **Channel**      | Dropdown    | All + available channels from data (Teams, WebChat, etc.) | All          |
+| **Data**         | Dropdown    | Production, Test data, All data                           | Production   |
+
+> **Note:** Filter values persist across tab navigation within the same session.
 
 ### Theme Support
 
@@ -944,15 +1006,16 @@ Navigation rail includes a theme toggle button (sun/moon icon) in the header are
 
 ### Dataverse Tables Used
 
-| Table                      | Display Name        | Purpose                               |
-| -------------------------- | ------------------- | ------------------------------------- |
-| `cat_copilotconfiguration` | Agent Configuration | Agent settings and Azure credentials  |
-| `cat_dailymetrics`         | Daily Metrics       | Daily aggregated session/message data |
-| `cat_topicmetrics`         | Topic Metrics       | Topic-level performance data          |
-| `cat_errordetails`         | Error Details       | Error tracking and analysis           |
-| `cat_toolmetrics`          | Tool Metrics        | Action/connector performance          |
-| `cat_copilotstudiokitlogs` | Sync Logs           | Flow execution history                |
-| `cat_agentdetails`         | Agent Details       | Agent registry                        |
+| Table                      | Display Name        | Purpose                                   |
+| -------------------------- | ------------------- | ----------------------------------------- |
+| `cat_copilotconfiguration` | Agent Configuration | Agent settings and Azure credentials      |
+| `cat_dailymetrics`         | Daily Metrics       | Daily aggregated session/message data     |
+| `cat_topicmetrics`         | Topic Metrics       | Topic-level performance data              |
+| `cat_errordetails`         | Error Details       | Error tracking and analysis               |
+| `cat_toolmetrics`          | Tool Metrics        | Tool/connector invocation performance     |
+| `cat_actionmetrics`        | Action Metrics      | Node kind execution times by topic/action |
+| `cat_copilotstudiokitlogs` | Sync Logs           | Flow execution history                    |
+| `cat_agentdetails`         | Agent Details       | Agent registry                            |
 
 ### Technology Stack
 
