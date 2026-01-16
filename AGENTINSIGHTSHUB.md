@@ -61,12 +61,9 @@ flowchart TB
         end
 
         subgraph "Dataverse"
-            DV1[("📊 Daily Metrics")]
-            DV2[("📊 Topic Metrics")]
-            DV3[("📊 Error Details")]
-            DV4[("📊 Tool Metrics")]
-            DV5[("⚙️ Agent Configurations")]
-            DV7[("📝 Sync Logs")]
+            DV1[("📊 Metrics Tables<br/>• Daily Metrics<br/>• Topic Metrics<br/>• Error Details<br/>• Tool Metrics<br/>• Action Metrics")]
+            DV2[("⚙️ Agent Configurations")]
+            DV3[("📝 Sync Logs")]
         end
 
         subgraph "Code Apps"
@@ -86,27 +83,17 @@ flowchart TB
     F2 -->|"KQL Queries"| AI
 
     F1 -->|"Upsert"| DV1
-    F1 -->|"Upsert"| DV2
-    F1 -->|"Upsert"| DV3
-    F1 -->|"Upsert"| DV4
+    F2 -->|"Upsert"| DV1
 
-    F2 --> DV1
-    F2 --> DV2
-    F2 --> DV3
-    F2 --> DV4
+    DV2 -->|"Config"| F1
+    DV2 -->|"Config"| F2
 
-    DV5 -->|"Config"| F1
-    DV5 -->|"Config"| F2
-
-    F1 -->|"Log"| DV7
-    F2 -->|"Log"| DV7
+    F1 -->|"Log"| DV3
+    F2 -->|"Log"| DV3
 
     APP -->|"Read"| DV1
-    APP -->|"Read"| DV2
+    APP -->|"CRUD"| DV2
     APP -->|"Read"| DV3
-    APP -->|"Read"| DV4
-    APP -->|"CRUD"| DV5
-    APP -->|"Read"| DV7
 
     style AI fill:#0078D4,color:white
     style AAD fill:#00A4EF,color:white
