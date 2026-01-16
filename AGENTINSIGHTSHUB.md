@@ -41,60 +41,6 @@
 | **📅 365+ Day Retention**          | Store historical metrics in Dataverse without extra Azure costs                                                                                                                 |
 | **🔒 Privacy-Safe Access**         | Users view aggregates only; no access to message content or PII                                                                                                                 |
 
-### How It Fits: The Analytics Landscape
-
-Agent Insights Hub is designed to complement—not compete with—existing Microsoft analytics tools:
-
-```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│                        COPILOT STUDIO ANALYTICS ECOSYSTEM                        │
-├─────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                  │
-│  ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────────┐  │
-│  │   COPILOT STUDIO    │  │   APP INSIGHTS      │  │   AGENT INSIGHTS HUB    │  │
-│  │   Analytics Tab     │  │   Dashboard         │  │                         │  │
-│  ├─────────────────────┤  ├─────────────────────┤  ├─────────────────────────┤  │
-│  │                     │  │                     │  │                         │  │
-│  │  👤 For: Agent      │  │  👨‍💻 For: Developers │  │  👔 For: Operations &   │  │
-│  │     Makers          │  │                     │  │     Leadership          │  │
-│  │                     │  │                     │  │                         │  │
-│  │  🎯 Purpose:        │  │  🎯 Purpose:        │  │  🎯 Purpose:            │  │
-│  │  Building &         │  │  Deep telemetry &   │  │  Understanding          │  │
-│  │  refining           │  │  debugging          │  │  performance at scale   │  │
-│  │  individual agents  │  │                     │  │  without technical      │  │
-│  │                     │  │                     │  │  complexity             │  │
-│  └─────────────────────┘  └─────────────────────┘  └─────────────────────────┘  │
-│                                                                                  │
-└─────────────────────────────────────────────────────────────────────────────────┘
-```
-
-### Key Differentiators
-
-| Feature                 | Copilot Studio Analytics | App Insights Dashboard  | Agent Insights Hub           |
-| ----------------------- | ------------------------ | ----------------------- | ---------------------------- |
-| **Target Audience**     | Agent Makers             | Developers              | Operations & Leadership      |
-| **Scope**               | Single Agent             | Single Workspace        | Enterprise-wide              |
-| **Technical Skill**     | Low                      | High (KQL required)     | None (No-code UI)            |
-| **Cross-Agent View**    | ❌                       | ❌                      | ✅                           |
-| **Benchmarking**        | ❌                       | ❌                      | ✅                           |
-| **Authentication**      | Per-user                 | Azure RBAC              | Non-interactive (simplified) |
-| **Data Storage**        | Azure (90 days default)  | Azure (90 days default) | Dataverse (365+ days)        |
-| **Pre-aggregated Data** | ❌                       | ❌                      | ✅                           |
-| **AI Recommendations**  | Limited                  | ❌                      | ✅                           |
-
-### What We Store vs. What We Don't
-
-**Privacy by Design:** We do NOT export raw conversation data. Only pre-computed aggregates are stored:
-
-| ✅ What We Store          | ❌ What We Don't Store    |
-| ------------------------- | ------------------------- |
-| Session counts per day    | Conversation transcripts  |
-| Average CSAT scores       | Individual user messages  |
-| Topic completion rates    | User identities or PII    |
-| Error frequency counts    | Raw telemetry logs        |
-| Response time percentiles | Actual response content   |
-| Channel distribution      | User personal information |
-
 ---
 
 ## Architecture
@@ -104,15 +50,14 @@ Agent Insights Hub is designed to complement—not compete with—existing Micro
 ```mermaid
 flowchart TB
     subgraph "Azure Cloud"
-        AI[("🔷 Application Insights<br/>Raw Telemetry<br/>90-day retention")]
+        AI[("🔷 Application Insights<br/>Raw Telemetry")]
         AAD["🔐 Azure AD<br/>App Registration"]
     end
 
     subgraph "Power Platform"
         subgraph "Power Automate"
             F1["⚡ Daily Sync Flow<br/>Scheduled @ 2 AM UTC"]
-            F2["⚡ On-Demand Sync Flow<br/>Manual Trigger"]
-            F3["⚡ Historical Backfill Flow<br/>Generate Metrics"]
+            F2["⚡ On-Demand Sync Flow<br/>Manual Trigger / Historical Backfill"]
         end
 
         subgraph "Dataverse"
@@ -130,17 +75,15 @@ flowchart TB
     end
 
     subgraph "Copilot Studio"
-        CS["🤖 Copilot Agent"]
+        CS["🤖 Agent"]
     end
 
     CS -->|"Telemetry Events"| AI
     AAD -->|"OAuth Token"| F1
     AAD -->|"OAuth Token"| F2
-    AAD -->|"OAuth Token"| F3
 
     F1 -->|"KQL Queries"| AI
     F2 -->|"KQL Queries"| AI
-    F3 -->|"KQL Queries"| AI
 
     F1 -->|"Upsert"| DV1
     F1 -->|"Upsert"| DV2
@@ -150,23 +93,20 @@ flowchart TB
     F2 --> DV1
     F2 --> DV2
     F2 --> DV3
-
-    F3 --> DV1
-    F3 --> DV2
-    F3 --> DV3
+    F2 --> DV4
 
     DV5 -->|"Config"| F1
     DV5 -->|"Config"| F2
 
-    F1 -->|"Log"| DV6
-    F2 -->|"Log"| DV6
+    F1 -->|"Log"| DV7
+    F2 -->|"Log"| DV7
 
     APP -->|"Read"| DV1
     APP -->|"Read"| DV2
     APP -->|"Read"| DV3
     APP -->|"Read"| DV4
     APP -->|"CRUD"| DV5
-    APP -->|"Read"| DV6
+    APP -->|"Read"| DV7
 
     style AI fill:#0078D4,color:white
     style AAD fill:#00A4EF,color:white
