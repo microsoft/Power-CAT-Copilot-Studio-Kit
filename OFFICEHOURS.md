@@ -1,5 +1,5 @@
 # Copilot Studio Kit Office Hours
-## Join the Copilot Studio Kit Office hours held every other Wednesday between 7:30AM and 8:30AM Pacific time.
+## Join the Copilot Studio Kit Office hours
 
 > [!IMPORTANT]
 > Beginning December 3, Copilot Studio Kit Office Hours will run every week, alternating between two time windows to support both US and APAC audiences:
