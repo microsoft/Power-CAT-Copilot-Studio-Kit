@@ -982,7 +982,7 @@ summary.avgElapsedMs < 1000
 │ SECTION: Tool Metrics (DataTable)                                           │
 │ [Section Title]                                          [Download Button]  │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with all columns from cat_toolmetrics with search, sorting,   │ │ 
+│ │ DataTable with all columns from cat_toolmetrics with search, sorting,   │ │
 │ │ pagination                                                              │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -1163,7 +1163,7 @@ When no data matches filters, display centered empty state:
 │ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (8 cards)                                                  │
-│ [Total Conversations] [Engaged] [Resolved] [Escalated] [Abandoned]          │   
+│ [Total Conversations] [Engaged] [Resolved] [Escalated] [Abandoned]          │
 │ [Avg Turns] [Feedback] [Satisfaction Score]                                 │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ CONVERSATION OUTCOMES (Full Width)   outcomes for last one month            │
@@ -1203,7 +1203,7 @@ When no data matches filters, display centered empty state:
 | Escalated           | "Escalated"           | cat_escalatedcount                               | SUM + (percentage%)     | ArrowRouting24Regular  | % change (invertTrend: higher is worse)    | Sessions escalated to human agent                                          |
 | Abandoned           | "Abandoned"           | cat_abandonedcount                               | SUM + (percentage%)     | PersonWalking24Regular | % change (invertTrend: higher is worse)    | Sessions where user left without resolution                                |
 | Avg Turns           | "Avg Turns"           | cat_totalturns / cat_sessioncount                | Average with 1 decimal  | Channel24Regular       | % change from previous period              | Average conversation turns per session                                     |
-| Feedback            | "Feedback"            | cat_feedbacklikecount + cat_feedbackdislikecount | Total + 👍count 👎count | ThumbLike24Regular    | % change from previous period              | Total user feedback reactions with like/dislike breakdown                  |
+| Feedback            | "Feedback"            | cat_feedbacklikecount + cat_feedbackdislikecount | Total + 👍count 👎count | ThumbLike24Regular     | % change from previous period              | Total user feedback reactions with like/dislike breakdown                  |
 | Satisfaction Score  | "Satisfaction Score"  | cat_csatscore / cat_csatcount                    | Average + "/5.0" unit   | Star24Regular          | % change from previous period weighted avg | Average customer satisfaction score (1-5 scale) weighted by response count |
 
 **Trend Calculation Logic:**
@@ -1370,12 +1370,12 @@ Satisfaction by session breakdown:
 
 **Important:** This page does NOT use the global filter bar. It has its own independent filters.
 
-| Filter      | Component | Options                                                                               | Default          |
-| ----------- | --------- | ------------------------------------------------------------------------------------- | ---------------- |
-| Environment | Combobox  | "All environments" + Unique Environment list from cat_agentusagehistory (searchable)  | All environments |
-| Agent       | Combobox  | "All agents" + Unique Agent list from cat_agentusagehistory (searchable)              | All agents       |
-| Date        | Select    | Month to date, Previous Month, Previous to Previous Month, Last 6 months              | Month to date    |
-| Feature     | Select    | "All features" + unique cat_featurename values from data                              | All features     |
+| Filter      | Component | Options                                                                              | Default          |
+| ----------- | --------- | ------------------------------------------------------------------------------------ | ---------------- |
+| Environment | Combobox  | "All environments" + Unique Environment list from cat_agentusagehistory (searchable) | All environments |
+| Agent       | Combobox  | "All agents" + Unique Agent list from cat_agentusagehistory (searchable)             | All agents       |
+| Date        | Select    | Month to date, Previous Month, Previous to Previous Month, Last 6 months             | Month to date    |
+| Feature     | Select    | "All features" + unique cat_featurename values from data                             | All features     |
 
 **Date Range Options:**
 
@@ -1409,7 +1409,7 @@ Satisfaction by session breakdown:
 #### 6.8.5 Charts
 
 | Chart                                | Type           | Description                                                                                                        | Data Source                                                                     |
-| ------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------- |
+| ------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
 | Credits consumption trend            | Area Chart     | Daily breakdown of billed (blue #0078d4) and non-billed (green #107c10) credits for last one month based on filter | cat_billedcopilotcredits + cat_nonbilledcopilotcredits grouped by cat_usagedate |
 | Copilot Credits usage by environment | Horizontal Bar | Top 5 environments by cat_billedcopilotcredits consumption                                                         | cat_billedcopilotcredits grouped by cat_environmentname (Top 5)                 |
 | Credits by Feature                   | Donut Chart    | Distribution of credits consumed by different Copilot Studio features                                              | Total credits grouped by cat_featurename                                        |
@@ -1495,18 +1495,17 @@ The DataTable section has title: **"Message consumption details"**
 
 #### 6.9.4 DataTable Columns
 
-| Column                    | Width | Format                                                     | Sortable |
-| --------------------------| ----- | ---------------------------------------------------------- | -------- |
-| Name                      | 200px | cat_name text                                              | Yes      |
-| Created On                | 150px | createdon as locale datetime, default sorting              | Yes      |
-| Execution Status          | 120px | Badge with status color (see 6.9.5)                        | Yes      |
-| Cloud Flow Name           | 180px | cat_cloudflowname text                                     | Yes      |
-| Cloud Flow Instance URL   | 150px | Link to cat_cloudflowinstanceurl (opens in new tab)        | No       |
-| Agent Configuration       | 150px | Agent Configuration Name                                   | Yes      |
-| Start Date                | 120px | cat_startdate as MM/DD/YYYY                                | Yes      |
-| End Date                  | 120px | cat_enddate as MM/DD/YYYY                                  | Yes      |
-| Error Message             | 300px | cat_errormessage text with ellipsis, tooltip for full text | No       |
-
+| Column                  | Width | Format                                                     | Sortable |
+| ----------------------- | ----- | ---------------------------------------------------------- | -------- |
+| Name                    | 200px | cat_name text                                              | Yes      |
+| Created On              | 150px | createdon as locale datetime, default sorting              | Yes      |
+| Execution Status        | 120px | Badge with status color (see 6.9.5)                        | Yes      |
+| Cloud Flow Name         | 180px | cat_cloudflowname text                                     | Yes      |
+| Cloud Flow Instance URL | 150px | Link to cat_cloudflowinstanceurl (opens in new tab)        | No       |
+| Agent Configuration     | 150px | Agent Configuration Name                                   | Yes      |
+| Start Date              | 120px | cat_startdate as MM/DD/YYYY                                | Yes      |
+| End Date                | 120px | cat_enddate as MM/DD/YYYY                                  | Yes      |
+| Error Message           | 300px | cat_errormessage text with ellipsis, tooltip for full text | No       |
 
 #### 6.9.5 Status Badge Colors
 
@@ -1521,7 +1520,7 @@ The DataTable section has title: **"Message consumption details"**
 #### 6.9.6 Data Source
 
 - **Table:** cat_copilotstudiokitlogs
-- **Filter:** Cloud Flow Name = Agent Insights | Pull Agent Metrics (Child) 
+- **Filter:** Cloud Flow Name = Agent Insights | Pull Agent Metrics (Child)
 - **Default Sort:** createdon desc
 - **Page Size:** 25 records per page
 
@@ -1834,14 +1833,34 @@ When not running and no success/error:
 
 #### 7.3.7 API Call
 
-Calls `CustomActionService.pullAgentInsights()` with:
+**Implementation Note:** Since Dataverse custom actions cannot be called directly from Power Apps Code Apps, the sync is triggered by updating the `cat_actionparameters` field on the `cat_copilotconfiguration` record. A Power Automate flow with "When a row is modified" trigger detects this change and executes the actual `cat_PullAgentInsights` action.
 
-| Parameter          | Value                                                            |
-| ------------------ | ---------------------------------------------------------------- |
-| cat_RecordId       | selectedConfig ("AllAgents" keyword or config GUID)              |
-| cat_UpdateRecordId | First config GUID if "AllAgents", otherwise same as cat_RecordId |
-| cat_StartDate      | new Date(startDate)                                              |
-| cat_EndDate        | new Date(endDate)                                                |
+**Run Button Action:** Updates `cat_actionparameters` field on `cat_copilotconfiguration` record via `Cat_copilotconfigurationsService.update()`.
+
+**Record Selection Logic:**
+
+| Configuration Selection | Record to Update (cat_UpdateRecordId) | recordId in JSON Payload |
+| ----------------------- | ------------------------------------- | ------------------------ |
+| "All Agents"            | First configuration's GUID            | "AllAgents" (keyword)    |
+| Specific Agent          | Selected configuration's GUID         | Same GUID                |
+
+**JSON Payload (cat_actionparameters):**
+
+```json
+{
+  "timestamp": "2026-01-19T20:03:59.716Z",
+  "recordId": "96352c55-c5f2-f011-8406-000d3a3818ad",
+  "startDate": "2025-12-19T00:00:00.000Z",
+  "endDate": "2026-01-19T00:00:00.000Z"
+}
+```
+
+| JSON Field | Source                                               |
+| ---------- | ---------------------------------------------------- |
+| timestamp  | Current timestamp (`new Date().toISOString()`)       |
+| recordId   | "AllAgents" keyword OR selected config GUID          |
+| startDate  | Start date from form (`cat_StartDate.toISOString()`) |
+| endDate    | End date from form (`cat_EndDate.toISOString()`)     |
 
 #### 7.3.8 Dialog Actions
 
@@ -1870,9 +1889,9 @@ Calls `CustomActionService.pullAgentInsights()` with:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ 📋 Bulk Import Agent Configurations                                      ✕  │
+│ 📋 Bulk Import Agent Configurations                                     ✕  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ Copy data from Excel and paste directly into the grid below. You can also  │
+│ Copy data from Excel and paste directly into the grid below. You can also   │
 │ type directly into cells.                                                   │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ [Progress Bar - shown during import]                                        │
@@ -1880,21 +1899,21 @@ Calls `CustomActionService.pullAgentInsights()` with:
 │ [MessageBar - shown after import complete]                                  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ TOOLBAR                                                                     │
-│ [+ Add Row] [+10 Rows] [↓ Template] [Clear All]    💡 Tip: Select a cell... │
+│ [+ Add Row] [+10 Rows] [↓ Template] [Clear All]    💡 Tip: Select a cell..  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ SUMMARY BAR                                                                 │
-│ Rows with data: (0)    Valid: (0)    Imported: (0)    [Errors: (0)]        │
+│ Rows with data: (0)    Valid: (0)    Imported: (0)    [Errors: (0)]         │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ EXCEL-LIKE GRID (scrollable)                                                │
-│ ┌───┬────────┬───────────┬─────────────────┬──────────┬──────────┬─────────│
-│ │ # │ Name*  │ Agent     │ App Insights    │ Tenant   │ Client   │ Secret  │
-│ │   │        │ Name*     │ App ID*         │ ID*      │ ID*      │ Location│
-│ ├───┼────────┼───────────┼─────────────────┼──────────┼──────────┼─────────│
+│ ┌───┬────────┬───────────┬─────────────────┬──────────┬──────────┬──────────│
+│ │ # │ Name*  │ Agent     │ App Insights    │ Tenant   │ Client   │ Secret   │
+│ │   │        │ Name*     │ App ID*         │ ID*      │ ID*      │ Location │
+│ ├───┼────────┼───────────┼─────────────────┼──────────┼──────────┼──────────│
 │ │ 1 │        │           │                 │          │          │ Dataverse│
 │ │ 2 │        │           │                 │          │          │ Dataverse│
-│ │...│        │           │                 │          │          │         │
+│ │...│        │           │                 │          │          │          │
 │ │10 │        │           │                 │          │          │ Dataverse│
-│ └───┴────────┴───────────┴─────────────────┴──────────┴──────────┴─────────│
+│ └───┴────────┴───────────┴─────────────────┴──────────┴──────────┴──────────│
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                          [Close]  [Import 0 Configurations] │
 └─────────────────────────────────────────────────────────────────────────────┘
@@ -1928,6 +1947,7 @@ Calls `CustomActionService.pullAgentInsights()` with:
 | Name                | 140px | Input  | Yes\*       | Configuration name                       |
 | Agent Name          | 140px | Input  | Yes\*       | Agent name identifier                    |
 | Agent Id            | 140px | Input  | Yes\*       | Agent identifier                         |
+| Dataverse Url       | 140px | Input  | Yes\*       | Environment Url                          |
 | App Insights App ID | 280px | Input  | Yes\*       | Azure App Insights Application ID (GUID) |
 | Tenant ID           | 280px | Input  | Yes\*       | Azure AD Tenant ID (GUID)                |
 | Client ID           | 280px | Input  | Yes\*       | Azure AD Client ID (GUID)                |
@@ -1945,6 +1965,7 @@ Calls `CustomActionService.pullAgentInsights()` with:
 | Name                | Required, non-empty after trim                |
 | Agent Name          | Required, non-empty after trim                |
 | Agent Id            | Required, non-empty after trim                |
+| Dataverse Url       | Required, non-empty after trim                |
 | App Insights App ID | Required, non-empty after trim                |
 | Tenant ID           | Required, non-empty after trim                |
 | Client ID           | Required, non-empty after trim                |
@@ -1983,6 +2004,7 @@ Downloads Excel file (`agent_configuration_template.xlsx`) with:
 | Name | name |
 | Agent Name | agentName |
 | Agent Id | agentId |
+| Dataverse Url | dataverseUrl |
 | App Insights App ID | appId |
 | Tenant ID | tenantId |
 | Client ID | clientId |
@@ -2000,6 +2022,7 @@ Downloads Excel file (`agent_configuration_template.xlsx`) with:
      - `cat_name`: row.name
      - `cat_agentname`: row.agentName
      - `cat_agentid`: row.agentId
+     - `cat_dataverseurl`: row.dataverseUrl
      - `cat_azureappinsightsapplicationid`: row.appInsightsAppId
      - `cat_azureappinsightstenantid`: row.appInsightsTenantId
      - `cat_azureappinsightsclientid`: row.appInsightsClientId
@@ -2277,7 +2300,7 @@ const dateRangeOptions = [
 ### 9.3 App Branding
 
 ```typescript
-const APP_VERSION = "1.3.28";
+const APP_VERSION = "1.0.0";
 const APP_NAME = "Copilot Studio Kit";
 const APP_DESCRIPTION =
   "Your comprehensive toolkit for managing Copilot Studio agents";
