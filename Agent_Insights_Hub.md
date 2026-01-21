@@ -493,7 +493,7 @@ graph LR
 | ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | Agent      | `cat_copilotconfiguration` table | Fetch active records where `cat_configurationtypescodes` contains Agent Insights (4), sort by `cat_name`                 |
 | Date Range | Hardcoded options                | Calculate `startDate` and `endDate` based on selection                                                                   |
-| Channel    | Hardcoded array                  | Values: msteams, webchat, directline, pva-studio, pva-autonomous, pva-published-engine-direct, mobile, whatsapp, unknown |
+| Channel    | Hardcoded array                  | Values: Teams, Web Chat, Direct Line, Test Panel, Autonomous, Published Engine, Mobile, WhatsApp, Unknown |
 | Data Mode  | Hardcoded options                | Filter by `cat_datasourcecode`: 1=Production, 2=Test                                                                     |
 
 > **Note:** Usage History page uses a different agent filter - it shows agents for which usage history data exists in `cat_agentusagehistory` table, regardless of configuration type.
