@@ -489,12 +489,12 @@ graph LR
 
 #### Filter Data Sources
 
-| Filter     | Source                           | Logic                                                                                                                    |
-| ---------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Agent      | `cat_copilotconfiguration` table | Fetch active records where `cat_configurationtypescodes` contains Agent Insights (4), sort by `cat_name`                 |
-| Date Range | Hardcoded options                | Calculate `startDate` and `endDate` based on selection                                                                   |
+| Filter     | Source                           | Logic                                                                                                     |
+| ---------- | -------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| Agent      | `cat_copilotconfiguration` table | Fetch active records where `cat_configurationtypescodes` contains Agent Insights (4), sort by `cat_name`  |
+| Date Range | Hardcoded options                | Calculate `startDate` and `endDate` based on selection                                                    |
 | Channel    | Hardcoded array                  | Values: Teams, Web Chat, Direct Line, Test Panel, Autonomous, Published Engine, Mobile, WhatsApp, Unknown |
-| Data Mode  | Hardcoded options                | Filter by `cat_datasourcecode`: 1=Production, 2=Test                                                                     |
+| Data Mode  | Hardcoded options                | Filter by `cat_datasourcecode`: 1=Production, 2=Test                                                      |
 
 > **Note:** Usage History page uses a different agent filter - it shows agents for which usage history data exists in `cat_agentusagehistory` table, regardless of configuration type.
 
@@ -645,7 +645,7 @@ The Overview page is organized into sections with charts:
 
 ### 6.2 Daily Metrics Page
 
-**Purpose:** View daily aggregated metrics including conversation volumes, user activity, response performance, and tool usage statistics.
+**Purpose:** View daily aggregated metrics including conversation volumes, user activity, messages.
 
 #### 6.2.1 Layout
 
@@ -669,7 +669,8 @@ The Overview page is organized into sections with charts:
 │ DATATABLE SECTION                                                           │
 │ [Daily Metrics Title]                                    [Download Button]  │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with 24 columns, searchable, sortable, paginated              │ │
+│ │ DataTable with all columns from cat_dailymetrics, searchable,           │ │
+│ │ sortable, paginated                                                     │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -735,192 +736,11 @@ The Overview page is organized into sections with charts:
 - Empty message: "No daily metrics found"
 - Row key: cat_dailymetricsid
 
-### 6.3 Transcript Metrics Page
-
-**Purpose:** Analyze conversation outcomes, engagement rates, user feedback, and customer satisfaction scores.
-
-#### 6.3.1 Layout
-
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ GLOBAL FILTER BAR                                                           │
-│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ METRIC CARDS ROW (8 cards)                                                  │
-│ [Total Conv] [Engaged] [Resolved] [Escalated] [Abandoned] [Avg Turns]       │
-│ [Feedback] [CSAT Score]                                                     │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ CONVERSATION OUTCOMES OVER TIME (Full Width)                                │
-│ Toggle: [Area Icon] [Bar Icon]    Stacked chart showing outcomes by date    │
-│ Colors: Resolved(blue) Escalated(pink) Abandoned(cyan) Unengaged(gray)      │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ CHARTS ROW                                                                  │
-│ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
-│ │ Engagement Breakdown            │ │ Session Outcomes                │     │
-│ │ (Pie Chart)                     │ │ (Donut Chart)                   │     │
-│ │ Engaged vs Unengaged            │ │ Resolved/Escalated/Abandoned    │     │
-│ └─────────────────────────────────┘ └─────────────────────────────────┘     │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ CSAT SECTION (Conditional - only when csatCount > 0)                        │
-│ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
-│ │ Survey satisfaction score       │ │ Satisfaction score trend        │     │
-│ │ (Card with Score + Bar)         │ │ (Area Chart - 45 day trend)     │     │
-│ │ Dissatisfied/Neutral/Satisfied  │ │                                 │     │
-│ └─────────────────────────────────┘ └─────────────────────────────────┘     │
-├─────────────────────────────────────────────────────────────────────────────┤
-│ DATATABLE SECTION                                                           │
-│ [Transcript Metrics Title]          [All Feedbacks] [Download Button]       │
-│ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with 17 columns, sortable, paginated                          │ │
-│ └─────────────────────────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
-
-#### 6.3.2 Metric Cards (8 cards)
-
-| Metric              | Label                 | Source Column                                    | Display Format          | Icon                   | Trend Calculation                          | Description                                                                |
-| ------------------- | --------------------- | ------------------------------------------------ | ----------------------- | ---------------------- | ------------------------------------------ | -------------------------------------------------------------------------- |
-| Total Conversations | "Total Conversations" | cat_totalconversations                           | SUM                     | Chat24Regular          | % change from previous period              | Total number of conversations in the selected period                       |
-| Engaged             | "Engaged"             | cat_engagedcount                                 | SUM + (percentage%)     | Eye24Regular           | % change from previous period              | Sessions where user sent at least one message after agent greeting         |
-| Resolved            | "Resolved"            | cat_resolvedcount                                | SUM + (percentage%)     | Checkmark24Regular     | % change from previous period              | Engaged sessions that were marked as resolved                              |
-| Escalated           | "Escalated"           | cat_escalatedcount                               | SUM + (percentage%)     | ArrowRouting24Regular  | % change (invertTrend: higher is worse)    | Engaged sessions escalated to human agent                                  |
-| Abandoned           | "Abandoned"           | cat_abandonedcount                               | SUM + (percentage%)     | PersonWalking24Regular | % change (invertTrend: higher is worse)    | Engaged sessions where user left without resolution                        |
-| Avg Turns           | "Avg Turns"           | cat_totalturns / cat_sessioncount                | Average with 1 decimal  | Channel24Regular       | % change from previous period              | Average conversation turns per session                                     |
-| Feedback            | "Feedback"            | cat_feedbacklikecount + cat_feedbackdislikecount | Total + 👍count 👎count | ThumbLike24Regular     | % change from previous period              | Total user feedback reactions with like/dislike breakdown                  |
-| Satisfaction Score  | "Satisfaction Score"  | cat_csatscore / cat_csatcount                    | Average + "/5.0" unit   | Star24Regular          | % change from previous period weighted avg | Average customer satisfaction score (1-5 scale) weighted by response count |
-
-**Trend Calculation Logic:**
-
-```typescript
-// Calculate previous period (same duration, immediately before current period)
-const periodLengthMs = endDate.getTime() - startDate.getTime();
-const previousStartDate = new Date(startDate.getTime() - periodLengthMs);
-const previousEndDate = new Date(startDate.getTime() - 1);
-
-// Trend percentage formula
-const calculateTrend = (
-  current: number,
-  previous: number,
-  hasPreviousData: boolean,
-) => {
-  if (!hasPreviousData || previous === 0) return undefined;
-  return Math.round(((current - previous) / previous) * 100 * 10) / 10;
-};
-```
-
-**Rate Calculations:**
-
-- Engagement Rate = (engagedCount / cat_sessioncount) × 100
-- Resolution Rate = (resolvedCount / cat_sessioncount) × 100
-- Escalation Rate = (escalatedCount / cat_sessioncount) × 100
-- Abandonment Rate = (abandonedCount / cat_sessioncount) × 100
-
-#### 6.3.3 Charts
-
-**Conversation Outcomes Over Time (Full Width):**
-
-| Chart                 | Type                      | Description                                                                                            |
-| --------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Conversation Outcomes | ConversationOutcomesChart | Both Stacked area & bar chart with toggle icons showing Resolved/Escalated/Abandoned/Unengaged by date |
-
-Colors:
-
-- Resolved: #0078d4 (Blue)
-- Escalated: #e3008c (Pink/Magenta)
-- Abandoned: #00b7c3 (Cyan/Teal)
-- Unengaged: #8a8886 (Gray)
-
-**Charts Row (2 columns):**
-
-| Chart                | Type      | Description                                     |
-| -------------------- | --------- | ----------------------------------------------- |
-| Engagement Breakdown | Pie Chart | Engaged (blue) vs Unengaged (gray) distribution |
-| Session Outcomes     | Pie Chart | Resolved/Escalated/Abandoned/Unengaged donut    |
-
-**CSAT Section (conditional - only shown when csatCount > 0):**
-
-| Chart                     | Type       | Description                                                                        |
-| ------------------------- | ---------- | ---------------------------------------------------------------------------------- |
-| Survey satisfaction score | Card       | Large score display + Satisfaction by session bar (Dissatisfied/Neutral/Satisfied) |
-| Satisfaction score trend  | Area Chart | Daily average CSAT score trend (last 45 days)                                      |
-
-Satisfaction by session breakdown:
-
-- Dissatisfied (scores 1-2): Red #d13438
-- Neutral (score 3): Gray #8a8886
-- Satisfied (scores 4-5): Green #107c10
-
-#### 6.3.4 DataTable Action Buttons
-
-| Button        | Icon                   | Style     | Action                                      |
-| ------------- | ---------------------- | --------- | ------------------------------------------- |
-| All Feedbacks | Comment24Regular       | Secondary | Opens Reactions dialog with all feedback    |
-| Download      | ArrowDownload24Regular | Secondary | Export filtered transcript records to Excel |
-
-**Note:** "All Feedbacks" button only appears when feedback data exists.
-
-#### 6.3.5 Feedback Dialog (Reactions Dialog)
-
-**Purpose:** View and filter user feedback reactions.
-
-**Dialog Properties:**
-
-- Title: "Reactions"
-- Max width: 800px
-- Max height: 85vh
-- Scrollable content area
-
-**Filter Tabs (ToggleButtons):**
-
-1. All
-2. Thumbs up (with ThumbLike24Regular icon)
-3. Thumbs down (with ThumbDislike24Regular icon)
-
-**Count Display:** "{n} reactions" (gray text)
-
-**Feedback Card Structure (in order):**
-
-| Field           | Display                                                                    |
-| --------------- | -------------------------------------------------------------------------- |
-| Reaction Header | Icon (green 👍 or orange 👎) + "Thumbs up" or "Thumbs down" label          |
-| Agent           | Agent name (if available)                                                  |
-| Conversation ID | Monospace font, word-break for long IDs                                    |
-| Agent Response  | The agent message that received feedback (blue left border, max 500 chars) |
-| User Feedback   | User's text feedback comment (if provided)                                 |
-
-**Dialog Actions:**
-| Button | Icon | Appearance | Action |
-| ------------------ | ---------------------- | ---------- | ------------------------------------- |
-| Download Feedbacks | ArrowDownload24Regular | Secondary | Export filtered feedback to file |
-| Close | - | Primary | Close dialog |
-
-#### 6.3.6 DataTable Columns
-
-| Column                 | Width | Format                                     |
-| ---------------------- | ----- | ------------------------------------------ |
-| Date                   | 90px  | MM/DD/YYYY                                 |
-| Agent                  | 200px | Agent ID text                              |
-| Channel                | 100px | Channel ID                                 |
-| Data Source            | 90px  | Badge (green=Production, yellow=Test Data) |
-| Total Conversations    | 145px | Number formatted                           |
-| Session Count          | 110px | Number formatted                           |
-| Engaged Count          | 115px | Number formatted                           |
-| Resolved Count         | 115px | Number formatted                           |
-| Escalated Count        | 120px | Number formatted                           |
-| Abandoned Count        | 130px | Number formatted                           |
-| Unengaged Count        | 125px | Number formatted                           |
-| Total Turns            | 95px  | Number formatted                           |
-| Feedback Like Count    | 145px | Number formatted                           |
-| Feedback Dislike Count | 160px | Number formatted                           |
-| Feedback Details       | 125px | "View" button (opens dialog)               |
-| CSAT Score             | 80px  | Number formatted                           |
-| CSAT Count             | 80px  | Number formatted                           |
-
-### 6.4 Topic Metrics Page
+### 6.3 Topic Metrics Page
 
 **Purpose:** Analyze topic performance including triggers, completions, abandonments, and message flow.
 
-#### 6.4.1 Layout
+#### 6.3.1 Layout
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
@@ -947,12 +767,13 @@ Satisfaction by session breakdown:
 │ DATATABLE                                                                   │
 │ [Topic Metrics Title]                                    [Download Button]  │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with search, sorting, pagination                              │ │
+│ │ DataTable with all columns from cat_topicmetrics with search, sorting,  │ │
+│ │ pagination                                                              │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### 6.4.2 Metric Cards
+#### 6.3.2 Metric Cards
 
 | #   | Label          | Icon                 | Description                                                                | Calculation                                              |
 | --- | -------------- | -------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------- |
@@ -963,7 +784,7 @@ Satisfaction by session breakdown:
 | 5   | Errors         | ErrorCircle24Regular | Total errors encountered while executing topics                            | SUM(cat_errorcount)                                      |
 | 6   | Messages       | Chat24Regular        | Total messages exchanged within topic conversations                        | SUM(cat_messagecount)                                    |
 
-#### 6.4.3 Charts
+#### 6.3.3 Charts
 
 | Chart                    | Type           | Description                                                                     | Data Source                                 |
 | ------------------------ | -------------- | ------------------------------------------------------------------------------- | ------------------------------------------- |
@@ -978,13 +799,13 @@ Satisfaction by session breakdown:
 - "Topics with Most Errors" only renders when `topErrorTopicsData.length > 0`
 - "Messages In vs Out" only renders when `messagesDistributionData.length > 0`
 
-#### 6.4.4 DataTable Action Buttons
+#### 6.3.4 DataTable Action Buttons
 
 | Button   | Icon                   | Style     | Action                                 |
 | -------- | ---------------------- | --------- | -------------------------------------- |
 | Download | ArrowDownload24Regular | Secondary | Export filtered topic metrics to Excel |
 
-#### 6.4.5 DataTable Columns
+#### 6.3.5 DataTable Columns
 
 | Column                     | Width | Format                                               | Sortable |
 | -------------------------- | ----- | ---------------------------------------------------- | -------- |
@@ -1022,6 +843,112 @@ Satisfaction by session breakdown:
 - Page size: Default pagination
 - Empty message: "No topic metrics found"
 
+### 6.4 Action Metrics Page
+
+**Purpose:** Track action/node executions including flow invocations, connector calls, and HTTP requests with performance metrics.
+
+#### 6.4.1 Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ METRIC CARDS ROW (4 cards)                                                  │
+│ [Total Executions] [Avg Elapsed Time] [Unique Node Kinds]                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ CHARTS ROW 1                                                                │
+│ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
+│ │ Execution Trend                 │ │ Top Actions by Executions       │     │
+│ │ (Line Chart)                    │ │ (Horizontal Bar)                │     │
+│ └─────────────────────────────────┘ └─────────────────────────────────┘     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ CHARTS ROW 2                                                                │
+│ ┌───────────────────────────────────────────────────────────────────┐       │
+│ │ Executions by Node Kind (Vertical Bar Chart)                      │       │
+│ └───────────────────────────────────────────────────────────────────┘       │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ DATATABLE                                                                   │
+│ [Action Metrics Title]                                   [Download Button]  │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │ DataTable with all columns from cat_actionmetrics with search, sorting, │ │
+│ │ pagination                                                              │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 6.4.2 Metric Cards
+
+| #   | Label             | Icon           | Description                                                            | Calculation                                       |
+| --- | ----------------- | -------------- | ---------------------------------------------------------------------- | ------------------------------------------------- |
+| 1   | Total Executions  | Timer24Regular | Total number of action executions during the selected time period      | SUM(cat_executioncount)                           |
+| 2   | Avg Elapsed Time  | Timer24Regular | Average time taken to complete actions. Lower is better. Shows ms or s | SUM(cat_totalelapsedms) / SUM(cat_executioncount) |
+| 3   | Unique Node Kinds | Timer24Regular | Number of distinct action types executed (HTTP, Flow, Connector, etc.) | COUNT DISTINCT(cat_nodekind)                      |
+
+**Avg Elapsed Time Display Logic:**
+
+```typescript
+summary.avgElapsedMs < 1000
+  ? `${Math.round(summary.avgElapsedMs)}ms` // Show as milliseconds
+  : `${(summary.avgElapsedMs / 1000).toFixed(2)}s`; // Show as seconds
+```
+
+#### 6.4.3 Charts
+
+| Chart                     | Type           | Description                                                             | Data Source                                                |
+| ------------------------- | -------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- |
+| Execution Trend           | Line Chart     | Daily count of action executions over time. Shows action usage patterns | cat_executioncount grouped by cat_metricdate               |
+| Top Actions by Executions | Horizontal Bar | Top 10 most frequently executed actions                                 | cat_executioncount grouped by cat_actionid or cat_nodekind |
+| Executions by Node Kind   | Vertical Bar   | Breakdown of actions by type (HTTP, Flow, etc.). Shows most used types  | cat_executioncount grouped by cat_nodekind                 |
+
+#### 6.4.4 Node Kind Badge Colors
+
+| Node Kind                 | Badge Color        |
+| ------------------------- | ------------------ |
+| InvokeFlowAction          | brand (blue)       |
+| InvokeConnectorAction     | important (red)    |
+| SearchAndSummarizeContent | informative (teal) |
+| HttpRequest               | warning (yellow)   |
+| SendActivity              | success (green)    |
+| SetVariable               | subtle (gray)      |
+| Other/Unknown             | informative (teal) |
+
+#### 6.4.5 DataTable Action Buttons
+
+| Button   | Icon                   | Style     | Action                                  |
+| -------- | ---------------------- | --------- | --------------------------------------- |
+| Download | ArrowDownload24Regular | Secondary | Export filtered action metrics to Excel |
+
+#### 6.4.6 DataTable Columns
+
+| Column                   | Width | Format                                              | Sortable |
+| ------------------------ | ----- | --------------------------------------------------- | -------- |
+| Metric Date              | 110px | cat_metricdate as MM/DD/YYYY                        | Yes      |
+| Node Kind                | 180px | Badge with color based on node kind (see 6.4.4)     | Yes      |
+| Action ID                | 150px | Text with ellipsis overflow, tooltip for full value | Yes      |
+| Agent                    | 120px | cat_agentname text                                  | Yes      |
+| Channel                  | 100px | cat_channelid text                                  | Yes      |
+| Data Source              | 110px | Badge (green=Production, yellow=Test Data)          | Yes      |
+| Execution Count          | 125px | Number formatted                                    | Yes      |
+| Avg Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
+| P50 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
+| P90 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
+| P95 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
+| P99 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
+| Min Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
+| Max Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
+| Total Elapsed (ms)       | 140px | Number formatted                                    | Yes      |
+| Std Dev Elapsed (ms)     | 150px | Number formatted                                    | Yes      |
+| Daily Conversation Count | 175px | Number formatted                                    | Yes      |
+| Topic ID                 | 150px | Text with ellipsis overflow, tooltip for full value | Yes      |
+
+**DataTable Features:**
+
+- Searchable with placeholder "Search by action, node kind..."
+- Default sort: cat_metricdate desc, cat_avgelapsedms desc
+- Page size: Default pagination
+- Empty message: "No action metrics found"
+
 ### 6.5 Tool Metrics Page
 
 **Purpose:** Monitor tool/connector performance including call counts, success rates, response times, and failure trends.
@@ -1055,7 +982,8 @@ Satisfaction by session breakdown:
 │ SECTION: Tool Metrics (DataTable)                                           │
 │ [Section Title]                                          [Download Button]  │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with search, sorting, pagination                              │ │
+│ │ DataTable with all columns from cat_toolmetrics with search, sorting,   │ │ 
+│ │ pagination                                                              │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -1224,9 +1152,9 @@ When no data matches filters, display centered empty state:
 - Page size: Default pagination
 - Empty message: "No error details found"
 
-### 6.7 Action Metrics Page
+### 6.7 Transcript Metrics Page
 
-**Purpose:** Track action/node executions including flow invocations, connector calls, and HTTP requests with performance metrics.
+**Purpose:** Analyze conversation outcomes, engagement rates, user feedback, and customer satisfaction scores.
 
 #### 6.7.1 Layout
 
@@ -1235,100 +1163,175 @@ When no data matches filters, display centered empty state:
 │ GLOBAL FILTER BAR                                                           │
 │ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ METRIC CARDS ROW (4 cards)                                                  │
-│ [Total Executions] [Avg Elapsed Time] [Unique Node Kinds] [Conversations]   │
+│ METRIC CARDS ROW (8 cards)                                                  │
+│ [Total Conv] [Engaged] [Resolved] [Escalated] [Abandoned] [Avg Turns]       │
+│ [Feedback] [CSAT Score]                                                     │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ CHARTS ROW 1                                                                │
+│ CONVERSATION OUTCOMES OVER TIME (Full Width)                                │
+│ Toggle: [Area Icon] [Bar Icon]    Stacked chart showing outcomes by date    │
+│ Colors: Resolved(blue) Escalated(pink) Abandoned(cyan) Unengaged(gray)      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ CHARTS ROW                                                                  │
 │ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
-│ │ Execution Trend                 │ │ Top Actions by Executions       │     │
-│ │ (Line Chart)                    │ │ (Horizontal Bar)                │     │
+│ │ Engagement Breakdown            │ │ Session Outcomes                │     │
+│ │ (Pie Chart)                     │ │ (Donut Chart)                   │     │
+│ │ Engaged vs Unengaged            │ │ Resolved/Escalated/Abandoned    │     │
 │ └─────────────────────────────────┘ └─────────────────────────────────┘     │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ CHARTS ROW 2                                                                │
-│ ┌───────────────────────────────────────────────────────────────────┐       │
-│ │ Executions by Node Kind (Vertical Bar Chart)                      │       │
-│ └───────────────────────────────────────────────────────────────────┘       │
+│ CSAT SECTION (Conditional - only when csatCount > 0)                        │
+│ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
+│ │ Survey satisfaction score       │ │ Satisfaction score trend        │     │
+│ │ (Card with Score + Bar)         │ │ (Area Chart - 45 day trend)     │     │
+│ │ Dissatisfied/Neutral/Satisfied  │ │                                 │     │
+│ └─────────────────────────────────┘ └─────────────────────────────────┘     │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ DATATABLE                                                                   │
-│ [Action Metrics Title]                                   [Download Button]  │
+│ DATATABLE SECTION                                                           │
+│ [Transcript Metrics Title]          [All Feedbacks] [Download Button]       │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with search, sorting, pagination                              │ │
+│ │ DataTable with 17 columns, sortable, paginated                          │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### 6.7.2 Metric Cards
+#### 6.7.2 Metric Cards (8 cards)
 
-| #   | Label             | Icon           | Description                                                            | Calculation                                       |
-| --- | ----------------- | -------------- | ---------------------------------------------------------------------- | ------------------------------------------------- |
-| 1   | Total Executions  | Timer24Regular | Total number of action executions during the selected time period      | SUM(cat_executioncount)                           |
-| 2   | Avg Elapsed Time  | Timer24Regular | Average time taken to complete actions. Lower is better. Shows ms or s | SUM(cat_totalelapsedms) / SUM(cat_executioncount) |
-| 3   | Unique Node Kinds | Timer24Regular | Number of distinct action types executed (HTTP, Flow, Connector, etc.) | COUNT DISTINCT(cat_nodekind)                      |
-| 4   | Conversations     | Timer24Regular | Number of unique conversations that triggered actions                  | SUM(cat_dailyconversationcount)                   |
+| Metric              | Label                 | Source Column                                    | Display Format          | Icon                   | Trend Calculation                          | Description                                                                |
+| ------------------- | --------------------- | ------------------------------------------------ | ----------------------- | ---------------------- | ------------------------------------------ | -------------------------------------------------------------------------- |
+| Total Conversations | "Total Conversations" | cat_totalconversations                           | SUM                     | Chat24Regular          | % change from previous period              | Total number of conversations in the selected period                       |
+| Engaged             | "Engaged"             | cat_engagedcount                                 | SUM + (percentage%)     | Eye24Regular           | % change from previous period              | Sessions where user sent at least one message after agent greeting         |
+| Resolved            | "Resolved"            | cat_resolvedcount                                | SUM + (percentage%)     | Checkmark24Regular     | % change from previous period              | Engaged sessions that were marked as resolved                              |
+| Escalated           | "Escalated"           | cat_escalatedcount                               | SUM + (percentage%)     | ArrowRouting24Regular  | % change (invertTrend: higher is worse)    | Engaged sessions escalated to human agent                                  |
+| Abandoned           | "Abandoned"           | cat_abandonedcount                               | SUM + (percentage%)     | PersonWalking24Regular | % change (invertTrend: higher is worse)    | Engaged sessions where user left without resolution                        |
+| Avg Turns           | "Avg Turns"           | cat_totalturns / cat_sessioncount                | Average with 1 decimal  | Channel24Regular       | % change from previous period              | Average conversation turns per session                                     |
+| Feedback            | "Feedback"            | cat_feedbacklikecount + cat_feedbackdislikecount | Total + 👍count 👎count | ThumbLike24Regular     | % change from previous period              | Total user feedback reactions with like/dislike breakdown                  |
+| Satisfaction Score  | "Satisfaction Score"  | cat_csatscore / cat_csatcount                    | Average + "/5.0" unit   | Star24Regular          | % change from previous period weighted avg | Average customer satisfaction score (1-5 scale) weighted by response count |
 
-**Avg Elapsed Time Display Logic:**
+**Trend Calculation Logic:**
 
 ```typescript
-summary.avgElapsedMs < 1000
-  ? `${Math.round(summary.avgElapsedMs)}ms` // Show as milliseconds
-  : `${(summary.avgElapsedMs / 1000).toFixed(2)}s`; // Show as seconds
+// Calculate previous period (same duration, immediately before current period)
+const periodLengthMs = endDate.getTime() - startDate.getTime();
+const previousStartDate = new Date(startDate.getTime() - periodLengthMs);
+const previousEndDate = new Date(startDate.getTime() - 1);
+
+// Trend percentage formula
+const calculateTrend = (
+  current: number,
+  previous: number,
+  hasPreviousData: boolean,
+) => {
+  if (!hasPreviousData || previous === 0) return undefined;
+  return Math.round(((current - previous) / previous) * 100 * 10) / 10;
+};
 ```
+
+**Rate Calculations:**
+
+- Engagement Rate = (engagedCount / cat_sessioncount) × 100
+- Resolution Rate = (resolvedCount / cat_sessioncount) × 100
+- Escalation Rate = (escalatedCount / cat_sessioncount) × 100
+- Abandonment Rate = (abandonedCount / cat_sessioncount) × 100
 
 #### 6.7.3 Charts
 
-| Chart                     | Type           | Description                                                             | Data Source                                                |
-| ------------------------- | -------------- | ----------------------------------------------------------------------- | ---------------------------------------------------------- |
-| Execution Trend           | Line Chart     | Daily count of action executions over time. Shows action usage patterns | cat_executioncount grouped by cat_metricdate               |
-| Top Actions by Executions | Horizontal Bar | Top 10 most frequently executed actions                                 | cat_executioncount grouped by cat_actionid or cat_nodekind |
-| Executions by Node Kind   | Vertical Bar   | Breakdown of actions by type (HTTP, Flow, etc.). Shows most used types  | cat_executioncount grouped by cat_nodekind                 |
+**Conversation Outcomes Over Time (Full Width):**
 
-#### 6.7.4 Node Kind Badge Colors
+| Chart                 | Type                      | Description                                                                                            |
+| --------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Conversation Outcomes | ConversationOutcomesChart | Both Stacked area & bar chart with toggle icons showing Resolved/Escalated/Abandoned/Unengaged by date |
 
-| Node Kind                 | Badge Color        |
-| ------------------------- | ------------------ |
-| InvokeFlowAction          | brand (blue)       |
-| InvokeConnectorAction     | important (red)    |
-| SearchAndSummarizeContent | informative (teal) |
-| HttpRequest               | warning (yellow)   |
-| SendActivity              | success (green)    |
-| SetVariable               | subtle (gray)      |
-| Other/Unknown             | informative (teal) |
+Colors:
 
-#### 6.7.5 DataTable Action Buttons
+- Resolved: #0078d4 (Blue)
+- Escalated: #e3008c (Pink/Magenta)
+- Abandoned: #00b7c3 (Cyan/Teal)
+- Unengaged: #8a8886 (Gray)
 
-| Button   | Icon                   | Style     | Action                                  |
-| -------- | ---------------------- | --------- | --------------------------------------- |
-| Download | ArrowDownload24Regular | Secondary | Export filtered action metrics to Excel |
+**Charts Row (2 columns):**
+
+| Chart                | Type      | Description                                     |
+| -------------------- | --------- | ----------------------------------------------- |
+| Engagement Breakdown | Pie Chart | Engaged (blue) vs Unengaged (gray) distribution |
+| Session Outcomes     | Pie Chart | Resolved/Escalated/Abandoned/Unengaged donut    |
+
+**CSAT Section (conditional - only shown when csatCount > 0):**
+
+| Chart                     | Type       | Description                                                                        |
+| ------------------------- | ---------- | ---------------------------------------------------------------------------------- |
+| Survey satisfaction score | Card       | Large score display + Satisfaction by session bar (Dissatisfied/Neutral/Satisfied) |
+| Satisfaction score trend  | Area Chart | Daily average CSAT score trend (last 45 days)                                      |
+
+Satisfaction by session breakdown:
+
+- Dissatisfied (scores 1-2): Red #d13438
+- Neutral (score 3): Gray #8a8886
+- Satisfied (scores 4-5): Green #107c10
+
+#### 6.7.4 DataTable Action Buttons
+
+| Button        | Icon                   | Style     | Action                                      |
+| ------------- | ---------------------- | --------- | ------------------------------------------- |
+| All Feedbacks | Comment24Regular       | Secondary | Opens Reactions dialog with all feedback    |
+| Download      | ArrowDownload24Regular | Secondary | Export filtered transcript records to Excel |
+
+**Note:** "All Feedbacks" button only appears when feedback data exists.
+
+#### 6.7.5 Feedback Dialog (Reactions Dialog)
+
+**Purpose:** View and filter user feedback reactions.
+
+**Dialog Properties:**
+
+- Title: "Reactions"
+- Max width: 800px
+- Max height: 85vh
+- Scrollable content area
+
+**Filter Tabs (ToggleButtons):**
+
+1. All
+2. Thumbs up (with ThumbLike24Regular icon)
+3. Thumbs down (with ThumbDislike24Regular icon)
+
+**Count Display:** "{n} reactions" (gray text)
+
+**Feedback Card Structure (in order):**
+
+| Field           | Display                                                                    |
+| --------------- | -------------------------------------------------------------------------- |
+| Reaction Header | Icon (green 👍 or orange 👎) + "Thumbs up" or "Thumbs down" label          |
+| Agent           | Agent name (if available)                                                  |
+| Conversation ID | Monospace font, word-break for long IDs                                    |
+| Agent Response  | The agent message that received feedback (blue left border, max 500 chars) |
+| User Feedback   | User's text feedback comment (if provided)                                 |
+
+**Dialog Actions:**
+| Button | Icon | Appearance | Action |
+| ------------------ | ---------------------- | ---------- | ------------------------------------- |
+| Download Feedbacks | ArrowDownload24Regular | Secondary | Export filtered feedback to file |
+| Close | - | Primary | Close dialog |
 
 #### 6.7.6 DataTable Columns
 
-| Column                   | Width | Format                                              | Sortable |
-| ------------------------ | ----- | --------------------------------------------------- | -------- |
-| Metric Date              | 110px | cat_metricdate as MM/DD/YYYY                        | Yes      |
-| Node Kind                | 180px | Badge with color based on node kind (see 6.7.4)     | Yes      |
-| Action ID                | 150px | Text with ellipsis overflow, tooltip for full value | Yes      |
-| Agent                    | 120px | cat_agentname text                                  | Yes      |
-| Channel                  | 100px | cat_channelid text                                  | Yes      |
-| Data Source              | 110px | Badge (green=Production, yellow=Test Data)          | Yes      |
-| Execution Count          | 125px | Number formatted                                    | Yes      |
-| Avg Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
-| P50 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
-| P90 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
-| P95 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
-| P99 Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
-| Min Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
-| Max Elapsed (ms)         | 130px | Number formatted                                    | Yes      |
-| Total Elapsed (ms)       | 140px | Number formatted                                    | Yes      |
-| Std Dev Elapsed (ms)     | 150px | Number formatted                                    | Yes      |
-| Daily Conversation Count | 175px | Number formatted                                    | Yes      |
-| Topic ID                 | 150px | Text with ellipsis overflow, tooltip for full value | Yes      |
-
-**DataTable Features:**
-
-- Searchable with placeholder "Search by action, node kind..."
-- Default sort: cat_metricdate desc, cat_avgelapsedms desc
-- Page size: Default pagination
-- Empty message: "No action metrics found"
+| Column                 | Width | Format                                     |
+| ---------------------- | ----- | ------------------------------------------ |
+| Date                   | 90px  | MM/DD/YYYY                                 |
+| Agent                  | 200px | Agent ID text                              |
+| Channel                | 100px | Channel ID                                 |
+| Data Source            | 90px  | Badge (green=Production, yellow=Test Data) |
+| Total Conversations    | 145px | Number formatted                           |
+| Session Count          | 110px | Number formatted                           |
+| Engaged Count          | 115px | Number formatted                           |
+| Resolved Count         | 115px | Number formatted                           |
+| Escalated Count        | 120px | Number formatted                           |
+| Abandoned Count        | 130px | Number formatted                           |
+| Unengaged Count        | 125px | Number formatted                           |
+| Total Turns            | 95px  | Number formatted                           |
+| Feedback Like Count    | 145px | Number formatted                           |
+| Feedback Dislike Count | 160px | Number formatted                           |
+| Feedback Details       | 125px | "View" button (opens dialog)               |
+| CSAT Score             | 80px  | Number formatted                           |
+| CSAT Count             | 80px  | Number formatted                           |
 
 ### 6.8 Usage History Page
 
@@ -1472,6 +1475,79 @@ If data fails to load, display:
 | Feature Name               | cat_featurename                              |
 | Billed Copilot Credits     | cat_billedcopilotcredits as number           |
 | Non-Billed Copilot Credits | cat_nonbilledcopilotcredits as number        |
+
+### 6.9 Sync Logs Page
+
+**Purpose:** View synchronization logs for data import operations, including execution status, flow run details, and error messages.
+
+**Note:** This page does **NOT** have a global filter bar.
+
+#### 6.9.1 Layout
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ METRIC CARDS ROW (4 cards)                                                  │
+│ [Total Syncs] [Successful] [Failed] [In Progress]                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ DATATABLE SECTION                                                           │
+│ [Sync Logs Title]                                        [Refresh Button]   │
+│ ┌─────────────────────────────────────────────────────────────────────────┐ │
+│ │ DataTable with sorting, pagination                                      │ │
+│ └─────────────────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+#### 6.9.2 Metric Cards (4 cards)
+
+| #   | Label       | Icon                     | Description                                 | Calculation                                   |
+| --- | ----------- | ------------------------ | ------------------------------------------- | --------------------------------------------- |
+| 1   | Total Syncs | ArrowSync24Regular       | Total number of sync operations             | COUNT(\*)                                     |
+| 2   | Successful  | CheckmarkCircle24Regular | Successfully completed sync operations      | COUNT WHERE cat_executionstatuscode = 3       |
+| 3   | Failed      | DismissCircle24Regular   | Failed sync operations                      | COUNT WHERE cat_executionstatuscode = 4       |
+| 4   | In Progress | Clock24Regular           | Currently running or not started operations | COUNT WHERE cat_executionstatuscode IN (1, 2) |
+
+#### 6.9.3 DataTable Action Buttons
+
+| Button  | Icon               | Style     | Action                |
+| ------- | ------------------ | --------- | --------------------- |
+| Refresh | ArrowSync24Regular | Secondary | Reload sync logs data |
+
+#### 6.9.4 DataTable Columns
+
+| Column            | Width | Format                                                     | Sortable |
+| ----------------- | ----- | ---------------------------------------------------------- | -------- |
+| Name              | 200px | cat_name text                                              | Yes      |
+| Status            | 120px | Badge with status color (see 6.9.5)                        | Yes      |
+| Cloud Flow Name   | 180px | cat_cloudflowname text                                     | Yes      |
+| Flow Instance URL | 150px | Link to cat_cloudflowinstanceurl (opens in new tab)        | No       |
+| Start Date        | 120px | cat_startdate as MM/DD/YYYY                                | Yes      |
+| End Date          | 120px | cat_enddate as MM/DD/YYYY                                  | Yes      |
+| Error Message     | 300px | cat_errormessage text with ellipsis, tooltip for full text | No       |
+| Created On        | 150px | createdon as locale datetime                               | Yes      |
+
+#### 6.9.5 Status Badge Colors
+
+| Status Code | Label       | Badge Color      |
+| ----------- | ----------- | ---------------- |
+| 1           | Not Started | subtle (gray)    |
+| 2           | Running     | brand (blue)     |
+| 3           | Complete    | success (green)  |
+| 4           | Error       | danger (red)     |
+| 5           | Cancelled   | warning (yellow) |
+
+#### 6.9.6 Data Source
+
+- **Table:** cat_copilotstudiokitlogs
+- **Filter:** Records related to Agent Insights configurations
+- **Default Sort:** createdon desc
+- **Page Size:** 25 records per page
+
+**DataTable Features:**
+
+- Sortable columns
+- Default sort: createdon desc
+- Page size: 25 records per page
+- Empty message: "No sync logs found"
 
 ---
 
