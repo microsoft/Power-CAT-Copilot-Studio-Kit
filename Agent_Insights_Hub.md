@@ -1550,58 +1550,53 @@ The DataTable section has title: **"Message consumption details"**
 #### 7.1.1 Layout
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│ 🤖 Add Agent Configuration                               ✕  │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Agent *                    (Create mode only)              │
+┌────────────────────────────────────────────────────────────┐
+│ 🤖 Add Agent Configuration                             ✕  │
+├────────────────────────────────────────────────────────────┤
+│                                                            │
+│  Agent *                    (Create mode only)             │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ Type to search agents...                        ▼   │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  Agent Name                 (Edit mode - read-only)         │
-│  ┌─────────────────────────────────────────────────────┐   │
-│  │ [Agent Name]                                        │   │
-│  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  Name *                                                     │
+|                                                            |
+│  Name *                                                    │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ [Auto-populated from Agent selection]               │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  App Insights Application ID *                              │
+│                                                            │
+│  App Insights Application ID *                             │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ [GUID]                                              │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  App Insights Tenant ID *                                   │
+│                                                            │
+│  App Insights Tenant ID *                                  │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ [GUID]                                              │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  App Insights Client ID *                                   │
+│                                                            │
+│  App Insights Client ID *                                  │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ [GUID]                                              │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  App Insights Secret Location *                             │
+│                                                            │
+│  App Insights Secret Location *                            │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ Dataverse                                       ▼   │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  App Insights Secret        (if Location = Dataverse)       │
+│                                                            │
+│  App Insights Secret        (if Location = Dataverse)      │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ [Secret value]                                      │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-│  Environment Variable       (if Location = KeyVault)        │
+│                                                            │
+│  Environment Variable       (if Location = KeyVault)       │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │ [Environment variable name]                         │   │
 │  └─────────────────────────────────────────────────────┘   │
-│                                                             │
-├─────────────────────────────────────────────────────────────┤
-│                                    [Cancel]     [Save]      │
-└─────────────────────────────────────────────────────────────┘
+│                                                            │
+├────────────────────────────────────────────────────────────┤
+│                                    [Cancel]     [Save]     │
+└────────────────────────────────────────────────────────────┘
 ```
 
 #### 7.1.2 Form Fields
@@ -1609,7 +1604,6 @@ The DataTable section has title: **"Message consumption details"**
 | Field                        | Type     | Required    | Mode   | Source/Behavior                                    |
 | ---------------------------- | -------- | ----------- | ------ | -------------------------------------------------- |
 | Agent                        | Combobox | Yes         | Create | Lookup to cat_agentdetails, searchable, freeform   |
-| Agent Name                   | Input    | -           | Edit   | Read-only, displays cat_agentname                  |
 | Name                         | Input    | Yes         | Both   | Auto-populated from Agent selection in create mode |
 | App Insights Application ID  | Input    | Yes         | Both   | Manual GUID entry                                  |
 | App Insights Tenant ID       | Input    | Yes         | Both   | Manual GUID entry                                  |
@@ -1621,7 +1615,7 @@ The DataTable section has title: **"Message consumption details"**
 #### 7.1.3 Agent Combobox Behavior (Create Mode)
 
 - Loads agents from `cat_agentdetails` table on dialog open
-- Fields: cat_agentdetailsid, cat_name, cat_environmentname, cat_agentid
+- Fields: cat_agentdetailsid, cat_name, cat_environmentname, cat_agentid, cat_environmenturl
 - Displays: `{cat_name} ({cat_environmentname})`
 - Searchable with freeform text input
 - On selection:
@@ -1629,6 +1623,7 @@ The DataTable section has title: **"Message consumption details"**
   - Sets `agentName` (cat_agentname) = cat_name
   - Auto-populates `name` (cat_name) = cat_name
   - Sets `copilotId` (cat_copilotid) = cat_agentid
+  - Sets `dataverseurl` (cat_dataverseurl) = cat_environmenturl
 
 #### 7.1.4 Save Action
 
@@ -1638,7 +1633,8 @@ Creates/updates `cat_copilotconfiguration` record with:
 | --------------------------------------- | --------------------------------------------------- |
 | cat_name                                | formData.name                                       |
 | cat_agentname                           | formData.agentName                                  |
-| cat_copilotid                           | formData.copilotId (from cat_agentid)               |
+| cat_copilotid                           | formData.copilotId (from cat_agentdetailsid)        |
+| cat_dataverseurl                        | formData.dataverseurl (from cat_agentdetailsid)     |
 | cat_azureappinsightsapplicationid       | formData.appInsightsAppId                           |
 | cat_azureappinsightstenantid            | formData.appInsightsTenantId                        |
 | cat_azureappinsightsclientid            | formData.appInsightsClientId                        |
@@ -1711,8 +1707,6 @@ Creates/updates `cat_copilotconfiguration` record with:
 | Edit   | Settings24Regular | "Edit"  | Opens AddAgentDialog in edit mode with config  |
 | Clone  | Copy20Regular     | "Clone" | Clones config and opens AddAgentDialog to edit |
 
-**Row Click:** Clicking anywhere on the row triggers Edit action.
-
 #### 7.2.4 Empty State
 
 When no configurations exist or search returns no results:
@@ -1730,7 +1724,7 @@ When no configurations exist or search returns no results:
 
 ### 7.3 Sync Now Dialog (Historical Backfill)
 
-**Purpose**: Trigger historical KPI import from Application Insights.
+**Purpose**: Trigger historical KPI import from Application Insights & Conversation Transcripts.
 
 **Dialog Properties:**
 
@@ -1742,18 +1736,17 @@ When no configurations exist or search returns no results:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│ Generate Metrics - Historical Backfill                   ✕  │
+│ Generate Metrics - Historical Backfill                 ✕   │
 ├─────────────────────────────────────────────────────────────┤
 │                                                             │
-│  Extract historical metrics from Application Insights for   │
-│  the selected configuration.                                │
+│  Extract historical metrics for the selected configuration. │
 │                                                             │
 │  ┌───────────────────────────────────────────────────────┐  │
 │  │ CONFIGURATION                                         │  │
 │  │                                                       │  │
-│  │ Select Configuration *                                │  │
+│  │ Select Agent Configuration *                          │  │
 │  │ ┌─────────────────────────────────────────────────┐   │  │
-│  │ │ Select an agent...                          ▼   │   │  │
+│  │ │ Select an agent configuration...            ▼   │   │  │
 │  │ └─────────────────────────────────────────────────┘   │  │
 │  └───────────────────────────────────────────────────────┘  │
 │                                                             │
@@ -1786,9 +1779,9 @@ When no configurations exist or search returns no results:
 
 #### 7.3.2 Configuration Section
 
-| Field                | Type   | Required | Options                                                                  |
-| -------------------- | ------ | -------- | ------------------------------------------------------------------------ |
-| Select Configuration | Select | Yes      | "Select an agent...", "All Agents", + list from cat_copilotconfiguration |
+| Field                | Type   | Required | Options                                                                                |
+| -------------------- | ------ | -------- | -------------------------------------------------------------------------------------- |
+| Select Configuration | Select | Yes      | "Select an agent configuration...", "All Agents", + list from cat_copilotconfiguration |
 
 **Configuration Options Filter:** Only shows configurations where `cat_configurationtypescodes` contains Agent Insights (4).
 
@@ -1812,7 +1805,7 @@ const validateDates = () => {
   const diffDays = Math.ceil(
     (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
   );
-  return diffDays <= 365 && diffDays >= 0;
+  return diffDays <= 365;
 };
 ```
 
@@ -1822,7 +1815,7 @@ During import execution:
 
 - Progress bar with percentage (0-100%)
 - Text: "Processing..."
-- Progress updates: 50% → 1.5s delay → 80% → 1s delay → 100%
+- Progress updates: 50% → 2s delay → 80% → 1s delay → 100%
 
 #### 7.3.5 Message States
 
