@@ -1,4 +1,4 @@
-# Agent Insights Hub - Product Requirements Document (PRD)
+# Agent Insights Hub - Feature Requirements Document (FRD)
 
 ## 1. Executive Summary
 
