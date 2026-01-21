@@ -988,8 +988,6 @@ summary.avgElapsedMs < 1000
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**Section Layout:** Each section has a card-like container with shadow, padding, and rounded corners.
-
 #### 6.5.2 Metric Cards
 
 | #   | Label             | Icon                     | Unit | Description                                                            | Calculation                                         |
