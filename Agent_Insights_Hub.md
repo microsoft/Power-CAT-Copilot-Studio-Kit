@@ -197,35 +197,7 @@ graph TB
 | cat_p95toolresponsetimems        | DECIMAL        | No       | P95 tool response time                      |
 | cat_topusersdisplay              | MULTILINE TEXT | No       | JSON array of top users                     |
 
-### 3.3 Transcript Metrics Table (cat_transcriptmetrics)
-
-| Column Name                | Type           | Required | Description                                |
-| -------------------------- | -------------- | -------- | ------------------------------------------ |
-| cat_transcriptmetricsid    | GUID           | Yes      | Primary key                                |
-| cat_transcriptmetricname   | NVARCHAR(850)  | Yes      | Record name                                |
-| cat_agentconfigurationid   | LOOKUP         | No       | Related to cat_copilotconfiguration        |
-| cat_agentconfigurationname | NVARCHAR(100)  | No       | Agent configuration display name           |
-| cat_agentid                | NVARCHAR(100)  | Yes      | Agent identifier                           |
-| cat_conversationdate       | DATE ONLY      | Yes      | Conversation date                          |
-| cat_channelid              | NVARCHAR(100)  | Yes      | Channel identifier                         |
-| cat_datasourcecode         | CHOICE         | No       | Production (1), Test Data (2)              |
-| cat_totalconversations     | INT            | No       | Total conversations                        |
-| cat_sessioncount           | INT            | No       | Total sessions (multiple per conversation) |
-| cat_engagedcount           | INT            | No       | Engaged session count                      |
-| cat_unengagedcount         | INT            | No       | Unengaged session count                    |
-| cat_resolvedcount          | INT            | No       | Resolved session count                     |
-| cat_escalatedcount         | INT            | No       | Escalated session count (default: 0)       |
-| cat_abandonedcount         | INT            | No       | Abandoned session count                    |
-| cat_totalturns             | INT            | No       | Total conversation turns                   |
-| cat_csatcount              | INT            | No       | CSAT survey response count                 |
-| cat_csatscore              | INT            | No       | CSAT score (1-5 scale)                     |
-| cat_feedbacklikecount      | INT            | No       | Thumbs up count                            |
-| cat_feedbackdislikecount   | INT            | No       | Thumbs down count                          |
-| cat_feedbacktextcount      | INT            | No       | Text feedback count                        |
-| cat_feedbackdetails        | MULTILINE TEXT | No       | JSON array of feedback details             |
-| cat_isdesignmodecode       | CHOICE         | No       | No (0), Yes (1)                            |
-
-### 3.4 Topic Metrics Table (cat_topicmetrics)
+### 3.3 Topic Metrics Table (cat_topicmetrics)
 
 | Column Name                  | Type          | Required | Description                         |
 | ---------------------------- | ------------- | -------- | ----------------------------------- |
@@ -261,6 +233,33 @@ graph TB
 | cat_maxactionelapsedms       | INT           | No       | Max action time                     |
 | cat_p90actionelapsedms       | INT           | No       | P90 action time                     |
 | cat_nodekindsdisplay         | NVARCHAR(200) | No       | Node types used                     |
+
+### 3.4 Action Metrics Table (cat_actionmetrics)
+
+| Column Name                | Type          | Required | Description                         |
+| -------------------------- | ------------- | -------- | ----------------------------------- |
+| cat_actionmetricsid        | GUID          | Yes      | Primary key                         |
+| cat_actionmetricsname      | NVARCHAR(850) | Yes      | Record name                         |
+| cat_agentconfiguration     | LOOKUP        | No       | Related to cat_copilotconfiguration |
+| cat_agentname              | NVARCHAR(200) | Yes      | Agent name                          |
+| cat_nodekind               | NVARCHAR(100) | Yes      | Action node type                    |
+| cat_actionid               | NVARCHAR(200) | No       | Action identifier                   |
+| cat_topicid                | NVARCHAR(200) | No       | Parent topic ID                     |
+| cat_metricdate             | DATE ONLY     | Yes      | Metric date                         |
+| cat_channelid              | NVARCHAR(100) | Yes      | Channel identifier                  |
+| cat_datasourcecode         | CHOICE        | Yes      | Production (1), Test Data (2)       |
+| cat_executioncount         | INT           | No       | Execution count                     |
+| cat_dailyconversationcount | INT           | No       | Conversations using action          |
+| cat_totalelapsedms         | DECIMAL       | No       | Total elapsed time                  |
+| cat_avgelapsedms           | DECIMAL       | No       | Average elapsed time                |
+| cat_minelapsedms           | DECIMAL       | No       | Minimum elapsed time                |
+| cat_maxelapsedms           | DECIMAL       | No       | Maximum elapsed time                |
+| cat_p10elapsedms           | DECIMAL       | No       | P10 elapsed time                    |
+| cat_p50elapsedms           | DECIMAL       | No       | P50 elapsed time                    |
+| cat_p90elapsedms           | DECIMAL       | No       | P90 elapsed time                    |
+| cat_p95elapsedms           | DECIMAL       | No       | P95 elapsed time                    |
+| cat_p99elapsedms           | DECIMAL       | No       | P99 elapsed time                    |
+| cat_stddevelapsedms        | DECIMAL       | No       | Standard deviation                  |
 
 ### 3.5 Tool Metrics Table (cat_toolmetrics)
 
@@ -316,43 +315,59 @@ graph TB
 | cat_lastoccurence              | DATETIME       | No       | Last occurrence                     |
 | cat_sessionid                  | NVARCHAR(200)  | No       | Sample session ID                   |
 
-### 3.7 Action Metrics Table (cat_actionmetrics)
+### 3.7 Transcript Metrics Table (cat_transcriptmetrics)
 
-| Column Name                | Type          | Required | Description                         |
-| -------------------------- | ------------- | -------- | ----------------------------------- |
-| cat_actionmetricsid        | GUID          | Yes      | Primary key                         |
-| cat_actionmetricsname      | NVARCHAR(850) | Yes      | Record name                         |
-| cat_agentconfiguration     | LOOKUP        | No       | Related to cat_copilotconfiguration |
-| cat_agentname              | NVARCHAR(200) | Yes      | Agent name                          |
-| cat_nodekind               | NVARCHAR(100) | Yes      | Action node type                    |
-| cat_actionid               | NVARCHAR(200) | No       | Action identifier                   |
-| cat_topicid                | NVARCHAR(200) | No       | Parent topic ID                     |
-| cat_metricdate             | DATE ONLY     | Yes      | Metric date                         |
-| cat_channelid              | NVARCHAR(100) | Yes      | Channel identifier                  |
-| cat_datasourcecode         | CHOICE        | Yes      | Production (1), Test Data (2)       |
-| cat_executioncount         | INT           | No       | Execution count                     |
-| cat_dailyconversationcount | INT           | No       | Conversations using action          |
-| cat_totalelapsedms         | DECIMAL       | No       | Total elapsed time                  |
-| cat_avgelapsedms           | DECIMAL       | No       | Average elapsed time                |
-| cat_minelapsedms           | DECIMAL       | No       | Minimum elapsed time                |
-| cat_maxelapsedms           | DECIMAL       | No       | Maximum elapsed time                |
-| cat_p10elapsedms           | DECIMAL       | No       | P10 elapsed time                    |
-| cat_p50elapsedms           | DECIMAL       | No       | P50 elapsed time                    |
-| cat_p90elapsedms           | DECIMAL       | No       | P90 elapsed time                    |
-| cat_p95elapsedms           | DECIMAL       | No       | P95 elapsed time                    |
-| cat_p99elapsedms           | DECIMAL       | No       | P99 elapsed time                    |
-| cat_stddevelapsedms        | DECIMAL       | No       | Standard deviation                  |
+| Column Name                | Type           | Required | Description                                |
+| -------------------------- | -------------- | -------- | ------------------------------------------ |
+| cat_transcriptmetricsid    | GUID           | Yes      | Primary key                                |
+| cat_transcriptmetricname   | NVARCHAR(850)  | Yes      | Record name                                |
+| cat_agentconfigurationid   | LOOKUP         | No       | Related to cat_copilotconfiguration        |
+| cat_agentconfigurationname | NVARCHAR(100)  | No       | Agent configuration display name           |
+| cat_agentid                | NVARCHAR(100)  | Yes      | Agent identifier                           |
+| cat_conversationdate       | DATE ONLY      | Yes      | Conversation date                          |
+| cat_channelid              | NVARCHAR(100)  | Yes      | Channel identifier                         |
+| cat_datasourcecode         | CHOICE         | No       | Production (1), Test Data (2)              |
+| cat_totalconversations     | INT            | No       | Total conversations                        |
+| cat_sessioncount           | INT            | No       | Total sessions (multiple per conversation) |
+| cat_engagedcount           | INT            | No       | Engaged session count                      |
+| cat_unengagedcount         | INT            | No       | Unengaged session count                    |
+| cat_resolvedcount          | INT            | No       | Resolved session count                     |
+| cat_escalatedcount         | INT            | No       | Escalated session count (default: 0)       |
+| cat_abandonedcount         | INT            | No       | Abandoned session count                    |
+| cat_totalturns             | INT            | No       | Total conversation turns                   |
+| cat_csatcount              | INT            | No       | CSAT survey response count                 |
+| cat_csatscore              | INT            | No       | CSAT score (1-5 scale)                     |
+| cat_feedbacklikecount      | INT            | No       | Thumbs up count                            |
+| cat_feedbackdislikecount   | INT            | No       | Thumbs down count                          |
+| cat_feedbacktextcount      | INT            | No       | Text feedback count                        |
+| cat_feedbackdetails        | MULTILINE TEXT | No       | JSON array of feedback details             |
+| cat_isdesignmodecode       | CHOICE         | No       | No (0), Yes (1)                            |
 
-### 3.8 Copilot Studio Kit Logs Table (cat_copilotstudiokitlogs)
+### 3.8 Agent Usage History Table (cat_agentusagehistory)
+
+| Column Name                 | Type          | Required | Description                     |
+| --------------------------- | ------------- | -------- | ------------------------------- |
+| cat_agentusagehistoryid     | GUID          | Yes      | Primary key                     |
+| cat_name                    | NVARCHAR(850) | Yes      | Record name (alternate key)     |
+| cat_agent                   | LOOKUP        | No       | Related to cat_agentdetails     |
+| cat_agentid                 | NVARCHAR(100) | No       | Agent identifier                |
+| cat_environmentid           | NVARCHAR(100) | No       | Environment identifier          |
+| cat_featurename             | NVARCHAR(200) | No       | Name of the feature used        |
+| cat_usagedate               | DATE ONLY     | No       | Date of usage                   |
+| cat_billedcopilotcredits    | DECIMAL       | No       | Billed Copilot credits consumed |
+| cat_nonbilledcopilotcredits | DECIMAL       | No       | Non-billed Copilot credits      |
+
+### 3.89 Copilot Studio Kit Logs Table (cat_copilotstudiokitlogs)
 
 | Column Name                | Type           | Required | Description                                                          |
 | -------------------------- | -------------- | -------- | -------------------------------------------------------------------- |
 | cat_copilotstudiokitlogsid | GUID           | Yes      | Primary key                                                          |
 | cat_name                   | NVARCHAR(100)  | No       | Record name                                                          |
-| cat_copilotconfigurationid | LOOKUP         | No       | Related to cat_copilotconfiguration                                  |
+| createdon                  | DATE & TIME    | No       | Created On                                                           |
 | cat_executionstatuscode    | CHOICE         | Yes      | Not Started (1), Running (2), Complete (3), Error (4), Cancelled (5) |
 | cat_cloudflowname          | NVARCHAR(200)  | No       | Name of the Cloud Flow                                               |
 | cat_cloudflowinstanceurl   | URL            | No       | Link to Cloud Flow run instance                                      |
+| cat_copilotconfigurationid | LOOKUP         | No       | Related to cat_copilotconfiguration                                  |
 | cat_startdate              | DATE ONLY      | No       | Sync start date                                                      |
 | cat_enddate                | DATE ONLY      | No       | Sync end date                                                        |
 | cat_errormessage           | MULTILINE TEXT | No       | Error message if failed                                              |
@@ -433,7 +448,7 @@ The filter bar appears below tabs on all pages except Sync Logs and Usage Histor
 **Agent Dropdown Filtering Rules:**
 
 - **All pages except Usage History**: Show agents from `cat_copilotconfiguration` where `cat_configurationtypescodes` contains Agent Insights (4)
-- **Usage History page**: Show all agents where usage history data exists in `cat_agentusagehistory` table (has its own agent dropdown)
+- **Usage History page**: Show all agents for which usage history data exists in `cat_agentusagehistory` table (has its own agent lookup)
 
 ```mermaid
 graph LR
@@ -481,7 +496,7 @@ graph LR
 | Channel    | Hardcoded array                  | Values: msteams, webchat, directline, pva-studio, pva-autonomous, pva-published-engine-direct, mobile, whatsapp, unknown |
 | Data Mode  | Hardcoded options                | Filter by `cat_datasourcecode`: 1=Production, 2=Test                                                                     |
 
-> **Note:** Usage History page uses a different agent filter - it shows agents where usage history data exists in `cat_agentusagehistory` table, regardless of configuration type.
+> **Note:** Usage History page uses a different agent filter - it shows agents for which usage history data exists in `cat_agentusagehistory` table, regardless of configuration type.
 
 #### Channel Display Name Mapping
 
@@ -511,12 +526,15 @@ const displayNames: Record<string, string> = {
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
 │ ACTION BUTTONS ROW                                                          │
 │ [Sync now] [Add agent] [Bulk import] [Show agents]                          │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (7 cards)                                                  │
-│ [Total Conv] [Daily Users] [Responses] [Avg Response] [Duration] [Errors]   │
-│ [Tool Success %]                                                            │
+│ [Total Conversations] [Daily Active Users] [Responses] [Avg Response]       │
+│ [Duration] [Errors] [Tool Success %]                                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ USAGE OVERVIEW Section                                                      │
 │ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
@@ -601,7 +619,7 @@ The Overview page is organized into sections with charts:
 | Chart                      | Type           | Data Source      | Description                        |
 | -------------------------- | -------------- | ---------------- | ---------------------------------- |
 | Error distribution by type | Donut Chart    | cat_errordetails | Error types (SystemError, etc.)    |
-| Tool success rate (%)      | Horizontal Bar | cat_toolmetrics  | Top 3 tools with success % (0-100) |
+| Tool success rate (%)      | Horizontal Bar | cat_toolmetrics  | Top 5 tools with success % (0-100) |
 
 **RESPONSE PERFORMANCE Section:**
 
@@ -633,6 +651,9 @@ The Overview page is organized into sections with charts:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
 │ DAILY CONVERSATION VOLUME (Full Width Area Chart)                           │
 │ Shows daily conversation count trend with 30-day range                      │
 │ Color: DataVizPalette.color1 (blue)                                         │
@@ -722,6 +743,9 @@ The Overview page is organized into sections with charts:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (8 cards)                                                  │
 │ [Total Conv] [Engaged] [Resolved] [Escalated] [Abandoned] [Avg Turns]       │
 │ [Feedback] [CSAT Score]                                                     │
@@ -900,6 +924,9 @@ Satisfaction by session breakdown:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (6 cards)                                                  │
 │ [Total Triggers] [Completed] [Abandoned] [Avg Duration] [Errors] [Messages] │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1003,6 +1030,9 @@ Satisfaction by session breakdown:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
 │ SECTION: Tool Performance Overview                                          │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
 │ │ METRIC CARDS (6 cards in grid)                                          │ │
@@ -1116,6 +1146,9 @@ When no data matches filters, display centered empty state:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (4 cards)                                                  │
 │ [Total Errors] [Unique Error Codes] [Affected Conversations] [Affected Users]│
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1199,6 +1232,9 @@ When no data matches filters, display centered empty state:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
+│ GLOBAL FILTER BAR                                                           │
+│ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
+├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (4 cards)                                                  │
 │ [Total Executions] [Avg Elapsed Time] [Unique Node Kinds] [Conversations]   │
 ├─────────────────────────────────────────────────────────────────────────────┤
