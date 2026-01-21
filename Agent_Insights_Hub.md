@@ -8,7 +8,7 @@
 
 ### 1.2 Description
 
-Agent Insights Hub is a comprehensive analytics and monitoring dashboard for Microsoft Copilot Studio agents. It provides real-time visibility into agent performance, conversation metrics, topic analytics, tool execution, and error tracking. Built as a Power Apps Code Apps using React and Fluent UI, it connects directly to Dataverse to display aggregated telemetry data imported from Azure Application Insights, Conversation Transcripts and Usage data.
+Agent Insights Hub is a comprehensive analytics and monitoring dashboard for Microsoft Copilot Studio agents. It provides real-time visibility into agent performance, conversation metrics, topic analytics, tool execution, and error tracking. Built as a Power Apps Code Apps using React and Fluent UI, it connects directly to Dataverse to display aggregated telemetry data imported from Azure Application Insights, Conversation Transcripts and Agent Usage data.
 
 ### 1.3 Problem Statement
 
@@ -140,15 +140,15 @@ graph TB
 | cat_name                                | NVARCHAR(100) | Yes      | Configuration name (display name)                                                                      |
 | cat_agentname                           | NVARCHAR(200) | No       | Agent display name                                                                                     |
 | cat_copilotid                           | NVARCHAR(36)  | Yes      | Copilot/Agent Id                                                                                       |
+| cat_dataverseurl                        | URL           | Yes      | Dataverse instance URL                                                                                 |
+| cat_agents                              | LOOKUP        | No       | Related to cat_agentdetails                                                                            |
 | cat_configurationtypescodes             | CHOICE        | Yes      | Multi-select: Test Automation (1), Conversation KPIs (2), File Synchronization (3), Agent Insights (4) |
 | cat_azureappinsightsapplicationid       | NVARCHAR(100) | No       | App Insights Application ID                                                                            |
 | cat_azureappinsightstenantid            | NVARCHAR(100) | No       | App Insights Tenant ID                                                                                 |
 | cat_azureappinsightsclientid            | NVARCHAR(100) | No       | App Insights Client ID                                                                                 |
-| cat_azureappinsightssecret              | NVARCHAR(200) | No       | App Insights Secret                                                                                    |
 | cat_azureappinsightssecretlocationcode  | CHOICE        | No       | Dataverse (1), Key Vault (2)                                                                           |
+| cat_azureappinsightssecret              | NVARCHAR(200) | No       | App Insights Secret                                                                                    |
 | cat_azureappinsightsenvironmentvariable | NVARCHAR(200) | No       | Environment variable name for secret                                                                   |
-| cat_dataverseurl                        | URL           | Yes      | Dataverse instance URL                                                                                 |
-| cat_agents                              | LOOKUP        | No       | Related to cat_agentdetails                                                                            |
 | statecode                               | STATE         | No       | Active (0), Inactive (1)                                                                               |
 
 ### 3.2 Daily Metrics Table (cat_dailymetrics)
