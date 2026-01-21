@@ -1163,10 +1163,10 @@ When no data matches filters, display centered empty state:
 │ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (8 cards)                                                  │
-│ [Total Conv] [Engaged] [Resolved] [Escalated] [Abandoned] [Avg Turns]       │
-│ [Feedback] [CSAT Score]                                                     │
+│ [Total Conversations] [Engaged] [Resolved] [Escalated] [Abandoned]          │   
+│ [Avg Turns] [Feedback] [Satisfaction Score]                                 │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ CONVERSATION OUTCOMES OVER TIME (Full Width)                                │
+│ CONVERSATION OUTCOMES (Full Width)   outcomes for last one month            │
 │ Toggle: [Area Icon] [Bar Icon]    Stacked chart showing outcomes by date    │
 │ Colors: Resolved(blue) Escalated(pink) Abandoned(cyan) Unengaged(gray)      │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -1174,7 +1174,7 @@ When no data matches filters, display centered empty state:
 │ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
 │ │ Engagement Breakdown            │ │ Session Outcomes                │     │
 │ │ (Pie Chart)                     │ │ (Donut Chart)                   │     │
-│ │ Engaged vs Unengaged            │ │ Resolved/Escalated/Abandoned    │     │
+│ │ Engaged vs Unengaged            │ │                                 │
 │ └─────────────────────────────────┘ └─────────────────────────────────┘     │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ CSAT SECTION (Conditional - only when csatCount > 0)                        │
@@ -1187,7 +1187,8 @@ When no data matches filters, display centered empty state:
 │ DATATABLE SECTION                                                           │
 │ [Transcript Metrics Title]          [All Feedbacks] [Download Button]       │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with 17 columns, sortable, paginated                          │ │
+│ │ DataTable with all columns from cat_transcriptmetrics, searchable,      │ │
+│ │ sortable, paginated                                                     │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -1198,11 +1199,11 @@ When no data matches filters, display centered empty state:
 | ------------------- | --------------------- | ------------------------------------------------ | ----------------------- | ---------------------- | ------------------------------------------ | -------------------------------------------------------------------------- |
 | Total Conversations | "Total Conversations" | cat_totalconversations                           | SUM                     | Chat24Regular          | % change from previous period              | Total number of conversations in the selected period                       |
 | Engaged             | "Engaged"             | cat_engagedcount                                 | SUM + (percentage%)     | Eye24Regular           | % change from previous period              | Sessions where user sent at least one message after agent greeting         |
-| Resolved            | "Resolved"            | cat_resolvedcount                                | SUM + (percentage%)     | Checkmark24Regular     | % change from previous period              | Engaged sessions that were marked as resolved                              |
-| Escalated           | "Escalated"           | cat_escalatedcount                               | SUM + (percentage%)     | ArrowRouting24Regular  | % change (invertTrend: higher is worse)    | Engaged sessions escalated to human agent                                  |
-| Abandoned           | "Abandoned"           | cat_abandonedcount                               | SUM + (percentage%)     | PersonWalking24Regular | % change (invertTrend: higher is worse)    | Engaged sessions where user left without resolution                        |
+| Resolved            | "Resolved"            | cat_resolvedcount                                | SUM + (percentage%)     | Checkmark24Regular     | % change from previous period              | Sessions that were marked as resolved                                      |
+| Escalated           | "Escalated"           | cat_escalatedcount                               | SUM + (percentage%)     | ArrowRouting24Regular  | % change (invertTrend: higher is worse)    | Sessions escalated to human agent                                          |
+| Abandoned           | "Abandoned"           | cat_abandonedcount                               | SUM + (percentage%)     | PersonWalking24Regular | % change (invertTrend: higher is worse)    | Sessions where user left without resolution                                |
 | Avg Turns           | "Avg Turns"           | cat_totalturns / cat_sessioncount                | Average with 1 decimal  | Channel24Regular       | % change from previous period              | Average conversation turns per session                                     |
-| Feedback            | "Feedback"            | cat_feedbacklikecount + cat_feedbackdislikecount | Total + 👍count 👎count | ThumbLike24Regular     | % change from previous period              | Total user feedback reactions with like/dislike breakdown                  |
+| Feedback            | "Feedback"            | cat_feedbacklikecount + cat_feedbackdislikecount | Total + 👍count 👎count | ThumbLike24Regular    | % change from previous period              | Total user feedback reactions with like/dislike breakdown                  |
 | Satisfaction Score  | "Satisfaction Score"  | cat_csatscore / cat_csatcount                    | Average + "/5.0" unit   | Star24Regular          | % change from previous period weighted avg | Average customer satisfaction score (1-5 scale) weighted by response count |
 
 **Trend Calculation Logic:**
@@ -1233,11 +1234,11 @@ const calculateTrend = (
 
 #### 6.7.3 Charts
 
-**Conversation Outcomes Over Time (Full Width):**
+**Conversation Outcomes (Full Width):**
 
-| Chart                 | Type                      | Description                                                                                            |
-| --------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------ |
-| Conversation Outcomes | ConversationOutcomesChart | Both Stacked area & bar chart with toggle icons showing Resolved/Escalated/Abandoned/Unengaged by date |
+| Chart                 | Type                      | Description                                                                                                                             |
+| --------------------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Conversation Outcomes | ConversationOutcomesChart | Both Stacked area & bar chart with toggle icons showing Resolved/Escalated/Abandoned/Unengaged by date for last 1 month based on filter |
 
 Colors:
 
@@ -1354,7 +1355,7 @@ Satisfaction by session breakdown:
 │ CHARTS ROW                                                                  │
 │ ┌─────────────────────────────────┐ ┌─────────────────────────────────┐     │
 │ │ Copilot Credits usage by env    │ │ Credits by Feature              │     │
-│ │ (Horizontal Bar - Top 5)        │ │ (Donut Chart)                   │     │
+│ │ (Horizontal Bar - Top 5 Env)    │ │ (Donut Chart)                   │     │
 │ └─────────────────────────────────┘ └─────────────────────────────────┘     │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ DATATABLE SECTION                                                           │
@@ -1369,18 +1370,18 @@ Satisfaction by session breakdown:
 
 **Important:** This page does NOT use the global filter bar. It has its own independent filters.
 
-| Filter      | Component | Options                                                                  | Default          |
-| ----------- | --------- | ------------------------------------------------------------------------ | ---------------- |
-| Environment | Combobox  | "All environments" + list from cat_agentdetails (searchable)             | All environments |
-| Agent       | Combobox  | "All agents" + list from cat_agentdetails (searchable)                   | All agents       |
-| Date        | Select    | Month to date, Previous Month, Previous to Previous Month, Last 6 months | Month to date    |
-| Feature     | Select    | "All features" + unique cat_featurename values from data                 | All features     |
+| Filter      | Component | Options                                                                               | Default          |
+| ----------- | --------- | ------------------------------------------------------------------------------------- | ---------------- |
+| Environment | Combobox  | "All environments" + Unique Environment list from cat_agentusagehistory (searchable)  | All environments |
+| Agent       | Combobox  | "All agents" + Unique Agent list from cat_agentusagehistory (searchable)              | All agents       |
+| Date        | Select    | Month to date, Previous Month, Previous to Previous Month, Last 6 months              | Month to date    |
+| Feature     | Select    | "All features" + unique cat_featurename values from data                              | All features     |
 
 **Date Range Options:**
 
 - **Month to date**: From 1st of current month to today
-- **Previous Month**: Full previous calendar month (displays actual month name, e.g., "May")
-- **Previous to Previous Month**: Two months ago (displays actual month name, e.g., "April")
+- **Previous Month**: Full previous calendar month (displays actual month name, e.g., "May 2025")
+- **Previous to Previous Month**: Two months ago (displays actual month name, e.g., "April 2025")
 - **Last 6 months**: Rolling 6 months from today
 
 **Combobox Features:**
@@ -1391,10 +1392,10 @@ Satisfaction by session breakdown:
 
 #### 6.8.3 Data Sources
 
-| Table                 | Purpose                                                |
-| --------------------- | ------------------------------------------------------ |
-| cat_agentusagehistory | Main usage history data with credits consumption       |
-| cat_agentdetails      | Agent information for lookups (name, environment name) |
+| Table                 | Purpose                                                      |
+| --------------------- | ------------------------------------------------------------ |
+| cat_agentusagehistory | Main usage history data with credits consumption             |
+| cat_agentdetails      | Agent information for lookups (agent name, environment name) |
 
 **Agent Details Lookup:** Uses `agentDetailsMap` to enrich usage data with agent names and environment names.
 
@@ -1407,11 +1408,11 @@ Satisfaction by session breakdown:
 
 #### 6.8.5 Charts
 
-| Chart                                | Type           | Description                                                                     | Data Source                                                                     |
-| ------------------------------------ | -------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| Credits consumption trend            | Area Chart     | Daily breakdown of billed (blue #0078d4) and non-billed (green #107c10) credits | cat_billedcopilotcredits + cat_nonbilledcopilotcredits grouped by cat_usagedate |
-| Copilot Credits usage by environment | Horizontal Bar | Top 5 environments by cat_billedcopilotcredits consumption                      | cat_billedcopilotcredits grouped by cat_environmentname (Top 5)                 |
-| Credits by Feature                   | Donut Chart    | Distribution of credits consumed by different Copilot Studio features           | Total credits grouped by cat_featurename                                        |
+| Chart                                | Type           | Description                                                                                                        | Data Source                                                                     |
+| ------------------------------------ | -------------- | -------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------- |
+| Credits consumption trend            | Area Chart     | Daily breakdown of billed (blue #0078d4) and non-billed (green #107c10) credits for last one month based on filter | cat_billedcopilotcredits + cat_nonbilledcopilotcredits grouped by cat_usagedate |
+| Copilot Credits usage by environment | Horizontal Bar | Top 5 environments by cat_billedcopilotcredits consumption                                                         | cat_billedcopilotcredits grouped by cat_environmentname (Top 5)                 |
+| Credits by Feature                   | Donut Chart    | Distribution of credits consumed by different Copilot Studio features                                              | Total credits grouped by cat_featurename                                        |
 
 **Area Chart Configuration:**
 
@@ -1455,16 +1456,9 @@ The DataTable section has title: **"Message consumption details"**
 - Default sort: cat_usagedate desc
 - Page size: 25 records per page
 - No search (data is already filtered by page filters)
+- Empty message: "No agent usage history found"
 
-#### 6.8.9 Error State
-
-If data fails to load, display:
-
-- Title: "Usage History"
-- Message: "{loadError}"
-- Sub-message: "Please ensure the Agent Usage History table is properly configured in your environment."
-
-#### 6.8.10 Excel Export Columns
+#### 6.8.9 Excel Export Columns
 
 | Excel Column               | Source                                       |
 | -------------------------- | -------------------------------------------- |
@@ -1485,9 +1479,6 @@ If data fails to load, display:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│ METRIC CARDS ROW (4 cards)                                                  │
-│ [Total Syncs] [Successful] [Failed] [In Progress]                           │
-├─────────────────────────────────────────────────────────────────────────────┤
 │ DATATABLE SECTION                                                           │
 │ [Sync Logs Title]                                        [Refresh Button]   │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
@@ -1496,16 +1487,7 @@ If data fails to load, display:
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-#### 6.9.2 Metric Cards (4 cards)
-
-| #   | Label       | Icon                     | Description                                 | Calculation                                   |
-| --- | ----------- | ------------------------ | ------------------------------------------- | --------------------------------------------- |
-| 1   | Total Syncs | ArrowSync24Regular       | Total number of sync operations             | COUNT(\*)                                     |
-| 2   | Successful  | CheckmarkCircle24Regular | Successfully completed sync operations      | COUNT WHERE cat_executionstatuscode = 3       |
-| 3   | Failed      | DismissCircle24Regular   | Failed sync operations                      | COUNT WHERE cat_executionstatuscode = 4       |
-| 4   | In Progress | Clock24Regular           | Currently running or not started operations | COUNT WHERE cat_executionstatuscode IN (1, 2) |
-
-#### 6.9.3 DataTable Action Buttons
+#### 6.9.2 DataTable Action Buttons
 
 | Button  | Icon               | Style     | Action                |
 | ------- | ------------------ | --------- | --------------------- |
@@ -1513,16 +1495,18 @@ If data fails to load, display:
 
 #### 6.9.4 DataTable Columns
 
-| Column            | Width | Format                                                     | Sortable |
-| ----------------- | ----- | ---------------------------------------------------------- | -------- |
-| Name              | 200px | cat_name text                                              | Yes      |
-| Status            | 120px | Badge with status color (see 6.9.5)                        | Yes      |
-| Cloud Flow Name   | 180px | cat_cloudflowname text                                     | Yes      |
-| Flow Instance URL | 150px | Link to cat_cloudflowinstanceurl (opens in new tab)        | No       |
-| Start Date        | 120px | cat_startdate as MM/DD/YYYY                                | Yes      |
-| End Date          | 120px | cat_enddate as MM/DD/YYYY                                  | Yes      |
-| Error Message     | 300px | cat_errormessage text with ellipsis, tooltip for full text | No       |
-| Created On        | 150px | createdon as locale datetime                               | Yes      |
+| Column                    | Width | Format                                                     | Sortable |
+| --------------------------| ----- | ---------------------------------------------------------- | -------- |
+| Name                      | 200px | cat_name text                                              | Yes      |
+| Created On                | 150px | createdon as locale datetime, default sorting              | Yes      |
+| Execution Status          | 120px | Badge with status color (see 6.9.5)                        | Yes      |
+| Cloud Flow Name           | 180px | cat_cloudflowname text                                     | Yes      |
+| Cloud Flow Instance URL   | 150px | Link to cat_cloudflowinstanceurl (opens in new tab)        | No       |
+| Agent Configuration       | 150px | Agent Configuration Name                                   | Yes      |
+| Start Date                | 120px | cat_startdate as MM/DD/YYYY                                | Yes      |
+| End Date                  | 120px | cat_enddate as MM/DD/YYYY                                  | Yes      |
+| Error Message             | 300px | cat_errormessage text with ellipsis, tooltip for full text | No       |
+
 
 #### 6.9.5 Status Badge Colors
 
@@ -1537,7 +1521,7 @@ If data fails to load, display:
 #### 6.9.6 Data Source
 
 - **Table:** cat_copilotstudiokitlogs
-- **Filter:** Records related to Agent Insights configurations
+- **Filter:** Cloud Flow Name = Agent Insights | Pull Agent Metrics (Child) 
 - **Default Sort:** createdon desc
 - **Page Size:** 25 records per page
 
