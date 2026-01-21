@@ -1093,7 +1093,8 @@ When no data matches filters, display centered empty state:
 │ DATATABLE                                                                   │
 │ [Error Details Title]                                    [Download Button]  │
 │ ┌─────────────────────────────────────────────────────────────────────────┐ │
-│ │ DataTable with search, sorting, pagination                              │ │
+│ │ DataTable with all columns from cat_errordetails with search, sorting,  │ │
+│ │ pagination                                                              │ │
 │ └─────────────────────────────────────────────────────────────────────────┘ │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
