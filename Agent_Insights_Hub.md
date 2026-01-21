@@ -643,6 +643,99 @@ The Overview page is organized into sections with charts:
 - Display as interactive tags (InteractionTag component)
 - Add Copy all users button
 
+#### 6.1.6 Empty State (First-time User Experience)
+
+When users first open the app without any agent configurations or metrics data, the Overview page displays a centered empty state instead of the normal dashboard.
+
+**Two Empty State Scenarios:**
+
+**Scenario 1: No Agent Configurations Exist**
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│                         ┌──────────────────┐                                │
+│                         │   📁 (Folder)    │   80x80px circular bg          │
+│                         └──────────────────┘                                │
+│                                                                             │
+│                         No insights yet                                     │
+│                                                                             │
+│             Add agents to start seeing insights about your                  │
+│             Agent performance and user engagement.                          │
+│                                                                             │
+│        Learn more(https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit)│
+│                                                                             │
+│           [+ Add agent]  [↑ Bulk import]  [⟳ Sync now]                     │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Scenario 2: Configurations Exist but No Metrics Data**
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│                         ┌──────────────────┐                                │
+│                         │   📁 (Folder)    │   80x80px circular bg          │
+│                         └──────────────────┘                                │
+│                                                                             │
+│                         No insights yet                                     │
+│                                                                             │
+│             You have {n} agent configuration(s). Sync to                    │
+│             start collecting metrics data.                                  │
+│                                                                             │
+│                            Learn more                                       │
+│                                                                             │
+│           [+ Add agent]  [↑ Bulk import]  [⟳ Sync now]                      │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+**Empty State Styling:**
+
+| Element           | Style                                                                     |
+| ----------------- | ------------------------------------------------------------------------- |
+| Container         | Centered, min-height: calc(100vh - 240px), rounded corners, subtle border |
+| Icon Wrapper      | 80x80px circular, colorNeutralBackground3 background                      |
+| Icon              | Folder24Regular, fontSizeHero900, colorNeutralForeground3                 |
+| Title             | "No insights yet", fontSizeBase500, fontWeightSemibold                    |
+| Message           | fontSizeBase300, colorNeutralForeground3, centered, max-width 360px       |
+| Learn More Link   | fontSizeBase200, colorBrandForeground1, cursor pointer                    |
+| Actions Container | Horizontal flex with gap, marginTop spacingVerticalS                      |
+
+**Action Buttons:**
+
+| Button      | Icon                 | Appearance | Action                      |
+| ----------- | -------------------- | ---------- | --------------------------- |
+| Add agent   | Add24Regular         | Primary    | Opens AddAgentDialog        |
+| Bulk import | ArrowUpload24Regular | Secondary  | Opens BulkImportDialog      |
+| Sync now    | ArrowSync24Regular   | Secondary  | Opens GenerateMetricsDialog |
+
+**Conditional Logic:**
+
+```typescript
+const hasMetrics = dailyMetrics.length > 0;
+const hasConfigs = configurations.length > 0;
+
+// Loading state
+if (loading) {
+  return <Spinner size="large" label="Loading dashboard..." />;
+}
+
+// Empty state: No configurations
+if (!hasConfigs) {
+  return <EmptyStateNoConfigs />;
+}
+
+// Empty state: Configurations exist but no metrics
+if (!hasMetrics) {
+  return <EmptyStateNoMetrics configCount={configurations.length} />;
+}
+
+// Normal dashboard view
+return <DashboardContent />;
+```
+
 ### 6.2 Daily Metrics Page
 
 **Purpose:** View daily aggregated metrics including conversation volumes, user activity, messages.
@@ -2055,28 +2148,89 @@ Downloads Excel file (`agent_configuration_template.xlsx`) with:
 
 ### 8.1 MetricCard Component
 
+**Location**: `src/components/MetricCard/MetricCard.tsx`
+
 **Props**:
 
 ```typescript
 interface MetricCardProps {
   label: string; // Display label
-  value: string | number; // Main value
-  description?: string; // Info tooltip content
-  suffix?: string; // Unit suffix (e.g., "ms", "%")
+  value: number | string; // Main value
   trend?: number; // Percentage change (positive = up, negative = down)
   trendLabel?: string; // Label for trend (e.g., "vs last period")
-  icon?: React.ReactNode; // Optional icon
-  onClick?: () => void; // Click handler
+  unit?: string; // Unit suffix (e.g., "ms", "%")
+  icon?: React.ReactNode; // Optional icon displayed in header
+  invertTrend?: boolean; // For metrics where decrease is good (e.g., errors)
+  className?: string; // Additional CSS class
+  description?: string; // Tooltip description for the metric
 }
 ```
 
 **Features**:
 
-- Info icon with tooltip when `description` provided
-- Trend indicator with arrow (up = green, down = red, or inverse for "lower is better" metrics)
-- Hover effect with shadow
+- Compact card design with min-width: 150px, max-width: 200px
+- Info icon with tooltip when `description` provided (uses `Info16Regular` icon)
+- Trend indicator badge with arrow (up = green, down = red)
+- `invertTrend` prop inverts trend colors (decrease shows as positive green)
+- Auto-formats large numbers: 1,000+ → "1.0K", 1,000,000+ → "1.0M"
+- Hover effect with box-shadow transition
+- Responsive design for mobile (smaller font sizes on screens ≤768px)
 
-### 8.2 DataTable Component
+### 8.2 MetricTile Component
+
+**Location**: `src/components/MetricTile/MetricTile.tsx`
+
+**Props**:
+
+```typescript
+interface MetricTileProps {
+  title: string; // Display title
+  value: number | string; // Main value
+  unit?: string; // Unit suffix (e.g., "min", "%")
+  change?: number; // Percentage change from previous period
+  changeDescription?: string; // Description text shown after change
+  invertChangeColor?: boolean; // For metrics where decrease is good (e.g., errors)
+  loading?: boolean; // Show loading state
+  formatValue?: (value: number) => string; // Custom value formatter
+}
+```
+
+**Features**:
+
+- Card layout with title, large value, and change indicator
+- Auto-formats large numbers: 1,000+ → "1.0K", 1,000,000+ → "1.0M"
+- Change row with trend icon (`ArrowTrending24Regular` / `ArrowTrendingDown24Regular`)
+- Change colors: positive (green), negative (red), neutral (gray)
+- `invertChangeColor` swaps positive/negative colors for "lower is better" metrics
+- Loading state displays "--" for value
+
+### 8.3 DurationTile Component
+
+**Location**: `src/components/MetricTile/MetricTile.tsx`
+
+**Props**:
+
+```typescript
+interface DurationTileProps extends Omit<
+  MetricTileProps,
+  "value" | "formatValue"
+> {
+  valueMs?: number; // Value in milliseconds
+  valueMinutes?: number; // Value in minutes
+}
+```
+
+**Features**:
+
+- Specialized MetricTile for duration display
+- Auto-converts milliseconds to appropriate unit:
+  - ≥60,000ms → displays in minutes (e.g., "1.5 min")
+  - ≥1,000ms → displays in seconds (e.g., "2.3 sec")
+  - <1,000ms → displays in milliseconds (e.g., "500 ms")
+
+### 8.4 DataTable Component
+
+**Location**: `src/components/DataTable/DataTable.tsx`
 
 **Props**:
 
@@ -2094,31 +2248,43 @@ interface DataTableProps<T> {
   columns: Column<T>[];
   data: T[];
   loading?: boolean;
-  searchable?: boolean;
-  searchPlaceholder?: string;
+  searchable?: boolean; // Default: true
+  searchPlaceholder?: string; // Default: "Search..."
   pageSizes?: number[]; // Default: [10, 25, 50, 100]
   defaultPageSize?: number; // Default: 10
   onRowClick?: (item: T, index: number) => void;
-  emptyMessage?: string;
+  emptyMessage?: string; // Default: "No data available"
   title?: string;
   actions?: React.ReactNode; // Toolbar actions (e.g., Export button)
   getRowKey?: (item: T, index: number) => string;
+  className?: string; // Additional CSS class
 }
 ```
 
 **Features**:
 
-- **Search**: Filter all columns by text
-- **Sorting**: Click column header to sort (asc → desc → none)
+- **Search**: Filter all columns by text (case-insensitive)
+- **Sorting**: Click column header to sort (asc → desc → none cycle)
 - **Pagination**: Page size selector, prev/next buttons, page info
-- **Resizable Columns**: Drag column borders to resize
+- **Resizable Columns**: Drag column borders to resize (min width: 50px)
+- **Loading State**: Shows Spinner with "Loading data..." label
+- **Empty State**: Displays `emptyMessage` when no data
 - **Export**: Parent provides export button in `actions` prop
 
-### 8.3 Export Functionality
+### 8.5 Export Functionality
 
-Each page implements Excel export using ExcelJS:
+**Location**: `src/utils/exportUtils.ts`
+
+Each page implements Excel export using XLSX library:
 
 ```typescript
+import * as XLSX from "xlsx";
+
+export interface ExportColumn {
+  key: string;
+  label: string;
+}
+
 // Column configurations per table
 export const DAILY_METRICS_COLUMNS: ExportColumn[] = [
   { key: "cat_metricdate", label: "Metric Date" },
@@ -2127,84 +2293,261 @@ export const DAILY_METRICS_COLUMNS: ExportColumn[] = [
 ];
 
 // Export function
-const exportToExcel = (
+export function exportToExcel<T extends Record<string, unknown>>(
   data: T[],
   columns: ExportColumn[],
-  filename: string,
-) => {
-  const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet("Data");
+  fileName: string,
+  sheetName: string = "Data",
+): void {
+  if (!data || data.length === 0) {
+    alert("No data to export");
+    return;
+  }
 
-  // Add headers
-  worksheet.addRow(columns.map((c) => c.label));
-
-  // Add data rows
-  data.forEach((item) => {
-    worksheet.addRow(columns.map((c) => item[c.key]));
+  // Transform data using column configuration
+  const exportData = data.map((record) => {
+    const row: Record<string, unknown> = {};
+    columns.forEach((col) => {
+      let value = record[col.key];
+      // Handle data source code, dates, etc.
+      row[col.label] = value ?? "";
+    });
+    return row;
   });
 
-  // Save file
-  workbook.xlsx.writeBuffer().then((buffer) => {
-    saveAs(new Blob([buffer]), `${filename}.xlsx`);
-  });
-};
+  // Create workbook and worksheet
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(exportData);
+  XLSX.utils.book_append_sheet(wb, ws, sheetName);
+
+  // Generate filename with date
+  const dateStr = new Date().toISOString().split("T")[0];
+  const fullFileName = `${fileName}_${dateStr}.xlsx`;
+
+  // Download file
+  XLSX.writeFile(wb, fullFileName);
+}
 ```
 
-### 8.4 Chart Components
+### 8.6 Chart Components
+
+**Location**: `src/components/Charts/`
 
 All charts use `@fluentui/react-charts` library.
 
-#### Common Props Pattern
+#### 8.6.1 FluentLineChart
+
+**Props**:
 
 ```typescript
-interface ChartProps {
+interface FluentLineChartProps {
   title: string;
-  description?: string; // For info tooltip
-  data: ChartDataPoint[];
+  description?: string; // Info tooltip content
+  data: Array<{
+    label: string;
+    value: number;
+    date?: Date; // Optional date object for x-axis
+    value2?: number; // Secondary line data
+  }>;
+  color?: string; // Primary line color
+  color2?: string; // Secondary line color
   height?: number; // Default: 250
-  color?: string; // Default: DataVizPalette.color1
+  legendLabel?: string; // Legend for primary line
+  legendLabel2?: string; // Legend for secondary line (default: "Previous Period")
+  showLegend?: boolean; // Default: true
 }
 ```
 
-#### Chart Types
+**Features**: Uses AreaChart with line fill, supports dual-line comparison.
 
-| Component                | Fluent Component   | Usage                      |
-| ------------------------ | ------------------ | -------------------------- |
-| FluentLineChart          | AreaChart          | Time series with area fill |
-| FluentAreaChart          | AreaChart          | Trend visualization        |
-| FluentPieChart           | DonutChart         | Distribution charts        |
-| FluentBarChart           | HorizontalBarChart | Category comparisons       |
-| FluentVerticalBarChart   | VerticalBarChart   | Percentile display         |
-| FluentHorizontalBarChart | HorizontalBarChart | Top N rankings             |
-| FluentTopicsList         | Custom             | Topic list with bars       |
+#### 8.6.2 FluentAreaChart
 
-#### Y-Axis Formatting
+**Props**:
 
 ```typescript
-yAxisTickFormat={(val: number) => {
-  if (val === 0) return '0';
-  if (val >= 1000000) return `${(val / 1000000).toFixed(val % 1000000 === 0 ? 0 : 1)}M`;
-  if (val >= 1000) return `${(val / 1000).toFixed(val % 1000 === 0 ? 0 : 1)}K`;
-  return Math.floor(val) === val ? val.toString() : '';
-}}
+interface FluentAreaChartProps {
+  title: string;
+  description?: string;
+  data: Array<{
+    label: string;
+    value: number;
+    date?: string; // ISO date string for accurate date parsing
+  }>;
+  color?: string;
+  height?: number; // Default: 250
+}
 ```
 
-### 8.5 InfoTooltip Component
+**Features**: Area chart with proper date handling and responsive width.
 
-Standardized info icon with tooltip for metric descriptions.
+#### 8.6.3 FluentPieChart (DonutChart)
+
+**Props**:
 
 ```typescript
-interface InfoTooltipProps {
-  content: string;
+interface FluentPieChartProps {
+  title: string;
+  description?: string;
+  data: Array<{
+    label: string;
+    value: number;
+    color?: string;
+  }>;
+  showLegend?: boolean; // Default: true
+  showDonut?: boolean; // Default: true (donut vs filled pie)
+  showCenterTotal?: boolean; // Default: true
+  centerLabel?: string; // Default: "Total"
+  height?: number;
+}
+```
+
+**Features**: Donut chart with center total display and configurable legend.
+
+#### 8.6.4 FluentBarChart (VerticalBarChart)
+
+**Props**:
+
+```typescript
+interface FluentBarChartProps {
+  title: string;
+  description?: string;
+  data: Array<{
+    label: string;
+    value: number;
+    date?: string; // ISO date string
+  }>;
+  color?: string;
+  height?: number; // Default: 250
+  width?: number;
+}
+```
+
+**Features**: Vertical bar chart with date sorting support.
+
+#### 8.6.5 FluentVerticalBarChart
+
+**Props**:
+
+```typescript
+interface FluentVerticalBarChartProps {
+  title: string;
+  description?: string;
+  data: Array<{
+    label: string;
+    value: number;
+    color?: string;
+  }>;
+  height?: number; // Default: 250
+  yAxisTitle?: string;
+  useSingleColor?: boolean; // Default: true
+}
+```
+
+**Features**: Vertical bars with optional per-bar colors or single color mode.
+
+#### 8.6.6 FluentHorizontalBarChart
+
+**Props**:
+
+```typescript
+interface FluentHorizontalBarChartProps {
+  title: string;
+  description?: string;
+  data: Array<{
+    label: string;
+    value: number;
+    billed?: number;
+    nonBilled?: number;
+    color?: string;
+  }>;
+  showPercentage?: boolean; // Default: false
+  height?: number;
+  xAxisTitle?: string;
+  labelWidth?: number; // Default: 200
+  showBilledSplit?: boolean; // Default: false (for billed/non-billed credits)
+}
+```
+
+**Features**: Horizontal bars with optional billed/non-billed split display.
+
+#### 8.6.7 FluentTopicsList
+
+**Props**:
+
+```typescript
+interface FluentTopicsListProps {
+  title: string;
+  description?: string;
+  data: Array<{
+    name: string;
+    count: number;
+  }>;
+  maxItems?: number; // Default: 5
+  onShowMore?: () => void;
+}
+```
+
+**Features**: Custom list component with progress bars showing relative counts.
+
+#### 8.6.8 ConversationOutcomesChart
+
+**Props**:
+
+```typescript
+interface OutcomeDataPoint {
+  date: string;
+  resolved: number;
+  escalated: number;
+  abandoned: number;
+  unengaged: number;
+  total: number;
 }
 
-// Usage in MetricCard or Chart headers
-<Tooltip content={description} relationship="description" withArrow>
-  <span className={styles.infoIcon}>
-    <Info16Regular />
-  </span>
-</Tooltip>
+interface ConversationOutcomesChartProps {
+  data: OutcomeDataPoint[];
+  height?: number; // Default: 280
+  onSeeDetails?: () => void;
+}
 ```
+
+**Features**:
+
+- Toggle between Stacked Area Chart and Vertical Stacked Bar Chart
+- Interactive legend to show/hide outcome categories
+- Custom tooltip with full date and percentages
+- Limited to last 45 days for optimal display
+- Outcome colors: Resolved (#0078d4 blue), Escalated (#e3008c pink), Abandoned (#00b7c3 cyan), Unengaged (#8a8886 gray)
+
+#### Chart Component Table
+
+| Component                 | Fluent Component                    | Usage                          |
+| ------------------------- | ----------------------------------- | ------------------------------ |
+| FluentLineChart           | AreaChart                           | Time series with area fill     |
+| FluentAreaChart           | AreaChart                           | Trend visualization            |
+| FluentPieChart            | DonutChart                          | Distribution charts            |
+| FluentBarChart            | VerticalBarChart                    | Date-based vertical bars       |
+| FluentVerticalBarChart    | VerticalBarChart                    | Percentile/category display    |
+| FluentHorizontalBarChart  | HorizontalBarChartWithAxis          | Top N rankings, credits by env |
+| FluentTopicsList          | Custom                              | Topic list with progress bars  |
+| ConversationOutcomesChart | AreaChart / VerticalStackedBarChart | Conversation outcomes by date  |
+
+### 8.7 Info Tooltip Pattern
+
+**Note**: There is no separate InfoTooltip component. Info tooltips are embedded directly in MetricCard and Chart components using Fluent UI's Tooltip.
+
+```typescript
+// Pattern used in MetricCard and Chart headers
+{description && (
+  <Tooltip content={description} relationship="description" withArrow>
+    <span className={styles.infoIcon}>
+      <Info16Regular />
+    </span>
+  </Tooltip>
+)}
+```
+
+**Icon**: `Info16Regular` from `@fluentui/react-icons`
+**Tooltip Props**: `relationship="description"`, `withArrow`
 
 ---
 
@@ -2560,17 +2903,6 @@ Deploys to Power Platform environment configured in `power.config.json`
 
 ---
 
-## 15. Version History
-
-| Version | Date       | Changes                                                |
-| ------- | ---------- | ------------------------------------------------------ |
-| 1.3.28  | 2026-01-20 | Fixed single date selection in Generate Metrics dialog |
-| 1.3.27  | 2026-01-20 | Fixed chart width handling with container ref          |
-| 1.3.26  | 2026-01-20 | Added K/M formatting to Y-axis, yAxisTickCount         |
-| 1.3.x   | Earlier    | Various bug fixes and feature additions                |
-
----
-
 ## Appendix A: File Structure
 
 ```
@@ -2600,7 +2932,13 @@ src/
 │   ├── MetricCard/
 │   │   ├── MetricCard.tsx
 │   │   └── index.ts
-│   └── InfoTooltip/
+│   ├── MetricTile/
+│   │   ├── MetricTile.tsx          # Includes DurationTile
+│   │   └── index.ts
+│   ├── DataTable/
+│   │   ├── DataTable.tsx
+│   │   └── index.ts
+│   └── index.ts                    # Main components export
 ├── constants/
 │   ├── metricDescriptions.ts
 │   └── index.ts
