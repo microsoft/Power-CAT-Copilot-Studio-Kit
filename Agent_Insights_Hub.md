@@ -589,7 +589,7 @@ const displayNames: Record<string, string> = {
 | Metric              | Label                 | Source                                                                          | Aggregation    | Trend Calculation                                        |
 | ------------------- | --------------------- | ------------------------------------------------------------------------------- | -------------- | -------------------------------------------------------- |
 | Total Conversations | "Total Conversations" | cat_dailymetrics.cat_dailyconversationcount                                     | SUM            | Compare current period vs previous period of same length |
-| Average DAU         | "Average DAU"         | cat_dailymetrics.cat_dailyuniqueusers                                           | AVG\*          | % change from previous period                            |
+| Average DAU         | "Average DAU"         | SUM(cat_dailymetrics.cat_dailyuniqueusers) / SUM(Cat_metricdate)                | AVG\*          | % change from previous period                            |
 | Responses           | "Responses"           | cat_dailymetrics.cat_totalresponses                                             | SUM            | % change                                                 |
 | Avg Response        | "Avg Response"        | cat_dailymetrics.cat_totalresponsetimems / cat_totalresponses                   | Weighted AVG   | % change                                                 |
 | Duration            | "Duration"            | cat_dailymetrics.cat_totaldurationms / cat_conversationcountforduration / 60000 | AVG in minutes | % change                                                 |
