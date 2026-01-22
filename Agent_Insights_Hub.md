@@ -533,7 +533,7 @@ const displayNames: Record<string, string> = {
 │ [Sync now] [Add agent] [Bulk import] [Show agents]                          │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (7 cards)                                                  │
-│ [Total Conversations] [Daily Active Users] [Responses] [Avg Response]       │
+│ [Total Conversations] [Average DAU] [Responses] [Avg Response]              │
 │ [Duration] [Errors] [Tool Success %]                                        │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ USAGE OVERVIEW Section                                                      │
@@ -589,12 +589,14 @@ const displayNames: Record<string, string> = {
 | Metric              | Label                 | Source                                                                          | Aggregation    | Trend Calculation                                        |
 | ------------------- | --------------------- | ------------------------------------------------------------------------------- | -------------- | -------------------------------------------------------- |
 | Total Conversations | "Total Conversations" | cat_dailymetrics.cat_dailyconversationcount                                     | SUM            | Compare current period vs previous period of same length |
-| Daily Active Users  | "Daily Active Users"  | cat_dailymetrics.cat_dailyuniqueusers                                           | SUM            | % change from previous period                            |
+| Average DAU         | "Average DAU"         | cat_dailymetrics.cat_dailyuniqueusers                                           | AVG\*          | % change from previous period                            |
 | Responses           | "Responses"           | cat_dailymetrics.cat_totalresponses                                             | SUM            | % change                                                 |
 | Avg Response        | "Avg Response"        | cat_dailymetrics.cat_totalresponsetimems / cat_totalresponses                   | Weighted AVG   | % change                                                 |
 | Duration            | "Duration"            | cat_dailymetrics.cat_totaldurationms / cat_conversationcountforduration / 60000 | AVG in minutes | % change                                                 |
 | Errors              | "Errors"              | cat_dailymetrics.cat_errorcount                                                 | SUM            | % change (lower is better)                               |
 | Tool Success        | "Tool Success"        | (cat_toolsuccesscount / cat_toolcallcount) \* 100                               | Percentage     | % change                                                 |
+
+> **\*Average DAU Formula:** `(sum of all full-day active user counts in the period) / (count of full days in the period)`. An active user is a unique user who interacted with the agent at least once during the report's period. The daily count starts and ends according to a full 24-hour day in the UTC time zone. See [Microsoft documentation](https://learn.microsoft.com/en-us/microsoft-copilot-studio/analytics-active-users) for more details.
 
 #### 6.1.4 Charts on Overview Page
 
@@ -751,7 +753,7 @@ return <DashboardContent />;
 │ Shows daily conversation count trend with 30-day range                      │
 │ Color: DataVizPalette.color1 (blue)                                         │
 ├─────────────────────────────────────────────────────────────────────────────┤
-│ DAILY ACTIVE USERS (Full Width Area Chart)                                  │
+│ DAILY ACTIVE USERS - DAU (Full Width Area Chart)                            │
 │ Shows daily unique users trend with 30-day range                            │
 │ Color: DataVizPalette.color2 (purple)                                       │
 ├─────────────────────────────────────────────────────────────────────────────┤
@@ -773,7 +775,7 @@ return <DashboardContent />;
 | Chart                     | Type       | Description                             | Data Column                | Height | Color                 |
 | ------------------------- | ---------- | --------------------------------------- | -------------------------- | ------ | --------------------- |
 | Daily Conversation Volume | Area Chart | Daily conversation count trend (30 day) | cat_dailyconversationcount | 250px  | DataVizPalette.color1 |
-| Daily Active Users        | Area Chart | Unique users per day (30 day)           | cat_dailyuniqueusers       | 250px  | DataVizPalette.color2 |
+| Daily Active Users (DAU)  | Area Chart | Unique users per day (30 day)           | cat_dailyuniqueusers       | 250px  | DataVizPalette.color2 |
 | Daily Messages            | Area Chart | User messages per day (30 day)          | cat_totalusermessages      | 250px  | DataVizPalette.color4 |
 
 **Chart Data Processing:**
