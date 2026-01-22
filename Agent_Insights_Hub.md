@@ -1258,8 +1258,8 @@ When no data matches filters, display centered empty state:
 │ [Agent ▼] [Date Range ▼] [Start Date] [End Date] [Channel ▼] [Data Mode ▼]  │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ METRIC CARDS ROW (8 cards)                                                  │
-│ [Total Conversations] [Engaged] [Resolved] [Escalated] [Abandoned]          │
-│ [Avg Turns] [Feedback] [Satisfaction Score]                                 │
+│ [Total Conversations] [Total Sessions] [Engaged] [Resolved] [Escalated]     │
+│ [Abandoned] [Avg Turns] [Feedback] [Satisfaction Score]                     │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ CONVERSATION OUTCOMES (Full Width)   outcomes for last one month            │
 │ Toggle: [Area Icon] [Bar Icon]    Stacked chart showing outcomes by date    │
@@ -1293,6 +1293,7 @@ When no data matches filters, display centered empty state:
 | Metric              | Label                 | Source Column                                    | Display Format          | Icon                   | Trend Calculation                          | Description                                                                |
 | ------------------- | --------------------- | ------------------------------------------------ | ----------------------- | ---------------------- | ------------------------------------------ | -------------------------------------------------------------------------- |
 | Total Conversations | "Total Conversations" | cat_totalconversations                           | SUM                     | Chat24Regular          | % change from previous period              | Total number of conversations in the selected period                       |
+| Total Sessions      | "Total Sessions"      | cat_sessioncount                                 | SUM                     | Chat24Regular          | % change from previous period              | Total number of sessions in the selected period                            |
 | Engaged             | "Engaged"             | cat_engagedcount                                 | SUM + (percentage%)     | Eye24Regular           | % change from previous period              | Sessions where user sent at least one message after agent greeting         |
 | Resolved            | "Resolved"            | cat_resolvedcount                                | SUM + (percentage%)     | Checkmark24Regular     | % change from previous period              | Sessions that were marked as resolved                                      |
 | Escalated           | "Escalated"           | cat_escalatedcount                               | SUM + (percentage%)     | ArrowRouting24Regular  | % change (invertTrend: higher is worse)    | Sessions escalated to human agent                                          |
