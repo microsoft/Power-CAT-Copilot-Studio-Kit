@@ -2613,6 +2613,8 @@ export const DAILY_METRICS_CHARTS = {
 export const TRANSCRIPT_METRICS = {
   totalConversations:
     "The total number of conversation sessions with your agent during the selected time period.",
+  totalSessions:
+    "The total number of sessions with your agent during the selected time period. A single conversation may have multiple sessions.",
   engaged:
     "Sessions where users actively interacted with the agent. The total includes engaged and unengaged sessions.",
   resolved:
