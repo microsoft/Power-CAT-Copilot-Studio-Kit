@@ -2563,8 +2563,8 @@ interface ConversationOutcomesChartProps {
 export const HOME_METRICS = {
   totalConversations:
     "Total number of conversations initiated across all agents in the selected time period.",
-  dailyActiveUsers:
-    "Unique users who interacted with your agents during the selected period.",
+  averageDAU:
+    "Average Daily Active Users: (sum of all full-day active user counts in the period) / (count of full days in the period). An active user is a unique user who interacted with the agent at least once during a day.",
   responses: "Total agent responses generated across all conversations.",
   avgResponse:
     "Average time for your agent to respond to user messages. Lower is better.",
