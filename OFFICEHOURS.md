@@ -56,6 +56,8 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | Jan 7 (US) / N/A | Confirmed | US | – |
 | Jan 14 (US) / Jan 15 (APAC) | Confirmed | APAC | APAC session occurs next day |
 | Jan 21 (US) / N/A | Confirmed | US | – |
+| Jan 28 (US) / Jan 29 (APAC) | Confirmed | APAC | APAC session occurs next day |
+| Feb 11 (US) / Feb 12 (APAC) | Confirmed | APAC | APAC session occurs next day |
 
 ### Time Zone Converter
 For other time zones, use this converter with the base times:
