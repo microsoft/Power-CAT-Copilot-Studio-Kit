@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{80235240-365f-9368-6aca-2c8e0ab0bd6c}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilotkpiid">
+          <cell name="cat_name" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>1048576</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_copilotkpi">
+          <attribute name="cat_copilotkpiid" />
+          <attribute name="cat_name" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Agent KPIs Copilot View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

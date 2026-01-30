@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{832878be-557b-491f-be05-e0145a0c51a1}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_rubricexampleid">
+          <cell name="cat_name" width="118" />
+          <cell name="cat_rubricid" width="253" />
+          <cell name="cat_testutterance" width="122" />
+          <cell name="cat_response" width="300" />
+          <cell name="cat_exampletypecode" width="122" />
+          <cell name="cat_humangradecode" width="119" />
+          <cell name="cat_humanreasoning" width="144" />
+          <cell name="createdon" width="105" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_rubricexample">
+          <attribute name="cat_rubricexampleid" />
+          <attribute name="cat_name" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cat_exampletypecode" />
+          <attribute name="cat_response" />
+          <attribute name="cat_rubricid" />
+          <attribute name="cat_testutterance" />
+          <attribute name="cat_humanreasoning" />
+          <attribute name="cat_humangradecode" />
+          <attribute name="createdon" />
+          <attribute name="createdon" />
+          <order attribute="createdon" descending="true" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Rubric Examples" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

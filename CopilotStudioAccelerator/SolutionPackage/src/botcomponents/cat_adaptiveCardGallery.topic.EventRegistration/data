@@ -1,0 +1,217 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Event Registration
+
+  actions:
+    - kind: SetVariable
+      id: setVariable_DEO8xJ
+      variable: Topic.EventInfo
+      value: "{ \"eventTitle\": \"Microsoft Biz Apps\",   \"eventDesc\": \"Event hosted by Microsoft for Biz Apps Developers & Learners\",   \"eventDate\": \"2025-02-19\",   \"eventTime\": \"12:01AM\",   \"eventLoc\": \"Dubai\"  }"
+
+    - kind: ParseValue
+      id: hRvL8n
+      variable: Topic.EventDetails
+      valueType:
+        kind: Record
+        properties:
+          eventDate: String
+          eventDesc: String
+          eventLoc: String
+          eventTime: String
+          eventTitle: String
+          learnMore: String
+
+      value: =Topic.EventInfo
+
+    - kind: AdaptiveCardPrompt
+      id: mXB0eW
+      card: |-
+        ={
+          type: "AdaptiveCard",
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+          version: "1.3",
+          backgroundImage: {
+            url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+          },
+          body: [
+            {
+              type: "Container",
+              items: [
+                {
+                  type: "Image",
+                  size: "Medium",
+                  url: "https://www.microsoft.com/en-us/power-platform/blog/wp-content/uploads/2024/08/Picture1-1.jpg",
+                  horizontalAlignment: "Center",
+                  altText: "Event Logo",
+                  height: "200px"
+                },
+                {
+                  type: "TextBlock",
+                  size: "ExtraLarge",
+                  weight: "Bolder",
+                  color: "Accent",
+                  text: "You're Invited!",
+                  horizontalAlignment: "Center"
+                },
+                {
+                  type: "TextBlock",
+                  size: "Large",
+                  weight: "Bolder",
+                  text: Topic.EventDetails.eventTitle,
+                  horizontalAlignment: "Center",
+                  wrap: true
+                },
+                {
+                  type: "TextBlock",
+                  size: "Medium",
+                  text: Topic.EventDetails.eventDesc,
+                  horizontalAlignment: "Center",
+                  wrap: true,
+                  spacing: "Small"
+                }
+              ],
+              style: "emphasis",
+              actions: []
+            },
+            {
+              type: "Container",
+              items: [
+                {
+                  type: "FactSet",
+                  facts: [
+                    {
+                      title: "Date:",
+                      value: Topic.EventDetails.eventDate
+                    },
+                    {
+                      title: "Time:",
+                      value: Topic.EventDetails.eventTime
+                    },
+                    {
+                      title: "Location:",
+                      value: Topic.EventDetails.eventLoc
+                    }
+                  ]
+                }
+              ],
+              style: "emphasis",
+              spacing: "Small",
+              actions: []
+            },
+            {
+              type: "Container",
+              items: [
+                {
+                  type: "TextBlock",
+                  size: "Medium",
+                  weight: "Bolder",
+                  text: "Reserve Your Spot!",
+                  spacing: "Small"
+                },
+                {
+                  type: "Input.Text",
+                  id: "participantName",
+                  placeholder: "Enter your name",
+                  isRequired: true,
+                  label: "Name",
+                  errorMessage: "Name is required."
+                },
+                {
+                  type: "Input.Text",
+                  id: "participantEmail",
+                  placeholder: "Enter your email",
+                  isRequired: true,
+                  label: "Email",
+                  errorMessage: "Email is required."
+                },
+                {
+                  type: "Input.ChoiceSet",
+                  id: "participationType",
+                  style: "expanded",
+                  choices: [
+                    {
+                      title: "In Person",
+                      value: "in_person"
+                    },
+                    {
+                      title: "Online",
+                      value: "online"
+                    }
+                  ],
+                  isRequired: true,
+                  label: "How will you attend?",
+                  errorMessage: "Please select a participation type."
+                }
+              ],
+              style: "emphasis",
+              actions: [],
+              spacing: "Small"
+            },
+            {
+              type: "ActionSet",
+              actions: [
+                {
+                  type: "Action.Submit",
+                  data: {
+                    action: "registerForEvent",
+                    actionSubmitId: "Register Now"
+                  },
+                  title: "Register Now",
+                  style: "positive"
+                }
+              ],
+              spacing: "Small"
+            }
+          ]
+        }
+      output:
+        binding:
+          action: Topic.action
+          actionSubmitId: Topic.actionSubmitId
+          participantEmail: Topic.participantEmail
+          participantName: Topic.participantName
+          participantType: Topic.participationType
+          registrationdetails: Topic.RegistrationDetails
+
+      outputType:
+        properties:
+          action: String
+          actionSubmitId: String
+          participantEmail: String
+          participantName: String
+          participantType: String
+          registrationdetails: String
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_7hTKl7
+      input:
+        binding:
+          text: =Topic.participantName
+          text_1: =Topic.participantEmail
+          text_2: =Topic.participationType
+
+      output:
+        binding:
+          registrationdetails: Topic.RegistrationDetails
+
+      flowId: be974926-47d2-ef11-8eea-000d3a5c1e68
+
+    - kind: ParseValue
+      id: ykxaY2
+      variable: Topic.AttendeeDetails
+      valueType:
+        kind: Record
+        properties:
+          attendchoice: String
+          email: String
+          name: String
+
+      value: =Topic.RegistrationDetails
+
+    - kind: SendActivity
+      id: sendActivity_4228kb
+      activity: Thank you **{Topic.AttendeeDetails.name}** for registering for the **{Topic.EventDetails.eventTitle}** event!

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{5ae1b748-c7ce-40b0-9229-2f7bbcd6c3af}</savedqueryid>
+    <layoutxml>
+      <grid name="cat_conversationanalyzers" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="cat_conversationanalyzer" id="cat_conversationanalyzerid">
+          <cell name="cat_name" width="300" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>2</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_conversationanalyzer">
+          <attribute name="cat_conversationanalyzerid" />
+          <attribute name="cat_name" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Conversation Analyzer Associated View" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CustomActions>
+    <CustomAction Id="cat.ApplicationRibbon.DetailsView.Button.CustomAction" Location="Mscrm.DashboardTab.Actions.Controls._children" Sequence="45">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:cat.ApplicationRibbon.DetailsView.Button.Alt" Command="cat.ApplicationRibbon.DetailsView.Command" Id="cat.ApplicationRibbon.DetailsView.Button" LabelText="$LocLabels:cat.ApplicationRibbon.DetailsView.Button.LabelText" Sequence="45" TemplateAlias="isv" ToolTipTitle="$LocLabels:cat.ApplicationRibbon.DetailsView.Button.ToolTipTitle" ToolTipDescription="$LocLabels:cat.ApplicationRibbon.DetailsView.Button.ToolTipDescription" ModernImage="$webresource:cat_/powercat/img/detailsview.svg" />
+      </CommandUIDefinition>
+    </CustomAction>
+    <CustomAction Id="cat.Mscrm.DashboardTab.Actions.OpenInPbi.CustomAction" Location="Mscrm.DashboardTab.Actions.Controls._children" Sequence="40">
+      <CommandUIDefinition>
+        <Button Alt="$LocLabels:Mscrm.DashboardTab.Actions.OpenInPbi.Alt" Command="Mscrm.DashboardTools.OpenInPbiCommand" Id="Mscrm.DashboardTab.Actions.OpenInPbi" Image32by32="/_imgs/ribbon/powerbitile_32.png" Image16by16="/_imgs/ribbon/powerbitile_16.png" LabelText="$LocLabels:Mscrm.DashboardTab.Actions.OpenInPbi.LabelText" Sequence="40" TemplateAlias="o2" ToolTipTitle="$LocLabels:Mscrm.DashboardTab.Actions.OpenInPbi.ToolTipTitle" ToolTipDescription="$LocLabels:Mscrm.DashboardTab.Actions.OpenInPbi.ToolTipDescription" ModernImage="OpenInPowerBI" />
+      </CommandUIDefinition>
+    </CustomAction>
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="cat.ApplicationRibbon.DetailsView.Command">
+      <EnableRules />
+      <DisplayRules />
+      <Actions>
+        <JavaScriptFunction FunctionName="openInlineView" Library="$webresource:cat_/powercat/js/conversationkpi_main.js" />
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules />
+    <EnableRules />
+  </RuleDefinitions>
+  <LocLabels>
+    <LocLabel Id="cat.ApplicationRibbon.DetailsView.Button.Alt">
+      <Titles>
+        <Title description="Details View" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="cat.ApplicationRibbon.DetailsView.Button.LabelText">
+      <Titles>
+        <Title description="Details View" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="cat.ApplicationRibbon.DetailsView.Button.ToolTipDescription">
+      <Titles>
+        <Title description="Details View" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="cat.ApplicationRibbon.DetailsView.Button.ToolTipTitle">
+      <Titles>
+        <Title description="Details View" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="Mscrm.DashboardTab.Actions.OpenInPbi.Alt">
+      <Titles>
+        <Title description="Open in PowerBi" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="Mscrm.DashboardTab.Actions.OpenInPbi.LabelText">
+      <Titles>
+        <Title description="Open in PowerBi" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="Mscrm.DashboardTab.Actions.OpenInPbi.ToolTipDescription">
+      <Titles>
+        <Title description="Open in PowerBi" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+    <LocLabel Id="Mscrm.DashboardTab.Actions.OpenInPbi.ToolTipTitle">
+      <Titles>
+        <Title description="Open in PowerBi" languagecode="1033" />
+      </Titles>
+    </LocLabel>
+  </LocLabels>
+</RibbonDiffXml>

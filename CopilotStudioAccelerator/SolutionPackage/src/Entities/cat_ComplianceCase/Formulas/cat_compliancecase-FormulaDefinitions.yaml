@@ -1,0 +1,7 @@
+cat_daysremaining: |-
+    =DateDiff(
+        UTCToday(),
+        cat_expirydate,
+        TimeUnit.Days
+    )
+cat_intakecompleted: =!IsBlank(cat_businessjustification) && !IsBlank(cat_dataclassification) && !IsBlank(cat_expectednumberofusers)

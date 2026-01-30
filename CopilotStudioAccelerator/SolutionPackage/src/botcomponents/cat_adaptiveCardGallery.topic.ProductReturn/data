@@ -1,0 +1,185 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Product Return
+
+  actions:
+    - kind: SetVariable
+      id: setVariable_EJHlz1
+      variable: Topic.OrderNumber
+      value: PK8237987
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_FG2GEs
+      input:
+        binding:
+          text: =Topic.OrderNumber
+
+      output:
+        binding:
+          returndetails: Topic.ReturnDetails
+
+      flowId: 5130712d-59d2-ef11-8eea-000d3a5c1e68
+
+    - kind: ParseValue
+      id: Bivkcl
+      variable: Topic.ReturnInfo
+      valueType:
+        kind: Record
+        properties:
+          OrderDate: String
+          OrderNumber: String
+          Products:
+            type:
+              kind: Table
+              properties:
+                ProductName: String
+                ProductPrice: String
+
+          ReturnReason: String
+          TotalAmount: String
+
+      value: =Topic.ReturnDetails
+
+    - kind: AdaptiveCardPrompt
+      id: EylMU3
+      card: |-
+        ={
+          type: "AdaptiveCard",
+          version: "1.3",
+          backgroundImage: {
+                url: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+            },
+          body: [
+            {
+              type: "TextBlock",
+              text: "Return Products",
+              weight: "Bolder",
+              size: "ExtraLarge",
+              horizontalAlignment: "Center",
+              color: "Accent"
+            },
+            {
+              type: "TextBlock",
+              text: "Order Summary",
+              weight: "Bolder",
+              size: "Medium",
+              spacing: "Medium"
+            },
+            {
+              type: "FactSet",
+              seperator:"true",
+              facts: [
+                {
+                  title: "Order Number:",
+                  value: Topic.ReturnInfo.OrderNumber
+                },
+                {
+                  title: "Order Date:",
+                  value: Topic.ReturnInfo.OrderDate
+                },
+                {
+                  title: "Total Amount:",
+                  value: Topic.ReturnInfo.TotalAmount
+                }
+              ]
+            },
+            {
+              type: "TextBlock",
+              text: "Select Products to Return",
+              weight: "Bolder",
+              size: "Medium",
+              spacing: "Medium"
+            },
+            {
+              type: "Container",
+              items: ForAll(
+                Topic.ReturnInfo.Products,
+                {
+                  type: "ColumnSet",
+                  columns: [
+                    {
+                      type: "Column",
+                      width: "stretch",
+                      items: [
+                        {
+                          type: "TextBlock",
+                          text: ThisRecord.ProductName,
+                          weight: "Bolder",
+                          wrap: true
+                        },
+                        {
+                          type: "TextBlock",
+                          text: ThisRecord.ProductPrice,
+                          size: "Medium",
+                          color: "Good",
+                          wrap: true
+                        },
+                        {
+                          type: "Input.Toggle",
+                          id: "returnProduct" & ThisRecord.ProductName,
+                          title: "Select for Return",
+                          value: "false"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ),
+              style: "emphasis"
+            },
+            {
+              type: "TextBlock",
+              text: "Reason for Return",
+              weight: "Bolder",
+              size: "Medium",
+              spacing: "Medium"
+            },
+            {
+              type: "Input.Text",
+              id: "returnReason",
+              placeholder: "Enter your reason for return",
+              isMultiline: true
+            },
+            {
+              type: "ActionSet",
+              actions: [
+                {
+                  type: "Action.Submit",
+                  title: "Submit Return Request",
+                  style: "positive",
+                  data: {
+                    action: "submitReturn",
+                    orderId: Topic.OrderNumber
+                  }
+                }
+              ]
+            }
+          ],
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      output:
+        binding:
+          action: Topic.action
+          actionSubmitId: Topic.actionSubmitId
+          orderId: Topic.orderId
+          returnProduct: Topic.returnProduct
+          returnReason: Topic.returnReason
+
+      outputType:
+        properties:
+          action: String
+          actionSubmitId: String
+          orderId: String
+          returnProduct: String
+          returnReason: String
+
+    - kind: SendActivity
+      id: sendActivity_S2F8hB
+      activity: |-
+        Your return request for {Topic.orderId} has been submitted!!
+        
+        **Reason for Return: {Topic.returnReason}**

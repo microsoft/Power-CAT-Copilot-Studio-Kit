@@ -1,0 +1,206 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Account Summary
+
+  actions:
+    - kind: SetVariable
+      id: setVariable_yvIeoW
+      variable: Topic.AccountNumber
+      value: 98237426348
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_AZEX07
+      input:
+        binding:
+          text: =Text(Topic.AccountNumber)
+
+      output:
+        binding:
+          accountsummary: Topic.AccountSummaryRecord
+
+      flowId: 0f468fd0-1dcf-ef11-8ee9-000d3a5ccf2d
+
+    - kind: ParseValue
+      id: rKzQWn
+      variable: Topic.RecordInfo
+      valueType:
+        kind: Record
+        properties:
+          accountHolder: String
+          accountNumber: String
+          accountType: String
+          currentBalance: String
+          lastTransactionDate: String
+          statementUrl: String
+          transactions:
+            type:
+              kind: Table
+              properties:
+                amount: String
+                description: String
+
+      value: =Topic.AccountSummaryRecord
+
+    - kind: AdaptiveCardPrompt
+      id: HByN7v
+      card: |-
+        ={
+          type: "AdaptiveCard",
+          version: "1.3",
+          backgroundImage: {
+            url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+            fillMode: "Repeat"
+          },
+          body: [
+            {
+              type: "Container",
+              backgroundImage: {
+                url: "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png",
+                fillMode: "Repeat"
+              },
+              items: [
+                {
+                  type: "TextBlock",
+                  size: "Large",
+                  weight: "Bolder",
+                  color: "Default",
+                  text: "Account Summary",
+                  horizontalAlignment: "Left",
+                  spacing: "ExtraLarge",
+                  style: "heading"
+                },
+                {
+                  type: "Container"
+                },
+                {
+                  type: "FactSet",
+                  facts: [
+                    {
+                      title: "Account Number:",
+                      value: Topic.RecordInfo.accountNumber
+                    },
+                    {
+                      title: "Account Holder:",
+                      value: Topic.RecordInfo.accountHolder
+                    },
+                    {
+                      title: "Account Type:",
+                      value: Topic.RecordInfo.accountType
+                    },
+                    {
+                      title: "Current Balance:",
+                      value: Topic.RecordInfo.currentBalance
+                    },
+                    {
+                      title: "Last Transaction Date:",
+                      value: Topic.RecordInfo.lastTransactionDate
+                    }
+                  ],
+                  separator: true
+                },
+                {
+                  type: "TextBlock",
+                  size: "Medium",
+                  weight: "Bolder",
+                  color: "Dark",
+                  text: "Recent Transactions",
+                  separator: true
+                },
+                {
+                  type: "Container",
+                  items: ForAll(
+                    Topic.RecordInfo.transactions,
+                    {
+                      type: "ColumnSet",
+                      columns: [
+                        {
+                          type: "Column",
+                          width: "stretch",
+                          items: [
+                            {
+                              type: "TextBlock",
+                              text: ThisRecord.description,
+                              wrap: true
+                            }
+                          ]
+                        },
+                        {
+                          type: "Column",
+                          width: "auto",
+                          items: [
+                            {
+                              type: "TextBlock",
+                              text: ThisRecord.amount,
+                              horizontalAlignment: "Right",
+                              wrap: true,
+                              color: "Attention"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  )
+                }
+              ]
+            },
+            {
+              type: "ColumnSet",
+              columns: [
+                {
+                  type: "Column",
+                  width: "stretch",
+                  items: [
+                    {
+                      type: "ActionSet",
+                      actions: [
+                        {
+                          type: "Action.OpenUrl",
+                          url: Topic.RecordInfo.statementUrl,
+                          title: "View Full Statement",
+                          style: "positive"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  type: "Column",
+                  width: "stretch",
+                  items: [
+                    {
+                      type: "ActionSet",
+                      actions: [
+                        {
+                          type: "Action.OpenUrl",
+                          data: {
+                            accountNumber: Topic.RecordInfo.accountNumber,
+                            action: "contactSupport",
+                            actionSubmitId: "Contact Support"
+                          },
+                          url: Topic.RecordInfo.statementUrl,
+                          title: "Contact Support"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          '$schema': "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      output:
+        binding:
+          accountNumber: Topic.accountNumber
+          action: Topic.action
+          actionSubmitId: Topic.actionSubmitId
+
+      outputType:
+        properties:
+          accountNumber: String
+          action: String
+          actionSubmitId: String

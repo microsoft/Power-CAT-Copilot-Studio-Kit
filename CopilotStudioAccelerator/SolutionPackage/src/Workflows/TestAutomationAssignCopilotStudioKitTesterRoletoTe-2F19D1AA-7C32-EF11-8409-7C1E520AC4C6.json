@@ -1,0 +1,151 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "runtimeSource": "embedded",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "When_a_Copilot_Studio_Accelerator_Team_is_created_or_update": {
+          "metadata": {
+            "operationMetadataId": "d1ecbe8a-73db-4661-8ee2-7f618c30558b"
+          },
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "SubscribeWebhookTrigger",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "subscriptionRequest/message": 4,
+              "subscriptionRequest/entityname": "team",
+              "subscriptionRequest/scope": 4,
+              "subscriptionRequest/filterexpression": "cat_iscopilotstudioacceleratorteam eq true",
+              "subscriptionRequest/runas": 3
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Assign_Copilot_Studio_Accelerator_Tester_security_role_to_Team": {
+          "runAfter": {
+            "Get_Created_By_OData_Id": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "55013582-ef35-4486-98d2-27a1f1def922"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "AssociateEntities",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "teams",
+              "recordId": "@triggerOutputs()?['body/teamid']",
+              "associationEntityRelationship": "teamroles_association",
+              "item/@odata.id": "@outputs('Get_Copilot_Studio_Accelerator_Tester_security_role_OData_Id')?['body/@odata.id']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_Copilot_Studio_Accelerator_Tester_security_role_OData_Id": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "19299b1d-174c-4195-b317-b775052ece75"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "roles",
+              "recordId": "00ca9752-c912-ef11-9f89-0022480b09c2",
+              "$select": "roleid"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Get_Created_By_OData_Id": {
+          "runAfter": {
+            "Get_Copilot_Studio_Accelerator_Tester_security_role_OData_Id": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "19299b1d-174c-4195-b317-b775052ece75"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "GetItem",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "systemusers",
+              "recordId": "@triggerOutputs()?['body/_createdby_value']",
+              "$select": "systemuserid"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Assign_User_to_Team": {
+          "runAfter": {
+            "Assign_Copilot_Studio_Accelerator_Tester_security_role_to_Team": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "55013582-ef35-4486-98d2-27a1f1def922"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_commondataserviceforapps",
+              "operationId": "AssociateEntities",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+            },
+            "parameters": {
+              "entityName": "teams",
+              "recordId": "@triggerOutputs()?['body/teamid']",
+              "associationEntityRelationship": "teammembership_association",
+              "item/@odata.id": "@outputs('Get_Created_By_OData_Id')?['body/@odata.id']"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

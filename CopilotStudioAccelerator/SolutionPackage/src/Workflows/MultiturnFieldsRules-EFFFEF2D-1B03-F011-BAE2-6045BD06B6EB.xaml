@@ -1,0 +1,303 @@
+<Activity x:Class="XrmWorkflow00000000000000000000000000000000" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mcwc="clr-namespace:Microsoft.Crm.Workflow.ClientActivities;assembly=Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxs="clr-namespace:Microsoft.Xrm.Sdk;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxsq="clr-namespace:Microsoft.Xrm.Sdk.Query;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxswa="clr-namespace:Microsoft.Xrm.Sdk.Workflow.Activities;assembly=Microsoft.Xrm.Sdk.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:s="clr-namespace:System;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:srs="clr-namespace:System.Runtime.Serialization;assembly=System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:this="clr-namespace:" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="InputEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
+    <x:Property Name="CreatedEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
+  </x:Members>
+  <this:XrmWorkflow00000000000000000000000000000000.InputEntities>
+    <InArgument x:TypeArguments="scg:IDictionary(x:String, mxs:Entity)" />
+  </this:XrmWorkflow00000000000000000000000000000000.InputEntities>
+  <this:XrmWorkflow00000000000000000000000000000000.CreatedEntities>
+    <InArgument x:TypeArguments="scg:IDictionary(x:String, mxs:Entity)" />
+  </this:XrmWorkflow00000000000000000000000000000000.CreatedEntities>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <mxswa:Workflow>
+    <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionSequence, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionStep1">
+      <mxswa:ActivityReference.Arguments>
+        <InArgument x:TypeArguments="x:Boolean" x:Key="Wait">False</InArgument>
+      </mxswa:ActivityReference.Arguments>
+      <mxswa:ActivityReference.Properties>
+        <sco:Collection x:TypeArguments="Variable" x:Key="Variables">
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_condition" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_1" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_2" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_3" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_4" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_5" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="True" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_1" />
+        </sco:Collection>
+        <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" Value="[ConditionBranchStep2_2]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "5", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_3]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep2_3 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_2]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_1]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" Value="[ConditionBranchStep2_5]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Null</InArgument>
+              <x:Null x:Key="Parameters" />
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_5]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_4]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateLogicalCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateLogicalCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:LogicalOperator" x:Key="LogicalOperator">Or</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="LeftOperand">[ConditionBranchStep2_1]</InArgument>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="RightOperand">[ConditionBranchStep2_4]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_condition]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep2">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[ConditionBranchStep2_condition]</InArgument>
+            </mxswa:ActivityReference.Arguments>
+            <mxswa:ActivityReference.Properties>
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep2">
+                <mxswa:ActivityReference.Properties>
+                  <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                  <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                    <Sequence DisplayName="SetVisibilityStep1: Hide field Parent">
+                      <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep2: Hide field Send startConversation Event">
+                      <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep3: Hide field Test Utterance">
+                      <mcwc:SetVisibility ControlId="cat_testutterance" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep4: Hide field Expected Response">
+                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep5: Hide field Expected Topic Name">
+                      <mcwc:SetVisibility ControlId="cat_expectedtopicname" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep11: Hide field Expected Generative Answers Outcome">
+                      <mcwc:SetVisibility ControlId="cat_generativeansweroutcomecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep12: Hide field External Variables JSON">
+                      <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep13: Hide field Expected Attachments JSON">
+                      <mcwc:SetVisibility ControlId="cat_expectedattachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep14: Hide field Result Reason">
+                      <mcwc:SetVisibility ControlId="cat_resultreason" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep21: Hide field Suggested Actions JSON">
+                      <mcwc:SetVisibility ControlId="cat_suggestedactionsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep23: Hide field Attachments JSON">
+                      <mcwc:SetVisibility ControlId="cat_attachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep25: Hide field Citations">
+                      <mcwc:SetVisibility ControlId="cat_citations" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep27: Hide field Response">
+                      <mcwc:SetVisibility ControlId="cat_response" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep27232: Hide field Latency (ms)">
+                      <mcwc:SetVisibility ControlId="cat_latencyms" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep29: Hide field Message Sent Timestamp">
+                      <mcwc:SetVisibility ControlId="cat_messagesenttimestamp" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep30: Hide field Response Received Timestamp">
+                      <mcwc:SetVisibility ControlId="cat_responsereceivedtimestamp" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep31: Hide field App Insights Result">
+                      <mcwc:SetVisibility ControlId="cat_appinsightsresult" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep32: Hide field Triggered Topic ID">
+                      <mcwc:SetVisibility ControlId="cat_recognizedtopicid" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep33: Hide field Triggered Topic / Event">
+                      <mcwc:SetVisibility ControlId="cat_recognizedtopicname" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep34: Hide field Recognized Intent Score">
+                      <mcwc:SetVisibility ControlId="cat_recognizedintentscore" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep47: Hide field Actual Tools">
+                      <mcwc:SetVisibility ControlId="cat_actualtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep41: Hide Comparison Operator">
+                      <mcwc:SetVisibility ControlId="cat_comparisonoperator" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep43: Hide Expected Tools">
+                      <mcwc:SetVisibility ControlId="cat_expectedtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep45: Hide Pass Threshold">
+                      <mcwc:SetVisibility ControlId="cat_passthreshold" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep49: Hide Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep51: Hide Operation Type">
+                      <mcwc:SetVisibility ControlId="cat_operationtypecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep53: Hide Actual Complete Response">
+                      <mcwc:SetVisibility ControlId="cat_actualcompleteresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep55: Hide Rubric">
+                      <mcwc:SetVisibility ControlId="cat_rubricid" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep56: Hide Passing Grade">
+                      <mcwc:SetVisibility ControlId="cat_passinggradecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="False" />
+                    </Sequence>
+                  </sco:Collection>
+                </mxswa:ActivityReference.Properties>
+              </mxswa:ActivityReference>
+              <x:Null x:Key="Else" />
+              <x:String x:Key="Description">Test Type equals "Multi-turn" or Empty</x:String>
+            </mxswa:ActivityReference.Properties>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "true" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep3_1]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep3">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[True]</InArgument>
+            </mxswa:ActivityReference.Arguments>
+            <mxswa:ActivityReference.Properties>
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep3">
+                <mxswa:ActivityReference.Properties>
+                  <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                  <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                    <Sequence DisplayName="SetVisibilityStep6: Show field Parent">
+                      <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep7: Show field Send startConversation Event">
+                      <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep8: Show field Test Utterance">
+                      <mcwc:SetVisibility ControlId="cat_testutterance" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep9: Show field Expected Response">
+                      <mcwc:SetVisibility ControlId="cat_expectedresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep10: Show field Expected Topic Name">
+                      <mcwc:SetVisibility ControlId="cat_expectedtopicname" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep15: Show field Expected Generative Answers Outcome">
+                      <mcwc:SetVisibility ControlId="cat_generativeansweroutcomecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep16: Show field External Variables JSON">
+                      <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep17: Show field Expected Attachments JSON">
+                      <mcwc:SetVisibility ControlId="cat_expectedattachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep18: Show field Result Reason">
+                      <mcwc:SetVisibility ControlId="cat_resultreason" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep22: Show field Suggested Actions JSON">
+                      <mcwc:SetVisibility ControlId="cat_suggestedactionsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep24: Show field Attachments JSON">
+                      <mcwc:SetVisibility ControlId="cat_attachmentsjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep26: Show field Citations">
+                      <mcwc:SetVisibility ControlId="cat_citations" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep28: Show field Response">
+                      <mcwc:SetVisibility ControlId="cat_response" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep28281: Show field Latency (ms)">
+                      <mcwc:SetVisibility ControlId="cat_latencyms" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep36: Show field Message Sent Timestamp">
+                      <mcwc:SetVisibility ControlId="cat_messagesenttimestamp" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep37: Show field Response Received Timestamp">
+                      <mcwc:SetVisibility ControlId="cat_responsereceivedtimestamp" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep38: Show field App Insights Result">
+                      <mcwc:SetVisibility ControlId="cat_appinsightsresult" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep39: Show field Triggered Topic ID">
+                      <mcwc:SetVisibility ControlId="cat_recognizedtopicid" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep40: Show field Triggered Topic / Event">
+                      <mcwc:SetVisibility ControlId="cat_recognizedtopicname" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep41426: Show field Recognized Intent Score">
+                      <mcwc:SetVisibility ControlId="cat_recognizedintentscore" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep48: Show field Actual Tools">
+                      <mcwc:SetVisibility ControlId="cat_actualtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep42: Show Comparison Operator">
+                      <mcwc:SetVisibility ControlId="cat_comparisonoperator" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep44: Show Expected Tools">
+                      <mcwc:SetVisibility ControlId="cat_expectedtools" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep46: Show Pass Threshold">
+                      <mcwc:SetVisibility ControlId="cat_passthreshold" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep50: Show Adaptive Card Payload">
+                      <mcwc:SetVisibility ControlId="cat_adaptivecardpayload" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep52: Show Operation Type">
+                      <mcwc:SetVisibility ControlId="cat_operationtypecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep54: Show Actual Complete Response">
+                      <mcwc:SetVisibility ControlId="cat_actualcompleteresponse" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep57: Show Rubric">
+                      <mcwc:SetVisibility ControlId="cat_rubricid" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep58: Show Passing Grade">
+                      <mcwc:SetVisibility ControlId="cat_passinggradecode" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottestresult" IsVisible="True" />
+                    </Sequence>
+                  </sco:Collection>
+                </mxswa:ActivityReference.Properties>
+              </mxswa:ActivityReference>
+              <x:Null x:Key="Else" />
+              <x:String x:Key="Description"></x:String>
+            </mxswa:ActivityReference.Properties>
+          </mxswa:ActivityReference>
+        </sco:Collection>
+        <x:Boolean x:Key="ContainsElseBranch">False</x:Boolean>
+      </mxswa:ActivityReference.Properties>
+    </mxswa:ActivityReference>
+  </mxswa:Workflow>
+</Activity>

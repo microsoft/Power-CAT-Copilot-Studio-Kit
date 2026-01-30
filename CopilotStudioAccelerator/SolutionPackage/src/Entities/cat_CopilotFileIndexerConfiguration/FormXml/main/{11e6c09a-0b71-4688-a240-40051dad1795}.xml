@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{11e6c09a-0b71-4688-a240-40051dad1795}</formid>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{d5480b76-77fa-4dbd-a448-18b3eff6bf89}" IsUserDefined="1">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{71e910d6-1445-472d-a0c8-b4c0c5aae23d}" columns="111" name="tab_general_section_general">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{75ed552c-1832-4fc7-9db8-767b624b8cb7}">
+                        <labels>
+                          <label description="Name" languagecode="1033" />
+                        </labels>
+                        <control id="cat_name" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_name" />
+                      </cell>
+                      <cell id="{418adf50-519b-433e-991c-bcb6b0e77260}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Site Address" languagecode="1033" />
+                        </labels>
+                        <control id="cat_siteaddress" classid="{71716B6C-711E-476C-8AB8-5D11542BFB47}" datafieldname="cat_siteaddress" disabled="false" />
+                      </cell>
+                      <cell id="{a6e07b17-ca41-4656-acfc-34c1a253a286}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Library Name" languagecode="1033" />
+                        </labels>
+                        <control id="cat_libraryname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_libraryname" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8ee2a899-58bc-44e4-81e7-b7b6d023401e}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent Configuration" languagecode="1033" />
+                        </labels>
+                        <control id="cat_copilotconfigurationid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_copilotconfigurationid" disabled="false" />
+                      </cell>
+                      <cell id="{86adbf88-0dc4-4e2f-b404-e9c26e3f4653}" locklevel="0" colspan="1" rowspan="1" showlabel="true" visible="true">
+                        <labels>
+                          <label description="Include Nested Items" languagecode="1033" />
+                        </labels>
+                        <control id="cat_arenesteditemsincluded" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_arenesteditemsincluded" disabled="false" uniqueid="{3d05ae2e-ef04-4ee6-8805-a0227cf8d9cb}" />
+                      </cell>
+                      <cell id="{28f1ed01-b4a6-451f-85c8-7f8cdbbbb335}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="SharePoint Files Filter Query" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sharepointfilesfilterquery" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_sharepointfilesfilterquery" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4cfd3ce3-9bc0-441d-af40-d57fdb5b8612}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Limit Entries to Folder" languagecode="1033" />
+                        </labels>
+                        <control id="cat_limitentriestofolder" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_limitentriestofolder" disabled="false" />
+                      </cell>
+                      <cell id="{a274a45b-3c2f-43d8-8037-37d101e8e497}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Include SharePoint Pages" languagecode="1033" />
+                        </labels>
+                        <control id="cat_includesharepointpages" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" datafieldname="cat_includesharepointpages" disabled="false" uniqueid="{9380b81b-26dd-47a5-a097-674a3f62171d}" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell locklevel="0" id="{384ccb89-471d-44db-8784-37540bb4b196}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell locklevel="0" id="{be297d62-e232-4e12-ad11-a5a1c2901fca}">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{ab68639c-1728-4fb5-acab-eeb247bf3e13}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="SharePoint Pages Filter Query" languagecode="1033" />
+                        </labels>
+                        <control id="cat_sharepointpagesfilterquery" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_sharepointpagesfilterquery" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        <tab name="tab_2" id="7fd3f652-0e10-47e8-a307-5170ad96dafc" IsUserDefined="0" locklevel="0" showlabel="true">
+          <labels>
+            <label description="Admin" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <section name="tab_2_section_1" id="6d761897-d62e-4105-a612-bb9083703f71" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="111" labelwidth="115">
+                  <labels>
+                    <label description="System Fields" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{098d76cc-368b-0cb2-a7ab-8007a582a7d6}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Created By" languagecode="1033" />
+                        </labels>
+                        <control id="createdby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdby" disabled="false" />
+                      </cell>
+                      <cell id="{058e7672-b512-149a-d262-3943e971781d}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Modified By" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedby" disabled="false" />
+                      </cell>
+                      <cell id="{59567962-a222-e405-8ea8-babd63098619}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Owning Business Unit" languagecode="1033" />
+                        </labels>
+                        <control id="owningbusinessunit" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="owningbusinessunit" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{95aac6e5-cdea-b009-25d6-b15bdc06cbea}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Created By (Delegate)" languagecode="1033" />
+                        </labels>
+                        <control id="createdonbehalfby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdonbehalfby" disabled="false" />
+                      </cell>
+                      <cell id="{3df104d1-a45a-4a9c-96a6-8d5039cffa70}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Owner" languagecode="1033" />
+                        </labels>
+                        <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
+                      </cell>
+                      <cell id="{be1d62c4-72dd-7d86-8813-bb41486b014e}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Status" languagecode="1033" />
+                        </labels>
+                        <control id="statecode" classid="{3EF39988-22BB-4f0b-BBBE-64B5A3748AEE}" datafieldname="statecode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{92d35b19-8d1e-aae8-33c4-b4be854273b7}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Created On" languagecode="1033" />
+                        </labels>
+                        <control id="createdon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="false" />
+                      </cell>
+                      <cell id="{79cc701e-7bae-0c5d-0e13-59303d6d037d}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Modified By (Delegate)" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedonbehalfby" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="modifiedonbehalfby" disabled="false" />
+                      </cell>
+                      <cell id="{2d33b972-6c5b-5cd3-c0c0-077b1a7a450e}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Status Reason" languagecode="1033" />
+                        </labels>
+                        <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{54851a3b-682a-7707-9aec-14b92d1e4b37}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                      <cell id="{634c6306-cb94-44c6-7734-a54474ae219d}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Modified On" languagecode="1033" />
+                        </labels>
+                        <control id="modifiedon" classid="{5B773807-9FB2-42db-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="false" />
+                      </cell>
+                      <cell id="{a9d5e25d-7e19-53da-186b-d6e35d9bac2c}" showlabel="false">
+                        <labels>
+                          <label description="" languagecode="1033" />
+                        </labels>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{56b31297-7406-489b-ac29-b994369dfe26}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{eb02288f-43fa-4752-a528-c1481655560b}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{2dfc88ab-8558-46e5-b367-9fab94439364}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{4793b8aa-3ec2-4ee0-aac2-d242ad50ef08}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{75959a00-b567-4f73-91af-e77864ed9dc8}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{2730674d-d095-444e-b18c-dea888ffcd4b}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{b0a133a9-8d38-414c-b0fa-75f3c4d406fd}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{e3a616a4-f973-4304-bfd4-382e2bff0178}" showlabel="false">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <Navigation>
+        <NavBar />
+        <NavBarAreas>
+          <NavBarArea Id="Info">
+            <Titles>
+              <Title LCID="1033" Text="Common" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Sales">
+            <Titles>
+              <Title LCID="1033" Text="Sales" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Service">
+            <Titles>
+              <Title LCID="1033" Text="Service" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="Marketing">
+            <Titles>
+              <Title LCID="1033" Text="Marketing" />
+            </Titles>
+          </NavBarArea>
+          <NavBarArea Id="ProcessCenter">
+            <Titles>
+              <Title LCID="1033" Text="Process Sessions" />
+            </Titles>
+          </NavBarArea>
+        </NavBarAreas>
+      </Navigation>
+      <controlDescriptions>
+        <controlDescription forControl="{3d05ae2e-ef04-4ee6-8805-a0227cf8d9cb}">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>cat_arenesteditemsincluded</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value>cat_arenesteditemsincluded</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value>cat_arenesteditemsincluded</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value>cat_arenesteditemsincluded</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+        <controlDescription forControl="{9380b81b-26dd-47a5-a097-674a3f62171d}">
+          <customControl id="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}">
+            <parameters>
+              <datafieldname>cat_includesharepointpages</datafieldname>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_includesharepointpages</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_includesharepointpages</value>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="MscrmControls.FieldControls.ToggleControl">
+            <parameters>
+              <value type="TwoOptions">cat_includesharepointpages</value>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+      <DisplayConditions Order="0" FallbackForm="true">
+        <Everyone />
+      </DisplayConditions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Information" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

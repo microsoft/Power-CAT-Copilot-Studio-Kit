@@ -1,0 +1,28 @@
+.Editor {
+    text-align: left;
+}
+
+/*  There is an issue(root cause to be found) where default codicon
+	does not take effect/load, if monacoeditor is initialized
+	prior loading of PowerFxForumulaEditor component.
+	This style is required to point out the src to public codicon.tff file
+    which is used by the platform currently.
+
+*/
+@font-face {
+	font-family: "codicon";
+	font-display: block;
+	src: url("https://test.content.powerapps.com/resource/makerx/static/media/codicon.b797181c.ttf") format("truetype");
+}
+
+/* yellow translucent background, tweak as you like */
+ .pf-x-highlight {
+    background-color: rgba(255, 215, 0, 0.35);
+	border-bottom: 2px solid rgba(255, 165, 0, 0.8);
+	/*text-decoration: underline wavy rgba(255, 165, 0, 0.9);
+    text-decoration-skip-ink: none;*/
+} 
+.pf-x-squiggly{
+	text-decoration: underline wavy rgba(255, 165, 0, 0.9);
+    text-decoration-skip-ink: none;
+}

@@ -1,0 +1,164 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Simple thumb up/down rating
+
+  actions:
+    - kind: AdaptiveCardPrompt
+      id: uBUMXE
+      card: |-
+        {
+            "type": "AdaptiveCard",
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+            "version": "1.3",
+            "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+            },
+            "body": [
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "size": "Large",
+                            "weight": "Bolder",
+                            "color": "Accent",
+                            "text": "Did this answer your question?",
+                            "horizontalAlignment": "Center"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "size": "Medium",
+                            "text": "Your feedback helps us improve.",
+                            "horizontalAlignment": "Center",
+                            "wrap": true,
+                            "spacing": "Small"
+                        }
+                    ],
+                    "actions": null,
+                    "columns": null,
+                    "horizontalAlignment": null,
+                    "label": null,
+                    "placeholder": null
+                },
+                {
+                    "type": "ColumnSet",
+                    "columns": [
+                        {
+                            "type": "Column",
+                            "width": "auto",
+                            "items": [
+                                {
+                                    "type": "ActionSet",
+                                    "actions": [
+                                        {
+                                            "type": "Action.ToggleVisibility",
+                                            "title": "",
+                                            "feedback": [
+                                                "thumbs_up"
+                                            ],
+                                            "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_dislike_24_regular.svg"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "Column",
+                            "width": "auto",
+                            "items": [
+                                {
+                                    "type": "ActionSet",
+                                    "actions": [
+                                        {
+                                            "type": "Action.ToggleVisibility",
+                                            "title": "",
+                                            "feedback": [
+                                                "thumbs_down"
+                                            ],
+                                            "iconUrl": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/ic_fluent_thumb_like_24_regular.svg"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "spacing": "Medium",
+                    "actions": null,
+                    "horizontalAlignment": "Center",
+                    "items": null,
+                    "label": null,
+                    "placeholder": null
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "comment",
+                    "placeholder": "Add a comment (optional)",
+                    "label": "Additional Feedback",
+                    "actions": null,
+                    "columns": null,
+                    "horizontalAlignment": null,
+                    "items": null,
+                    "spacing": "Medium"
+                },
+                {
+                    "type": "ActionSet",
+                    "actions": [
+                        {
+                            "type": "Action.Submit",
+                            "data": {
+                                "comment": "",
+                                "feedback": "",
+                                "actionSubmitId": "Submit Feedback"
+                            },
+                            "title": "Submit Feedback",
+                            "style": "positive"
+                        }
+                    ],
+                    "columns": null,
+                    "horizontalAlignment": null,
+                    "items": null,
+                    "label": null,
+                    "placeholder": null,
+                    "style": null
+                }
+            ]
+        }
+      output:
+        binding:
+          actionSubmitId: Topic.actionSubmitId
+          comment: Topic.comment
+          feedback: Topic.feedback
+
+      outputType:
+        properties:
+          actionSubmitId: String
+          comment: String
+          feedback: String
+
+    - kind: ConditionGroup
+      id: conditionGroup_aiTsdw
+      conditions:
+        - id: conditionItem_aPpJrN
+          condition: =!IsBlank(Topic.comment) && Topic.actionSubmitId = "Submit Feedback"
+          actions:
+            - kind: SendActivity
+              id: sendActivity_CQDfsV
+              activity: |-
+                Thank you for your valuable feedback!
+                
+                Additional Feedback: {Topic.comment}
+
+      elseActions:
+        - kind: ConditionGroup
+          id: conditionGroup_dkeT3M
+          conditions:
+            - id: conditionItem_XP92R0
+              condition: =Topic.actionSubmitId = "Submit Feedback" && IsBlank(Topic.comment)
+              actions:
+                - kind: SendActivity
+                  id: sendActivity_erIx1r
+                  activity: Thank you for your valuable feedback!

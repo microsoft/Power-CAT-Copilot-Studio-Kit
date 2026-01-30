@@ -1,0 +1,64 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "Recurrence": {
+          "recurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "0"
+              ]
+            }
+          },
+          "evaluatedRecurrence": {
+            "frequency": "Day",
+            "interval": 1,
+            "schedule": {
+              "hours": [
+                "0"
+              ]
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "fd69def3-0281-4b71-b298-c902f1691f89"
+          },
+          "type": "Recurrence"
+        }
+      },
+      "actions": {
+        "Run_a_Child_Flow:_Agent_Inventory": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "702296ab-e597-48e8-98b5-c55ef2f09c7c"
+          },
+          "type": "Workflow",
+          "inputs": {
+            "host": {
+              "workflowReferenceName": "ae08d194-1903-f011-bae2-0022480427dd"
+            },
+            "body": {
+              "text": "Agent Inventory | Agents Data Load Scheduler"
+            },
+            "retryPolicy": {
+              "type": "none"
+            }
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

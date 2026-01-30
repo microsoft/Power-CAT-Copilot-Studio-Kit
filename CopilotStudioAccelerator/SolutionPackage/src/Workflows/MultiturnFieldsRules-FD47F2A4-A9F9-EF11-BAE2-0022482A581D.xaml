@@ -1,0 +1,199 @@
+<Activity x:Class="XrmWorkflow00000000000000000000000000000000" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mcwc="clr-namespace:Microsoft.Crm.Workflow.ClientActivities;assembly=Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxs="clr-namespace:Microsoft.Xrm.Sdk;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxsq="clr-namespace:Microsoft.Xrm.Sdk.Query;assembly=Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:mxswa="clr-namespace:Microsoft.Xrm.Sdk.Workflow.Activities;assembly=Microsoft.Xrm.Sdk.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" xmlns:s="clr-namespace:System;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:srs="clr-namespace:System.Runtime.Serialization;assembly=System.Runtime.Serialization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" xmlns:this="clr-namespace:" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="InputEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
+    <x:Property Name="CreatedEntities" Type="InArgument(scg:IDictionary(x:String, mxs:Entity))" />
+  </x:Members>
+  <this:XrmWorkflow00000000000000000000000000000000.InputEntities>
+    <InArgument x:TypeArguments="scg:IDictionary(x:String, mxs:Entity)" />
+  </this:XrmWorkflow00000000000000000000000000000000.InputEntities>
+  <this:XrmWorkflow00000000000000000000000000000000.CreatedEntities>
+    <InArgument x:TypeArguments="scg:IDictionary(x:String, mxs:Entity)" />
+  </this:XrmWorkflow00000000000000000000000000000000.CreatedEntities>
+  <mva:VisualBasic.Settings>Assembly references and imported namespaces for internal implementation</mva:VisualBasic.Settings>
+  <mxswa:Workflow>
+    <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionSequence, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionStep1">
+      <mxswa:ActivityReference.Arguments>
+        <InArgument x:TypeArguments="x:Boolean" x:Key="Wait">False</InArgument>
+      </mxswa:ActivityReference.Arguments>
+      <mxswa:ActivityReference.Properties>
+        <sco:Collection x:TypeArguments="Variable" x:Key="Variables">
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep2_condition" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_1" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep2_2" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="ConditionBranchStep3_condition" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep3_1" />
+          <Variable x:TypeArguments="x:Boolean" Default="False" Name="True" />
+          <Variable x:TypeArguments="x:Object" Name="ConditionBranchStep4_1" />
+        </sco:Collection>
+        <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+          <mxswa:GetEntityProperty Attribute="cat_testtypecode" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep2_1]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.OptionSetValue, "5", "Picklist" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="mxs:OptionSetValue" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep2_2]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">Equal</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { ConditionBranchStep2_2 }]</InArgument>
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep2_1]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep2_condition]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep2">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[ConditionBranchStep2_condition]</InArgument>
+            </mxswa:ActivityReference.Arguments>
+            <mxswa:ActivityReference.Properties>
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep2">
+                <mxswa:ActivityReference.Properties>
+                  <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                  <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                    <Sequence DisplayName="SetVisibilityStep3: Hide field Critical">
+                      <mcwc:SetVisibility ControlId="cat_critical" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep17: Hide field Order">
+                      <mcwc:SetVisibility ControlId="cat_order" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep15: Hide field Parent">
+                      <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep4: Hide field Send startConversation Event">
+                      <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep7: Hide field Expected Position of the Response Message">
+                      <mcwc:SetVisibility ControlId="cat_expectedpositionoftheresponseactivity" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep23: Hide field External Variables JSON">
+                      <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep29: Hide Seconds Before Getting Answer">
+                      <mcwc:SetVisibility ControlId="cat_secondsbeforegettinganswer" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                  </sco:Collection>
+                </mxswa:ActivityReference.Properties>
+              </mxswa:ActivityReference>
+              <x:Null x:Key="Else" />
+              <x:String x:Key="Description">Test Type equals "Multi-turn"</x:String>
+            </mxswa:ActivityReference.Properties>
+          </mxswa:ActivityReference>
+          <mxswa:GetEntityProperty Attribute="cat_parent" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" Value="[ConditionBranchStep3_1]">
+            <mxswa:GetEntityProperty.TargetType>
+              <InArgument x:TypeArguments="s:Type">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type">
+                  <x:Null />
+                </mxswa:ReferenceLiteral>
+              </InArgument>
+            </mxswa:GetEntityProperty.TargetType>
+          </mxswa:GetEntityProperty>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateCondition, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateCondition">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="mxsq:ConditionOperator" x:Key="ConditionOperator">NotNull</InArgument>
+              <x:Null x:Key="Parameters" />
+              <InArgument x:TypeArguments="x:Object" x:Key="Operand">[ConditionBranchStep3_1]</InArgument>
+              <OutArgument x:TypeArguments="x:Boolean" x:Key="Result">[ConditionBranchStep3_condition]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep3">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[ConditionBranchStep3_condition]</InArgument>
+            </mxswa:ActivityReference.Arguments>
+            <mxswa:ActivityReference.Properties>
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep3">
+                <mxswa:ActivityReference.Properties>
+                  <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                  <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                    <Sequence DisplayName="SetVisibilityStep5: Show field Critical">
+                      <mcwc:SetVisibility ControlId="cat_critical" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep18: Show field Order">
+                      <mcwc:SetVisibility ControlId="cat_order" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep16: Show field Parent">
+                      <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep8: Show field Send startConversation Event">
+                      <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep24: Show field Expected Position of the Response Message">
+                      <mcwc:SetVisibility ControlId="cat_expectedpositionoftheresponseactivity" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep26: Show field External Variables JSON">
+                      <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep30: Show Seconds Before Getting Answer">
+                      <mcwc:SetVisibility ControlId="cat_secondsbeforegettinganswer" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                  </sco:Collection>
+                </mxswa:ActivityReference.Properties>
+              </mxswa:ActivityReference>
+              <x:Null x:Key="Else" />
+              <x:String x:Key="Description">Parent contains data</x:String>
+            </mxswa:ActivityReference.Properties>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.EvaluateExpression, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="EvaluateExpression">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="ExpressionOperator">CreateCrmType</InArgument>
+              <InArgument x:TypeArguments="s:Object[]" x:Key="Parameters">[New Object() { Microsoft.Xrm.Sdk.Workflow.WorkflowPropertyType.Boolean, "true" }]</InArgument>
+              <InArgument x:TypeArguments="s:Type" x:Key="TargetType">
+                <mxswa:ReferenceLiteral x:TypeArguments="s:Type" Value="x:Boolean" />
+              </InArgument>
+              <OutArgument x:TypeArguments="x:Object" x:Key="Result">[ConditionBranchStep4_1]</OutArgument>
+            </mxswa:ActivityReference.Arguments>
+          </mxswa:ActivityReference>
+          <mxswa:ActivityReference AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.ConditionBranch, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep4">
+            <mxswa:ActivityReference.Arguments>
+              <InArgument x:TypeArguments="x:Boolean" x:Key="Condition">[True]</InArgument>
+            </mxswa:ActivityReference.Arguments>
+            <mxswa:ActivityReference.Properties>
+              <mxswa:ActivityReference x:Key="Then" AssemblyQualifiedName="Microsoft.Crm.Workflow.Activities.Composite, Microsoft.Crm.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" DisplayName="ConditionBranchStep4">
+                <mxswa:ActivityReference.Properties>
+                  <sco:Collection x:TypeArguments="Variable" x:Key="Variables" />
+                  <sco:Collection x:TypeArguments="Activity" x:Key="Activities">
+                    <Sequence DisplayName="SetVisibilityStep21981: Hide field Critical">
+                      <mcwc:SetVisibility ControlId="cat_critical" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep22: Hide field Order">
+                      <mcwc:SetVisibility ControlId="cat_order" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="False" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep23957: Show field Parent">
+                      <mcwc:SetVisibility ControlId="cat_parent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep26102: Show field Send startConversation Event">
+                      <mcwc:SetVisibility ControlId="cat_isstartconversationeventsent" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep27: Show field Expected Position of the Response Message">
+                      <mcwc:SetVisibility ControlId="cat_expectedpositionoftheresponseactivity" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep28: Show field External Variables JSON">
+                      <mcwc:SetVisibility ControlId="cat_externalvariablesjson" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                    <Sequence DisplayName="SetVisibilityStep31: Show Seconds Before Getting Answer">
+                      <mcwc:SetVisibility ControlId="cat_secondsbeforegettinganswer" ControlType="standard" Entity="[InputEntities(&quot;primaryEntity&quot;)]" EntityName="cat_copilottest" IsVisible="True" />
+                    </Sequence>
+                  </sco:Collection>
+                </mxswa:ActivityReference.Properties>
+              </mxswa:ActivityReference>
+              <x:Null x:Key="Else" />
+              <x:String x:Key="Description"></x:String>
+            </mxswa:ActivityReference.Properties>
+          </mxswa:ActivityReference>
+        </sco:Collection>
+        <x:Boolean x:Key="ContainsElseBranch">False</x:Boolean>
+      </mxswa:ActivityReference.Properties>
+    </mxswa:ActivityReference>
+  </mxswa:Workflow>
+</Activity>

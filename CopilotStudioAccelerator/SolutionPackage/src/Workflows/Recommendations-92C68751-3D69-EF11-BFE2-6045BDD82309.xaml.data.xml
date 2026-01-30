@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{92c68751-3d69-ef11-bfe2-6045bdd82309}" Name="Recommendations" Description="Click to add description" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <XamlFileName>/Workflows/Recommendations-92C68751-3D69-EF11-BFE2-6045BDD82309.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>2</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>1</StateCode>
+  <StatusCode>2</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>20240830.3</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ProcessTriggerScope>1</ProcessTriggerScope>
+  <PrimaryEntity>cat_CopilotConfiguration</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Recommendations" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1033" description="Click to add description" />
+  </Descriptions>
+  <labels>
+    <steplabels id="{19e94d51-f911-41bc-87e2-0206877d2e70}">
+      <label languagecode="1033" description="Name of the copilot configuration." />
+    </steplabels>
+    <steplabels id="{0bb67ab7-26c2-483e-a72a-2705a10d27f9}">
+      <label languagecode="1033" description="The name doesn't have to be the same as the copilot you target. E.g. &quot;My Copilot&quot;" />
+    </steplabels>
+    <steplabels id="{af773ee6-695b-4944-af1e-5458364dcd45}">
+      <label languagecode="1033" description="Region where the copilot is deployed." />
+    </steplabels>
+    <steplabels id="{d06217e2-23e5-4309-93f0-c26f840fcced}">
+      <label languagecode="1033" description="This is required to target the appropriate Direct Line endpoint. This is the same region as your Power Platform environment where your copilot is deployed." />
+    </steplabels>
+    <steplabels id="{c5380e0a-4cfd-4511-b837-65c21421dbe7}">
+      <label languagecode="1033" description="Web channel security" />
+    </steplabels>
+    <steplabels id="{a49f822d-379f-4b32-b625-2c5b12b975c5}">
+      <label languagecode="1033" description="Check this option if web and Direct Line channel security is enabled.&#xA;That way, a token for the conversation can be obtained in exchange of a secret, instead of using the public Token Endpoint." />
+    </steplabels>
+    <steplabels id="{ddd87b3e-f895-4c39-99ca-5ca024398f59}">
+      <label languagecode="1033" description="End-user authentication" />
+    </steplabels>
+    <steplabels id="{e83b83cf-0d8b-4a5f-b566-6f10e807ad7f}">
+      <label languagecode="1033" description="Check this option if the copilot requires the user to sign in, using Microsoft Entra ID (manual authentication)" />
+    </steplabels>
+    <steplabels id="{7ba98383-dd77-4970-94bd-125ec2521797}">
+      <label languagecode="1033" description="Azure Application Insights" />
+    </steplabels>
+    <steplabels id="{808caf6c-dc59-405b-89ce-940b466a9b03}">
+      <label languagecode="1033" description="Option to enrich test results for Generative Answers tests with Azure Application Insights telemetry data, for example to capture the reason a reason wasn't returned (e.g. moderation, no search results, etc.). Only enable if you have configured Azure Application Insights on your copilot. This requires setting a custom app registration to access Azure Application Insights. Refer to the Copilot Studio Kit documentation to learn how to set it up." />
+    </steplabels>
+    <steplabels id="{956ae9ab-9ad8-4c42-a79d-93b810fa6e52}">
+      <label languagecode="1033" description="Conversation Transcript Enrichment" />
+    </steplabels>
+    <steplabels id="{2ab97426-4a54-40a7-b51e-d00d70c43f92}">
+      <label languagecode="1033" description="Option to enrich test results with Conversation Transcript data stored in Dataverse. This is required for &quot;Topic Match&quot; and &quot;Plan validation&quot; testing and to get additional details, such as intent recognition score. This requires the Dataverse environment where the agent is deployed to be in the same tenant as the Copilot Studio Kit." />
+    </steplabels>
+    <steplabels id="{cfe51d40-ab34-4ea0-8f8a-087a30040c5c}">
+      <label languagecode="1033" description="Analyze Generated Answer" />
+    </steplabels>
+    <steplabels id="{291e40b7-02b4-4bca-9274-4ee094cc5e43}">
+      <label languagecode="1033" description="When this option is enabled, AI-generated tests are analyzed with a large language model (LLM) to compare the response with a sample answers or validation instructions." />
+    </steplabels>
+  </labels>
+</Workflow>

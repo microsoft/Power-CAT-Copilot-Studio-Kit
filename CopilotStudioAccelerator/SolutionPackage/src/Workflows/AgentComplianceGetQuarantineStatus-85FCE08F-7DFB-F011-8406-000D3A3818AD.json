@@ -1,0 +1,115 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_powerplatformadminv2": {
+        "runtimeSource": "invoker",
+        "connection": {
+          "connectionReferenceLogicalName": "cat_sharedpowerplatformadminv2_ac233"
+        },
+        "api": {
+          "name": "shared_powerplatformadminv2"
+        }
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "593cfdbf-c846-40e6-91b6-7f03b3d88028"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "EnvironmentId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "BotId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Get_Bot_Quarantine_Status": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "84e9c25d-b88b-45b8-9650-d45fca29b385"
+          },
+          "type": "OpenApiConnection",
+          "inputs": {
+            "host": {
+              "connectionName": "shared_powerplatformadminv2",
+              "operationId": "GetBotQuarantineStatus",
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_powerplatformadminv2"
+            },
+            "parameters": {
+              "EnvironmentId": "@triggerBody()['text']",
+              "BotId": "@triggerBody()['text_1']",
+              "api-version": "2022-03-01-preview"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "Get_Bot_Quarantine_Status": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "b94aa3da-cd13-40f8-a5c3-495f1faa50e2"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "isbotquarantined": "@{outputs('Get_Bot_Quarantine_Status')?['body/isBotQuarantined']}"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isbotquarantined": {
+                  "title": "IsBotQuarantined",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

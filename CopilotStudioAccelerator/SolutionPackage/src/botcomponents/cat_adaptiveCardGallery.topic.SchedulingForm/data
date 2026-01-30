@@ -1,0 +1,210 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Scheduling Form
+
+  actions:
+    - kind: AdaptiveCardPrompt
+      id: k2IyGo
+      card: |-
+        {
+            "type": "AdaptiveCard",
+            "version": "1.3",
+            "backgroundImage": {
+                "url": "https://powercatexternal.blob.core.windows.net/creatorkit/Assets/gray.png"
+            },
+            "body": [
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Schedule a Car Service Appointment",
+                            "weight": "Bolder",
+                            "size": "Large",
+                            "horizontalAlignment": "Center",
+                            "color": "Accent",
+                             "wrap": true
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Choose a service, select a date and time, and confirm your appointment.",
+                            "size": "Medium",
+                            "wrap": true,
+                            "spacing": "Large"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Select Service",
+                            "size": "Medium",
+                            "wrap": true,
+                            "spacing": "Medium",
+                            "weight": "Bolder"
+                        },
+                        {
+                            "type": "Input.ChoiceSet",
+                            "id": "availableServices",
+                            "label": "Available Services",
+                            "choices": [
+                                {
+                                    "title": "Oil Change",
+                                    "value": "Oil Change(30min)"
+                                },
+                                {
+                                    "title": "Tire Replacement",
+                                    "value": "Tire Replacement(45 min)"
+                                }
+                            ],
+                            "placeholder": "Select Service",
+                            "style": "expanded"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Select Date",
+                            "size": "Medium",
+                            "wrap": true,
+                              "spacing": "Medium",
+                            "weight": "Bolder"
+                        },
+                        {
+                            "type": "Input.ChoiceSet",
+                            "id": "availableDates",
+                            "label": "Select Available Date",
+                            "choices": [
+                                {
+                                    "title": "2025-01-02",
+                                    "value": "2025-01-02"
+                                },
+                                {
+                                    "title": "2025-01-05",
+                                    "value": "2025-01-05"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Select Time",
+                            "size": "Medium",
+                            "wrap": true,
+                              "spacing": "Medium",
+                            "weight": "Bolder"
+                        },
+                        {
+                            "type": "Input.ChoiceSet",
+                            "id": "availableTimes",
+                            "label": "Select Available Time",
+                            "choices": [
+                                {
+                                    "title": "12:50 PM",
+                                    "value": "12:50 PM"
+                                },
+                                {
+                                    "title": "10:30 AM",
+                                    "value": "10:30 AM"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Contact Information",
+                            "size": "Medium",
+                            "wrap": true,
+                             "spacing": "Medium",
+                            "weight": "Bolder"
+                        },
+                        {
+                            "type": "Input.Text",
+                            "id": "fullName",
+                            "placeholder": "Enter your full name",
+                            "label": "Full Name"
+                        },
+                        {
+                            "type": "Input.Text",
+                            "id": "phoneNumber",
+                            "placeholder": "Enter your Phone Number",
+                            "label": "Phone Number"
+                        }
+                    ]
+                },
+                {
+                    "type": "ActionSet",
+                    "actions": [
+                        {
+                            "type": "Action.Submit",
+                            "title": "Confirm Appointment",
+                            "style": "positive",
+                            "data": {
+                                "action": "submitIncidentReport"
+                            }
+                        }
+                    ],
+                    "spacing": "Medium"
+                }
+            ],
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      output:
+        binding:
+          action: Topic.action
+          actionSubmitId: Topic.actionSubmitId
+          availableDates: Topic.availableDates
+          availableServices: Topic.availableServices
+          availableTimes: Topic.availableTimes
+          fullName: Topic.fullName
+          phoneNumber: Topic.phoneNumber
+
+      outputType:
+        properties:
+          action: String
+          actionSubmitId: String
+          availableDates: String
+          availableServices: String
+          availableTimes: String
+          fullName: String
+          phoneNumber: String
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_5b31bB
+      input:
+        binding:
+          text: =Topic.availableDates
+          text_1: =Topic.availableServices
+          text_2: =Topic.availableTimes
+          text_3: =Topic.fullName
+          text_4: =Topic.phoneNumber
+
+      output:
+        binding:
+          scheduleinformation: Topic.ScheduleInformation
+
+      flowId: 61dc8bec-f1d3-ef11-a730-6045bd00cb12
+
+    - kind: ParseValue
+      id: C0WsDe
+      variable: Topic.ScheduleInfo
+      valueType:
+        kind: Record
+        properties:
+          availableDate: String
+          availableService: String
+          availableTime: String
+          fullName: String
+          phoneNumber: String
+
+      value: =Topic.ScheduleInformation
+
+    - kind: SendActivity
+      id: sendActivity_16zosv
+      activity: |-
+        Appointment Confirmed !!
+        
+        **Appoinment Details:**
+        
+        **Name:** {Topic.ScheduleInfo.fullName}
+        
+        **Date:** {Topic.ScheduleInfo.availableDate}
+        
+        **Time:** {Topic.ScheduleInfo.availableTime}

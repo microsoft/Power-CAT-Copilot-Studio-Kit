@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{5dc1c50f-ba75-45a9-a772-9af45e1a1f19}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_caseid" select="1" icon="1" preview="1">
+        <row name="result" id="cat_compliancecaseid">
+          <cell name="cat_caseid" width="95" />
+          <cell name="cat_agentdisplayname" width="300" />
+          <cell name="cat_statusreason" width="105" />
+          <cell name="cat_risklevel" width="102" />
+          <cell name="cat_isorphan" width="100" />
+          <cell name="cat_owneremail" width="116" />
+          <cell name="modifiedon" width="113" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_compliancecase">
+          <attribute name="cat_compliancecaseid" />
+          <attribute name="cat_caseid" />
+          <order attribute="cat_caseid" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="1" />
+          </filter>
+          <attribute name="cat_agentdisplayname" />
+          <attribute name="cat_statusreason" />
+          <attribute name="modifiedon" />
+          <attribute name="cat_isorphan" />
+          <attribute name="cat_risklevel" />
+          <attribute name="cat_owneremail" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Inactive Compliance Cases" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>
