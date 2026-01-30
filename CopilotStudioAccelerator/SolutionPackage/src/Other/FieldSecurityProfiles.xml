@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FieldSecurityProfiles xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <FieldSecurityProfile name="Copilot Studio Accelerator Column Security Profile" fieldsecurityprofileid="{d8ce4283-40f9-ee11-a1fd-000d3a5cb958}">
+    <FieldPermissions>
+      <FieldPermission>
+        <EntityName>cat_copilotconfiguration</EntityName>
+        <AttributeName>cat_clientsecret</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
+      <FieldPermission>
+        <EntityName>cat_copilotconfiguration</EntityName>
+        <AttributeName>cat_directlinechannelsecuritysecret</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
+      <FieldPermission>
+        <EntityName>cat_copilotconfiguration</EntityName>
+        <AttributeName>cat_azureappinsightssecret</AttributeName>
+        <CanRead>4</CanRead>
+        <CanUpdate>4</CanUpdate>
+        <CanCreate>4</CanCreate>
+        <CanReadUnmasked>0</CanReadUnmasked>
+      </FieldPermission>
+    </FieldPermissions>
+  </FieldSecurityProfile>
+</FieldSecurityProfiles>

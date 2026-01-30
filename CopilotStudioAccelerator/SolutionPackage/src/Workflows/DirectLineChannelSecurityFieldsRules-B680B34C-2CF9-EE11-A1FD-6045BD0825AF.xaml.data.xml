@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Workflow WorkflowId="{b680b34c-2cf9-ee11-a1fd-6045bd0825af}" Name="Direct Line Channel Security Fields Rules" Description="Click to add description" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <XamlFileName>/Workflows/DirectLineChannelSecurityFieldsRules-B680B34C-2CF9-EE11-A1FD-6045BD0825AF.xaml</XamlFileName>
+  <Type>1</Type>
+  <Subprocess>0</Subprocess>
+  <Category>2</Category>
+  <Mode>1</Mode>
+  <Scope>4</Scope>
+  <OnDemand>0</OnDemand>
+  <TriggerOnCreate>0</TriggerOnCreate>
+  <TriggerOnDelete>0</TriggerOnDelete>
+  <AsyncAutodelete>0</AsyncAutodelete>
+  <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+  <StateCode>0</StateCode>
+  <StatusCode>1</StatusCode>
+  <RunAs>1</RunAs>
+  <IsTransacted>1</IsTransacted>
+  <IntroducedVersion>1.0.0.3</IntroducedVersion>
+  <IsCustomizable>1</IsCustomizable>
+  <BusinessProcessType>0</BusinessProcessType>
+  <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+  <ProcessTriggerScope>1</ProcessTriggerScope>
+  <PrimaryEntity>cat_CopilotConfiguration</PrimaryEntity>
+  <LocalizedNames>
+    <LocalizedName languagecode="1033" description="Direct Line Channel Security Fields Rules" />
+  </LocalizedNames>
+  <Descriptions>
+    <Description languagecode="1033" description="Click to add description" />
+  </Descriptions>
+  <labels>
+    <steplabels id="{09d94965-042c-4a4c-8e94-4ab83ecc3fed}">
+      <label languagecode="1033" description="Token Endpoint" />
+    </steplabels>
+    <steplabels id="{b5d4e13f-c8b3-4cf0-9a19-441c32dde477}">
+      <label languagecode="1033" description="If Web / Direct Line channel security isn't used or if secured access isn't required, use the token endpoint that's available in the Mobile app channel of your agent." />
+    </steplabels>
+  </labels>
+</Workflow>

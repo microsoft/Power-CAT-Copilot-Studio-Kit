@@ -1,0 +1,214 @@
+kind: AdaptiveDialog
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - Incident Report
+
+  actions:
+    - kind: AdaptiveCardPrompt
+      id: CdAgdv
+      card: |-
+        {
+            "type": "AdaptiveCard",
+            "version": "1.3",
+            "backgroundImage": {
+                "url": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAADIElEQVR4nO3UMQHAIADAsDH/doETZHA0UdCrY695PiDpfx0AvGMAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEGYAEHYB/YUF4YxgjEIAAAAASUVORK5CYII="
+            },
+            "body": [
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Incident Reporting",
+                            "weight": "Bolder",
+                            "size": "Large",
+                            "horizontalAlignment": "Center",
+                            "color": "Accent"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "Please provide details about the incident you are reporting. Fields marked with * are required.",
+                            "size": "Medium",
+                            "wrap": true,
+                            "spacing":"Large"
+                        }
+                    ]
+                },
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "Input.Text",
+                            "id": "incidentTitle",
+                            "placeholder": "Enter a brief title for the incident",
+                            "label": "Incident Title",
+                            "isRequired": true,
+                            "errorMessage": "Incident title is required."
+                        },
+                        {
+                            "type": "Input.ChoiceSet",
+                            "id": "incidentType",
+                            "label": "Incident Type",
+                            "choices": [
+                                {
+                                    "title": "System Outage",
+                                    "value": "systemOutage"
+                                },
+                                {
+                                    "title": "Data Breach",
+                                    "value": "dataBreach"
+                                },
+                                {
+                                    "title": "Safety Hazard",
+                                    "value": "safetyHazard"
+                                },
+                                {
+                                    "title": "Other",
+                                    "value": "other"
+                                }
+                            ],
+                            "isRequired": true,
+                            "errorMessage": "Please select an incident type."
+                        },
+                        {
+                            "type": "Input.Text",
+                            "id": "incidentDescription",
+                            "placeholder": "Describe the incident in detail",
+                            "label": "Incident Description",
+                            "isMultiline": true,
+                            "isRequired": true,
+                            "errorMessage": "Incident description is required."
+                        },
+                        {
+                            "type": "Input.Date",
+                            "id": "incidentDate",
+                            "label": "Incident Date",
+                            "isRequired": true,
+                            "errorMessage": "Please provide the date of the incident."
+                        },
+                        {
+                            "type": "Input.Text",
+                            "id": "reportedBy",
+                            "placeholder": "Enter your name",
+                            "label": "Reported By (Optional)"
+                        },
+                        {
+                            "type": "Input.Text",
+                            "id": "contactInfo",
+                            "placeholder": "Enter your contact information",
+                            "label": "Contact Information (Optional)"
+                        }
+                    ],
+                    "style": "default",
+                    "spacing": "Medium"
+                },
+                {
+                    "type": "ActionSet",
+                    "actions": [
+                        {
+                            "type": "Action.Submit",
+                            "title": "Submit Report",
+                            "style": "positive",
+                            "data": {
+                                "action": "submitIncidentReport"
+                            }
+                        },
+                        {
+                            "type": "Action.ShowCard",
+                            "title": "Cancel",
+                            "card": {
+                                "type": "AdaptiveCard",
+                                "body": [
+                                    {
+                                        "type": "TextBlock",
+                                        "text": "Are you sure you want to cancel this report?",
+                                        "weight": "Bolder",
+                                        "wrap": true
+                                    },
+                                    {
+                                        "type": "ActionSet",
+                                        "actions": [
+                                            {
+                                                "type": "Action.Submit",
+                                                "title": "Yes, Cancel",
+                                                "data": {
+                                                    "action": "cancelIncidentReport"
+                                                }
+                                            },
+                                            {
+                                                "type": "Action.Submit",
+                                                "title": "No, Continue",
+                                                "data": {
+                                                    "action": "continueIncidentReport"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+                            }
+                        }
+                    ],
+                    "spacing": "Medium"
+                }
+            ],
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json"
+        }
+      output:
+        binding:
+          action: Topic.action
+          actionSubmitId: Topic.actionSubmitId
+          contactInfo: Topic.contactInfo
+          incidentDate: Topic.incidentDate
+          incidentDescription: Topic.incidentDescription
+          incidentTitle: Topic.incidentTitle
+          incidentType: Topic.incidentType
+          reportedBy: Topic.reportedBy
+
+      outputType:
+        properties:
+          action: String
+          actionSubmitId: String
+          contactInfo: String
+          incidentDate: Date
+          incidentDescription: String
+          incidentTitle: String
+          incidentType: String
+          reportedBy: String
+
+    - kind: InvokeFlowAction
+      id: invokeFlowAction_c4J3Ye
+      input:
+        binding:
+          date: =Text(Topic.incidentDate)
+          text: =Topic.incidentTitle
+          text_1: =Topic.incidentType
+          text_2: =Topic.incidentDescription
+          text_3: =Topic.reportedBy
+          text_4: =Topic.contactInfo
+
+      output:
+        binding:
+          reportresponse: Topic.ReportResponse
+
+      flowId: b2199f54-3dd2-ef11-8eea-000d3a5c1e68
+
+    - kind: ParseValue
+      id: 4ZSmvu
+      variable: Topic.IncidentId
+      valueType:
+        kind: Record
+        properties:
+          IncidentId: String
+
+      value: =Topic.ReportResponse
+
+    - kind: SendActivity
+      id: sendActivity_GXt8tZ
+      activity: |-
+        Incident report has been submitted.
+        
+        **Incident ID: {Topic.IncidentId.IncidentId}**

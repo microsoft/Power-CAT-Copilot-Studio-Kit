@@ -1,0 +1,476 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <systemform>
+    <formid>{cd2b00d5-84a8-f011-bbd2-00224809eacc}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form headerdensity="HighWithControls">
+      <tabs>
+        <tab verticallayout="true" id="{419d08ec-65ee-4821-94b3-ce1dcaa9ebe4}" IsUserDefined="1" labelid="{ee6096ea-bc0d-47f8-97aa-4c2799fda2f1}" name="t_general">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="70%">
+              <sections>
+                <section showlabel="false" showbar="false" IsUserDefined="0" id="{1deafaa8-c675-4c78-9d71-b7eb1be40a83}" labelid="{6c31bd96-f38f-4ba6-ba4f-776dd7cdf81c}">
+                  <labels>
+                    <label description="General" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{e52205eb-83ce-4718-8156-8147f3b21bbf}" visible="false" labelid="{ba2b2834-9586-4b24-b0fb-e61422dcd2ca}">
+                        <labels>
+                          <label description="Case Id" languagecode="1033" />
+                        </labels>
+                        <control id="cat_caseid" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cat_caseid" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c98d93f9-65d6-4d31-85a0-37eb52876b8d}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent Id" languagecode="1033" />
+                        </labels>
+                        <control id="cat_agentid" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_agentid" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{8aab997e-ae00-4587-9562-9f64e2e70807}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Agent DisplayName" languagecode="1033" />
+                        </labels>
+                        <control id="cat_agentdisplayname" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_agentdisplayname" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{c8602f18-fd31-4628-801f-f21234c6904f}" locklevel="0" colspan="1" rowspan="4" auto="true" labelid="{529b956d-4a97-4f9f-9330-bf6de5a6ca56}">
+                        <labels>
+                          <label description="Business Justification" languagecode="1033" />
+                        </labels>
+                        <control id="cat_businessjustification" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_businessjustification" disabled="false" />
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+                <section name="null_section_3" id="d4206d5e-5f00-4a92-ba47-df688167fc0b" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115" labelid="{f52bc5d7-751e-418a-96b3-022cee1db792}">
+                  <labels>
+                    <label description="SLA countdown" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{396a53fa-128f-48e0-a2d3-51d3c3956275}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Intake Notice Sent" languagecode="1033" />
+                        </labels>
+                        <control id="cat_intakenoticesent" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_intakenoticesent" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{a7218b0f-dd0f-4041-8145-b008cddc3ef8}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Intake Completed" languagecode="1033" />
+                        </labels>
+                        <control id="cat_intakecompleted" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="cat_intakecompleted" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{79f1822e-99f1-4594-8348-c097e8eeaa27}" locklevel="1" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Submitted" languagecode="1033" />
+                        </labels>
+                        <control id="cat_lastsubmitdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_lastsubmitdate" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1f1c019f-22e3-47f7-b67f-7fe1b9af66db}" locklevel="0" colspan="1" rowspan="1" labelid="{f16011cd-7d4d-499e-9358-8319b29fc6fe}">
+                        <labels>
+                          <label description="Expiry Date" languagecode="1033" />
+                        </labels>
+                        <control id="header_cat_expirydate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_expirydate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{1a281651-d4a5-4691-a97b-8b5a5c624086}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Days Remaining" languagecode="1033" />
+                        </labels>
+                        <control id="cat_daysremaining" classid="{C3EFE0C3-0EC6-42BE-8349-CBD9079DFD8E}" datafieldname="cat_daysremaining" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="t_general_section_5" id="282e6f08-976f-4bde-955f-4f6571eb361f" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Compliance result" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{4f3ffeb4-c7fb-4719-b189-b08c3c53747c}" rowspan="4" colspan="1" auto="true" showlabel="false">
+                        <labels>
+                          <label description="New SG control 1761078987823" languagecode="1033" />
+                        </labels>
+                        <control indicationOfSubgrid="true" id="Subgrid_new_1" classid="{F9A8A302-114E-466A-B582-6771B2AE0D92}" uniqueid="{27861bdd-cf9b-44e2-88b9-57947ec8041b}">
+                          <parameters>
+                            <RecordsPerPage>4</RecordsPerPage>
+                            <AutoExpand>Auto</AutoExpand>
+                            <EnableQuickFind>false</EnableQuickFind>
+                            <EnableViewPicker>false</EnableViewPicker>
+                            <EnableChartPicker>false</EnableChartPicker>
+                            <ChartGridMode>Grid</ChartGridMode>
+                            <RelationshipName>cat_ThresholdViolations</RelationshipName>
+                            <TargetEntityType>cat_thresholdconfig</TargetEntityType>
+                            <ViewId>{DF1B4391-BEAE-F011-BBD3-00224809EACC}</ViewId>
+                            <ViewIds>{4C937346-3FB5-45D4-807C-B85801BC43BF},{DF1B4391-BEAE-F011-BBD3-00224809EACC}</ViewIds>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+            <column width="30%">
+              <sections>
+                <section name="_section_673" id="ccfe3e76-8d6d-4f08-a3c2-58669ada762a" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Case details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{ceaa181f-9924-4c5b-bf3c-dae35184477a}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Risk Level" languagecode="1033" />
+                        </labels>
+                        <control id="cat_risklevel" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_risklevel" disabled="true" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{92870724-4047-4279-a18b-e565f42c59fe}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Data Classification" languagecode="1033" />
+                        </labels>
+                        <control id="header_cat_dataclassification" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_dataclassification" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0005b420-b35d-4509-9fb2-89dd60afe752}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Expected Number Of Users" languagecode="1033" />
+                        </labels>
+                        <control id="cat_expectednumberofusers" classid="{C6D124CA-7EDA-4A60-AEA9-7FB8D318B68F}" datafieldname="cat_expectednumberofusers" disabled="true" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="t_general_section_8" id="dbf93d89-b425-49c3-aef9-e320d7130b94" IsUserDefined="0" locklevel="0" showlabel="true" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Review decision" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell id="{6fe35847-fc1f-4cb5-bb74-d8180ce05298}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Outcome" languagecode="1033" />
+                        </labels>
+                        <control id="cat_outcome" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_outcome" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{ca255dcd-d521-485f-90c1-bd22a39a3699}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Outcome Date" languagecode="1033" />
+                        </labels>
+                        <control id="cat_outcomedate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="cat_outcomedate" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{4a34ea61-9089-4755-bff1-cf3c81aa5aa4}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Outcome Reason" languagecode="1033" />
+                        </labels>
+                        <control id="cat_outcomereason" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="cat_outcomereason" disabled="false" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{63a7adf6-b720-4122-a70b-4d346c331340}" locklevel="0" colspan="1" rowspan="1">
+                        <labels>
+                          <label description="Approval" languagecode="1033" />
+                        </labels>
+                        <control id="cat_approval" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="cat_approval" disabled="false" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                <section name="t_general_section_6" id="f3025d49-b273-4ea7-9387-9a79239164bd" IsUserDefined="0" locklevel="0" showlabel="false" showbar="false" layout="varwidth" celllabelalignment="Left" celllabelposition="Left" columns="1" labelwidth="115">
+                  <labels>
+                    <label description="Timeline" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row />
+                    <row>
+                      <cell locklevel="0" id="{fa2437de-2ac6-4da2-965b-21176c1d7da3}" rowspan="15" colspan="1">
+                        <labels>
+                          <label description="Note Text" languagecode="1033" />
+                        </labels>
+                        <control id="notescontrol" classid="{06375649-C143-495E-A496-C962E5B4488E}" disabled="false">
+                          <parameters>
+                            <UClientShowFilterPane>false</UClientShowFilterPane>
+                            <UClientExpandFilterPane>false</UClientExpandFilterPane>
+                            <UClientShowTimelineLabel>true</UClientShowTimelineLabel>
+                            <UClientEnableWhatsChangedModern>false</UClientEnableWhatsChangedModern>
+                            <UClientEnableAttachmentPreview>false</UClientEnableAttachmentPreview>
+                            <UClientTimelineCopilot>false</UClientTimelineCopilot>
+                            <UClientNotesConfigurationJSON>{"hideNoteTitleForAuthoringMode":true,"commandsConfig":{"order":[{"id":"Edit","isVisible":false},{"id":"CopyToClipboard","isVisible":false},{"id":"Pin","isVisible":false},{"id":"Delete","isVisible":false}]},"fieldsConfig":{"labelOverride":true,"header":{"labelOption":"Hide","displayOption":"AlwaysShow"},"body":[{"labelOption":"Hide","displayOption":"Hide"},{"labelOption":"Hide","displayOption":"AlwaysShow"}],"footer":{"labelOption":"Hide","displayOption":"Hide"}}}</UClientNotesConfigurationJSON>
+                            <UClientDefaultLayoutOption>roomy</UClientDefaultLayoutOption>
+                            <UClientDefaultFilterJSON>{"module":{"enabled":false,"value":[]},"modifiedDate":{"enabled":false,"value":[]}}</UClientDefaultFilterJSON>
+                            <UClientEnableSearch>false</UClientEnableSearch>
+                            <UClientHideRecentDates>false</UClientHideRecentDates>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                    <row />
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      <header id="{f1854401-25c5-474f-879e-c47ce83648ff}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{d16c6f9c-deb0-448d-a93f-19b7a9d5a2c6}" showlabel="false" labelid="{892d8ab6-d8a3-48f0-b4d3-5197d6e639cf}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{c3908056-5377-40dd-a22f-7a8a78340422}" showlabel="false" labelid="{95590da4-135c-40f8-a872-67b493eccb68}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{dc432c48-9895-4006-b826-8d9f494501fc}" showlabel="false" labelid="{b55a2215-f377-4ce5-929e-1505eb8df171}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{0760da1c-434a-46ad-b37b-1ea37988c23c}" colspan="1" rowspan="1" labelid="{0ea880e0-ae50-4605-9daa-f3cad626aa0d}" visible="false">
+              <labels>
+                <label description="Owner" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+            </cell>
+            <cell id="{dfb9ea83-4089-4522-b5e4-7e185fab9b84}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Case Status" languagecode="1033" />
+              </labels>
+              <control id="header_cat_statusreason" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="cat_statusreason" disabled="false" />
+            </cell>
+            <cell id="{b84ad42a-8c5d-4789-8e1c-9143b027869b}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Owner Email" languagecode="1033" />
+              </labels>
+              <control id="header_cat_owneremail" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="cat_owneremail" disabled="false" />
+            </cell>
+            <cell id="{fac52ff1-6537-46ac-ba04-19603b80e103}" locklevel="0" colspan="1" rowspan="1">
+              <labels>
+                <label description="Is Orphan" languagecode="1033" />
+              </labels>
+              <control id="header_cat_isorphan" classid="{67FAC785-CD58-4F9F-ABB3-4B7DDC6ED5ED}" datafieldname="cat_isorphan" disabled="false" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      <footer id="{547411fa-7629-451e-aabf-93eed272753b}" celllabelposition="Top" columns="111" labelwidth="115" celllabelalignment="Left">
+        <rows>
+          <row>
+            <cell id="{62bc9a38-b84e-4e1e-b01f-e2f97adace96}" showlabel="false" labelid="{06a5b0cd-fbfb-4c75-96ac-f7f6762e9210}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{43b56b03-b8e9-4e50-9293-2a86d1ec1548}" showlabel="false" labelid="{36aa54b8-e294-4f69-ad8e-431632610767}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+            <cell id="{2a011326-ca55-4184-a66d-c38eb083e573}" showlabel="false" labelid="{e43dd7bf-6717-487d-8e1c-e3fe00921344}">
+              <labels>
+                <label description="" languagecode="1033" />
+              </labels>
+            </cell>
+          </row>
+        </rows>
+      </footer>
+      <DisplayConditions Order="1" FallbackForm="true">
+        <Role Id="{627090ff-40a3-4053-8790-584edc5be201}" />
+        <Role Id="{119f245c-3cc8-4b62-b31c-d1a046ced15d}" />
+      </DisplayConditions>
+      <controlDescriptions>
+        <controlDescription forControl="{27861bdd-cf9b-44e2-88b9-57947ec8041b}">
+          <customControl id="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+            <parameters>
+              <RecordsPerPage>4</RecordsPerPage>
+              <AutoExpand>Auto</AutoExpand>
+              <EnableQuickFind>true</EnableQuickFind>
+              <EnableViewPicker>false</EnableViewPicker>
+              <EnableChartPicker>false</EnableChartPicker>
+              <ChartGridMode>Grid</ChartGridMode>
+              <RelationshipName>cat_ThresholdViolations</RelationshipName>
+              <TargetEntityType>cat_thresholdconfig</TargetEntityType>
+              <ViewId>{DF1B4391-BEAE-F011-BBD3-00224809EACC}</ViewId>
+              <ViewIds>{4C937346-3FB5-45D4-807C-B85801BC43BF}</ViewIds>
+            </parameters>
+          </customControl>
+          <customControl formFactor="0" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{DF1B4391-BEAE-F011-BBD3-00224809EACC}</ViewId>
+                <TargetEntityType>cat_thresholdconfig</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>cat_ThresholdViolations</RelationshipName>
+                <FilteredViewIds>{4C937346-3FB5-45D4-807C-B85801BC43BF}</FilteredViewIds>
+              </data-set>
+              <EnableEditing type="Enum" static="true">no</EnableEditing>
+              <DisableChildItemsEditing type="Enum" static="true">no</DisableChildItemsEditing>
+              <EnableFiltering type="Enum" static="true">no</EnableFiltering>
+              <EnableSorting type="Enum" static="true">yes</EnableSorting>
+              <EnableGrouping type="Enum" static="true">no</EnableGrouping>
+              <EnableAggregation type="Enum" static="true">no</EnableAggregation>
+              <EnableColumnMoving type="Enum" static="true">no</EnableColumnMoving>
+              <EnableMultipleSelection type="Enum" static="true">no</EnableMultipleSelection>
+              <EnableRangeSelection type="Enum" static="true">no</EnableRangeSelection>
+              <EnableJumpBar type="Enum" static="true">no</EnableJumpBar>
+              <EnablePagination type="Enum" static="true">no</EnablePagination>
+              <EnableDropdownColor type="Enum" static="true">yes</EnableDropdownColor>
+              <EnableStatusIcons type="Enum" static="true">yes</EnableStatusIcons>
+              <EnableTypeIcons type="Enum" static="true">no</EnableTypeIcons>
+              <NavigationTypesAllowed type="Enum" static="true">none</NavigationTypesAllowed>
+              <ReflowBehavior type="Enum" static="true">GridOnly</ReflowBehavior>
+              <ShowAvatar type="Enum" static="true">no</ShowAvatar>
+              <NumberOfListColumns type="Whole.None" static="true">3</NumberOfListColumns>
+              <ShowFooter type="Enum" static="true">yes</ShowFooter>
+              <ShowColumnHeaders type="Enum" static="true">yes</ShowColumnHeaders>
+              <ContextualLookupColumnFilters type="Enum" static="true">no</ContextualLookupColumnFilters>
+              <LookupFilterBeginsWith type="Enum" static="true">no</LookupFilterBeginsWith>
+              <UseFirstColumnForLookupEdits type="Enum" static="true">no</UseFirstColumnForLookupEdits>
+              <DateTimeFormat type="Enum" static="true">none</DateTimeFormat>
+              <DateOnlyFormat type="Enum" static="true">none</DateOnlyFormat>
+              <EnableStatusColumn type="Enum" static="true">no</EnableStatusColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="2" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{DF1B4391-BEAE-F011-BBD3-00224809EACC}</ViewId>
+                <TargetEntityType>cat_thresholdconfig</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>cat_ThresholdViolations</RelationshipName>
+                <FilteredViewIds>{4C937346-3FB5-45D4-807C-B85801BC43BF}</FilteredViewIds>
+              </data-set>
+              <EnableEditing type="Enum" static="true">no</EnableEditing>
+              <DisableChildItemsEditing type="Enum" static="true">no</DisableChildItemsEditing>
+              <EnableFiltering type="Enum" static="true">no</EnableFiltering>
+              <EnableSorting type="Enum" static="true">yes</EnableSorting>
+              <EnableGrouping type="Enum" static="true">no</EnableGrouping>
+              <EnableAggregation type="Enum" static="true">no</EnableAggregation>
+              <EnableColumnMoving type="Enum" static="true">no</EnableColumnMoving>
+              <EnableMultipleSelection type="Enum" static="true">no</EnableMultipleSelection>
+              <EnableRangeSelection type="Enum" static="true">no</EnableRangeSelection>
+              <EnableJumpBar type="Enum" static="true">no</EnableJumpBar>
+              <EnablePagination type="Enum" static="true">no</EnablePagination>
+              <EnableDropdownColor type="Enum" static="true">yes</EnableDropdownColor>
+              <EnableStatusIcons type="Enum" static="true">yes</EnableStatusIcons>
+              <EnableTypeIcons type="Enum" static="true">no</EnableTypeIcons>
+              <NavigationTypesAllowed type="Enum" static="true">none</NavigationTypesAllowed>
+              <ReflowBehavior type="Enum" static="true">GridOnly</ReflowBehavior>
+              <ShowAvatar type="Enum" static="true">no</ShowAvatar>
+              <NumberOfListColumns type="Whole.None" static="true">3</NumberOfListColumns>
+              <ShowFooter type="Enum" static="true">yes</ShowFooter>
+              <ShowColumnHeaders type="Enum" static="true">yes</ShowColumnHeaders>
+              <ContextualLookupColumnFilters type="Enum" static="true">no</ContextualLookupColumnFilters>
+              <LookupFilterBeginsWith type="Enum" static="true">no</LookupFilterBeginsWith>
+              <UseFirstColumnForLookupEdits type="Enum" static="true">no</UseFirstColumnForLookupEdits>
+              <DateTimeFormat type="Enum" static="true">none</DateTimeFormat>
+              <DateOnlyFormat type="Enum" static="true">none</DateOnlyFormat>
+              <EnableStatusColumn type="Enum" static="true">no</EnableStatusColumn>
+            </parameters>
+          </customControl>
+          <customControl formFactor="1" name="Microsoft.PowerApps.PowerAppsOneGrid">
+            <parameters>
+              <data-set name="Items">
+                <ViewId>{DF1B4391-BEAE-F011-BBD3-00224809EACC}</ViewId>
+                <TargetEntityType>cat_thresholdconfig</TargetEntityType>
+                <IsUserView>false</IsUserView>
+                <EnableViewPicker>false</EnableViewPicker>
+                <RelationshipName>cat_ThresholdViolations</RelationshipName>
+                <FilteredViewIds>{4C937346-3FB5-45D4-807C-B85801BC43BF}</FilteredViewIds>
+              </data-set>
+              <EnableEditing type="Enum" static="true">no</EnableEditing>
+              <DisableChildItemsEditing type="Enum" static="true">no</DisableChildItemsEditing>
+              <EnableFiltering type="Enum" static="true">no</EnableFiltering>
+              <EnableSorting type="Enum" static="true">yes</EnableSorting>
+              <EnableGrouping type="Enum" static="true">no</EnableGrouping>
+              <EnableAggregation type="Enum" static="true">no</EnableAggregation>
+              <EnableColumnMoving type="Enum" static="true">no</EnableColumnMoving>
+              <EnableMultipleSelection type="Enum" static="true">no</EnableMultipleSelection>
+              <EnableRangeSelection type="Enum" static="true">no</EnableRangeSelection>
+              <EnableJumpBar type="Enum" static="true">no</EnableJumpBar>
+              <EnablePagination type="Enum" static="true">no</EnablePagination>
+              <EnableDropdownColor type="Enum" static="true">yes</EnableDropdownColor>
+              <EnableStatusIcons type="Enum" static="true">yes</EnableStatusIcons>
+              <EnableTypeIcons type="Enum" static="true">no</EnableTypeIcons>
+              <NavigationTypesAllowed type="Enum" static="true">none</NavigationTypesAllowed>
+              <ReflowBehavior type="Enum" static="true">GridOnly</ReflowBehavior>
+              <ShowAvatar type="Enum" static="true">no</ShowAvatar>
+              <NumberOfListColumns type="Whole.None" static="true">3</NumberOfListColumns>
+              <ShowFooter type="Enum" static="true">yes</ShowFooter>
+              <ShowColumnHeaders type="Enum" static="true">yes</ShowColumnHeaders>
+              <ContextualLookupColumnFilters type="Enum" static="true">no</ContextualLookupColumnFilters>
+              <LookupFilterBeginsWith type="Enum" static="true">no</LookupFilterBeginsWith>
+              <UseFirstColumnForLookupEdits type="Enum" static="true">no</UseFirstColumnForLookupEdits>
+              <DateTimeFormat type="Enum" static="true">none</DateTimeFormat>
+              <DateOnlyFormat type="Enum" static="true">none</DateOnlyFormat>
+              <EnableStatusColumn type="Enum" static="true">no</EnableStatusColumn>
+            </parameters>
+          </customControl>
+        </controlDescription>
+      </controlDescriptions>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Admin Review" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="A form for this entity." languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

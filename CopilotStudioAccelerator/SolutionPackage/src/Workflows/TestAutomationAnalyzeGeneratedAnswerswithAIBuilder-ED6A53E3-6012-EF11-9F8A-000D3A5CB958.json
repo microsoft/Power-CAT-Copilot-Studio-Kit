@@ -1,0 +1,1072 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_commondataserviceforapps": {
+        "api": {
+          "name": "shared_commondataserviceforapps"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cat_CopilotStudioAcceleratorDataverse"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        },
+        "Power Automate Region (cat_PowerAutomateEndpoint)": {
+          "defaultValue": "Commercial",
+          "type": "String",
+          "metadata": {
+            "schemaName": "cat_PowerAutomateEndpoint",
+            "description": "Specify your Power Automate environment region/cloud: Commercial, GCC, GCC High, or DoD."
+          }
+        }
+      },
+      "triggers": {
+        "When_an_action_is_performed": {
+          "type": "OpenApiConnectionWebhook",
+          "inputs": {
+            "parameters": {
+              "catalog": "allcatalog",
+              "category": "allcategory",
+              "subscriptionRequest/entityname": "cat_copilottestrun",
+              "subscriptionRequest/sdkmessagename": "cat_RunAIBuilderAnalysis",
+              "subscriptionRequest/name": "ed6a53e3-6012-ef11-9f8a-000d3a5cb958"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "BusinessEventsTrigger",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "metadata": {
+            "operationMetadataId": "9f251308-8842-4da0-b976-b046cfddf961"
+          }
+        }
+      },
+      "actions": {
+        "Update_Copilot_Test_Run:_Running": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_generatedanswersanalysiscode": 2
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "1879daca-4f37-49d8-8b18-6a8cf166f470"
+          }
+        },
+        "Get_Generative_Answers_Copilot_Test_Results": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestresults",
+              "$select": "cat_name, cat_copilottestresultid, cat_response, cat_resultcode, cat_attachmentsjson",
+              "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}'  \nand statecode eq 0  \nand cat_resultcode ne 2 and cat_resultcode ne 3 and cat_resultcode ne 4 \nand (cat_CopilotTestId/cat_testtypecode eq 5 or (cat_CopilotTestId/cat_testtypecode eq 4 and (cat_CopilotTestId/cat_generativeansweroutcomecode eq 1 or cat_CopilotTestId/cat_generativeansweroutcomecode eq 2 or cat_CopilotTestId/cat_generativeansweroutcomecode eq null )) or (cat_CopilotTestId/cat_testtypecode eq 3 and cat_CopilotTestId/cat_operationtypecode eq 2) or \n(cat_CopilotTestId/cat_testtypecode eq 3 and cat_CopilotTestId/cat_operationtypecode eq null and cat_CopilotTestId/cat_comparisonoperator eq 10 ))\nand _cat_parent_value eq null",
+              "$orderby": "createdon asc",
+              "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance,cat_testtypecode,cat_validationinstructions,cat_operationtypecode,_cat_rubricid_value,cat_passinggradecode)"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "ListRecords",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Update_Copilot_Test_Run:_Running": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "6076da45-72f2-4ca7-bc39-244924e64238"
+          }
+        },
+        "Apply_to_each_Generative_Answers_Result": {
+          "type": "Foreach",
+          "foreach": "@outputs('Get_Generative_Answers_Copilot_Test_Results')?['body/value']",
+          "actions": {
+            "Condition:_Check_for_Multiturn_Test": {
+              "type": "If",
+              "expression": {
+                "not": {
+                  "equals": [
+                    "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testtypecode']",
+                    5
+                  ]
+                }
+              },
+              "actions": {
+                "Scope:_Non-Multiturn_Execution_": {
+                  "type": "Scope",
+                  "actions": {
+                    "Condition:_Use_AI_Grading": {
+                      "type": "If",
+                      "expression": {
+                        "and": [
+                          {
+                            "equals": [
+                              "@outputs('Compose_-_Should_Use_AI_Grading')",
+                              "@true"
+                            ]
+                          }
+                        ]
+                      },
+                      "actions": {
+                        "Run_AI_Grading_Child_Flow": {
+                          "type": "Workflow",
+                          "inputs": {
+                            "host": {
+                              "workflowReferenceName": "190aae2c-a0d5-f011-8544-00224806f6d3"
+                            },
+                            "body": {
+                              "text_1": "@outputs('Compose_-_Determine_Active_Rubric_Id')",
+                              "text_2": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testutterance']",
+                              "text_3": "@items('Apply_to_each_Generative_Answers_Result')?['cat_response']",
+                              "number": "@outputs('Compose_-_Determine_Active_Passing_Grade')",
+                              "text": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']"
+                            }
+                          },
+                          "metadata": {
+                            "operationMetadataId": "7969f66e-b6ba-472e-85d2-f498f6d868b8"
+                          }
+                        },
+                        "Condition:_Is_Flow_Error": {
+                          "type": "If",
+                          "expression": {
+                            "and": [
+                              {
+                                "equals": [
+                                  "@not(empty(body('Run_AI_Grading_Child_Flow')?['errormessage']))",
+                                  "@true"
+                                ]
+                              }
+                            ]
+                          },
+                          "actions": {
+                            "Set_variable:_ErrorMessage": {
+                              "type": "SetVariable",
+                              "inputs": {
+                                "name": "ErrorMessage",
+                                "value": true
+                              },
+                              "metadata": {
+                                "operationMetadataId": "96a417a7-011c-4891-a44b-ce4ea51f8ba0"
+                              }
+                            }
+                          },
+                          "else": {
+                            "actions": {}
+                          },
+                          "runAfter": {
+                            "Run_AI_Grading_Child_Flow": [
+                              "Succeeded"
+                            ]
+                          },
+                          "metadata": {
+                            "operationMetadataId": "b30b5e5c-0e9b-4a5b-8151-c5e4a404c654"
+                          }
+                        }
+                      },
+                      "else": {
+                        "actions": {
+                          "Condition:_Test_Type_is_Attachments_or_Generative_Answers": {
+                            "type": "If",
+                            "expression": {
+                              "and": [
+                                {
+                                  "equals": [
+                                    "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testtypecode']",
+                                    4
+                                  ]
+                                }
+                              ]
+                            },
+                            "actions": {
+                              "AI_Builder_Custom_Prompt:_AI_Generative_Answer_Match": {
+                                "type": "OpenApiConnection",
+                                "inputs": {
+                                  "parameters": {
+                                    "recordId": "0ebe7217-deac-4d24-8ea1-67237f416b1b",
+                                    "item/requestv2/reference_20answer": "@if(\r\n    empty(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_expectedresponse']),\r\n    if(\r\n        not(equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_generativeansweroutcomecode'], 1)),\r\n        'No answer (or decline to answer).',\r\n        'Any answer (any attempt at answering the question is a success).'\r\n    ),\r\n    items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_expectedresponse']\r\n)",
+                                    "item/requestv2/instruction": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testutterance']",
+                                    "item/requestv2/response": "@if(\r\n    empty(items('Apply_to_each_Generative_Answers_Result')?['cat_response']),\r\n    'No answer provided (failure)',\r\n    items('Apply_to_each_Generative_Answers_Result')?['cat_response']\r\n)\r\n"
+                                  },
+                                  "host": {
+                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                    "operationId": "aibuilderpredict_customprompt",
+                                    "connectionName": "shared_commondataserviceforapps"
+                                  }
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "f3be8688-ad03-4a66-9ce3-c743270835f8",
+                                  "flowSystemMetadata": {
+                                    "portalOperationId": "aibuilderpredict_customprompt",
+                                    "portalOperationGroup": "aibuilder",
+                                    "portalOperationApiDisplayNameOverride": "AI Builder",
+                                    "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
+                                    "portalOperationBrandColorOverride": "#0A76C4",
+                                    "portalOperationApiTierOverride": "Standard"
+                                  }
+                                }
+                              }
+                            },
+                            "else": {
+                              "actions": {
+                                "Run_a_prompt:_AI_Validation_for_Adaptive_Card": {
+                                  "type": "OpenApiConnection",
+                                  "inputs": {
+                                    "parameters": {
+                                      "recordId": "412d327f-8348-401b-9287-d88f136ec471",
+                                      "item/requestv2/instruction": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_validationinstructions']",
+                                      "item/requestv2/response": "@json(string(items('Apply_to_each_Generative_Answers_Result')?['cat_attachmentsjson']))"
+                                    },
+                                    "host": {
+                                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                      "operationId": "aibuilderpredict_customprompt",
+                                      "connectionName": "shared_commondataserviceforapps"
+                                    }
+                                  },
+                                  "metadata": {
+                                    "operationMetadataId": "88f1287a-9893-4811-aa63-52c1c8462d56",
+                                    "flowSystemMetadata": {
+                                      "portalOperationId": "aibuilderpredict_customprompt",
+                                      "portalOperationGroup": "aibuilder",
+                                      "portalOperationApiDisplayNameOverride": "AI Builder",
+                                      "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
+                                      "portalOperationBrandColorOverride": "#0A76C4",
+                                      "portalOperationApiTierOverride": "Standard"
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "metadata": {
+                              "operationMetadataId": "f9a288d0-c100-4ba2-a421-5c9a3c8ea949"
+                            }
+                          },
+                          "Run_a_Child_Flow:_AI_Builder_Credit_Consumption": {
+                            "type": "Workflow",
+                            "inputs": {
+                              "host": {
+                                "workflowReferenceName": "e3f17f06-9373-f011-b4cc-00224802c180"
+                              },
+                              "body": {
+                                "text": "@if(\r\n\r\n    equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testtypecode'],4),\r\n\r\n    outputs('AI_Builder_Custom_Prompt:_AI_Generative_Answer_Match')?['body/responsev2/predictionId'],\r\n\r\n    outputs('Run_a_prompt:_AI_Validation_for_Adaptive_Card')?['body/responsev2/predictionId']\r\n)"
+                              }
+                            },
+                            "runAfter": {
+                              "Condition:_Test_Type_is_Attachments_or_Generative_Answers": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "8e045b07-13e7-4f28-a4b5-658624c62cd9"
+                            }
+                          },
+                          "Compose:_Get_AI_Builder_Credits": {
+                            "type": "Compose",
+                            "inputs": "@if(not(empty(outputs('Run_a_Child_Flow:_AI_Builder_Credit_Consumption')?['Body']?['aibuildercreditconsumed'])),outputs('Run_a_Child_Flow:_AI_Builder_Credit_Consumption')?['Body']?['aibuildercreditconsumed'],0)",
+                            "runAfter": {
+                              "Run_a_Child_Flow:_AI_Builder_Credit_Consumption": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "8e5ff1e2-cece-4c38-bc80-4a9040a8e675"
+                            }
+                          },
+                          "Update_Copilot_Test_Result": {
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "parameters": {
+                                "entityName": "cat_copilottestresults",
+                                "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
+                                "item/cat_resultcode": "@if(\r\n    equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testtypecode'],4),\r\n    if(\r\n        equals(\r\n            string(\r\n                int(outputs('AI_Builder_Custom_Prompt:_AI_Generative_Answer_Match')?['body/responsev2/predictionOutput/text'])\r\n            ),\r\n            outputs('AI_Builder_Custom_Prompt:_AI_Generative_Answer_Match')?['body/responsev2/predictionOutput/text']\r\n        ),\r\n        outputs('AI_Builder_Custom_Prompt:_AI_Generative_Answer_Match')?['body/responsev2/predictionOutput/text'],\r\n        4\r\n    ),\r\n    if(equals(outputs('Run_a_prompt:_AI_validation_for_adaptive_card')?['body/responsev2/predictionOutput/text'],'1'),1,2)\r\n)",
+                                "item/cat_aibuildercreditconsumed": "@outputs('Compose:_Get_AI_Builder_Credits')",
+                                "item/cat_resultreason": "@if(\r\n    equals(items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestid/cat_testtypecode'],4),\r\n    if(\r\n        equals(\r\n            string(\r\n                int(outputs('AI_Builder_Custom_Prompt:_AI_Generative_Answer_Match')?['body/responsev2/predictionOutput/text'])\r\n            ),\r\n            outputs('AI_Builder_Custom_Prompt:_AI_Generative_Answer_Match')?['body/responsev2/predictionOutput/text']\r\n        ),\r\n        'AI-generated assessment of the response. Please review.',\r\n        'Error when assessing the response with AI'\r\n    ),\r\n    if(\r\n        equals(outputs('Run_a_prompt:_AI_validation_for_adaptive_card')?['body/responsev2/predictionOutput/text'],'1'),\r\n        'Attachment(s) JSON received from the bot has been validated and meets the given instructions, AI-generated assessment of the response. Please review.',\r\n        'Attachment(s) JSON received from the bot has been validated but does not meet the given instructions, AI-generated assessment of the response. Please review.'\r\n    )\r\n)"
+                              },
+                              "host": {
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                "operationId": "UpdateRecord",
+                                "connectionName": "shared_commondataserviceforapps"
+                              }
+                            },
+                            "runAfter": {
+                              "Compose:_Get_AI_Builder_Credits": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                            }
+                          }
+                        }
+                      },
+                      "metadata": {
+                        "operationMetadataId": "708abbf2-7db3-414f-9d84-fe7a919bb347"
+                      }
+                    }
+                  },
+                  "metadata": {
+                    "operationMetadataId": "4c2c00c0-0c3c-404f-84d1-892528a53466"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Scope:_Multiturn_Execution": {
+                    "type": "Scope",
+                    "actions": {
+                      "Condition:_Check_if_Generative_Answers_Test_Results_are_present": {
+                        "type": "If",
+                        "expression": {
+                          "greater": [
+                            "@length(outputs('List_rows:_Get_Child_Agent_Test_Results')?['body/value'])",
+                            0
+                          ]
+                        },
+                        "actions": {
+                          "Apply_to_each:_Child_Agent_Test_Results": {
+                            "type": "Foreach",
+                            "foreach": "@outputs('List_rows:_Get_Child_Agent_Test_Results')?['body/value']",
+                            "actions": {
+                              "Condition:_Check_to_continue_Multiturn_processing": {
+                                "type": "If",
+                                "expression": {
+                                  "equals": [
+                                    "@variables('ContinueMultiturnProcessing')",
+                                    "@true"
+                                  ]
+                                },
+                                "actions": {
+                                  "Condition:_Check_for_Critical_Tests": {
+                                    "type": "If",
+                                    "expression": {
+                                      "equals": [
+                                        "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_critical']",
+                                        "@true"
+                                      ]
+                                    },
+                                    "actions": {
+                                      "Set_variable:_MultiturnResult": {
+                                        "type": "SetVariable",
+                                        "inputs": {
+                                          "name": "MultiturnResult",
+                                          "value": "@if(\r\n    equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testtypecode'], 4),\r\n    if(\r\n        not(empty(outputs('Compose_-_Determine_Active_Rubric_Id_child'))),\r\n        if(\r\n            equals(variables('ErrorMessage'), true),\r\n            4,\r\n            int(outputs('Run_AI_Grading_Child_Flow_for_Child_Tests')?['body/resultcode'])\r\n        ),\r\n        if(\r\n            equals(\r\n                string(\r\n                    int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text'])\r\n                ),\r\n                outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']\r\n            ),\r\n            int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']),\r\n            4\r\n        )\r\n    ),\r\n    if(equals(outputs('Run_a_prompt:_AI_Validation_for_Adaptive_Card_MultiTurrn')?['body/responsev2/predictionOutput/text'], '1'), 1, 2)\r\n)"
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "10a861a0-6cfa-444b-8ace-326c93d33f98"
+                                        }
+                                      },
+                                      "Condition:_Check_if_test_failed_or_error_out": {
+                                        "type": "If",
+                                        "expression": {
+                                          "or": [
+                                            {
+                                              "equals": [
+                                                "@variables('MultiturnResult')",
+                                                2
+                                              ]
+                                            },
+                                            {
+                                              "equals": [
+                                                "@variables('MultiturnResult')",
+                                                3
+                                              ]
+                                            },
+                                            {
+                                              "equals": [
+                                                "@variables('MultiturnResult')",
+                                                4
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "actions": {
+                                          "Set_variable:_ContinueMultiTurnProcessing": {
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                              "name": "ContinueMultiturnProcessing",
+                                              "value": "@false"
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "ed3685e0-c419-466d-a345-37054cf408fb"
+                                            }
+                                          },
+                                          "Set_variable:_MultiTurnPendingResult_2": {
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                              "name": "MultiturnPendingResult",
+                                              "value": "@false"
+                                            },
+                                            "runAfter": {
+                                              "Set_variable:_ContinueMultiTurnProcessing": [
+                                                "Succeeded"
+                                              ]
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "b94a866c-fad9-420a-9d00-dccd476cd217"
+                                            }
+                                          }
+                                        },
+                                        "else": {
+                                          "actions": {
+                                            "Set_variable:_MultiTurnPendingResult": {
+                                              "type": "SetVariable",
+                                              "inputs": {
+                                                "name": "MultiturnPendingResult",
+                                                "value": "@if(equals(variables('MultiturnResult'), 5), true, false)"
+                                              },
+                                              "metadata": {
+                                                "operationMetadataId": "8f685fc3-7a17-40c0-807d-f88894cedb09"
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "runAfter": {
+                                          "Set_variable:_MultiturnResult": [
+                                            "Succeeded"
+                                          ]
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "4f81d3d6-728c-47b5-b1de-591e09bfc788"
+                                        }
+                                      }
+                                    },
+                                    "else": {
+                                      "actions": {}
+                                    },
+                                    "runAfter": {
+                                      "Condition:_Use_AI_Grading_Child": [
+                                        "Succeeded"
+                                      ]
+                                    },
+                                    "metadata": {
+                                      "operationMetadataId": "6b207ef4-2f38-49bc-aa10-9d2c46926394"
+                                    }
+                                  },
+                                  "Condition:_Use_AI_Grading_Child": {
+                                    "type": "If",
+                                    "expression": {
+                                      "and": [
+                                        {
+                                          "equals": [
+                                            "@outputs('Compose_-_Should_Use_AI_Grading_Child')",
+                                            "@true"
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    "actions": {
+                                      "Run_AI_Grading_Child_Flow_for_Child_Tests": {
+                                        "type": "Workflow",
+                                        "inputs": {
+                                          "host": {
+                                            "workflowReferenceName": "190aae2c-a0d5-f011-8544-00224806f6d3"
+                                          },
+                                          "body": {
+                                            "text_1": "@outputs('Compose_-_Determine_Active_Rubric_Id_child')",
+                                            "text_2": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testutterance']",
+                                            "text_3": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_response']",
+                                            "number": "@outputs('Compose_-_Determine_Active_Passing_Grade_Child')",
+                                            "text": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestresultid']"
+                                          }
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "7969f66e-b6ba-472e-85d2-f498f6d868b8"
+                                        }
+                                      },
+                                      "Condition:_Is_Flow_Error_MultiTurn": {
+                                        "type": "If",
+                                        "expression": {
+                                          "and": [
+                                            {
+                                              "equals": [
+                                                "@not(empty(body('Run_AI_Grading_Child_Flow_for_Child_Tests')?['errormessage']))",
+                                                "@true"
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        "actions": {
+                                          "Set_variable:_ErrorMessage_MultiTurn": {
+                                            "type": "SetVariable",
+                                            "inputs": {
+                                              "name": "ErrorMessage",
+                                              "value": true
+                                            },
+                                            "metadata": {
+                                              "operationMetadataId": "d9d9de9b-a0ea-4515-b18b-52044a7e41dd"
+                                            }
+                                          }
+                                        },
+                                        "else": {
+                                          "actions": {}
+                                        },
+                                        "runAfter": {
+                                          "Run_AI_Grading_Child_Flow_for_Child_Tests": [
+                                            "Succeeded"
+                                          ]
+                                        },
+                                        "metadata": {
+                                          "operationMetadataId": "84baeb75-5168-4717-9f9c-ef6319d940b5"
+                                        }
+                                      }
+                                    },
+                                    "else": {
+                                      "actions": {
+                                        "Condition:_Test_Type_is_Attachments_or_Generative_Answers_MultiTurn": {
+                                          "type": "If",
+                                          "expression": {
+                                            "and": [
+                                              {
+                                                "equals": [
+                                                  "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testtypecode']",
+                                                  4
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "actions": {
+                                            "Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match": {
+                                              "type": "OpenApiConnection",
+                                              "inputs": {
+                                                "parameters": {
+                                                  "recordId": "0ebe7217-deac-4d24-8ea1-67237f416b1b",
+                                                  "item/requestv2/reference_20answer": "@\n    if(\n        empty(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_expectedresponse']), \n        if(\n            not(equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_generativeansweroutcomecode'], 1)), \n            'No answer (or decline to answer).', \n            'Any answer (any attempt at answering the question is a success).'\n        ), \n        items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_expectedresponse']\n    )\n",
+                                                  "item/requestv2/instruction": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testutterance']",
+                                                  "item/requestv2/response": "@\n    if(\n        empty(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_response']), \n        'No answer provided (failure)', \n        items('Apply_to_each:_Child_Agent_Test_Results')?['cat_response']\n    )\n"
+                                                },
+                                                "host": {
+                                                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                  "operationId": "aibuilderpredict_customprompt",
+                                                  "connectionName": "shared_commondataserviceforapps"
+                                                }
+                                              },
+                                              "metadata": {
+                                                "operationMetadataId": "f3be8688-ad03-4a66-9ce3-c743270835f8",
+                                                "flowSystemMetadata": {
+                                                  "portalOperationId": "aibuilderpredict_customprompt",
+                                                  "portalOperationGroup": "aibuilder",
+                                                  "portalOperationApiDisplayNameOverride": "AI Builder",
+                                                  "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
+                                                  "portalOperationBrandColorOverride": "#0A76C4",
+                                                  "portalOperationApiTierOverride": "Standard"
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "else": {
+                                            "actions": {
+                                              "Run_a_prompt:_AI_Validation_for_Adaptive_Card_MultiTurrn": {
+                                                "type": "OpenApiConnection",
+                                                "inputs": {
+                                                  "parameters": {
+                                                    "recordId": "412d327f-8348-401b-9287-d88f136ec471",
+                                                    "item/requestv2/instruction": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_validationinstructions']",
+                                                    "item/requestv2/response": "@json(string(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_attachmentsjson']))"
+                                                  },
+                                                  "host": {
+                                                    "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                                    "operationId": "aibuilderpredict_customprompt",
+                                                    "connectionName": "shared_commondataserviceforapps"
+                                                  }
+                                                },
+                                                "metadata": {
+                                                  "operationMetadataId": "5fee6d5b-8038-48d8-885d-b5b6a008357b",
+                                                  "flowSystemMetadata": {
+                                                    "portalOperationId": "aibuilderpredict_customprompt",
+                                                    "portalOperationGroup": "aibuilder",
+                                                    "portalOperationApiDisplayNameOverride": "AI Builder",
+                                                    "portalOperationIconOverride": "https://content.powerapps.com/resource/makerx/static/pauto/images/designeroperations/aiBuilderNew.51dbdb6b.png",
+                                                    "portalOperationBrandColorOverride": "#0A76C4",
+                                                    "portalOperationApiTierOverride": "Standard"
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "7ba38621-ffde-4580-9a7d-83230eb561e6"
+                                          }
+                                        },
+                                        "Run_a_Child_Flow:_AI_Builder_Credit_Consumption_MultiTurn": {
+                                          "type": "Workflow",
+                                          "inputs": {
+                                            "host": {
+                                              "workflowReferenceName": "e3f17f06-9373-f011-b4cc-00224802c180"
+                                            },
+                                            "body": {
+                                              "text": "@if(\r\n\r\n    equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testtypecode'],4),\r\n\r\n    outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionId'],\r\n\r\n    outputs('Run_a_prompt:_AI_Validation_for_Adaptive_Card_MultiTurrn')?['body/responsev2/predictionId']\r\n)"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Condition:_Test_Type_is_Attachments_or_Generative_Answers_MultiTurn": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "8e045b07-13e7-4f28-a4b5-658624c62cd9"
+                                          }
+                                        },
+                                        "Compose:_Get_AI_Builder_Credits_MultiTurn": {
+                                          "type": "Compose",
+                                          "inputs": "@if(not(empty(outputs('Run_a_Child_Flow:_AI_Builder_Credit_Consumption_MultiTurn')?['Body']?['aibuildercreditconsumed'])),outputs('Run_a_Child_Flow:_AI_Builder_Credit_Consumption_MultiTurn')?['Body']?['aibuildercreditconsumed'],0)",
+                                          "runAfter": {
+                                            "Run_a_Child_Flow:_AI_Builder_Credit_Consumption_MultiTurn": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "76326542-2ed3-4f5a-bf0d-353abe0488ea"
+                                          }
+                                        },
+                                        "Update_a_row:_Child_Agent_Test_Results": {
+                                          "type": "OpenApiConnection",
+                                          "inputs": {
+                                            "parameters": {
+                                              "entityName": "cat_copilottestresults",
+                                              "recordId": "@items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestresultid']",
+                                              "item/cat_resultcode": "@if(\r\n    equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testtypecode'],4),\r\n    if(\r\n        equals(\r\n            string(\r\n                int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text'])\r\n            ),\r\n            outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']\r\n        ),\r\n        int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']),\r\n        4\r\n    ),\r\n    if(equals(outputs('Run_a_prompt:_AI_Validation_for_Adaptive_Card_MultiTurrn')?['body/responsev2/predictionOutput/text'],'1'),1,2)\r\n)",
+                                              "item/cat_aibuildercreditconsumed": "@outputs('Compose:_Get_AI_Builder_Credits_MultiTurn')",
+                                              "item/cat_resultreason": "@if(\r\n    equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_copilottestid/cat_testtypecode'],4),\r\n    if(\r\n        equals(\r\n            string(\r\n                int(outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text'])\r\n            ), \r\n            outputs('Create_text_with_GPT_using_a_prompt:_MultiTurn_Gen_Answer_Match')?['body/responsev2/predictionOutput/text']\r\n        ), \r\n        'AI-generated assessment of the response. Please review.', \r\n        'Error when assessing the response with AI'\r\n    ),\r\n    if(\r\n        equals(outputs('Run_a_prompt:_AI_Validation_for_Adaptive_Card_MultiTurrn')?['body/responsev2/predictionOutput/text'],'1'),\r\n        'Attachment(s) JSON received from the bot has been validated and meets the given instructions, AI-generated assessment of the response. Please review.',\r\n        'Attachment(s) JSON received from the bot has been validated but does not meet the given instructions, AI-generated assessment of the response. Please review.'\r\n    )\r\n)"
+                                            },
+                                            "host": {
+                                              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                              "operationId": "UpdateRecord",
+                                              "connectionName": "shared_commondataserviceforapps"
+                                            }
+                                          },
+                                          "runAfter": {
+                                            "Compose:_Get_AI_Builder_Credits_MultiTurn": [
+                                              "Succeeded"
+                                            ]
+                                          },
+                                          "metadata": {
+                                            "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "metadata": {
+                                      "operationMetadataId": "9a3ced81-f47a-4b3b-bd79-78dce263f6e8"
+                                    }
+                                  }
+                                },
+                                "else": {
+                                  "actions": {}
+                                },
+                                "runAfter": {
+                                  "Compose_-_Should_Use_AI_Grading_Child": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "4e24a64e-f81b-43f0-bc9b-3909f9462e6b"
+                                }
+                              },
+                              "Compose_-_Determine_Active_Rubric_Id_child": {
+                                "type": "Compose",
+                                "inputs": "@if(\r\n  not(empty(outputs('Compose_-_Run_Level_Rubric_Id'))),\r\n  outputs('Compose_-_Run_Level_Rubric_Id'),\r\n  items('Apply_to_each:_Child_Agent_Test_Results')?['cat_CopilotTestId/_cat_rubricid_value']\r\n)",
+                                "metadata": {
+                                  "operationMetadataId": "c2ef0768-3e71-44bc-8b0e-1c96c4aee368"
+                                }
+                              },
+                              "Compose_-_Determine_Active_Passing_Grade_Child": {
+                                "type": "Compose",
+                                "inputs": "@if(\r\n  not(empty(outputs('Compose_-_Run_Level_Rubric_Id'))),\r\n  outputs('Compose_-_Run_Level_Passing_Grade'),\r\n  if(\r\n    equals(items('Apply_to_each:_Child_Agent_Test_Results')?['cat_CopilotTestId/cat_passinggradecode'], null),\r\n    5,\r\n    items('Apply_to_each:_Child_Agent_Test_Results')?['cat_CopilotTestId/cat_passinggradecode']\r\n  )\r\n)",
+                                "runAfter": {
+                                  "Compose_-_Determine_Active_Rubric_Id_child": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "17d830df-1de1-4de8-9ae9-7e4ab22c6dbc"
+                                }
+                              },
+                              "Compose_-_Should_Use_AI_Grading_Child": {
+                                "type": "Compose",
+                                "inputs": "@not(empty(outputs('Compose_-_Determine_Active_Rubric_Id_child')))",
+                                "runAfter": {
+                                  "Compose_-_Determine_Active_Passing_Grade_Child": [
+                                    "Succeeded"
+                                  ]
+                                },
+                                "metadata": {
+                                  "operationMetadataId": "f17eab8c-d1e3-4c39-bad5-20ad7c7e96c7"
+                                }
+                              }
+                            },
+                            "metadata": {
+                              "operationMetadataId": "ac6b6c84-8e7b-4d3d-99ac-457fe2fbb75a"
+                            }
+                          },
+                          "Update_a_row:_MultiTurn_Agent_Test_Result": {
+                            "type": "OpenApiConnection",
+                            "inputs": {
+                              "parameters": {
+                                "entityName": "cat_copilottestresults",
+                                "recordId": "@items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']",
+                                "item/cat_resultcode": "@if(variables('MultiturnPendingResult'), \r\n\t5, \r\n\tif( greater(variables('MultiturnResult'), 0), \r\n\t\tvariables('MultiturnResult'), \r\n\t\titems('Apply_to_each_Generative_Answers_Result')?['cat_resultcode']\r\n\t)\r\n)"
+                              },
+                              "host": {
+                                "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                                "operationId": "UpdateRecord",
+                                "connectionName": "shared_commondataserviceforapps"
+                              }
+                            },
+                            "runAfter": {
+                              "Apply_to_each:_Child_Agent_Test_Results": [
+                                "Succeeded"
+                              ]
+                            },
+                            "metadata": {
+                              "operationMetadataId": "15aaca7b-99dd-469b-99b8-9eae5e9e7a11"
+                            }
+                          }
+                        },
+                        "else": {
+                          "actions": {}
+                        },
+                        "runAfter": {
+                          "List_rows:_Get_Child_Agent_Test_Results": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "48ede9c2-c64a-4f2a-a093-c415957aba25"
+                        }
+                      },
+                      "Set_variable:_ContinueMultiturnProcessing_for_each_Multiturn_test": {
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "ContinueMultiturnProcessing",
+                          "value": "@true"
+                        },
+                        "metadata": {
+                          "operationMetadataId": "907fd986-fb1b-4c31-ac98-cd4875b359e2"
+                        }
+                      },
+                      "List_rows:_Get_Child_Agent_Test_Results": {
+                        "type": "OpenApiConnection",
+                        "inputs": {
+                          "parameters": {
+                            "entityName": "cat_copilottestresults",
+                            "$select": "cat_name, cat_copilottestresultid, cat_response, cat_attachmentsjson",
+                            "$filter": "_cat_copilottestrunid_value eq '@{triggerOutputs()?['body/InputParameters/CopilotTestRunId']}' \nand statecode eq 0 \nand cat_resultcode ne 4 \nand (\n  (cat_CopilotTestId/cat_testtypecode eq 4 and cat_CopilotTestId/_cat_rubricid_value ne null)\n  or\n  (cat_CopilotTestId/cat_testtypecode eq 4 and cat_CopilotTestId/_cat_rubricid_value eq null and (cat_CopilotTestId/cat_generativeansweroutcomecode eq 1 or cat_CopilotTestId/cat_generativeansweroutcomecode eq 2 or cat_CopilotTestId/cat_generativeansweroutcomecode eq null ))\n  or\n  (cat_CopilotTestId/cat_testtypecode eq 3 and cat_CopilotTestId/cat_operationtypecode eq 2)\n  or\n  (cat_CopilotTestId/cat_testtypecode eq 3 and cat_CopilotTestId/cat_operationtypecode eq null and cat_CopilotTestId/cat_comparisonoperator eq 10)\n)\nand _cat_parent_value eq '@{items('Apply_to_each_Generative_Answers_Result')?['cat_copilottestresultid']}'",
+                            "$orderby": "createdon asc",
+                            "$expand": "cat_CopilotTestId($select=cat_generativeansweroutcomecode,cat_expectedresponse,cat_testutterance,cat_critical,cat_testtypecode,cat_validationinstructions,cat_operationtypecode,_cat_rubricid_value,cat_passinggradecode)"
+                          },
+                          "host": {
+                            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+                            "operationId": "ListRecords",
+                            "connectionName": "shared_commondataserviceforapps"
+                          }
+                        },
+                        "runAfter": {
+                          "Set_variable:_MultiturnPendingResult_for_each_Multiturn_test": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "24ec299a-b46d-4b81-9eb5-ef7027d1dcb8"
+                        }
+                      },
+                      "Set_variable:_MultiturnPendingResult_for_each_Multiturn_test": {
+                        "type": "SetVariable",
+                        "inputs": {
+                          "name": "MultiturnPendingResult",
+                          "value": "@false"
+                        },
+                        "runAfter": {
+                          "Set_variable:_ContinueMultiturnProcessing_for_each_Multiturn_test": [
+                            "Succeeded"
+                          ]
+                        },
+                        "metadata": {
+                          "operationMetadataId": "46d53677-c628-48a4-9b40-85023f309d60"
+                        }
+                      }
+                    },
+                    "metadata": {
+                      "operationMetadataId": "a244d8a0-ab79-4627-a382-486ad21b6bb8"
+                    }
+                  }
+                }
+              },
+              "runAfter": {
+                "Compose_-_Should_Use_AI_Grading": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "42edd095-df0f-4ede-977a-bf4c8de70e83"
+              }
+            },
+            "Compose_-_Determine_Active_Rubric_Id": {
+              "type": "Compose",
+              "inputs": "@if(\r\n  not(empty(outputs('Compose_-_Run_Level_Rubric_Id'))),\r\n  outputs('Compose_-_Run_Level_Rubric_Id'),\r\n  items('Apply_to_each_Generative_Answers_Result')?['cat_CopilotTestId/_cat_rubricid_value']\r\n)",
+              "metadata": {
+                "operationMetadataId": "c2ef0768-3e71-44bc-8b0e-1c96c4aee368"
+              }
+            },
+            "Compose_-_Determine_Active_Passing_Grade": {
+              "type": "Compose",
+              "inputs": "@if(\r\n  not(empty(outputs('Compose_-_Run_Level_Rubric_Id'))),\r\n  outputs('Compose_-_Run_Level_Passing_Grade'),\r\n  if(\r\n    equals(items('Apply_to_each_Generative_Answers_Result')?['cat_CopilotTestId/cat_passinggradecode'], null),\r\n    5,\r\n    items('Apply_to_each_Generative_Answers_Result')?['cat_CopilotTestId/cat_passinggradecode']\r\n  )\r\n)",
+              "runAfter": {
+                "Compose_-_Determine_Active_Rubric_Id": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "17d830df-1de1-4de8-9ae9-7e4ab22c6dbc"
+              }
+            },
+            "Compose_-_Should_Use_AI_Grading": {
+              "type": "Compose",
+              "inputs": "@not(empty(outputs('Compose_-_Determine_Active_Rubric_Id')))",
+              "runAfter": {
+                "Compose_-_Determine_Active_Passing_Grade": [
+                  "Succeeded"
+                ]
+              },
+              "metadata": {
+                "operationMetadataId": "f17eab8c-d1e3-4c39-bad5-20ad7c7e96c7"
+              }
+            }
+          },
+          "runAfter": {
+            "Get_Flow_Endpoint": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "fdd67cc2-01c6-4669-beb8-4a8c089f6504"
+          }
+        },
+        "Update_Copilot_Test_Run:_Error": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_errordetails": "@concat(\r\n  body('Update_Copilot_Test_Run:_Running')?['cat_errordetails'],\r\n  '<br/>',\r\n  'Failed <strong>',\r\n  workflow()?['tags']?['flowDisplayName'],\r\n  '</strong> flow run: <a href=\"',\r\n  outputs('Get_Flow_Endpoint'),\r\n  'environments/',\r\n  workflow()?['tags']?['environmentName'],\r\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\r\n  workflow()?['name'],\r\n  '/runs/',\r\n  workflow()?['run']?['name'],\r\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\r\n)\r\n",
+              "item/cat_generatedanswersanalysiscode": 6
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Apply_to_each_Generative_Answers_Result": [
+              "Failed",
+              "Skipped",
+              "TimedOut"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "46100016-2f1b-4e28-9ef7-90648debe3d9"
+          }
+        },
+        "Perform_a_bound_action:_Update_Rollup_Columns": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "actionName": "Microsoft.Dynamics.CRM.cat_RunRollupColumnsUpdates",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/DataverseUriHost": "@uriHost(outputs('Update_Copilot_Test_Run:_Running')?['body/@odata.id'])",
+              "item/CopilotTestRunId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "PerformBoundAction",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Apply_to_each_Generative_Answers_Result": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "af483f4c-32dd-412b-a719-f226b3756087"
+          }
+        },
+        "Update_Copilot_Test_Run:_Complete": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "entityName": "cat_copilottestruns",
+              "recordId": "@triggerOutputs()?['body/InputParameters/CopilotTestRunId']",
+              "item/cat_errordetails": "@concat(\r\n  outputs('Update_Copilot_Test_Run:_Running')?['body/cat_errordetails'],\r\n  '<br/>',\r\n  '<strong>',\r\n  workflow()?['tags']?['flowDisplayName'],\r\n  '</strong> flow run: <a href=\"',\r\n  outputs('Get_Flow_Endpoint'),\r\n  'environments/',\r\n  workflow()?['tags']?['environmentName'],\r\n  '/solutions/fd140aaf-4df4-11dd-bd17-0019b9312238/flows/',\r\n  workflow()?['name'],\r\n  '/runs/',\r\n  workflow()?['run']?['name'],\r\n  '\" target=\"_blank\" rel=\"noopener noreferrer\">Click here to open the flow run</a>'\r\n)",
+              "item/cat_generatedanswersanalysiscode": 3
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+              "operationId": "UpdateRecord",
+              "connectionName": "shared_commondataserviceforapps"
+            }
+          },
+          "runAfter": {
+            "Perform_a_bound_action:_Update_Rollup_Columns": [
+              "Succeeded",
+              "Failed"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "46100016-2f1b-4e28-9ef7-90648debe3d9"
+          }
+        },
+        "Initialize_variable:_ContinueMultiturnProcessing": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ContinueMultiturnProcessing",
+                "type": "boolean"
+              }
+            ]
+          },
+          "runAfter": {
+            "Compose_-_Is_Run_Level_Rubric_Selected": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "bfa823e7-3504-432e-990e-589d29149f0b"
+          }
+        },
+        "Initialize_variable:_MultiturnResult": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "MultiturnResult",
+                "type": "integer",
+                "value": 0
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable:_ContinueMultiturnProcessing": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "a3125a46-5313-4d02-bbfb-057eceb6cd97"
+          }
+        },
+        "Initialize_variable:_MultiturnPendingResult": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "MultiturnPendingResult",
+                "type": "boolean"
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable:_MultiturnResult": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cd2678c6-278c-4208-b809-513e48fa9363"
+          }
+        },
+        "Get_Flow_Endpoint": {
+          "type": "Compose",
+          "inputs": "@if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc'), 'https://make.gov.powerautomate.us/', \r\n    if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'gcc(high)'), 'https://make.high.powerautomate.us/', \r\n        if(equals(toLower(parameters('Power Automate Region (cat_PowerAutomateEndpoint)')), 'dod'), 'https://make.powerautomate.appsplatform.us/', \r\n            'https://make.powerautomate.com/'\r\n        )\r\n    )\r\n)",
+          "runAfter": {
+            "Initialize_variable:_ErrorMessage": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "3bd5c904-5e4c-48af-972c-ffebb3d7cd28"
+          }
+        },
+        "Compose_-_Run_Level_Rubric_Id": {
+          "type": "Compose",
+          "inputs": "@outputs('Update_Copilot_Test_Run:_Running')?['body/_cat_rubricid_value']",
+          "runAfter": {
+            "Get_Generative_Answers_Copilot_Test_Results": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "de14adc6-a3b1-4fde-87a5-e5224290e765"
+          }
+        },
+        "Compose_-_Run_Level_Passing_Grade": {
+          "type": "Compose",
+          "inputs": "@if(equals(outputs('Update_Copilot_Test_Run:_Running')?['body/cat_passinggradecode'], null), 5, outputs('Update_Copilot_Test_Run:_Running')?['body/cat_passinggradecode'])",
+          "runAfter": {
+            "Compose_-_Run_Level_Rubric_Id": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e9a9705a-efd4-4372-a8d9-9b51a46ab97a"
+          }
+        },
+        "Compose_-_Is_Run_Level_Rubric_Selected": {
+          "type": "Compose",
+          "inputs": "@not(empty(outputs('Compose_-_Run_Level_Rubric_Id')))",
+          "runAfter": {
+            "Compose_-_Run_Level_Passing_Grade": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "7781dfff-b3e3-447e-a392-65416d424d07"
+          }
+        },
+        "Initialize_variable:_ErrorMessage": {
+          "type": "InitializeVariable",
+          "inputs": {
+            "variables": [
+              {
+                "name": "ErrorMessage",
+                "type": "boolean",
+                "value": false
+              }
+            ]
+          },
+          "runAfter": {
+            "Initialize_variable:_MultiturnPendingResult": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "e4f5295f-d8f5-4725-9848-3c1329e1afa4"
+          }
+        }
+      }
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}

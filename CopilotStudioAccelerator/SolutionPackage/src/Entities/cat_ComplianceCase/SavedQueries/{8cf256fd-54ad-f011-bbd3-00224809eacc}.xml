@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{8cf256fd-54ad-f011-bbd3-00224809eacc}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_caseid" select="1" icon="1" preview="1">
+        <row name="result" id="cat_compliancecaseid">
+          <cell name="cat_caseid" width="117" />
+          <cell name="cat_agentdisplayname" width="155" />
+          <cell name="cat_statusreason" width="105" />
+          <cell name="cat_intakecompleted" width="140" />
+          <cell name="cat_risklevel" width="102" />
+          <cell name="cat_daysremaining" width="134" />
+          <cell name="cat_owneremail" width="119" />
+          <cell name="cat_agentid" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+        <entity name="cat_compliancecase">
+          <attribute name="cat_caseid" />
+          <attribute name="cat_compliancecaseid" />
+          <filter type="and">
+            <condition attribute="cat_daysremaining" operator="le" value="0" />
+          </filter>
+          <attribute name="cat_daysremaining" />
+          <attribute name="cat_agentdisplayname" />
+          <attribute name="cat_statusreason" />
+          <attribute name="cat_intakecompleted" />
+          <attribute name="cat_risklevel" />
+          <attribute name="cat_owneremail" />
+          <attribute name="cat_agentid" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="SLA Breaches" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Cases that have exceeded the assigned SLA" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>

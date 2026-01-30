@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{53a75013-d194-4dbe-b493-d5264a10276a}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_patternname" select="1" icon="1" preview="1">
+        <row name="result" id="cat_patternresultid">
+          <cell name="cat_patternname" width="300" />
+          <cell name="createdon" width="125" />
+          <cell name="cat_componentid" width="150" />
+          <cell name="cat_patterndescription" width="150" />
+          <cell name="cat_status" width="150" />
+          <cell name="cat_failurereason" width="150" />
+          <cell name="cat_recommendation" width="150" />
+          <cell name="cat_severity" width="150" />
+          <cell name="cat_category" width="150" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_patternresult">
+          <attribute name="cat_patternresultid" />
+          <attribute name="cat_patternname" />
+          <attribute name="createdon" />
+          <order attribute="cat_patternname" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cat_componentid" />
+          <attribute name="cat_patterndescription" />
+          <attribute name="cat_status" />
+          <attribute name="cat_failurereason" />
+          <attribute name="cat_recommendation" />
+          <attribute name="cat_severity" />
+          <attribute name="cat_category" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Pattern Results" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

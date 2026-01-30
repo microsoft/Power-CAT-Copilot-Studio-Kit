@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RibbonDiffXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CustomActions>
+    <HideCustomAction HideActionId="cat.AccessChecker.OpenDialog.cat_copilottest.Button.Hide" Location="AccessChecker.OpenDialog.cat_copilottest.Button" />
+    <HideCustomAction HideActionId="cat.Mscrm.Form.cat_copilottest.Flows.RefreshCommandBar.Flows.Hide" Location="Mscrm.Form.cat_copilottest.Flows.RefreshCommandBar.Flows" />
+    <HideCustomAction HideActionId="cat.Mscrm.Form.cat_copilottest.Flows.RefreshCommandBar.Hide" Location="Mscrm.Form.cat_copilottest.Flows.RefreshCommandBar" />
+    <HideCustomAction HideActionId="cat.Mscrm.Form.cat_copilottest.Reports.Hide" Location="Mscrm.Form.cat_copilottest.Reports" />
+    <HideCustomAction HideActionId="cat.Mscrm.Form.cat_copilottest.WordTemplate.Hide" Location="Mscrm.Form.cat_copilottest.WordTemplate" />
+    <HideCustomAction HideActionId="cat.Mscrm.HomepageGrid.cat_copilottest.DocumentTemplate.Hide" Location="Mscrm.HomepageGrid.cat_copilottest.DocumentTemplate" />
+    <HideCustomAction HideActionId="cat.Mscrm.HomepageGrid.cat_copilottest.Flows.RefreshCommandBar.Flows.Hide" Location="Mscrm.HomepageGrid.cat_copilottest.Flows.RefreshCommandBar.Flows" />
+    <HideCustomAction HideActionId="cat.Mscrm.HomepageGrid.cat_copilottest.Flows.RefreshCommandBar.Hide" Location="Mscrm.HomepageGrid.cat_copilottest.Flows.RefreshCommandBar" />
+    <HideCustomAction HideActionId="cat.Mscrm.HomepageGrid.cat_copilottest.MainTab.QuickPowerBI.Button.Hide" Location="Mscrm.HomepageGrid.cat_copilottest.MainTab.QuickPowerBI.Button" />
+    <HideCustomAction HideActionId="cat.Mscrm.HomepageGrid.cat_copilottest.RunReport.Hide" Location="Mscrm.HomepageGrid.cat_copilottest.RunReport" />
+    <HideCustomAction HideActionId="cat.Mscrm.HomepageGrid.cat_copilottest.Send.Hide" Location="Mscrm.HomepageGrid.cat_copilottest.Send" />
+    <HideCustomAction HideActionId="cat.Mscrm.HomepageGrid.cat_copilottest.WordTemplate.Hide" Location="Mscrm.HomepageGrid.cat_copilottest.WordTemplate" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.AddExistingAssoc.Hide" Location="Mscrm.SubGrid.cat_copilottest.AddExistingAssoc" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.AddExistingStandard.Hide" Location="Mscrm.SubGrid.cat_copilottest.AddExistingStandard" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.Delete.Hide" Location="Mscrm.SubGrid.cat_copilottest.Delete" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.DocumentTemplate.Hide" Location="Mscrm.SubGrid.cat_copilottest.DocumentTemplate" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.Flows.RefreshCommandBar.Hide" Location="Mscrm.SubGrid.cat_copilottest.Flows.RefreshCommandBar" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.RunReport.Hide" Location="Mscrm.SubGrid.cat_copilottest.RunReport" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.SendSelected.Hide" Location="Mscrm.SubGrid.cat_copilottest.SendSelected" />
+    <HideCustomAction HideActionId="cat.Mscrm.SubGrid.cat_copilottest.WordTemplate.Hide" Location="Mscrm.SubGrid.cat_copilottest.WordTemplate" />
+  </CustomActions>
+  <Templates>
+    <RibbonTemplates Id="Mscrm.Templates"></RibbonTemplates>
+  </Templates>
+  <CommandDefinitions>
+    <CommandDefinition Id="cat.cat_copilottest.MultiTurn.Button.Mscrm.SubGrid.cat_copilottest.Delete">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+        <EnableRule Id="Mscrm.IsEntityAvailableForUserInMocaOffline" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.NotShowForManyToManyGrids" />
+        <DisplayRule Id="Mscrm.DeleteSelectedEntityPermission" />
+      </DisplayRules>
+      <Actions />
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.DeletePrimaryRecord">
+      <EnableRules>
+        <EnableRule Id="Mscrm.FormStateNotNew" />
+        <EnableRule Id="Mscrm.CanDeletePrimary" />
+        <EnableRule Id="Mscrm.IsEntityAvailableForUserInMocaOffline" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.DeletePrimaryEntityPermission" />
+        <DisplayRule Id="cat.cat_copilottest.MultiTurn.DisplayRule" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="XrmCore.Commands.Delete.deletePrimaryRecord" Library="$webresource:Main_system_library.js">
+          <CrmParameter Value="FirstPrimaryItemId" />
+          <CrmParameter Value="PrimaryEntityTypeName" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+    <CommandDefinition Id="Mscrm.DeleteSelectedRecord">
+      <EnableRules>
+        <EnableRule Id="Mscrm.SelectionCountAtLeastOne" />
+        <EnableRule Id="Mscrm.VisualizationPaneNotMaximized" />
+        <EnableRule Id="Mscrm.IsEntityAvailableForUserInMocaOffline" />
+      </EnableRules>
+      <DisplayRules>
+        <DisplayRule Id="Mscrm.NotShowForManyToManyGrids" />
+        <DisplayRule Id="Mscrm.DeleteSelectedEntityPermission" />
+      </DisplayRules>
+      <Actions>
+        <JavaScriptFunction FunctionName="XrmCore.Commands.Delete.deleteRecords" Library="$Webresource:Main_system_library.js">
+          <CrmParameter Value="SelectedControl" />
+          <CrmParameter Value="SelectedControlSelectedItemReferences" />
+          <CrmParameter Value="SelectedEntityTypeName" />
+        </JavaScriptFunction>
+      </Actions>
+    </CommandDefinition>
+  </CommandDefinitions>
+  <RuleDefinitions>
+    <TabDisplayRules />
+    <DisplayRules>
+      <DisplayRule Id="cat.cat_copilottest.MultiTurn.DisplayRule">
+        <ValueRule Field="cat_testtypecode" Value="5" InvertResult="true" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.DeletePrimaryEntityPermission">
+        <EntityPrivilegeRule PrivilegeType="Delete" PrivilegeDepth="Basic" AppliesTo="PrimaryEntity" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.DeleteSelectedEntityPermission">
+        <EntityPrivilegeRule PrivilegeType="Delete" PrivilegeDepth="Basic" AppliesTo="SelectedEntity" />
+      </DisplayRule>
+      <DisplayRule Id="Mscrm.NotShowForManyToManyGrids">
+        <RelationshipTypeRule AppliesTo="SelectedEntity" RelationshipType="ManyToMany" InvertResult="true" />
+      </DisplayRule>
+    </DisplayRules>
+    <EnableRules>
+      <EnableRule Id="Mscrm.CanDeletePrimary">
+        <RecordPrivilegeRule PrivilegeType="Delete" AppliesTo="PrimaryEntity" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.FormStateNotNew">
+        <FormStateRule State="Create" InvertResult="true" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.IsEntityAvailableForUserInMocaOffline">
+        <CustomRule FunctionName="XrmCore.Rules.Online.IsEntityAvailableForUserInMocaOffline" Library="$webresource:Main_system_library.js">
+          <CrmParameter Value="SelectedEntityTypeName" />
+        </CustomRule>
+      </EnableRule>
+      <EnableRule Id="Mscrm.SelectionCountAtLeastOne">
+        <SelectionCountRule AppliesTo="SelectedEntity" Minimum="1" />
+      </EnableRule>
+      <EnableRule Id="Mscrm.VisualizationPaneNotMaximized">
+        <OrRule>
+          <Or>
+            <CommandClientTypeRule Type="Modern" />
+          </Or>
+          <Or>
+            <CustomRule FunctionName="Mscrm.GridCommandActions.disableButtonsWhenChartMaximized" Library="/_static/_common/scripts/CommandBarActions.js">
+              <CrmParameter Value="SelectedControl" />
+            </CustomRule>
+          </Or>
+        </OrRule>
+      </EnableRule>
+    </EnableRules>
+  </RuleDefinitions>
+  <LocLabels />
+</RibbonDiffXml>

@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>0</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>1</isdefault>
+    <savedqueryid>{b6d51790-012e-4b8b-9d7a-dd941ed8bfc8}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_rubricid">
+          <cell name="cat_name" width="224" />
+          <cell name="cat_description" width="300" />
+          <cell name="cat_grade5description" width="255" />
+          <cell name="cat_grade4description" width="255" />
+          <cell name="cat_grade3description" width="255" />
+          <cell name="cat_grade2description" width="255" />
+          <cell name="cat_grade1description" width="255" />
+          <cell name="cat_goodexample" width="135" />
+          <cell name="cat_badexample" width="127" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" mapping="logical">
+        <entity name="cat_rubric">
+          <attribute name="cat_rubricid" />
+          <attribute name="cat_name" />
+          <attribute name="createdon" />
+          <order attribute="cat_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <attribute name="cat_description" />
+          <attribute name="cat_grade5description" />
+          <attribute name="cat_grade4description" />
+          <attribute name="cat_grade3description" />
+          <attribute name="cat_grade2description" />
+          <attribute name="cat_grade1description" />
+          <attribute name="cat_goodexample" />
+          <attribute name="cat_badexample" />
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>1.0</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Active Rubrics" languagecode="1033" />
+    </LocalizedNames>
+  </savedquery>
+</savedqueries>

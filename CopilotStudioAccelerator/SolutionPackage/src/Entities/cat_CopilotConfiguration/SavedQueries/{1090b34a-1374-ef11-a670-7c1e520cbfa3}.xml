@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<savedqueries xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <savedquery>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <isdefault>0</isdefault>
+    <savedqueryid>{1090b34a-1374-ef11-a670-7c1e520cbfa3}</savedqueryid>
+    <layoutxml>
+      <grid name="resultset" jump="cat_name" select="1" icon="1" preview="1">
+        <row name="result" id="cat_copilotconfigurationid">
+          <cell name="cat_name" width="200" />
+          <cell name="ownerid" width="190" />
+          <cell name="createdon" width="195" />
+        </row>
+      </grid>
+    </layoutxml>
+    <querytype>0</querytype>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="true">
+        <entity name="cat_copilotconfiguration">
+          <attribute name="cat_name" />
+          <attribute name="cat_copilotconfigurationid" />
+          <attribute name="createdon" />
+          <attribute name="ownerid" />
+          <order attribute="createdon" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="cat_configurationtypescodes" operator="contain-values">
+              <value>1</value>
+            </condition>
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <IntroducedVersion>20240830.8</IntroducedVersion>
+    <LocalizedNames>
+      <LocalizedName description="Test Automation Agent Configurations" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Lookup View" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+</savedqueries>
