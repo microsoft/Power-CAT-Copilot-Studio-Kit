@@ -94,6 +94,8 @@ Terminology
 | 65 | Agent Created by UPN | cat_agentcreatedbyupn | Text | Dataverse: `systemuser` table — domainname | V3 | Agent creator email Id. |
 | 66 | First Usage Date | cat_firstusagedate | Date | Usage metrics data available in Power Platform Admin Center | V3 | Represents the agent's first usage date derived from available usage metrics. Currently supports a maximum look‑back of 180 days. |
 | 67 | First Usage Feature | cat_firstusagefeature | Text | Usage metrics data available in Power Platform Admin Center | V3 | Represents the first feature used within the agent, based on usage metrics available in the system. Currently supports a maximum look‑back of 180 days. |
+| 68 | Uses Evaluation | cat_usesevaluation | Boolean | Dataverse: Table `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 | V3 | Returns true if test evaluation is configured for the agent. |
+| 69 | Web Search Enabled | cat_websearchenabled | Boolean | Dataverse: Table `botcomponent` where `componenttypename` = Custom GPT and `componenttype` = 15 and `data` contains "webBrowsing: true" | V3 | Is web search enabled in the agent. |
 
 ---
 
@@ -169,5 +171,7 @@ Below are concise detection rules for each derived or boolean field (refer to sc
 - Agent Created by UPN (`cat_agentcreatedbyupn`): `systemuser` table → domainname of the user who created the agent.
 - First Usage Date (`cat_firstusagedate`): first usage date from usage metrics in Power Platform Admin Center. Currently supports a maximum look-back of 180 days.
 - First Usage Feature (`cat_firstusagefeature`): first feature used within the agent from usage metrics in Power Platform Admin Center. Currently supports a maximum look-back of 180 days.
+- Uses Evaluation (`cat_usesevaluation`): true when `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 exists for the agent.
+- Web Search Enabled (`cat_websearchenabled`): true when `botcomponent` where `componenttypename` = Custom GPT and `componenttype` = 15 contains `webBrowsing: true` in data.
 
 ---
