@@ -91,6 +91,11 @@ Terminology
 | 62 | Usage Text And Gen AI Tools Standard (Billed) | cat_usagetextandgenaitoolsstandardbilled | Whole Number | Agent billed usage from the usage metrics data from power platform admin center | V3 | Represents the billing message associated with the feature utilized by the agent |
 | 63 | Usage Text And Gen AI Tools Standard (Non-Billed) | cat_usagetextandgenaitoolsstandardnonbilled | Whole Number | Agent non billed usage from the usage metrics data from power platform admin center | V3 | Represents the non billing message for the feature utilized by the agent |
 | 64 | Usage Data | cat_usagedata | Multiple line of text (json) | Agent usage datafrom the power platform admin center as json | V3 | Agent usage data in json |
+| 65 | Agent Created by UPN | cat_agentcreatedbyupn | Text | Dataverse: `systemuser` table — domainname | V3 | Agent creator email Id. |
+| 66 | First Usage Date | cat_firstusagedate | Date | Usage metrics data available in Power Platform Admin Center | V3 | Represents the agent's first usage date derived from available usage metrics. Currently supports a maximum look‑back of 180 days. |
+| 67 | First Usage Feature | cat_firstusagefeature | Text | Usage metrics data available in Power Platform Admin Center | V3 | Represents the first feature used within the agent, based on usage metrics available in the system. Currently supports a maximum look‑back of 180 days. |
+| 68 | Uses Evaluation | cat_usesevaluation | Boolean | Dataverse: Table `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 | V3 | Returns true if test evaluation is configured for the agent. |
+| 69 | Web Search Enabled | cat_websearchenabled | Boolean | Dataverse: Table `botcomponent` where `componenttypename` = Custom GPT and `componenttype` = 15 and `data` contains "webBrowsing: true" | V3 | Is web search enabled in the agent. |
 
 ---
 
@@ -163,5 +168,10 @@ Below are concise detection rules for each derived or boolean field (refer to sc
 - Usage Text And GenAI Tools Premium (Non-Billed) (`cat_usagetextandgenaitoolspremiumnonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
 - Usage Text And GenAI Tools Standard (Non-Billed) (`cat_usagetextandgenaitoolsstandardnonbilled`): agent non-billed usage from usage metrics in Power Platform Admin Center.
 - UsageData (`cat_usagedata`): agent usage from usage metrics in Power Platform Admin Center as json.
+- Agent Created by UPN (`cat_agentcreatedbyupn`): `systemuser` table → domainname of the user who created the agent.
+- First Usage Date (`cat_firstusagedate`): first usage date from usage metrics in Power Platform Admin Center. Currently supports a maximum look-back of 180 days.
+- First Usage Feature (`cat_firstusagefeature`): first feature used within the agent from usage metrics in Power Platform Admin Center. Currently supports a maximum look-back of 180 days.
+- Uses Evaluation (`cat_usesevaluation`): true when `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 exists for the agent.
+- Web Search Enabled (`cat_websearchenabled`): true when `botcomponent` where `componenttypename` = Custom GPT and `componenttype` = 15 contains `webBrowsing: true` in data.
 
 ---
