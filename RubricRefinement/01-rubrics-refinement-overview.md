@@ -2,7 +2,7 @@
 
 ## What is Rubrics Refinement?
 
-Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your copilot's responses aligns with human judgment and organizational quality standards.
+Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
 
 ## The Problem It Solves
 
@@ -20,7 +20,6 @@ Rubrics Refinement addresses these challenges by providing an iterative workflow
 - **Reusable Evaluation Standards**: Define rubrics once and reuse them across multiple agents and test runs
 - **Alignment with Human Judgment**: Systematically minimize misalignment between AI and human graders
 - **Quality Assurance**: Establish durable enterprise assets that encode organizational quality standards
-- **Accelerated Time to Market**: Eliminate ad-hoc evaluation processes with structured, repeatable workflows
 - **Confidence in AI Evaluation**: Build trust in automated grading through transparent, iterative refinement
 
 ## Core Concepts
@@ -43,11 +42,6 @@ A **rubric** is a structured set of natural-language grading instructions used b
 
 - **Alignment**: When the AI grade matches the human grade, the rubric is working as intended
 - **Misalignment**: When the AI grade differs from the human grade, it indicates the rubric needs improvement
-- **Alignment Percentage**: The proportion of test cases where AI and human grades match, calculated as:
-
-  ```
-  Alignment % = (Number of aligned grades / Total graded test cases) × 100%
-  ```
 
 ### The Iterative Refinement Process
 
@@ -66,7 +60,7 @@ Rubrics Refinement is fundamentally an iterative process:
 
 > **Important**: The goal of rubric refinement is **not** to get all responses graded as 5 (Exemplary). The goal is to **minimize misalignment** between AI and human graders.
 
-Response optimization—actually improving the quality of your copilot's answers—happens in Copilot Studio itself. Rubrics Refinement focuses purely on ensuring your evaluation criteria accurately reflect human judgment, so you can trust automated grading results.
+Response optimization—actually improving the quality of your agent's answers—happens in Copilot Studio itself. Rubrics Refinement focuses purely on ensuring your evaluation criteria accurately reflect human judgment, so you can trust automated grading results.
 
 ## Two Modes of Rubric Usage
 
@@ -89,36 +83,29 @@ Rubrics in Copilot Studio Kit serve two distinct purposes:
 
 Rubrics Refinement is ideal for:
 
-- **Quality Assurance Teams**: Establishing consistent evaluation standards across copilots
-- **Makers**: Creating reliable automated tests for Generative Answer responses
+- **Quality Assurance Teams**: Establishing consistent evaluation standards across agents
+- **Makers**: Creating reliable automated tests using Generative Answer responses
 - **Enterprise Organizations**: Defining domain-specific, organizational quality standards
 - **Anyone Seeking Trust in AI Evaluation**: Teams that need confidence in automated grading for critical use cases
 
 ## What's Included in the Current Release
 
-The current release (MVP/P0) includes:
-
 - Complete rubric management (create, view, edit, duplicate, delete)
 - Rubric assignment at test run level (for refinement) and test case level (for testing)
 - Passing grade selection with clear differentiation between testing and refinement modes
-- Two refinement views: standard (AI grades hidden) and full (AI grades visible)
+- Two refinement views: standard (AI grades hidden to avoid bias) and full (AI grades visible)
 - Detailed view for grading longer responses
 - Ability to mark test cases as good/bad examples
 - AI-powered rubric refinement based on alignment analysis
 - Save and save-as options for preserving rubric versions
 - Support for iterative refinement workflow
 
-## What's Coming in Future Releases
+## What's planned for Future Releases
 
-Future enhancements (P1/P2) will include:
-
-- Auto-generate rubrics from descriptions
 - Auto-generate test sets from conversation transcripts
-- Misalignment pattern clustering
 - Enhanced diagnostics and analytics
 - Rubric governance (approvals, lifecycle, publishing)
-- Export rubrics to Copilot Studio custom grader format
-- Enhanced dedicated rubric refinement dashboard
+- Improved dedicated rubric refinement interface
 
 ## Getting Started
 
