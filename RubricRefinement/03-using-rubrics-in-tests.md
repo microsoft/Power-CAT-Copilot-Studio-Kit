@@ -21,11 +21,10 @@ Rubrics can be used in two distinct modes within Copilot Studio Kit test automat
 
 ### When to Use Testing Mode
 
-Use test case level rubrics when you:
-- Have a refined, trustworthy rubric ready for regular use
-- Want to automate quality checks for Generative Answer responses
-- Need custom evaluation criteria beyond standard validation
-- Want cost-effective automated grading (no detailed rationale needed)
+Use test case level rubrics in Copilot Studio Kit when you:
+- Have a refined, trustworthy custom rubric ready for regular use
+- Want to automate quality checks for Generative Answer responses in existing test sets
+- Need custom evaluation criteria beyond standard validation in Copilot Studio Kit
 
 ### How to Assign a Rubric at Test Case Level
 
