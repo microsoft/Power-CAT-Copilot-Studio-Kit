@@ -10,7 +10,7 @@ A rubric consists of three main components:
 
 1. **What a Good Response Looks Like**: A clear description of quality standards and expectations
 2. **Grade Definitions (5 → 1)**: Detailed criteria for each grade level on a 5-point scale
-3. **Optional Examples**: Real examples of good and bad responses to illustrate standards
+3. **Optional Examples**: Examples of good and bad responses to illustrate standards
 
 ## Accessing Rubric Management
 
@@ -20,7 +20,7 @@ Navigate to the Rubric Management interface in Copilot Studio Kit to view and ma
 
 The list view shows all available rubrics with key information:
 - Rubric name
-- Description preview
+- Description
 - Creation and modification dates
 - Quick actions (edit, duplicate, delete)
 
@@ -94,7 +94,7 @@ Examples significantly improve rubric quality by providing concrete illustration
 
 Good examples should include:
 - **The test utterance**: What the user asked
-- **The agent response**: What the copilot answered
+- **The agent response**: What the agent answered
 - **Example designation**: Whether it's a "Good Example" or "Bad Example"
 - **Context**: Why this example represents good or bad quality
 
@@ -109,20 +109,20 @@ Give your rubric a descriptive name that indicates:
 
 ### List View
 
-The list view (RubricManagementListView.png) provides an overview of all rubrics:
+The list view provides an overview of all rubrics:
 - **Search and filter**: Quickly find specific rubrics
-- **Sort options**: Order by name, date, or usage
+- **Sort options**: Order by name or date
 - **Quick preview**: See description snippets without opening full details
 
 ### Detail View
 
-Click any rubric to open the detailed view (RubricManagementDetails.png), which shows:
+Click any rubric to open the detailed view, which shows:
 - **General tab**:
   - What good response looks like
   - Complete grade definitions (5 → 1)
 - **Examples tab**: Good and bad examples with full context
 - **Test Records tab**: Test cases where this rubric is assigned
-- **Actions tab**: Edit, duplicate, delete options
+- **Actions bar**: Edit, duplicate, delete options
 - **Related tab**: Test sets and test runs using this rubric
 
 ## Editing Rubrics
