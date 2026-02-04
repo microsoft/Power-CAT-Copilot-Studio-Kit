@@ -160,10 +160,9 @@ Use the detailed view for longer, complex responses:
 2. **Review the full conversation context**:
    - Test utterance displayed prominently
    - Complete agent response with full formatting
-   - Any multi-turn conversation history if applicable
 
 3. **Navigate between test cases**:
-   - Use the left panel to select different test cases
+   - Open and use the record browser view on the left to select different test cases
    - Switch between "Refinement" and "Refinement (full)" tabs
 
 4. **Assign human grade**:
@@ -293,7 +292,6 @@ Consider marking a test case as an example if:
 #### How Many Examples?
 
 - **Quality over quantity**: A few well-chosen examples are better than many mediocre ones
-- **Aim for 3-10 examples** per refinement iteration
 - **Balance good and bad**: Include both types to set clear boundaries
 - **Represent variety**: Cover different types of queries and responses
 
@@ -310,20 +308,6 @@ Alignment indicates whether the AI and human grades match.
 For each test case:
 - ✅ **Aligned**: AI grade = Human grade
 - ❌ **Misaligned**: AI grade ≠ Human grade
-
-#### Aggregate Alignment Percentage
-
-The overall alignment percentage shows how well the rubric performs across all graded test cases:
-
-```
-Alignment % = (Number of aligned grades / Total graded test cases) × 100%
-```
-
-**Example**:
-- Test run has 30 test cases
-- You provided human grades for all 30
-- AI and human grades match for 20 test cases
-- Alignment = 20 / 30 = **67%**
 
 #### What's Good Alignment?
 
@@ -509,7 +493,6 @@ One misaligned test case isn't a crisis. Look for:
 
 ### 5. Use Examples Strategically
 Examples are powerful but don't overdo it:
-- Mark 3-10 examples per iteration
 - Focus on misaligned cases and edge cases
 - Balance good and bad examples
 
@@ -535,12 +518,6 @@ Perfect alignment is rarely achievable or necessary:
 After several iterations, test the rubric on new test cases:
 - Ensures the rubric generalizes beyond your training set
 - Prevents overfitting to specific examples
-
-### 10. Document Your Process
-Keep notes on:
-- Alignment percentage per iteration
-- Key changes made to the rubric
-- Insights about what worked or didn't
 
 ---
 
