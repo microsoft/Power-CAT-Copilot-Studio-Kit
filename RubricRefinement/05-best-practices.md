@@ -236,20 +236,7 @@ Human grades can be influenced by:
 - Grade honestly based on quality
 - A low-quality response should get a low grade even if you wish it were better
 
-#### 6. Use a Grading Checklist
-Create a simple checklist for each grade decision:
-
-```
-For this response:
-□ Did I read the full response before grading?
-□ Did I reference the rubric criteria?
-□ Did I identify specific strengths and weaknesses?
-□ Is my reasoning detailed and specific?
-□ Did I avoid being influenced by AI grade?
-□ Would I give the same grade tomorrow?
-```
-
-#### 7. Calibrate with a Partner
+#### 6. Calibrate with a Partner
 If possible:
 - Have a colleague grade a subset of test cases
 - Compare your grades to theirs
