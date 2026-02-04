@@ -309,9 +309,38 @@ For each test case:
 - ✅ **Aligned**: AI grade = Human grade
 - ❌ **Misaligned**: AI grade ≠ Human grade
 
+##### Alignment Calculation for Individual Test Cases
+
+For each test case, alignment between AI-generated responses and human expectations is calculated using a linear interpolation from 100% (perfect match) to 0% (maximally different).
+
+**Interpretation:**
+- When AI grade = Human grade, alignment = 100%
+- As the grade difference increases, alignment decreases linearly
+- Maximum difference on a 1–5 scale is 4 steps, which maps to 0%
+
+**Formula:**
+
+alignment = 100% * (1 - |AI - Human| / 4)
+
+**Resulting Alignment Matrix:**
+
+| AI ↓ / Human → | 1    | 2    | 3    | 4    | 5    |
+|----------------|------|------|------|------|------|
+| 1              | 100% | 75%  | 50%  | 25%  | 0%   |
+| 2              | 75%  | 100% | 75%  | 50%  | 25%  |
+| 3              | 50%  | 75%  | 100% | 75%  | 50%  |
+| 4              | 25%  | 50%  | 75%  | 100% | 75%  |
+| 5              | 0%   | 25%  | 50%  | 75%  | 100% |
+
+**Properties:**
+- Symmetric: The alignment is the same regardless of which value is AI and which is Human
+- Diagonal = 100%: Perfect alignment when AI and Human grades match
+- Far edges = 0%: Maximum misalignment when grades are at opposite ends of the scale
+- Smooth, linear interpolation: Alignment decreases uniformly as the difference increases
+
 #### What's Good Alignment?
 
-There's no absolute standard, but general guidelines:
+There's no absolute standard, but general guidelines  (Average Alignment Percentage for entire Rubric Refinement Run):
 
 | Alignment % | Assessment | Action |
 |-------------|------------|--------|
