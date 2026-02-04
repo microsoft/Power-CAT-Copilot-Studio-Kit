@@ -6,18 +6,23 @@ The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities desi
 
 # Features
 ## Testing capabilities  
-Copilot Studio Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match and generative answers which leverages AI Builder for response analysis. 
+Copilot Studio Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match, multi-turn and generative answers which leverages AI Builder for response analysis. 
 
-***Copilot Studio Kit test automation now supports multi-turn testing using all supported test types.***
+***Copilot Studio Kit test automation now supports user-defined rubrics for generative answers.***
 
 More information on [testing capabilities](./TESTING_CAPABILITIES.md) 
 
-## Compliance Hub *(New!)*
+## Compliance Hub
 Compliance Hub helps organizations define and enforce governance policies for Copilot Studio agents at scale. It continuously evaluates agent configurations collected via Agent Inventory against configurable risk thresholds, automatically creating compliance cases when violations are detected and tracking them through an SLA-driven review lifecycle.
 
 Administrators can configure thresholds, risk levels, SLA timers and enforcement actions (manual review, quarantine, delete), while makers are guided to remediate issues through Teams/Outlook notifications, intake forms, and dashboards showing open cases and compliance posture. This enables makers to innovate freely within Copilot Studio, while ensuring a consistent, auditable level of compliance across all agents.
 
 More information on [Compliance Hub](./COMPLIANCE_HUB.md) 
+
+## Rubrics refinement *(New!)*
+Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
+
+More information on [Rubrics Refinement](./RubricRefinement/01-rubrics-refinement-overview.md) 
 
 ## Conversation KPIs
 Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
