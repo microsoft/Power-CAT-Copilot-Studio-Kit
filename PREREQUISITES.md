@@ -36,7 +36,7 @@ AI Builder capabilities consume Copilot Credits (and first AI Builder credits if
 
   **Rubric Refinement**: Rubric Refinement runs and the actual refinement use AI Builder custom prompts, and consume credits.
 
-  **Conversation Analyzer**: The analysis process uses AI Builder custom prompts, and consume varying amount of credits.
+  **Conversation Analyzer**: The analysis process uses AI Builder custom prompts, and consumes varying amount of credits.
 
   Learn more about AI Builder prompts licensing [here](https://learn.microsoft.com/ai-builder/credit-management#ai-prompt-licensing).
 
