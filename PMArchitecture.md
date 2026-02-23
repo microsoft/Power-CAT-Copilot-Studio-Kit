@@ -523,85 +523,41 @@ As shown in the Governance bar of the architecture diagram:
 
 ### Volume and Format of Data
 
-| Data Type | Source System | Volume | Format | Frequency |
-|---|---|---|---|---|
-| IND/NDA milestone dates | MS Project | Low (10–50 milestones per study) | Structured (tasks, dates, % complete) | Weekly sync |
-| Site activation / enrollment actuals | Veeva Vault CTMS | Medium (20–200 sites per study) | Structured (JSON via REST API) | Daily sync |
-| CAPA / deviation records | Veeva Vault QMS | Medium (50–500 records per study) | Structured (JSON via REST API) | Event-triggered |
-| Regulatory documents | Veeva Vault RIM / eTMF | High (500–2,000 documents per study) | Unstructured (PDF, Word) | On-demand |
-| CRO deliverable Gantt | SmartSheet | Low-Medium (100–500 rows) | Structured (rows/columns via REST API) | Weekly sync |
-| CDM/biostat sprint tasks | Jira | Medium (100–1,000 issues per sprint) | Structured (JSON via REST API) | Daily sync |
-| Meeting transcripts | Teams Premium / OneDrive | Low (1–5 meetings per week) | Unstructured (VTT transcript, text) | Post-meeting |
-| SOPs / regulatory templates | SharePoint | Low (50–200 documents per study) | Unstructured (Word, PDF) | Static with versioned updates |
-| Study budget actuals | SAP | Low (monthly financial close) | Structured (OData JSON) | Monthly |
-| Status Reports (generated) | Agents → SharePoint | 4–8 per month per study | PDF / Word | Weekly / Bi-weekly |
-| Risk Assessments | Agents → Dataverse | 50–500 risk items per study | JSON (Dataverse) | Daily scan + On-demand |
-| Conversation Logs | Copilot Studio → Dataverse | 100–500 conversations per month | JSON (Dataverse) | Real-time |
-| Audit Trail Records | Dataverse Audit | 10,000–100,000 per month | JSON (Dataverse) | Real-time |
+| Data Type | Source System | Format | Frequency |
+|---|---|---|---|
+| Milestone dates | MS Project | Structured (tasks, dates, % complete) | Weekly sync |
+| Enrollment / site actuals | Veeva Vault | Structured (JSON via REST API) | Daily sync |
+| CAPA / deviation records | Veeva Vault | Structured (JSON via REST API) | Event-triggered |
+| Regulatory documents | Veeva Vault | Unstructured (PDF, Word) | On-demand |
+| CRO deliverable tracker | SmartSheet | Structured (JSON via REST API) | Weekly sync |
+| Sprint tasks | Jira | Structured (JSON via REST API) | Daily sync |
+| Meeting transcripts | MS Teams | Unstructured (VTT, text) | Post-meeting |
+| SOPs / templates | SharePoint | Unstructured (Word, PDF) | Static with versioned updates |
+| Budget actuals | SAP | Structured (OData JSON) | Monthly |
 
 ### Static vs Dynamic Data Sources
 
-| Category | Examples | Nature |
-|---|---|---|
-| **Static** | SOPs, regulatory templates, RACI/WBS/RBM Plan templates, SharePoint knowledge library, protocol documents, ICH-GCP guidelines, 21 CFR Part 11 requirements | Infrequent change. Versioned and controlled. Used as RAG knowledge sources for agents. Updated only when SOPs are revised or new regulatory guidance is issued. Indexed in Azure AI Search with quarterly re-indexing. |
-| **Dynamic** | Enrollment actuals (Veeva CTMS), CAPA status (Veeva QMS), Jira sprint tasks, SmartSheet CRO tracker, MS Project milestone % complete, risk register (Dataverse), meeting transcripts, conversation logs | Change continuously during trial execution. Agents query these via live API calls or DirectQuery — never cache stale snapshots for regulatory outputs. |
-
-### Sequential vs Independent Agent Execution
-
-| Scenario | Execution Pattern | Detail |
-|---|---|---|
-| **Status Report generation** | Sequential | Agent first retrieves enrollment actuals → then milestone data → then CRO deliverable status → then generates report. Each step depends on the previous output. Multiple reports for different studies can run in parallel. |
-| **Meeting lifecycle** | Sequential | Schedule → Agenda prep → Meeting → Transcription → Minutes drafting → Approval → TMF archival. Each step depends on the previous. |
-| **Stakeholder comms** | Sequential with gate | Draft → GDP Approval gate (human-in-the-loop — must complete before proceeding) → Send → Archive. Will not proceed if approval is rejected. |
-| **Risk escalation** | Independent + Event-triggered | Risk Management Agent operates independently and autonomously — a new CAPA in Veeva Vault triggers the agent without any PM prompt or dependency on other agents. |
-| **Project Planning** | Sequential | Scope definition → WBS → Schedule → Resource allocation → Dependency mapping. Amendment impact follows amendment type → impact rules → milestone update. |
-| **Multi-agent orchestration** | Independent delegation | Orchestrator delegates to sub-agents in parallel where tasks are independent (e.g., generating a status report AND scheduling a meeting simultaneously). |
+| Category | Examples |
+|---|---|
+| **Static** | SOPs, regulatory templates, RACI/WBS templates, protocol documents, regulatory guidelines. Versioned and controlled. Used as RAG knowledge sources. |
+| **Dynamic** | Enrollment actuals, CAPA status, Jira sprint tasks, SmartSheet trackers, MS Project milestones, risk register, meeting transcripts, conversation logs. Queried via live API calls. |
 
 ---
 
 ## Agent Quality Score (AQS)
 
-The **Agent Quality Score (AQS)** is a composite pre-delivery gate applied by every agent before outputting a response or triggering an external action. **If AQS falls below the configured threshold, the agent does not proceed** — it flags the low-confidence response to the PM with an explanation and requests clarification. This prevents hallucinated clinical data or ungrounded risk scores from reaching regulatory communications.
+The **Agent Quality Score (AQS)** is a composite pre-delivery gate applied by every agent before outputting a response. **If AQS falls below the configured threshold, the agent does not proceed** — it flags the response to the PM and requests clarification.
 
-### AQS Calculation
+AQS is calculated from four components:
 
-| AQS Component | What It Measures | Weight |
-|---|---|---|
-| **RAG Citation Quality** | % of response claims citing verified source documents | 30% |
-| **Confidence Score** | LLM certainty of generated content | 25% |
-| **Content Safety** | Responsible AI filter pass/fail status | 25% |
-| **Grounding Rate** | % of response supported by retrieved data (not hallucinated) | 20% |
+| Component | Weight |
+|---|---|
+| RAG Citation Quality (% of claims citing verified sources) | 30% |
+| Confidence Score (LLM certainty) | 25% |
+| Content Safety (Responsible AI filter pass/fail) | 25% |
+| Grounding Rate (% supported by retrieved data) | 20% |
 
-### AQS Thresholds and Actions
-
-| AQS Range | Status | Action |
-|---|---|---|
-| **0.90–1.00** | Excellent | Agent operates autonomously. Outputs delivered directly to users. Required threshold for regulatory communications (IRB reports, FDA briefings). |
-| **0.75–0.89** | Good | Agent operates normally. Default threshold for internal outputs (status reports, meeting minutes, risk summaries). Periodic spot-checks by PM. |
-| **0.60–0.74** | Warning | Agent outputs require PM review before delivery. Alert sent to admin. Agent flags response with explanation. |
-| **Below 0.60** | Critical | Agent outputs are **blocked from delivery**. All responses require mandatory human review. Incident raised for investigation. Agent may be temporarily disabled pending remediation. |
-
-AQS thresholds are configurable per agent and per output type (e.g., 0.90 for external regulatory communications, 0.75 for internal summaries).
-
-### AQS Monitoring
-
-AQS metrics are surfaced through:
-
-- Real-time AQS scores per agent in the **Advisor Analytics** dashboard.
-- AQS trend charts in **Power BI**.
-- Automated alerts when any agent's AQS drops below the configured threshold.
-
-### Key Performance Indicators
-
-As shown in the Performance Monitoring zone of the architecture diagram:
-
-| KPI | Target | Monitored By |
-|---|---|---|
-| Avg Response Time | < 10 seconds | Application Insights |
-| Agent Accuracy % | > 90% (based on thumbs up feedback rate) | Advisor Analytics |
-| Escalation Rate | < 5% of requests require human intervention | Conversational / Feedback Logs |
-| User Satisfaction | > 4.0/5.0 (based on feedback) | Conversational / Feedback Logs |
-| Uptime SLA | 99.9% | Application Insights |
+AQS thresholds are configurable per agent and per output type. Default: 0.75 for internal outputs, 0.90 for external regulatory communications. Outputs below threshold are blocked and require human review.
 
 ---
 
@@ -609,33 +565,31 @@ As shown in the Performance Monitoring zone of the architecture diagram:
 
 ### Regulatory & Compliance Assumptions
 
-1. **Microsoft Copilot Studio GxP Compliance**: Copilot Studio deployments are operated within a tenant configuration aligned to **21 CFR Part 11** (FDA electronic records), **EMA Annex 11** (EU computerised systems), and **ICH E6(R3)** (Good Clinical Practice). This includes full audit trail logging of all agent interactions and decisions, electronic signature support for approval workflows, data integrity controls (ALCOA+ principles: Attributable, Legible, Contemporaneous, Original, Accurate), and change control procedures for agent topic/instruction modifications. Microsoft provides compliance commitments — customers are responsible for validating their specific configurations.
+1. **Copilot Studio and Foundry should be compliant with GxP, HIPAA**: Microsoft Copilot Studio and Microsoft Foundry deployments are operated within a tenant configuration aligned to **21 CFR Part 11** (FDA electronic records) and **EMA Annex 11** (EU computerised systems). This includes audit trail logging of all agent interactions and decisions, data integrity controls (ALCOA+ principles), and change control procedures for agent topic/instruction modifications. Microsoft provides compliance commitments — customers are responsible for validating their specific configurations.
 
-2. **Microsoft Foundry GxP Compliance**: Microsoft Foundry deployments meet GxP validation requirements for AI/ML models used in risk scoring and PDUFA date prediction, including model validation documentation and version control, explainability of model predictions for regulatory audit, and segregation of development and production model environments. Microsoft Foundry models are **not** positioned as medical devices or clinical decision support tools — they are project management decision aids. All clinical decisions remain with qualified medical and regulatory personnel.
+2. **HIPAA Compliance**: All components (Copilot Studio, Dataverse, Azure OpenAI, Azure AI Search, Power Automate, SharePoint) are deployed within a [HIPAA](https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech)-compliant Microsoft 365 / Azure tenant with Business Associate Agreements (BAAs) executed with Microsoft. PHI encryption at rest and in transit, and minimum necessary access controls are enforced.
 
-3. **HIPAA Compliance**: All components (Copilot Studio, Dataverse, Azure OpenAI, Azure AI Search, Power Automate, SharePoint) are deployed within a HIPAA-compliant Microsoft 365 / Azure tenant with Business Associate Agreements (BAAs) executed with Microsoft, PHI (Protected Health Information) encryption at rest and in transit, minimum necessary access controls, and de-identification of patient data before agent processing. No patient-identifiable information (PHI) is processed by any agent — all individual patient data remains in Veeva Vault CTMS and validated clinical systems. Only aggregate counts and metadata flow into Dataverse.
+3. **GxP System Validation**: Power Platform environments (Test and Production) are validated. The ALM pipeline (DEV → TEST → PROD) enforces evaluation gates before any agent or flow change reaches production.
 
-4. **GxP System Validation**: Power Platform environments (Test and Production) are validated under **GAMP 5** principles. The ALM pipeline (DEV → TEST → PROD) enforces IQ/OQ/PQ qualification gates before any agent or flow change reaches production clinical users.
+4. **Veeva Vault**: Veeva Vault is the primary QMS, CTMS, and RIM system of record. It is a validated GxP platform integrated via REST API / Custom Connector as shown in the architecture.
 
-5. **Veeva Vault**: Veeva Vault is the primary QMS, CTMS, and RIM system of record. It is a validated GxP platform. The Power Platform Custom Connector uses OAuth 2.0/OIDC → Session ID authentication. No patient-identifiable data is stored outside of Veeva Vault.
+5. **Data Residency**: All data resides within the organization's designated geographic region (e.g., US, EU) in compliance with GDPR and data sovereignty requirements.
 
-6. **Data Residency**: All data resides within the organization's designated geographic region (e.g., US, EU) in compliance with GDPR, data sovereignty requirements, and regional regulatory mandates.
-
-7. **Network Security**: All enterprise integrations (Jira, Veeva Vault, SmartSheet, SAP, ServiceNow) communicate over private endpoints or VPN-secured connections, not over the public internet.
+6. **Network Security**: All enterprise integrations (Jira, Veeva Vault, SmartSheet, SAP, ServiceNow) communicate over private endpoints or VPN-secured connections.
 
 ### Technical Assumptions
 
-8. **Licensing**: Users hold Microsoft 365 E3 or E5 licenses with Copilot Studio capacity packs assigned. **Teams Premium** is licensed for users requiring meeting transcription (Intelligent Recap). All Power Platform environments are **Managed Environments** (Power Platform Premium). Premium connectors (Jira, SmartSheet, SAP, ServiceNow, custom connectors) require appropriate licensing.
+7. **Licensing**: Users hold Microsoft 365 E3 or E5 licenses with Copilot Studio capacity packs assigned. All Power Platform environments are **Managed Environments**. Premium connectors (Jira, SmartSheet, SAP, ServiceNow, custom connectors) require appropriate licensing.
 
-9. **Enterprise System Availability**: All integrated enterprise systems provide API availability of ≥ 99.5% with documented rate limits.
+8. **Enterprise System Availability**: All integrated enterprise systems provide API availability of ≥ 99.5% with documented rate limits.
 
-10. **LLM Availability**: Azure OpenAI Service (GPT-4o) is provisioned with sufficient Tokens-Per-Minute (TPM) capacity. Provisioned Throughput Units (PTUs) are recommended for production workloads. Authentication uses Managed Identity — not API Key.
+9. **LLM Availability**: Azure OpenAI Service is provisioned with sufficient capacity to handle concurrent agent invocations without throttling.
 
-11. **User Authentication**: All users authenticated via Microsoft Entra ID with MFA enabled. Service-to-service authentication uses managed identities or service principals with certificate-based credentials.
+10. **User Authentication**: All users authenticated via Microsoft Entra ID with MFA enabled.
 
-12. **SharePoint Configuration**: SharePoint is configured with an **eTMF-aligned folder structure** (ICH E6 / DIA Reference Model sections) for controlled document storage.
+11. **SharePoint Configuration**: SharePoint is configured with a controlled folder structure for version-controlled document storage.
 
-13. **SAP Integration**: SAP integration (study financials) is a future phase deliverable and may require on-premises data gateway if SAP is hosted on-premise.
+12. **SAP Integration**: SAP is integrated via OData API as shown in the architecture. On-premises data gateway may be required if SAP is hosted on-premise.
 
 ---
 
