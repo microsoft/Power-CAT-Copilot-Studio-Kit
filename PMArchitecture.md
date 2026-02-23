@@ -1,13 +1,12 @@
 # Life Sciences — Project Manager Multi-Agent Architecture
 
-The **Life Sciences Project Manager Multi-Agent Architecture** is designed to reduce the administrative burden on clinical program managers and enhance the quality, speed, and compliance of project management activities across clinical trials. The solution applies Microsoft Copilot Studio, Power Platform, and Azure AI services to build a network of specialized AI agents — orchestrated by a central Project Manager Agent — that automate status reporting, meeting lifecycle management, stakeholder communications, risk management, and clinical program planning.
+The **Life Sciences Project Manager Multi-Agent Architecture** is designed to reduce the administrative burden on Project Managers in the life sciences industry and improve the quality, speed, and regulatory compliance of project management deliverables. The solution applies Microsoft Copilot Studio, Power Platform, and Azure AI services to build a network of specialized AI agents — orchestrated by a central Project Manager Agent — that automate status reporting, meeting lifecycle management, stakeholder communications, risk management, and program planning.
 
-By integrating with enterprise systems including Veeva Vault (QMS, CTMS, RIM), MS Project, Jira, SmartSheet, SAP, and ServiceNow, the architecture provides a comprehensive, GxP-compliant approach to managing clinical trial data, automating regulatory-grade workflows, and delivering AI-driven insights — all within the Microsoft ecosystem.
+The architecture is applicable across life sciences project management functions including clinical development, regulatory submissions, drug manufacturing, medical device programs, and commercial operations. The primary use case demonstrated in this article focuses on clinical trial program management — the most complex and compliance-intensive scenario.
+
+By integrating with enterprise systems including Veeva Vault (QMS, CTMS, RIM), MS Project, Jira, SmartSheet, SAP, and ServiceNow, the architecture provides a comprehensive approach to managing life sciences projects — automating regulatory-grade workflows, enforcing audit-ready governance, and delivering AI-driven insights — all within the Microsoft ecosystem.
 
 This article outlines the key components, workflows, agent details, data flows, and compliance considerations, offering a blueprint for implementing a robust project management support system in regulated life sciences environments.
-
-> [!TIP]
-> This article describes a solution idea. Your cloud architect can use this guidance to help visualize the major components for a typical implementation of this architecture. Use this article as a starting point to design a well-architected solution that aligns with your workload's specific requirements.
 
 ---
 
@@ -26,7 +25,7 @@ The architecture spans eight functional zones:
 5. **Enterprise Integrations** — line-of-business system connectors
 6. **Data Platform** — Microsoft Dataverse as structured data backbone
 7. **Performance Monitoring** — observability and agent quality scoring
-8. **Reporting & Visualization** — Power BI, MS Project Roadmap, Power Apps
+8. **Reporting & Visualization** — Power BI, Power Apps
 
 ---
 
@@ -34,34 +33,34 @@ The architecture spans eight functional zones:
 
 ### Business Problem
 
-Life Sciences project managers operating in clinical development face extreme administrative pressure. A typical Phase II/III clinical program may span 3–7 years, involve 50–200+ clinical sites across multiple countries, and require coordination among sponsors, CROs (Contract Research Organizations), Principal Investigators, IRBs/Ethics Committees, and Regulatory Authorities — while maintaining GCP compliance, tracking 200+ TMF documents, managing risk registers, and producing governance-grade reports on a weekly basis.
+Project Managers in the life sciences industry face extreme administrative pressure driven by the volume of cross-functional coordination, regulatory scrutiny, and multi-vendor governance required across pharmaceutical, biotech, and medical device programs. Whether managing a clinical development program, a regulatory submission, a drug manufacturing scale-up, or a commercial launch, PMs must aggregate data from disparate enterprise systems, produce governance-grade reports, manage risk registers, coordinate across internal teams and external partners, and maintain full audit trails — all under strict GxP and regulatory compliance requirements.
 
 Manual execution of these tasks leads to:
 
-- **Delayed status reports** causing sponsor dissatisfaction and missed governance meetings — weekly reports require aggregating data from 5–7 disparate systems (Jira, Veeva Vault, SmartSheet, MS Project, SAP), consuming 4–8 hours per report cycle.
-- **Inconsistent meeting minutes** that fail GCP inspection requirements — governance meetings (steering committees, DSMB safety reviews, investigator meetings) generate extensive minutes and action items tracked manually, leading to missed follow-ups and accountability gaps.
-- **Stakeholder communication bottlenecks** — different stakeholders (executives, CROs, investigators, regulators) require different levels of detail and tone. Manual drafting and GDP compliance review creates delays.
-- **Reactive risk management** — risk registers not updated in real time, leading to undetected trial delays. By the time a risk surfaces in a periodic review, mitigation options may be limited.
-- **Planning complexity** — protocol amendment impacts not modelled, causing unplanned schedule slippage. A single site activation delay can cascade across enrollment, data lock, and submission timelines.
+- **Delayed status reports** — weekly reports require aggregating data from 5–7 disparate systems (Jira, Veeva Vault, SmartSheet, MS Project, SAP), consuming 4–8 hours per report cycle, causing sponsor dissatisfaction and missed governance meetings.
+- **Inconsistent meeting minutes** — governance meetings (steering committees, review boards, vendor oversight meetings) generate extensive minutes and action items tracked manually, leading to missed follow-ups, accountability gaps, and documentation that may not meet regulatory inspection requirements.
+- **Stakeholder communication bottlenecks** — different stakeholders (executives, CROs, vendors, investigators, regulators) require different levels of detail and tone. Manual drafting and GDP compliance review creates delays.
+- **Reactive risk management** — risk registers not updated in real time, leading to undetected program delays. By the time a risk surfaces in a periodic review, mitigation options may be limited.
+- **Planning complexity** — change impacts (protocol amendments, scope changes, regulatory feedback) are not modelled proactively, causing unplanned schedule slippage and resource conflicts across programs.
 
 ### Solution Overview
 
-The PM Multi-Agent Architecture addresses these problems by deploying a Copilot Studio Orchestrator Agent that receives all PM requests — whether typed in Teams, triggered by a schedule, or raised by an enterprise system event — and delegates to five specialist Connected Agents. Each agent is deeply integrated with the clinical systems of record and produces GxP-compliant, audit-ready outputs:
+The PM Multi-Agent Architecture addresses these problems by deploying a Copilot Studio Orchestrator Agent that receives all PM requests — whether typed in Teams, triggered by a schedule, or raised by an enterprise system event — and delegates to five specialist Connected Agents. Each agent is deeply integrated with the enterprise systems of record and produces audit-ready outputs:
 
-- **Status Reports Agent** reduces report generation time from hours to minutes by automatically aggregating cross-system data and producing GCP-compliant reports.
-- **Meeting Management Agent** automates the full meeting lifecycle — scheduling, agenda creation, transcription, ICH E6(R3)-aligned minutes drafting, TMF archival, and CRO action item routing.
+- **Status Reports Agent** reduces report generation time from hours to minutes by automatically aggregating cross-system data and producing compliance-ready reports.
+- **Meeting Management Agent** automates the full meeting lifecycle — scheduling, agenda creation, transcription, minutes drafting, document archival, and action item routing.
 - **Stakeholder Comms Agent** generates audience-segmented, GDP-compliant communications with mandatory approval gates before external distribution.
-- **Risk Management Agent** enables proactive, AI-driven risk identification and severity scoring using Azure AI Foundry, syncing CAPAs from Veeva Vault QMS in real time.
-- **Project Planning Agent** provides AI-assisted planning with protocol amendment cascade impact modelling, PDUFA date slippage prediction, automated WBS/RACI generation, and critical path monitoring.
+- **Risk Management Agent** enables proactive, AI-driven risk identification and severity scoring using Azure AI Foundry, syncing CAPAs and quality events from Veeva Vault QMS in real time.
+- **Project Planning Agent** provides AI-assisted planning with change impact modelling, milestone slippage prediction, automated WBS/RACI generation, and critical path monitoring.
 
 ### Business Value and Outcomes
 
 - 70–80% reduction in status report preparation time.
-- Automated MoM generation within 15 minutes of meeting conclusion with eTMF filing.
+- Automated MoM generation within 15 minutes of meeting conclusion with controlled document filing.
 - Real-time risk scoring with predictive alerts 2–4 weeks ahead of risk materialization.
 - 50% reduction in stakeholder communication cycle time with 100% GDP compliance rate.
 - Unified PM Command Center providing cross-portfolio visibility.
-- Full 21 CFR Part 11 audit trail across all agent interactions and decisions.
+- Full regulatory-grade audit trail across all agent interactions and decisions.
 
 ---
 
@@ -69,71 +68,86 @@ The PM Multi-Agent Architecture addresses these problems by deploying a Copilot 
 
 The following steps describe the end-to-end flow across all agents. Each numbered step corresponds to a zone in the architecture diagram.
 
-### Step 1 — User Initiates Request (User Channels)
+### Step 1 — User Channels
 
 The Life Sciences PM (or an automated system trigger) initiates a request via one of six entry channels:
 
-- **Microsoft Teams** (primary): Conversational interface for real-time agent interaction during project standups, steering committee meetings, or ad hoc queries.
+- **Microsoft Teams**: Conversational interface for real-time agent interaction during project standups, governance meetings, or ad hoc queries.
 - **Outlook Email**: Email-based triggers for automated report generation, meeting summaries, or stakeholder communication drafts.
-- **Website / Portal (Power Pages)**: Web-based interface for external stakeholders (CRO partners, Investigators) to interact with the agent or access published study updates without requiring a Teams license.
-- **Scheduled Trigger (Power Automate)**: Recurrence-based automation — weekly status reports, bi-weekly risk register reviews, monthly Investigator newsletters.
-- **Webhook / Agent SDK**: Event-driven triggers from enterprise systems (e.g., a new CAPA raised in Veeva Vault fires a webhook that activates the Risk Management Agent autonomously).
-- **Power Apps — PM Command Center**: Mobile-first canvas app for Risk Triage, CAPA Acknowledgement, GDP Communication Sign-off, Resource Requests, and Regulatory Milestone Override.
+- **Website / Portal**: Web-based interface for external stakeholders such as CRO partners or regulatory personnel.
+- **Scheduled Trigger**: Time-based automation — weekly status reports, bi-weekly risk register reviews, monthly stakeholder newsletters.
+- **Webhook / Agent SDK**: Event-driven triggers from enterprise systems (e.g., a new CAPA raised in Veeva Vault activates the Risk Management Agent).
+- **Power Apps**: PM Command Center for operational actions, approvals, and escalation management.
 
-### Step 2 — Orchestrator Classifies Intent and Validates Access
+### Step 2 — Orchestration (Project Manager Orchestrator Agent)
 
-The **PM Orchestrator Agent** (Copilot Studio, Generative Orchestration enabled) receives the request. It performs five functions:
+The **PM Orchestrator Agent** (Copilot Studio, Generative Orchestration enabled) receives the request. It performs five functions as shown in the architecture:
 
-1. **Intent Recognition & Routing**: Classifies the PM's natural language request into one of five domains (reporting / meetings / communications / risk / planning) using the Generative AI Planner and routes to the appropriate Connected Sub-Agent.
-2. **Agent Selection & Delegation**: Selects the best sub-agent based on intent and routes with full conversation context. Supports parallel delegation for independent tasks (e.g., generating a status report AND scheduling a meeting simultaneously).
-3. **Context & State Management**: Maintains multi-turn conversation state across sessions. Passes conversation history to sub-agents automatically per Copilot Studio Connected Agent behaviour. References prior conversation history stored in Microsoft Dataverse.
-4. **Response Aggregation & Delivery**: Synthesises sub-agent responses into a coherent PM-facing reply in Teams.
-5. **Multi-Turn Conversation Handling**: Manages clarification loops when the PM's request is ambiguous, or when AQS falls below threshold and additional input is required.
+1. **Intent Recognition & Routing**: Classifies the PM's natural language request into one of five domains (reporting / meetings / communications / risk / planning) and routes to the appropriate Connected Sub-Agent.
+2. **Agent Selection & Delegation**: Selects the best sub-agent based on intent and routes with full conversation context. Supports parallel delegation for independent tasks.
+3. **Context & State Management**: Maintains multi-turn conversation state across sessions. References prior conversation history stored in Microsoft Dataverse.
+4. **Response Aggregation & Delivery**: Collects outputs from delegated agents, synthesises a unified response, and delivers it back through the originating channel.
+5. **Multi-Turn Conversation Handling**: Manages clarification loops when the PM's request is ambiguous or when additional input is required.
 
-Before routing, the Orchestrator validates the user's **GxP role via Microsoft Entra ID RBAC** — a CRO user cannot access risk data for studies they are not assigned to. Every routing decision is logged to Dataverse for 21 CFR Part 11 audit trail. The Orchestrator also supports **autonomous event-triggered execution** — it can proactively activate sub-agents when enterprise system events occur (e.g., new CAPA raised in Veeva Vault) without any user prompt.
+### Step 3 — Connected Agents Execute Tasks
 
-### Step 3 — Connected Sub-Agents Execute Tasks
+The Orchestrator delegates to the appropriate Connected Sub-Agent. Five agents are available — Status Reports, Meeting Management, Stakeholder Comms, Risk Management, and Project Planning. See the [Connected Agents](#connected-agents-sub-agents) section for detailed flows.
 
-The Orchestrator routes to the appropriate Connected Sub-Agent, passing the full conversation history and context parameters automatically. See the [Connected Agents](#connected-agents-sub-agents) section for detailed flows per agent.
+### Step 4 — AI & Automation Services
 
-### Step 4 — AI & Automation Services Process Requests
+Sub-agents execute tasks via shared AI and automation services:
 
-The sub-agent executes its task via **Power Automate Agent Flows**, calling AI services as required: **Azure AI Foundry** (PDUFA date risk scoring, deviation severity prediction), **AI Builder** (document extraction from uploaded PDFs), **Azure OpenAI GPT-4o** (generative content drafting for minutes, reports, comms), and **Azure AI Search** (hybrid vector + BM25 retrieval over SharePoint SOP library and Veeva documents).
+- **LLM (GPT-4o)**: Content generation, summarization, and intent classification.
+- **Azure AI Search**: RAG-based retrieval over SharePoint SOP library and Veeva Vault documents.
+- **AI Builder**: Document processing and entity extraction.
+- **Agent Flows / Power Automate**: Multi-step workflow automation for report generation, approvals, and data synchronization.
+- **Agent Tools / Connectors**: Pre-built and custom connectors to enterprise systems.
+- **MCP (Model Context Protocol)**: Real-time, bidirectional integration with external tools and data sources.
+- **Knowledge Sources**: SOPs, protocols, regulatory guidelines indexed via Azure AI Search.
 
-### Step 5 — Agent Quality Score (AQS) Gate
+### Step 5 — Enterprise Integrations
 
-Before delivering any output to the PM or triggering an external action, each agent evaluates its response against the **Agent Quality Score (AQS)** threshold. **If AQS falls below the configured threshold, the agent does not proceed.** Instead it flags the low-confidence response to the PM with an explanation and requests clarification or additional input. This prevents hallucinated clinical data or ungrounded risk scores from reaching regulatory communications. See the [Agent Quality Score (AQS)](#agent-quality-score-aqs) section for full details.
+Sub-agents retrieve and write data via enterprise system integrations:
 
-### Step 6 — Enterprise System Data Retrieval and Write-back
+| System | Integration Method | Data Provided |
+|---|---|---|
+| **Jira** | REST API / MCP | Sprint status, backlog, risk issues, task assignments |
+| **SmartSheet** | REST API / Custom Connector | Project trackers, milestone sheets, resource plans |
+| **Veeva Vault** | REST API / Custom Connector | Clinical documents, CAPAs, deviations, enrollment actuals |
+| **SharePoint** | Graph API / Document Mgmt | Project documents, templates, portal content |
+| **SAP** | OData API | Budget data, resource costs |
+| **ServiceNow** | REST API / Custom Connector | IT incidents, change requests |
+| **MS Teams** | Graph API | Meeting transcripts, chat history, channel posts |
 
-Sub-agents retrieve and write data via enterprise system integrations: MS Project (IND/NDA milestones, Clinical Trial Master Schedule), Veeva Vault QMS/CTMS/RIM (CAPAs, enrollment actuals, regulatory documents), SmartSheet (CRO deliverables, site activation Gantt), Jira (CDM/biostatistics sprint tasks), and SAP (study budget actuals). See the [Enterprise System Integrations](#enterprise-system-integrations) section for authentication and connector details.
+### Step 6 — Data Platform (Microsoft Dataverse)
 
-### Step 7 — GDP Approval Gate (Communications Agent Only)
+All agent state, project data, and operational records are persisted to **Microsoft Dataverse** — the central data backbone:
 
-For the **Stakeholder Communications Agent**, every outbound draft — Sponsor update, IRB report, Investigator newsletter, Regulatory Authority briefing — is routed through a mandatory **GDP-aligned Teams Approvals workflow** before any external send. The PM or Medical Director must approve. The approval decision (approver identity, timestamp, approved/rejected) is logged to Dataverse. If rejected, the agent returns the draft with reviewer comments for revision. The agent **will not send any external communication if this gate is not completed**.
+- **Agent State**: Execution context, conversation turn state, delegation history.
+- **Project Data**: Aggregated project information from enterprise sources.
+- **Conversations**: Full conversation transcripts for audit and compliance.
+- **Status**: Real-time project status snapshots (RAG indicators, milestone completion).
+- **Audit Trail**: Complete record of all agent actions, decisions, and data modifications.
+- **Logs**: System logs, error logs, and performance telemetry.
 
-### Step 8 — Thumbs Up / Down Feedback and Reinforcement Learning
+### Step 7 — Performance Monitoring
 
-Every agent response in the PM Teams interface includes a **thumbs up / thumbs down feedback mechanism**. Thumbs up signals a high-quality, accurate response. Thumbs down triggers a structured feedback form capturing: what was wrong (data incorrect / tone wrong / missing information / non-compliant format), and the correct expected output. This feedback is:
+Real-time observability across all agent interactions, health metrics, and operational KPIs:
 
-- Logged to Dataverse (`ls_AgentFeedback` table) with session ID, agent name, and AQS at time of response
-- Reviewed weekly by the AI Operations team
-- Used to **fine-tune agent prompts, adjust AQS thresholds, and retrain Azure AI Foundry models** in the next sprint
-- Aggregated into the **GenAI Metrics Dashboard** as the GDP Compliance Rate and Grounding Rate KPIs
+- **Application Insights**: Telemetry, performance metrics, error tracking, agent response times, availability monitoring.
+- **Advisor Analytics**: Agent performance scoring, optimization recommendations, usage patterns.
+- **Conversational / Feedback Logs**: User satisfaction scores (thumbs up/down), conversation transcripts, feedback analysis, improvement tracking.
+- **KPI Metrics**: Avg Response Time, Agent Accuracy %, Escalation Rate, User Satisfaction, Uptime SLA.
 
-This constitutes a **human-in-the-loop reinforcement learning cycle** — agent quality improves continuously based on PM feedback without requiring full model retraining.
+### Step 8 — Reporting
 
-### Step 9 — Persist to Dataverse with Audit Trail
+Unified reporting layer for decision support through Power BI dashboards and PM Command Center:
 
-All agent state, conversation transcripts, risk register updates, stakeholder data, action logs, AQS scores, and feedback records are persisted to **Microsoft Dataverse** with full 21 CFR Part 11 compliant audit trail (who, what, when, previous value), row-level security enforcing study-level data isolation, and Microsoft Purview sensitivity labels applied to all clinical data records.
-
-### Step 10 — Results Delivered and Reported
-
-Results are returned to the PM via Teams chat. Dashboards are served via **Power BI** (DirectQuery from Dataverse — risk heatmaps, enrollment KPIs, CRO completion rates, RAG status), **MS Project Roadmap** (portfolio and timeline views), and **Word/PDF documents** filed to SharePoint eTMF (GCP-compliant minutes, status reports, RACI, RBM Plan).
-
-### Step 11 — Governance and Observability
-
-All platform operations are governed by **Microsoft Entra ID** (identity, RBAC), **Microsoft Purview** (21 CFR Part 11 / Annex 11 data classification and compliance), **Responsible AI Content Safety** guardrails (grounding verification, GDP compliance rate monitoring), **Azure Key Vault** (OAuth secrets for Veeva Vault and Jira connectors), **Azure DevOps CI/CD** (GAMP 5 change control with IQ/OQ/PQ release gates), and **Managed Environments** (Dev/Test/Prod separation).
+- **Operational Metrics**: CRO Deliverable Completion Rate, Study Budget Burn vs Forecast, Milestone Tracking, Enrollment Progress.
+- **Project Dashboard**: Portfolio View, Health Indicators, RAG Status, Timeline View (MS Project), Executive Summary.
+- **Clinical Trial Analytics**: Enrollment vs Target, Site Performance, Protocol Deviations, Safety Signals, CAPA Status Tracking.
+- **PM Command Center (Power Apps)**: Unified operational interface for cross-project status, agent actions, and escalation management.
+- **Key Dashboards**: Risk Heatmap, Status Board, Resource View, Comms Tracker, Meeting Logs, Trial Analytics.
 
 ---
 
@@ -145,26 +159,11 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
 
 ### Agent 1 — Status Reports Agent
 
-**Function**: Auto-generates GCP-compliant clinical study status reports covering IND/NDA/MAA regulatory milestone status, CRO deliverable completion, site activation KPIs, enrollment vs target, and protocol deviation trends. Distributes reports to sponsor, study team, and governance committees on schedule or on demand. Archives version-controlled reports to SharePoint eTMF.
+**Function**: Auto-generates clinical study status reports from Jira, Veeva Vault, MS Project & SmartSheet. Produces PDF / HTML outputs.
 
-**Agent Flow:**
-```
-PM request / Scheduled trigger (weekly/bi-weekly governance cadence)
-  → Orchestrator routes to Status Reports Agent
-  → Agent queries MS Project (IND/NDA milestones, critical path % complete)
-  → Agent queries Veeva Vault CTMS (site activation count, enrollment actuals vs target)
-  → Agent queries SmartSheet (CRO deliverable completion rate, Gantt status)
-  → Agent queries Jira (CDM/biostat sprint task completion — if applicable)
-  → AQS gate: score all retrieved data for completeness and grounding
-  → GPT-4o drafts status report using GCP-compliant Word template from SharePoint
-  → Power Automate → Outlook: distribute to sponsor and study team
-  → Power Automate → SharePoint: archive to eTMF document library (version-controlled)
-  → Post summary to Teams study channel
-  → Dataverse: log report metadata and AQS score
-  → 👍/👎 PM feedback captured → AQS updated
-```
+**Capabilities** (as shown in diagram): SmartSheet integration, Auto-Report generation, Templates.
 
-**Dataflow Diagram:**
+**Dataflow:**
 ```
 [Scheduled Trigger / User Request]
         │
@@ -174,65 +173,41 @@ PM request / Scheduled trigger (weekly/bi-weekly governance cadence)
         ▼
 [Status Reports Agent Activated]
         │
-        ├──► [MS Project] ──► IND/NDA milestones, critical path % complete
-        ├──► [Veeva Vault CTMS] ──► Site activation count, enrollment actuals vs target
-        ├──► [SmartSheet] ──► CRO deliverable completion rate, Gantt status
-        └──► [Jira] ──► CDM/biostat sprint task completion
+        ├──► [Jira] ──► Sprint status, task completion
+        ├──► [Veeva Vault] ──► Document milestones, enrollment data
+        ├──► [SmartSheet] ──► CRO deliverable completion, Gantt status
+        └──► [MS Project] ──► Timeline, critical path
                 │
                 ▼
-        [AQS Gate: Verify completeness and grounding]
+        [LLM: Summarize & Format using templates]
                 │
                 ▼
-        [GPT-4o: Draft report using GCP-compliant template]
+        [Output: PDF / HTML Report]
                 │
-                ▼
-        [Output: Word/PDF Clinical Study Status Report]
-                │
-                ├──► [SharePoint eTMF: Archive (version-controlled)]
-                ├──► [Outlook: Distribute to sponsor & study team]
-                ├──► [Teams: Post summary in study channel]
-                └──► [Dataverse: Log report metadata + AQS]
+                ├──► [SharePoint: Archive report]
+                ├──► [Outlook: Distribute to stakeholders]
+                └──► [Dataverse: Log report metadata]
 ```
 
-**AI Services Used**: Azure OpenAI GPT-4o (report drafting), Azure AI Search (retrieve SOP templates from SharePoint knowledge base)
+**AI Services**: LLM (report drafting), Azure AI Search (retrieve templates from SharePoint)
 
-**Connected Applications**: MS Project (Native PA connector), Veeva Vault CTMS (Custom Connector — OAuth 2.0/OIDC), SmartSheet (Native PA connector), Jira REST API (Custom Connector — OAuth 2.0), SharePoint eTMF (Native), Outlook (Native)
+**Connected Applications**: Jira, SmartSheet, Veeva Vault, MS Project, SharePoint, Outlook
 
-**Output Format**: Word/PDF clinical study status report, Teams channel post summary
+**Output**: PDF / HTML status reports
 
-**Triggers**: Scheduled (weekly/bi-weekly governance cadence), On-demand via PM prompt
-
-**Processing Mode**: **Independent** — each report generation is a self-contained operation. Multiple reports for different studies can run in parallel.
+**Processing Mode**: **Independent** — each report is self-contained. Multiple reports can run in parallel.
 
 ---
 
 ### Agent 2 — Meeting Management Agent
 
-**Function**: Manages the end-to-end lifecycle of clinical governance meetings — DSMB (Data Safety Monitoring Board) safety reviews, Clinical Operations Reviews (COR), Site Initiation Visits (SIV), and Investigator kick-off meetings. Handles scheduling across sponsor, CRO, and site investigator calendars; generates GCP-compliant agendas and pre-read packs; transcribes meetings via Teams Intelligent Recap; drafts ICH E6(R3)-aligned minutes with decision log; archives to eTMF-structured SharePoint; extracts and routes CRO action items to MS Planner with deadline tracking.
+**Function**: Manages end-to-end lifecycle of clinical governance meetings. Produces MoM (Minutes of Meeting) and Action Tracker outputs.
 
-**Agent Flow:**
-```
-Meeting request / SIV date confirmed in MS Project (event trigger)
-  → Orchestrator routes to Meeting Management Agent
-  → Agent queries MS Graph Calendar API: find availability across sponsor, CRO, investigator
-  → Power Automate → MS Teams: create meeting with agenda (auto-drafted from SharePoint template)
-  → Meeting occurs in Teams
-  → Teams Premium Intelligent Recap generates transcript (VTT) + AI summary → stored in OneDrive
-    [Alternative: Power Automate HTTP → Graph API GET /transcripts if Teams Premium unavailable]
-  → Power Automate "When recording is ready" trigger fires
-  → Transcript passed to Copilot Studio agent
-  → AQS gate: verify transcript completeness and grounding before minute drafting
-  → Agent drafts GCP-compliant minutes (attendees, decisions, action items) using GPT-4o
-  → Power Automate → Teams Adaptive Card: PM approves minutes draft
-  → Power Automate → SharePoint: file to eTMF Section 08 (Study Oversight) — version-controlled
-  → Power Automate → MS Planner: create action items assigned to CRO contacts with due dates
-  → Power Automate → Outlook: distribute minutes + action tracker to all attendees
-  → 👍/👎 PM feedback captured → AQS updated
-```
+**Capabilities** (as shown in diagram): Teams integration, Outlook integration, Scheduling, MoM generation.
 
-**Dataflow Diagram:**
+**Dataflow:**
 ```
-[Teams Meeting Completed / SIV Date Confirmed / User Request]
+[Teams Meeting Completed / User Request]
         │
         ▼
 [Orchestrator: Intent = "Generate MoM" or "Schedule Meeting"]
@@ -240,69 +215,40 @@ Meeting request / SIV date confirmed in MS Project (event trigger)
         ▼
 [Meeting Management Agent Activated]
         │
-        ├──► [Teams Graph API] ──► Meeting transcript, attendees, recording
-        ├──► [MS Graph Calendar API] ──► Availability across sponsor, CRO, investigator
-        ├──► [Outlook Graph API] ──► Calendar invites
+        ├──► [MS Teams] ──► Meeting transcript, attendees
+        ├──► [Outlook] ──► Calendar availability, invites
         │
         ▼
-[AQS Gate: Verify transcript completeness]
+[LLM: Extract decisions, action items, draft minutes]
         │
         ▼
-[GPT-4o: Extract decisions, action items, draft ICH E6(R3)-aligned minutes]
+[Output: MoM, Action Tracker]
         │
-        ▼
-[Teams Adaptive Card: PM Approves Minutes Draft]
-        │
-        ▼
-[Output: GCP-Compliant MoM, Action Tracker]
-        │
-        ├──► [SharePoint eTMF: Section 08 — version-controlled]
-        ├──► [MS Planner: Action items with CRO deadlines]
-        ├──► [Outlook: Distribute minutes to all attendees]
+        ├──► [Dataverse: Store MoM, update action items]
+        ├──► [Outlook: Distribute minutes to attendees]
         ├──► [Teams: Post summary in channel]
-        └──► [Dataverse: Store MoM + AQS + audit record]
+        └──► [SharePoint: Archive to document library]
 ```
 
-**AI Services Used**: Azure OpenAI GPT-4o (minutes drafting), Teams Premium Intelligent Recap (transcription), Azure AI Search (retrieve GCP minutes templates from SharePoint)
+**AI Services**: LLM (minutes drafting, action item extraction), Azure AI Search (retrieve minutes templates)
 
-**Connected Applications**: MS Teams & Teams Premium (Native), MS Graph Calendar API (Native PA — HTTP action), SharePoint eTMF (Native), MS Planner (Native), Outlook (Native)
+**Connected Applications**: MS Teams, Outlook, SharePoint
 
-**Output Format**: GCP-compliant meeting minutes (Word/PDF), TMF-filed agenda + attendance record, action item tracker in MS Planner
+**Output**: MoM documents, Action Tracker
 
-**Triggers**: On-demand via PM prompt, Scheduled (recurring governance cadence), Event-based (SIV date confirmed in MS Project)
-
-**Processing Mode**: **Sequential** — agenda creation → meeting → transcript processing → MoM generation → approval → TMF archival. Each step depends on the previous.
+**Processing Mode**: **Sequential** — agenda creation → meeting → transcript processing → MoM generation → action item creation.
 
 ---
 
 ### Agent 3 — Stakeholder Communications Agent
 
-**Function**: Drafts and distributes GDP-compliant, audience-segmented communications across the clinical trial ecosystem — Sponsor progress updates, IRB/Ethics Committee continuing review reports, CRO performance summaries, Principal Investigator newsletters (across 20–100+ sites), and Regulatory Authority briefing drafts (FDA Type B meeting requests, EMA safety signal updates). Enforces GDP-aligned Teams Approvals workflow before any external send. Archives approved communications to SharePoint with full version control.
+**Function**: Audience-segmented clinical communications, GDP-approved before send, SharePoint portal updates. Produces Exec Summaries and Newsletters.
 
-**Agent Flow:**
-```
-PM request / Scheduled trigger (monthly newsletter) / Event (enrollment deviation threshold)
-  → Orchestrator routes to Stakeholder Comms Agent
-  → Agent queries Dataverse stakeholder register: retrieve audience segment
-  → Agent queries Veeva Vault CTMS: enrollment actuals vs forecast
-  → Agent queries SmartSheet: CRO deliverable completion status
-  → Agent queries Jira: CDM/biostat task progress (for CRO technical update)
-  → AQS gate: verify all source data is grounded before drafting
-  → GPT-4o drafts audience-specific communication using approved templates
-  → Power Automate → Teams Approvals: GDP mandatory approval gate
-      PM / Medical Director reviews draft → Approves or Rejects with comments
-      [AGENT DOES NOT PROCEED IF NOT APPROVED]
-  → If approved:
-      Power Automate → Outlook Graph Mail API: send personalised email per segment
-      Power Automate → SharePoint: publish update to Investigator portal
-      Power Automate → Dataverse: log approval record (approver, timestamp, version) — 21 CFR Part 11
-  → Microsoft Forms: collect investigator/CRO feedback post-communication
-  → 👍/👎 PM feedback captured → AQS + feedback log updated
-```
+**Capabilities** (as shown in diagram): Segmentation, GDP Approved, Email Drafts, Summaries.
 
-**Dataflow Diagram:**
+**Dataflow:**
 ```
-[User Request / Scheduled Trigger / Enrollment Deviation Event]
+[User Request / Scheduled Trigger]
         │
         ▼
 [Orchestrator: Intent = "Stakeholder Communication"]
@@ -310,159 +256,86 @@ PM request / Scheduled trigger (monthly newsletter) / Event (enrollment deviatio
         ▼
 [Stakeholder Comms Agent Activated]
         │
-        ├──► [Dataverse] ──► Stakeholder register, audience segments
-        ├──► [Veeva Vault CTMS] ──► Enrollment actuals vs forecast
-        ├──► [SmartSheet] ──► CRO deliverable completion status
-        └──► [SharePoint] ──► Communication templates, brand guidelines
-                │
-                ▼
-        [AQS Gate: Verify source data grounding]
-                │
-                ▼
-        [GPT-4o: Generate audience-segmented content]
-                │
-                ▼
-        [GDP Approval Gate — Teams Approvals]
-                │
-        ┌───────┴───────┐
-        │               │
-   👍 Approved      👎 Rejected
-        │               │
-        ▼               ▼
-  [Distribute]    [Revise based on
-        │          reviewer comments]
-        ├──► [Outlook: Personalised emails per segment]
-        ├──► [SharePoint: Update Investigator portal]
-        ├──► [Dataverse: 21 CFR Part 11 approval record]
-        └──► [Microsoft Forms: Collect post-comms feedback]
+        ├──► [Dataverse] ──► Project status, stakeholder segments
+        ├──► [SharePoint] ──► Communication templates
+        │
+        ▼
+[LLM: Generate audience-segmented content]
+        │
+        ▼
+[GDP Approval Gate (Human-in-the-Loop: Thumbs Up / Down)]
+        │
+        ├── 👍 Approved ──► [Outlook: Distribute to recipients]
+        │                    [SharePoint: Update portal content]
+        │                    [Dataverse: Log approval record]
+        │
+        └── 👎 Rejected ──► [Agent: Revise based on feedback]
 ```
 
-**AI Services Used**: Azure OpenAI GPT-4o (communication drafting), Azure AI Search (retrieve SOP and regulatory briefing templates from SharePoint)
+**AI Services**: LLM (communication drafting), Azure AI Search (retrieve templates)
 
-**Connected Applications**: Outlook — Send Email V2 via Agent Flow (Native), Teams Approvals GDP gate (Native), SharePoint Investigator Portal (Native), SmartSheet (Native), Veeva Vault CTMS (Custom Connector — OAuth 2.0/OIDC), Jira REST (Custom Connector — OAuth 2.0), Microsoft Forms (Native), Dataverse stakeholder register (Native)
+**Connected Applications**: Outlook, SharePoint, Dataverse
 
-**Output Format**: Audience-segmented emails (Sponsor / IRB / CRO / Investigator), SharePoint portal updates, GDP approval audit record in Dataverse
+**Output**: Exec Summaries, Newsletters
 
-**Triggers**: Scheduled (monthly Investigator newsletter, quarterly IRB report), On-demand, Event-based (enrollment deviation exceeds threshold in Veeva Vault CTMS)
-
-**Processing Mode**: **Sequential with gate** — Draft → GDP Approval gate (human-in-the-loop — must complete before proceeding) → Send → Archive. Will not proceed if approval is rejected.
+**Processing Mode**: **Sequential with gate** — Draft → GDP Approval (must complete before proceeding) → Send → Archive. Will not proceed if rejected.
 
 ---
 
 ### Agent 4 — Risk Management Agent
 
-**Function**: Maintains an ICH E6(R3)-compliant risk register in Dataverse covering GCP/GMP protocol deviations, IMP (Investigational Medicinal Product) supply chain disruptions, regulatory approval risks (CRL probability, PDUFA date slippage), data integrity flags, and site performance risks. Syncs CAPA and QualityEvent records from Veeva Vault QMS via Custom Connector. Scores risk severity using Azure AI Foundry trained on historical trial deviation and delay data. Escalates critical risks via Teams Adaptive Cards with Acknowledge/Escalate actions. Publishes live risk heatmap and RAID log via Power BI embedded in Teams.
+**Function**: Analyze clinical trial risks using Microsoft Foundry and Veeva Vault integration. Produces Risk Heatmap and RAID Logs.
 
-**Agent Flow:**
-```
-Scheduled weekly review / New CAPA raised in Veeva Vault (webhook trigger) / PM on-demand
-  → Orchestrator routes to Risk Management Agent (or fires autonomously on event trigger)
-  → Custom Connector: GET CAPAs, QualityEvents, deviation records from Veeva Vault QMS
-  → Native Connector: GET milestone-linked tasks from MS Project (flag tasks at risk)
-  → Native Connector: GET IMP resupply schedule from SmartSheet (flag stockout risk)
-  → All retrieved risk data written to Dataverse ls_RiskRegister table
-  → AQS gate: verify risk data completeness and source grounding
-  → Azure AI Foundry custom model: score risk severity (probability × impact)
-      [If AQS < threshold → flag to PM for manual review, do not auto-escalate]
-  → Power BI DirectQuery: update live risk heatmap from Dataverse (embedded in Teams)
-  → For risks scored HIGH:
-      Teams Adaptive Card: escalation alert to PM + Medical Monitor
-      Card includes: Risk ID, category, severity score, affected study, recommended action
-      Buttons: [Acknowledge] [Escalate to Sponsor] [Open RAID Log]
-  → PM action captured via Adaptive Card response → logged to Dataverse
-  → Generate RAID log (Excel/Word) from Dataverse risk table → file to SharePoint
-  → 👍/👎 PM feedback captured → AQS + Azure AI Foundry retraining queue updated
-```
+**Capabilities** (as shown in diagram): GPT-4o, Veeva Vault, Risk Scoring, RAID Log.
 
-**Dataflow Diagram:**
+**Dataflow:**
 ```
-[Scheduled Trigger (Weekly) / Veeva Vault Webhook / User Request]
+[Scheduled Trigger / Veeva Vault Event / User Request]
         │
         ▼
 [Orchestrator: Intent = "Risk Assessment"]
-(or autonomous event-triggered activation)
         │
         ▼
 [Risk Management Agent Activated]
         │
-        ├──► [Veeva Vault QMS] ──► CAPAs, QualityEvents, deviation records
-        ├──► [MS Project] ──► Milestone-linked tasks at risk
-        ├──► [SmartSheet] ──► IMP resupply schedule (stockout risk)
-        ├──► [Azure AI Search (RAG)] ──► Historical risk patterns, ICH E6(R3) templates
-        └──► [Jira] ──► Risk-tagged issues, blockers
-                │
-                ▼
-        [Dataverse: Write to ls_RiskRegister table]
-                │
-                ▼
-        [AQS Gate: Verify completeness and grounding]
-                │
-                ▼
-        [Azure AI Foundry: Risk severity scoring (probability × impact)]
-                │
-                ▼
-        [GPT-4o: RAID log narrative drafting]
-                │
-                ├──► [Power BI: Update live risk heatmap (DirectQuery)]
-                ├──► [Teams Adaptive Card: Escalation alert (if HIGH)]
-                │    [Buttons: Acknowledge | Escalate to Sponsor | Open RAID Log]
-                ├──► [SharePoint: File RAID log (Excel/Word)]
-                └──► [Dataverse: Log AQS + PM action response]
+        ├──► [Veeva Vault] ──► CAPAs, deviations, quality events
+        ├──► [Jira] ──► Risk-tagged issues, blockers
+        ├──► [Azure AI Search] ──► Historical risk patterns
+        │
+        ▼
+[Microsoft Foundry: Risk severity scoring (probability × impact)]
+        │
+        ▼
+[LLM: RAID log narrative drafting]
+        │
+        ▼
+[Output: Risk Heatmap, RAID Logs]
+        │
+        ├──► [Power BI: Update risk heatmap dashboard]
+        ├──► [Dataverse: Update risk register]
+        ├──► [SharePoint: File RAID log]
+        └──► [Teams: Escalation alert (if high severity)]
 ```
 
-**AI Services Used**: Azure AI Foundry (custom risk severity scoring model — NOT direct GPT-4o), Azure OpenAI GPT-4o (RAID log narrative drafting), Azure AI Search (retrieve ICH E6(R3) risk assessment templates)
+**AI Services**: Microsoft Foundry (risk severity scoring), LLM (RAID log drafting), Azure AI Search (risk templates)
 
-**Connected Applications**: Veeva Vault QMS — CAPAs, QualityEvents, deviations (Custom Connector — OAuth 2.0/OIDC), MS Project — milestone risk flags (Native), SmartSheet — IMP resupply schedule (Native), Dataverse risk register (Native), Power BI risk heatmap (DirectQuery from Dataverse)
+**Connected Applications**: Veeva Vault, Jira, Dataverse, Power BI, SharePoint
 
-**Output Format**: Power BI risk heatmap (embedded Teams), RAID log (Excel/Word — SharePoint filed), Teams Adaptive Card escalation alerts
+**Output**: Risk Heatmap, RAID Logs
 
-**Triggers**: Scheduled (weekly ICH E6(R3) risk reassessment), Event-based (new CAPA raised in Veeva Vault — webhook), On-demand
-
-**Processing Mode**: **Independent + Event-triggered** — operates autonomously. A new CAPA in Veeva Vault triggers the agent without any PM prompt or dependency on other agents. Risk scores may inform other agents (e.g., Status Reports Agent includes risk summary).
+**Processing Mode**: **Independent + Event-triggered** — operates autonomously. Can be triggered by events in Veeva Vault without PM prompt.
 
 ---
 
 ### Agent 5 — Project Planning Agent
 
-**Function**: Supports end-to-end clinical program planning — Integrated Development Plan (IDP) framework generation, Clinical Trial Master Schedule build and maintenance in MS Project, protocol amendment cascade impact modelling (IRB re-approval lead time, site retraining, consent form update requirements), resource allocation conflict detection across CRA/CRO/biostatistician pools, and PDUFA date delay risk prediction using Azure AI Foundry. Auto-generates RACI matrix, Risk-Based Monitoring (RBM) Plan, and Study Project Charter from SharePoint regulatory templates. Flags critical path slippage proactively to PM.
+**Function**: End-to-end clinical program planning. Timeline optimization and resource allocation. Produces Schedules, WBS, and RACI outputs.
 
-**Agent Flow:**
+**Capabilities** (as shown in diagram): Scheduling, WBS / RACI, Resources, Dependencies.
+
+**Dataflow:**
 ```
-PM request (plan a new study / model amendment impact / check schedule health) / Scheduled weekly
-  → Orchestrator routes to Project Planning Agent
-  → Agent queries MS Project: retrieve Clinical Trial Master Schedule
-  → Agent queries SmartSheet: retrieve site activation Gantt (planned vs actual)
-  → Agent queries Jira: retrieve CDM/biostat sprint velocity and outstanding tasks
-  → Agent queries Dataverse: retrieve ls_ProtocolAmendment table (amendment impact rules)
-  → AQS gate: verify schedule data completeness before analysis
-
-  [For PDUFA risk prediction:]
-  → Azure AI Foundry model: predict PDUFA date slippage probability using:
-      - Current enrollment velocity vs plan
-      - Number of open protocol deviations (from Veeva QMS)
-      - Outstanding database queries
-      - Historical PDUFA outcomes for comparable programs
-  → If slippage probability > threshold: Teams alert with recommended mitigation
-
-  [For protocol amendment impact:]
-  → Agent applies standard impact rules from Dataverse lookup:
-      IRB re-approval = +6 weeks, site retraining = +2 weeks,
-      consent update = +3 weeks per site, IMP reformulation = +12 weeks
-  → Power Automate → MS Project: create amendment impact tasks, update milestones
-  → Agent drafts amendment impact summary narrative
-
-  [For document generation:]
-  → GPT-4o + Word template from SharePoint:
-      auto-draft RACI matrix, RBM Plan, or Study Project Charter
-  → Power Automate → SharePoint: file to controlled document library
-
-  → Power Automate → Veeva Vault RIM: sync planning risks affecting regulatory readiness
-  → 👍/👎 PM feedback captured → AQS updated, AI Foundry retraining queue updated
-```
-
-**Dataflow Diagram:**
-```
-[User Request / Scheduled Weekly / Protocol Amendment Event]
+[User Request / Scheduled Weekly]
         │
         ▼
 [Orchestrator: Intent = "Project Planning"]
@@ -470,39 +343,31 @@ PM request (plan a new study / model amendment impact / check schedule health) /
         ▼
 [Project Planning Agent Activated]
         │
-        ├──► [MS Project] ──► Clinical Trial Master Schedule, milestones, critical path
-        ├──► [SmartSheet] ──► Site activation Gantt, resource availability
-        ├──► [Jira] ──► CDM/biostat sprint velocity
-        ├──► [SAP OData API] ──► Budget allocation, resource costs
-        └──► [Dataverse] ──► ls_ProtocolAmendment rules, resource register
-                │
-                ▼
-        [AQS Gate: Verify schedule data completeness]
-                │
-                ▼
-        [Azure AI Foundry: PDUFA slippage prediction]
-        [GPT-4o: Generate WBS / RACI / RBM Plan / Amendment impact narrative]
-                │
-                ▼
-        [Output: Schedules, WBS, RACI, RBM Plan]
-                │
-                ├──► [MS Project: Update Clinical Trial Master Schedule]
-                ├──► [SmartSheet: Update resource plan]
-                ├──► [Veeva Vault RIM: Sync regulatory readiness risks]
-                ├──► [SharePoint: File RACI/RBM Plan to controlled library]
-                ├──► [Dataverse: Store plan snapshot + AQS]
-                └──► [Power BI: Update project dashboard]
+        ├──► [MS Project] ──► Milestones, critical path, timeline
+        ├──► [SmartSheet] ──► Resource availability, tracker data
+        ├──► [Jira] ──► Sprint capacity, task status
+        ├──► [SAP] ──► Budget allocation, resource costs
+        │
+        ▼
+[LLM: Generate WBS / RACI / Schedule]
+        │
+        ▼
+[Output: Schedules, WBS, RACI]
+        │
+        ├──► [MS Project: Update timeline]
+        ├──► [SmartSheet: Update resource plan]
+        ├──► [SharePoint: File RACI/WBS documents]
+        ├──► [Dataverse: Store plan snapshot]
+        └──► [Power BI: Update project dashboard]
 ```
 
-**AI Services Used**: Azure AI Foundry (PDUFA date slippage probability model — trained on historical trial data), Azure OpenAI GPT-4o (RACI/RBM Plan/Charter drafting, amendment impact narrative), Azure AI Search (retrieve IDP and RBM Plan templates from SharePoint). MS Project scheduling engine handles critical path and resource levelling — not Copilot Studio.
+**AI Services**: LLM (WBS/RACI drafting, schedule narrative), Azure AI Search (retrieve planning templates)
 
-**Connected Applications**: MS Project for the Web (Native), MS Project Roadmap — cross-study portfolio view (Native), SmartSheet (Native), Jira REST (Custom Connector — OAuth 2.0), Veeva Vault RIM (Custom Connector — OAuth 2.0/OIDC), SAP (OData API), SharePoint (Native), Dataverse (Native)
+**Connected Applications**: MS Project, SmartSheet, Jira, SAP, SharePoint, Dataverse
 
-**Output Format**: Updated Clinical Trial Master Schedule (MS Project), RACI matrix + RBM Plan (Word — SharePoint filed), IDP framework draft, Teams alert for critical path deviations and PDUFA risk, WBS task creation in MS Project
+**Output**: Schedules, WBS, RACI
 
-**Triggers**: Scheduled (weekly schedule health check vs baseline), Event-based (protocol amendment logged in Dataverse, high-severity CAPA raised in Veeva Vault), On-demand
-
-**Processing Mode**: **Sequential** — planning follows an inherent dependency chain: scope definition → WBS → schedule → resource allocation → dependency mapping. Protocol amendment impact modelling follows amendment type → standard impact rules → milestone update.
+**Processing Mode**: **Sequential** — scope definition → WBS → schedule → resource allocation → dependency mapping.
 
 ---
 
@@ -523,7 +388,7 @@ The following instructions can be used as a starting point for configuring the P
 
 ```copilot
 You are a helpful, professional Life Sciences Project Manager Assistant that supports
-clinical trial Project Managers with GxP-compliant project management tasks.
+Project Managers with GxP-compliant project management tasks across life sciences programs.
 
 You coordinate five specialized agents:
 - Status report generation (Status Reports Agent)
@@ -563,12 +428,13 @@ ServiceNow, SharePoint, and Microsoft Teams to provide accurate, real-time proje
 
 ## Knowledge Sources
 
-- **Standard Operating Procedures (SOPs)**: Organizational SOPs for project management, clinical trial conduct, and documentation — indexed in Azure AI Search with hybrid vector + BM25 retrieval and Semantic Ranker.
-- **Clinical Trial Protocols**: Active study protocols from Veeva Vault, providing context for study-specific agent responses.
-- **Regulatory Guidelines**: ICH E6(R3) (Good Clinical Practice), FDA 21 CFR Part 11, EMA Annex 11, ICH E2E guidelines indexed as knowledge sources.
-- **Historical Project Data**: Past project reports, risk logs, and meeting minutes stored in Dataverse and SharePoint for pattern recognition and benchmarking.
-- **Template Library**: GCP-compliant report templates, GDP communication templates, RACI/WBS/RBM Plan templates stored in SharePoint eTMF and referenced by agents.
-- **SharePoint Semantic Index**: Out-of-the-box knowledge grounding for M365 content, providing additional RAG context across SharePoint document libraries.
+As shown in the AI & Automation Services zone, **Knowledge Sources** are indexed via Azure AI Search and include:
+
+- **Standard Operating Procedures (SOPs)**: Organizational SOPs for project management and documentation.
+- **Clinical Trial Protocols**: Active study protocols from Veeva Vault.
+- **Regulatory Guidelines**: ICH-GCP guidelines, FDA 21 CFR Part 11 requirements.
+- **Historical Project Data**: Past project reports, risk logs, and meeting minutes stored in Dataverse and SharePoint.
+- **Template Library**: Report templates, communication templates, RACI/WBS templates stored in SharePoint.
 
 ---
 
@@ -580,105 +446,76 @@ The following components are used in the Life Sciences Project Manager Multi-Age
 
 [**Microsoft Copilot Studio**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/): Low-code platform for building, testing, and deploying the orchestrator and connected agents. Provides generative orchestration capabilities, multi-agent coordination via Connected Agents pattern, and topic-based routing. Chosen for its native integration with Microsoft 365, Dataverse, and Power Platform.
 
-[**Microsoft Foundry (Azure AI Foundry)**](https://learn.microsoft.com/en-us/azure/ai-foundry/): Hosts custom predictive models trained on historical clinical trial data. Used by Risk Management Agent (deviation severity scoring) and Project Planning Agent (PDUFA date slippage probability prediction). Azure AI Foundry is the correct component for custom model training and deployment — GPT-4o is not called directly for scoring tasks.
+[**Microsoft Foundry (Azure AI Foundry)**](https://learn.microsoft.com/en-us/azure/ai-foundry/): Hosts custom predictive models. Used by Risk Management Agent (risk severity scoring) and Project Planning Agent (schedule analysis). Provides custom model training and deployment capabilities.
 
 ### AI & Generative Services
 
-[**Azure OpenAI Service (GPT-4o)**](https://learn.microsoft.com/en-us/azure/ai-services/openai/): The generative language model powering all content drafting — status report narratives, meeting minutes, stakeholder communications, RACI and RBM Plan documents. Accessed via Copilot Studio's built-in Azure OpenAI integration. Authentication uses **Microsoft Entra ID Managed Identity** (not API Key) for GxP production compliance. Embeddings use `text-embedding-3-large` for semantic knowledge retrieval.
+[**Azure OpenAI Service (GPT-4o)**](https://learn.microsoft.com/en-us/azure/ai-services/openai/): The LLM powering content generation, summarization, intent classification, and conversational interactions across all agents.
 
-[**Azure AI Search**](https://learn.microsoft.com/en-us/azure/search/): Hybrid search (Vector + BM25) with Semantic Ranker over the SharePoint SOP library and Veeva Vault document index. Enables all agents to retrieve relevant GCP guidelines, regulatory templates, and SOPs using natural language queries. Configured to handle both conceptual and exact regulatory terminology searches.
+[**Azure AI Search**](https://learn.microsoft.com/en-us/azure/search/): Enables Retrieval-Augmented Generation (RAG) by indexing enterprise knowledge sources (SOPs, protocols, regulatory guidelines) and providing grounded, contextual responses.
 
-[**AI Builder**](https://learn.microsoft.com/en-us/ai-builder/): Provides document processing and extraction models — used to extract structured data from uploaded CRO deliverable reports, protocol amendment PDFs, and site-submitted paper records that need to be digitised before agent processing.
+[**AI Builder**](https://learn.microsoft.com/en-us/ai-builder/): Provides document processing, form recognition, and entity extraction capabilities.
 
 ### Automation & Integration
 
 [**Power Automate Agent Flows**](https://learn.microsoft.com/en-us/power-automate/): The execution backbone for all five agents. Agent Flows are structured, rules-based workflows incorporating AI actions, optimized for compliance-critical processes. All scheduled triggers, event-based triggers, approval workflows, connector calls, and document filing operations run through Power Automate.
 
-[**Agent Tools / Connectors**](https://learn.microsoft.com/en-us/connectors/):
-- **Native PA Connectors**: MS Project, SmartSheet, SharePoint, Outlook, Teams, MS Planner, Microsoft Forms — available out-of-the-box.
-- **Custom Connectors**: Jira REST API (OAuth 2.0) and Veeva Vault REST API (OAuth 2.0/OIDC → Session ID) — built using Custom Connector wizard with OpenAPI/Swagger import. Secrets stored in Azure Key Vault.
+[**Agent Tools / Connectors**](https://learn.microsoft.com/en-us/connectors/): Pre-built and custom connectors enabling agent communication with Jira, SmartSheet, Veeva Vault, SAP, ServiceNow, and other enterprise systems.
 
 [**Model Context Protocol (MCP)**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-mcp-overview): Agent-to-Agent communication protocol enabling the Orchestrator to discover and invoke sub-agent capabilities. Dataverse MCP Server (public preview) enables agents to query structured Dataverse data using natural language. Transport: Streamable HTTP.
 
 ### User Interface
 
-[**Microsoft Teams**](https://learn.microsoft.com/en-us/microsoftteams/): Primary conversational interface. Agent responses, Adaptive Card approval requests, risk escalation alerts, and meeting action items are all surfaced in Teams. Teams Premium provides Intelligent Recap for meeting transcription.
+[**Microsoft Teams**](https://learn.microsoft.com/en-us/microsoftteams/): Primary conversational interface for agent interactions.
 
-[**Power Apps — PM Command Center**](https://learn.microsoft.com/en-us/power-apps/): Mobile-first canvas app for PM action management: Risk Triage, CAPA Acknowledgement, GDP Communication Sign-off, Resource Requests, Regulatory Milestone Override.
+[**Outlook**](https://learn.microsoft.com/en-us/graph/outlook-mail-concept-overview): Email-based channel for report distribution, meeting invites, and stakeholder communications.
 
-[**Outlook**](https://learn.microsoft.com/en-us/graph/outlook-mail-concept-overview): Email-based interaction for scheduled status report distribution, meeting invite management, and GDP-approved stakeholder communication delivery. Integrated via Office 365 Outlook connector.
+**Website / Portal**: Web-based interface for external stakeholders.
 
-**Website / Portal (Power Pages)**: Web-based interface for external stakeholders (CRO partners, Investigators) to access published study updates without requiring a Teams license.
+[**Power Apps**](https://learn.microsoft.com/en-us/power-apps/): PM Command Center for operational actions and approvals.
 
 ### Data Platform
 
-[**Microsoft Dataverse**](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/): Central structured data platform for all agents. Provides row-level security enforcing study-level data isolation, 21 CFR Part 11 compliant auditing, and Microsoft Purview sensitivity labels. Dataverse Web API (OData v4) for all connector interactions. Dataverse Search provides AI-ready hybrid search over all tables.
-
-**Key custom tables:**
-
-| Table | Purpose | Used By |
-|---|---|---|
-| `ls_RiskRegister` | ICH E6(R3) risk records — ID, category, probability, impact, mitigation, owner | Risk Management Agent |
-| `ls_StakeholderRegister` | IRB, CRO, Sponsor, Investigator contact register | Stakeholder Comms Agent |
-| `ls_ProjectMilestone` | IND/NDA/PDUFA milestone tracking | Status Reports + Planning Agent |
-| `ls_ProtocolAmendment` | Amendment impact rules by amendment type | Planning Agent |
-| `ls_AuditLog` | 21 CFR Part 11 routing and action audit trail | All Agents |
-| `ls_AgentFeedback` | Thumbs up/down feedback, AQS scores, session context | All Agents (reinforcement learning) |
-| `conversationtranscript` | Native Copilot Studio conversation store | Orchestrator |
+[**Microsoft Dataverse**](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/): Central data platform storing all agent state, project data, conversations, status, audit trail, and logs. As shown in the architecture diagram, Dataverse entities include: Agent State, Project Data, Conversations, Status, Audit Trail, and Logs.
 
 ### Enterprise System Integrations
 
-| System | API | Authentication | Connector Type | Scope |
-|---|---|---|---|---|
-| **Jira** (Atlassian) | REST API, HTTPS/443 | OAuth 2.0 | Custom Connector | CDM/biostatistics workstream tasks |
-| **SmartSheet** | REST API, HTTPS/443 | OAuth 2.0 | Native PA Connector | Site activation Gantt, CRO deliverable tracker |
-| **Veeva Vault** (QMS/CTMS/RIM/eTMF) | REST API, HTTPS/443 | OAuth 2.0/OIDC → Session ID | Custom Connector | CAPAs, deviations, enrollment actuals, regulatory docs |
-| **SharePoint** | Graph API, CSOM, HTTPS/443 | M365 Auth | Native | eTMF folder structure, SOP library, investigator portal |
-| **MS Teams** | Graph API, HTTPS/443 | M365 Auth | Native | Chat, meetings, Adaptive Cards, transcript retrieval |
-| **SAP** | OData API, HTTPS/443 | SAP Auth | Native PA Connector | Study budget actuals — future phase |
-| **ServiceNow** | REST API, HTTPS/443 | OAuth 2.0 | Native PA Connector | GxP IT incident → Risk Management flag |
+As shown in the architecture diagram:
 
-### Reporting & Visualization
+| System | Integration Method | Data Provided |
+|---|---|---|
+| **Jira** | REST API / MCP | Sprint status, backlog, risk issues, task assignments |
+| **SmartSheet** | REST API / Custom Connector | Project trackers, milestone sheets, resource plans |
+| **Veeva Vault** | REST API / Custom Connector | Clinical documents, CAPAs, deviations, regulatory docs |
+| **SharePoint** | Graph API / Document Mgmt | Project documents, templates, portal content |
+| **SAP** | OData API | Budget data, resource costs |
+| **ServiceNow** | REST API / Custom Connector | IT incidents, change requests |
+| **MS Teams** | Graph API / Chat / Meetings | Meeting transcripts, chat history, channel posts |
 
-[**Power BI Dashboards**](https://learn.microsoft.com/en-us/power-bi/): Embedded in Microsoft Teams. All dashboards use **DirectQuery** against Dataverse (live data, not cached snapshots). Row-Level Security mirrors Dataverse study-level isolation. Key dashboards:
+### Reporting
 
-- **Risk Heatmap**: High/Medium/Low risks by category and study — fed by Risk Management Agent
-- **Status Board**: IND/NDA milestone RAG status, CRO deliverable completion rate, enrollment progress — fed by Status Reports Agent
-- **Resource View**: CRA/CRO/biostatistician allocation across studies — fed by Planning Agent
-- **Comms Tracker**: GDP compliance rate, pending approvals, sent communication log — fed by Stakeholder Comms Agent
-- **Meeting Logs**: Meeting frequency, action item completion rate, TMF filing compliance — fed by Meeting Management Agent
-- **Trial Analytics**: Enrollment vs target, site performance, protocol deviations, CAPA status tracking
+[**Power BI Dashboards**](https://learn.microsoft.com/en-us/power-bi/): As shown in the architecture diagram, the reporting layer includes:
 
-**Operational Metrics** (Power BI): CRO Deliverable Completion Rate, Study Budget Burn vs Forecast, Risk Score trend, Resource Utilization, Enrollment Progress.
+- **Operational Metrics**: CRO Deliverable Completion Rate, Study Budget Burn vs Forecast, Milestone Tracking, Enrollment Progress (Clinical Trials).
+- **Project Dashboard**: Portfolio View, Health Indicators, RAG Status, Timeline View (MS Project), Executive Summary.
+- **Clinical Trial Analytics**: Enrollment vs Target, Site Performance, Protocol Deviations, Safety Signals, CAPA Status Tracking.
+- **PM Command Center (Power Apps)**: Unified operational interface for cross-project status and agent actions.
 
-**Project Dashboard** (split tools):
-- Portfolio View + Timeline View → **MS Project Roadmap** (native scheduling tool)
-- Health Indicators + RAG Status → **Power BI** (DirectQuery: Dataverse + MS Project)
-- Executive Summary → **Word document** (auto-generated by Status Reports Agent → filed to SharePoint)
-
-**GenAI Metrics Dashboard** (Power BI + Application Insights): Confidence Scores, Token Usage & Cost, Content Safety Flags, RAG Citation Quality, GDP Compliance Rate, Grounding Rate, Agent Response Latency, AQS Pass Rate.
-
-> **Note on Safety Signals**: Power BI surfaces SAE (Serious Adverse Event) counts and trends for awareness only. Pharmacovigilance signal detection is a regulated activity governed by ICH E2E and must be conducted in a validated safety database (Veeva Vault Safety, Argus, or ARISg). This is outside the scope of the PM Agent architecture.
+**Key Dashboards**: Risk Heatmap, Status Board, Resource View, Comms Tracker, Meeting Logs, Trial Analytics.
 
 ### Platform Governance, Security & Compliance
 
-[**Microsoft Entra ID**](https://learn.microsoft.com/en-us/entra/fundamentals/whatis): Identity and access management. Enforces GxP RBAC (PM, CRA, Reg Affairs, CRO Partner, Sponsor roles), conditional access policies (MFA required for all clinical users), and Managed Identity for Azure service authentication.
+As shown in the Governance bar of the architecture diagram:
 
-[**Microsoft Purview**](https://learn.microsoft.com/en-us/purview/): Data governance and 21 CFR Part 11 / Annex 11 compliance. Sensitivity labels: *Confidential — Clinical Trial Data*, *Restricted — Regulatory Submission*, *Internal — CRO Confidential*. Auto-labelling policies detect and classify clinical data flowing through agent workflows.
-
-[**Application Insights**](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview): Technical performance monitoring — response latency, flow run success/failure rates, connector call telemetry. Provides non-GxP telemetry — GxP audit trail is maintained separately in Dataverse Audit and Purview Audit.
-
-[**Responsible AI — Content Safety**](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/): Guardrails and filters applied to all agent outputs. Prevents generation of misleading or non-compliant clinical content. Grounding verification ensures agents cite source data rather than generating unsupported claims.
-
-[**Power Platform Admin Center — DLP Policies**](https://learn.microsoft.com/en-us/power-platform/admin/): Data Loss Prevention policies govern connector usage. Veeva Vault and Jira Custom Connectors are explicitly approved in the same DLP policy as SharePoint and Outlook. Dev/Test/Prod environment separation is enforced.
-
-[**Azure Key Vault**](https://learn.microsoft.com/en-us/azure/key-vault/): Securely stores OAuth 2.0 client secrets for Veeva Vault and Jira Custom Connectors, SSL certificates, and encryption keys. Retrieved via Managed Identity — never hardcoded.
-
-[**Azure DevOps CI/CD**](https://learn.microsoft.com/en-us/azure/devops/): Source control and ALM pipeline. GAMP 5-aligned change control: DEV → TEST (IQ/OQ/PQ) → PROD (Approve & Deploy gate). Every production change requires a linked QMS change control record.
-
-[**Audit Logging — Dataverse Audit + M365 Compliance**](https://learn.microsoft.com/en-us/power-platform/admin/manage-dataverse-auditing): Tamper-evident audit trail satisfying 21 CFR Part 11: who accessed what data, when, and what changed (including previous values). M365 Compliance (Purview Audit) covers document access, email sends, and conversation history.
-
-[**Managed Environments**](https://learn.microsoft.com/en-us/power-platform/admin/managed-environment-overview): Sharing limits restrict agent distribution to approved clinical users only. Solution Checker enforces quality standards. GxP access control prevents unapproved agents reaching production clinical environments.
+- [**Entra ID**](https://learn.microsoft.com/en-us/entra/fundamentals/whatis): Identity and access management, RBAC, MFA.
+- [**Purview**](https://learn.microsoft.com/en-us/purview/): Data governance, classification, and compliance management.
+- [**App Insights**](https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview): Technical performance monitoring and telemetry.
+- [**Responsible AI**](https://learn.microsoft.com/en-us/azure/ai-services/content-safety/): Guardrails and content safety filters on all agent outputs.
+- [**PP Admin Center**](https://learn.microsoft.com/en-us/power-platform/admin/): DLP policies, environment management, capacity monitoring.
+- [**Azure Key Vault**](https://learn.microsoft.com/en-us/azure/key-vault/): Secure storage for API keys, connection strings, and secrets.
+- [**Azure DevOps CI/CD**](https://learn.microsoft.com/en-us/azure/devops/): ALM pipeline for solution lifecycle management (DEV → TEST → PROD).
+- [**Audit Logging**](https://learn.microsoft.com/en-us/power-platform/admin/manage-dataverse-auditing): Tamper-evident audit trail for all agent actions and data changes.
+- [**Managed Environments**](https://learn.microsoft.com/en-us/power-platform/admin/managed-environment-overview): Sharing limits, solution checker enforcement, environment separation.
 
 ---
 
@@ -751,23 +588,20 @@ AQS thresholds are configurable per agent and per output type (e.g., 0.90 for ex
 AQS metrics are surfaced through:
 
 - Real-time AQS scores per agent in the **Advisor Analytics** dashboard.
-- AQS trend charts (7-day, 30-day rolling averages) in **Power BI**.
+- AQS trend charts in **Power BI**.
 - Automated alerts when any agent's AQS drops below the configured threshold.
-- Weekly AQS summary reports distributed to the PM and AI Operations team.
-- Aggregated into the **GenAI Metrics Dashboard** alongside GDP Compliance Rate and Grounding Rate.
 
 ### Key Performance Indicators
+
+As shown in the Performance Monitoring zone of the architecture diagram:
 
 | KPI | Target | Monitored By |
 |---|---|---|
 | Avg Response Time | < 10 seconds | Application Insights |
 | Agent Accuracy % | > 90% (based on thumbs up feedback rate) | Advisor Analytics |
-| Escalation Rate | < 5% of requests require human intervention | Conversational Logs |
-| User Satisfaction | > 4.0/5.0 (based on feedback) | Conversational Logs |
+| Escalation Rate | < 5% of requests require human intervention | Conversational / Feedback Logs |
+| User Satisfaction | > 4.0/5.0 (based on feedback) | Conversational / Feedback Logs |
 | Uptime SLA | 99.9% | Application Insights |
-| AQS Pass Rate | > 95% (< 5% of responses fall below threshold) | Dataverse ls_AgentFeedback |
-| GDP Compliance Rate | 100% (all external comms go through approval gate) | Dataverse ls_AuditLog |
-| Grounding Rate | > 90% of agent responses cite source documents | GenAI Metrics Dashboard |
 
 ---
 
@@ -875,9 +709,9 @@ Learn more in [Introduction to conversational experiences](https://learn.microso
 
 ## Responsible AI
 
-**Privacy and Security**: Patient enrollment aggregate data (counts, percentages) and site-level data are protected by Entra ID RBAC, Dataverse row-level security, and Purview sensitivity labels. No patient-identifiable information (PHI) is processed by any agent — all individual patient data remains in Veeva Vault CTMS and validated clinical systems. The Microsoft HIPAA BAA must be in place. Encryption at rest (AES-256) and in transit (TLS 1.2+) is enforced.
+**Privacy and Security**: Sensitive program data (aggregate operational metrics, site-level data, quality records) is protected by Entra ID RBAC, Dataverse row-level security, and Purview sensitivity labels. No patient-identifiable information (PHI) is processed by any agent — all individual patient data remains in validated source systems (e.g., Veeva Vault CTMS). The Microsoft HIPAA BAA must be in place where applicable. Encryption at rest (AES-256) and in transit (TLS 1.2+) is enforced.
 
-**Clinical Decision Boundaries**: Azure AI Foundry models (risk scoring, PDUFA prediction) are project management decision-support tools only. They are explicitly not medical devices, not clinical decision support systems, and not pharmacovigilance tools. All clinical decisions remain with qualified medical and regulatory personnel. Agent outputs include source citations and confidence scores to support informed human review.
+**Decision Boundaries**: Azure AI Foundry models (risk scoring, milestone prediction) are project management decision-support tools only. They are explicitly not medical devices, not clinical decision support systems, and not pharmacovigilance tools. All clinical, medical, and regulatory decisions remain with qualified personnel. Agent outputs include source citations and confidence scores to support informed human review.
 
 **Transparency and Explainability**: Every agent response includes the source documents and data fields used to generate it (RAG citation). AQS scores are visible to PM users for any response below the standard threshold. Data provenance is tracked — each report section cites its source system and timestamp. Thumbs down feedback is reviewed weekly and used to improve quality.
 
@@ -895,34 +729,15 @@ Learn more in [Introduction to conversational experiences](https://learn.microso
 
 ## ALM Pipeline
 
-The solution follows a GAMP 5-aligned Application Lifecycle Management pipeline:
-
-```
-DEV Environment (Unmanaged)
-  → Develop and unit test agent topics, flows, custom connectors
-  → Peer review via Azure DevOps pull request
-  → Export solution as managed solution
-        ↓ Export
-TEST Environment (Managed)
-  → IQ (Installation Qualification): verify solution deployed correctly
-  → OQ (Operational Qualification): verify agent flows execute as designed
-  → PQ (Performance Qualification): verify end-to-end clinical scenario execution
-  → Attach IQ/OQ/PQ evidence to Azure DevOps release
-  → Evals: automated AQS testing against golden dataset (AQS ≥ 0.75 gate)
-  → Link to QMS change control record (Veeva Vault)
-        ↓ Approve & Deploy
-PROD Environment (Managed)
-  → Managed Environment with sharing limits enforced
-  → Change control record closed in Veeva Vault QMS
-  → Post-deployment smoke test
-  → Hypercare monitoring period (Application Insights + Dataverse Audit)
-```
+As shown in the architecture diagram, the solution follows a three-environment ALM pipeline:
 
 | Environment | Type | Purpose |
 |---|---|---|
-| **DEV** | Unmanaged | Development and unit testing of agent topics, connectors, flows, and configurations. |
-| **TEST** | Managed | Validation and evaluation. IQ/OQ/PQ qualification. Automated AQS testing against golden dataset. |
-| **PROD** | Managed | Production. Managed Environment with sharing limits. All changes via managed solutions through Azure DevOps CI/CD with linked QMS change control. |
+| **DEV** | Unmanaged | Development and testing of agent topics, connectors, flows, and configurations. |
+| **TEST** | Managed | Validation and evaluation. Agent evaluation suites (Evals) run here. AQS baseline verification. |
+| **PROD** | Managed | Production deployment. All changes arrive via managed solutions through Azure DevOps CI/CD. |
+
+**Pipeline Flow**: DEV → Export → TEST → Evals → PROD
 
 ---
 
