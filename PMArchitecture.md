@@ -50,7 +50,7 @@ The PM Multi-Agent Architecture addresses these problems by deploying a Copilot 
 - **Status Reports Agent** reduces report generation time from hours to minutes by automatically aggregating cross-system data and producing compliance-ready reports.
 - **Meeting Management Agent** automates the full meeting lifecycle — scheduling, agenda creation, transcription, minutes drafting, document archival, and action item routing.
 - **Stakeholder Comms Agent** generates audience-segmented, GDP-compliant communications with mandatory approval gates before external distribution.
-- **Risk Management Agent** enables proactive, AI-driven risk identification and severity scoring using Azure AI Foundry, syncing CAPAs and quality events from Veeva Vault QMS in real time.
+- **Risk Management Agent** enables proactive, AI-driven risk identification and severity scoring using Microsoft Foundry, syncing CAPAs and quality events from Veeva Vault QMS in real time.
 - **Project Planning Agent** provides AI-assisted planning with change impact modelling, milestone slippage prediction, automated WBS/RACI generation, and critical path monitoring.
 
 ### Business Value and Outcomes
@@ -97,7 +97,7 @@ The Orchestrator delegates to the appropriate Connected Sub-Agent. Five agents a
 
 Sub-agents execute tasks via shared AI and automation services:
 
-- **LLM (GPT-4o)**: Content generation, summarization, and intent classification.
+- **LLM**: Content generation, summarization, and intent classification.
 - **Azure AI Search**: RAG-based retrieval over SharePoint SOP library and Veeva Vault documents.
 - **AI Builder**: Document processing and entity extraction.
 - **Agent Flows / Power Automate**: Multi-step workflow automation for report generation, approvals, and data synchronization.
@@ -230,7 +230,7 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
         └──► [SharePoint: Archive to document library]
 ```
 
-**AI Services**: LLM (minutes drafting, action item extraction), Azure AI Search (retrieve minutes templates)
+**AI Services**: LLM (minutes drafting, action item extraction)
 
 **Connected Applications**: MS Teams, Outlook, SharePoint
 
@@ -272,7 +272,7 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
         └── 👎 Rejected ──► [Agent: Revise based on feedback]
 ```
 
-**AI Services**: LLM (communication drafting), Azure AI Search (retrieve templates)
+**AI Services**: LLM (communication drafting)
 
 **Connected Applications**: Outlook, SharePoint, Dataverse
 
@@ -286,7 +286,7 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
 
 **Function**: Analyze clinical trial risks using Microsoft Foundry and Veeva Vault integration. Produces Risk Heatmap and RAID Logs.
 
-**Capabilities** (as shown in diagram): GPT-4o, Veeva Vault, Risk Scoring, RAID Log.
+**Capabilities** (as shown in diagram): LLM, Veeva Vault, Risk Scoring, RAID Log.
 
 **Dataflow:**
 ```
@@ -419,7 +419,7 @@ ServiceNow, SharePoint, and Microsoft Teams to provide accurate, real-time proje
 **Constraints:**
 - Operate only within the scope of project management functions.
 - If asked about clinical/medical decisions, politely redirect to the medical team.
-- Azure AI Foundry models (risk scoring, PDUFA prediction) are project management
+- Microsoft Foundry models (risk scoring, PDUFA prediction) are project management
   decision-support tools only — not medical devices or clinical decision support systems.
 - Safety signal detection is out of scope — redirect to validated pharmacovigilance system.
 ```
@@ -446,7 +446,7 @@ The following components are used in the Life Sciences Project Manager Multi-Age
 
 [**Microsoft Copilot Studio**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/): Low-code platform for building, testing, and deploying the orchestrator and connected agents. Provides generative orchestration capabilities, multi-agent coordination via Connected Agents pattern, and topic-based routing. Chosen for its native integration with Microsoft 365, Dataverse, and Power Platform.
 
-[**Microsoft Foundry (Azure AI Foundry)**](https://learn.microsoft.com/en-us/azure/ai-foundry/): Hosts custom predictive models. Used by Risk Management Agent (risk severity scoring) and Project Planning Agent (schedule analysis). Provides custom model training and deployment capabilities.
+[**Microsoft Foundry (Microsoft Foundry)**](https://learn.microsoft.com/en-us/azure/ai-foundry/): Hosts custom predictive models. Used by Risk Management Agent (risk severity scoring) and Project Planning Agent (schedule analysis). Provides custom model training and deployment capabilities.
 
 ### AI & Generative Services
 
@@ -611,7 +611,7 @@ As shown in the Performance Monitoring zone of the architecture diagram:
 
 1. **Microsoft Copilot Studio GxP Compliance**: Copilot Studio deployments are operated within a tenant configuration aligned to **21 CFR Part 11** (FDA electronic records), **EMA Annex 11** (EU computerised systems), and **ICH E6(R3)** (Good Clinical Practice). This includes full audit trail logging of all agent interactions and decisions, electronic signature support for approval workflows, data integrity controls (ALCOA+ principles: Attributable, Legible, Contemporaneous, Original, Accurate), and change control procedures for agent topic/instruction modifications. Microsoft provides compliance commitments — customers are responsible for validating their specific configurations.
 
-2. **Azure AI Foundry GxP Compliance**: Azure AI Foundry deployments meet GxP validation requirements for AI/ML models used in risk scoring and PDUFA date prediction, including model validation documentation and version control, explainability of model predictions for regulatory audit, and segregation of development and production model environments. Azure AI Foundry models are **not** positioned as medical devices or clinical decision support tools — they are project management decision aids. All clinical decisions remain with qualified medical and regulatory personnel.
+2. **Microsoft Foundry GxP Compliance**: Microsoft Foundry deployments meet GxP validation requirements for AI/ML models used in risk scoring and PDUFA date prediction, including model validation documentation and version control, explainability of model predictions for regulatory audit, and segregation of development and production model environments. Microsoft Foundry models are **not** positioned as medical devices or clinical decision support tools — they are project management decision aids. All clinical decisions remain with qualified medical and regulatory personnel.
 
 3. **HIPAA Compliance**: All components (Copilot Studio, Dataverse, Azure OpenAI, Azure AI Search, Power Automate, SharePoint) are deployed within a HIPAA-compliant Microsoft 365 / Azure tenant with Business Associate Agreements (BAAs) executed with Microsoft, PHI (Protected Health Information) encryption at rest and in transit, minimum necessary access controls, and de-identification of patient data before agent processing. No patient-identifiable information (PHI) is processed by any agent — all individual patient data remains in Veeva Vault CTMS and validated clinical systems. Only aggregate counts and metadata flow into Dataverse.
 
@@ -641,67 +641,33 @@ As shown in the Performance Monitoring zone of the architecture diagram:
 
 ## Considerations
 
-These considerations implement the pillars of Power Platform Well-Architected. Learn more in [Microsoft Power Platform Well-Architected](https://aka.ms/powa).
+These considerations implement the pillars of Power Platform Well-Architected, a set of guiding tenets that improve the quality of a workload. Learn more in [Microsoft Power Platform Well-Architected](https://aka.ms/powa).
 
 ### Reliability
 
-**Design for GxP validation**: Allocate responsibilities between agents and connectors to avoid unnecessary complexity in any single agent. The five-agent pattern ensures each agent is independently testable, validatable, and deployable through the GAMP 5 ALM pipeline. If the Risk Management Agent encounters an issue, the Status Reports Agent and Meeting Management Agent continue to operate independently.
-
-**AQS threshold design**: Configure AQS thresholds conservatively for regulatory outputs (0.90 for external communications, 0.75 for internal summaries) to minimise the risk of non-compliant outputs reaching clinical or regulatory stakeholders.
-
-**Handle Veeva Vault session timeout**: The Veeva Vault Custom Connector uses session-based authentication that can timeout. Implement session refresh logic in Power Automate flows (re-authenticate before each API call sequence) to prevent flow failures in long-running batch operations.
-
-**Test for resiliency and availability**: Implement error handling and retry logic in all connectors. Configure Power Automate flows with exponential backoff retry policies for transient failures from enterprise system APIs.
-
-**Design for redundancy**: Dataverse provides built-in high availability. Azure OpenAI Service should be deployed with regional failover. Knowledge sources in Azure AI Search should be replicated across availability zones. Uptime SLA targets of 99.9% should be configured with alerting for degradations.
+The five-agent pattern ensures each agent is independently testable and deployable. If one agent encounters an issue, the others continue to operate independently. Implement error handling and retry logic in all connectors for enterprise system API failures.
 
 ### Security
 
-**Apply record-level security in Dataverse** to enforce study-level data isolation across all agent interactions. Implement Business Unit and Team-based security models aligned with organizational hierarchy. Learn more in [record-level security in Dataverse](https://learn.microsoft.com/en-us/power-platform/admin/wp-security-cds#record-level-security-in-dataverse).
+Apply [record-level security in Dataverse](https://learn.microsoft.com/en-us/power-platform/admin/wp-security-cds#record-level-security-in-dataverse) to enforce study-level data isolation across all agent interactions.
 
-**Maintain 21 CFR Part 11 compliant audit trails** using [Dataverse auditing](https://learn.microsoft.com/en-us/power-platform/admin/manage-dataverse-auditing) — tamper-evident records of all risk register changes, approval decisions, and agent outputs.
-
-**Protect API credentials** — store all OAuth secrets for Veeva Vault and Jira Custom Connectors in [Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/) accessed via Managed Identity. Never use API Key authentication in production GxP environments. Rotate credentials on a 90-day cadence.
-
-**Enforce DLP policies** via Power Platform Admin Center to prevent sensitive clinical data from flowing to unauthorized connectors or external services. Veeva Vault and Jira Custom Connectors must be explicitly approved in DLP policy.
-
-**Implement RBAC** with distinct GxP roles (PM, CRA, Reg Affairs, CRO Partner, Sponsor, Administrator). Each role should have minimum necessary permissions.
-
-**Enable Purview data governance** for classification and labeling: *Confidential — Clinical Trial Data*, *Restricted — Regulatory Submission*, *Internal — CRO Confidential*. Auto-labelling policies detect and classify clinical data.
+Use [Dataverse auditing](https://learn.microsoft.com/en-us/power-platform/admin/manage-dataverse-auditing) to maintain audit trails of all agent actions, approval decisions, and data changes.
 
 Follow [recommendations for monitoring and threat detection](https://learn.microsoft.com/en-us/power-platform/well-architected/security/monitor-threats).
 
 ### Operational Excellence
 
-**Implement GAMP 5-aligned ALM**: The architecture follows DEV → TEST → PROD with Azure DevOps CI/CD pipelines. IQ/OQ/PQ qualification gates in TEST. Every production change requires a linked QMS change control record. Agent topics and instructions should be version-controlled.
-
-**Conduct agent evaluations in TEST**: Run evaluation suites against known-good baselines. Track AQS scores in TEST and only promote when AQS ≥ 0.75. Automated AQS testing against golden datasets provides repeatable quality verification.
-
-**Maintain comprehensive audit logging**: Every agent action, data retrieval, report generation, and user interaction must be logged in the Dataverse audit trail. This is mandatory for GxP compliance and regulatory inspection readiness (FDA, EMA).
-
-**Document all agent configurations**: Agent instructions, topic definitions, knowledge source configurations, connector settings, AQS thresholds, and amendment impact rules should be documented and maintained in a validated system.
+The architecture follows a DEV → TEST → PROD ALM pipeline with Azure DevOps CI/CD. Agent evaluation suites run in TEST with AQS baseline verification before promotion to production.
 
 ### Performance Efficiency
 
-**Optimise LLM token consumption**: Use GPT-4o mini for simpler tasks (intent classification, basic formatting) and GPT-4o for complex tasks (risk narrative generation, multi-source summarization). Monitor token usage via GenAI Metrics Dashboard.
+Power Automate flows with parallel branching handle multi-system data retrieval efficiently. Learn more in [Use an asynchronous flow pattern](https://learn.microsoft.com/en-us/power-automate/guidance/coding-guidelines/asychronous-flow-pattern).
 
-**Use parallel branching**: Power Automate flows with parallel branching handle multi-system data retrieval efficiently — the Status Reports Agent retrieves MS Project data and Veeva Vault CTMS data in parallel before merging for report generation.
-
-**Use DirectQuery** (not scheduled import) in Power BI dashboards to ensure real-time data for risk heatmaps and enrollment tracking — avoiding stale regulatory data in governance-facing dashboards.
-
-**Monitor agent response times**: Target < 10 seconds for simple queries, < 30 seconds for report generation, < 60 seconds for complex multi-source aggregations. Use Application Insights to track and alert on SLA breaches.
-
-**Use asynchronous processing for long-running operations**: Status report generation and risk assessment scans should use asynchronous Power Automate flows that notify the user upon completion rather than blocking the conversation.
+Power BI dashboards use DirectQuery against Dataverse for real-time data in risk heatmaps and project tracking.
 
 ### Experience Optimization
 
-**Design mobile-first**: The PM Command Center Power App is designed for CRAs and PMs frequently on-site at clinical trial locations. All approval workflows (GDP communication sign-off, CAPA acknowledgement) are completable on mobile without requiring Teams desktop.
-
-**Support multi-turn conversation**: PMs can refine requests iteratively (e.g., "make the enrollment section more detailed" after reviewing a draft status report) without restarting the workflow.
-
-**Provide multi-channel consistency**: Regardless of channel (Teams, Outlook, PM Command Center), agents provide consistent information and formatting.
-
-**Implement progressive disclosure**: For complex outputs, present a summary first with the ability to drill down. Use adaptive cards in Teams for structured data (risk heatmaps, status summaries, approval buttons).
+The PM Command Center Power App is designed mobile-first for PMs frequently on-site. The Orchestrator supports multi-turn conversation handling — PMs can refine requests iteratively without restarting the workflow.
 
 Learn more in [Introduction to conversational experiences](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/cux-overview) and [Recommendations for designing conversational user experiences](https://learn.microsoft.com/en-us/power-platform/well-architected/experience-optimization/conversation-design).
 
@@ -709,21 +675,17 @@ Learn more in [Introduction to conversational experiences](https://learn.microso
 
 ## Responsible AI
 
-**Privacy and Security**: Sensitive program data (aggregate operational metrics, site-level data, quality records) is protected by Entra ID RBAC, Dataverse row-level security, and Purview sensitivity labels. No patient-identifiable information (PHI) is processed by any agent — all individual patient data remains in validated source systems (e.g., Veeva Vault CTMS). The Microsoft HIPAA BAA must be in place where applicable. Encryption at rest (AES-256) and in transit (TLS 1.2+) is enforced.
+**Privacy and security**: Patient and program data is protected by encryption and complies with [Health Insurance Portability and Accountability Act (HIPAA)](https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech) requirements.
 
-**Decision Boundaries**: Azure AI Foundry models (risk scoring, milestone prediction) are project management decision-support tools only. They are explicitly not medical devices, not clinical decision support systems, and not pharmacovigilance tools. All clinical, medical, and regulatory decisions remain with qualified personnel. Agent outputs include source citations and confidence scores to support informed human review.
+**Transparency**: Agent responses cite source documents and data fields. AQS scores are visible to users for responses below threshold.
 
-**Transparency and Explainability**: Every agent response includes the source documents and data fields used to generate it (RAG citation). AQS scores are visible to PM users for any response below the standard threshold. Data provenance is tracked — each report section cites its source system and timestamp. Thumbs down feedback is reviewed weekly and used to improve quality.
+**Fairness**: Communications are generated from structured templates and source data only, ensuring consistency across all stakeholders.
 
-**Fairness and Non-discrimination**: Agent communications are generated from structured templates and source data only — no generative embellishment of clinical findings. This ensures consistency across all site communications and eliminates differential treatment risk.
+**Reliability and safety**: The AQS framework blocks agent outputs below quality thresholds. GDP approval gates prevent non-compliant content from reaching external stakeholders.
 
-**Reliability and Safety**: The AQS framework ensures agent outputs below quality thresholds are blocked from delivery and require human review. GDP approval gates prevent non-compliant content from reaching external stakeholders.
+**Accountability**: Complete audit trails in Dataverse ensure every agent action is traceable. Human approval is required before delivery of critical outputs.
 
-**Inclusiveness**: Multi-language content generation for global clinical programs. Adaptive cards and reports designed for accessibility compliance (WCAG 2.1 AA).
-
-**Accountability**: Complete audit trails in Dataverse ensure every agent action is traceable to a specific user request, agent, and timestamp. AQS scoring provides quantitative accountability metrics.
-
-**Human-in-the-Loop**: Critical outputs (stakeholder communications, risk escalations, report publications) require explicit human approval before delivery. The architecture augments — not replaces — the Project Manager's judgment.
+**Human-in-the-loop**: Stakeholder communications, risk escalations, and report publications require explicit PM approval (thumbs up) before delivery.
 
 ---
 
@@ -741,26 +703,13 @@ As shown in the architecture diagram, the solution follows a three-environment A
 
 ---
 
-## Contributors
-
-*This article describes a solution idea. Your cloud architect can use this guidance to help visualize the major components for a typical implementation of this architecture.*
-
-Principal authors:
-
-- Solution architecture designed for the Life Sciences Project Manager role.
-
----
-
 ## Related Resources
 
 - [Microsoft Power Platform Well-Architected](https://learn.microsoft.com/en-us/power-platform/well-architected/)
-- [Microsoft Copilot Studio — Connected Agents](https://learn.microsoft.com/en-us/microsoft-copilot-studio/)
-- [Microsoft Copilot Studio — Generative Orchestration](https://learn.microsoft.com/en-us/microsoft-copilot-studio/)
 - [Copilot Studio Guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/)
 - [Power Platform Custom Connectors](https://learn.microsoft.com/en-us/connectors/custom-connectors/)
-- [Azure AI Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/)
+- [Microsoft Foundry](https://learn.microsoft.com/en-us/azure/ai-foundry/)
 - [Azure OpenAI Service](https://learn.microsoft.com/en-us/azure/ai-services/openai/)
-- [Azure AI Search](https://learn.microsoft.com/en-us/azure/search/)
 - [Power Automate](https://learn.microsoft.com/en-us/power-automate/)
 - [Microsoft Dataverse](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/)
 - [Power BI](https://learn.microsoft.com/en-us/power-bi/)
@@ -771,32 +720,5 @@ Principal authors:
 - [Azure Key Vault](https://learn.microsoft.com/en-us/azure/key-vault/)
 - [Microsoft Responsible AI practices](https://www.microsoft.com/en-in/ai/responsible-ai)
 - [Microsoft HIPAA BAA](https://learn.microsoft.com/en-us/compliance/regulatory/offering-hipaa-hitech)
-- [FDA 21 CFR Part 11 — Electronic Records](https://www.fda.gov/regulatory-information/search-fda-guidance-documents/part-11-electronic-records-electronic-signatures-scope-and-application)
-- [ICH E6(R3) — Good Clinical Practice](https://www.ich.org/page/efficacy-guidelines)
-- [GAMP 5 — Good Automated Manufacturing Practice](https://ispe.org/publications/guidance-documents/gamp-5-guide-2nd-edition)
 
 ---
-
-## Reference Architecture Patterns
-
-This solution idea follows patterns established in the Microsoft Power Platform Architecture Center:
-
-- [Healthcare Patient Support Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/agent-healthcare-patient-support)
-- [Rental Property Portal Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/agent-rental-portal)
-- [EVVIE Application](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/app-evvie)
-- [Custom Contact Center Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/agent-custom-contact-center)
-- [Travel Customer Concierge Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/agent-travel-customer)
-- [Ticket and Refund Management Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/agent-ticket-and-refund)
-- [Auto AI Triage](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/auto-ai-triage)
-- [Cardio Triage Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/cardio-triage-agent)
-- [Anomaly Detection Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/agent-anomaly-detection)
-- [Customer Support Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/customer-support-agent)
-- [Onboarding Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/onboarding-agent)
-- [Donor Management Agent](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/agent-donor-management)
-- [Learning Management Application](https://learn.microsoft.com/en-us/power-platform/architecture/solution-ideas/app-learning-management)
-
----
-
-*Life Sciences — Project Manager Multi-Agent Architecture*
-*Microsoft Power Platform Architecture Patterns*
-*February 2026*
