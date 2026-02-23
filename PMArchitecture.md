@@ -2,19 +2,18 @@
 
 The **Life Sciences Project Manager Multi-Agent Architecture** is designed to reduce the administrative burden on Project Managers in the life sciences industry and improve the quality, speed, and regulatory compliance of project management deliverables. The solution applies Microsoft Copilot Studio, Power Platform, and Azure AI services to build a network of specialized AI agents — orchestrated by a central Project Manager Agent — that automate status reporting, meeting lifecycle management, stakeholder communications, risk management, and program planning.
 
-The architecture is applicable across life sciences project management functions including clinical development, regulatory submissions, drug manufacturing, medical device programs, and commercial operations. The primary use case demonstrated in this article focuses on clinical trial program management — the most complex and compliance-intensive scenario.
+The architecture is applicable across life sciences project management functions including clinical development, regulatory submissions, drug manufacturing, medical device programs, and commercial operations.
 
 By integrating with enterprise systems including Veeva Vault (QMS, CTMS, RIM), MS Project, Jira, SmartSheet, SAP, and ServiceNow, the architecture provides a comprehensive approach to managing life sciences projects — automating regulatory-grade workflows, enforcing audit-ready governance, and delivering AI-driven insights — all within the Microsoft ecosystem.
 
-This article outlines the key components, workflows, agent details, data flows, and compliance considerations, offering a blueprint for implementing a robust project management support system in regulated life sciences environments.
+This article outlines the architecture components, workflows, agent details, and governance considerations, offering a blueprint for implementing a multi-agent project management solution in regulated life sciences environments.
 
 ---
 
 ## Architecture Diagram
 
-![Architecture diagram illustrating the Life Sciences Project Manager Multi-Agent Architecture with orchestrator, five connected agents, AI services, enterprise integrations, data platform, performance monitoring, reporting, and governance layers.](Final%20Architecture/image.png)
+<img width="6424" height="3512" alt="image" src="https://github.com/user-attachments/assets/625bd233-ea33-4269-b7b6-182d8fa79157" />
 
-*Download a [draw.io file](ProjectManager-Final.drawio) of this architecture.*
 
 The architecture spans eight functional zones:
 
@@ -163,39 +162,44 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
 
 **Capabilities** (as shown in diagram): SmartSheet integration, Auto-Report generation, Templates.
 
-**Dataflow:**
+```mermaid
+flowchart TD
+    A["👤 PM Request / ⏰ Scheduled Trigger"] -->|User Request| B["🤖 PM Orchestrator Agent"]
+    B -->|"Intent: Generate Status Report"| C["📊 Status Reports Agent"]
+
+    subgraph ENT["Enterprise Integrations"]
+        D1["Jira"]
+        D2["Veeva Vault"]
+        D3["SmartSheet"]
+        D4["MS Project"]
+    end
+
+    C -->|"MCP / Connectors / REST API"| D1
+    C -->|"Connectors / REST API"| D2
+    C -->|"Connectors / REST API"| D3
+    C -->|"Connectors / REST API"| D4
+
+    D1 -->|"Sprint status, tasks"| E
+    D2 -->|"Document milestones, enrollment"| E
+    D3 -->|"CRO deliverables, Gantt"| E
+    D4 -->|"Timeline, critical path"| E
+
+    subgraph AI["AI & Automation Services"]
+        E["Azure AI Search<br>(Retrieve templates)"]
+        F["LLM<br>(Summarize & Format)"]
+        G["Agent Flows<br>(Report pipeline)"]
+    end
+
+    E --> F
+    F --> G
+    G -->|"PDF / HTML Report"| H["📦 Dataverse<br>(Log report metadata)"]
+    G -->|"Archive report"| I["SharePoint"]
+    G -->|"Distribute to stakeholders"| J["Outlook"]
+
+    H -->|"Analytics Feed"| K["📈 Power BI<br>(Status Board)"]
 ```
-[Scheduled Trigger / User Request]
-        │
-        ▼
-[Orchestrator: Intent = "Generate Status Report"]
-        │
-        ▼
-[Status Reports Agent Activated]
-        │
-        ├──► [Jira] ──► Sprint status, task completion
-        ├──► [Veeva Vault] ──► Document milestones, enrollment data
-        ├──► [SmartSheet] ──► CRO deliverable completion, Gantt status
-        └──► [MS Project] ──► Timeline, critical path
-                │
-                ▼
-        [LLM: Summarize & Format using templates]
-                │
-                ▼
-        [Output: PDF / HTML Report]
-                │
-                ├──► [SharePoint: Archive report]
-                ├──► [Outlook: Distribute to stakeholders]
-                └──► [Dataverse: Log report metadata]
-```
 
-**AI Services**: LLM (report drafting), Azure AI Search (retrieve templates from SharePoint)
-
-**Connected Applications**: Jira, SmartSheet, Veeva Vault, MS Project, SharePoint, Outlook
-
-**Output**: PDF / HTML status reports
-
-**Processing Mode**: **Independent** — each report is self-contained. Multiple reports can run in parallel.
+**Output**: PDF / HTML status reports | **Processing Mode**: Independent
 
 ---
 
@@ -205,38 +209,37 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
 
 **Capabilities** (as shown in diagram): Teams integration, Outlook integration, Scheduling, MoM generation.
 
-**Dataflow:**
+```mermaid
+flowchart TD
+    A["👤 PM Request / 📅 Meeting Completed"] -->|User Request| B["🤖 PM Orchestrator Agent"]
+    B -->|"Intent: Generate MoM / Schedule Meeting"| C["📋 Meeting Management Agent"]
+
+    subgraph ENT["Enterprise Integrations"]
+        D1["MS Teams<br>(Transcript, attendees)"]
+        D2["Outlook<br>(Calendar, invites)"]
+    end
+
+    C -->|"Graph API"| D1
+    C -->|"Graph API"| D2
+
+    D1 -->|"Transcript, attendees"| E
+    D2 -->|"Calendar data"| E
+
+    subgraph AI["AI & Automation Services"]
+        E["LLM<br>(Extract decisions,<br>action items, draft minutes)"]
+        F["Agent Flows<br>(MoM pipeline)"]
+    end
+
+    E --> F
+    F -->|"MoM, Action Tracker"| G["📦 Dataverse<br>(Store MoM, action items)"]
+    F -->|"Distribute minutes"| H["Outlook"]
+    F -->|"Post summary"| I["MS Teams"]
+    F -->|"Archive to library"| J["SharePoint"]
+
+    G -->|"Analytics Feed"| K["📈 Power BI<br>(Meeting Logs)"]
 ```
-[Teams Meeting Completed / User Request]
-        │
-        ▼
-[Orchestrator: Intent = "Generate MoM" or "Schedule Meeting"]
-        │
-        ▼
-[Meeting Management Agent Activated]
-        │
-        ├──► [MS Teams] ──► Meeting transcript, attendees
-        ├──► [Outlook] ──► Calendar availability, invites
-        │
-        ▼
-[LLM: Extract decisions, action items, draft minutes]
-        │
-        ▼
-[Output: MoM, Action Tracker]
-        │
-        ├──► [Dataverse: Store MoM, update action items]
-        ├──► [Outlook: Distribute minutes to attendees]
-        ├──► [Teams: Post summary in channel]
-        └──► [SharePoint: Archive to document library]
-```
 
-**AI Services**: LLM (minutes drafting, action item extraction)
-
-**Connected Applications**: MS Teams, Outlook, SharePoint
-
-**Output**: MoM documents, Action Tracker
-
-**Processing Mode**: **Sequential** — agenda creation → meeting → transcript processing → MoM generation → action item creation.
+**Output**: MoM, Action Tracker | **Processing Mode**: Sequential
 
 ---
 
@@ -246,39 +249,42 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
 
 **Capabilities** (as shown in diagram): Segmentation, GDP Approved, Email Drafts, Summaries.
 
-**Dataflow:**
+```mermaid
+flowchart TD
+    A["👤 PM Request / ⏰ Scheduled Trigger"] -->|User Request| B["🤖 PM Orchestrator Agent"]
+    B -->|"Intent: Stakeholder Communication"| C["📨 Stakeholder Comms Agent"]
+
+    subgraph DATA["Data Platform"]
+        D1["Dataverse<br>(Project status, segments)"]
+    end
+
+    subgraph ENT["Enterprise Integrations"]
+        D2["SharePoint<br>(Communication templates)"]
+    end
+
+    C --> D1
+    C --> D2
+
+    D1 --> E
+    D2 --> E
+
+    subgraph AI["AI & Automation Services"]
+        E["LLM<br>(Generate audience-segmented content)"]
+        F["Agent Flows<br>(Approval & distribution)"]
+    end
+
+    E --> F
+    F -->|"Draft for review"| G{"👍 / 👎<br>GDP Approval Gate"}
+    G -->|"👍 Approved"| H["Outlook<br>(Distribute to recipients)"]
+    G -->|"👍 Approved"| I["SharePoint<br>(Update portal)"]
+    G -->|"👍 Approved"| J["📦 Dataverse<br>(Log approval record)"]
+    G -->|"👎 Rejected"| K["Agent revises<br>based on feedback"]
+    K --> E
+
+    J -->|"Analytics Feed"| L["📈 Power BI<br>(Comms Tracker)"]
 ```
-[User Request / Scheduled Trigger]
-        │
-        ▼
-[Orchestrator: Intent = "Stakeholder Communication"]
-        │
-        ▼
-[Stakeholder Comms Agent Activated]
-        │
-        ├──► [Dataverse] ──► Project status, stakeholder segments
-        ├──► [SharePoint] ──► Communication templates
-        │
-        ▼
-[LLM: Generate audience-segmented content]
-        │
-        ▼
-[GDP Approval Gate (Human-in-the-Loop: Thumbs Up / Down)]
-        │
-        ├── 👍 Approved ──► [Outlook: Distribute to recipients]
-        │                    [SharePoint: Update portal content]
-        │                    [Dataverse: Log approval record]
-        │
-        └── 👎 Rejected ──► [Agent: Revise based on feedback]
-```
 
-**AI Services**: LLM (communication drafting)
-
-**Connected Applications**: Outlook, SharePoint, Dataverse
-
-**Output**: Exec Summaries, Newsletters
-
-**Processing Mode**: **Sequential with gate** — Draft → GDP Approval (must complete before proceeding) → Send → Archive. Will not proceed if rejected.
+**Output**: Exec Summaries, Newsletters | **Processing Mode**: Sequential with GDP approval gate
 
 ---
 
@@ -288,42 +294,41 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
 
 **Capabilities** (as shown in diagram): LLM, Veeva Vault, Risk Scoring, RAID Log.
 
-**Dataflow:**
+```mermaid
+flowchart TD
+    A["👤 PM Request / ⏰ Scheduled / ⚡ Veeva Vault Event"] -->|User Request or Event Trigger| B["🤖 PM Orchestrator Agent"]
+    B -->|"Intent: Risk Assessment"| C["⚠️ Risk Management Agent"]
+
+    subgraph ENT["Enterprise Integrations"]
+        D1["Veeva Vault<br>(CAPAs, deviations, quality events)"]
+        D2["Jira<br>(Risk-tagged issues, blockers)"]
+    end
+
+    C -->|"Connectors / REST API"| D1
+    C -->|"Connectors / REST API"| D2
+
+    D1 --> E
+    D2 --> E
+
+    subgraph AI["AI & Automation Services"]
+        E["Azure AI Search<br>(Historical risk patterns)"]
+        F["Microsoft Foundry<br>(Risk severity scoring: probability × impact)"]
+        G["LLM<br>(RAID log narrative)"]
+        H["Agent Flows<br>(Escalation & filing)"]
+    end
+
+    E --> F
+    F --> G
+    G --> H
+
+    H -->|"Update risk register"| I["📦 Dataverse"]
+    H -->|"File RAID log"| J["SharePoint"]
+    H -->|"Escalation alert<br>(if high severity)"| K["MS Teams"]
+
+    I -->|"Analytics Feed"| L["📈 Power BI<br>(Risk Heatmap)"]
 ```
-[Scheduled Trigger / Veeva Vault Event / User Request]
-        │
-        ▼
-[Orchestrator: Intent = "Risk Assessment"]
-        │
-        ▼
-[Risk Management Agent Activated]
-        │
-        ├──► [Veeva Vault] ──► CAPAs, deviations, quality events
-        ├──► [Jira] ──► Risk-tagged issues, blockers
-        ├──► [Azure AI Search] ──► Historical risk patterns
-        │
-        ▼
-[Microsoft Foundry: Risk severity scoring (probability × impact)]
-        │
-        ▼
-[LLM: RAID log narrative drafting]
-        │
-        ▼
-[Output: Risk Heatmap, RAID Logs]
-        │
-        ├──► [Power BI: Update risk heatmap dashboard]
-        ├──► [Dataverse: Update risk register]
-        ├──► [SharePoint: File RAID log]
-        └──► [Teams: Escalation alert (if high severity)]
-```
 
-**AI Services**: Microsoft Foundry (risk severity scoring), LLM (RAID log drafting), Azure AI Search (risk templates)
-
-**Connected Applications**: Veeva Vault, Jira, Dataverse, Power BI, SharePoint
-
-**Output**: Risk Heatmap, RAID Logs
-
-**Processing Mode**: **Independent + Event-triggered** — operates autonomously. Can be triggered by events in Veeva Vault without PM prompt.
+**Output**: Risk Heatmap, RAID Logs | **Processing Mode**: Independent + Event-triggered
 
 ---
 
@@ -333,41 +338,46 @@ All five sub-agents are built as **Copilot Studio Connected Agents**, each with 
 
 **Capabilities** (as shown in diagram): Scheduling, WBS / RACI, Resources, Dependencies.
 
-**Dataflow:**
+```mermaid
+flowchart TD
+    A["👤 PM Request / ⏰ Scheduled Weekly"] -->|User Request| B["🤖 PM Orchestrator Agent"]
+    B -->|"Intent: Project Planning"| C["📅 Project Planning Agent"]
+
+    subgraph ENT["Enterprise Integrations"]
+        D1["MS Project<br>(Milestones, critical path)"]
+        D2["SmartSheet<br>(Resource availability)"]
+        D3["Jira<br>(Sprint capacity, tasks)"]
+        D4["SAP<br>(Budget, resource costs)"]
+    end
+
+    C -->|"Connectors / REST API"| D1
+    C -->|"Connectors / REST API"| D2
+    C -->|"MCP / Connectors / REST API"| D3
+    C -->|"Connectors / OData API"| D4
+
+    D1 -->|"Timeline data"| E
+    D2 -->|"Resource data"| E
+    D3 -->|"Sprint data"| E
+    D4 -->|"Budget data"| E
+
+    subgraph AI["AI & Automation Services"]
+        E["Azure AI Search<br>(Retrieve planning templates)"]
+        F["LLM<br>(Generate WBS / RACI / Schedule narrative)"]
+        G["Agent Flows<br>(Sync plan to systems)"]
+    end
+
+    E --> F
+    F --> G
+
+    G -->|"Update timeline"| H["MS Project"]
+    G -->|"Update resource plan"| I["SmartSheet"]
+    G -->|"File RACI/WBS docs"| J["SharePoint"]
+    G -->|"Store plan snapshot"| K["📦 Dataverse"]
+
+    K -->|"Analytics Feed"| L["📈 Power BI<br>(Project Dashboard)"]
 ```
-[User Request / Scheduled Weekly]
-        │
-        ▼
-[Orchestrator: Intent = "Project Planning"]
-        │
-        ▼
-[Project Planning Agent Activated]
-        │
-        ├──► [MS Project] ──► Milestones, critical path, timeline
-        ├──► [SmartSheet] ──► Resource availability, tracker data
-        ├──► [Jira] ──► Sprint capacity, task status
-        ├──► [SAP] ──► Budget allocation, resource costs
-        │
-        ▼
-[LLM: Generate WBS / RACI / Schedule]
-        │
-        ▼
-[Output: Schedules, WBS, RACI]
-        │
-        ├──► [MS Project: Update timeline]
-        ├──► [SmartSheet: Update resource plan]
-        ├──► [SharePoint: File RACI/WBS documents]
-        ├──► [Dataverse: Store plan snapshot]
-        └──► [Power BI: Update project dashboard]
-```
 
-**AI Services**: LLM (WBS/RACI drafting, schedule narrative), Azure AI Search (retrieve planning templates)
-
-**Connected Applications**: MS Project, SmartSheet, Jira, SAP, SharePoint, Dataverse
-
-**Output**: Schedules, WBS, RACI
-
-**Processing Mode**: **Sequential** — scope definition → WBS → schedule → resource allocation → dependency mapping.
+**Output**: Schedules, WBS, RACI | **Processing Mode**: Sequential
 
 ---
 
@@ -379,50 +389,6 @@ While agents are independently deployable, the orchestrator manages cross-agent 
 - The **Meeting Management Agent** may trigger the **Stakeholder Comms Agent** to distribute MoM to external stakeholders.
 - The **Project Planning Agent** may invoke the **Risk Management Agent** to assess risks for a proposed timeline change.
 - The **Orchestrator** supports parallel delegation for independent tasks (e.g., generating a status report AND scheduling a meeting simultaneously).
-
----
-
-## Agent Instructions
-
-The following instructions can be used as a starting point for configuring the Project Manager Orchestrator Agent in Copilot Studio:
-
-```copilot
-You are a helpful, professional Life Sciences Project Manager Assistant that supports
-Project Managers with GxP-compliant project management tasks across life sciences programs.
-
-You coordinate five specialized agents:
-- Status report generation (Status Reports Agent)
-- Meeting management and MoM creation (Meeting Management Agent)
-- Stakeholder communications (Stakeholder Comms Agent)
-- Risk assessment and RAID log management (Risk Management Agent)
-- Project planning, scheduling, and resource allocation (Project Planning Agent)
-
-You integrate with Veeva Vault (QMS/CTMS/RIM), MS Project, Jira, SmartSheet, SAP,
-ServiceNow, SharePoint, and Microsoft Teams to provide accurate, real-time project insights.
-
-**Rules:**
-- Always confirm the study/project identifier before executing any action.
-- Validate user GxP role via Entra ID RBAC before routing — CRO users cannot access
-  risk data for studies they are not assigned to.
-- For status reports, ask for the reporting period and audience (sponsor, internal, CRO).
-- For risk assessments, present the risk heatmap and ask for confirmation before
-  updating the RAID log.
-- All stakeholder communications must be reviewed and approved via GDP approval gate
-  before distribution — the agent must not send any external communication without approval.
-- Never disclose patient-level or unblinded clinical trial data.
-- If Agent Quality Score (AQS) for any agent response is below the configured threshold,
-  do not proceed — flag the response to the PM with an explanation and request clarification.
-- For regulatory communications (IRB reports, FDA briefings), use AQS threshold of 0.90.
-- All outputs must comply with GDP (Good Documentation Practice) standards.
-- All outputs must be archived to SharePoint eTMF with version control.
-
-**Constraints:**
-- Operate only within the scope of project management functions.
-- If asked about clinical/medical decisions, politely redirect to the medical team.
-- Microsoft Foundry models (risk scoring, PDUFA prediction) are project management
-  decision-support tools only — not medical devices or clinical decision support systems.
-- Safety signal detection is out of scope — redirect to validated pharmacovigilance system.
-```
 
 ---
 
@@ -446,11 +412,11 @@ The following components are used in the Life Sciences Project Manager Multi-Age
 
 [**Microsoft Copilot Studio**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/): Low-code platform for building, testing, and deploying the orchestrator and connected agents. Provides generative orchestration capabilities, multi-agent coordination via Connected Agents pattern, and topic-based routing. Chosen for its native integration with Microsoft 365, Dataverse, and Power Platform.
 
-[**Microsoft Foundry (Microsoft Foundry)**](https://learn.microsoft.com/en-us/azure/ai-foundry/): Hosts custom predictive models. Used by Risk Management Agent (risk severity scoring) and Project Planning Agent (schedule analysis). Provides custom model training and deployment capabilities.
+[**Microsoft Foundry**](https://learn.microsoft.com/en-us/azure/ai-foundry/): Hosts custom predictive models. Used by Risk Management Agent (risk severity scoring) and Project Planning Agent (schedule analysis). Provides custom model training and deployment capabilities.
 
 ### AI & Generative Services
 
-[**Azure OpenAI Service (GPT-4o)**](https://learn.microsoft.com/en-us/azure/ai-services/openai/): The LLM powering content generation, summarization, intent classification, and conversational interactions across all agents.
+[**Azure OpenAI Service**](https://learn.microsoft.com/en-us/azure/ai-services/openai/): The LLM powering content generation, summarization, intent classification, and conversational interactions across all agents.
 
 [**Azure AI Search**](https://learn.microsoft.com/en-us/azure/search/): Enables Retrieval-Augmented Generation (RAG) by indexing enterprise knowledge sources (SOPs, protocols, regulatory guidelines) and providing grounded, contextual responses.
 
@@ -458,11 +424,15 @@ The following components are used in the Life Sciences Project Manager Multi-Age
 
 ### Automation & Integration
 
-[**Power Automate Agent Flows**](https://learn.microsoft.com/en-us/power-automate/): The execution backbone for all five agents. Agent Flows are structured, rules-based workflows incorporating AI actions, optimized for compliance-critical processes. All scheduled triggers, event-based triggers, approval workflows, connector calls, and document filing operations run through Power Automate.
+[**Agent Flows**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-flows-overview): Structured, rules-based workflows within Copilot Studio agents that incorporate AI actions. Used for multi-step processes such as report generation, approval routing, and data synchronization.
 
-[**Agent Tools / Connectors**](https://learn.microsoft.com/en-us/connectors/): Pre-built and custom connectors enabling agent communication with Jira, SmartSheet, Veeva Vault, SAP, ServiceNow, and other enterprise systems.
+[**Power Automate**](https://learn.microsoft.com/en-us/power-automate/): Cloud flow automation platform handling scheduled triggers, event-based triggers, and connector calls to enterprise systems. Serves as the execution backbone for all agent actions.
 
-[**Model Context Protocol (MCP)**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-mcp-overview): Agent-to-Agent communication protocol enabling the Orchestrator to discover and invoke sub-agent capabilities. Dataverse MCP Server (public preview) enables agents to query structured Dataverse data using natural language. Transport: Streamable HTTP.
+[**Agent Tools**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-tools-overview): Extensions that give agents the ability to perform actions — calling APIs, executing logic, and retrieving data from external systems at runtime.
+
+[**Connectors**](https://learn.microsoft.com/en-us/connectors/): Pre-built and custom connectors enabling communication with Jira, SmartSheet, Veeva Vault, SAP, ServiceNow, and other enterprise systems.
+
+[**Model Context Protocol (MCP)**](https://learn.microsoft.com/en-us/microsoft-copilot-studio/agent-mcp-overview): Agent-to-Agent communication protocol enabling the Orchestrator to discover and invoke sub-agent capabilities. Dataverse MCP Server enables agents to query structured Dataverse data using natural language. Transport: Streamable HTTP.
 
 ### User Interface
 
@@ -480,28 +450,11 @@ The following components are used in the Life Sciences Project Manager Multi-Age
 
 ### Enterprise System Integrations
 
-As shown in the architecture diagram:
-
-| System | Integration Method | Data Provided |
-|---|---|---|
-| **Jira** | REST API / MCP | Sprint status, backlog, risk issues, task assignments |
-| **SmartSheet** | REST API / Custom Connector | Project trackers, milestone sheets, resource plans |
-| **Veeva Vault** | REST API / Custom Connector | Clinical documents, CAPAs, deviations, regulatory docs |
-| **SharePoint** | Graph API / Document Mgmt | Project documents, templates, portal content |
-| **SAP** | OData API | Budget data, resource costs |
-| **ServiceNow** | REST API / Custom Connector | IT incidents, change requests |
-| **MS Teams** | Graph API / Chat / Meetings | Meeting transcripts, chat history, channel posts |
+See [Step 5 — Enterprise Integrations](#step-5--enterprise-integrations) for the full integration table.
 
 ### Reporting
 
-[**Power BI Dashboards**](https://learn.microsoft.com/en-us/power-bi/): As shown in the architecture diagram, the reporting layer includes:
-
-- **Operational Metrics**: CRO Deliverable Completion Rate, Study Budget Burn vs Forecast, Milestone Tracking, Enrollment Progress (Clinical Trials).
-- **Project Dashboard**: Portfolio View, Health Indicators, RAG Status, Timeline View (MS Project), Executive Summary.
-- **Clinical Trial Analytics**: Enrollment vs Target, Site Performance, Protocol Deviations, Safety Signals, CAPA Status Tracking.
-- **PM Command Center (Power Apps)**: Unified operational interface for cross-project status and agent actions.
-
-**Key Dashboards**: Risk Heatmap, Status Board, Resource View, Comms Tracker, Meeting Logs, Trial Analytics.
+See [Step 8 — Reporting](#step-8--reporting) for the full reporting layer details.
 
 ### Platform Governance, Security & Compliance
 
@@ -523,17 +476,17 @@ As shown in the Governance bar of the architecture diagram:
 
 ### Volume and Format of Data
 
-| Data Type | Source System | Format | Frequency |
-|---|---|---|---|
-| Milestone dates | MS Project | Structured (tasks, dates, % complete) | Weekly sync |
-| Enrollment / site actuals | Veeva Vault | Structured (JSON via REST API) | Daily sync |
-| CAPA / deviation records | Veeva Vault | Structured (JSON via REST API) | Event-triggered |
-| Regulatory documents | Veeva Vault | Unstructured (PDF, Word) | On-demand |
-| CRO deliverable tracker | SmartSheet | Structured (JSON via REST API) | Weekly sync |
-| Sprint tasks | Jira | Structured (JSON via REST API) | Daily sync |
-| Meeting transcripts | MS Teams | Unstructured (VTT, text) | Post-meeting |
-| SOPs / templates | SharePoint | Unstructured (Word, PDF) | Static with versioned updates |
-| Budget actuals | SAP | Structured (OData JSON) | Monthly |
+| Data Type | Source System | Format |
+|---|---|---|
+| Milestone dates | MS Project | Structured (tasks, dates, % complete) |
+| Enrollment / site actuals | Veeva Vault | Structured (JSON via REST API) |
+| CAPA / deviation records | Veeva Vault | Structured (JSON via REST API) |
+| Regulatory documents | Veeva Vault | Unstructured (PDF, Word) |
+| CRO deliverable tracker | SmartSheet | Structured (JSON via REST API) |
+| Sprint tasks | Jira | Structured (JSON via REST API) |
+| Meeting transcripts | MS Teams | Unstructured (VTT, text) |
+| SOPs / templates | SharePoint | Unstructured (Word, PDF) |
+| Budget actuals | SAP | Structured (OData JSON) |
 
 ### Static vs Dynamic Data Sources
 
