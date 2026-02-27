@@ -11,13 +11,13 @@ The Component Library provides a set of reusable, pre-built components for Micro
 
 The Component Library includes five components shipped across two solutions. Components that require no connection references are in the base solution; components that share a common connector are grouped into their own solution. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
 
-| **Collection** | **Solution** | **Internal name** | **Components** | **Connections** |
-| --- | --- | --- | --- | --- |
-| [Document Extraction Component](#document-extraction) | CopilotStudioKit_Components | cat_DocExtract | 1 prompt | Dataverse |
-| [Research Component](#research-component) | CopilotStudioKit_Components | cat_Research | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [Content Synthesis Component](#content-synthesis-component) | CopilotStudioKit_Components | cat_ContentSynthesis | 1 prompt (shared Stage 2) | Dataverse |
-| [Executive Brief Component](#executive-brief-generator) | CopilotStudioKit_Components | cat_ExecBrief | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [ServiceNow Ticket Component](#servicenow-ticket-assistant) | CopilotStudioKit_ServiceNow_Components | cat_ServiceNowTicket | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
+| **Collection** | **Internal name** | **Components** | **Connections** |
+| --- | --- | --- | --- |
+| [Document Extraction Component](#document-extraction) | cat_DocExtract | 1 prompt | Dataverse |
+| [Research Component](#research-component) | cat_Research | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [Content Synthesis Component](#content-synthesis-component) | cat_ContentSynthesis | 1 prompt (shared Stage 2) | Dataverse |
+| [Executive Brief Component](#executive-brief-generator) | cat_ExecBrief | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [ServiceNow Ticket Component](#servicenow-ticket-assistant) | cat_ServiceNowTicket | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
 
 ## Prerequisites
 
