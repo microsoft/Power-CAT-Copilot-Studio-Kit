@@ -4,8 +4,8 @@ Components for quick Copilot Studio agents (Draft)
 
 The Component Library provides a set of reusable, pre-built components for Microsoft Copilot Studio. Each component is packaged as its own [component collection](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components), so you can install only the components you need. Import the solution into your environment, add the component collections you want to your agent, and use your agent’s instructions to tell the agent how to use them, or directly reference the prompts and flows to enhance your topic.
 
-> [NOTE!]  
-> The Component Library is available as both a managed and an unmanaged solution. See usage guidance for each in the setup section.  
+> [!NOTE]
+> The Component Library is available as both a managed and an unmanaged solution. Use the **managed** solution to [add components to your agents](#using-components-with-a-managed-solution) without modification. Use the **unmanaged** solution only if you need to [edit component internals](#customizing-components-with-an-unmanaged-solution).
 
 ## Overview
 
@@ -521,14 +521,39 @@ Test the agent in its deployed channel (such as Teams or webchat) to confirm end
 *   File uploads (for Document Extraction)
 *   File downloads (for Text to Word Document)
 
-## Customization
+## Using components with a managed solution
 
-Most components are designed to work out of the box with minimal input — you don't need to customize anything to get started. The agent's natural-language instructions and each component's built-in defaults handle the orchestration automatically.
+The **managed** solution is the recommended option for most users. Components are imported as read-only — you can add them to your agents and use them without risk of accidentally modifying the underlying topics, prompts, or flows.
+
+Even without editing the components themselves, you have two powerful ways to control behavior:
+
+### Agent instructions
+
+Your Copilot Studio agent's **Instructions** field is the primary way to shape how components are used. Through natural-language instructions you can control:
+
+*   **When** a component is invoked — describe the scenarios or user intents that should trigger each tool.
+*   **What data is passed** — tell the agent what context, variables, or conversation history to include.
+*   **How results are presented** — specify formatting, tone, follow-up actions, or routing after a component returns its output.
+*   **Overall orchestration** — define the order of operations when multiple components are involved (for example, "After the research report is generated, automatically create a Word document").
+
+### Tool input defaults
+
+Components added as tools (for example, AI Builder prompts) expose **input parameters** that you can configure directly in Copilot Studio — even with a managed solution. These inputs let you set defaults that are more specific than what agent instructions alone can achieve. For example:
+
+*   Set `DocumentType` to `"invoice"` so the Document Extraction component always assumes invoice format unless the user says otherwise.
+*   Pre-fill `AdditionalInstructions` with your organization's preferred writing style or compliance requirements.
+*   Provide a default `ExtractionSchema` tailored to your business documents.
+
+Input defaults are configured per-agent, so different agents can pass different values to the same shared component.
+
+## Customizing components with an unmanaged solution
+
+If you need to modify the component internals — changing prompt logic, editing topic flows, or rewiring connectors — you must import the **unmanaged** solution. This gives you full edit access to every topic, prompt, and flow in the Component Library.
 
 > [!IMPORTANT]
 > Component collections are shared across the environment. There is only one instance of each component per environment, so any edit you make to a topic, prompt, or flow inside the Component Library applies to **every agent** that uses that component in the same environment. Before modifying a component, confirm the change is appropriate for all consumers.
 
-If you do need to tailor a component, common customizations include:
+Common customizations include:
 
 *   **Modify prompts** — Adjust AI Builder prompts to match your domain and output format.
 *   **Change data sources** — Point components at your own Dataverse tables, SharePoint lists, or external connectors.
