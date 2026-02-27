@@ -9,16 +9,16 @@ The Component Library provides a set of reusable, pre-built components for Micro
 
 ## Overview
 
-The Component Library includes six components that span data acquisition, data analysis, content generation, and system integration:
+The Component Library includes six components that span data acquisition, data analysis, content generation, and system integration. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
 
-| **Collection** | **Internal name Description** | **Components** | **Connections** |
+| **Collection** | **Internal name** | **Components** | **Connections** |
 | --- | --- | --- | --- |
-| Document Extraction Component | cat_DocExtract | 1 prompt | Dataverse |
-| Research Component | cat_Research | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| Content Synthesis Component | cat_ContentSynthesis | 1 prompt (shared Stage 2) | Dataverse |
-| Executive Brief Component | cat_ExecBrief | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| ServiceNow Ticket Component | cat_ServiceNowTicket | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
-| Word Document Component | cat_WordDoc | 1 agent flow + 1 connection Ref | Dataverse, OneDrive/SharePoint |
+| [Document Extraction Component](#document-extraction) | cat_DocExtract | 1 prompt | Dataverse |
+| [Research Component](#research-component) | cat_Research | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [Content Synthesis Component](#content-synthesis-component) | cat_ContentSynthesis | 1 prompt (shared Stage 2) | Dataverse |
+| [Executive Brief Component](#executive-brief-generator) | cat_ExecBrief | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [ServiceNow Ticket Component](#servicenow-ticket-assistant) | cat_ServiceNowTicket | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
+| [Word Document Component](#generate-word-document) | cat_WordDoc | 1 agent flow + 1 connection Ref | Dataverse, OneDrive/SharePoint |
 
 ## Prerequisites
 
