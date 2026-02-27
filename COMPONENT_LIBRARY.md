@@ -117,121 +117,19 @@ The component powers Stage 2 of both the [Research Module](https://file+.vscode
 
 #### Inputs
 
-| 
-**Name**
-
- | 
-
-**Display name**
-
- | 
-
-**Required**
-
- | 
-
-**Description**
-
- |
+| **Name** | **Display name** | **Required** | **Description** |
 | --- | --- | --- | --- |
-| 
-
-Research\_Prompt
-
- | 
-
-Research Prompt
-
- | 
-
-Yes
-
- | 
-
-The original research question or topic that provides overall context. Also used to infer writing style, audience, and domain when Additional\_Instructions is not provided.
-
- |
-| 
-
-Section\_Data
-
- | 
-
-Section Data
-
- | 
-
-Yes
-
- | 
-
-The section assignment to synthesize. Accepts structured JSON (with section\_id, section\_title, section\_focus, priority, expected\_outputs, potential\_gaps) or plain text. When plain text is provided, the component extracts the section title and focus automatically.
-
- |
-| 
-
-Context
-
- | 
-
-Context
-
- | 
-
-Yes
-
- | 
-
-The research source material, formatted as search results with \*\*Title:\*\*, \*\*Source:\*\*, and \*\*Content:\*\* blocks. This is the component's **only** source of information — it never fabricates data beyond what is provided. All Title–Source pairs are automatically extracted into the citations array.
-
- |
-| 
-
-Additional\_Instructions
-
- | 
-
-Additional Instructions
-
- | 
-
-No
-
- | 
-
-Optional overrides for writing style, target audience, technical depth, target length, citation preferences, visualization needs, and confidence assessment. When omitted, the component infers optimal settings from the research prompt and section data.
-
- |
+| Research_Prompt | Research Prompt | Yes | The original research question or topic that provides overall context. Also used to infer writing style, audience, and domain when Additional_Instructions is not provided. |
+| Section_Data | Section Data | Yes | The section assignment to synthesize. Accepts structured JSON (with section_id, section_title, section_focus, priority, expected_outputs, potential_gaps) or plain text. When plain text is provided, the component extracts the section title and focus automatically. |
+| Context | Context | Yes | The research source material, formatted as search results with **Title:**, **Source:**, and **Content:** blocks. This is the component's **only** source of information — it never fabricates data beyond what is provided. All Title–Source pairs are automatically extracted into the citations array. |
+| Additional_Instructions | Additional Instructions | No | Optional overrides for writing style, target audience, technical depth, target length, citation preferences, visualization needs, and confidence assessment. When omitted, the component infers optimal settings from the research prompt and section data. |
 
 #### Outputs
 
-| 
-**Name**
-
- | 
-
-**Description**
-
- |
+| **Name** | **Description** |
 | --- | --- |
-| 
-
-section\_content\_markdown
-
- | 
-
-The synthesized section content in markdown format, including themed subsections, key findings, data tables, chart suggestions, and a confidence assessment footer. All claims include numbered citation markers [n].
-
- |
-| 
-
-citations
-
- | 
-
-A JSON array of source references in "Title - URL" format, extracted from the Context input. The array index (1-based) determines the [n] numbering used in the section content. Returns an empty array when no Context is provided.
-
- |
+| section_content_markdown | The synthesized section content in markdown format, including themed subsections, key findings, data tables, chart suggestions, and a confidence assessment footer. All claims include numbered citation markers [n]. |
+| citations | A JSON array of source references in "Title - URL" format, extracted from the Context input. The array index (1-based) determines the [n] numbering used in the section content. Returns an empty array when no Context is provided. |
 
 Intelligent defaults
 
