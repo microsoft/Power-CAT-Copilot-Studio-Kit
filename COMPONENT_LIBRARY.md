@@ -5,20 +5,19 @@ Components for quick Copilot Studio agents (Draft)
 The Component Library provides a set of reusable, pre-built components for Microsoft Copilot Studio. Each component is packaged as its own [component collection](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components), so you can install only the components you need. Import the solution into your environment, add the component collections you want to your agent, and use your agent’s instructions to tell the agent how to use them, or directly reference the prompts and flows to enhance your topic.
 
 > [!NOTE]
-> The Component Library is available as both a managed and an unmanaged solution. Use the **managed** solution to [add components to your agents](#using-components-with-a-managed-solution) without modification. Use the **unmanaged** solution only if you need to [edit component internals](#customizing-components-with-an-unmanaged-solution).
+> The Component Library is available as both a managed and an unmanaged solution. Use the **managed** solution to [add components to your agents](#using-components-with-a-managed-solution) without modification. Use the **unmanaged** solution only if you need to [edit component internals](#customizing-components-with-an-unmanaged-solution). There is only one instance of each component per environment, so any edit you make to a topic, prompt, or flow inside the Component Library applies to **every agent** that uses that component in the same environment.
 
 ## Overview
 
-The Component Library includes six components that span data acquisition, data analysis, content generation, and system integration. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
+The Component Library includes five components shipped across two solutions. Components that require no connection references are in the base solution; components that share a common connector are grouped into their own solution. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
 
-| **Collection** | **Internal name** | **Components** | **Connections** |
-| --- | --- | --- | --- |
-| [Document Extraction Component](#document-extraction) | cat_DocExtract | 1 prompt | Dataverse |
-| [Research Component](#research-component) | cat_Research | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [Content Synthesis Component](#content-synthesis-component) | cat_ContentSynthesis | 1 prompt (shared Stage 2) | Dataverse |
-| [Executive Brief Component](#executive-brief-generator) | cat_ExecBrief | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [ServiceNow Ticket Component](#servicenow-ticket-assistant) | cat_ServiceNowTicket | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
-| [Word Document Component](#generate-word-document) | cat_WordDoc | 1 agent flow + 1 connection Ref | Dataverse, OneDrive/SharePoint |
+| **Collection** | **Solution** | **Internal name** | **Components** | **Connections** |
+| --- | --- | --- | --- | --- |
+| [Document Extraction Component](#document-extraction) | CopilotStudioKit_Components | cat_DocExtract | 1 prompt | Dataverse |
+| [Research Component](#research-component) | CopilotStudioKit_Components | cat_Research | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [Content Synthesis Component](#content-synthesis-component) | CopilotStudioKit_Components | cat_ContentSynthesis | 1 prompt (shared Stage 2) | Dataverse |
+| [Executive Brief Component](#executive-brief-generator) | CopilotStudioKit_Components | cat_ExecBrief | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [ServiceNow Ticket Component](#servicenow-ticket-assistant) | CopilotStudioKit_ServiceNow_Components | cat_ServiceNowTicket | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
 
 ## Prerequisites
 
@@ -26,7 +25,6 @@ Before you install the Component Library, make sure you have:
 
 *   A Power Platform environment with Copilot Studio enabled
 *   AI Builder credits available in your environment (required for prompt-based components)
-*   For the ServiceNow Ticket Assistant: a ServiceNow instance with API access configured
 
 ## Available components
 
@@ -69,9 +67,9 @@ All AI Builder prompt outputs are returned.
 | Type | Topic + 3 AI Builder Prompts + Web Search |
 | --- | --- |
 | Category | Data Analysis & Insight |
-| Interaction model | Tool-initiated — 3-stage pipeline: research planning → content synthesis → report finalization. Automatically generates a downloadable Word document. |
+| Interaction model | Tool-initiated — 3-stage pipeline: research planning → content synthesis → report finalization. |
 
-Synthesizes information from multiple sources into a comprehensive research report. Uses a 3-stage AI pipeline to plan, research, and compile findings, then generates a downloadable Word document.
+Synthesizes information from multiple sources into a comprehensive research report. Uses a 3-stage AI pipeline to plan, research, and compile findings.
 
 **When to use:** Competitive analysis, market research, policy review, or any scenario that requires a consolidated view across multiple information sources.
 
@@ -81,7 +79,7 @@ Synthesizes information from multiple sources into a comprehensive research repo
 2.  Stage 1 — Research Planner: Creates a structured research plan with sections and queries.
 3.  Stage 2 — Content Synthesizer: Searches web sources for each section and generates content with citations.
 4.  Stage 3 — Report Finalizer: Combines all sections and citations into a polished report.
-5.  The final report is displayed inline and a Word document is generated for download.
+5.  The final report is displayed inline in the conversation.
 
 #### Inputs
 
@@ -94,7 +92,7 @@ Synthesizes information from multiple sources into a comprehensive research repo
 
 #### Outputs
 
-The component displays the report inline in the conversation and generates a downloadable Word document via the Generate Word Document subtopic.
+The component displays the report inline in the conversation.
 
 ### Content Synthesis Component
 
@@ -155,29 +153,17 @@ The component adjusts its analytical framework based on the domain of the resear
 | Technology / Engineering | Scalability, performance, security, implementation challenges, interoperability |
 | Policy / Government | Stakeholder perspectives, implementation feasibility, cost and equity implications |
 
-**Tip:** For standalone use, add the Content Synthesis Component collection to any agent and provide source material through the Context input. No other components are required. For detailed documentation, see [Content Synthesis Component](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/demora/.copilot/session-state/09965f42-4e60-4169-8d31-4fde4b327ba9/files/kit-content-synthesis-component).
 
-#### Inputs
-
-| **Name** | **Display name** | **Required** | **Description** |
-| --- | --- | --- | --- |
-| FileName | File Name | Yes | Name of the output file |
-| ReportContent | Report Content | Yes | The markdown content to save as a Word document |
-
-#### Outputs
-
-| **Name** | **Display name** | **Description** |
-| --- | --- | --- |
-| ReportFileLink | Report File Link | Download URL for the generated Word document |
+**Tip:** For standalone use, add the Content Synthesis Component collection to any agent and provide source material through the Context input. No other components are required.
 
 ### Executive Brief Generator
 
 | **Type** | Topic + 3 AI Builder Prompts + Internal/Web Search |
 | --- | --- |
 | **Category** | Content Generation & Transformation |
-| **Interaction model** | Tool-initiated — 3-stage pipeline: strategic planning → insight synthesis → brief finalization. Automatically generates a downloadable Word document. |
+| **Interaction model** | Tool-initiated — 3-stage pipeline: strategic planning → insight synthesis → brief finalization. |
 
-Generates concise, decision-oriented summaries from complex inputs. Uses a 3-stage AI pipeline to plan, synthesize insights, and compile a polished executive brief with a downloadable Word document.
+Generates concise, decision-oriented summaries from complex inputs. Uses a 3-stage AI pipeline to plan, synthesize insights, and compile a polished executive brief.
 
 **When to use:** Board meeting preparation, project status updates, quarterly business reviews, or any scenario that requires a polished summary for stakeholders.
 
@@ -187,7 +173,7 @@ Generates concise, decision-oriented summaries from complex inputs. Uses a 3-sta
 2.  Stage 1 — Executive Brief Planner: Creates a strategic research plan with research areas.
 3.  Stage 2 — Insight Synthesizer: Searches internal and web sources for each area, extracts key facts and citations.
 4.  Stage 3 — Brief Finalizer: Compiles all insights and citations into a polished executive brief.
-5.  The brief is displayed inline and a Word document is generated for download.
+5.  The brief is displayed inline in the conversation.
 
 #### Inputs
 
@@ -198,7 +184,7 @@ Generates concise, decision-oriented summaries from complex inputs. Uses a 3-sta
 
 #### Outputs
 
-The component displays the executive brief inline in the conversation and generates a downloadable Word document via the Generate Word Document subtopic.
+The component displays the executive brief inline in the conversation.
 
 ### ServiceNow Ticket Assistant
 
@@ -223,10 +209,12 @@ Provides end-to-end ServiceNow incident management directly from a Copilot Studi
 
 **When to use:** IT help desk, employee self-service, or any scenario that involves ServiceNow incident management.
 
-#### Additional prerequisites
+#### Prerequisites
 
-*   ServiceNow instance with REST API access
-*   A connection configured in Power Platform for ServiceNow
+This component is shipped in its own solution (**CopilotStudioKit_ServiceNow_Components**) because it requires a ServiceNow connection reference during import. Before importing this solution, make sure you have:
+
+*   A ServiceNow instance with REST API access
+*   A connection configured in Power Platform for ServiceNow (you are prompted to set this up during solution import)
 *   Appropriate ServiceNow user permissions for the operations needed
 
 #### Service principle setup
@@ -374,53 +362,30 @@ None — automatically uses the signed-in user's email.
 
 **Note:** All ServiceNow components include a **Next Actions** navigation menu that appears after each operation, allowing the user to quickly move to another ServiceNow action or return to general conversation.
 
-### Generate Word Document
-
-| **Type** | Agent flow |
-| --- | --- |
-| **Category** | Content transformation |
-| **Interaction model** | Tool-initiated — can also be called as a subtopic by other components (Research, Executive Brief). |
-
-Converts text from an agent conversation into a Microsoft Word document (.docx) and returns a download link directly in the session. Also used automatically by the Research Component and Executive Brief Generator to produce their final output documents.
-
-**When to use:** Report generation, meeting notes export, policy document creation, or any scenario that requires a formatted, downloadable document from conversational input.
-
-#### How it works
-
-This component requires Power Automate and access to OneDrive or SharePoint (depending on your flow configuration).
-
-1.  The user provides or generates text content within the agent conversation.
-2.  The Power Automate cloud flow creates a Word document from the text.
-3.  A download link is returned in the conversation for the user to retrieve the document.
-
-#### Inputs
-
-| **Name** | **Display name** | **Required** | **Description** |
-| --- | --- | --- | --- |
-| FileName | File Name | Yes | Name of the output file |
-| ReportContent | Report Content | Yes | The markdown content to save as a Word document |
-
-#### Outputs
-
-| **Name** | **Display name** | **Description** |
-| --- | --- | --- |
-| ReportFileLink | Report File Link | Download URL for the generated Word document |
-
 ## Step-by-step setup
 
 Setting up a component involves three phases: import the solution, add the component to your agent, and test and publish.
 
 For general guidance on solutions, see [Create and manage solutions in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-overview). For component collections, see [Create and share reusable component collections](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components).
 
-### Phase 1: Import the Component Library solution
+### Phase 1: Import the Component Library solutions
 
-The Component Library solution contains all six components. You only need to import the solution once. After import, you choose which individual component collections to add to your agent.
+The Component Library is shipped as two separate solutions:
 
-#### Step 1 — Download the solution
+| **Solution** | **What it contains** | **Connection references** |
+| --- | --- | --- |
+| CopilotStudioKit_Components | Document Extraction, Research, Content Synthesis, Executive Brief | None — no connection references required |
+| CopilotStudioKit_ServiceNow_Components | ServiceNow Ticket Assistant (5 topics) | ServiceNow connector |
+
+Import the **base solution** (CopilotStudioKit_Components) first. Only import the ServiceNow solution if you have a ServiceNow instance and need incident management capabilities.
+
+#### Step 1 — Download the solutions
 
 1.  Go to the [latest release](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) on GitHub.
-2.  Under Assets, download the Component Library .zip file (for example, CopilotStudioKit\_ComponentLibrary\_managed.zip).
-3.  Save the file to your local machine. Do not unzip it.
+2.  Under Assets, download the solution .zip files you need:
+    *   **CopilotStudioKit_Components_managed.zip** (or the unmanaged variant) — the base component library.
+    *   **CopilotStudioKit_ServiceNow_Components_managed.zip** (or the unmanaged variant) — only if you need ServiceNow integration.
+3.  Save the files to your local machine. Do not unzip them.
 
 #### Step 2 — Import the solution into your environment
 
@@ -436,21 +401,19 @@ For detailed steps on importing solutions, see [Export and import agents using s
 
 #### Step 3 — Configure connections during import
 
-During import, you're prompted to set up connections for the components. Each connector used by the components requires an active connection. You only need to configure connections for the components you plan to use.
+During import, you may be prompted to set up connections for the components. The base solution (CopilotStudioKit_Components) does not require any connection references and imports without additional configuration.
 
-1.  For each connection reference listed, select Select a connection or New connection:
-    *   Dataverse — Required for most components.
-    *   AI Builder — Required for prompt-based components (Document Extraction, Filter & Summarize Rows, Research, Executive Brief).
-    *   ServiceNow — Required only for the ServiceNow Ticket Assistant. You need your ServiceNow instance URL and credentials with API access.
-    *   OneDrive / SharePoint — Required for Text to Word Document.
-2.  After configuring all connections, select Import.
+If you are importing the ServiceNow solution (CopilotStudioKit_ServiceNow_Components):
+
+1.  For the ServiceNow connection reference, select Select a connection or New connection. You need your ServiceNow instance URL and credentials with API access.
+2.  After configuring the connection, select Import.
 3.  Wait for the import to complete. This may take a few minutes. A green banner confirms success.
 
 **Tip:** If the import fails, select Download log file to see what went wrong. The most common cause is a missing connection or insufficient permissions.
 
 #### Step 4 — Enable cloud flows
 
-Some components include Power Automate cloud flows (for example, Text to Word Document and Document Extraction advanced). These must be turned on after import.
+Some components include Power Automate cloud flows. These must be turned on after import.
 
 1.  In [make.powerapps.com](https://make.powerapps.com/), go to Solutions.
 2.  Open the Component Library solution you just imported.
@@ -482,15 +445,13 @@ After you add a collection, the topics and tools for that component are availabl
 
 #### Available component collections
 
-| **Component collection** | **What it adds** | **Connections required** |
-| --- | --- | --- |
-| Document Extraction (basic) | AI Builder prompt | Dataverse, AI Builder |
-| Document Extraction (advanced) | Agent Flow | Dataverse |
-| Research Component | Topic + AI Builder prompt | Dataverse, AI Builder |
-| Filter & Summarize Rows | AI Builder prompt | Dataverse, AI Builder |
-| Executive Brief Generator | Topic + AI Builder prompt | Dataverse, AI Builder |
-| ServiceNow Ticket Assistant | 4 topics + connector | Dataverse, ServiceNow |
-| Text to Word Document | Agent Flow | Dataverse, OneDrive/SharePoint |
+| **Component collection** | **Solution** | **What it adds** | **Connections required** |
+| --- | --- | --- | --- |
+| Document Extraction | CopilotStudioKit_Components | AI Builder prompt | None |
+| Research Component | CopilotStudioKit_Components | Topic + AI Builder prompt | None |
+| Content Synthesis Component | CopilotStudioKit_Components | AI Builder prompt | None |
+| Executive Brief Generator | CopilotStudioKit_Components | Topic + AI Builder prompt | None |
+| ServiceNow Ticket Assistant | CopilotStudioKit_ServiceNow_Components | 5 topics + connector | ServiceNow |
 
 ### Phase 3: Test and publish
 
@@ -500,10 +461,8 @@ After you add a collection, the topics and tools for that component are availabl
 2.  Enter a natural-language prompt for each component you added. For example:
     *   _"Extract data from this invoice"_ — triggers Document Extraction
     *   _"Research the latest trends in renewable energy"_ — triggers the Research component
-    *   _"Summarize the top 10 rows in my sales table"_ — triggers Filter & Summarize Rows
     *   _"Create an executive brief for the Q4 results"_ — triggers Executive Brief Generator
     *   _"Create a ServiceNow ticket for a broken laptop"_ — triggers ServiceNow Create Incident
-    *   _"Generate a Word document from this text"_ — triggers Text to Word Document
 3.  Verify that the agent routes to the correct topic or tool, that connections work, and that the output is correct.
 
 **Tip:** If the agent doesn't trigger the correct component, open the component's tool configuration and update the Description field. The orchestrator uses this description to determine when to invoke each tool.
@@ -519,7 +478,6 @@ Test the agent in its deployed channel (such as Teams or webchat) to confirm end
 
 *   Connection authentication (some connectors prompt users for credentials on first use)
 *   File uploads (for Document Extraction)
-*   File downloads (for Text to Word Document)
 
 ## Using components with a managed solution
 
@@ -534,7 +492,7 @@ Your Copilot Studio agent's **Instructions** field is the primary way to shape h
 *   **When** a component is invoked — describe the scenarios or user intents that should trigger each tool.
 *   **What data is passed** — tell the agent what context, variables, or conversation history to include.
 *   **How results are presented** — specify formatting, tone, follow-up actions, or routing after a component returns its output.
-*   **Overall orchestration** — define the order of operations when multiple components are involved (for example, "After the research report is generated, automatically create a Word document").
+*   **Overall orchestration** — define the order of operations when multiple components are involved (for example, "After completing the research, generate an executive brief from the findings").
 
 ### Tool input defaults
 
