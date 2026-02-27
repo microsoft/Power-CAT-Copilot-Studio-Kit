@@ -523,13 +523,20 @@ Test the agent in its deployed channel (such as Teams or webchat) to confirm end
 
 ## Customization
 
-Each component is designed as a starting point. Common customizations include:
+Most components are designed to work out of the box with minimal input — you don't need to customize anything to get started. The agent's natural-language instructions and each component's built-in defaults handle the orchestration automatically.
+
+> [!IMPORTANT]
+> Component collections are shared across the environment. There is only one instance of each component per environment, so any edit you make to a topic, prompt, or flow inside the Component Library applies to **every agent** that uses that component in the same environment. Before modifying a component, confirm the change is appropriate for all consumers.
+
+If you do need to tailor a component, common customizations include:
 
 *   **Modify prompts** — Adjust AI Builder prompts to match your domain and output format.
 *   **Change data sources** — Point components at your own Dataverse tables, SharePoint lists, or external connectors.
 *   **Adjust topics** — Update conversation flows to match your organization's terminology and processes.
 *   **Update trigger phrases** — Add trigger phrases that reflect how your users naturally ask for things.
 *   **Add authentication** — Configure authentication if components need to access user-specific data.
+
+**Tip:** If you need different behavior for different agents, consider creating a copy of the component in a separate solution rather than editing the shared instance.
 
 ## Related content
 
