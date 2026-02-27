@@ -521,18 +521,6 @@ Test the agent in its deployed channel (such as Teams or webchat) to confirm end
 *   File uploads (for Document Extraction)
 *   File downloads (for Text to Word Document)
 
-## Quick reference
-
-| **Component** | **Type** | **Connections required** |
-| --- | --- | --- |
-| Document Extraction (basic) | Prompt | Dataverse, AI Builder |
-| Document Extraction (advanced) | Agent Flow | Dataverse |
-| Research Component | Topic + Prompt | Dataverse, AI Builder |
-| Filter & Summarize Rows | Prompt | Dataverse, AI Builder |
-| Executive Brief Generator | Topic + Prompt | Dataverse, AI Builder |
-| ServiceNow Ticket Assistant | Topic + Tool (4 topics) | Dataverse, ServiceNow |
-| Text to Word Document | Agent Flow | Dataverse, OneDrive/SharePoint |
-
 ## Customization
 
 Each component is designed as a starting point. Common customizations include:
@@ -542,15 +530,6 @@ Each component is designed as a starting point. Common customizations include:
 *   **Adjust topics** — Update conversation flows to match your organization's terminology and processes.
 *   **Update trigger phrases** — Add trigger phrases that reflect how your users naturally ask for things.
 *   **Add authentication** — Configure authentication if components need to access user-specific data.
-
-## Component types reference
-
-| **Type** | **Description** | **Requires AI Builder** |
-| --- | --- | --- |
-| Prompt | A standalone AI Builder prompt that can be called from a topic | Yes |
-| Topic + Prompt | A Copilot Studio topic paired with one or more AI Builder prompts | Yes |
-| Topic + Tool | A Copilot Studio topic paired with a connector-based tool | No (uses connectors) |
-| Agent Flow | A Power Automate cloud flow triggered from the agent | No (uses Power Automate) |
 
 ## Related content
 
