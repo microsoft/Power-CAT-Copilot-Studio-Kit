@@ -246,55 +246,16 @@ When Additional\_Instructions is omitted, the component infers settings from t
 | **Citation style** | Numbered&nbsp;[n]&nbsp;markers placed at the end of the sentence or paragraph referencing each source |
 | **Confidence assessment** | Included by default; set "skip confidence" or "no metadata" in Additional_Instructions to omit |
 
-Domain-specific adaptations
+#### Domain-specific adaptations
 
 The component adjusts its analytical framework based on the domain of the research prompt:
 
-| 
-**Domain**
-
- | 
-
-**Focus areas**
-
- |
+| **Domain** | **Focus areas** |
 | --- | --- |
-| 
-
-**Healthcare / Medical**
-
- | 
-
-Efficacy, safety, cost-effectiveness, study design, regulatory status
-
- |
-| 
-
-**Business / Finance**
-
- | 
-
-Market context, competitive dynamics, financial implications, stakeholder perspectives
-
- |
-| 
-
-**Technology / Engineering**
-
- | 
-
-Scalability, performance, security, implementation challenges, interoperability
-
- |
-| 
-
-**Policy / Government**
-
- | 
-
-Stakeholder perspectives, implementation feasibility, cost and equity implications
-
- |
+| Healthcare / Medical | Efficacy, safety, cost-effectiveness, study design, regulatory status |
+| Business / Finance | Market context, competitive dynamics, financial implications, stakeholder perspectives |
+| Technology / Engineering | Scalability, performance, security, implementation challenges, interoperability |
+| Policy / Government | Stakeholder perspectives, implementation feasibility, cost and equity implications |
 
 **Tip:** For standalone use, add the Content Synthesis Component collection to any agent and provide source material through the Context input. No other components are required. For detailed documentation, see [Content Synthesis Component](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/demora/.copilot/session-state/09965f42-4e60-4169-8d31-4fde4b327ba9/files/kit-content-synthesis-component).
 
