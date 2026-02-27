@@ -11,13 +11,13 @@ The Component Library provides a set of reusable, pre-built components for Micro
 
 The Component Library includes five components shipped across two solutions. Components that require no connection references are in the base solution; components that share a common connector are grouped into their own solution. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
 
-| **Collection** | **Internal name** | **Components** | **Connections** |
+| **Collection** | **Description** | **Components** | **Connections** |
 | --- | --- | --- | --- |
-| [Document Extraction Component](#document-extraction) | cat_DocExtract | 1 prompt | Dataverse |
-| [Research Component](#research-component) | cat_Research | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [Content Synthesis Component](#content-synthesis-component) | cat_ContentSynthesis | 1 prompt (shared Stage 2) | Dataverse |
-| [Executive Brief Component](#executive-brief-generator) | cat_ExecBrief | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [ServiceNow Ticket Component](#servicenow-ticket-assistant) | cat_ServiceNowTicket | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
+| [Document Extraction Component](#document-extraction) | Transforms uploaded documents into structured data using AI Builder | 1 prompt | Dataverse |
+| [Research Component](#research-component) | 3-stage AI pipeline that synthesizes web sources into a comprehensive research report | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [Content Synthesis Component](#content-synthesis-component) | Turns source material into evidence-based, citation-rich content sections | 1 prompt (shared Stage 2) | Dataverse |
+| [Executive Brief Component](#executive-brief-generator) | 3-stage AI pipeline that produces decision-oriented executive summaries | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [ServiceNow Ticket Component](#servicenow-ticket-assistant) | End-to-end ServiceNow incident management via adaptive cards | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
 
 ## Prerequisites
 
