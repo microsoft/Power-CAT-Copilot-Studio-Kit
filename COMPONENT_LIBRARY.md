@@ -9,13 +9,12 @@ The Component Library provides a set of reusable, pre-built components for Micro
 
 ## Overview
 
-The Component Library includes five components shipped across two solutions. Components that require no connection references are in the base solution; components that share a common connector are grouped into their own solution. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
+The Component Library includes four components shipped across two solutions. Components that require no connection references are in the base solution; components that share a common connector are grouped into their own solution. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
 
 | **Collection** | **Description** | **Components** | **Connections** |
 | --- | --- | --- | --- |
 | [Document Extraction Component](#document-extraction) | Transforms uploaded documents into structured data using AI Builder | 1 prompt | Dataverse |
 | [Research Component](#research-component) | 3-stage AI pipeline that synthesizes web sources into a comprehensive research report | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [Content Synthesis Component](#content-synthesis-component) | Turns source material into evidence-based, citation-rich content sections | 1 prompt (shared Stage 2) | Dataverse |
 | [Executive Brief Component](#executive-brief-generator) | 3-stage AI pipeline that produces decision-oriented executive summaries | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
 | [ServiceNow Ticket Component](#servicenow-ticket-assistant) | End-to-end ServiceNow incident management via adaptive cards | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
 
@@ -93,68 +92,6 @@ Synthesizes information from multiple sources into a comprehensive research repo
 #### Outputs
 
 The component displays the report inline in the conversation.
-
-### Content Synthesis Component
-
-| **Type** | AI Builder Prompt |
-| --- | --- |
-| **Category** | Data analysis & Insight |
-| **Interaction model** | Tool-initiated — the agent orchestrator invokes this tool when the user’s intent matches the tool description. Also serves as the shared Stage 2 step for the Research Component and Executive Brief Generator. |
-
-Transforms research context into evidence-based, citation-rich content sections. Uses a three-phase process — information assessment, content development, and quality enhancement — to produce structured markdown with numbered inline citations.
-
-The component powers Stage 2 of both the [Research Module](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/demora/.copilot/session-state/09965f42-4e60-4169-8d31-4fde4b327ba9/files/learn-doc-component-library.md#research-module) and [Executive Brief Module](https://file+.vscode-resource.vscode-cdn.net/c%3A/Users/demora/.copilot/session-state/09965f42-4e60-4169-8d31-4fde4b327ba9/files/learn-doc-component-library.md#executive-brief-module) pipelines, and also works as a standalone general-purpose synthesis tool.
-
-**When to use:** Any scenario that requires turning source material into a polished, citation-backed content section — research reports, executive briefs, competitive analyses, policy reviews, or standalone topic summaries.
-
-#### **How it works:**
-
-1.  **Phase 1 — Information assessment:** Evaluates source credibility and recency, identifies well-covered vs. sparse areas, detects contradictions, maps gaps, and identifies potential biases.
-2.  **Phase 2 — Content development:** Structures findings into themed sections using a 4-layer analysis framework (What → So What → Now What → What If), with an opening insight, evidence-based body, and synthesized closing.
-3.  **Phase 3 — Quality enhancement:** Applies confidence-appropriate language, verifies every claim against provided sources, and adds intellectual honesty markers for limitations, methodology notes, and gaps.
-
-#### Inputs
-
-| **Name** | **Display name** | **Required** | **Description** |
-| --- | --- | --- | --- |
-| Research_Prompt | Research Prompt | Yes | The original research question or topic that provides overall context. Also used to infer writing style, audience, and domain when Additional_Instructions is not provided. |
-| Section_Data | Section Data | Yes | The section assignment to synthesize. Accepts structured JSON (with section_id, section_title, section_focus, priority, expected_outputs, potential_gaps) or plain text. When plain text is provided, the component extracts the section title and focus automatically. |
-| Context | Context | Yes | The research source material, formatted as search results with **Title:**, **Source:**, and **Content:** blocks. This is the component's **only** source of information — it never fabricates data beyond what is provided. All Title–Source pairs are automatically extracted into the citations array. |
-| Additional_Instructions | Additional Instructions | No | Optional overrides for writing style, target audience, technical depth, target length, citation preferences, visualization needs, and confidence assessment. When omitted, the component infers optimal settings from the research prompt and section data. |
-
-#### Outputs
-
-| **Name** | **Description** |
-| --- | --- |
-| section_content_markdown | The synthesized section content in markdown format, including themed subsections, key findings, data tables, chart suggestions, and a confidence assessment footer. All claims include numbered citation markers [n]. |
-| citations | A JSON array of source references in "Title - URL" format, extracted from the Context input. The array index (1-based) determines the [n] numbering used in the section content. Returns an empty array when no Context is provided. |
-
-Intelligent defaults
-
-When Additional\_Instructions is omitted, the component infers settings from the research prompt and section data:
-
-| Setting | How it's inferred |
-| --- | --- |
-| **Writing style** | Executive (business/market keywords), Academic (study/research keywords), Technical (architecture/implementation keywords), or Consultative (default) |
-| **Target audience** | C-suite, Technical, Expert, or Informed (default) |
-| **Technical depth** | General ("high-level"/"overview"), Informed (default), or Expert ("technical"/"detailed") |
-| **Section length** | Based on&nbsp;priority&nbsp;in Section_Data: Critical (600–800 words), High (500–700), Medium (400–600), Low (300–500) |
-| **Citation style** | Numbered&nbsp;[n]&nbsp;markers placed at the end of the sentence or paragraph referencing each source |
-| **Confidence assessment** | Included by default; set "skip confidence" or "no metadata" in Additional_Instructions to omit |
-
-#### Domain-specific adaptations
-
-The component adjusts its analytical framework based on the domain of the research prompt:
-
-| **Domain** | **Focus areas** |
-| --- | --- |
-| Healthcare / Medical | Efficacy, safety, cost-effectiveness, study design, regulatory status |
-| Business / Finance | Market context, competitive dynamics, financial implications, stakeholder perspectives |
-| Technology / Engineering | Scalability, performance, security, implementation challenges, interoperability |
-| Policy / Government | Stakeholder perspectives, implementation feasibility, cost and equity implications |
-
-
-**Tip:** For standalone use, add the Content Synthesis Component collection to any agent and provide source material through the Context input. No other components are required.
 
 ### Executive Brief Generator
 
@@ -374,7 +311,7 @@ The Component Library is shipped as two separate solutions:
 
 | **Solution** | **What it contains** | **Connection references** |
 | --- | --- | --- |
-| CopilotStudioKit_Components | Document Extraction, Research, Content Synthesis, Executive Brief | None — no connection references required |
+| CopilotStudioKit_Components | Document Extraction, Research, Executive Brief | None — no connection references required |
 | CopilotStudioKit_ServiceNow_Components | ServiceNow Ticket Assistant (5 topics) | ServiceNow connector |
 
 Import the **base solution** (CopilotStudioKit_Components) first. Only import the ServiceNow solution if you have a ServiceNow instance and need incident management capabilities.
@@ -449,7 +386,6 @@ After you add a collection, the topics and tools for that component are availabl
 | --- | --- | --- | --- |
 | Document Extraction | CopilotStudioKit_Components | AI Builder prompt | None |
 | Research Component | CopilotStudioKit_Components | Topic + AI Builder prompt | None |
-| Content Synthesis Component | CopilotStudioKit_Components | AI Builder prompt | None |
 | Executive Brief Generator | CopilotStudioKit_Components | Topic + AI Builder prompt | None |
 | ServiceNow Ticket Assistant | CopilotStudioKit_ServiceNow_Components | 5 topics + connector | ServiceNow |
 
