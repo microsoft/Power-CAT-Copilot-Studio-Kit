@@ -1,18 +1,13 @@
 # Prompt Advisor
-![Deprecated](https://img.shields.io/badge/status-deprecated-red.svg)
 
-## Refine your AI Builder custom prompts (being deprecated)
+## Refine your AI Builder custom prompts
 
 > ### Important  
-> - Features of Prompt Advisor have been incorporated in-product and Prompt Advisor in Copilot Studio Kit is on deprecation path and will be removed soon.
+> - Features of Prompt Advisor have been partially incorporated in-product
 > - Please see [here](https://learn.microsoft.com/en-us/ai-builder/draft-with-copilot) how to use the features in-product.
 
 Develop effective prompts while learning useful prompt engineering skills with the **Prompt advisor tool**.  
 Users can enter a prompt and receive a confidence evaluation with detailed reasoning for the score. Additionally, the tool provides a list of suggested refined prompts implementing various prompt techniques. Users can select from these optimized prompts to iteratively refine and improve their input.
-
-> ### Important  
-> - This is a **preview feature**.  
-> - Preview features aren’t meant for production use and might have restricted functionality. These features are available before an official release so that customers can get early access and provide feedback.
 
 ![image (1)](https://github.com/user-attachments/assets/5c0efa74-f97f-402a-8e1c-cb8242a810e2)
 
