@@ -9,13 +9,14 @@ The Component Library provides a set of reusable, pre-built components for Micro
 
 ## Overview
 
-The Component Library includes four components shipped across two solutions. Components that require no connection references are in the base solution; components that share a common connector are grouped into their own solution. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
+The Component Library includes five components shipped across three solutions. Components that require no connection references are in the base solution; components that share a common connector are grouped into their own solution. For installation instructions, see [Step-by-step setup](#step-by-step-setup).
 
 | **Collection** | **Description** | **Components** | **Connections** |
 | --- | --- | --- | --- |
 | [Document Extraction Component](#document-extraction) | Transforms uploaded documents into structured data using AI Builder | 1 prompt | Dataverse |
-| [Research Component](#research-component) | 3-stage AI pipeline that synthesizes web sources into a comprehensive research report | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
-| [Executive Brief Component](#executive-brief-generator) | 3-stage AI pipeline that produces decision-oriented executive summaries | 1 topic + 3 prompts (Stage 2 → Content Synthesis Module) | Dataverse |
+| [Content Synthesizer Component](#content-synthesizer) | Shared AI Builder prompt that synthesizes research content into evidence-based sections with citations | 1 prompt | Dataverse |
+| [Research Component](#research-component) | 3-stage AI pipeline that synthesizes web sources into a comprehensive research report | 1 topic + 3 prompts (Stage 2 → Content Synthesizer Component) | Dataverse |
+| [Executive Brief Component](#executive-brief-generator) | 3-stage AI pipeline that produces decision-oriented executive summaries | 1 topic + 3 prompts (Stage 2 → Content Synthesizer Component) | Dataverse |
 | [ServiceNow Ticket Component](#servicenow-ticket-assistant) | End-to-end ServiceNow incident management via adaptive cards | 5 topics + 1 connection Ref | Dataverse, ServiceNow |
 
 ## Prerequisites
@@ -61,6 +62,50 @@ Transforms uploaded documents into structured data. Uses an AI Builder prompt to
 
 All AI Builder prompt outputs are returned.
 
+### Content Synthesizer
+
+| **Type** | AI Builder Prompt (TaskDialog) |
+| --- | --- |
+| **Category** | Content Generation & Transformation |
+| **Interaction model** | Module — invoked by a parent pipeline (Research Component or Executive Brief Generator) as the Stage 2 synthesis step. Can also be used standalone as a tool. |
+
+Transforms raw search results into a structured, evidence-based research section with inline citations. This is the shared synthesis engine used by both the [Research Component](#research-component) and [Executive Brief Generator](#executive-brief-generator) pipelines. It can also be added to any agent as a standalone tool for on-demand content synthesis.
+
+**When to use:** Any scenario that requires synthesizing multiple source documents into a cohesive, citation-backed narrative — either as part of a multi-stage pipeline or as a standalone content generation tool.
+
+#### How it works
+
+1.  The parent pipeline (or agent) passes a research prompt, raw search-result content, and optional style instructions.
+2.  The prompt integrates insights across all sources by theme — it does not summarize source by source.
+3.  Evidence is grounded in the provided content with specific data points (numbers, percentages, dates, named entities).
+4.  The output is a JSON object containing the synthesized markdown section and an array of extracted citations.
+
+#### Inputs
+
+| **Name** | **Display name** | **Required** | **Type** | **Description** |
+| --- | --- | --- | --- | --- |
+| Research_Prompt | Research Prompt | Yes | Automatic | The research question or topic this section addresses. All content is framed around this objective. |
+| Content | Content | Yes | Automatic | Markdown research output (web search results) to synthesize. Expected format includes `**Title:**`, `**Source:**`, and `**Content:**` blocks. |
+| Additional_Instructions | Additional Instructions | No | Manual | Overrides for writing style, audience, target length, or special requirements. Defaults to "Synthesize Key Insights in a consultative, business‑professional style using Markdown with 300 words." |
+
+#### Outputs
+
+The prompt returns a JSON object with two fields:
+
+| **Field** | **Type** | **Description** |
+| --- | --- | --- |
+| section_content_markdown | String | Full synthesized section in markdown. Organized by theme with headings, key findings, key takeaways, and a confidence/recency footer. |
+| citations | Array | List of cited sources formatted as `"Title - URL"`. Each entry corresponds to an inline `[n]` marker in the section content. |
+
+#### Output structure
+
+The synthesized section follows this structure:
+
+*   **Opening** — Leads with the most important finding and previews key themes.
+*   **Body** — Organized by theme (not by source), with inline attribution and `[n]` citation markers, bold **Key Finding** callouts, and optional `[CHART SUGGESTION]` markers.
+*   **Key Takeaways** — 3–5 concise, actionable bullet points.
+*   **Footer** — Confidence assessment (High → Low), data recency, and notable gaps.
+
 ### Research Component
 
 | Type | Topic + 3 AI Builder Prompts + Web Search |
@@ -76,7 +121,7 @@ Synthesizes information from multiple sources into a comprehensive research repo
 
 1.  The user provides a research question or topic.
 2.  Stage 1 — Research Planner: Creates a structured research plan with sections and queries.
-3.  Stage 2 — Content Synthesizer: Searches web sources for each section and generates content with citations.
+3.  Stage 2 — [Content Synthesizer](#content-synthesizer): Searches web sources for each section and generates content with citations.
 4.  Stage 3 — Report Finalizer: Combines all sections and citations into a polished report.
 5.  The final report is displayed inline in the conversation.
 
@@ -108,7 +153,7 @@ Generates concise, decision-oriented summaries from complex inputs. Uses a 3-sta
 
 1.  The user provides a brief topic or question.
 2.  Stage 1 — Executive Brief Planner: Creates a strategic research plan with research areas.
-3.  Stage 2 — Insight Synthesizer: Searches internal and web sources for each area, extracts key facts and citations.
+3.  Stage 2 — Insight Synthesizer ([Content Synthesizer](#content-synthesizer)): Searches internal and web sources for each area, extracts key facts and citations.
 4.  Stage 3 — Brief Finalizer: Compiles all insights and citations into a polished executive brief.
 5.  The brief is displayed inline in the conversation.
 
@@ -307,20 +352,22 @@ For general guidance on solutions, see [Create and manage solutions in Copilot S
 
 ### Phase 1: Import the Component Library solutions
 
-The Component Library is shipped as two separate solutions:
+The Component Library is shipped as three separate solutions:
 
 | **Solution** | **What it contains** | **Connection references** |
 | --- | --- | --- |
 | CopilotStudioKit_Components | Document Extraction, Research, Executive Brief | None — no connection references required |
+| ContentSynthesizerComponent | Content Synthesizer (shared synthesis prompt) | None — no connection references required |
 | CopilotStudioKit_ServiceNow_Components | ServiceNow Ticket Assistant (5 topics) | ServiceNow connector |
 
-Import the **base solution** (CopilotStudioKit_Components) first. Only import the ServiceNow solution if you have a ServiceNow instance and need incident management capabilities.
+Import the **base solution** (CopilotStudioKit_Components) and the **Content Synthesizer** solution (ContentSynthesizerComponent) first — the Research and Executive Brief components depend on the Content Synthesizer. Only import the ServiceNow solution if you have a ServiceNow instance and need incident management capabilities.
 
 #### Step 1 — Download the solutions
 
 1.  Go to the [latest release](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) on GitHub.
 2.  Under Assets, download the solution .zip files you need:
     *   **CopilotStudioKit_Components_managed.zip** (or the unmanaged variant) — the base component library.
+    *   **ContentSynthesizerComponent_managed.zip** (or the unmanaged variant) — the shared Content Synthesizer prompt.
     *   **CopilotStudioKit_ServiceNow_Components_managed.zip** (or the unmanaged variant) — only if you need ServiceNow integration.
 3.  Save the files to your local machine. Do not unzip them.
 
@@ -385,6 +432,7 @@ After you add a collection, the topics and tools for that component are availabl
 | **Component collection** | **Solution** | **What it adds** | **Connections required** |
 | --- | --- | --- | --- |
 | Document Extraction | CopilotStudioKit_Components | AI Builder prompt | None |
+| Content Synthesizer | ContentSynthesizerComponent | AI Builder prompt | None |
 | Research Component | CopilotStudioKit_Components | Topic + AI Builder prompt | None |
 | Executive Brief Generator | CopilotStudioKit_Components | Topic + AI Builder prompt | None |
 | ServiceNow Ticket Assistant | CopilotStudioKit_ServiceNow_Components | 5 topics + connector | ServiceNow |
