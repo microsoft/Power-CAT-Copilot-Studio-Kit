@@ -1,4 +1,4 @@
-# Agent Insights Hub - Documentation (Preview)
+# Agent Insights Hub (Preview)
 
 ## Table of Contents
 
@@ -537,3 +537,4 @@ There can be differences in KPI values generated from **Application Insights** v
 | Usage History tab not visible | No usage data available | The Usage History feature requires the separate **AgentInventoryUsage** solution to be imported. This solution connects to the Power Platform licensing API to pull credit consumption data. See [Using Usage Metrics in Agent Inventory](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md#using-usage-metrics-in-agent-inventory) for installation steps. During import, set up the "HTTP with Microsoft Entra ID (preauthorized)" connection pointing to `https://licensing.powerplatform.microsoft.com/`. Requires Power Platform admin role and system admin permissions. |
 | Filters return no results | Restrictive filter combination | Try resetting to default filters (All agents, Last 90 days, All channels, Production) |
 | Run button greyed out in Sync dialog | No configuration selected | Select an agent configuration or "All Agents" from the dropdown before clicking Run |
+
