@@ -169,5 +169,17 @@ In order to set up the embedded Conversation KPIs dashboard, you need to update 
 1. Select **Play**.
 1. **Bookmark** the app (optional)
 
+### Share the Copilot Studio Kit app                                                                                                                                                                                         
+After verifying the app launches successfully, the owner (or System Administrator who installed the kit) should share it with other users on the team:                                                                       
+1. Go to [make.powerapps.com](https://make.powerapps.com/)                                                                                                                                                                
+2. Click **Apps** in the left navigation
+3. Search for **Copilot Studio Kit** and locate the one with type **Code** (not the Model-driven app)
+4. Click the **three dots (...)** menu next to the app
+5. Select **Share**
+6. Search for and add the users or security groups who need access
+7. Click **Share** to confirm
+
+For detailed instructions, see: [Share a canvas app with your organization](https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/share-app).
+
 ## Next step
 [Configure users and teams](/SETUP_USERS_AND_TEAMS.md)
