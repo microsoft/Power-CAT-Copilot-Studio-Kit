@@ -84,9 +84,9 @@ Transforms raw search results into a structured, evidence-based research section
 
 | **Name** | **Display name** | **Required** | **Type** | **Description** |
 | --- | --- | --- | --- | --- |
-| Research_Prompt | Research Prompt | Yes | Automatic | The research question or topic this section addresses. All content is framed around this objective. |
+| ResearchPrompt | Research Prompt | Yes | Automatic | The research question or topic this section addresses. All content is framed around this objective. |
 | Content | Content | Yes | Automatic | Markdown research output (web search results) to synthesize. Expected format includes `**Title:**`, `**Source:**`, and `**Content:**` blocks. |
-| Additional_Instructions | Additional Instructions | No | Manual | Overrides for writing style, audience, target length, or special requirements. Defaults to "Synthesize Key Insights in a consultative, business‑professional style using Markdown with 300 words." |
+| AdditionalInstructions | Additional Instructions | No | Manual | Overrides for writing style, audience, target length, or special requirements. Defaults to "Synthesize Key Insights in a consultative, business‑professional style using Markdown with 300 words." |
 
 #### Outputs
 
@@ -94,8 +94,8 @@ The prompt returns a JSON object with two fields:
 
 | **Field** | **Type** | **Description** |
 | --- | --- | --- |
-| section_content_markdown | String | Full synthesized section in markdown. Organized by theme with headings, key findings, key takeaways, and a confidence/recency footer. |
-| citations | Array | List of cited sources formatted as `"Title - URL"`. Each entry corresponds to an inline `[n]` marker in the section content. |
+| SectionContentMarkdown | String | Full synthesized section in markdown. Organized by theme with headings, key findings, key takeaways, and a confidence/recency footer. |
+| Citations | Array | List of cited sources formatted as `"Title - URL"`. Each entry corresponds to an inline `[n]` marker in the section content. |
 
 #### Output structure
 
