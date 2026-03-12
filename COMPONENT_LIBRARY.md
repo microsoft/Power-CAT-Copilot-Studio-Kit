@@ -342,11 +342,11 @@ None — automatically uses the signed-in user's email.
 
 ## Step-by-step setup
 
-Setting up a component involves three phases: import the solution, add the component to your agent, and test and publish.
+Setting up a component involves three phases: install or import the component solutions, add the component collections to your agent, and test and publish.
 
 For general guidance on solutions, see [Create and manage solutions in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-overview). For component collections, see [Create and share reusable component collections](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components).
 
-### Phase 1: Import the Component Library solutions
+### Phase 1: Install or import the Component Library solutions
 
 The Component Library is shipped as five separate solutions:
 
@@ -360,7 +360,33 @@ The Component Library is shipped as five separate solutions:
 
 Import the **Content Synthesizer** solution first — the Research and Executive Brief components depend on it. Only import the ServiceNow solution if you have a ServiceNow instance and need incident management capabilities.
 
-#### Step 1 — Download the solutions
+There are two ways to install components: using the built-in Component Library in the Copilot Studio Kit, or by manually importing solutions.
+
+#### Option A — Install from the Copilot Studio Kit (recommended)
+
+If you are running the Copilot Studio Kit, you can browse and install components directly from the built-in **Component Library** page.
+
+![Component Library in the Copilot Studio Kit](docs/images/component-library.png)
+
+1.  In the Copilot Studio Kit, select **Component Library** in the left navigation under Productivity.
+2.  Browse the available components or use the category tabs and search bar to find what you need.
+3.  Select a component card to open the component details dialog.
+
+![Component details dialog](docs/images/component-library-details.png)
+
+The details dialog shows the component description, category, input/output variables, and technology used. The action buttons at the bottom depend on the component's install status and your permissions:
+
+| **Scenario** | **Buttons shown** | **What happens** |
+| --- | --- | --- |
+| Component is not installed and you have install privileges | **Install** + **Download** | **Install** imports the component solution directly into your environment. |
+| Component is not installed and you do not have install privileges | **Download** only | **Download** downloads a .zip file containing all five component solutions. Extract the .zip first, then import the individual solution files manually (see Option B). |
+| Component is already installed | **View** + **Download** | **View** deep-links to the component collection in the Copilot Studio portal, where you can add it to an agent. |
+
+#### Option B — Manual import via Power Apps
+
+Use this option if you do not have the Copilot Studio Kit installed, or if you downloaded the solutions .zip from the Component Library and need to import them manually.
+
+##### Step 1 — Download the solutions
 
 1.  Go to the [latest release](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) on GitHub.
 2.  Under Assets, download the solution .zip files you need:
@@ -371,7 +397,10 @@ Import the **Content Synthesizer** solution first — the Research and Executive
     *   **CopilotStudioKit_ServiceNow_Components_managed.zip** (or the unmanaged variant) — only if you need ServiceNow integration.
 3.  Save the files to your local machine. Do not unzip them.
 
-#### Step 2 — Import the solution into your environment
+> [!NOTE]
+> If you downloaded the solutions .zip from the Component Library's **Download** button, extract the .zip first. Each individual solution file inside the extracted folder can then be imported in the steps below.
+
+##### Step 2 — Import the solution into your environment
 
 For detailed steps on importing solutions, see [Export and import agents using solutions](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-import-export).
 
@@ -383,9 +412,9 @@ For detailed steps on importing solutions, see [Export and import agents using s
 6.  Select Next.
 7.  Review the solution details (name, publisher, version). Select Next again.
 
-#### Step 3 — Configure connections during import
+##### Step 3 — Configure connections during import
 
-During import, you may be prompted to set up connections for the components. The base solution (CopilotStudioKit_Components) does not require any connection references and imports without additional configuration.
+During import, you may be prompted to set up connections for the components. Most component solutions do not require any connection references and import without additional configuration.
 
 If you are importing the ServiceNow solution (CopilotStudioKit_ServiceNow_Components):
 
@@ -395,7 +424,7 @@ If you are importing the ServiceNow solution (CopilotStudioKit_ServiceNow_Compon
 
 **Tip:** If the import fails, select Download log file to see what went wrong. The most common cause is a missing connection or insufficient permissions.
 
-#### Step 4 — Enable cloud flows
+##### Step 4 — Enable cloud flows
 
 Some components include Power Automate cloud flows. These must be turned on after import.
 
@@ -406,13 +435,25 @@ Some components include Power Automate cloud flows. These must be turned on afte
 
 ### Phase 2: Add components to your agent
 
-**Important:**
-
-After you import the solution, the components exist in your environment but are not automatically connected to your agent. Each component is packaged as its own component collection, so you can add only the ones you need.
+After installing or importing the solutions, the components exist in your environment but are not automatically connected to your agent. Each component is packaged as its own component collection, so you can add only the ones you need.
 
 For more details, see [Add imported component collections to your agent](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components#add-imported-component-collections-to-your-agent).
 
-#### Add a component collection to your agent
+#### Option A — From the Component Library (if installed via the Kit)
+
+If you installed a component using the **Install** button in the Component Library, or the component is already installed:
+
+1.  Open the component in the Component Library and select **View**. This deep-links to the component collection in the Copilot Studio portal.
+2.  From the component collection page, you can add an existing agent or create a new one to associate with the collection.
+
+Alternatively, you can add the collection from within any agent:
+
+1.  Open your agent in [Copilot Studio](https://copilotstudio.microsoft.com/).
+2.  Select **Settings** (gear icon) in the top bar.
+3.  In the left menu, select **Component collections**.
+4.  Find the component collection, select the three dots (…), then select **Add to agent**.
+
+#### Option B — From Copilot Studio directly
 
 Repeat these steps for each component you want to use:
 
@@ -420,7 +461,7 @@ Repeat these steps for each component you want to use:
 2.  Select Agents, then open the agent you want to add the component to.
 3.  Select Settings (gear icon) in the top bar.
 4.  In the left menu, select Component collections.
-5.  Find the component collection you want to add (for example, "Document Extraction" or "Research Component").
+5.  Find the component collection you want to add (for example, "Document Extraction Component" or "Research Component").
 6.  Select the three dots (…) next to the collection name, then select Add to agent.
 7.  Confirm by selecting Add to agent in the dialog.
 8.  Your agent name now appears under Active for next to the collection.
@@ -436,7 +477,6 @@ After you add a collection, the topics and tools for that component are availabl
 | Research Component | CopilotStudioKit_Research_Component | Topic + AI Builder prompt | None |
 | Executive Brief Component | CopilotStudioKit_ExecBrief_Component | Topic + AI Builder prompt | None |
 | ServiceNow Ticket Component | CopilotStudioKit_ServiceNow_Components | 5 topics + connector | ServiceNow |
-
 ### Phase 3: Test and publish
 
 #### Step 1 — Test in the test pane
