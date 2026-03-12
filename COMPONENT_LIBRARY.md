@@ -199,7 +199,7 @@ This component is shipped in its own solution (**CopilotStudioKit_ServiceNow_Com
 
 #### Service principle setup
 
-To set up a ServiceNow Power Platform connection that uses Microsoft Entra ID, follow the steps documented here: [How to set up a ServiceNow Power Platform connection that uses Microsoft Entra ID](https://learn.microsoft.com/en-us/connectors/service-now/#how-to-set-up-a-servicenow-power-platform-connection-that-uses-microsoft-entra-id)
+To set up a ServiceNow Power Platform connection that uses Microsoft Entra ID, follow the steps documented here: [How to set up a ServiceNow Power Platform connection that uses Microsoft Entra ID](https://learn.microsoft.com/connectors/service-now/#how-to-set-up-a-servicenow-power-platform-connection-that-uses-microsoft-entra-id)
 
 #### How it works
 
