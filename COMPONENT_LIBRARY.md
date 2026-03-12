@@ -1,4 +1,4 @@
-Components for quick Copilot Studio agents (Draft)
+Components for quick Copilot Studio agents
 
 # Copilot Studio Kit Component Library
 
