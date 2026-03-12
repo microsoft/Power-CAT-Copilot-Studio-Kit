@@ -29,7 +29,7 @@ The Component Library is a collection of ready-to-use, pre-built components for 
 
 More information on [Component Library](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/COMPONENT_LIBRARY.md)
 
-## Rubrics refinement *(New!)*
+## Rubrics refinement
 Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
 
 More information on [Rubrics Refinement](./RubricRefinement/01-rubrics-refinement-overview.md) 
