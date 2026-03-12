@@ -19,6 +19,16 @@ Administrators can configure thresholds, risk levels, SLA timers and enforcement
 
 More information on [Compliance Hub](./COMPLIANCE_HUB.md) 
 
+## Agent Insights Hub (Preview)
+Agent Insights Hub is a comprehensive analytics and monitoring dashboard for Microsoft Copilot Studio agents. It aggregates telemetry from Azure Application Insights, and Conversation Transcripts to provide visibility into agent performance, conversation metrics, topic and tool analytics, error tracking, and credit consumption — all from a single unified interface. The dashboard includes KPI cards with trend indicators, time-series charts, transcript analysis with CSAT scores, and flexible filtering by agent, date range, channel, and data mode. It supports on-demand syncs up to 365 days of historical data, scheduled daily syncs, and Excel export for offline reporting.
+
+More information on [Agent Insights Hub](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INSIGHTS_HUB.md)
+
+## Component Library (Preview)
+The Component Library is a collection of ready-to-use, pre-built components for Microsoft Copilot Studio — packaged as component collections so you can import only the ones you need. The new app lets you easily browse and add the component to your environment. Add the component to your agent like you would with any component collection. Use agent instructions to control when and how each component is invoked — no custom development required.
+
+More information on [Component Library](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/COMPONENT_LIBRARY.md)
+
 ## Rubrics refinement *(New!)*
 Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
 
