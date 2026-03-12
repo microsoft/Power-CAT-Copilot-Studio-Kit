@@ -1,7 +1,7 @@
 Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.md)
 
 > [!NOTE]
-> Before you download and install the Copilot Studio Kit, ensure that you [enable code components](https://learn.microsoft.com/en-us/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature) in your environment first.
+> Before you download and install the Copilot Studio Kit, ensure that you enable [code components](https://learn.microsoft.com/en-us/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature) and [code apps](https://learn.microsoft.com/en-us/power-apps/developer/code-apps/overview#enable-code-apps-on-a-power-platform-environment) in your environment first.
 
 > [!NOTE]
 > May 2025 release onwards the Copilot Studio Kit has had a **setup wizard**, which allows viewing and editing connection references, environment variables and set up cloud flows. Please see more information from [here](./SETUP_WIZARD.md).
@@ -168,6 +168,18 @@ In order to set up the embedded Conversation KPIs dashboard, you need to update 
 1. Locate and select **Power CAT Copilot Studio Kit**.
 1. Select **Play**.
 1. **Bookmark** the app (optional)
+
+### Share the Copilot Studio Kit app                                                                                                                                                                                         
+After verifying the app launches successfully, the owner (or System Administrator who installed the kit) should share it with other users on the team:                                                                       
+1. Go to [make.powerapps.com](https://make.powerapps.com/)                                                                                                                                                                
+2. Click **Apps** in the left navigation
+3. Search for **Copilot Studio Kit** and locate the one with type **Code** (not the Model-driven app)
+4. Click the **three dots (...)** menu next to the app
+5. Select **Share**
+6. Search for and add the users or security groups who need access
+7. Click **Share** to confirm
+
+For detailed instructions, see: [Share a canvas app with your organization](https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/share-app).
 
 ## Next step
 [Configure users and teams](/SETUP_USERS_AND_TEAMS.md)
