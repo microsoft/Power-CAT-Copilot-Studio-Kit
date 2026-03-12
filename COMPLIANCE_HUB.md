@@ -111,7 +111,7 @@ Setup and configure the governance components using the Copilot Studio Kit setup
     | Case Intake SLA | Service Level Agreement for case intake timing | 3 days |
     | Case Review SLA | SLA for admins to review cases in the compliance process | 5 days  |
     | Case Summary Email Frequency | How often case summary emails are sent |WEEKLY|
-    | Require Case For No Risk | Indicates if a case is required even when risk is low | Yes |
+    | Require Case For No Risk | Indicates if a case is required even when risk is low | No |
     | Send Case Alerts To Maker Via Email | Enables email alerts for makers when cases are triggered | Yes |
     | Send Case Alerts To Maker Via Teams | Enables Teams alerts for makers when cases are triggered | Yes |
 
