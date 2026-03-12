@@ -7,12 +7,18 @@ Components for quick Copilot Studio agents (Draft)# Copilot Studio Kit Component
 | [Executive Brief Component](#executive-brief-generator) | 3-stage AI pipeline that produces decision-oriented executive summaries | 1 topic + 3 prompts (Stage 2 → Content Synthesizer Component) | Dataverse |
 | [ServiceNow Ticket Component](#servicenow-ticket-assistant) | End-to-end ServiceNow incident management via adaptive cards | 5 topics + 1 connection Ref | Dataverse, ServiceNow |## PrerequisitesBefore you install the Component Library, make sure you have:*   A Power Platform environment with Copilot Studio enabled
 *   AI Builder credits available in your environment (required for prompt-based components)## Available components> [!IMPORTANT]  
-> Fields marked "No" for Required have built-in defaults and work without configuration. Provide a value only to override the default behavior.### Document Extraction| **Type** | AI Builder Prompt (TaskDialog) |
+> Fields marked "No" for Required have built-in defaults and work without configuration. Provide a value only to override the default behavior.
+
+### Document Extraction| **Type** | AI Builder Prompt (TaskDialog) |
 | --- | --- |
 | **Category** | Data Acquisition & Integration |
-| **Interaction model** | Tool-initiated — the agent orchestrator invokes this tool when the user's intent matches the tool description. |Transforms uploaded documents into structured data. Uses an AI Builder prompt to parse and extract key fields based on a configurable schema.**When to use:** Invoice processing, contract review, form digitization, or any scenario that requires pulling structured information from unstructured documents.#### How it works1.  The user uploads a document to the agent conversation.
+| **Interaction model** | Tool-initiated — the agent orchestrator invokes this tool when the user's intent matches the tool description. |Transforms uploaded documents into structured data. Uses an AI Builder prompt to parse and extract key fields based on a configurable schema.**When to use:** Invoice processing, contract review, form digitization, or any scenario that requires pulling structured information from unstructured documents.
+
+#### How it works1.  The user uploads a document to the agent conversation.
 2.  The component processes the document with AI Builder.
-3.  Extracted data is returned as structured output that can be stored, displayed, or passed to downstream flows.#### Inputs
+3.  Extracted data is returned as structured output that can be stored, displayed, or passed to downstream flows.
+
+#### Inputs
 
 | **Name** | **Display name** | **Required** | **Description** |
 | --- | --- | --- | --- |
@@ -352,7 +358,7 @@ collections](https://learn.microsoft.com/microsoft-copilot-studio/authoring-expo
 
 ### Phase 1: Import the Component Library solutions
 
-The Component Library is shipped as three separate solutions:
+The Component Library is shipped as five separate solutions:
 
 | **Solution** | **What it contains** | **Connection references** |
 | --- | --- | --- |
@@ -372,8 +378,7 @@ Import the **Content Synthesizer** solution first — the Research and Executive
     *   **CopilotStudioKit_ContentSynth_Component_managed.zip** (or the unmanaged variant) — the shared Content Synthesizer prompt.
     *   **CopilotStudioKit_Research_Component_managed.zip** (or the unmanaged variant) — Research Component.
     *   **CopilotStudioKit_ExecBrief_Component_managed.zip** (or the unmanaged variant) — Executive Brief.
-    *   **CopilotStudioKit_ServiceNow_Components_managed.zip** (or the unmanaged variant) — only if you need ServiceNow integration.
-3.  Save the files to your local machine. Do not unzip them.
+    *   **CopilotStudioKit_ServiceNow_Components_managed.zip** (or the unmanaged variant) — only if you need ServiceNow integration.3.  Save the files to your local machine. Do not unzip them.
 
 #### Step 2 — Import the solution into your environment
 
@@ -545,3 +550,4 @@ ompt-node)
 *   [Copilot Studio Kit on GitHub](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit)
 *   [Microsoft Copilot Studio documentation](https://learn.microsoft.com/microsoft-copilot-studio/)
 *   [AI Builder documentation](https://learn.microsoft.com/ai-builder/)
+
