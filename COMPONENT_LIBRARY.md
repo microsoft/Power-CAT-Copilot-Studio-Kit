@@ -1,5 +1,3 @@
-Components for quick Copilot Studio agents
-
 # Copilot Studio Kit Component Library
 
 The Component Library provides a set of reusable, pre-built components for Microsoft Copilot Studio. Each component is packaged as its own [component collection](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components), so you can install only the components you need. Import the solution into your environment, add the component collections you want to your agent, and use your agent’s instructions to tell the agent how to use them, or directly reference the prompts and flows to enhance your topic.
