@@ -386,19 +386,22 @@ The details dialog shows the component description, category, input/output varia
 
 Use this option if you do not have the Copilot Studio Kit installed, or if you downloaded the solutions .zip from the Component Library and need to import them manually.
 
-##### Step 1 — Download the solutions
+##### Step 1 — Download and extract the solutions
 
-1.  Go to the [latest release](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) on GitHub.
-2.  Under Assets, download the solution .zip files you need:
-    *   **CopilotStudioKit_DocumentExtraction_Component_managed.zip** (or the unmanaged variant) — Document Extraction.
-    *   **CopilotStudioKit_ContentSynth_Component_managed.zip** (or the unmanaged variant) — the shared Content Synthesizer prompt.
-    *   **CopilotStudioKit_Research_Component_managed.zip** (or the unmanaged variant) — Research Component.
-    *   **CopilotStudioKit_ExecBrief_Component_managed.zip** (or the unmanaged variant) — Executive Brief.
-    *   **CopilotStudioKit_ServiceNow_Components_managed.zip** (or the unmanaged variant) — only if you need ServiceNow integration.
-3.  Save the files to your local machine. Do not unzip them.
+All five component solutions are distributed as a single compressed (.zip) file. You can get this file in one of two ways:
 
-> [!NOTE]
-> If you downloaded the solutions .zip from the Component Library's **Download** button, extract the .zip first. Each individual solution file inside the extracted folder can then be imported in the steps below.
+*   **From the Copilot Studio Kit** — select the **Download** button on any component in the Component Library.
+*   **From GitHub** — go to the [latest release](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) and download the component solutions .zip under Assets.
+
+After downloading:
+
+1.  **Extract** the .zip file to a folder on your local machine. This reveals five individual solution files:
+    *   **CopilotStudioKit_DocumentExtraction_Component** — Document Extraction.
+    *   **CopilotStudioKit_ContentSynth_Component** — Content Synthesizer (shared synthesis prompt).
+    *   **CopilotStudioKit_Research_Component** — Research Component.
+    *   **CopilotStudioKit_ExecBrief_Component** — Executive Brief.
+    *   **CopilotStudioKit_ServiceNow_Components** — ServiceNow Ticket Assistant (only needed if you have a ServiceNow instance).
+2.  Do **not** extract the individual solution .zip files — import them as-is in the next step.
 
 ##### Step 2 — Import the solution into your environment
 
