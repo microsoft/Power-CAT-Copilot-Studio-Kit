@@ -1,8 +1,8 @@
-# Agent Inventory (Preview)
+# Agent Inventory
 
 ## Agent Inventory overview
 
-Copilot Studio Kit Agent Inventory feature can be used to easily get a tenant-wide visibility to all the Copilot Studio custom agents in the organization, across environments. Agent inventory data includes basic metadata like creation times, publish status and authentication mode, as well as information on the feature usage like knowledge sources used, usage of prompts, orchestration type and more.
+Copilot Studio Kit Agent Inventory feature can be used to easily get a tenant-wide visibility to all the **custom agents** and **declarative agents** in the organization, across environments. Agent inventory data includes basic metadata like creation times, publish status and authentication mode, as well as information on the feature usage like knowledge sources used, usage of prompts, orchestration type and more.
 
 ## Dashboard
 
@@ -19,6 +19,8 @@ visualizing the growth, and a list of top 5 environments by agent count.
 Selecting an agent and pressing *View details* brings up a detailed view of the selected agent, including basic metadata on the custom agent,
 the environment, creation time and creator, and detailed information the usage of different features such as actions, generative AI, skills, prompts,
 knowledge sources and more.
+
+> **Disclaimer:** The usage percentages shown here depend on the environments for which the user has System Administrator access.
 
 ![Copilot Studio Kit - Agent Details](https://github.com/user-attachments/assets/5e4e4344-2b0b-4ee6-91d9-7bc87f047fbe)
 
@@ -63,6 +65,14 @@ If the **Total Usage/Month** field contains a value, the **Usage Metrics** secti
 
 
 > [!NOTE]
-> It is important to understand that the visibility to the agents is *limited* and *controlled* by the connection references in the solution. **Copilot Studio Kit - Power Platform for Admins** is used to fetch the list of environments in the tenant and **Copilot Studio Kit - Dataverse** is used to gather the agent information from the environments. For full visibility, the connection references have to be configured with account having Power Platform admin role and system admin level permission to all the environments. Other accounts can be used as well, but the visibility of the agent inventory is limited to the environments the user has system admin access to.
+> The visibility to agents is *limited* and *controlled* by the connection references in the solution. 
+
+The data collection follows a two-step process:
+
+1. **Copilot Studio Kit - Power Platform for Admins V2** connector first retrieves the list of agents from the Power Platform Admin Center (PPAC) and then fetches all environments.
+
+2. **Copilot Studio Kit - Dataverse** connector then connects to each environment to gather detailed agent information (metadata, feature usage, configuration) — but only where the configured account has **system admin access**.
+
+For full tenant-wide visibility, the connection references must be configured with an account that has the **Power Platform admin role** and to view all the features need to have **system admin level permission** to all environments. Other accounts can be used, but the inventory will be limited to the environments the user has system admin access to.
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
