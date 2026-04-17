@@ -33,6 +33,7 @@ Before setting up the Compliance Hub, ensure you have:
   - Microsoft Standard Approvals
   - Office 365 Outlook
   - Office 365 Users
+  - Office 365 Groups
   - Power Platform for Admins
   - Power Platform for Admins (V2)
 
@@ -388,3 +389,93 @@ A: A quarantined agent is disabled and cannot be accessed by end users. However,
 - [Installation Instructions](./INSTALLATION_INSTRUCTIONS.md)
 - [Prerequisites](./PREREQUISITES.md)
 - [Troubleshooting Guide](./TROUBLESHOOT.md)
+
+## Technical Details
+
+This section provides a consolidated technical reference of all solution components, dependencies, and configuration artifacts for the Compliance Hub.
+
+**Canvas App:** Compliance Hub (`cat_compliancehub`)
+
+### Connection References
+
+All connection references use the `Copilot Studio Kit` prefix and are shared across the kit's solutions.
+
+| Connection Reference | Connector | Required For |
+|---|---|---|
+| Copilot Studio Kit - Dataverse | Microsoft Dataverse | Core data operations across all flows |
+| Copilot Studio Kit - Standard approvals (`shared_approvals`) | Standard Approvals | Case approval workflows |
+| Copilot Studio Kit - Outlook (`shared_office365`) | Office 365 Outlook | Email notifications to makers and admins |
+| Copilot Studio Kit - Microsoft Teams (`shared_teams`) | Microsoft Teams | Teams adaptive card notifications |
+| Copilot Studio Kit - Office 365 Users (`shared_office365users`) | Office 365 Users | User profile lookup for case assignment |
+| Copilot Studio Kit - Office 365 Groups (`shared_office365groups`) | Office 365 Groups | Group membership checks for admin authorization |
+| Copilot Studio Kit - Power Platform for Admins V2 (`shared_powerplatformadminv2`) | Power Platform for Admins V2 | Quarantine and delete enforcement actions |
+
+### Environment Variables
+
+| Display Name | Schema Name | Category | Default |
+|---|---|---|---|
+| App ID | `cat_AppID` | Critical | — |
+| Compliance Admin Group ID | `cat_GovernanceAdminAlias` | Critical | — |
+| Instance Url | `cat_InstanceUrl` | Critical | — |
+| Maker Team ID | `cat_AgentMakerTeamID` | Critical | — |
+| Compliance Documentation Link | `cat_ComplianceDocumentationLink` | Recommended | — |
+| Compliance Support Contact Alias | `cat_ComplianceSupportContactAlias` | Recommended | — |
+| Admin Approval Before Maker Notification | `cat_AdminApprovalBeforeMakerNotification` | Default | Yes |
+| Case Intake SLA | `cat_CaseIntakeSLA` | Default | 5 days |
+| Case Review SLA | `cat_CaseReviewSLA` | Default | 5 days |
+| Case Summary Email Frequency | `cat_CaseSummaryEmailFrequency` | Default | WEEKLY |
+| Require Case For No Risk | `cat_RequireCaseForNoRisk` | Default | No |
+| Send Case Alerts via Email | `cat_SendCaseAlertsToMakerViaEmail` | Default | Yes |
+| Send Case Alerts via Teams | `cat_SendCaseAlertsToMakerViaTeams` | Default | Yes |
+
+### Cloud Flows
+
+The Compliance Hub includes 16 cloud flows. Enable them in dependency order: Grandchild → Child → Parent.
+
+| Flow Name | Type | Purpose |
+|---|---|---|
+| AgentCompliance \| Compliance Scan | Parent | Scans all agents against threshold rules; creates or updates compliance cases |
+| AgentCompliance \| Initialize Data | Parent | Seeds default threshold configs and action policies on first run |
+| AgentCompliance \| Request Intake | Parent | Sends intake adaptive card to maker via Teams when a case is created |
+| AgentCompliance \| Start Admin Approval | Parent | Initiates admin approval workflow for compliance cases |
+| AgentCompliance \| Execute Policy Action | Parent | Applies enforcement action (quarantine/delete) when SLA expires |
+| AgentCompliance \| Quarantine | Parent | Quarantines (disables) a non-compliant agent via Admin connector |
+| AgentCompliance \| Unquarantine | Parent | Restores a previously quarantined agent |
+| AgentCompliance \| Get Quarantine Status | Parent | Checks current quarantine status of an agent |
+| AgentCompliance \| Delete Case | Parent | Permanently deletes an agent as an enforcement action |
+| AgentCompliance \| Create Case (Child) | Child | Creates a new compliance case record in Dataverse |
+| AgentCompliance \| Update Case (Child) | Child | Updates fields on an existing compliance case |
+| AgentCompliance \| Approve Case (Child) | Child | Processes case approval and closes the case |
+| AgentCompliance \| Reject Case (Child) | Child | Processes case rejection |
+| AgentCompliance \| Send Notification (Child) | Child | Sends notifications via email and/or Teams |
+| AgentCompliance \| Check Compliance (Grandchild) | Grandchild | Evaluates a single agent against all active threshold rules |
+| Agent Inventory \| Compliance Scan | Shared | Shared with Agent Inventory — triggers compliance scan after inventory sync |
+
+### Dataverse Tables
+
+| Display Name | Schema Name | Purpose |
+|---|---|---|
+| Agent Compliance | `cat_AgentCompliance` | Stores per-agent compliance status and risk assessment results |
+| Compliance Case | `cat_ComplianceCase` | Tracks case lifecycle, SLA countdown, intake, and enforcement status |
+| Action Policy | `cat_ActionPolicy` | Defines enforcement action and SLA duration per risk level |
+| Threshold Config | `cat_ThresholdConfig` | Stores compliance threshold definitions (filter column, operator, value, risk) |
+
+### DLP Configuration
+
+The following connectors must be in the same DLP policy group (typically the **Business** data group) for the Compliance Hub cloud flows to execute successfully:
+
+| Connector | Used By |
+|---|---|
+| Microsoft Dataverse | All flows — core data operations |
+| Standard Approvals | Admin approval workflows |
+| Office 365 Outlook | Email notifications |
+| Microsoft Teams | Teams adaptive card notifications |
+| Office 365 Users | User profile lookup |
+| Office 365 Groups | Admin group membership verification |
+| Power Platform for Admins V2 | Quarantine and delete enforcement actions |
+
+> **Note**: Refer to [Prerequisites](./PREREQUISITES.md) for full DLP configuration guidance across all Copilot Studio Kit components.
+
+---
+
+[Back to the landing page](./README.md)

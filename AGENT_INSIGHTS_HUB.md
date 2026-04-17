@@ -538,3 +538,67 @@ There can be differences in KPI values generated from **Application Insights** v
 | Filters return no results | Restrictive filter combination | Try resetting to default filters (All agents, Last 90 days, All channels, Production) |
 | Run button greyed out in Sync dialog | No configuration selected | Select an agent configuration or "All Agents" from the dropdown before clicking Run |
 
+
+---
+
+## Technical Details
+
+### Solution Components
+
+| Component | Type | Details |
+|---|---|---|
+| **Copilot Studio Kit** | Code App | cr7f9_copilotstudiokit — Built with React and Fluent UI v9 (not a traditional canvas app). Must be shared with users via make.powerapps.com. |
+
+### Cloud Flows
+
+| Flow Name | Trigger | Role |
+|---|---|---|
+| **Agent Insights \| On Demand** | Manual (Sync button) | Parent flow — orchestrates on-demand metric generation for a selected date range |
+| **Agent Insights \| Pull Agent Metrics** | Child flow | Pulls Application Insights telemetry for a single agent configuration |
+| **Agent Insights \| Transcript Metrics Date Range** | Grandchild flow | Coordinates transcript metric extraction across a date range |
+| **Agent Insights \| Pull Transcript Metrics Per Date** | Great-grandchild flow | Processes transcript metrics for a single date |
+| **Agent Insights \| Scheduler** | Scheduled (daily) | Runs automatically every day to pull the last 24 hours of telemetry and transcript data |
+
+### Connection References
+
+| Connection Reference | Connector | Required |
+|---|---|---|
+| **Copilot Studio Kit - Dataverse** | Microsoft Dataverse | Yes |
+
+### Dataverse Tables
+
+| Table | Logical Name | Purpose |
+|---|---|---|
+| **Action Metrics** | cat_ActionMetrics | Action node execution counts, types, and elapsed times |
+| **Daily Metrics** | cat_DailyMetrics | Daily aggregated conversation, user, response time, and error metrics |
+| **Topic Metrics** | cat_TopicMetrics | Per-topic trigger, completion, abandonment, duration, and error counts |
+| **Tool Metrics** | cat_ToolMetrics | External tool/dependency call counts, success rates, and response times |
+| **Transcript Metrics** | cat_TranscriptMetrics | Session-level engagement, resolution, escalation, CSAT, and feedback data |
+| **Agent Insights Transcript Staging** | cat_AgentInsightsTranscriptStaging | Ingestion pipeline staging table for transcript processing |
+| **Agent Fact Row Counts** | cat_AgentFactRowCounts | Row counts per agent per fact table (used for data management) |
+| **Agent Configuration** | cat_CopilotConfiguration | Stores agent setup — App Insights credentials, KPI sources, capture settings |
+| **Agent Details** | cat_AgentDetails | Agent metadata (dependency from Agent Inventory sync) |
+| **Copilot Studio Kit Logs** | cat_CopilotStudioKitLogs | Sync execution logs — status, duration, error messages, flow run links |
+
+### Environment Variables
+
+No feature-specific environment variables. Application Insights credentials (App ID, Tenant ID, Client ID, Secret) are stored per-agent in the **Agent Configuration** table (cat_CopilotConfiguration).
+
+### DLP Connectors
+
+| Connector | Classification |
+|---|---|
+| **Microsoft Dataverse** | Business (required) |
+
+### Prerequisites Summary
+
+| Prerequisite | Why |
+|---|---|
+| **Agent Inventory sync** | Must run first to populate agent list for configuration selection |
+| **Azure App Registration** | Required for programmatic access to Application Insights telemetry API |
+| **Application Insights integration** | Agents must be connected to App Insights in Copilot Studio settings |
+| **Code App sharing** | App owner must share the Code App with users via make.powerapps.com |
+
+---
+
+*[← Back to Copilot Studio Kit Documentation](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit)*

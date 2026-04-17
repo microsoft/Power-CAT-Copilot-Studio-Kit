@@ -67,4 +67,38 @@ Read more from [here](https://learn.microsoft.com/microsoft-copilot-studio/custo
 
 Read more from [here](https://learn.microsoft.com/microsoft-copilot-studio/customize-default-canvas?tabs=web#customize-the-default-canvas-simple).
 
+## Technical Details
+
+### Connection References
+
+| Connection Reference | Connector |
+|:---------------------|:----------|
+| Copilot Studio Kit - Dataverse | Microsoft Dataverse |
+
+### Environment Variables
+
+| Display Name | Schema Name | Required | Description |
+|:-------------|:------------|:---------|:------------|
+| Agent Token Endpoint | cat_AgentTokenEndpoint | Optional | Token endpoint for live preview with a real Copilot Studio agent |
+
+### Cloud Flows
+
+None — this component has no associated cloud flows.
+
+### Dataverse Tables
+
+| Display Name | Schema Name | Purpose |
+|:-------------|:------------|:--------|
+| Chatbot Style | cat_ChatbotStyle | Stores saved webchat theme definitions |
+
+### DLP Configuration
+
+This component requires the **Microsoft Dataverse** connector. Ensure your DLP policies allow this connector in the target environment.
+
+### Canvas App
+
+| Display Name | Schema Name |
+|:-------------|:------------|
+| WebChat Customizer | cat_webchatcustomizer |
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

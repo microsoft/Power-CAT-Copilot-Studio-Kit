@@ -1,13 +1,18 @@
 # Prompt Advisor
+![Deprecated](https://img.shields.io/badge/status-deprecated-red.svg)
 
-## Refine your AI Builder custom prompts
+## Refine your AI Builder custom prompts (being deprecated)
 
 > ### Important  
-> - Features of Prompt Advisor have been partially incorporated in-product
+> - Features of Prompt Advisor have been incorporated in-product and Prompt Advisor in Copilot Studio Kit is on deprecation path and will be removed soon.
 > - Please see [here](https://learn.microsoft.com/en-us/ai-builder/draft-with-copilot) how to use the features in-product.
 
 Develop effective prompts while learning useful prompt engineering skills with the **Prompt advisor tool**.  
 Users can enter a prompt and receive a confidence evaluation with detailed reasoning for the score. Additionally, the tool provides a list of suggested refined prompts implementing various prompt techniques. Users can select from these optimized prompts to iteratively refine and improve their input.
+
+> ### Important  
+> - This is a **preview feature**.  
+> - Preview features aren't meant for production use and might have restricted functionality. These features are available before an official release so that customers can get early access and provide feedback.
 
 ![image (1)](https://github.com/user-attachments/assets/5c0efa74-f97f-402a-8e1c-cb8242a810e2)
 
@@ -50,7 +55,7 @@ iterative process.
 ## Interpreting the confidence score
 
 The **confidence score** is a numerical value that indicates the likelihood that your prompt will yield 
-accurate and relevant results. Here’s how to interpret it:
+accurate and relevant results. Here's how to interpret it:
 
 - **High (80-100):** This indicates that your prompt is well-structured and likely to produce accurate 
 results. The reasoning provided will highlight the strengths of your prompt.  
@@ -83,5 +88,40 @@ The confidence score depends on clarity and relevance. Review the **evaluation p
 - Zero-shot prompting means giving the AI a task with just instructions and no examples, relying on its general knowledge to figure it out.
 - Few-shot prompting means showing the AI a few examples of the task first so it can learn the pattern or style before giving the answer.
 - Chain-of-thought prompting means asking the AI to explain its reasoning step by step, which helps it solve complex problems more accurately.
+
+## Technical Details
+
+### Connection References
+
+| Connection Reference | Connector |
+|:---------------------|:----------|
+| Copilot Studio Kit - Dataverse | Microsoft Dataverse |
+
+### Environment Variables
+
+None — this component has no specific environment variables.
+
+### Cloud Flows
+
+None — this component has no associated cloud flows.
+
+### Dataverse Tables
+
+None specific — this component uses **AI Builder prompts** for evaluation and refinement rather than custom Dataverse tables.
+
+### DLP Configuration
+
+This component requires the **Microsoft Dataverse** connector. Ensure your DLP policies allow this connector in the target environment.
+
+### Canvas App
+
+| Display Name | Schema Name |
+|:-------------|:------------|
+| Prompt Advisor Studio | cat_promptadvisorstudio |
+
+### Prerequisites
+
+- **AI Builder credits** must be assigned to the environment.
+- **PCF component framework** must be enabled in the environment. See [Enable the Power Apps Component Framework Feature](https://learn.microsoft.com/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature).
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

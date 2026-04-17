@@ -35,4 +35,23 @@ Each pattern has a detailed description about the issue / bad practice / anti-pa
 
 Performing periodical reviews helps the maker identify any changes that have been performed without following recommended and best practices , and could potentially have negative impact on the performance of the agent.
 
+## Technical Details
+
+| Category | Details |
+|---|---|
+| **Canvas App** | None (uses model-driven app forms) |
+| **Cloud Flows** | None specific |
+| **Connection References** | Copilot Studio Kit - Dataverse |
+| **Environment Variables** | None |
+| **DLP Connectors** | Microsoft Dataverse |
+| **Plugin Assembly** | POWERCAT.Plugins (used for solution analysis) |
+| **Dataverse Tables** | Agent Review Tool FRE (`cat_agentreviewfre`) |
+| | Agent Review (`cat_agentreviews`) |
+| | Solution Component (`cat_SolutionComponent`) |
+| | Solution Review (`cat_solutionreview`) |
+| | Pattern Details (`cat_PatternDetails`) |
+| | Pattern Identifier (`cat_PatternIdentifier`) |
+| | Pattern Instance (`cat_PatternInstance`) |
+| | Pattern Result (`cat_PatternResult`) |
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
