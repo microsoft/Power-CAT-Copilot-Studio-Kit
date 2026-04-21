@@ -13,6 +13,10 @@ Today, the tool supports these types of tests:
 - Multi-turn test type is a special test type that consists of a set of test cases of *regular* types that are executed in specified order in same conversation context. Multi-turn tests can be used to test scenarios end-to-end, and for testing custom agents with generative orchestration.
 - Plan validation allows maker to validate the tools included in the dynamic plan of Copilot Studio custom agent with generative orchestration
 
+![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/33496e94-0c7a-4e63-9291-9e461aa9b9e7)
+
+![image](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/assets/37898885/25f071ff-6b4f-4f5f-b6a3-20193a2d1feb)
+
 Read more on how to configure agent for [test automation](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-test-automation)
 
 ## Technical Details

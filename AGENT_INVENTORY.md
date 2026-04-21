@@ -45,6 +45,8 @@ To enable usage metrics on top of the Copilot Studio Kit main solution, you must
 
 During the import process, create a connection using the licensing host URL: https://licensing.powerplatform.microsoft.com/
 
+<img width="400" alt="agent inventory usage" src="https://github.com/user-attachments/assets/bac647a7-462a-4021-ae60-e74094787a64" />
+
 ### How Usage Metrics Are Updated 
 
 Usage data in the **Agent Details** table is refreshed in two ways:
@@ -56,6 +58,8 @@ Usage data in the **Agent Details** table is refreshed in two ways:
 
 In the **Agent Inventory Dashboard**, review the **Agents** grid. 
 If the **Total Usage/Month** field contains a value, the **Usage Metrics** section will be displayed on the **Agent Details** page.
+
+![Copilot Studio Kit - Agent Details With Usage](https://github.com/user-attachments/assets/197f0539-016c-4c26-8439-e2382fab9349)
 
 ## Technical Details
 

@@ -14,6 +14,10 @@ Conversation KPIs are designed to help makers track and analyze the performance 
 
 Conversation KPIs are generated automatically twice per day and on-demand generation is supported as well. To generate KPIs on-demand, navigate to the agent configuration, press "**Generate KPIs**" and select a date range. Up to 75,000 transcripts are processed per automatic run and up to 50,000 per on-demand run. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPIs.
 
+![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
+
+![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
+
 Read more on how to configure the agent for [KPI generation](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-conversation-kpis)
 
 ## Technical Details
