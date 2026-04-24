@@ -2,9 +2,15 @@
 
 ## 📋 **Table of Contents**
 
-1. [Architecture](#architecture)
-2. [Microsoft Authentication Setup](#microsoft-authentication-setup)
-3. [Troubleshooting Guide](#troubleshooting-guide)
+1. [Prerequisites](#prerequisites)
+2. [Architecture](#architecture)
+3. [Microsoft Authentication Setup](#microsoft-authentication-setup)
+4. [Troubleshooting Guide](#troubleshooting-guide)
+
+## Prerequisites
+
+- The **Conversation Start** topic on the agent must be **enabled**.
+- The agent must be **shared with the user running the test**, or the user must have the necessary **permissions** to access the agent.
 
 ## Architecture
 
