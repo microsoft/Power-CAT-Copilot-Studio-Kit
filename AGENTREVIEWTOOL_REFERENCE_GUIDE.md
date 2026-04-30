@@ -181,6 +181,8 @@ A second AI model reads the agent's system instructions and checks them against 
 
 Once all three are complete, a PDF report is automatically generated and the results open in the Review Dialog.
 
+> **Copilot Credits:** Each review consumes Copilot credits. The AI-powered steps (pattern evaluation, instruction compliance check, and PDF generation) each invoke an AI model via Dataverse. Plan accordingly if you are reviewing a large number of agents.
+
 ---
 
 ## 6. Patterns Detected
@@ -642,6 +644,9 @@ Yes. The tool only shows agents that have Generative AI enabled, so every agent 
 
 **Q: Why is "Persona and Tone" low severity?**
 Microsoft's guidance notes that a professional, polite tone is already the default behavior for Copilot Studio agents. Instructions for tone are only necessary if you want a non-default tone. This criterion is Low because failing it rarely causes user-facing problems.
+
+**Q: Does running a review consume Copilot credits?**
+Yes. Each review invokes AI models three times — for pattern evaluation, instruction compliance, and PDF generation. Each invocation consumes Copilot credits from your tenant. Re-reviewing the same agent also consumes credits, so it is best to make your changes first and then re-review.
 
 **Q: Can I export all reviews at once?**
 Yes. Use the "Export All" button in the agent grid toolbar to generate an Excel workbook covering all reviewed agents in the current view.
