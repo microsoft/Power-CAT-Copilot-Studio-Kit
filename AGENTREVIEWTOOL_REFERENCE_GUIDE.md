@@ -42,7 +42,7 @@
 
 ## 1. What Is the Agent Review Tool?
 
-The **Agent Review Tool** is an automated quality assessment and compliance review system for Microsoft Copilot Studio agents and Microsoft 365 Declarative Agents. It was built to help makers, admins, and governance teams identify issues, anti-patterns, and compliance gaps in their agents before those issues reach end users.
+The **Agent Review Tool** is an automated quality assessment and compliance review system for Microsoft Copilot Studio agents and Microsoft 365 Declarative Agents. It was built to help makers, admins, and governance teams identify issues, anti-patterns, and compliance gaps in their agents before those issues reach end users. 
 
 > **The core problem it solves:** As organizations scale their Copilot Studio deployments, manually reviewing each agent's configuration, instructions, and topic structure becomes impossible. The Agent Review Tool automates that review through an AI-powered analysis, surfacing actionable findings in under 60 seconds.
 
