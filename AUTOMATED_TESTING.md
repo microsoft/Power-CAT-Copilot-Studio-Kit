@@ -34,4 +34,13 @@ This feature allows users to automate the testing and deployment of Copilot Stud
 
 [Automated Testing and Deployment of Copilot Studio Agents Overview](https://github.com/user-attachments/files/21301068/Automated.Testing.and.Deployment.of.Copilot.Studio.Agents.Overview.pdf)
 
- 
+## Technical Details
+
+| Category | Details |
+|---|---|
+| **Cloud Flows** | Pipeline \| Validate Agent Using Test Cases |
+| **Connection References** | Copilot Studio Kit - Dataverse |
+| **Environment Variables** | None specific |
+| **DLP Connectors** | Microsoft Dataverse |
+| **Dataverse Tables** | Deployment Pipeline Configuration (`cat_DeploymentPipelineConfiguration`) |
+| **Prerequisites** | Power Platform Pipelines must be configured; Test Automation feature must be set up |

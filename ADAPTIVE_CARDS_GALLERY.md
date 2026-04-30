@@ -31,5 +31,40 @@ Each sample adaptive card comes with a template and sample data. Adaptive cards 
 > [!NOTE]
 > By default, emulator is used to preview the adaptive cards. To preview the adaptive cards using a real Copilot Studio webchat, publish the "**Adaptive Card Gallery**"-agent that ships with Copilot Studio Kit, and set the environment variable **cat_AgentTokenEndpoint** to its Token Endpoint. The token endpoint of Copilot Studio custom agent can be copied from Channels -> Mobile app.
 
+## Technical Details
+
+### Connection References
+
+| Connection Reference | Connector |
+|:---------------------|:----------|
+| Copilot Studio Kit - Dataverse | Microsoft Dataverse |
+
+### Environment Variables
+
+| Display Name | Schema Name | Required | Description |
+|:-------------|:------------|:---------|:------------|
+| Agent Token Endpoint | cat_AgentTokenEndpoint | Optional | Token endpoint for live webchat preview with the Adaptive Card Gallery agent |
+
+### Cloud Flows
+
+None — this component has no associated cloud flows.
+
+### Dataverse Tables
+
+| Display Name | Schema Name | Purpose |
+|:-------------|:------------|:--------|
+| Agent Card | cat_CopilotCard | Stores adaptive card templates and sample data |
+
+### DLP Configuration
+
+This component requires the **Microsoft Dataverse** connector. Ensure your DLP policies allow this connector in the target environment.
+
+### Canvas App
+
+| Display Name | Schema Name |
+|:-------------|:------------|
+| Adaptive Cards Gallery | cat_adaptivecards |
+
+> **Note:** This component includes a Copilot Studio agent named **Adaptive Card Gallery** that must be published for the live webchat preview to function.
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

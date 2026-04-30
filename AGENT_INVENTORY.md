@@ -2,7 +2,7 @@
 
 ## Agent Inventory overview
 
-Copilot Studio Kit Agent Inventory feature can be used to easily get a tenant-wide visibility to all the **custom agents** and **declarative agents** in the organization, across environments. Agent inventory data includes basic metadata like creation times, publish status and authentication mode, as well as information on the feature usage like knowledge sources used, usage of prompts, orchestration type and more.
+Copilot Studio Kit Agent Inventory feature can be used to easily get a tenant-wide visibility to all the **custom agents** and **declarative agents** in the organization, across environments.Agent inventory data includes basic metadata like creation times, publish status and authentication mode, as well as information on the feature usage like knowledge sources used, usage of prompts, orchestration type and more.
 
 ## Dashboard
 
@@ -63,9 +63,25 @@ If the **Total Usage/Month** field contains a value, the **Usage Metrics** secti
 
 ![Copilot Studio Kit - Agent Details With Usage](https://github.com/user-attachments/assets/197f0539-016c-4c26-8439-e2382fab9349)
 
+## Technical Details
+
+### Canvas Apps
+
+| Display Name | Logical Name |
+|---|---|
+| Agent Inventory | `cat_agentinventory` |
+| Agent Inventory Component Library | `cat_mcsagentsinventorycomponentlibrary` |
+
+### Connection References
+
+| Connection Reference | Connector | Required | Purpose |
+|---|---|---|---|
+| Copilot Studio Kit - Dataverse | `shared_commondataserviceforapps` | ✅ Yes | Reads/writes agent data across environments |
+| Copilot Studio Kit - Power Platform for Admins | `shared_powerplatformforadmins` | ✅ Yes | Fetches the list of environments in the tenant |
+| Copilot Studio Kit - Power Platform for Admins V2 | `shared_powerplatformadminv2` | ✅ Yes | Enhanced admin APIs for environment and agent queries |
 
 > [!NOTE]
-> The visibility to agents is *limited* and *controlled* by the connection references in the solution. 
+> The visibility to agents is *limited* and *controlled* by the connection references in the solution.
 
 The data collection follows a two-step process:
 
@@ -74,5 +90,40 @@ The data collection follows a two-step process:
 2. **Copilot Studio Kit - Dataverse** connector then connects to each environment to gather detailed agent information (metadata, feature usage, configuration) — but only where the configured account has **system admin access**.
 
 For full tenant-wide visibility, the connection references must be configured with an account that has the **Power Platform admin role** and to view all the features need to have **system admin level permission** to all environments. Other accounts can be used, but the inventory will be limited to the environments the user has system admin access to.
+
+### Environment Variables
+
+| Display Name | Logical Name | Description |
+|---|---|---|
+| Instance Url | `cat_InstanceUrl` | Dataverse environment URL for the current instance |
+
+### Cloud Flows
+
+| Flow Name | Trigger Type | Purpose |
+|---|---|---|
+| Agent Inventory \| Agents Data Load | Automated | Main orchestrator — initiates the full inventory sync across all environments |
+| Agent Inventory \| Agents Data Load Child | Automated (child) | Per-environment processing — queries agents within a single environment |
+| Agent Inventory \| Agents Data Load GrandChild | Automated (child) | Per-agent detail fetch — retrieves detailed metadata for an individual agent |
+| Agent Inventory \| Agents Data Load On Demand | Instant (manual) | Manual trigger — lets users kick off an inventory sync on demand |
+| Agent Inventory \| Agents Data Load Scheduler | Scheduled (daily) | Daily scheduled run — automatically refreshes inventory data every day |
+| Agent Inventory \| Compliance Scan | Automated | Triggers a compliance check after inventory sync completes |
+
+### Dataverse Tables
+
+| Display Name | Logical Name | Description |
+|---|---|---|
+| Agent Details | `cat_AgentDetails` | Stores agent metadata collected from all environments |
+| Agent Usage History | `cat_AgentUsageHistory` | Stores monthly usage metrics (requires optional `AgentInventoryUsage` solution) |
+
+### DLP Configuration
+
+The following connectors must be **allowed** in your environment's DLP policies for Agent Inventory to function:
+
+| Connector | Required For |
+|---|---|
+| Microsoft Dataverse | Core data storage and retrieval |
+| Power Platform for Admins | Environment discovery |
+| Power Platform for Admins V2 | Enhanced admin API access |
+| HTTP with Microsoft Entra ID (preauthorized) | Optional — only needed for the Usage Metrics solution |
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

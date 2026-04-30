@@ -46,4 +46,50 @@ Conversation analysis details view varies slightly depending on the prompt used.
 
 This feature is experimental and the team is looking forward to hearing feedback from users.
 
+## Technical Details
+
+### Canvas App
+
+| Display Name | Logical Name |
+|:--|:--|
+| Conversation Analyser | `cat_conversationanalyser` |
+
+### Connection References
+
+| Connection Reference | Connector | Required |
+|:--|:--|:--|
+| Copilot Studio Kit - Dataverse | `shared_commondataserviceforapps` | Yes |
+
+### Environment Variables
+
+None specific to this feature.
+
+### Cloud Flows
+
+| Flow Name | Purpose |
+|:--|:--|
+| Conversation Analyzer \| Analyze Conversation Based on Prompt | Runs the selected prompt against a conversation transcript using AI Builder |
+| Conversation Analyzer \| Get the Conversation Transcript | Retrieves the conversation transcript from Copilot Studio for analysis |
+
+### Dataverse Tables
+
+| Display Name | Logical Name | Notes |
+|:--|:--|:--|
+| Conversation Analyzer | `cat_ConversationAnalyzer` | Stores analysis results |
+| Conversation Analyzer Prompt | `cat_ConversationAnalyzerPrompt` | Stores built-in and custom prompts |
+| Agent Details | `cat_AgentDetails` | **Dependency** — requires Agent Inventory to be populated before use |
+
+### Prerequisites
+
+- **Agent Inventory** must be populated first. Conversation Analyzer reads agent data from the Agent Inventory tables; analysis cannot run without it.
+- **AI Builder credits** are required for prompt-based analysis.
+
+### DLP Configuration
+
+The following connectors must be allowed in your environment's DLP policy:
+
+| Connector | Reason |
+|:--|:--|
+| Microsoft Dataverse | Core data operations |
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

@@ -19,4 +19,48 @@ Conversation KPIs are generated automatically twice per day and on-demand genera
 ![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
 
 Read more on how to configure the agent for [KPI generation](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-conversation-kpis)
+
+## Technical Details
+
+### Canvas App
+
+| App | Logical Name |
+|---|---|
+| Conversation KPI | `cat_conversationkpi` |
+
+### Cloud Flows
+
+| Flow | Type |
+|---|---|
+| Conversation KPI \| Copy Agent Transcripts Scheduler | Scheduled (runs twice daily) |
+| Conversation KPI \| Copy Transcripts (Child) | Child flow |
+| Conversation KPI \| Copy Transcripts (Grandchild) | Child flow |
+| Conversation KPI \| Generate Conversation KPIs Scheduler | Scheduled |
+| Conversation KPI \| Get Conversation Transcripts Count | Utility |
+| Conversation KPI \| On Demand | Manual trigger (from agent configuration) |
+
+### Dataverse Tables
+
+| Table | Logical Name | Description |
+|---|---|---|
+| Conversation KPI | `cat_CopilotKPI` | Stores aggregated KPI data |
+| Agent Transcripts | `cat_AgentTranscripts` | Stores conversation transcript data |
+| Agent Configuration | `cat_CopilotConfiguration` | Shared configuration table |
+
+### Connection References
+
+| Connection Reference | Required |
+|---|---|
+| Copilot Studio Kit - Dataverse | Yes |
+
+### Environment Variables
+
+| Variable | Logical Name | Description |
+|---|---|---|
+| Conversation KPIs Report | `cat_ConversationKPIReport` | JSON config with Power BI workspace/report details. Required for the embedded dashboard. |
+
+### DLP Connectors
+
+- Microsoft Dataverse
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

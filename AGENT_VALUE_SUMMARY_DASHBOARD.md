@@ -91,4 +91,47 @@ Given an agent's instructions and description, assign it:
 - A Value benefit it most likely delivers
 - A simple formula or signal to measure this value
 
+## Technical Details
+
+### Connection References
+
+| Connection Reference | Connector |
+|:---------------------|:----------|
+| Copilot Studio Kit - Dataverse | Microsoft Dataverse |
+
+### Environment Variables
+
+| Display Name | Schema Name | Required | Description |
+|:-------------|:------------|:---------|:------------|
+| Enable Value Component | cat_Enablevaluecomponent | Yes | Must be set to "Yes" to activate the automated classification flows |
+
+### Cloud Flows
+
+| Display Name | Trigger | Purpose |
+|:-------------|:--------|:--------|
+| Value Summary \| Initialize agent value inventory | Manual | Iterates all agents and classifies them based on metadata |
+| Value Summary \| New agent classification | Automated (new Agent Details row) | Classifies newly added agents automatically |
+
+### Dataverse Tables
+
+| Display Name | Schema Name | Purpose |
+|:-------------|:------------|:--------|
+| Agent Value | cat_Agentvalue | Stores classification output (type, behavior, value benefit) per agent |
+| Customer | cat_Customer | Stores customer context associated with agent value tracking |
+
+### DLP Configuration
+
+This component requires the **Microsoft Dataverse** connector. Ensure your DLP policies allow this connector in the target environment.
+
+### Canvas App
+
+| Display Name | Schema Name |
+|:-------------|:------------|
+| Agent Value Summary | cat_agentvaluesummary |
+
+### Prerequisites
+
+- **Agent Inventory** must be populated before classification flows can operate.
+- **AI Builder credits** must be assigned to the environment for the classification prompt to execute.
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

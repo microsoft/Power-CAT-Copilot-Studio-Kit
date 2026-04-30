@@ -34,4 +34,17 @@ Flow activation view allows user to view the current status of Copilot Studio Ki
 * Publishing the Conversation KPIs sample dashboard and scheduling the data refresh
 * Creating the required app registrations for test automation (authentication, app insights)
 
+## Technical Details
+
+| Category | Details |
+|---|---|
+| **Canvas App** | Setup Wizard (`cat_setupwizard`) |
+| **Cloud Flows** | Setup Wizard \| Get Solution Connection References Details |
+| | Setup Wizard \| Get Solution Environment Variable Definitions |
+| | Setup Wizard \| Get Solution Flows Details |
+| **Connection References** | Copilot Studio Kit - Dataverse |
+| **Environment Variables** | None specific (reads/writes all environment variables defined in the Kit) |
+| **DLP Connectors** | Microsoft Dataverse, Power Apps for Makers |
+| **Dataverse Tables** | Solution Component (`cat_SolutionComponent`) |
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
