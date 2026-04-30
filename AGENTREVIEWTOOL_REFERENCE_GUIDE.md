@@ -74,7 +74,7 @@ When you open the Agent Review Tool, you land on the **Dashboard**, the central 
 
 ### Dashboard Layout
 
-![Home page / dashboard](../media/art_1.png)
+![Home page / dashboard](media/art_1.png)
 
 The dashboard shows everything at a glance: the tab bar switching between Copilot Studio and M365 agents, four stat cards summarizing the portfolio health, a search toolbar, the paginated agent grid, and the Upload ZIP button for offline reviews.
 
@@ -105,7 +105,7 @@ By default, the tool shows agents from the environment it is installed in. If yo
 
 Once you select a different environment, the agent grid refreshes to show agents from that environment. You can then review any of those agents normally. The review result is stored in the current (home) environment, not the one you selected.
 
-![Environment selector dropdown](../media/art_2.png)
+![Environment selector dropdown](media/art_2.png)
 
 ---
 
@@ -166,7 +166,7 @@ This mode reviews Microsoft 365 Declarative Agents, which are defined by a manif
 
 When you click **Review**, the tool runs an automated analysis that typically completes in under 60 seconds. A progress dialog keeps you informed while it works.
 
-![Review Progress Dialog](../media/art_3.png)
+![Review Progress Dialog](media/art_3.png)
 
 The analysis covers three things in sequence:
 
@@ -212,7 +212,7 @@ Patterns identify specific anti-patterns or missing best practices in an agent's
 
 For each failing pattern, the tool shows which topics are affected, the current value that triggered the finding, a suggested improvement, and a link to the relevant Microsoft Learn documentation.
 
-![Patterns tab](../media/art_4.png)
+![Patterns tab](media/art_4.png)
 
 ---
 
@@ -274,7 +274,7 @@ The 15 criteria are derived from Microsoft's [generative mode guidance](https://
 | 14 | `escalation-guidance` | Escalation Guidance | UX | **High** | Instructions define what to do when the agent can't help: hand off to a human, suggest an alternative, or exit gracefully |
 | 15 | `deterministic-language` | Deterministic Language | Quality | Medium | Instructions use absolute directives (always, never, only, must) rather than vague modifiers (might, usually, try, sometimes) |
 
-![Compliance tab](../media/art_5.png)
+![Compliance tab](media/art_5.png)
 
 ---
 
@@ -369,7 +369,7 @@ The Overview tab gives you a high-level summary:
 - **AI-generated summary** - a natural language description of the most significant findings
 - **Review timestamp** and data source (live environment or ZIP upload)
 
-![Review Dialog - Overview tab](../media/art_6.png)
+![Review Dialog - Overview tab](media/art_6.png)
 
 ---
 
@@ -415,7 +415,7 @@ Clicking **Details** on any failing pattern opens the **Pattern Details dialog**
 - **Recommendation** - a concrete action to fix the issue
 - **Learn More** - a direct link to the relevant Microsoft Learn documentation
 
-![Pattern Details dialog](../media/art_7.png)
+![Pattern Details dialog](media/art_7.png)
 
 ---
 
@@ -562,7 +562,7 @@ Any health check failures are surfaced as issues in the DA review results, indep
 3. Your deployed DAs appear in the DA grid
 4. Click "Review" on any DA
 
-![Declarative Agent Review Dialog](../media/art_8.png)
+![Declarative Agent Review Dialog](media/art_8.png)
 
 ---
 
