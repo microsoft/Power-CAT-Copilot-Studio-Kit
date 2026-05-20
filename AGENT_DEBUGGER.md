@@ -182,7 +182,7 @@ Use this when:
 
 **Resolution:**
 1. In the **kit environment**, the user must have the **CSK - Administrator** or **System Administrator** role to access Agent Debugger.
-2. In the **target environment** where the agent resides, the Dataverse connection reference must have sufficient access to read the `conversationtranscripts`, `bot`, and `botcomponents` tables.
+2. In the **target environment** where the agent resides, the singed-in user must have sufficient access to read the `conversationtranscripts`, and `botcomponents` tables.
 
 
 ### Transcripts appear incomplete (missing early messages)
@@ -199,5 +199,5 @@ Use this when:
 **Cause:** The `botcomponents` table lookup failed or the component record was deleted.
 
 **Resolution:**
-1. Verify the Dataverse connection reference has read access to the `botcomponents` table in the target environment.
+1. Verify the signed-in user has read access to the `botcomponents` table in the target environment.
 2. If the component was deleted from Copilot Studio, no matching record exists and the debugger falls back to the raw schema name (e.g. `cr123_mytopic`). This is expected for deleted topics or actions.
