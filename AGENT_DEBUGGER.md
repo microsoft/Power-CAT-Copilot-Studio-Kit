@@ -56,17 +56,16 @@ See the Agent Inventory documentation for setup instructions:
 
 ### 2. Security role and connection permissions
 
-The user must have the **CSK - Administrator** or **System Administrator** security role within the kit for this feature to be accessible.
+The feature is available only to users with either the **CSK – Administrator** or **System Administrator** security role within the kit.
 
-The **Dataverse connection reference** used by the app must have **Read** access to the following tables in the target environment:
+Additionally, the signed-in user must have **Read** access to the required tables in the target environment where agent resides. For user-level access, the **Bot Transcript Viewer** and **Bot Viewer** security roles can be assigned within the target environment. Feel free to create custom security roles with required **Read** level permissions on below tables and assign it to signed-in user.
 
 | Table | Logical Name |
 |---|---|
 | **Conversation Transcripts** | `conversationtranscripts` |
-| **Bots** | `bot` |
 | **Bot Components** | `botcomponents` |
 
-> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the Dataverse connection must be authenticated in that remote environment with the same read permissions.
+> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the signed-in user must have required read permissions.
 
 ---
 
