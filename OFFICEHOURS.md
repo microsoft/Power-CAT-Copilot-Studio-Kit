@@ -2,7 +2,7 @@
 ## Join the Copilot Studio Kit Office hours
 
 > [!NOTE]
-> Starting May 13, 2026, Copilot Studio Kit Office Hours will move to an every-other-week schedule.
+> Starting Jun 3, 2026, Copilot Studio Kit Office Hours will move to an every-other-week schedule.
 > The format is also changing: each session will now include updates and demos from the team, including highlights of new features and walkthroughs showing how to configure features or accomplish more complex scenarios with existing capabilities.
 > * US-friendly slot: 10:05 AM Pacific Time (PT)
 > * APAC-friendly slot: 9:05 PM Pacific Time (PT) (next-day morning in IST)
