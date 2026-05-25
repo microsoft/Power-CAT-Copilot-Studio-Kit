@@ -67,16 +67,11 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | Apr 15 (US) / N/A | Confirmed | US | – |
 | May 7 (APAC) | Confirmed | APAC | – |
 | May 13 (US) / N/A | Cancelled | US | Transition to every-other-week schedule and new session format |
-| May 27 (US)           | Planned   | US   | Every-other-week US slot |
-| Jun 3 (APAC)          | Planned   | APAC | Every-other-week APAC slot |
-| Jun 10 (US)           | Planned   | US   | Every-other-week US slot |
-| Jun 17 (APAC)         | Planned   | APAC | Every-other-week APAC slot |
-| Jun 24 (US)           | Planned   | US   | Every-other-week US slot |
-| Jul 1 (APAC)          | Planned   | APAC | Every-other-week APAC slot |
-| Jul 8 (US)            | Planned   | US   | Every-other-week US slot |
-| Jul 15 (APAC)         | Planned   | APAC | Every-other-week APAC slot |
-| Jul 22 (US)           | Planned   | US   | Every-other-week US slot |
-| Jul 29 (APAC)         | Planned   | APAC | Every-other-week APAC slot |
+| Jun 3 (US) | Planned | US | First every-other-week US slot |
+| Jun 17 (APAC) | Planned | APAC | First every-other-week APAC slot |
+| Jul 1 (US) | Planned | US | Every-other-week US slot |
+| Jul 15 (APAC) | Planned | APAC | Every-other-week APAC slot |
+| Jul 29 (US) | Planned | US | Every-other-week US slot |
 
 [World Clock Meeting Planner](https://www.timeanddate.com/worldclock/meeting.html)
 
