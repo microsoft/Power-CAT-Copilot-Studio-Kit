@@ -90,18 +90,21 @@ This role is based on Basic User with two additional org-level permissions:
 
 ### 4. Set Up GitHub Repo
 
-Clone or fork the [Agent Review Pipeline](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/tree/main/agent-review-pipeline) folder from the Copilot Studio Kit repository, or copy the following into your own repo:
+Clone or fork the [Agent Review Pipeline](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/tree/main/agent-review-pipeline) folder from the Copilot Studio Kit repository into your own repo. The folder contains everything needed to run the action:
 
 ```
 your-repo/
 ├── action.yml                    ← action definition
 ├── package.json                  ← dependencies
+├── package-lock.json
 ├── tsconfig.json
-├── src/                          ← source code
-├── dist/                         ← compiled output (built via npm run build)
+├── src/                          ← source code (customize patterns here)
+├── dist/                         ← compiled output (npm run build)
 └── .github/workflows/
     └── agent-review.yml          ← workflow template
 ```
+
+> The `dist/` folder is included pre-built so you can run the action immediately. If you modify `src/`, rebuild with `npm install && npm run build`.
 
 Add 3 secrets (repo → Settings → Secrets → Actions):
 - `CLIENT_ID`
@@ -137,13 +140,15 @@ In the pipeline host environment, open the **Agent Review Pipeline** solution an
 | GitHub Repository Name | e.g. `copilot-governance` |
 | Pipeline Name Filter | Exact pipeline name (case-sensitive), e.g. `Agent Review Pipeline` |
 
+> **Security note:** The GitHub PAT is stored as a plain-text environment variable. For production use, consider using a [secret environment variable backed by Azure Key Vault](https://learn.microsoft.com/en-us/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets) so the value is never exposed in the solution or API responses. If Key Vault is not available, limit risk by using a fine-grained PAT scoped to a single repo with minimal permissions (Actions R/W, Contents Read only).
+
 ---
 
 ### 7. Create Pipeline & Enable Pre-Deployment Step
 
-1. Power Platform Admin Center → Pipelines → New
-2. Name must match the Pipeline Name Filter exactly
-3. On the target stage → enable **"Pre-deployment step required"**
+1. Power Platform Admin Center → Pipelines → create or select your pipeline
+2. Pipeline name must match the **Pipeline Name Filter** environment variable exactly (case-sensitive)
+3. On the target stage, enable **"Pre-deployment step required"**
 
 ---
 
@@ -158,7 +163,8 @@ make.powerautomate.com → pipeline host env → open "Agent Review - Pre-Deploy
 Deploy a solution with a Copilot Studio agent through the pipeline. Verify:
 - Flow triggers (run history)
 - GitHub Action runs (Actions tab)
-- Pipeline approves or rejects
+- PDF report uploaded as artifact
+- Pipeline approves or rejects based on score
 
 ---
 
@@ -215,7 +221,7 @@ The artifact URL is included in the pre-deployment comments, so reviewers can ac
 | What | How |
 |------|-----|
 | Pass threshold | Change `threshold` input in workflow (default: 60) |
-| Add pattern checks | Edit `src/analysis/StageAService.ts` |
+| Add pattern checks | Edit `src/analysis/StageAService.ts`, rebuild with `npm run build` |
 | Notifications | Add Teams/email actions in the flow after gating |
 | Store results | Add Dataverse "Create row" to `cat_agentreviews` in the flow |
 
