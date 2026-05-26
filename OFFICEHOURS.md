@@ -2,7 +2,7 @@
 ## Join the Copilot Studio Kit Office hours
 
 > [!NOTE]
-> Starting May 13, 2026, Copilot Studio Kit Office Hours will move to an every-other-week schedule.
+> Starting Jun 3, 2026, Copilot Studio Kit Office Hours will move to an every-other-week schedule.
 > The format is also changing: each session will now include updates and demos from the team, including highlights of new features and walkthroughs showing how to configure features or accomplish more complex scenarios with existing capabilities.
 > * US-friendly slot: 10:05 AM Pacific Time (PT)
 > * APAC-friendly slot: 9:05 PM Pacific Time (PT) (next-day morning in IST)
@@ -67,16 +67,11 @@ Remember: You can always raise an issue to the Copilot Studio Kit team in the Gi
 | Apr 15 (US) / N/A | Confirmed | US | – |
 | May 7 (APAC) | Confirmed | APAC | – |
 | May 13 (US) / N/A | Cancelled | US | Transition to every-other-week schedule and new session format |
-| May 27 (US)           | Planned   | US   | Every-other-week US slot |
-| Jun 3 (APAC)          | Planned   | APAC | Every-other-week APAC slot |
-| Jun 10 (US)           | Planned   | US   | Every-other-week US slot |
-| Jun 17 (APAC)         | Planned   | APAC | Every-other-week APAC slot |
-| Jun 24 (US)           | Planned   | US   | Every-other-week US slot |
-| Jul 1 (APAC)          | Planned   | APAC | Every-other-week APAC slot |
-| Jul 8 (US)            | Planned   | US   | Every-other-week US slot |
-| Jul 15 (APAC)         | Planned   | APAC | Every-other-week APAC slot |
-| Jul 22 (US)           | Planned   | US   | Every-other-week US slot |
-| Jul 29 (APAC)         | Planned   | APAC | Every-other-week APAC slot |
+| Jun 3 (US) | Planned | US | First every-other-week US slot |
+| Jun 17 (APAC) | Planned | APAC | First every-other-week APAC slot |
+| Jul 1 (US) | Planned | US | Every-other-week US slot |
+| Jul 15 (APAC) | Planned | APAC | Every-other-week APAC slot |
+| Jul 29 (US) | Planned | US | Every-other-week US slot |
 
 [World Clock Meeting Planner](https://www.timeanddate.com/worldclock/meeting.html)
 
