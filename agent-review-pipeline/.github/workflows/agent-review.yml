@@ -1,0 +1,41 @@
+name: Agent Review Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_url:
+        description: 'Dataverse artifact download URL'
+        required: true
+        type: string
+      callback_url:
+        description: 'Power Automate webhook callback URL'
+        required: true
+        type: string
+      solution_name:
+        description: 'Solution name being deployed'
+        required: false
+        type: string
+        default: ''
+      threshold:
+        description: 'Minimum overall score to pass (0-100)'
+        required: false
+        type: string
+        default: '60'
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Agent Review Pipeline
+        uses: ./
+        with:
+          artifact_url: ${{ inputs.artifact_url }}
+          callback_url: ${{ inputs.callback_url }}
+          threshold: ${{ inputs.threshold }}
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          TENANT_ID: ${{ secrets.TENANT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}

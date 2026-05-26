@@ -1,0 +1,153 @@
+name: 'Agent Review Pipeline'
+description: 'Evaluates Copilot Studio agents from a Power Platform solution ZIP. Runs Stage A (pattern detection), Stage B (AI pattern evaluation), Stage C (AI instruction compliance), and calculates pass/fail score.'
+author: 'Copilot Acceleration Team'
+
+inputs:
+  artifact_url:
+    description: 'Dataverse artifact download URL'
+    required: true
+  callback_url:
+    description: 'Power Automate HTTP webhook URL to POST results back'
+    required: true
+  callback_secret:
+    description: 'Optional secret to include in callback header for validation'
+    required: false
+    default: ''
+  threshold:
+    description: 'Minimum overall score (0-100) to pass the quality gate'
+    required: false
+    default: '60'
+
+outputs:
+  evaluation_json:
+    description: 'Full evaluation results as JSON string (Stage A + B + C + scores)'
+    value: ${{ steps.evaluate.outputs.result }}
+  overall_score:
+    description: 'Overall score (0-100)'
+    value: ${{ steps.evaluate.outputs.overall_score }}
+  passed:
+    description: 'Whether the agent passed the quality gate (true/false)'
+    value: ${{ steps.evaluate.outputs.passed }}
+  report_url:
+    description: 'URL to the GitHub Actions run containing the PDF report artifact'
+    value: ${{ steps.evaluate.outputs.report_url }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm ci
+
+    - name: Build
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: npm run build
+
+    - name: Authenticate & Download Artifact
+      id: download
+      shell: bash
+      env:
+        CLIENT_ID: ${{ env.CLIENT_ID }}
+        TENANT_ID: ${{ env.TENANT_ID }}
+        CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
+        ARTIFACT_URL: ${{ inputs.artifact_url }}
+      run: |
+        DATAVERSE_HOST=$(echo "$ARTIFACT_URL" | sed -E 's|https://([^/]+)/.*|\1|')
+        TOKEN=$(curl -s -X POST \
+          "https://login.microsoftonline.com/${TENANT_ID}/oauth2/v2.0/token" \
+          -H "Content-Type: application/x-www-form-urlencoded" \
+          -d "client_id=${CLIENT_ID}&scope=https://${DATAVERSE_HOST}/.default&client_secret=${CLIENT_SECRET}&grant_type=client_credentials" \
+          | jq -r '.access_token')
+        if [ "$TOKEN" = "null" ] || [ -z "$TOKEN" ]; then
+          echo "::error::Failed to acquire OAuth token"
+          exit 1
+        fi
+        curl -s -o "${GITHUB_WORKSPACE}/solution.zip" \
+          -H "Authorization: Bearer $TOKEN" \
+          "$ARTIFACT_URL"
+        echo "artifact_path=${GITHUB_WORKSPACE}/solution.zip" >> "$GITHUB_OUTPUT"
+        echo "dataverse_host=${DATAVERSE_HOST}" >> "$GITHUB_OUTPUT"
+
+    - name: Run Stage A Analysis
+      id: stage-a
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: |
+        node dist/index.js --zip "${{ steps.download.outputs.artifact_path }}" --output "${GITHUB_WORKSPACE}/stage-a.json"
+        echo "stage_a_path=${GITHUB_WORKSPACE}/stage-a.json" >> "$GITHUB_OUTPUT"
+
+    - name: Run Stage B + C Evaluation & Scoring
+      id: evaluate
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      env:
+        CLIENT_ID: ${{ env.CLIENT_ID }}
+        TENANT_ID: ${{ env.TENANT_ID }}
+        CLIENT_SECRET: ${{ env.CLIENT_SECRET }}
+        GITHUB_SERVER_URL: ${{ github.server_url }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_RUN_ID: ${{ github.run_id }}
+      run: |
+        echo "DEBUG: SERVER_URL=$GITHUB_SERVER_URL REPO=$GITHUB_REPOSITORY RUN_ID=$GITHUB_RUN_ID"
+        node dist/evaluate.js \
+          --stage-a "${{ steps.stage-a.outputs.stage_a_path }}" \
+          --dataverse-host "${{ steps.download.outputs.dataverse_host }}" \
+          --threshold "${{ inputs.threshold }}" \
+          --output "${GITHUB_WORKSPACE}/evaluation-result.json" \
+          --pdf-output "${GITHUB_WORKSPACE}/agent-review-report.pdf"
+        RESULT=$(cat "${GITHUB_WORKSPACE}/evaluation-result.json")
+        echo "DEBUG: reportUrl=$(echo "$RESULT" | jq -r '.reportUrl')"
+        echo "result<<EOF" >> "$GITHUB_OUTPUT"
+        echo "$RESULT" >> "$GITHUB_OUTPUT"
+        echo "EOF" >> "$GITHUB_OUTPUT"
+        # Extract key fields for action outputs
+        SCORE=$(echo "$RESULT" | jq -r '.overall.lowestScore // .scores.overallScore')
+        PASSED=$(echo "$RESULT" | jq -r '.overall.passed // .scores.passed')
+        REPORT_URL=$(echo "$RESULT" | jq -r '.reportUrl // empty')
+        echo "overall_score=${SCORE}" >> "$GITHUB_OUTPUT"
+        echo "passed=${PASSED}" >> "$GITHUB_OUTPUT"
+        echo "report_url=${REPORT_URL}" >> "$GITHUB_OUTPUT"
+
+    - name: Upload PDF Report
+      id: upload-pdf
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: agent-review-report
+        path: ${{ github.workspace }}/agent-review-report.pdf
+        if-no-files-found: ignore
+
+    - name: POST results to callback
+      if: inputs.callback_url != ''
+      shell: bash
+      env:
+        CALLBACK_URL: ${{ inputs.callback_url }}
+        CALLBACK_SECRET: ${{ inputs.callback_secret }}
+        RESULT_JSON: ${{ steps.evaluate.outputs.result }}
+        ARTIFACT_ID: ${{ steps.upload-pdf.outputs.artifact-id }}
+        GITHUB_SERVER_URL: ${{ github.server_url }}
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        GITHUB_RUN_ID: ${{ github.run_id }}
+      run: |
+        # Build the real artifact URL (includes artifact ID)
+        if [ -n "$ARTIFACT_ID" ]; then
+          REPORT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/artifacts/${ARTIFACT_ID}"
+        else
+          REPORT_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+        fi
+        # Inject reportUrl into the result JSON
+        PAYLOAD=$(echo "$RESULT_JSON" | jq --arg url "$REPORT_URL" '.reportUrl = $url')
+        HEADERS=(-H "Content-Type: application/json")
+        if [ -n "$CALLBACK_SECRET" ]; then
+          HEADERS+=(-H "X-Callback-Secret: $CALLBACK_SECRET")
+        fi
+        printf '%s' "$PAYLOAD" | curl -s -X POST "$CALLBACK_URL" \
+          "${HEADERS[@]}" \
+          --data-binary @-
