@@ -1,0 +1,104 @@
+name: 🎨 Landing-page feedback
+description: Request a change to the Copilot Agent Kit landing page at https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/
+title: "[Pages] "
+labels: ["pages", "site-feedback"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the feedback on the [Copilot Agent Kit landing page](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/)! 💜
+
+        **After submitting**, assign this issue to **Copilot** from the right-hand sidebar
+        (look for "Copilot" in the assignees dropdown). Copilot will read
+        [`site-src/AGENTS.md`](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/feature/github-pages-agent/site-src/AGENTS.md)
+        for context, make the change in a branch, run the build + smoke test, and open a
+        draft PR targeting `feature/github-pages-agent`. Reviewers will polish and merge.
+
+        The more specific you are below, the cleaner the PR will be on the first try.
+
+  - type: dropdown
+    id: section
+    attributes:
+      label: Which section of the page?
+      description: Roughly where on the page is the change?
+      options:
+        - Hero (top banner with the rainbow headline + stat cards)
+        - Free & Open Source band
+        - Pillars (Quality / Governance / Analytics / Components cards)
+        - Features (the table of 15 features)
+        - Components (cards + Agent Archetype Framework callout)
+        - Get Started (3-step quickstart)
+        - CTA section (purple, near the bottom)
+        - Footer
+        - Header / nav bar
+        - Page-wide (palette, typography, motion, layout)
+        - Not sure / multiple sections
+    validations:
+      required: true
+
+  - type: dropdown
+    id: change_type
+    attributes:
+      label: Type of change
+      options:
+        - Copy / wording change
+        - Color / palette adjustment
+        - Typography (font size, weight, line height)
+        - Layout / spacing
+        - New element (card, callout, button, etc.)
+        - Remove or hide element
+        - Link or URL update
+        - Animation / motion tweak
+        - Accessibility improvement
+        - Bug (something is broken)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What change do you want?
+      description: |
+        Be specific. Reference exact text, colors (hex), or component names where possible.
+        Good: "The 'Pillars' section header is too dark — please lift to about #4A2D52."
+        Less good: "Make it pop more."
+      placeholder: |
+        Currently the … reads as …
+        I'd like it to … instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: rationale
+    attributes:
+      label: Why? (optional context)
+      description: Background that helps Copilot make a good call — feedback from a customer demo, accessibility need, brand alignment, etc.
+      placeholder: e.g., "Audience read it as too gray during the field call this morning."
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot or reference (optional but recommended)
+      description: Drag-and-drop a screenshot of the current state, or paste a link to a design reference (adoption.microsoft.com, Figma, etc.).
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: How urgent?
+      options:
+        - Nice to have
+        - Soon — would help an upcoming demo
+        - Urgent — visible bug or broken link
+      default: 0
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Quick checks
+      options:
+        - label: I've checked the [current landing page](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/) and the change isn't already there.
+          required: true
+        - label: This is feedback on the **landing page**, not the Kit's Power Platform solution components.
+          required: true
