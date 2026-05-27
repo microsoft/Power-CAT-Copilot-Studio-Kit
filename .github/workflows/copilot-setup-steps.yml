@@ -27,7 +27,10 @@ jobs:
 
       # The agent-review-pipeline/ is the Node.js project in this repo.
       # Set up Node + cache npm so rebuilds are fast and reliable.
+      # Steps are guarded so they no-op when agent-review-pipeline/ is absent
+      # (e.g. on branches that predate that directory).
       - name: Set up Node.js
+        if: hashFiles('agent-review-pipeline/package-lock.json') != ''
         uses: actions/setup-node@v4
         with:
           node-version: "20"
@@ -35,11 +38,13 @@ jobs:
           cache-dependency-path: agent-review-pipeline/package-lock.json
 
       - name: Install agent-review-pipeline dependencies
+        if: hashFiles('agent-review-pipeline/package-lock.json') != ''
         working-directory: agent-review-pipeline
         run: npm ci
 
       # Validate the build works in the runner. If this step fails on the
       # default branch, dependencies are broken and Copilot tasks will fail.
       - name: Smoke-build agent-review-pipeline
+        if: hashFiles('agent-review-pipeline/package-lock.json') != ''
         working-directory: agent-review-pipeline
         run: npm run build
