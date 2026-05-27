@@ -75,8 +75,8 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
 ## Setup-steps environment
 
 The `.github/workflows/copilot-setup-steps.yml` workflow preinstalls Node 20
-and `npm ci`s `site-src/` before any Copilot session starts. If you change
-dependencies in `site-src/package.json`, the cache invalidates automatically
+and `npm ci`s `agent-review-pipeline/` before any Copilot session starts. If you change
+dependencies in `agent-review-pipeline/package.json`, the cache invalidates automatically
 (keyed on `package-lock.json`).
 
 ## When in doubt
