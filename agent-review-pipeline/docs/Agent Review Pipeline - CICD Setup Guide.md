@@ -104,7 +104,7 @@ Copy the token.
 
 ### 4. Import Solution
 
-Import the **Agent Review Pipeline** managed solution into the **pipeline host environment**.
+Download the **Agent Review Pipeline** managed solution (`AgentReviewPipeline_managed.zip`) from the [Copilot Studio Kit GitHub releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases) page, then import it into the **pipeline host environment**.
 
 During import, the wizard will prompt for environment variable values and connection references. Fill in:
 
