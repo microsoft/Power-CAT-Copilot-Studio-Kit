@@ -2,7 +2,7 @@ name: Deploy GitHub Pages
 
 on:
   push:
-    branches: ["feature/github-pages-agent"]
+    branches: ["main"]
     paths:
       - 'docs/**'
   workflow_dispatch:
