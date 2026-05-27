@@ -24,7 +24,12 @@ The Power CAT Copilot Studio Kit ships:
 This is the **most common** kind of issue from the team — visual tweaks, copy
 edits, new sections, link updates on the github.io page.
 
-**Read [`site-src/AGENTS.md`](../site-src/AGENTS.md) before touching anything in `site-src/`.**
+> **Note:** `site-src/` and its contents (including `site-src/AGENTS.md`,
+> `site-src/src/`, and `site-src/package.json`) exist only on the
+> `feature/github-pages-agent` branch. These files are **not present on `main`**
+> and will land there via a separate redesign PR.
+
+**Read `site-src/AGENTS.md` (on the `feature/github-pages-agent` branch) before touching anything in `site-src/`.**
 It has the design tokens, the build pipeline, the scroll-reveal pattern, and
 the branching strategy.
 
