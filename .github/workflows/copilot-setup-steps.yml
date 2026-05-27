@@ -23,7 +23,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       # The agent-review-pipeline/ is the Node.js project in this repo.
       # Set up Node + cache npm so rebuilds are fast and reliable.
