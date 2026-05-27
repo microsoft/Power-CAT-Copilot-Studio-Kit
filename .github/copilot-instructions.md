@@ -79,10 +79,19 @@ Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
 
 ## Setup-steps environment
 
-The `.github/workflows/copilot-setup-steps.yml` workflow preinstalls Node 20
-and `npm ci`s `agent-review-pipeline/` before any Copilot session starts. If you change
-dependencies in `agent-review-pipeline/package.json`, the cache invalidates automatically
-(keyed on `package-lock.json`).
+The `.github/workflows/copilot-setup-steps.yml` workflow runs before every
+Copilot session and preinstalls Node 20, then conditionally `npm ci`s any
+Node sub-project whose `package-lock.json` is present in the checked-out
+branch:
+
+- **`site-src/`** — landing page (Vite + React + Fluent UI v9). Present on
+  `feature/github-pages-agent`.
+- **`agent-review-pipeline/`** — GitHub Action helper. Present on `main`.
+
+Each step is guarded with `hashFiles(...) != ''` so it's a silent no-op on
+branches where the project isn't present (e.g. `site-src/` on `main` before
+the redesign PR lands). The npm cache is keyed on each project's
+`package-lock.json` so dependency changes automatically invalidate it.
 
 ## When in doubt
 

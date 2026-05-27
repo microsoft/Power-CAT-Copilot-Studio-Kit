@@ -25,11 +25,39 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # The agent-review-pipeline/ is the Node.js project in this repo.
-      # Set up Node + cache npm so rebuilds are fast and reliable.
-      # Steps are guarded so they no-op when agent-review-pipeline/ is absent
-      # (e.g. on branches that predate that directory).
-      - name: Set up Node.js
+      # Set up Node 20 unconditionally — both Node sub-projects in this repo
+      # (agent-review-pipeline/ on main, site-src/ on feature/github-pages-agent)
+      # need it, and the agent may also use Node for ad-hoc tooling.
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # ---- site-src/ (landing page — Vite + React + Fluent UI v9) ----
+      # Present on feature/github-pages-agent (the GitHub Pages source branch).
+      # Guarded with hashFiles so the step is a silent no-op on branches where
+      # site-src/ doesn't exist yet (e.g. main, before the redesign PR lands).
+      - name: Cache site-src npm
+        if: hashFiles('site-src/package-lock.json') != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: site-src/package-lock.json
+
+      - name: Install site-src dependencies
+        if: hashFiles('site-src/package-lock.json') != ''
+        working-directory: site-src
+        run: npm ci
+
+      - name: Smoke-build site-src
+        if: hashFiles('site-src/package-lock.json') != ''
+        working-directory: site-src
+        run: npm run build
+
+      # ---- agent-review-pipeline/ (GitHub Action — TypeScript) ----
+      # Present on main. Same hashFiles guard pattern so it's a no-op when absent.
+      - name: Cache agent-review-pipeline npm
         if: hashFiles('agent-review-pipeline/package-lock.json') != ''
         uses: actions/setup-node@v4
         with:
@@ -42,8 +70,6 @@ jobs:
         working-directory: agent-review-pipeline
         run: npm ci
 
-      # Validate the build works in the runner. If this step fails on the
-      # default branch, dependencies are broken and Copilot tasks will fail.
       - name: Smoke-build agent-review-pipeline
         if: hashFiles('agent-review-pipeline/package-lock.json') != ''
         working-directory: agent-review-pipeline
