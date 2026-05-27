@@ -49,54 +49,111 @@ Before using PowerShield, ensure you have:
 > [!NOTE]
 > Developer environments are automatically excluded from PowerShield. Only Production, Sandbox, Trial, Default, and Teams environments are available.
 
+### Environment variable
+
+PowerShield requires one environment variable to be configured before cloud flows can manage DLP policies.
+
+#### PowerShield Tenant ID
+
+The **PowerShield Tenant ID** environment variable stores your Microsoft Entra tenant GUID. Cloud flows use this value to construct API calls to the Power Platform governance endpoint (for example, `https://api.bap.microsoft.com/providers/PowerPlatform.Governance/v1/tenants/{tenantId}/policies/...`).
+
+**To configure the environment variable:**
+
+1. Open the [Power Apps maker portal](https://make.powerapps.com) and select your environment.
+2. Navigate to **Solutions > Default Solution > Environment variables**.
+3. Locate **PowerShield Tenant ID** (`cat_PowerShieldTenantID`).
+4. Select the variable, then enter your tenant GUID in the **Current Value** field.
+5. Select **Save**.
+
+![Screenshot showing the PowerShield Tenant ID environment variable configuration in the Default Solution](./media/ps_prereq_tenant_env_variable.png)
+
+*PowerShield Tenant ID environment variable*
+
+> [!TIP]
+> To find your Tenant ID, sign in to [Power Apps](https://make.powerapps.com), select the **Settings** (gear) icon on the command bar, and then select **Session details**. The **Tenant ID** is displayed in the session details dialog. For more information, see [Get session and app ID details](https://learn.microsoft.com/power-apps/maker/canvas-apps/get-sessionid).
+
 ### Connection references
 
-PowerShield uses two **HTTP with Microsoft Entra ID (preauthorized)** connection references shared across both code apps for environment discovery and DLP policy management.
+PowerShield cloud flows use two connection references that require **HTTP with Microsoft Entra ID (preauthorized)** connections. After installing the managed solution, you must create the connections and map them to the connection references before the cloud flows can be turned on.
 
-Each code app also registers its own platform connectors:
+> [!IMPORTANT]
+> Cloud flows included in the solution remain in an **off** state until you complete the connection reference configuration and manually turn them on.
 
-| Code App | Platform Connectors |
-|----------|-------------------|
-| **Copilot Studio Kit for Makers** | Microsoft Dataverse, Power Apps for Makers |
-| **Copilot Studio Kit for Admins** | Microsoft Dataverse, Power Platform for Admins |
+#### Step 1: Create connections
 
-#### 1. PowerShield APIFlow
+Create two HTTP with Microsoft Entra ID (preauthorized) connections in your environment. Each connection requires a specific Base Resource URL and Microsoft Entra ID Resource URI (Azure AD Resource URI).
 
-Reads connector actions from the Power Platform Flow API.
+1. Sign in to [Power Apps](https://make.powerapps.com) and select your environment.
+2. On the left navigation pane, select **Connections**.
+3. Select **+ New connection**.
+4. Search for **HTTP with Microsoft Entra ID** and select the **(preauthorized)** variant.
+5. Enter the following values for the **first connection** (used by the PowerShield APIFlow connection reference):
 
-| Setting | Value |
-|---------|-------|
-| **Display Name** | PowerShield APIFlow |
-| **Connector** | HTTP with Microsoft Entra ID (preauthorized) |
-| **Base Resource URL** | `https://api.flow.microsoft.com` |
-| **Entra ID Resource URI** | `https://service.powerapps.com/` |
+   | Setting | Value |
+   |---------|-------|
+   | **Base Resource URL** | `https://api.flow.microsoft.com` |
+   | **Microsoft Entra ID Resource URI** | `https://service.powerapps.com/` |
 
-![Screenshot showing the PowerShield APIFlow connection reference configuration in the solution](./media/ps_prereq_apiflow_connector.png)
-
-*APIFlow connection reference*
+6. Select **Create** and complete the sign-in prompt.
 
 ![Screenshot showing the APIFlow connection details with base resource URL and Entra ID resource URI](./media/ps_prereq_apiflow_conn.png)
 
 *APIFlow connection details*
 
-#### 2. PowerShield BAPAPI
+7. Repeat steps 3–6 to create the **second connection** (used by the PowerShield BAPAPI connection reference) with the following values:
 
-Posts connector actions and manages DLP policies via the BAP API.
-
-| Setting | Value |
-|---------|-------|
-| **Display Name** | PowerShield BAPAPI |
-| **Connector** | HTTP with Microsoft Entra ID (preauthorized) |
-| **Base Resource URL** | `https://api.bap.microsoft.com` |
-| **Entra ID Resource URI** | `https://api.bap.microsoft.com` |
-
-![Screenshot showing the PowerShield BAPAPI connection reference configuration in the solution](./media/ps_prereq_bapapi_connector.png)
-
-*BAPAPI connection reference*
+   | Setting | Value |
+   |---------|-------|
+   | **Base Resource URL** | `https://api.bap.microsoft.com` |
+   | **Microsoft Entra ID Resource URI** | `https://api.bap.microsoft.com` |
 
 ![Screenshot showing the BAPAPI connection details with base resource URL and Entra ID resource URI](./media/ps_prereq_bapapi_conn.png)
 
 *BAPAPI connection details*
+
+> [!NOTE]
+> You must sign in with an account that has the **Power Platform Administrator** role for the BAPAPI connection, because the associated cloud flows create and manage DLP policies.
+
+#### Step 2: Map connections to connection references
+
+After you create both connections, associate them with the solution's connection references.
+
+1. In [Power Apps](https://make.powerapps.com), select your environment.
+2. On the left navigation pane, select **Solutions**, then open **Default Solution**.
+3. Use the search box or filter by **Type = Connection Reference** to locate the following connection references:
+   - **PowerShield APIFlow** (`cat_PowerShieldAPIFlow`)
+   - **PowerShield BAPAPI** (`cat_PowerShieldBAPAPI`)
+4. Select **PowerShield APIFlow** to open the details pane.
+5. In the **Connection** dropdown, select the connection you created with the `https://api.flow.microsoft.com` Base Resource URL.
+6. Select **Save**.
+
+![Screenshot showing the PowerShield APIFlow connection reference configuration in the solution](./media/ps_prereq_apiflow_connector.png)
+
+*PowerShield APIFlow connection reference*
+
+7. Select **PowerShield BAPAPI** to open the details pane.
+8. In the **Connection** dropdown, select the connection you created with the `https://api.bap.microsoft.com` Base Resource URL.
+9. Select **Save**.
+
+![Screenshot showing the PowerShield BAPAPI connection reference configuration in the solution](./media/ps_prereq_bapapi_connector.png)
+
+*PowerShield BAPAPI connection reference*
+
+For more information about connection references, see [Use a connection reference in a solution](https://learn.microsoft.com/power-apps/maker/data-platform/create-connection-reference).
+
+#### Step 3: Turn on cloud flows
+
+After the connection references are configured, turn on the PowerShield cloud flows.
+
+1. In [Power Apps](https://make.powerapps.com), select **Solutions** and open **Copilot Studio Accelerator**.
+2. Filter or search for **Cloud flows**.
+3. For each of the following flows, select the flow name to open it, then select **Turn on** from the command bar:
+   - **PowerShield | Sync Connectors**
+   - **PowerShield | Sync Connector Actions**
+   - **PowerShield | DLP Request - Patch Custom Connector and Actions**
+
+> [!TIP]
+> If a flow fails to turn on, verify that the connection references are correctly mapped and that the signed-in account has permissions to use the associated connections. For more information, see [Share connections with another user so flows can be enabled](https://learn.microsoft.com/power-apps/maker/data-platform/create-connection-reference#share-connections-with-another-user-so-flows-can-be-enabled).
 
 ### Connector and Connector Actions sync
 
@@ -109,11 +166,11 @@ PowerShield relies on two Dataverse tables — **Connectors** (`cat_connector`) 
 
 #### First-time setup
 
-After installing the Copilot Studio Kit solution:
+After turning on the cloud flows (see [Step 3: Turn on cloud flows](#step-3-turn-on-cloud-flows)):
 
 1. Navigate to **Solutions > Copilot Studio Accelerator > Cloud flows**.
-2. Enable and **run manually** the **"PowerShield | Sync Connectors"** flow. Wait for completion.
-3. Enable and **run manually** the **"PowerShield | Sync Connector Actions"** flow. Wait for completion.
+2. Open the **"PowerShield | Sync Connectors"** flow and select **Run** from the command bar. Wait for completion.
+3. Open the **"PowerShield | Sync Connector Actions"** flow and select **Run** from the command bar. Wait for completion.
 4. Verify: open the **Connectors** (`cat_connector`) table — you should see hundreds of records.
 5. Verify: open the **Connector Actions** (`cat_connectoraction`) table — you should see action records.
 

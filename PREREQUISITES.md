@@ -23,6 +23,9 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
 * Copilot Studio Kit is using advanced components from the Creator Kit, please make sure to deploy it before deploying Copilot Studio Kit
   * [Creator Kit installation instructions](https://learn.microsoft.com/power-platform/guidance/creator-kit/setup)
 
+* This solution requires Code Apps to be enabled on the environment.
+  * [Enabling code apps on a Power Platform environment](https://learn.microsoft.com/en-us/power-apps/developer/code-apps/overview#enable-code-apps-on-a-power-platform-environment)
+
 ## Optional requirements
 
 - **AI Builder / Copilot credits**.
