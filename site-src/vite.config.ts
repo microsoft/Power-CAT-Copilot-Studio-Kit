@@ -8,11 +8,10 @@ export default defineConfig({
   plugins: [react()],
   base: "./",
   build: {
-    outDir: resolve(__dirname, "..", "docs"),
-    emptyOutDir: false, // preserve .nojekyll and /images alongside built assets
+    outDir: resolve(__dirname, "dist"),
+    emptyOutDir: true,
     rollupOptions: {
       output: {
-        // Keep a stable bundle name so workflow diffs stay readable.
         entryFileNames: "assets/index.js",
         chunkFileNames: "assets/[name]-[hash].js",
         assetFileNames: "assets/[name]-[hash][extname]",
