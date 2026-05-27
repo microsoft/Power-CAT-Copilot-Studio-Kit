@@ -25,21 +25,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
 
-      # The landing page (site-src/) is the most common target of Copilot
-      # tasks today. Set up Node + cache npm so rebuilds are fast and reliable.
+      # The agent-review-pipeline/ is the Node.js project in this repo.
+      # Set up Node + cache npm so rebuilds are fast and reliable.
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: site-src/package-lock.json
+          cache-dependency-path: agent-review-pipeline/package-lock.json
 
-      - name: Install site-src dependencies
-        working-directory: site-src
+      - name: Install agent-review-pipeline dependencies
+        working-directory: agent-review-pipeline
         run: npm ci
 
       # Validate the build works in the runner. If this step fails on the
       # default branch, dependencies are broken and Copilot tasks will fail.
-      - name: Smoke-build site-src
-        working-directory: site-src
+      - name: Smoke-build agent-review-pipeline
+        working-directory: agent-review-pipeline
         run: npm run build
