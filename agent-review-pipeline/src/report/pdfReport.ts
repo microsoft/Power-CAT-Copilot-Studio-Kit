@@ -43,11 +43,12 @@ function decodeHtmlEntities(text: string): string {
   return text
     .replace(/&#(\d+);/g, (_, num) => String.fromCharCode(parseInt(num, 10)))
     .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
-    .replace(/&apos;/g, "'");
+    .replace(/&apos;/g, "'")
+    // &amp; must be last to prevent double-unescaping (e.g. &amp;lt; → &lt; → <)
+    .replace(/&amp;/g, '&');
 }
 
 /** Sanitize text for jsPDF standard fonts (WinAnsi/Latin-1 only) */
