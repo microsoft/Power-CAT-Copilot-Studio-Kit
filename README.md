@@ -45,10 +45,10 @@ Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables y
 
 More information on [Rubrics Refinement](./RubricRefinement/01-rubrics-refinement-overview.md) 
 
-## Conversation KPIs
-Conversation KPIs are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
+## Conversation KPI
+Conversation KPI are designed to help makers track and analyze the performance of their custom agents. This feature complements the existing analytics built-in the Copilot Studio and simplifies the process of understanding conversation outcomes by providing aggregated data in Dataverse rather than requiring you to analyze the complex conversation transcripts. 
 
-More information on [conversation KPIs](./CONVERSATION_KPIS.md)
+More information on [conversation KPI](./CONVERSATION_KPIS.md)
 
 ## SharePoint synchronization
 SharePoint synchronization allows makers to configure periodical selective content synchronization from SharePoint locations to custom agent knowledge base as files.
