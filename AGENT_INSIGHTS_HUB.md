@@ -25,7 +25,13 @@
   - [7.9 Sync Logs (Troubleshooting)](#79-sync-logs-troubleshooting)
   - [7.10 Transcripts Staging (Troubleshooting)](#710-transcripts-staging-troubleshooting)
 - [8. Data Sources & Differences](#8-data-sources--differences)
-- [9. Troubleshooting](#9-troubleshooting)
+- [9. Dashboard & Forecasting (Preview)](#9-dashboard--forecasting-preview)
+  - [9.1 Overview](#91-overview)
+  - [9.2 How to Access](#92-how-to-access)
+  - [9.3 Dashboards](#93-dashboards)
+  - [9.4 Forecast](#94-forecast)
+  - [9.5 Metrics](#95-metrics)
+- [10. Troubleshooting](#10-troubleshooting)
 
 ---
 
@@ -518,7 +524,118 @@ There can be differences in KPI values generated from **Application Insights** v
 
 ---
 
-## 9. Troubleshooting
+## 9. Dashboard & Forecasting (Preview)
+
+### 9.1 Overview
+
+Dashboard & forecasting is an integrated analytics experience that lets you build custom dashboards and forecasts directly from your agent metrics. It's designed for program leads, makers, and business stakeholders who want to visualize agent performance, track adoption trends, and explore projections.
+
+Key highlights:
+
+- Build drag-and-drop dashboards from over 100 available metrics
+- Forecast trends up to 180 days with built-in prediction models
+- Export dashboards and charts to PDF, PowerPoint, Excel, or PNG
+- Everything runs on the same Dataverse data that powers Agent Insights Hub — no additional setup required
+
+![Agent Insights Hub with the Build dashboard & forecast button](media/AIH-Landing-Page.png)
+
+---
+
+### 9.2 How to Access
+
+1. Open the **Agent Insights Hub** in the Copilot Studio Kit app.
+2. Select the **Build dashboard & forecast** button in the header area.
+3. The feature opens in a full-screen view with three tabs: **Dashboards**, **Forecast**, and **Metrics**.
+4. To return to the Agent Insights Hub, select the **back arrow** button in the top-left corner.
+
+> [!NOTE]
+> This feature is currently in **Preview**. It uses the same data already synced by the Agent Insights Hub — no extra configuration steps are needed.
+
+---
+
+### 9.3 Dashboards
+
+The Dashboards tab provides a drag-and-drop canvas where you can arrange metric charts to create your own personalized views.
+
+![Dashboard canvas with metric charts arranged in a grid](media/AMS-Dashboards.png)
+
+#### What you can do
+
+| Action | Description |
+|---|---|
+| **Add metrics** | Drag metrics from the sidebar onto the canvas to create chart cards. |
+| **Arrange charts** | Drag, drop, and resize cards to organize your layout. Use the **Arrange** button to auto-align all cards into a uniform grid. |
+| **Filter data** | Use the filter bar to narrow data by agent, time range, channel, or data mode (production vs. test). |
+| **Save dashboards** | Save your layout to keep it for next time. Create multiple dashboards for different audiences or use cases. |
+| **Export** | Export your dashboard as a PDF, PowerPoint, or Excel file to share with stakeholders. |
+
+#### Filters
+
+| Filter | What it does |
+|---|---|
+| **Agent** | Show data for a specific agent or all agents. |
+| **Time range** | Choose a preset (last 7, 30, 90 days) or set a custom date range. |
+| **Channel** | Filter by communication channel (Teams, Web Chat, Direct Line, and others). |
+| **Data mode** | Switch between production data, test data, or both. |
+
+---
+
+### 9.4 Forecast
+
+The Forecast tab helps you answer the question: *"Where will this metric be in 30 days?"* — using built-in prediction models that run directly in your browser.
+
+![Forecast workspace showing a projected metric trend](media/AMS-Forecast.png)
+
+#### How it works
+
+1. **Select a metric** from the categorized list on the left (for example, daily conversations or CSAT score).
+2. **Choose a model** — pick between *Trend + Band* (linear trend) or *ETS / Holt* (exponential smoothing) depending on your data pattern.
+3. **Set the horizon** — use the slider to project anywhere from 7 to 180 days into the future.
+4. **Adjust scenario levers** — explore what-if scenarios by adjusting adoption, containment, or volume assumptions.
+
+The workspace displays key metrics at the top (today's value, projected value, expected change, and confidence range) along with a chart showing the historical data and forecasted trend with confidence bands.
+
+> [!NOTE]
+> Forecasting is a directional communication tool — it helps you estimate trends and communicate projections to stakeholders. It's not intended as a scientific prediction engine.
+
+---
+
+### 9.5 Metrics
+
+The Metrics tab is where you manage the metrics available across your dashboards and forecasts. You can browse a library of recommended metrics organized by domain, or create your own custom metrics.
+
+![Metrics tab showing the metric registry with domain cards](media/AMS-Metrics.png)
+
+#### Recommended metrics
+
+To get started quickly, browse the recommended metrics organized into domains such as:
+
+- **Conversations & Outcomes** — session counts, resolution, escalation
+- **Performance & Latency** — response times, duration, error rates
+- **Agent Inventory & Usage** — agent counts, credit consumption
+- **Quality & Compliance** — CSAT, sentiment, PII violations
+- **Agent Testing** — test success rates, latency, alignment scores
+
+Select a domain card to open a picker where you can choose which metrics to add to your registry.
+
+![Recommended metrics picker showing domain categories](media/AMS-Metrics-Recommended.png)
+
+#### Creating a custom metric
+
+If the recommended metrics don't cover your needs, you can create your own:
+
+1. Select **+ New Metric** from the Metrics tab.
+2. Choose a **source table** (for example, Daily Metrics or Tool Metrics).
+3. Choose a **source field** (for example, daily conversation count).
+4. Pick an **aggregation** (Sum, Average, Count, Min, Max, or Latest).
+5. Pick a **visualization** (KPI tile, Line chart, Bar chart, Donut, Area, or Table).
+6. Give it a **name** and **description**, then save.
+
+Your custom metric appears in the sidebar and is ready to drag onto any dashboard.
+
+---
+
+## 10. Troubleshooting
 
 ### After Every Sync
 

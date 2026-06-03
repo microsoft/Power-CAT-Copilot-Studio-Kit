@@ -44,40 +44,20 @@ Before using PowerShield, ensure you have:
 - **Power Platform Administrator role** (admins only): Admins who approve requests and create DLP policies must also have the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). This Microsoft Entra ID role grants permission to create, update, and delete DLP policies via the Power Platform for Admins connector. Without it, DLP policy creation fails after approval.
 
 > [!WARNING]
-> PowerShield **will not work** until the **PowerShield | Sync Connectors** and **PowerShield | Sync Connector Actions** cloud flows have each run at least once. These flows populate the connector catalog used in the request wizard (Step 3). See [Connector and Connector Actions sync](#connector-and-connector-actions-sync) for setup steps.
+> PowerShield **will not work** until the **PowerShield | Sync Connectors** cloud flow has run at least once. This flow populates the connector catalog used in the connector selection step of the request wizard. See [Connector and Connector Actions sync](#connector-and-connector-actions-sync) for setup steps, or use the [Connection Health](#connection-health) screen in the admin app to configure everything in one place.
 
 > [!NOTE]
 > Developer environments are automatically excluded from PowerShield. Only Production, Sandbox, Trial, Default, and Teams environments are available.
 
-### Environment variable
-
-PowerShield requires one environment variable to be configured before cloud flows can manage DLP policies.
-
-#### PowerShield Tenant ID
-
-The **PowerShield Tenant ID** environment variable stores your Microsoft Entra tenant GUID. Cloud flows use this value to construct API calls to the Power Platform governance endpoint (for example, `https://api.bap.microsoft.com/providers/PowerPlatform.Governance/v1/tenants/{tenantId}/policies/...`).
-
-**To configure the environment variable:**
-
-1. Open the [Power Apps maker portal](https://make.powerapps.com) and select your environment.
-2. Navigate to **Solutions > Default Solution > Environment variables**.
-3. Locate **PowerShield Tenant ID** (`cat_PowerShieldTenantID`).
-4. Select the variable, then enter your tenant GUID in the **Current Value** field.
-5. Select **Save**.
-
-![Screenshot showing the PowerShield Tenant ID environment variable configuration in the Default Solution](./media/ps_prereq_tenant_env_variable.png)
-
-*PowerShield Tenant ID environment variable*
-
-> [!TIP]
-> To find your Tenant ID, sign in to [Power Apps](https://make.powerapps.com), select the **Settings** (gear) icon on the command bar, and then select **Session details**. The **Tenant ID** is displayed in the session details dialog. For more information, see [Get session and app ID details](https://learn.microsoft.com/power-apps/maker/canvas-apps/get-sessionid).
-
 ### Connection references
 
-PowerShield cloud flows use two connection references that require **HTTP with Microsoft Entra ID (preauthorized)** connections. After installing the managed solution, you must create the connections and map them to the connection references before the cloud flows can be turned on.
+PowerShield uses four connection references. Two require **HTTP with Microsoft Entra ID (preauthorized)** connections that you must create manually. The other two (Dataverse and Power Apps for Makers) use standard connectors that are mapped during setup.
 
 > [!IMPORTANT]
 > Cloud flows included in the solution remain in an **off** state until you complete the connection reference configuration and manually turn them on.
+
+> [!TIP]
+> **Recommended:** After creating the required connections (Step 1), use the [Connection Health](#connection-health) screen in the admin app (**Settings** → **Connection Health**) to map all connection references and activate cloud flows in one place. If the admin app isn't deployed yet or Connection Health is unavailable, use the [manual alternative](#manual-alternative-map-connections-and-activate-flows) below.
 
 #### Step 1: Create connections
 
@@ -114,9 +94,24 @@ Create two HTTP with Microsoft Entra ID (preauthorized) connections in your envi
 > [!NOTE]
 > You must sign in with an account that has the **Power Platform Administrator** role for the BAPAPI connection, because the associated cloud flows create and manage DLP policies.
 
-#### Step 2: Map connections to connection references
+#### Step 2: Map connections and activate flows (recommended)
 
-After you create both connections, associate them with the solution's connection references.
+Open the **Copilot Studio Kit for Admins** app, navigate to **Settings** → **Connection Health**, and complete the guided setup:
+
+1. **Connection References** — Select the connection you created from the dropdown for each of the four PowerShield connection references. A green checkmark (✓) confirms each mapping.
+2. **Cloud Flows** — Toggle each flow to **On** to activate it.
+3. **Data Sync Status** — After the Sync Connectors flow runs (either on its daily schedule or triggered manually from Power Automate), select **Refresh** to verify both tables show ✅ **Success**.
+
+For more information, see [Connection Health](#connection-health).
+
+> [!NOTE]
+> Activating a flow from Connection Health does not trigger an immediate run. The **Sync Connectors** flow runs on a daily schedule. To populate the connector catalog immediately, open the flow in Power Automate and select **Run**, then return to Connection Health and select **Refresh** to verify data sync.
+
+#### Manual alternative: Map connections and activate flows
+
+If you can't access the admin app or the Connection Health screen, complete these steps manually in the Power Apps portal.
+
+**Map connection references:**
 
 1. In [Power Apps](https://make.powerapps.com), select your environment.
 2. On the left navigation pane, select **Solutions**, then open **Default Solution**.
@@ -141,15 +136,12 @@ After you create both connections, associate them with the solution's connection
 
 For more information about connection references, see [Use a connection reference in a solution](https://learn.microsoft.com/power-apps/maker/data-platform/create-connection-reference).
 
-#### Step 3: Turn on cloud flows
-
-After the connection references are configured, turn on the PowerShield cloud flows.
+**Turn on cloud flows:**
 
 1. In [Power Apps](https://make.powerapps.com), select **Solutions** and open **Copilot Studio Accelerator**.
 2. Filter or search for **Cloud flows**.
 3. For each of the following flows, select the flow name to open it, then select **Turn on** from the command bar:
    - **PowerShield | Sync Connectors**
-   - **PowerShield | Sync Connector Actions**
    - **PowerShield | DLP Request - Patch Custom Connector and Actions**
 
 > [!TIP]
@@ -157,26 +149,27 @@ After the connection references are configured, turn on the PowerShield cloud fl
 
 ### Connector and Connector Actions sync
 
-PowerShield relies on two Dataverse tables — **Connectors** (`cat_connector`) and **Connector Actions** (`cat_connectoraction`) — that must be populated before the feature can be used. Two scheduled cloud flows keep these tables current:
+PowerShield relies on two Dataverse tables — **Connectors** (`cat_connector`) and **Connector Actions** (`cat_connectoraction`) — that must be populated before the feature can be used. A single scheduled cloud flow keeps these tables current:
 
-| Cloud Flow | Purpose | Target Table |
-|------------|---------|--------------|
-| **PowerShield \| Sync Connectors** | Discovers all tenant connectors. Applies the [default-blocked model](#key-concepts): new non-Microsoft connectors are blocked by default; admin overrides are preserved. | `cat_connector` |
-| **PowerShield \| Sync Connector Actions** | Fetches available actions per active connector from the Flow API. | `cat_connectoraction` |
+| Cloud Flow | Purpose | Target Tables |
+|------------|---------|---------------|
+| **PowerShield \| Sync Connectors** | Discovers all tenant connectors and fetches available actions per connector. Applies the [default-blocked model](#key-concepts): new non-Microsoft connectors are blocked by default; admin overrides are preserved. | `cat_connector`, `cat_connectoraction` |
 
 #### First-time setup
 
-After turning on the cloud flows (see [Step 3: Turn on cloud flows](#step-3-turn-on-cloud-flows)):
+After turning on the cloud flows (see [Step 2](#step-2-map-connections-and-activate-flows-recommended) or the [manual alternative](#manual-alternative-map-connections-and-activate-flows)):
 
 1. Navigate to **Solutions > Copilot Studio Accelerator > Cloud flows**.
 2. Open the **"PowerShield | Sync Connectors"** flow and select **Run** from the command bar. Wait for completion.
-3. Open the **"PowerShield | Sync Connector Actions"** flow and select **Run** from the command bar. Wait for completion.
-4. Verify: open the **Connectors** (`cat_connector`) table — you should see hundreds of records.
-5. Verify: open the **Connector Actions** (`cat_connectoraction`) table — you should see action records.
+3. Verify: open the **Connectors** (`cat_connector`) table — you should see hundreds of records.
+4. Verify: open the **Connector Actions** (`cat_connectoraction`) table — you should see action records.
+
+> [!TIP]
+> You can also complete these steps from within the admin app using the [Connection Health](#connection-health) screen (**Settings** → **Connection Health**). It provides a guided experience for mapping connection references, activating flows, and verifying data sync status.
 
 #### Ongoing sync
 
-Both flows run on a **daily schedule**. The connector sync preserves admin overrides (block/unblock). The actions sync uses `cat_UpsertConnectorActions` to efficiently create, update, and deactivate records.
+The flow runs on a **daily schedule**. The connector sync preserves admin overrides (block/unblock) and uses `cat_UpsertConnectorActions` to efficiently create, update, and deactivate action records.
 
 ## Roles and responsibilities
 
@@ -516,13 +509,66 @@ Click the gear (⚙) icon on the admin home screen to configure PowerShield befo
 
 *Settings Hub*
 
-Three configuration areas:
+Four configuration areas:
 
 | Card | Description |
 |------|-------------|
+| **Connection Health** | Manage connection references and cloud flows for data sync |
 | **Connector Configurations** | Manage connector catalog, risk levels, and blocked status |
 | **Question Configurations** | Configure the compliance questionnaire |
 | **Notification Settings** | Configure email notification delivery |
+
+### Connection Health
+
+The Connection Health screen provides a guided experience for managing connection references and cloud flow activation directly within the admin app. Use this screen for initial setup and ongoing health monitoring — connections can break and flows can be turned off at any time.
+
+> [!NOTE]
+> Connection Health is available only to users with the **CSK - Administrator** or **System Administrator** security role.
+
+**Access Connection Health** from either:
+- **Settings Hub** → select **Connection Health** (first card)
+- **Admin home screen** → select the **Check Health** button on the sync flow prerequisites banner (appears when setup is incomplete)
+
+![Screenshot of the Connection Health screen showing connection references, cloud flows, and data sync status](./media/ps_admin_connection_health.png)
+
+*Connection Health*
+
+The screen has two collapsible sections and a status indicator:
+
+#### Connection References
+
+Map existing connections to the four PowerShield connection references. Select a connection from the dropdown for each reference. If no connection exists, select **+ Create New Connection** to open the Power Platform maker portal, create the connection, then return and select **Refresh**.
+
+| Connection Reference | Connector Type |
+|---------------------|----------------|
+| PowerShield APIFlow | Web Contents |
+| PowerShield BAPAPI | Web Contents |
+| PowerShield Dataverse | Common Data Service |
+| PowerShield PowerApps for Makers | Power Apps for Makers |
+
+A green checkmark (✓) appears next to each reference after a connection is successfully mapped.
+
+#### Cloud Flows
+
+After all connection references are mapped, activate the PowerShield cloud flows by toggling each flow to **On**:
+
+| Flow | Purpose |
+|------|---------|
+| **PowerShield \| Sync Connectors** | Populates the connector and connector actions catalog |
+| **PowerShield \| DLP Request - Patch Custom Connector and Actions** | Applies URL patterns and action overrides on DLP approval |
+
+> [!NOTE]
+> Cloud flows can only be activated after all connection references are mapped. If connections are missing, a warning message appears in this section.
+
+#### Data Sync Status
+
+After the **Sync Connectors** flow runs, the Data Sync Status section confirms whether the connector catalog has been populated:
+
+- ✅ **Connectors: Success** — the `cat_connector` table contains data
+- ✅ **Connector Actions: Success** — the `cat_connectoraction` table contains data
+- ⚠️ **Pending** — data has not yet synced; wait for the flow to complete or run it manually from Power Automate
+
+Select **Refresh** to recheck data sync status at any time.
 
 ### Connector Configurations
 
@@ -724,7 +770,7 @@ All tables use the `cat_` publisher prefix.
 **"No environments available" in the wizard**
 
 - Ensure you have access to at least one non-Developer Power Platform environment.
-- Verify the PowerShield APIFlow connection is active and properly configured.
+- Verify the PowerShield APIFlow connection is active and properly configured. Use **Settings** → **[Connection Health](#connection-health)** to check connection status.
 - Check that the connection user has the required permissions.
 
 **"In-progress conflict" error when creating a request**
@@ -735,7 +781,7 @@ All tables use the `cat_` publisher prefix.
 **Request stuck in "Implementing" status**
 
 - Check the **Activity** tab (admin only) for error details.
-- Verify the PowerShield BAPAPI connection is active.
+- Verify the PowerShield BAPAPI connection is active. Use **Settings** → **[Connection Health](#connection-health)** to verify connection reference status.
 - Ensure the approving admin has the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). DLP policy write operations (create, update, delete) require this Entra ID role.
 - If fulfillment failed, the status may transition to **Policy Failed** — review error details and retry.
 
@@ -757,4 +803,4 @@ All tables use the `cat_` publisher prefix.
 **No connectors available in wizard Step 3**
 
 - Non-Microsoft connectors are blocked by default. Ask your admin to unblock connectors via **Settings Hub** → **Connector Configurations**.
-- Ensure the "PowerShield | Sync Connectors" has run at least once.
+- Ensure the "PowerShield | Sync Connectors" flow has run at least once. Use **Settings** → **[Connection Health](#connection-health)** to verify data sync status and activate flows.
