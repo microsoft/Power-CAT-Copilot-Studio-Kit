@@ -152,7 +152,7 @@ When **Custom range** is selected, date and time pickers appear to set an exact 
 
 ### Error Conversations Filter
 
-The **Show error conversations only** toggle filters the Conversation ID dropdown to conversations that contain at least one failed step or system error. Enable this when you are triaging incidents or reviewing agents with known reliability problems.
+The **Error conversations** toggle filters the Conversation ID dropdown to conversations that contain at least one failed step or system error. Enable this when you are triaging incidents or reviewing agents with known reliability problems.
 
 > **Performance note:** When enabled, the debugger scans the raw content of recent transcripts client-side to identify error patterns. This takes longer than the standard query. Leave the toggle off unless you specifically need to filter by errors.
 
@@ -206,7 +206,7 @@ Displayed as summary metric tiles at the top of the analysis view.
 | **Channel** | Communication channel used (e.g., webchat, msteams) — shown when available |
 | **Model** | The AI model used by the agent's orchestrator for this conversation |
 
-An **Open in Copilot Studio** link appears in the General Information header when a live agent is loaded. It opens the agent's configuration page directly in the Copilot Studio portal.
+An **Open agent** link appears in the General Information header when a live agent is loaded. It opens the agent's configuration page directly in the Copilot Studio portal.
 
 ---
 
@@ -245,7 +245,7 @@ The Performance Timeline shows a **waterfall chart** of step execution times, gr
 - **Per-turn statistics** show step count, slowest step name and duration, and failure count
 - **Global summary** at the top shows total steps, total elapsed time, the slowest step across the entire conversation, and total failure count
 - Step bars are **scaled to the turn's total duration**, making relative timing visible at a glance
-- Steps slower than **5 seconds** are flagged with a warning indicator
+- Steps slower than **10 seconds** are flagged with a warning indicator
 - Color coding matches the Execution Path legend
 - Failed steps appear in red
 
@@ -262,7 +262,7 @@ The Agent Details panel shows the **full configuration of the agent** as it exis
 | **Topics** | All topics with name, description, input/output variables, and Enabled/Disabled status |
 | **Tools** | All tools with name, description, type badge (MCP, Flow, Connector, Prompt), and Enabled/Disabled status |
 | **Knowledge** | All knowledge sources with name, type badge (SharePoint, Web, Dataverse, File), URL, and Enabled/Disabled status |
-| **Agents** | All connected & child agents with name, relationship type, and Enabled/Disabled status |
+| **Agents** | All connected child agents with name, relationship type, and Enabled/Disabled status |
 
 ---
 
@@ -284,14 +284,23 @@ The Recommendations panel automatically detects issues in the conversation and s
 |---|---|---|
 | Failed step / error | High | A step returned an error or exception |
 | Responsible AI block | High | Content was filtered by the Responsible AI system |
-| Conversation escalation | Medium | The conversation was handed off to a human agent |
-| Conversation abandonment | Medium | The user left without a resolution |
-| Fallback topic triggered | Medium | The agent failed to route the user's message to a topic |
-| Slow step (>5s) | Medium | A step took more than 5 seconds to execute |
+| Conversation escalation | High | The conversation was handed off to a human agent |
+| Conversation abandonment | High | The user left without a resolution |
+| Fallback topic triggered | High | The agent failed to route the user's message to a topic |
+| Slow step (>10s) | Medium | A step took more than 10 seconds to execute |
 | Knowledge search failure | Medium | A knowledge source was queried but returned no results |
 | Token limit approached | Medium | Token usage came close to the model's context window limit |
 | Code step error | High | A Python code step raised an exception |
 | MCP initialization failure | High | An MCP server failed to initialize during the conversation |
+
+Each recommendation card shows:
+- Severity icon and color
+- Category badge (e.g., "Errors", "Performance", "Knowledge")
+- Title and description of the detected issue
+- A suggestion for how to investigate or resolve it
+- A **Go to turn** button that scrolls the Conversation Preview to the relevant user message
+
+When no issues are detected, the panel shows an **empty state** message. A preview option is available to see example recommendation cards for reference.
 
 ---
 
@@ -322,10 +331,12 @@ The Debug Information panel shows step-level details for the selected user messa
 
 The step list shows every orchestrator step executed for the selected turn:
 
+- Step icon and color indicating the step type
 - Step name (resolved to a friendly display name where possible)
 - Execution duration
+- Outcome indicator (success / failure)
 
-Steps belonging to a **connected agent** are grouped inside a collapsible container card showing the agent name and total execution time. Expanding the container shows the child steps the agent executed. A **Fetch transcript** button on the container loads the child agent's full transcript on demand.
+Steps belonging to a **connected agent** are grouped inside a collapsible container card showing the agent name and total execution time. Expanding the container shows the child steps the agent executed. A **Load connected agent details** button on the container loads the child agent's full transcript on demand.
 
 **Step types:**
 
@@ -405,8 +416,8 @@ Use this when:
 
 **Resolution:**
 1. Run a manual Agent Inventory sync for the environment in question.
-2. Verify the agent record exists in the `Agent Details` table in Dataverse.
-3. Check that the `Is Transcript Available` column is set to `Yes` on that record. The sync sets this flag when at least one transcript exists.
+2. Verify the agent record exists in the `cat_agentdetails` table in Dataverse.
+3. Check that the `cat_istranscriptavailablecode` column is set to `1` on that record. The sync sets this flag when at least one transcript exists.
 4. See [AGENT\_INVENTORY.md](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md) for full sync instructions.
 
 
