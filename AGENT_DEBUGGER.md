@@ -9,10 +9,15 @@ The **Agent Debugger** is a diagnostic tool that lets users load any recorded co
 1. [Overview](#overview)
 2. [Prerequisites](#prerequisites)
 3. [Getting Started — Filters](#getting-started--filters)
+   - [Time Range Filter](#time-range-filter)
+   - [Error Conversations Filter](#error-conversations-filter)
+   - [Upload Snapshot Mode](#upload-snapshot-mode)
 4. [Analysis View](#analysis-view)
    - [General Information](#general-information)
-   - [Execution Path](#execution-path)
+   - [Execution Path (Topic Flow Diagram)](#execution-path-topic-flow-diagram)
    - [Performance Timeline](#performance-timeline)
+   - [Agent Details](#agent-details)
+   - [Recommendations](#recommendations)
    - [Conversation Preview](#conversation-preview)
    - [Debug Information](#debug-information)
    - [Transcript JSON](#transcript-json)
@@ -22,25 +27,36 @@ The **Agent Debugger** is a diagnostic tool that lets users load any recorded co
 
 ## Overview
 
-When a conversation takes place in Copilot Studio, the platform records a detailed activity log — every message, every plan step triggered, every knowledge source searched, every action invoked — as a **Conversation Transcript** in Dataverse. The Agent Debugger reads that transcript and surfaces it in a structured, human-readable interface.
+The Agent Debugger supports two data sources:
+
+- **Conversation Transcript (Dataverse)** — when a conversation takes place in Copilot Studio, the platform records a detailed activity log as a Conversation Transcript in Dataverse. The Agent Debugger queries those records directly, so any published agent with transcript data is immediately available.
+- **Copilot Studio Snapshot (ZIP)** — Copilot Studio's built-in **test pane** includes a **Download snapshot** button that exports the current test conversation as a ZIP file (`dialog.json` + `botContent.yml`). Dropping that ZIP into the Agent Debugger's Upload Snapshot tab gives you the full analysis view without any Dataverse connection. This is useful for debugging pre-production conversations, reproducing issues offline, or sharing a failing session with a colleague.
+
+Both paths feed the same analysis interface — the panels, step details, and visualizations are identical regardless of how the data was loaded.
 
 **What it shows:**
 
 | Area | What you learn |
 |---|---|
 | General Information | Session count, turn count, outcome, duration, start time, channel, and AI model used |
-| Execution Path | Which topics, actions, knowledge searches, code steps, and connected agents ran — and in what order |
-| Performance Timeline | How long each step took per conversation turn; instantly spot slow steps |
+| Execution Path | Which topics, actions, knowledge searches, code steps, and connected agents ran — and in what order, as a visual flow diagram |
+| Performance Timeline | How long each step took per conversation turn; instantly spot slow steps and latency bottlenecks |
+| Agent Details | Full agent configuration at the time of the conversation: instructions, topics, tools, knowledge sources, and child agents |
+| Recommendations | Automatically detected issues with severity ratings, descriptions, and suggested fixes |
 | Conversation Preview | Full chat exchange, rendered with markdown and adaptive cards |
-| Debug Information | Step-by-step execution for the selected user message: every topic, action, knowledge search, and tool invoked — with thought, arguments, observation, token counts, and knowledge sources |
+| Debug Information | Step-by-step execution for the selected user message: every topic, action, knowledge search, and tool invoked — with thought, arguments, observation, token counts, knowledge sources, and error details |
 | Transcript JSON | Full raw transcript activities as syntax-highlighted, searchable JSON — opened via the **View JSON** link in the Conversation Preview header |
 
 **Key capabilities:**
 
-- Debug **multi-agent conversations**: automatically detects connected and child agents, and loads their transcripts automatically
+- Debug **multi-agent conversations**: automatically detects connected and child agents, and loads their transcripts on demand
 - Inspect **step arguments and observations**: see exactly what inputs were passed to every action, tool, or knowledge source — and what it returned
-- Review **token consumption**: prompt and completion token counts per step and per turn
+- Review **token consumption**: prompt and completion token counts per step and per turn, with model name
 - Correlate **knowledge sources**: see what was searched, what was returned, and what was actually cited in the answer
+- Surface **AI reasoning**: view the orchestrator's thought process before each step invocation
+- Inspect **MCP server interactions**: protocol details, capabilities, and tool definitions for Model Context Protocol steps
+- Review **Responsible AI blocks**: see when content was filtered and why
+- Analyze **test-pane conversations offline** by uploading a Copilot Studio snapshot ZIP — no Dataverse connection needed
 - Copy conversation IDs, step IDs, or any JSON for use in support tickets or bug reports
 
 ---
@@ -49,35 +65,47 @@ When a conversation takes place in Copilot Studio, the platform records a detail
 
 ### 1. Agent Inventory
 
-The Agent Debugger lists agents from the Agent Inventory. Run an Agent Inventory sync before using this feature to ensure agents and their transcript availability are up to date.
+The Agent Debugger lists agents from the Agent Inventory. Before using this feature, the agent must be present in the Agent Inventory **and** have at least one conversation transcript recorded against it.
 
-See the Agent Inventory documentation for setup instructions:
+You can verify this by opening the Agent Inventory list view, selecting the agent, and clicking **Show more** to expand the additional fields. The **Is Transcript Available** field must be set to **Yes** — this flag is set automatically by the inventory sync when at least one conversation transcript exists for the agent in Dataverse.
+
+> **→ See [Agent Inventory — List View](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md#list-view) for instructions on how to use Show more and verify this field.**
+
+If **Is Transcript Available** is **No**, the agent will not appear in the Agent dropdown in Agent Debugger. Run a manual Agent Inventory sync for the environment to refresh the flag, then check again.
+
+See the Agent Inventory documentation for full setup instructions:
 **→ [AGENT\_INVENTORY.md](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md)**
 
 ### 2. Security role and connection permissions
 
-The feature is available only to users with either the **CSK – Administrator** or **System Administrator** security role within the kit.
+The user must have the **CSK - Administrator** or **System Administrator** security role within the kit for this feature to be accessible.
 
-Additionally, the signed-in user must have **Read** access to the required tables in the target environment where agent resides. For user-level access, the **Bot Transcript Viewer** and **Bot Viewer** security roles can be assigned within the target environment. Feel free to create custom security roles with required **Read** level permissions on below tables and assign it to signed-in user.
+The **signed in user** used by the app must have **Read** access to the following tables in the target environment:
 
 | Table | Logical Name |
 |---|---|
 | **Conversation Transcripts** | `conversationtranscripts` |
+| **Bots** | `bot` |
 | **Bot Components** | `botcomponents` |
 
-> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the signed-in user must have required read permissions.
+> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the Dataverse connection must be authenticated in that remote environment with the same read permissions.
 
 ---
 
 ## Getting Started — Filters
 
-When you open Agent Debugger, you see a three-step cascading filter bar before any data is loaded.
+When you open Agent Debugger, you see a filter bar with five controls before any data is loaded.
 
 ```
 ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────────┐
 │  Environment     │ → │  Agent           │ → │  Conversation ID     │
 │  (dropdown)      │   │  (dropdown)      │   │  (search + dropdown) │
 └──────────────────┘   └──────────────────┘   └──────────────────────┘
+
+┌───────────────────────────────┐   ┌──────────────────────────────────┐
+│  Time Range                   │   │  Error conversations only        │
+│  (preset or custom date/time) │   │  (toggle)                        │
+└───────────────────────────────┘   └──────────────────────────────────┘
                                                            │
                                                    [ Analyze ]
 ```
@@ -88,24 +116,85 @@ Populated from the distinct environment names found in Agent Inventory. Selectin
 
 ### Filter 2 — Agent
 
-Shows all agents in the selected environment that have at least one conversation transcript. Selecting an agent loads the most recent 50 conversations for the Conversation ID dropdown.
+Shows all agents in the selected environment whose **Is Transcript Available** flag is set to **Yes** in Agent Inventory. This flag indicates the agent has at least one conversation transcript recorded in Dataverse. If an agent you expect to see is missing, verify its **Is Transcript Available** value using **Show more** in the [Agent Inventory list view](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md#list-view) and run a manual sync if needed.
+
+Selecting an agent loads the most recent 50 conversations within the selected time range for the Conversation ID dropdown.
 
 ### Filter 3 — Conversation ID
 
-- **Default:** Shows the 50 most recent unique conversations for the selected agent.
-- **Typing in the box:** Triggers a full search across all transcripts for that agent (up to 100,000 records), allowing you to find older or specific conversations.
+- **Default:** Shows the 50 most recent unique conversations for the selected agent within the configured time range.
+- **Typing in the box:** Triggers a full search across all transcripts for that agent (up to 100,000 records), allowing you to find older or specific conversations regardless of the time range.
 
 Once a Conversation ID is selected, the **Analyze** button becomes active. Click it to open the full analysis view.
 
 ---
 
+### Time Range Filter
+
+A time range control appears alongside the filter bar to narrow the Conversation ID list to a specific window.
+
+**Preset options:**
+
+| Option | Window |
+|---|---|
+| Last 30 minutes | Past 30 min |
+| Last hour | Past 1 hour |
+| Last 4 hours | Past 4 hours |
+| Last 24 hours | Past 24 hours |
+| Last 7 days | Past 7 days |
+| Custom range | User-defined start and end date/time |
+
+When **Custom range** is selected, date and time pickers appear to set an exact start and end timestamp. The Conversation ID dropdown is then repopulated with transcripts created within that window.
+
+> **Note:** Typing a Conversation ID directly always searches all transcripts regardless of the active time range.
+
+---
+
+### Error Conversations Filter
+
+The **Error conversations** toggle filters the Conversation ID dropdown to conversations that contain at least one failed step or system error. Enable this when you are triaging incidents or reviewing agents with known reliability problems.
+
+> **Performance note:** When enabled, the debugger scans the raw content of recent transcripts client-side to identify error patterns. This takes longer than the standard query. Leave the toggle off unless you specifically need to filter by errors.
+
+---
+
+### Upload Snapshot Mode
+
+The **Upload Snapshot** tab provides an alternative entry point that does not require Dataverse access. Instead of selecting a live conversation from the dropdowns, you upload a snapshot ZIP file downloaded directly from **Copilot Studio's test pane**.
+
+**How to get a snapshot from Copilot Studio:**
+
+1. Open your agent in **Copilot Studio** and navigate to the **Test** pane.
+2. Run or review a conversation in the test pane.
+3. Click the **Download snapshot** button (available in the test pane toolbar).
+4. Copilot Studio downloads a `.zip` file containing:
+   - `dialog.json` — all Bot Framework activities for the conversation (required)
+   - `botContent.yml` — the bot's full component and flow definitions, used to resolve step names (optional; if absent, raw schema names are shown)
+
+**When to use:**
+
+- Debugging a conversation that happened in the **test pane** before the agent was published
+- Analyzing a conversation from an environment you cannot authenticate against
+- Reproducing issues offline or sharing a failing session with a colleague without granting Dataverse access
+- Validating agent behavior in a local development environment
+
+**How to upload:**
+
+1. Switch to the **Upload Snapshot** tab in the Agent Debugger header.
+2. Drag-and-drop the `.zip` file onto the drop zone, or click to browse for it.
+3. The debugger validates the ZIP, extracts `dialog.json` and `botContent.yml`, and opens the full analysis view.
+
+No environment, agent, or conversation ID selection is required — all General Information metrics (agent name, conversation ID, start time, duration) are derived directly from the uploaded file.
+
+---
+
 ## Analysis View
 
-The analysis view opens after clicking **Analyze**. It consists of a **General Information** summary row at the top, an **Execution Path** and **Performance Timeline** for step-level inspection, a **Conversation Preview** panel with a **View JSON** link for the raw Transcript JSON, and a **Debug Information** panel for per-step details.
+The analysis view opens after clicking **Analyze** (or uploading a snapshot). It consists of a **General Information** summary row at the top, followed by a collapsible analysis section with four panels — **Execution Path**, **Performance Timeline**, **Agent Details**, and **Recommendations** — and a two-panel layout showing the **Conversation Preview** alongside the **Debug Information** panel.
 
 ### General Information
 
-Displayed as summary cards at the top of the analysis view.
+Displayed as summary metric tiles at the top of the analysis view.
 
 | Field | Description |
 |---|---|
@@ -115,28 +204,202 @@ Displayed as summary cards at the top of the analysis view.
 | **Duration** | Total conversation duration from first to last activity |
 | **Start Time** | When the conversation began (local time) |
 | **Channel** | Communication channel used (e.g., webchat, msteams) — shown when available |
+| **Model** | The AI model used by the agent's orchestrator for this conversation |
 
-### Execution Path
+An **Open agent** link appears in the General Information header when a live agent is loaded. It opens the agent's configuration page directly in the Copilot Studio portal.
 
-The Execution Path lists every step the agent's orchestrator executed, grouped by conversation turn. Each step card shows the step name, type, duration, and outcome.
+---
+
+### Execution Path (Topic Flow Diagram)
+
+The Execution Path renders as an **SVG-based directed flow chart** showing the full execution order across all conversation turns.
+
+**Layout:**
+
+- Steps flow left-to-right in execution order
+- Dashed vertical lines mark **turn boundaries** — each user message starts a new section
+- **Turn labels** appear at the top of each section and are clickable — clicking a turn label scrolls the Conversation Preview to that message
+
+**Node types:**
+
+| Node type | Appearance |
+|---|---|
+| Standard step | Rounded rectangle with step name and type icon |
+| Connected agent | Container box grouping the child steps the agent executed |
+| Child step | Smaller chip nested inside its parent agent container |
+
+**Color coding:** Each step type has a distinct color. A **legend** at the bottom of the diagram maps colors to step categories (Topic, Knowledge, Tool, Connector, Flow, Code, MCP, Connected Agent, etc.).
+
+**Step metadata:** Each node shows the step name and execution duration. Failed steps are highlighted in red.
+
+---
 
 ### Performance Timeline
 
-The Performance Timeline shows execution time per step across all turns, making it easy to identify which steps caused latency. Steps are grouped by conversation turn and displayed with their duration. The slowest step in each turn is highlighted so bottlenecks are immediately visible.
+The Performance Timeline shows a **waterfall chart** of step execution times, grouped by conversation turn.
+
+**Features:**
+
+- **Expand/Collapse All** buttons toggle all turn sections at once
+- Each turn section is collapsible individually
+- **Per-turn statistics** show step count, slowest step name and duration, and failure count
+- **Global summary** at the top shows total steps, total elapsed time, the slowest step across the entire conversation, and total failure count
+- Step bars are **scaled to the turn's total duration**, making relative timing visible at a glance
+- Steps slower than **10 seconds** are flagged with a warning indicator
+- Color coding matches the Execution Path legend
+- Failed steps appear in red
+
+---
+
+### Agent Details
+
+The Agent Details panel shows the **full configuration of the agent** as it existed at the time the conversation was analyzed, organized into six tabs:
+
+| Tab | What it shows |
+|---|---|
+| **Overview** | KPI tiles for Topics, Tools, Knowledge, Child Agents, Orchestration mode, Language, Auth Mode, Model Knowledge, Semantic Search, and Latest Models — each with a tooltip explaining the setting |
+| **Instructions** | The agent's full system prompt as configured in Copilot Studio |
+| **Topics** | All topics with name, description, input/output variables, and Enabled/Disabled status |
+| **Tools** | All tools with name, description, type badge (MCP, Flow, Connector, Prompt), and Enabled/Disabled status |
+| **Knowledge** | All knowledge sources with name, type badge (SharePoint, Web, Dataverse, File), URL, and Enabled/Disabled status |
+| **Agents** | All connected child agents with name, relationship type, and Enabled/Disabled status |
+
+---
+
+### Recommendations
+
+The Recommendations panel automatically detects issues in the conversation and surfaces them as actionable cards with severity ratings.
+
+**Severity levels:**
+
+| Level | Color | Meaning |
+|---|---|---|
+| **High** | Red | Likely caused a failed or incorrect response; investigate immediately |
+| **Medium** | Yellow | Degraded experience or reliability risk; review soon |
+| **Low** | Gray | Minor inefficiency or informational note |
+
+**Issue types detected:**
+
+| Issue | Severity | Description |
+|---|---|---|
+| Failed step / error | High | A step returned an error or exception |
+| Responsible AI block | High | Content was filtered by the Responsible AI system |
+| Conversation escalation | High | The conversation was handed off to a human agent |
+| Conversation abandonment | High | The user left without a resolution |
+| Fallback topic triggered | High | The agent failed to route the user's message to a topic |
+| Slow step (>10s) | Medium | A step took more than 10 seconds to execute |
+| Knowledge search failure | Medium | A knowledge source was queried but returned no results |
+| Token limit approached | Medium | Token usage came close to the model's context window limit |
+| Code step error | High | A Python code step raised an exception |
+| MCP initialization failure | High | An MCP server failed to initialize during the conversation |
+
+Each recommendation card shows:
+- Severity icon and color
+- Category badge (e.g., "Errors", "Performance", "Knowledge")
+- Title and description of the detected issue
+- A suggestion for how to investigate or resolve it
+- A **Go to turn** button that scrolls the Conversation Preview to the relevant user message
+
+When no issues are detected, the panel shows an **empty state** message. A preview option is available to see example recommendation cards for reference.
+
+---
 
 ### Conversation Preview
 
-The Conversation Preview panel shows the full conversation exchange as it appeared to the user, including bot and user messages, Adaptive Cards, suggested actions, feedback, and knowledge references. Clicking a user message loads that turn's steps into the Debug Information panel. The **View JSON** link in the header opens the full Transcript JSON dialog.
+The Conversation Preview panel shows the full conversation exchange as it appeared to the user, including:
+
+- Bot and user message bubbles
+- **Adaptive Cards** rendered inline (interactive cards sent by the agent)
+- Suggested action chips
+- Feedback prompts
+
+**Interactivity:**
+
+- Clicking a **user message bubble** loads that turn's steps into the Debug Information panel
+- The selected message is highlighted so you can track which turn is active
+- The panel is independently scrollable
+
+The **View JSON** link in the Conversation Preview header opens the full Transcript JSON dialog.
+
+---
 
 ### Debug Information
 
-The Debug Information panel shows detailed information for a selected step: the LLM's reasoning thought, input arguments, observation returned, token usage, and knowledge sources searched and cited. Click any user message in the Conversation Preview to load its steps, then select a step to view its details here.
+The Debug Information panel shows step-level details for the selected user message turn. The panel is divided into two parts: a **step list** on the left and a **step detail view** that opens when a step is selected.
 
-For **multi-agent conversations**, the Agent Debugger automatically detects connected and child agents from the parent transcript and surfaces them as special step cards. Each connected agent card shows the agent name, execution time, the instruction passed to it, and the child conversation ID. The child transcript and its metadata are loaded automatically — every step the child agent executed is available directly from the card.
+#### Step List
+
+The step list shows every orchestrator step executed for the selected turn:
+
+- Step icon and color indicating the step type
+- Step name (resolved to a friendly display name where possible)
+- Execution duration
+- Outcome indicator (success / failure)
+
+Steps belonging to a **connected agent** are grouped inside a collapsible container card showing the agent name and total execution time. Expanding the container shows the child steps the agent executed. A **Load connected agent details** button on the container loads the child agent's full transcript on demand.
+
+**Step types:**
+
+| Type | Description |
+|---|---|
+| **Topic** | A named topic in the agent's topic list |
+| **System Topic** | A built-in platform topic (e.g., Greeting, Fallback, Escalate) |
+| **Knowledge** | A knowledge source search step |
+| **Tool / Action** | A Power Automate flow or connector action |
+| **Code** | A Python code execution step |
+| **Custom Prompt** | A custom generative AI prompt step |
+| **Reasoner** | An internal reasoning step used by the orchestrator |
+| **MCP Server** | A Model Context Protocol tool invocation |
+| **Connected Agent** | Delegation to a connected child agent |
+
+#### Step Detail View
+
+Selecting a step opens a detail panel with the following sections (shown when the data is present in the transcript):
+
+**Thought Process**
+The orchestrator's reasoning text recorded before the step was invoked. Shows how the model decided to call this step and what it expected from it.
+
+**Step Type**
+Classified label for the step (e.g., Topic, Knowledge, Tool, Connector, Code, MCP, Connected Agent).
+
+**Arguments**
+A collapsible JSON tree view of the input parameters passed to the step. Includes a copy button to capture the JSON for support tickets.
+
+**Observation**
+The output or return value from the step — what the orchestrator received back. Also displayed as a collapsible JSON tree with copy support.
+
+**Code Preview**
+For Python code steps, the source code is shown with syntax highlighting.
+
+**Token Usage**
+Prompt token count, completion token count, and total for the step, together with the model name used.
+
+**Knowledge Sources**
+Broken down into three categories:
+- **Searched** — sources that were queried
+- **Output** — results returned from the sources
+- **Cited** — sources actually referenced in the final response
+
+Each source entry shows the source name, type, URL (where available), and a link to open the source.
+
+**MCP Server Info**
+For MCP steps, shows the server's protocol version, declared capabilities, and the list of tools the server provided during initialization.
+
+**Error Information**
+When a step failed, shows the error code, error message, and — for Responsible AI blocks — the content safety category that triggered the filter.
+
+**Adaptive Cards**
+When the step produced an Adaptive Card response, the card is rendered inline in the detail panel exactly as the user would have seen it.
+
+---
 
 ### Transcript JSON
 
-The **View JSON** link in the Conversation Preview header opens a dialog showing the full raw transcript activities with syntax highlighting, search, and copy-to-clipboard.
+The **View JSON** link in the Conversation Preview header opens a dialog showing the full raw transcript activities with:
+
+- Syntax highlighting
+- Full-text search within the JSON tree
+- Copy-to-clipboard button for the entire payload
 
 Use this when:
 - You need to inspect an event type not surfaced in the Debug Information panel
@@ -153,18 +416,19 @@ Use this when:
 
 **Resolution:**
 1. Run a manual Agent Inventory sync for the environment in question.
-2. Verify the agent record exists in the `cat_agentdetails` table in Dataverse.
-3. Check that the `cat_istranscriptavailablecode` column is set to `1` on that record. The sync sets this flag when at least one transcript exists.
+2. Verify the agent record exists in the `Agent Details` table in Dataverse.
+3. Check that the `Is Transcript Available` column is set to `Yes` on that record. The sync sets this flag when at least one transcript exists.
 4. See [AGENT\_INVENTORY.md](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md) for full sync instructions.
 
 
 ### Conversation ID not found in the dropdown
 
-**Cause:** The dropdown pre-loads only the 50 most recent conversations for performance — older transcripts still exist in Dataverse but are not shown by default. Alternatively, the transcript may not have been written yet if the conversation just ended.
+**Cause:** The dropdown pre-loads only the 50 most recent conversations within the active time range for performance — older transcripts still exist in Dataverse but are not shown by default. Alternatively, the transcript may not have been written yet if the conversation just ended.
 
 **Resolution:**
-1. Type the conversation ID directly into the Conversation ID field — this triggers a full search across all transcripts for that agent.
-2. If the conversation just ended, wait 35-40 minutes for the transcript to be written to Dataverse, then refresh.
+1. Type the conversation ID directly into the Conversation ID field — this triggers a full search across all transcripts for that agent, ignoring the time range.
+2. If the time range is narrow (e.g., "Last 30 minutes"), expand it or switch to a custom range that covers the conversation date.
+3. If the conversation just ended, wait 35–40 minutes for the transcript to be written to Dataverse, then refresh.
 
 
 ### "Analyze" loads but shows no steps in the Debug Information panel
@@ -182,7 +446,7 @@ Use this when:
 
 **Resolution:**
 1. In the **kit environment**, the user must have the **CSK - Administrator** or **System Administrator** role to access Agent Debugger.
-2. In the **target environment** where the agent resides, the singed-in user must have sufficient access to read the `conversationtranscripts`, and `botcomponents` tables.
+2. In the **target environment** where the agent resides, the signed-in user must have sufficient access to read the `conversationtranscripts`, `bot`, and `botcomponents` tables.
 
 
 ### Transcripts appear incomplete (missing early messages)
@@ -199,5 +463,23 @@ Use this when:
 **Cause:** The `botcomponents` table lookup failed or the component record was deleted.
 
 **Resolution:**
-1. Verify the signed-in user has read access to the `botcomponents` table in the target environment.
+1. Verify the signedin user has read access to the `botcomponents` table in the target environment.
 2. If the component was deleted from Copilot Studio, no matching record exists and the debugger falls back to the raw schema name (e.g. `cr123_mytopic`). This is expected for deleted topics or actions.
+
+
+### Agent Details panel shows no data
+
+**Cause:** The agent configuration fetch failed, or the signed-in user's connection does not have read access to the `bot` and `botcomponents` tables in the target environment.
+
+**Resolution:**
+1. Verify read access to the `bot` and `botcomponents` tables for the connection reference used by the app.
+2. If the agent was deleted or unpublished after the conversation was recorded, its configuration records may no longer exist. In this case the Agent Details panel will remain empty — the transcript and debug panels are still fully functional.
+
+
+### Recommendations panel shows no issues but the conversation failed
+
+**Cause:** Recommendations are derived from patterns in the transcript trace events. If the transcript lacks trace data (see above), or if the failure occurred outside the conversation (e.g., a silent network timeout not recorded in the transcript), no recommendations will be generated.
+
+**Resolution:**
+1. Open the Transcript JSON to look for raw error payloads that may not be surfaced as a recommendation.
+2. Check the Execution Path for any steps shown in red — these indicate failures that may not map to a known recommendation pattern.
