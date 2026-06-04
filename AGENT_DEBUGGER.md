@@ -67,7 +67,7 @@ Both paths feed the same analysis interface — the panels, step details, and vi
 
 The Agent Debugger lists agents from the Agent Inventory. Before using this feature, the agent must be present in the Agent Inventory **and** have at least one conversation transcript recorded against it.
 
-You can verify this by opening the Agent Inventory list view, selecting the agent, and clicking **Show more** to expand the additional fields. The **Is Transcript Available** field must be set to **Yes** — this flag is set automatically by the inventory sync when at least one conversation transcript exists for the agent in Dataverse.
+You can verify this by opening the Agent Inventory list view, and clicking **Show more** to expand the additional fields. The **Is Transcript Available** field must be set to **Yes** — this flag is set automatically by the inventory sync when at least one conversation transcript exists for the agent in Dataverse.
 
 > **→ See [Agent Inventory — List View](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md#list-view) for instructions on how to use Show more and verify this field.**
 
@@ -78,17 +78,16 @@ See the Agent Inventory documentation for full setup instructions:
 
 ### 2. Security role and connection permissions
 
-The user must have the **CSK - Administrator** or **System Administrator** security role within the kit for this feature to be accessible.
+The feature is available only to users with either the **CSK – Administrator** or **System Administrator** security role within the kit.
 
-The **Dataverse connection reference** used by the app must have **Read** access to the following tables in the target environment:
+Additionally, the signed-in user must have **Read** access to the required tables in the target environment where agent resides. For user-level access, the **Bot Transcript Viewer** and **Bot Viewer** security roles can be assigned within the target environment. Feel free to create custom security roles with required **Read** level permissions on below tables and assign it to signed-in user.
 
 | Table | Logical Name |
 |---|---|
 | **Conversation Transcripts** | `conversationtranscripts` |
-| **Bots** | `bot` |
 | **Bot Components** | `botcomponents` |
 
-> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the Dataverse connection must be authenticated in that remote environment with the same read permissions.
+> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the signed-in user must have required read permissions.
 
 ---
 
