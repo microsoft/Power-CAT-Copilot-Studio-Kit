@@ -80,7 +80,7 @@ See the Agent Inventory documentation for full setup instructions:
 
 The user must have the **CSK - Administrator** or **System Administrator** security role within the kit for this feature to be accessible.
 
-The **Dataverse connection reference** used by the app must have **Read** access to the following tables in the target environment:
+The **signed in user** used by the app must have **Read** access to the following tables in the target environment:
 
 | Table | Logical Name |
 |---|---|
@@ -463,7 +463,7 @@ Use this when:
 **Cause:** The `botcomponents` table lookup failed or the component record was deleted.
 
 **Resolution:**
-1. Verify the Dataverse connection reference has read access to the `botcomponents` table in the target environment.
+1. Verify the signedin user has read access to the `botcomponents` table in the target environment.
 2. If the component was deleted from Copilot Studio, no matching record exists and the debugger falls back to the raw schema name (e.g. `cr123_mytopic`). This is expected for deleted topics or actions.
 
 
