@@ -67,7 +67,7 @@ Both paths feed the same analysis interface — the panels, step details, and vi
 
 The Agent Debugger lists agents from the Agent Inventory. Before using this feature, the agent must be present in the Agent Inventory **and** have at least one conversation transcript recorded against it.
 
-You can verify this by opening the Agent Inventory list view, and clicking **Show more** to expand the additional fields. The **Is Transcript Available** field must be set to **Yes** — this flag is set automatically by the inventory sync when at least one conversation transcript exists for the agent in Dataverse.
+You can verify this by opening the Agent Inventory list view, selecting the agent, and clicking **Show more** to expand the additional fields. The **Is Transcript Available** field must be set to **Yes** — this flag is set automatically by the inventory sync when at least one conversation transcript exists for the agent in Dataverse.
 
 > **→ See [Agent Inventory — List View](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md#list-view) for instructions on how to use Show more and verify this field.**
 
@@ -78,16 +78,17 @@ See the Agent Inventory documentation for full setup instructions:
 
 ### 2. Security role and connection permissions
 
-The feature is available only to users with either the **CSK – Administrator** or **System Administrator** security role within the kit.
+The user must have the **CSK - Administrator** or **System Administrator** security role within the kit for this feature to be accessible.
 
-Additionally, the signed-in user must have **Read** access to the required tables in the target environment where agent resides. For user-level access, the **Bot Transcript Viewer** and **Bot Viewer** security roles can be assigned within the target environment. Feel free to create custom security roles with required **Read** level permissions on below tables and assign it to signed-in user.
+The **Dataverse connection reference** used by the app must have **Read** access to the following tables in the target environment:
 
 | Table | Logical Name |
 |---|---|
 | **Conversation Transcripts** | `conversationtranscripts` |
+| **Bots** | `bot` |
 | **Bot Components** | `botcomponents` |
 
-> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the signed-in user must have required read permissions.
+> **Cross-environment access:** If the agent being debugged is in a different environment from where the kit is installed, the Dataverse connection must be authenticated in that remote environment with the same read permissions.
 
 ---
 
@@ -110,7 +111,9 @@ Populated from the distinct environment names found in Agent Inventory. Selectin
 
 ### Filter 2 — Agent
 
-Shows all agents in the selected environment that have at least one conversation transcript. Selecting an agent loads the most recent 50 conversations within the selected time range for the Conversation ID dropdown.
+Shows all agents in the selected environment whose **Is Transcript Available** flag is set to **Yes** in Agent Inventory. This flag indicates the agent has at least one conversation transcript recorded in Dataverse. If an agent you expect to see is missing, verify its **Is Transcript Available** value using **Show more** in the [Agent Inventory list view](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md#list-view) and run a manual sync if needed.
+
+Selecting an agent loads the most recent 50 conversations within the selected time range for the Conversation ID dropdown.
 
 ### Filter 3 — Conversation ID
 
