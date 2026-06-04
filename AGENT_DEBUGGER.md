@@ -27,7 +27,12 @@ The **Agent Debugger** is a diagnostic tool that lets users load any recorded co
 
 ## Overview
 
-When a conversation takes place in Copilot Studio, the platform records a detailed activity log — every message, every plan step triggered, every knowledge source searched, every action invoked — as a **Conversation Transcript** in Dataverse. The Agent Debugger reads that transcript and surfaces it in a structured, human-readable interface.
+The Agent Debugger supports two data sources:
+
+- **Conversation Transcript (Dataverse)** — when a conversation takes place in Copilot Studio, the platform records a detailed activity log as a Conversation Transcript in Dataverse. The Agent Debugger queries those records directly, so any published agent with transcript data is immediately available.
+- **Copilot Studio Snapshot (ZIP)** — Copilot Studio's built-in **test pane** includes a **Download snapshot** button that exports the current test conversation as a ZIP file (`dialog.json` + `botContent.yml`). Dropping that ZIP into the Agent Debugger's Upload Snapshot tab gives you the full analysis view without any Dataverse connection. This is useful for debugging pre-production conversations, reproducing issues offline, or sharing a failing session with a colleague.
+
+Both paths feed the same analysis interface — the panels, step details, and visualizations are identical regardless of how the data was loaded.
 
 **What it shows:**
 
@@ -51,7 +56,7 @@ When a conversation takes place in Copilot Studio, the platform records a detail
 - Surface **AI reasoning**: view the orchestrator's thought process before each step invocation
 - Inspect **MCP server interactions**: protocol details, capabilities, and tool definitions for Model Context Protocol steps
 - Review **Responsible AI blocks**: see when content was filtered and why
-- Analyze conversations **without Dataverse access** using the Upload Snapshot mode
+- Analyze **test-pane conversations offline** by uploading a Copilot Studio snapshot ZIP — no Dataverse connection needed
 - Copy conversation IDs, step IDs, or any JSON for use in support tickets or bug reports
 
 ---
@@ -142,21 +147,31 @@ The **Show error conversations only** toggle filters the Conversation ID dropdow
 
 ### Upload Snapshot Mode
 
-The **Upload Snapshot** tab provides an alternative entry point that does not require Dataverse access. Instead of selecting a live conversation, you upload a JSON snapshot file exported from Copilot Studio or captured from another source.
+The **Upload Snapshot** tab provides an alternative entry point that does not require Dataverse access. Instead of selecting a live conversation from the dropdowns, you upload a snapshot ZIP file downloaded directly from **Copilot Studio's test pane**.
+
+**How to get a snapshot from Copilot Studio:**
+
+1. Open your agent in **Copilot Studio** and navigate to the **Test** pane.
+2. Run or review a conversation in the test pane.
+3. Click the **Download snapshot** button (available in the test pane toolbar).
+4. Copilot Studio downloads a `.zip` file containing:
+   - `dialog.json` — all Bot Framework activities for the conversation (required)
+   - `botContent.yml` — the bot's full component and flow definitions, used to resolve step names (optional; if absent, raw schema names are shown)
 
 **When to use:**
 
+- Debugging a conversation that happened in the **test pane** before the agent was published
 - Analyzing a conversation from an environment you cannot authenticate against
-- Offline debugging or reproducing issues from a support ticket
-- Testing the debugger against a known conversation before deploying to a new environment
+- Reproducing issues offline or sharing a failing session with a colleague without granting Dataverse access
+- Validating agent behavior in a local development environment
 
-**How it works:**
+**How to upload:**
 
 1. Switch to the **Upload Snapshot** tab in the Agent Debugger header.
-2. Drag-and-drop or browse for a `.json` file containing the conversation activities array.
-3. The debugger extracts the activities, parses the transcript, and opens the full analysis view — identical to the live Dataverse-backed view.
+2. Drag-and-drop the `.zip` file onto the drop zone, or click to browse for it.
+3. The debugger validates the ZIP, extracts `dialog.json` and `botContent.yml`, and opens the full analysis view.
 
-No agent or environment selection is required in snapshot mode. All General Information metrics are derived directly from the uploaded activities.
+No environment, agent, or conversation ID selection is required — all General Information metrics (agent name, conversation ID, start time, duration) are derived directly from the uploaded file.
 
 ---
 
