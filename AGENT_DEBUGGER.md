@@ -262,7 +262,7 @@ The Agent Details panel shows the **full configuration of the agent** as it exis
 | **Topics** | All topics with name, description, input/output variables, and Enabled/Disabled status |
 | **Tools** | All tools with name, description, type badge (MCP, Flow, Connector, Prompt), and Enabled/Disabled status |
 | **Knowledge** | All knowledge sources with name, type badge (SharePoint, Web, Dataverse, File), URL, and Enabled/Disabled status |
-| **Agents** | All connected child agents with name, relationship type, and Enabled/Disabled status |
+| **Agents** | All connected & child agents with name, relationship type, and Enabled/Disabled status |
 
 ---
 
@@ -293,15 +293,6 @@ The Recommendations panel automatically detects issues in the conversation and s
 | Code step error | High | A Python code step raised an exception |
 | MCP initialization failure | High | An MCP server failed to initialize during the conversation |
 
-Each recommendation card shows:
-- Severity icon and color
-- Category badge (e.g., "Errors", "Performance", "Knowledge")
-- Title and description of the detected issue
-- A suggestion for how to investigate or resolve it
-- A **Go to turn** button that scrolls the Conversation Preview to the relevant user message
-
-When no issues are detected, the panel shows an **empty state** message. A preview option is available to see example recommendation cards for reference.
-
 ---
 
 ### Conversation Preview
@@ -331,10 +322,8 @@ The Debug Information panel shows step-level details for the selected user messa
 
 The step list shows every orchestrator step executed for the selected turn:
 
-- Step icon and color indicating the step type
 - Step name (resolved to a friendly display name where possible)
 - Execution duration
-- Outcome indicator (success / failure)
 
 Steps belonging to a **connected agent** are grouped inside a collapsible container card showing the agent name and total execution time. Expanding the container shows the child steps the agent executed. A **Fetch transcript** button on the container loads the child agent's full transcript on demand.
 
@@ -416,8 +405,8 @@ Use this when:
 
 **Resolution:**
 1. Run a manual Agent Inventory sync for the environment in question.
-2. Verify the agent record exists in the `cat_agentdetails` table in Dataverse.
-3. Check that the `cat_istranscriptavailablecode` column is set to `1` on that record. The sync sets this flag when at least one transcript exists.
+2. Verify the agent record exists in the `Agent Details` table in Dataverse.
+3. Check that the `Is Transcript Available` column is set to `Yes` on that record. The sync sets this flag when at least one transcript exists.
 4. See [AGENT\_INVENTORY.md](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md) for full sync instructions.
 
 
