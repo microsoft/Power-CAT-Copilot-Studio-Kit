@@ -432,27 +432,6 @@ Analyzes conversation quality — how users engage, whether sessions get resolve
 | **Survey Satisfaction Score** | Stacked Bar + Area | Average CSAT score (1-5) with satisfaction trend over time. Satisfied: 4-5, Neutral: 3, Dissatisfied: 1-2  |
 | **Satisfaction Score Trend** | Area | Daily average CSAT score over the last 45 days. Each day's score is computed as: **Daily CSAT Score Sum / Daily CSAT Response Count**, rounded to 1 decimal place. Days with no survey responses are excluded.  |
 
-#### Autonomous Agent Runs
-
-Shown only when autonomous run data exists. Tracks the performance of autonomous (proactive) agent executions.
-
-| KPI | Calculation | Description |
-|---|---|---|
-| **Runs** | Sum of Runs | Total number of autonomous agent runs triggered during the period |
-| **Successful Runs** | (Sum of Successful Runs / Sum of Runs) x 100 | Percentage of autonomous runs that completed without errors |
-| **Average Duration** | Weighted average of Average Duration (seconds), weighted by Runs per record | Weighted average duration of autonomous agent runs |
-
-#### Connected Agent Details
-
-Shown only when connected agent call data exists. Lists the child and connected agents that were invoked during conversations, with aggregated call and reliability metrics.
-
-| Column | Description |
-|---|---|
-| **Agent Name** | Name of the connected or child agent |
-| **Type** | Agent type with icon — Child Agent, Copilot Studio agent, or generic Bot |
-| **Calls** | Total number of times this agent was invoked |
-| **Success Rate** | Percentage of invocations that completed successfully |
-
 #### Feedback Dialog
 
 Clicking the Feedback KPI card opens a dialog that loads detailed feedback from file attachments (cat_feedbackdetailsfile). Each feedback record shows: reaction (thumbs up/down), agent name, conversation ID, conversation date, agent response, and user feedback text. Supports filtering by reaction type and Excel export.
