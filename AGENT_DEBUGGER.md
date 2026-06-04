@@ -110,37 +110,51 @@ When you open Agent Debugger, you see a filter bar with five controls before any
                                                    [ Analyze ]
 ```
 
-### Environment
+### Filter 1 — Environment
 
 Populated from the distinct environment names found in Agent Inventory. Selecting an environment narrows the Agent dropdown to only agents registered in that environment.
 
-### Agent
+### Filter 2 — Agent
 
 Shows all agents in the selected environment whose **Is Transcript Available** flag is set to **Yes** in Agent Inventory. This flag indicates the agent has at least one conversation transcript recorded in Dataverse. If an agent you expect to see is missing, verify its **Is Transcript Available** value using **Show more** in the [Agent Inventory list view](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md#list-view) and run a manual sync if needed.
 
 Selecting an agent loads the most recent 50 conversations within the selected time range for the Conversation ID dropdown.
 
-### Time Range Filter (Optional)
-
-A time range control appears alongside the filter bar to narrow the Conversation ID list to a specific window.
-
-When **Custom range** is selected, date and time pickers appear to set an exact start and end timestamp. The Conversation ID dropdown is then repopulated with transcripts created within that window.
-
-> **Note:** Typing a Conversation ID directly always searches all transcripts regardless of the active time range.
-
-
-### Error Conversations Filter (Optional)
-
-The **Show error conversations only** toggle filters the Conversation ID dropdown to conversations that contain at least one failed step or system error. Enable this when you are triaging incidents or reviewing agents with known reliability problems.
-
-> **Performance note:** When enabled, the debugger scans the raw content of recent transcripts client-side to identify error patterns. This takes longer than the standard query. Leave the toggle off unless you specifically need to filter by errors.
-
-### Conversation ID
+### Filter 3 — Conversation ID
 
 - **Default:** Shows the 50 most recent unique conversations for the selected agent within the configured time range.
 - **Typing in the box:** Triggers a full search across all transcripts for that agent (up to 100,000 records), allowing you to find older or specific conversations regardless of the time range.
 
 Once a Conversation ID is selected, the **Analyze** button becomes active. Click it to open the full analysis view.
+
+---
+
+### Time Range Filter
+
+A time range control appears alongside the filter bar to narrow the Conversation ID list to a specific window.
+
+**Preset options:**
+
+| Option | Window |
+|---|---|
+| Last 30 minutes | Past 30 min |
+| Last hour | Past 1 hour |
+| Last 4 hours | Past 4 hours |
+| Last 24 hours | Past 24 hours |
+| Last 7 days | Past 7 days |
+| Custom range | User-defined start and end date/time |
+
+When **Custom range** is selected, date and time pickers appear to set an exact start and end timestamp. The Conversation ID dropdown is then repopulated with transcripts created within that window.
+
+> **Note:** Typing a Conversation ID directly always searches all transcripts regardless of the active time range.
+
+---
+
+### Error Conversations Filter
+
+The **Show error conversations only** toggle filters the Conversation ID dropdown to conversations that contain at least one failed step or system error. Enable this when you are triaging incidents or reviewing agents with known reliability problems.
+
+> **Performance note:** When enabled, the debugger scans the raw content of recent transcripts client-side to identify error patterns. This takes longer than the standard query. Leave the toggle off unless you specifically need to filter by errors.
 
 ---
 
@@ -152,7 +166,7 @@ The **Upload Snapshot** tab provides an alternative entry point that does not re
 
 1. Open your agent in **Copilot Studio** and navigate to the **Test** pane.
 2. Run or review a conversation in the test pane.
-3. Click the **Save snapshot** button (available in the test pane toolbar).
+3. Click the **Download snapshot** button (available in the test pane toolbar).
 4. Copilot Studio downloads a `.zip` file containing:
    - `dialog.json` — all Bot Framework activities for the conversation (required)
    - `botContent.yml` — the bot's full component and flow definitions, used to resolve step names (optional; if absent, raw schema names are shown)
@@ -170,7 +184,7 @@ The **Upload Snapshot** tab provides an alternative entry point that does not re
 2. Drag-and-drop the `.zip` file onto the drop zone, or click to browse for it.
 3. The debugger validates the ZIP, extracts `dialog.json` and `botContent.yml`, and opens the full analysis view.
 
-No environment, agent, or conversation ID selection is required — all metrics are derived directly from the uploaded file.
+No environment, agent, or conversation ID selection is required — all General Information metrics (agent name, conversation ID, start time, duration) are derived directly from the uploaded file.
 
 ---
 
@@ -239,63 +253,16 @@ The Performance Timeline shows a **waterfall chart** of step execution times, gr
 
 ### Agent Details
 
-The Agent Details panel shows the **full configuration of the agent** as it existed at the time the conversation was analyzed. It is organized into six tabs:
+The Agent Details panel shows the **full configuration of the agent** as it existed at the time the conversation was analyzed, organized into six tabs:
 
-#### Overview Tab
-
-Displays KPI tiles summarizing the agent's key configuration settings:
-
-| Tile | Description |
+| Tab | What it shows |
 |---|---|
-| **Topics** | Total number of topics configured |
-| **Tools** | Total number of tools (actions, connectors, flows) |
-| **Knowledge** | Total number of knowledge sources |
-| **Child Agents** | Number of connected child agents |
-| **Orchestration** | Orchestration mode (e.g., Generative, Classic) |
-| **Language** | Primary language of the agent |
-| **Auth Mode** | Authentication mode (e.g., No Auth, Azure AD, Custom) |
-| **Model Knowledge** | Whether the agent uses general model knowledge |
-| **Semantic Search** | Whether semantic knowledge search is enabled |
-| **Latest Models** | Whether the agent is configured to use the latest available AI models |
-
-Each tile includes a tooltip with a plain-English explanation of the setting.
-
-#### Instructions Tab
-
-Displays the agent's full **system prompt** (instructions) as configured in Copilot Studio. This is the text that guides the orchestrator's behavior across all turns.
-
-#### Topics Tab
-
-Lists all topics configured in the agent. Each topic card shows:
-
-- Topic name and description
-- Input and output variables (names and types)
-- Status badge (Enabled / Disabled)
-
-#### Tools Tab
-
-Lists all tools (actions) available to the agent. Each tool card shows:
-
-- Tool name and description
-- Type badge: **MCP**, **Flow**, **Connector**, or **Prompt**
-- Status badge (Enabled / Disabled)
-
-#### Knowledge Tab
-
-Lists all knowledge sources configured for the agent. Each knowledge source card shows:
-
-- Source name
-- Type badge: **SharePoint**, **Web**, **Dataverse**, or **File**
-- Source URL or path (where applicable)
-- Status badge (Enabled / Disabled)
-
-#### Agents Tab
-
-Lists all child agents connected to this agent. Each child agent card shows:
-
-- Agent name
-- Relationship type (e.g., Connected Agent)
-- Status badge (Enabled / Disabled)
+| **Overview** | KPI tiles for Topics, Tools, Knowledge, Child Agents, Orchestration mode, Language, Auth Mode, Model Knowledge, Semantic Search, and Latest Models — each with a tooltip explaining the setting |
+| **Instructions** | The agent's full system prompt as configured in Copilot Studio |
+| **Topics** | All topics with name, description, input/output variables, and Enabled/Disabled status |
+| **Tools** | All tools with name, description, type badge (MCP, Flow, Connector, Prompt), and Enabled/Disabled status |
+| **Knowledge** | All knowledge sources with name, type badge (SharePoint, Web, Dataverse, File), URL, and Enabled/Disabled status |
+| **Agents** | All connected child agents with name, relationship type, and Enabled/Disabled status |
 
 ---
 
