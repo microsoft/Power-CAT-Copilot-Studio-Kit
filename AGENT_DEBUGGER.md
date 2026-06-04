@@ -416,8 +416,8 @@ Use this when:
 
 **Resolution:**
 1. Run a manual Agent Inventory sync for the environment in question.
-2. Verify the agent record exists in the `cat_agentdetails` table in Dataverse.
-3. Check that the `cat_istranscriptavailablecode` column is set to `1` on that record. The sync sets this flag when at least one transcript exists.
+2. Verify the agent record exists in the `Agent Details` table in Dataverse.
+3. Check that the `Is Transcript Available` column is set to `Yes` on that record. The sync sets this flag when at least one transcript exists.
 4. See [AGENT\_INVENTORY.md](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INVENTORY.md) for full sync instructions.
 
 
@@ -446,7 +446,7 @@ Use this when:
 
 **Resolution:**
 1. In the **kit environment**, the user must have the **CSK - Administrator** or **System Administrator** role to access Agent Debugger.
-2. In the **target environment** where the agent resides, the Dataverse connection reference must have sufficient access to read the `conversationtranscripts`, `bot`, and `botcomponents` tables.
+2. In the **target environment** where the agent resides, the signed-in user must have sufficient access to read the `conversationtranscripts`, `bot`, and `botcomponents` tables.
 
 
 ### Transcripts appear incomplete (missing early messages)
