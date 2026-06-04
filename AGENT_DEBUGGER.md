@@ -30,7 +30,7 @@ The **Agent Debugger** is a diagnostic tool that lets users load any recorded co
 The Agent Debugger supports two data sources:
 
 - **Conversation Transcript (Dataverse)** — when a conversation takes place in Copilot Studio, the platform records a detailed activity log as a Conversation Transcript in Dataverse. The Agent Debugger queries those records directly, so any published agent with transcript data is immediately available.
-- **Copilot Studio Snapshot (ZIP)** — Copilot Studio's built-in **test pane** includes a **Download snapshot** button that exports the current test conversation as a ZIP file (`dialog.json` + `botContent.yml`). Dropping that ZIP into the Agent Debugger's Upload Snapshot tab gives you the full analysis view without any Dataverse connection. This is useful for debugging pre-production conversations, reproducing issues offline, or sharing a failing session with a colleague.
+- **Copilot Studio Snapshot (ZIP)** — Copilot Studio's built-in **test pane** includes a **Save snapshot** button that exports the current test conversation as a ZIP file (`dialog.json` + `botContent.yml`). Dropping that ZIP into the Agent Debugger's Upload Snapshot tab gives you the full analysis view without any Dataverse connection. This is useful for debugging pre-production conversations, reproducing issues offline, or sharing a failing session with a colleague.
 
 Both paths feed the same analysis interface — the panels, step details, and visualizations are identical regardless of how the data was loaded.
 
@@ -41,7 +41,7 @@ Both paths feed the same analysis interface — the panels, step details, and vi
 | General Information | Session count, turn count, outcome, duration, start time, channel, and AI model used |
 | Execution Path | Which topics, actions, knowledge searches, code steps, and connected agents ran — and in what order, as a visual flow diagram |
 | Performance Timeline | How long each step took per conversation turn; instantly spot slow steps and latency bottlenecks |
-| Agent Details | Full agent configuration at the time of the conversation: instructions, topics, tools, knowledge sources, and child agents |
+| Agent Details | Full agent configuration: instructions, topics, tools, knowledge sources, and child agents |
 | Recommendations | Automatically detected issues with severity ratings, descriptions, and suggested fixes |
 | Conversation Preview | Full chat exchange, rendered with markdown and adaptive cards |
 | Debug Information | Step-by-step execution for the selected user message: every topic, action, knowledge search, and tool invoked — with thought, arguments, observation, token counts, knowledge sources, and error details |
@@ -51,7 +51,6 @@ Both paths feed the same analysis interface — the panels, step details, and vi
 
 - Debug **multi-agent conversations**: automatically detects connected and child agents, and loads their transcripts on demand
 - Inspect **step arguments and observations**: see exactly what inputs were passed to every action, tool, or knowledge source — and what it returned
-- Review **token consumption**: prompt and completion token counts per step and per turn, with model name
 - Correlate **knowledge sources**: see what was searched, what was returned, and what was actually cited in the answer
 - Surface **AI reasoning**: view the orchestrator's thought process before each step invocation
 - Inspect **MCP server interactions**: protocol details, capabilities, and tool definitions for Model Context Protocol steps
