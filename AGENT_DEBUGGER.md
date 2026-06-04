@@ -94,13 +94,18 @@ The **Dataverse connection reference** used by the app must have **Read** access
 
 ## Getting Started — Filters
 
-When you open Agent Debugger, you see a three-step cascading filter bar before any data is loaded.
+When you open Agent Debugger, you see a filter bar with five controls before any data is loaded.
 
 ```
 ┌──────────────────┐   ┌──────────────────┐   ┌──────────────────────┐
 │  Environment     │ → │  Agent           │ → │  Conversation ID     │
 │  (dropdown)      │   │  (dropdown)      │   │  (search + dropdown) │
 └──────────────────┘   └──────────────────┘   └──────────────────────┘
+
+┌───────────────────────────────┐   ┌──────────────────────────────────┐
+│  Time Range                   │   │  Error conversations only        │
+│  (preset or custom date/time) │   │  (toggle)                        │
+└───────────────────────────────┘   └──────────────────────────────────┘
                                                            │
                                                    [ Analyze ]
 ```
