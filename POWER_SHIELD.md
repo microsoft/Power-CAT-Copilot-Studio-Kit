@@ -1,6 +1,6 @@
-# Govern connector access with PowerShield
+# Govern connector access with Power Shield
 
-PowerShield enables organizations to manage Power Platform connector access through a structured, approval-based workflow for Data Loss Prevention (DLP) policies. Makers request connector access through a self-service wizard; admins review, approve, and manage those requests. Every DLP policy change is traceable to a PowerShield request, ensuring governance compliance and auditability.
+Power Shield enables organizations to manage Power Platform connector access through a structured, approval-based workflow for Data Loss Prevention (DLP) policies. Makers request connector access through a self-service wizard; admins review, approve, and manage those requests. Every DLP policy change is traceable to a Power Shield request, ensuring governance compliance and auditability.
 
 ## In this article
 
@@ -14,31 +14,26 @@ PowerShield enables organizations to manage Power Platform connector access thro
 
 ## Architecture
 
-PowerShield is delivered as an embedded feature within two dedicated code apps and is also accessible from the model-driven app:
+Power Shield is delivered as an embedded feature within two dedicated code apps and is also accessible from the model-driven app:
 
-- **Copilot Studio Kit** (model-driven app) — launches PowerShield and routes to the appropriate code app based on the user's security role
+- **Copilot Studio Kit** (model-driven app) — launches Power Shield and routes to the appropriate code app based on the user's security role
 - **Copilot Studio Kit for Makers** — submit and manage connector access requests
-- **Copilot Studio Kit for Admins** — review, approve, and configure PowerShield
-
-
+- **Copilot Studio Kit for Admins** — review, approve, and configure Power Shield
 
 ## Key concepts
 
 - **Policy Request**: A maker's formal request to access specific connectors in one or more environments. Each request follows a lifecycle from Draft through Implemented (or Rejected/Withdrawn).
 - **Service Tree**: An organizational grouping (department, team, or project) that scopes policy requests. Only members can submit requests under a Service Tree.
 - **Environment Container**: A named group of Power Platform environments within a Service Tree that defines the DLP policy scope.
-- **DLP Policy**: A Data Loss Prevention policy in the Power Platform Admin Center. Approved requests result in a scoped DLP policy for the requested connectors and environments.
+- **DLP Policy**: A Data Loss Prevention policy in the Power Platform Admin Center. Power Shield maintains one DLP policy per Service Tree + Environment Container pair, refreshed on each approval — see [What approval does to your DLP policies](#what-approval-does-to-your-dlp-policies).
 - **Connector Actions**: Individual operations within a connector (e.g., "Send Email"). Makers can allow or block specific actions per connector.
 - **Custom Connector Patterns**: URL patterns for custom connectors classified into DLP data groups (Business, Non-business, Blocked).
 - **Compliance Questionnaire**: An optional, admin-configurable set of questions makers answer when submitting a request. Responses serve as decision points during approval.
 - **Connector Governance (Default-Blocked Model)**: All non-Microsoft-published connectors are blocked after the initial sync. Only Microsoft-published connectors are available by default. Admins selectively unblock connectors through [Connector Configurations](#connector-configurations).
 
-> [!NOTE]
-> **How DLP policies are scoped:** PowerShield maintains **one DLP policy for each Service Tree + Environment Container pair** — that is, one policy for your team's environments. When a new request is approved for the same Service Tree and Environment Container, the existing policy is **refreshed** to match the latest approved request. PowerShield doesn't pile up a separate DLP policy for every approval; your team always has a single, up-to-date policy per scope.
-
 ## Prerequisites
 
-Before using PowerShield, ensure you have:
+Before using Power Shield, ensure you have:
 
 - **Copilot Studio Kit prerequisites**: All [prerequisites for the Copilot Studio Kit](PREREQUISITES.md) installed and configured for both code apps.
 - **Security roles**: Users must be assigned one of the following Dataverse security roles:
@@ -47,14 +42,14 @@ Before using PowerShield, ensure you have:
 - **Power Platform Administrator role** (admins only): Admins who approve requests and create DLP policies must also have the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). This Microsoft Entra ID role grants permission to create, update, and delete DLP policies via the Power Platform for Admins connector. Without it, DLP policy creation fails after approval.
 
 > [!WARNING]
-> PowerShield **will not work** until the **PowerShield | Sync Connectors** cloud flow has run at least once. This flow populates the connector catalog used in the connector selection step of the request wizard. See [Connector and Connector Actions sync](#connector-and-connector-actions-sync) for setup steps, or use the [Connection Health](#connection-health) screen in the admin app to configure everything in one place.
+> Power Shield **will not work** until the **PowerShield | Sync Connectors** cloud flow has run at least once. This flow populates the connector catalog used in the connector selection step of the request wizard. See [Connector and Connector Actions sync](#connector-and-connector-actions-sync) for setup steps, or use the [Connection Health](#connection-health) screen in the admin app to configure everything in one place.
 
 > [!NOTE]
-> Developer environments are automatically excluded from PowerShield. Only Production, Sandbox, Trial, Default, and Teams environments are available.
+> Developer environments are automatically excluded from Power Shield. Only Production, Sandbox, Trial, Default, and Teams environments are available.
 
 ### Connection references
 
-PowerShield uses four connection references. Two require **HTTP with Microsoft Entra ID (preauthorized)** connections that you must create manually. The other two (Dataverse and Power Apps for Makers) use standard connectors that are mapped during setup.
+Power Shield uses four connection references. Two require **HTTP with Microsoft Entra ID (preauthorized)** connections that you must create manually. The other two (Dataverse and Power Apps for Makers) use standard connectors that are mapped during setup.
 
 > [!NOTE]
 > **Government clouds (GCC, GCC High, DoD):** Endpoint values in this section default to the commercial cloud. If your environment is in a US Government cloud, use the row for your cloud in each connection table below, and substitute the corresponding maker portal for every `https://make.powerapps.com` link in this document:
@@ -70,9 +65,6 @@ PowerShield uses four connection references. Two require **HTTP with Microsoft E
 
 > [!IMPORTANT]
 > Cloud flows included in the solution remain in an **off** state until you complete the connection reference configuration and manually turn them on.
-
-> [!TIP]
-> **Recommended:** After creating the required connections (Step 1), use the [Connection Health](#connection-health) screen in the admin app (**Settings** → **Connection Health**) to map all connection references and activate cloud flows in one place. If the admin app isn't deployed yet or Connection Health is unavailable, use the [manual alternative](#manual-alternative-map-connections-and-activate-flows) below.
 
 #### Step 1: Create connections
 
@@ -114,65 +106,16 @@ Create two HTTP with Microsoft Entra ID (preauthorized) connections in your envi
 
 *Example: Commercial cloud — BAPAPI connection details*
 
-> [!NOTE]
-> You must sign in with an account that has the **Power Platform Administrator** role for the BAPAPI connection, because the associated cloud flows create and manage DLP policies.
+#### Step 2: Map connections and activate flows
 
-#### Step 2: Map connections and activate flows (recommended)
-
-Open the **Copilot Studio Kit for Admins** app, navigate to **Settings** → **Connection Health**, and complete the guided setup:
-
-1. **Connection References** — Select the connection you created from the dropdown for each of the four PowerShield connection references. A green checkmark (✓) confirms each mapping.
-2. **Cloud Flows** — Toggle each flow to **On** to activate it.
-3. **Data Sync Status** — After the Sync Connectors flow runs (either on its daily schedule or triggered manually from Power Automate), select **Refresh** to verify both tables show ✅ **Success**.
-
-For more information, see [Connection Health](#connection-health).
+After creating the connections, complete setup using the [Connection Health](#connection-health) screen in the admin app. It maps all four connection references, activates the cloud flows, and verifies data sync from a single page. Sign in as a user with the **Power Platform Administrator** role so the BAPAPI connection can manage DLP policies.
 
 > [!NOTE]
-> Activating a flow from Connection Health does not trigger an immediate run. The **Sync Connectors** flow runs on a daily schedule. To populate the connector catalog immediately, open the flow in Power Automate and select **Run**, then return to Connection Health and select **Refresh** to verify data sync.
-
-#### Manual alternative: Map connections and activate flows
-
-If you can't access the admin app or the Connection Health screen, complete these steps manually in the Power Apps portal.
-
-**Map connection references:**
-
-1. In [Power Apps](https://make.powerapps.com), select your environment.
-2. On the left navigation pane, select **Solutions**, then open **Default Solution**.
-3. Use the search box or filter by **Type = Connection Reference** to locate the following connection references:
-   - **PowerShield APIFlow** (`cat_PowerShieldAPIFlow`)
-   - **PowerShield BAPAPI** (`cat_PowerShieldBAPAPI`)
-4. Select **PowerShield APIFlow** to open the details pane.
-5. In the **Connection** dropdown, select the APIFlow connection you created in [Step 1](#step-1-create-connections) (the one whose Base Resource URL is the `api.flow.*` value for your cloud).
-6. Select **Save**.
-
-![Screenshot showing the PowerShield APIFlow connection reference configuration in the solution](./media/ps_prereq_apiflow_connector.png)
-
-*PowerShield APIFlow connection reference*
-
-7. Select **PowerShield BAPAPI** to open the details pane.
-8. In the **Connection** dropdown, select the BAPAPI connection you created in [Step 1](#step-1-create-connections) (the one whose Base Resource URL is the `api.bap.*` value for your cloud).
-9. Select **Save**.
-
-![Screenshot showing the PowerShield BAPAPI connection reference configuration in the solution](./media/ps_prereq_bapapi_connector.png)
-
-*PowerShield BAPAPI connection reference*
-
-For more information about connection references, see [Use a connection reference in a solution](https://learn.microsoft.com/power-apps/maker/data-platform/create-connection-reference).
-
-**Turn on cloud flows:**
-
-1. In [Power Apps](https://make.powerapps.com), select **Solutions** and open **Copilot Studio Accelerator**.
-2. Filter or search for **Cloud flows**.
-3. For each of the following flows, select the flow name to open it, then select **Turn on** from the command bar:
-   - **PowerShield | Sync Connectors**
-   - **PowerShield | DLP Request - Patch Custom Connector and Actions**
-
-> [!TIP]
-> If a flow fails to turn on, verify that the connection references are correctly mapped and that the signed-in account has permissions to use the associated connections. For more information, see [Share connections with another user so flows can be enabled](https://learn.microsoft.com/power-apps/maker/data-platform/create-connection-reference#share-connections-with-another-user-so-flows-can-be-enabled).
+> Activating a flow doesn't trigger an immediate run. The **Sync Connectors** flow runs on a daily schedule. To populate the connector catalog immediately, open the flow in Power Automate and select **Run**, then return to Connection Health and select **Refresh**.
 
 ### Connector and Connector Actions sync
 
-PowerShield relies on two Dataverse tables — **Connectors** (`cat_connector`) and **Connector Actions** (`cat_connectoraction`) — that must be populated before the feature can be used. A single scheduled cloud flow keeps these tables current:
+Power Shield relies on two Dataverse tables — **Connectors** (`cat_connector`) and **Connector Actions** (`cat_connectoraction`) — that must be populated before the feature can be used. A single scheduled cloud flow keeps these tables current:
 
 | Cloud Flow | Purpose | Target Tables |
 |------------|---------|---------------|
@@ -180,15 +123,12 @@ PowerShield relies on two Dataverse tables — **Connectors** (`cat_connector`) 
 
 #### First-time setup
 
-After turning on the cloud flows (see [Step 2](#step-2-map-connections-and-activate-flows-recommended) or the [manual alternative](#manual-alternative-map-connections-and-activate-flows)):
+After turning on the cloud flows (see [Step 2](#step-2-map-connections-and-activate-flows)):
 
 1. Navigate to **Solutions > Copilot Studio Accelerator > Cloud flows**.
 2. Open the **"PowerShield | Sync Connectors"** flow and select **Run** from the command bar. Wait for completion.
 3. Verify: open the **Connectors** (`cat_connector`) table — you should see hundreds of records.
 4. Verify: open the **Connector Actions** (`cat_connectoraction`) table — you should see action records.
-
-> [!TIP]
-> You can also complete these steps from within the admin app using the [Connection Health](#connection-health) screen (**Settings** → **Connection Health**). It provides a guided experience for mapping connection references, activating flows, and verifying data sync status.
 
 #### Ongoing sync
 
@@ -198,7 +138,7 @@ The flow runs on a **daily schedule**. The connector sync preserves admin overri
 
 ### Maker
 
-Requires the **CSK - Maker** or **System Administrator** security role. Access PowerShield through the **Copilot Studio Kit for Makers** app (a **[Maker]** badge displays in the header).
+Requires the **CSK - Maker** or **System Administrator** security role. Access Power Shield through the **Copilot Studio Kit for Makers** app (a **[Maker]** badge displays in the header).
 
 Makers can:
 
@@ -211,10 +151,7 @@ Makers can:
 
 ### Admin
 
-Requires the **CSK - Administrator** or **System Administrator** security role. Access PowerShield through the **Copilot Studio Kit for Admins** app (an **[Admin]** badge displays in the header).
-
-> [!IMPORTANT]
-> To approve requests and create DLP policies, admins also need the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). The Dataverse security role controls app access; the Power Platform Administrator role controls DLP policy operations.
+Requires the **CSK - Administrator** or **System Administrator** security role. Access Power Shield through the **Copilot Studio Kit for Admins** app (an **[Admin]** badge displays in the header). Approving requests also requires the **Power Platform Administrator** role (see [Prerequisites](#prerequisites)) — the Dataverse security role controls app access; the Power Platform Administrator role controls DLP policy operations.
 
 Admins can:
 
@@ -225,14 +162,13 @@ Admins can:
 - Manage [Connector Configurations](#connector-configurations), [Question Configuration](#question-configuration), and [Notification Settings](#notification-settings)
 - Post comments with file attachments on any request
 
-> [!NOTE]
-> Users with the **System Administrator** role have access to both apps.
+Users with the **System Administrator** role have access to both apps.
 
 ## Get started
 
 ### Launch options
 
-PowerShield is accessible from three apps within the Copilot Studio Kit solution. Choose the launch option that matches your role and workflow.
+Power Shield is accessible from three apps within the Copilot Studio Kit solution. Choose the launch option that matches your role and workflow.
 
 | App | Type | Audience | Internal name |
 |-----|------|----------|---------------|
@@ -242,48 +178,27 @@ PowerShield is accessible from three apps within the Copilot Studio Kit solution
 
 #### Option A: Launch from the Copilot Studio Kit model-driven app
 
-This option is recommended for organizations that use the Copilot Studio Kit model-driven app as the central hub.
-
 1. Open the **Copilot Studio Kit** model-driven app.
 2. In the left navigation, expand the **Governance** area.
-3. Select **PowerShield**.
-4. The unified launcher detects your security role and routes you to the appropriate code app:
-   - Users with the **CSK - Administrator** or **System Administrator** role are redirected to **Copilot Studio Kit for Admins**.
-   - Users with the **CSK - Maker** role are redirected to **Copilot Studio Kit for Makers**.
-   - If a user has both admin and maker roles, the admin app takes precedence.
+3. Select **Power Shield**. The unified launcher detects your security role and routes you to the appropriate code app (admin app takes precedence if you have both roles).
 
 #### Option B: Launch from Copilot Studio Kit for Admins
 
-Use this option when you manage connector access requests directly in the admin code app.
-
 1. Open the **Copilot Studio Kit for Admins** code app.
-2. In the left sidebar, navigate to the **Governance** section.
-3. Select **Power Shield**.
-
-The admin experience includes request review, approval workflows, connector configurations, question configuration, and notification settings.
+2. In the left sidebar, navigate to **Governance** → **Power Shield**.
 
 #### Option C: Launch from Copilot Studio Kit for Makers
 
-Use this option when you submit connector access requests directly in the maker code app.
-
 1. Open the **Copilot Studio Kit for Makers** code app.
-2. In the left sidebar, navigate to the **Governance** section.
-3. Select **Power Shield**.
-
-The maker experience includes request creation via the 5-step wizard, service tree management, and request tracking.
+2. In the left sidebar, navigate to **Governance** → **Power Shield**.
 
 ## Maker workflow
-
-> [!NOTE]
-> All maker workflow takes place within the **Copilot Studio Kit for Makers** code app.
 
 ### Home screen (Maker view)
 
 The home screen provides an overview of your connector access requests.
 
-![Screenshot of the PowerShield maker home screen showing stat cards and request grid](./media/ps_maker_home.png)
-
-*Maker home screen*
+![Screenshot of the Power Shield maker home screen showing stat cards and request grid](./media/ps_maker_home.png)
 
 **Header actions:** **+ New Request** (launch the wizard) and **Manage Service Trees**.
 
@@ -293,19 +208,15 @@ The home screen provides an overview of your connector access requests.
 
 ![Screenshot showing the row action menu with Clone and Withdraw options](./media/ps_maker_clone_withdraw.png)
 
-*Row action menu*
-
 ### Managing Service Trees
 
-Service Trees represent organizational units, departments, or projects. Each request must be associated with a Service Tree.
+Each request must be associated with a Service Tree.
 
 #### Service Tree Management page
 
 Navigate to **Manage Service Trees** from the home screen header. Click **Take a tour** for a guided walkthrough.
 
 ![Screenshot of the Service Tree Management page with search and list view](./media/ps_servicetrees_empty.png)
-
-*Service Tree Management page*
 
 The page uses a two-level drill-down:
 
@@ -323,18 +234,13 @@ The page uses a two-level drill-down:
 
 ![Screenshot of the Create New Service Tree dialog with name, organization, and members fields](./media/ps_servicetree_create.png)
 
-*Create New Service Tree dialog*
-
-> [!NOTE]
-> Only members of a Service Tree can see it and submit requests under it.
+Only members of a Service Tree can see it and submit requests under it.
 
 #### Managing Environment Containers
 
 Environment Containers group Power Platform environments within a Service Tree. Navigate to a Service Tree's **Environment Containers** tab.
 
 ![Screenshot of the Environment Containers tab in empty state](./media/ps_servicetree_containers_empty.png)
-
-*Environment Containers tab (empty state)*
 
 To create a container:
 
@@ -346,8 +252,6 @@ To create a container:
 
 ![Screenshot of the Create Environment Container dialog with environment selection grid](./media/ps_servicetree_create_container.png)
 
-*Create Environment Container dialog*
-
 ### Creating a new request (5-step wizard)
 
 Click **+ New Request** on the home screen. The wizard guides you through five steps. If no compliance questionnaire is configured, Step 2 is automatically skipped.
@@ -358,29 +262,19 @@ Select the Service Tree and Environment Container for your request.
 
 ![Screenshot of wizard Step 1 showing Service Tree and Environment Container selection panels](./media/ps_step1_env_selection.png)
 
-*Step 1 — Service Tree and Environment Container selection*
-
 - **Left panel**: Select a Service Tree (only trees where you're a member). Create new ones inline with **+ New Service Tree**.
 - **Right panel**: Select a container. Edit existing containers or create new ones inline. The environments in the selected container display in a read-only table below.
 
 **Validation requirements:**
 - A Service Tree and Environment Container must be selected.
-- No in-progress conflict (another active request for the same Service Tree).
-- You must have the System Administrator role in each environment.
-
-> [!IMPORTANT]
-> Clicking **Next** validates your System Administrator role in each environment. Unauthorized environments are flagged in a dialog.
+- No [in-progress conflict](#in-progress-constraint) — only one active request per Service Tree at a time.
+- You must have the System Administrator role in each environment. Clicking **Next** validates this; unauthorized environments are flagged in a dialog.
 
 #### Step 2: Compliance Questionnaire
 
-> [!NOTE]
-> Skipped automatically when no questionnaire is configured by an admin.
-
-Answer the compliance questions grouped by category. Supported types: Yes/No, Text, Single-select, Multi-select, and Date. Some questions may be conditional. Required questions are marked with an asterisk (*).
+Answer the compliance questions grouped by category (skipped automatically if no questionnaire is configured). Supported types: Yes/No, Text, Single-select, Multi-select, and Date. Some questions may be conditional. Required questions are marked with an asterisk (*).
 
 ![Screenshot of wizard Step 2 showing the compliance questionnaire grouped by category](./media/ps_step2_questionnaire.png)
-
-*Step 2 — compliance questionnaire*
 
 #### Step 3: Connector Selection
 
@@ -388,33 +282,23 @@ Select the connectors for your DLP policy. Filter by publisher, tier, release, a
 
 ![Screenshot of wizard Step 3 showing the connector selection grid with filters](./media/ps_step3_connector_selection.png)
 
-*Step 3 — connector selection grid*
-
 Use the **Hide Blocked** toggle to show or hide connectors blocked by an admin. Blocked connectors display a red "Blocked by Admin" badge and can't be selected (see [Connector Governance](#key-concepts)).
 
 **Connector Actions:** Click **View Connector Actions** on any connector to configure per-action Allow/Block rules. Use **Allow All** or **Block All** for bulk changes.
 
 ![Screenshot of the Connector Actions dialog showing per-action Allow and Block controls](./media/ps_step3_connector_actions.png)
 
-*Connector Actions dialog*
-
 **Custom Connector Patterns:** Click **+ Add Custom Connectors** to define URL patterns (maximum 5 per request).
 
 ![Screenshot of the Custom Connector Patterns dialog with URL pattern fields](./media/ps_step3_custom_patterns.png)
-
-*Custom Connector Patterns dialog*
 
 **Confirm selections:** Clicking **Next** opens a confirmation dialog summarizing selected connectors, blocked actions, and custom patterns.
 
 ![Screenshot of the confirmation dialog summarizing selected connectors and actions](./media/ps_step3_confirm_selections.png)
 
-*Confirm Connector Selections dialog*
-
 #### Step 4: Business Justification
 
 ![Screenshot of wizard Step 4 showing business justification text area and document upload](./media/ps_step4_justification.png)
-
-*Step 4 — business justification*
 
 - **Business justification** (required): 20-character minimum.
 - **Supporting Document** (optional): Single file (PDF, DOCX, XLSX, PNG, or JPG, max 25 MB).
@@ -425,21 +309,15 @@ Review your request across three tabs before submission.
 
 ![Screenshot of wizard Step 5 showing the Scope tab with environments and connectors](./media/ps_step5_review.png)
 
-*Step 5 — review (Scope tab)*
-
 - **Scope tab** — environments (with **Check DLP Membership** links), connectors (with expandable action rules), and custom patterns
 - **Details tab** — questionnaire answers, justification, and supporting document
 - **Collaboration tab** — add co-owners (maximum 20) who receive read/write access to this request
 
 ![Screenshot of the Collaboration tab showing co-owner management](./media/ps_step5_coowners.png)
 
-*Collaboration tab — co-owner management*
-
 Click **Submit Request ✓** to open the confirmation dialog, then **Submit ✓** to finalize. Submitted requests can't be edited.
 
 ![Screenshot of the submission confirmation dialog](./media/ps_step5_submit_confirm.png)
-
-*Confirm Submission dialog*
 
 > [!NOTE]
 > The **admin comment** (formal decision record on the Summary tab) is distinct from the **Comments thread** (ongoing discussion on the Comments tab).
@@ -452,8 +330,7 @@ Save your request as a draft at any wizard step and return later.
 - To resume: open the draft and click **Resume Draft**, or select the draft row on the home screen.
 - The wizard reopens at the step where you left off with all data restored.
 
-> [!NOTE]
-> Drafts don't enforce full validation — you can save without completing required fields.
+Drafts don't enforce full validation — you can save without completing required fields.
 
 ### Withdraw a request
 
@@ -507,16 +384,11 @@ Exchange messages with admins via the Comments tab after submission.
 
 ## Admin workflow
 
-> [!NOTE]
-> All admin workflow takes place within the **Copilot Studio Kit for Admins** code app.
-
 ### Home screen (Admin view)
 
 The admin home screen provides a tenant-wide view of all policy requests.
 
-![Screenshot of the PowerShield admin home screen showing six stat cards and tenant-wide request grid](./media/ps_admin_home.png)
-
-*Admin home screen*
+![Screenshot of the Power Shield admin home screen showing six stat cards and tenant-wide request grid](./media/ps_admin_home.png)
 
 **Stat cards:** Six cards — **All**, **Pending**, **Completed** (with approval rate), **Policy Failed**, **Rejected**, **Withdrawn**. Click a card to filter the grid.
 
@@ -526,11 +398,9 @@ The admin home screen provides a tenant-wide view of all policy requests.
 
 ### Settings Hub
 
-Click the gear (⚙) icon on the admin home screen to configure PowerShield before processing requests.
+Click the gear (⚙) icon on the admin home screen to configure Power Shield before processing requests.
 
 ![Screenshot of the Settings Hub with Connector Configurations, Question Configurations, and Notification Settings cards](./media/ps_admin_settings_hub.png)
-
-*Settings Hub*
 
 Four configuration areas:
 
@@ -543,24 +413,20 @@ Four configuration areas:
 
 ### Connection Health
 
-The Connection Health screen provides a guided experience for managing connection references and cloud flow activation directly within the admin app. Use this screen for initial setup and ongoing health monitoring — connections can break and flows can be turned off at any time.
+Connection Health is the single place to manage Power Shield connection references and cloud flow activation. Use it for initial setup and ongoing monitoring — connections can break and flows can be turned off at any time. Available only to users with the **CSK - Administrator** or **System Administrator** security role.
 
-> [!NOTE]
-> Connection Health is available only to users with the **CSK - Administrator** or **System Administrator** security role.
+Open Connection Health from either:
 
-**Access Connection Health** from either:
 - **Settings Hub** → select **Connection Health** (first card)
-- **Admin home screen** → select the **Check Health** button on the sync flow prerequisites banner (appears when setup is incomplete)
+- **Admin home screen** → select **Check Health** on the sync flow prerequisites banner (appears when setup is incomplete)
 
 ![Screenshot of the Connection Health screen showing connection references, cloud flows, and data sync status](./media/ps_admin_connection_health.png)
-
-*Connection Health*
 
 The screen has two collapsible sections and a status indicator:
 
 #### Connection References
 
-Map existing connections to the four PowerShield connection references. Select a connection from the dropdown for each reference. If no connection exists, select **+ Create New Connection** to open the Power Platform maker portal, create the connection, then return and select **Refresh**.
+Map existing connections to the four Power Shield connection references. Select a connection from the dropdown for each reference. If no connection exists, select **+ Create New Connection** to open the Power Platform maker portal, create the connection, then return and select **Refresh**.
 
 | Connection Reference | Connector Type |
 |---------------------|----------------|
@@ -573,15 +439,14 @@ A green checkmark (✓) appears next to each reference after a connection is suc
 
 #### Cloud Flows
 
-After all connection references are mapped, activate the PowerShield cloud flows by toggling each flow to **On**:
+After all connection references are mapped, activate the Power Shield cloud flows by toggling each flow to **On**:
 
 | Flow | Purpose |
 |------|---------|
 | **PowerShield \| Sync Connectors** | Populates the connector and connector actions catalog |
 | **PowerShield \| DLP Request - Patch Custom Connector and Actions** | Applies URL patterns and action overrides on DLP approval |
 
-> [!NOTE]
-> Cloud flows can only be activated after all connection references are mapped. If connections are missing, a warning message appears in this section.
+Cloud flows can only be activated after all connection references are mapped. If connections are missing, a warning appears in this section.
 
 #### Data Sync Status
 
@@ -595,14 +460,9 @@ Select **Refresh** to recheck data sync status at any time.
 
 ### Connector Configurations
 
-Browse and manage all connectors synced from your Power Platform environment. Blocking and unblocking changes apply **immediately** — no sync required.
-
-> [!NOTE]
-> Non-Microsoft connectors are [blocked by default](#key-concepts). Use this screen to selectively unblock connectors for maker requests.
+Browse and manage all connectors synced from your Power Platform environment. Non-Microsoft connectors are [blocked by default](#key-concepts) — use this screen to selectively unblock them. Blocking and unblocking changes apply **immediately** — no sync required.
 
 ![Screenshot of the Connector Configurations page showing the connector list with block and risk level controls](./media/ps_admin_configure_connectors.png)
-
-*Connector Configurations*
 
 **Toolbar:** View details and actions, Block, Unblock, Set risk level, Show blocked toggle, Search.
 
@@ -610,15 +470,11 @@ Browse and manage all connectors synced from your Power Platform environment. Bl
 
 ![Screenshot of the connector detail panel showing metadata and per-action controls](./media/ps_admin_configure_connectors_actions.png)
 
-*Connector detail panel*
-
 ### Question Configuration
 
-Manage the compliance questionnaire that appears in the maker's wizard (Step 2).
+Manage the compliance questionnaire that appears in the maker's wizard (Step 2). The kit ships without question data — click **Take a tour** for a guided walkthrough.
 
 ![Screenshot of the Question Configuration page with Categories and Questions tabs](./media/ps_admin_settings_questions.png)
-
-*Question Configuration*
 
 The interface has two tabs:
 
@@ -627,16 +483,11 @@ The interface has two tabs:
 
 For Choice and MultiselectChoice questions, define answer options with **+ New Option**.
 
-> [!NOTE]
-> The kit ships without question data. Click **Take a tour** for a guided walkthrough.
-
 ### Notification Settings
 
 Configure email notification delivery.
 
 ![Screenshot of the Notification Settings page with sender email and distribution list fields](./media/ps_notification_settings.png)
-
-*Notification Settings*
 
 | Setting | Description | Required |
 |---------|-------------|----------|
@@ -664,8 +515,6 @@ Click **Assign to Me** on a **Submitted** request to move it to **Under Review**
 
 ![Screenshot of the Assign to Me confirmation dialog with Power Platform Administrator role reminder](./media/ps_admin_assign_request.png)
 
-*Assign Request dialog*
-
 #### Approve a request
 
 Approval uses a **2-step wizard** for requests in **Submitted** or **Under Review** status:
@@ -682,26 +531,19 @@ Approval uses a **2-step wizard** for requests in **Submitted** or **Under Revie
 
 ![Screenshot of the approval dialog Step 1 showing DLP Policy Impact pre-flight check results](./media/ps_admin_review_approve.png)
 
-*Approval Step 1 — DLP Policy Impact*
-
 **Step 2 — Confirmation:**
 
 ![Screenshot of the approval dialog Step 2 showing the confirmation warning and admin comment field](./media/ps_admin_approve_confirm.png)
-
-*Approval Step 2 — confirmation*
 
 4. Review the warning: approving creates an immediate, irreversible DLP policy (reversible only via the Power Platform Admin Center).
 5. Enter a required **Admin comment**.
 6. Click **Confirm Approve**.
 
-After approval, PowerShield automatically sets the status to **Implementing**, resolves DLP conflicts, creates the scoped policy, and updates to **Implemented** (or **Policy Failed** on error).
-
-> [!NOTE]
-> DLP policy creation requires the approving admin to have the **Power Platform Administrator** role. If the role is missing, the request transitions to **Policy Failed** status with a permission error. See [Troubleshooting](#troubleshooting) for resolution steps.
+After approval, Power Shield automatically sets the status to **Implementing**, resolves DLP conflicts, creates the scoped policy, and updates to **Implemented** (or **Policy Failed** on error). Approval requires the **Power Platform Administrator** role — see [Troubleshooting](#troubleshooting) if approval fails with a permission error.
 
 #### What approval does to your DLP policies
 
-PowerShield maintains **one DLP policy for each Service Tree + Environment Container pair** — one policy for your team's environments. When a request is approved, that single policy is **refreshed** to match the latest approved connectors and actions. The diagram below walks through two requests for the same Service Tree and Environment Container.
+Power Shield maintains **one DLP policy for each Service Tree + Environment Container pair** — one policy for your team's environments. When a request is approved, that single policy is **refreshed** to match the latest approved connectors and actions. The diagram below walks through two requests for the same Service Tree and Environment Container.
 
 ```
                   Marketing team (Service Tree)
@@ -734,7 +576,7 @@ PowerShield maintains **one DLP policy for each Service Tree + Environment Conta
   because REQ-00002 didn't include it.
 ```
 
-**A note on overlap with other DLP policies:** if any *other* DLP policy in your tenant (managed by PowerShield or created elsewhere) already includes one of the environments in the new request, those environments are removed from that other policy as part of approval, so coverage of an environment doesn't overlap between two policies. The pre-flight check on the **Approve** dialog (Step 1) shows you this impact before you confirm.
+**A note on overlap with other DLP policies:** if any *other* DLP policy in your tenant (managed by Power Shield or created elsewhere) already includes one of the environments in the new request, those environments are removed from that other policy as part of approval, so coverage of an environment doesn't overlap between two policies. The pre-flight check on the **Approve** dialog (Step 1) shows you this impact before you confirm.
 
 #### Reject a request
 
@@ -747,8 +589,6 @@ PowerShield maintains **one DLP policy for each Service Tree + Environment Conta
 After approval, this tab shows the DLP policy name, policy ID (with copy buttons), and per-environment fulfillment status.
 
 ![Screenshot of the Fulfillment tab showing DLP policy name, policy ID, and per-environment status](./media/ps_admin_fulfillment_tab.png)
-
-*Fulfillment tab*
 
 ## Request status lifecycle
 
@@ -830,7 +670,7 @@ All tables use the `cat_` publisher prefix.
 **"No environments available" in the wizard**
 
 - Ensure you have access to at least one non-Developer Power Platform environment.
-- Verify the PowerShield APIFlow connection is active and properly configured. Use **Settings** → **[Connection Health](#connection-health)** to check connection status.
+- Verify the Power Shield APIFlow connection is active. Check **Settings** → **[Connection Health](#connection-health)**.
 - Check that the connection user has the required permissions.
 
 **"In-progress conflict" error when creating a request**
@@ -841,7 +681,7 @@ All tables use the `cat_` publisher prefix.
 **Request stuck in "Implementing" status**
 
 - Check the **Activity** tab (admin only) for error details.
-- Verify the PowerShield BAPAPI connection is active. Use **Settings** → **[Connection Health](#connection-health)** to verify connection reference status.
+- Verify the Power Shield BAPAPI connection is active. Check **Settings** → **[Connection Health](#connection-health)**.
 - Ensure the approving admin has the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). DLP policy write operations (create, update, delete) require this Entra ID role.
 - If fulfillment failed, the status may transition to **Policy Failed** — review error details and retry.
 
@@ -863,4 +703,4 @@ All tables use the `cat_` publisher prefix.
 **No connectors available in wizard Step 3**
 
 - Non-Microsoft connectors are blocked by default. Ask your admin to unblock connectors via **Settings Hub** → **Connector Configurations**.
-- Ensure the "PowerShield | Sync Connectors" flow has run at least once. Use **Settings** → **[Connection Health](#connection-health)** to verify data sync status and activate flows.
+- Ensure the "PowerShield | Sync Connectors" flow has run at least once. Check **Settings** → **[Connection Health](#connection-health)** for data sync status.
