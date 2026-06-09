@@ -33,6 +33,9 @@ PowerShield is delivered as an embedded feature within two dedicated code apps a
 - **Compliance Questionnaire**: An optional, admin-configurable set of questions makers answer when submitting a request. Responses serve as decision points during approval.
 - **Connector Governance (Default-Blocked Model)**: All non-Microsoft-published connectors are blocked after the initial sync. Only Microsoft-published connectors are available by default. Admins selectively unblock connectors through [Connector Configurations](#connector-configurations).
 
+> [!NOTE]
+> **How DLP policies are scoped:** PowerShield maintains **one DLP policy for each Service Tree + Environment Container pair** — that is, one policy for your team's environments. When a new request is approved for the same Service Tree and Environment Container, the existing policy is **refreshed** to match the latest approved request. PowerShield doesn't pile up a separate DLP policy for every approval; your team always has a single, up-to-date policy per scope.
+
 ## Prerequisites
 
 Before using PowerShield, ensure you have:
@@ -695,6 +698,43 @@ After approval, PowerShield automatically sets the status to **Implementing**, r
 
 > [!NOTE]
 > DLP policy creation requires the approving admin to have the **Power Platform Administrator** role. If the role is missing, the request transitions to **Policy Failed** status with a permission error. See [Troubleshooting](#troubleshooting) for resolution steps.
+
+#### What approval does to your DLP policies
+
+PowerShield maintains **one DLP policy for each Service Tree + Environment Container pair** — one policy for your team's environments. When a request is approved, that single policy is **refreshed** to match the latest approved connectors and actions. The diagram below walks through two requests for the same Service Tree and Environment Container.
+
+```
+                  Marketing team (Service Tree)
+                            │
+                            └── Marketing Production envs (Environment Container)
+                                          │
+                                          ▼
+            ┌─────────────────────────────────────────────────────┐
+            │             ONE DLP policy for this scope           │
+            └─────────────────────────────────────────────────────┘
+
+  Before REQ-00001 is approved        After REQ-00001 is approved
+  ─────────────────────────────       ─────────────────────────────
+  (no policy yet)                     Policy contents:
+                                       • SharePoint  (Allow)
+                                       • Outlook     (Allow)
+
+
+  Later — REQ-00002 is approved for the same Service Tree + Container
+  (asks for SharePoint + Teams):
+
+  Before REQ-00002 is approved        After REQ-00002 is approved
+  ─────────────────────────────       ─────────────────────────────
+  Policy contents:                    Policy contents (refreshed):
+   • SharePoint  (Allow)               • SharePoint  (Allow)
+   • Outlook     (Allow)               • Teams       (Allow)
+
+  The same policy slot is reused — its contents are refreshed to
+  match the latest approved request. Outlook is no longer allowed
+  because REQ-00002 didn't include it.
+```
+
+**A note on overlap with other DLP policies:** if any *other* DLP policy in your tenant (managed by PowerShield or created elsewhere) already includes one of the environments in the new request, those environments are removed from that other policy as part of approval, so coverage of an environment doesn't overlap between two policies. The pre-flight check on the **Approve** dialog (Step 1) shows you this impact before you confirm.
 
 #### Reject a request
 
