@@ -63,7 +63,7 @@ PowerShield uses four connection references. Two require **HTTP with Microsoft E
 > | **GCC High** | `https://make.high.powerapps.us` |
 > | **DoD** | `https://make.apps.appsplatform.us` |
 >
-> Source: [Power Apps US Government — service URLs](https://learn.microsoft.com/en-us/power-platform/admin/powerapps-us-government#power-apps-us-government-service-urls).
+> For the full list of cloud-specific service URLs, see [Power Apps US Government — service URLs](https://learn.microsoft.com/en-us/power-platform/admin/powerapps-us-government#power-apps-us-government-service-urls).
 
 > [!IMPORTANT]
 > Cloud flows included in the solution remain in an **off** state until you complete the connection reference configuration and manually turn them on.
@@ -88,7 +88,7 @@ Create two HTTP with Microsoft Entra ID (preauthorized) connections in your envi
    | **GCC High** | `https://high.api.flow.microsoft.us` | `https://high.service.powerapps.us/` |
    | **DoD** | `https://api.flow.appsplatform.us` | `https://service.apps.appsplatform.us/` |
 
-   *Source: [`Microsoft.PowerApps.AuthModule.psm1`](https://www.powershellgallery.com/packages/Microsoft.PowerApps.PowerShell/1.0.45/Content/Microsoft.PowerApps.AuthModule.psm1) — `flowEndpoint` switch and `Get-DefaultAudienceForEndPoint` audience map.*
+   *Refer to the [`Microsoft.PowerApps.Administration.PowerShell`](https://www.powershellgallery.com/packages/Microsoft.PowerApps.Administration.PowerShell) module on PowerShell Gallery — `Microsoft.PowerApps.AuthModule.psm1` (`flowEndpoint` switch and `Get-DefaultAudienceForEndPoint` audience map).*
 
 6. Select **Create** and complete the sign-in prompt.
 
@@ -105,7 +105,7 @@ Create two HTTP with Microsoft Entra ID (preauthorized) connections in your envi
    | **GCC High** | `https://high.api.bap.microsoft.us` | `https://high.api.bap.microsoft.us` |
    | **DoD** | `https://api.bap.appsplatform.us` | `https://api.bap.appsplatform.us` |
 
-   *Source: [`Microsoft.PowerApps.AuthModule.psm1`](https://www.powershellgallery.com/packages/Microsoft.PowerApps.PowerShell/1.0.45/Content/Microsoft.PowerApps.AuthModule.psm1) — `bapEndpoint` switch (Base Resource URL). The Microsoft Entra ID Resource URI for BAPAPI is not separately listed in the module source; values shown follow the commercial pattern where audience equals the Base Resource URL. If your tenant rejects the token in a sovereign cloud, contact Microsoft support to confirm the audience claim expected by the BAP API in that cloud.*
+   *Refer to the [`Microsoft.PowerApps.Administration.PowerShell`](https://www.powershellgallery.com/packages/Microsoft.PowerApps.Administration.PowerShell) module on PowerShell Gallery — `Microsoft.PowerApps.AuthModule.psm1` (`bapEndpoint` switch).*
 
 ![Screenshot showing the BAPAPI connection details with base resource URL and Entra ID resource URI](./media/ps_prereq_bapapi_conn.png)
 
