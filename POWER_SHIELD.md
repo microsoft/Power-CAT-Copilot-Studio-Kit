@@ -53,6 +53,18 @@ Before using PowerShield, ensure you have:
 
 PowerShield uses four connection references. Two require **HTTP with Microsoft Entra ID (preauthorized)** connections that you must create manually. The other two (Dataverse and Power Apps for Makers) use standard connectors that are mapped during setup.
 
+> [!NOTE]
+> **Government clouds (GCC, GCC High, DoD):** Endpoint values in this section default to the commercial cloud. If your environment is in a US Government cloud, use the row for your cloud in each connection table below, and substitute the corresponding maker portal for every `https://make.powerapps.com` link in this document:
+>
+> | Cloud | Maker portal |
+> |-------|--------------|
+> | **Commercial** | `https://make.powerapps.com` |
+> | **GCC** | `https://make.gov.powerapps.us` |
+> | **GCC High** | `https://make.high.powerapps.us` |
+> | **DoD** | `https://make.apps.appsplatform.us` |
+>
+> Source: [Power Apps US Government — service URLs](https://learn.microsoft.com/en-us/power-platform/admin/powerapps-us-government#power-apps-us-government-service-urls).
+
 > [!IMPORTANT]
 > Cloud flows included in the solution remain in an **off** state until you complete the connection reference configuration and manually turn them on.
 
@@ -67,29 +79,37 @@ Create two HTTP with Microsoft Entra ID (preauthorized) connections in your envi
 2. On the left navigation pane, select **Connections**.
 3. Select **+ New connection**.
 4. Search for **HTTP with Microsoft Entra ID** and select the **(preauthorized)** variant.
-5. Enter the following values for the **first connection** (used by the PowerShield APIFlow connection reference):
+5. Enter the values for the **first connection** (used by the PowerShield APIFlow connection reference) using the row for your cloud:
 
-   | Setting | Value |
-   |---------|-------|
-   | **Base Resource URL** | `https://api.flow.microsoft.com` |
-   | **Microsoft Entra ID Resource URI** | `https://service.powerapps.com/` |
+   | Cloud | Base Resource URL | Microsoft Entra ID Resource URI |
+   |-------|-------------------|---------------------------------|
+   | **Commercial** | `https://api.flow.microsoft.com` | `https://service.powerapps.com/` |
+   | **GCC** | `https://gov.api.flow.microsoft.us` | `https://gov.service.powerapps.us/` |
+   | **GCC High** | `https://high.api.flow.microsoft.us` | `https://high.service.powerapps.us/` |
+   | **DoD** | `https://api.flow.appsplatform.us` | `https://service.apps.appsplatform.us/` |
+
+   *Source: [`Microsoft.PowerApps.AuthModule.psm1`](https://www.powershellgallery.com/packages/Microsoft.PowerApps.PowerShell/1.0.45/Content/Microsoft.PowerApps.AuthModule.psm1) — `flowEndpoint` switch and `Get-DefaultAudienceForEndPoint` audience map.*
 
 6. Select **Create** and complete the sign-in prompt.
 
 ![Screenshot showing the APIFlow connection details with base resource URL and Entra ID resource URI](./media/ps_prereq_apiflow_conn.png)
 
-*APIFlow connection details*
+*Example: Commercial cloud — APIFlow connection details*
 
-7. Repeat steps 3–6 to create the **second connection** (used by the PowerShield BAPAPI connection reference) with the following values:
+7. Repeat steps 3–6 to create the **second connection** (used by the PowerShield BAPAPI connection reference) using the row for your cloud:
 
-   | Setting | Value |
-   |---------|-------|
-   | **Base Resource URL** | `https://api.bap.microsoft.com` |
-   | **Microsoft Entra ID Resource URI** | `https://api.bap.microsoft.com` |
+   | Cloud | Base Resource URL | Microsoft Entra ID Resource URI |
+   |-------|-------------------|---------------------------------|
+   | **Commercial** | `https://api.bap.microsoft.com` | `https://api.bap.microsoft.com` |
+   | **GCC** | `https://gov.api.bap.microsoft.us` | `https://gov.api.bap.microsoft.us` |
+   | **GCC High** | `https://high.api.bap.microsoft.us` | `https://high.api.bap.microsoft.us` |
+   | **DoD** | `https://api.bap.appsplatform.us` | `https://api.bap.appsplatform.us` |
+
+   *Source: [`Microsoft.PowerApps.AuthModule.psm1`](https://www.powershellgallery.com/packages/Microsoft.PowerApps.PowerShell/1.0.45/Content/Microsoft.PowerApps.AuthModule.psm1) — `bapEndpoint` switch (Base Resource URL). The Microsoft Entra ID Resource URI for BAPAPI is not separately listed in the module source; values shown follow the commercial pattern where audience equals the Base Resource URL. If your tenant rejects the token in a sovereign cloud, contact Microsoft support to confirm the audience claim expected by the BAP API in that cloud.*
 
 ![Screenshot showing the BAPAPI connection details with base resource URL and Entra ID resource URI](./media/ps_prereq_bapapi_conn.png)
 
-*BAPAPI connection details*
+*Example: Commercial cloud — BAPAPI connection details*
 
 > [!NOTE]
 > You must sign in with an account that has the **Power Platform Administrator** role for the BAPAPI connection, because the associated cloud flows create and manage DLP policies.
@@ -119,7 +139,7 @@ If you can't access the admin app or the Connection Health screen, complete thes
    - **PowerShield APIFlow** (`cat_PowerShieldAPIFlow`)
    - **PowerShield BAPAPI** (`cat_PowerShieldBAPAPI`)
 4. Select **PowerShield APIFlow** to open the details pane.
-5. In the **Connection** dropdown, select the connection you created with the `https://api.flow.microsoft.com` Base Resource URL.
+5. In the **Connection** dropdown, select the APIFlow connection you created in [Step 1](#step-1-create-connections) (the one whose Base Resource URL is the `api.flow.*` value for your cloud).
 6. Select **Save**.
 
 ![Screenshot showing the PowerShield APIFlow connection reference configuration in the solution](./media/ps_prereq_apiflow_connector.png)
@@ -127,7 +147,7 @@ If you can't access the admin app or the Connection Health screen, complete thes
 *PowerShield APIFlow connection reference*
 
 7. Select **PowerShield BAPAPI** to open the details pane.
-8. In the **Connection** dropdown, select the connection you created with the `https://api.bap.microsoft.com` Base Resource URL.
+8. In the **Connection** dropdown, select the BAPAPI connection you created in [Step 1](#step-1-create-connections) (the one whose Base Resource URL is the `api.bap.*` value for your cloud).
 9. Select **Save**.
 
 ![Screenshot showing the PowerShield BAPAPI connection reference configuration in the solution](./media/ps_prereq_bapapi_connector.png)
