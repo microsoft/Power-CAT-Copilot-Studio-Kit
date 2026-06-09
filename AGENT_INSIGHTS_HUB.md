@@ -72,10 +72,6 @@ Before using Agent Insights Hub, ensure the following are in place:
    7. Click **Share** to confirm
 
    For detailed instructions, see: [Share a canvas app with your organization](https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/share-app). This step will be automated in a future release.
-   
-> [!NOTE]
-> Code Apps are not currently supported in sovereign cloud environments. Availability is limited to the commercial (General Availability) cloud at this time.
----
 
 ## 3. Setup Instructions
 
