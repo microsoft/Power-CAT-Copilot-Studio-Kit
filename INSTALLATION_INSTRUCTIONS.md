@@ -135,7 +135,7 @@ During the steps, please make note of the following values:
 
 ### Publishing the report
 
-1. Download "**Conversation KPIs.pbit**" from the Copilot Studio Kit GitHub repository (November release)
+1. Download "**Conversation KPIs.pbit**" from the latest release artifacts. 
 1. Open the "**Conversation KPIs.pbit**" file in the Power BI Desktop-application
 1. Enter the Dataverse URL as the "**Environment URL**" in the dialog that pops up and select **Load** (e.g. org3c23948.crm.dynamics.com, without the **https://** prefix)
    1. If the question does not pop up for some reason, enter the "**Environment URL**" in **Home**->**Transform data**->**Edit parameters**
