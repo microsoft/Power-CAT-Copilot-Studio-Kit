@@ -19,4 +19,7 @@ Conversation KPI are generated automatically twice per day and on-demand generat
 ![kpi details1](https://github.com/user-attachments/assets/96b48373-a7a0-4062-adb8-68bd97d22e12)
 
 Read more on how to configure the agent for [KPI generation](./CONFIGURE_COPILOTS.md#configure-a-new-agent-for-conversation-kpis)
+
+Conversation transcript generation has certain limitations, please study them carefully: https://learn.microsoft.com/microsoft-copilot-studio/analytics-transcripts-powerapps
+
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
