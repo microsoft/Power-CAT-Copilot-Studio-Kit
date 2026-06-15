@@ -13,6 +13,7 @@ Conversation KPI are designed to help makers track and analyze the performance o
 * Long-term tracking: Conversation KPI can be stored in the system for as long as required which allows tracking the impact of improvements and performance of custom copilots over long time-period.
 
 Conversation KPI are generated automatically twice per day and on-demand generation is supported as well. To generate KPIs on-demand, navigate to the agent configuration, press "**Generate KPIs**" and select a date range. Up to 75,000 transcripts are processed per automatic run and up to 50,000 per on-demand run. Please see [agent configuration](./CONFIGURE_COPILOTS.md) for more details on how to configure the Conversation KPI.
+> **Important:** After Conversation KPI generation is completed, whether through the scheduled run or an on-demand **Generate KPIs** action, users must refresh the corresponding Power BI report in the Power BI service to load the latest available data. Until the dataset is refreshed, the report may continue to display previously loaded results and may not reflect the most recent KPI records generated in Dataverse.
 
 ![kpi report overview](https://github.com/user-attachments/assets/bca1bc9e-2d6f-42bc-a6b6-798003999f21)
 
