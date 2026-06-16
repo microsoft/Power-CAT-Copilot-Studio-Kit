@@ -12,6 +12,11 @@ The list of agents has "Action" column that has either "Analyze" or "View Result
 
 <img width="1920" height="937" alt="overview" src="https://github.com/user-attachments/assets/ba6d5b07-8592-4275-8657-4c561156944f" />
 
+## Prerequisites
+
+- **Dependencies**:
+  - [Agent Inventory](../guidance/kit-agent-inventory.md) must be installed and configured first. The Conversation Analyzer only lists agents that have conversation transcripts available in their respective environments. If the agents is in the Agent Inventory with `IsTranscriptAvailable = Yes`, they will appear in the Conversation Analyzer.
+
 ## Creating new analysis
 
 After selecting an agent and clicking "Analyze" from the action, prompt selection screen is shown. The feature ships with two precanned prompts, "Sentiment Analysis" and "PII Analysis".
