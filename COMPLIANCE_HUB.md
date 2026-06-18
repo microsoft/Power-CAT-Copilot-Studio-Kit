@@ -19,10 +19,12 @@ The Compliance Hub enables organizations using Copilot Studio to balance innovat
 Before setting up the Compliance Hub, ensure you have:
 
 - **Copilot Studio Kit prerequisites**: All [prerequisites for the Copilot Studio Kit](PREREQUISITES.md)
-- **Permissions (for admin)**: 
-  - System Administrator role in the target environment
+- **Permissions (for setup)**: 
+  - System Administrator role in the target environment (required for initial installation and configuration)
   - Ability to create and configure cloud flows
   - Microsoft Entra ID (Azure AD) permissions to retrieve group IDs
+- **Permissions (for ongoing use)**:
+  - **CSK - Administrator** security role for managing compliance cases, thresholds, and enforcement actions (see [Security Roles](./SECURITY_ROLES.md) for full details)
 - **Dependencies**: 
   - [Agent Inventory](./AGENT_INVENTORY.md) must be installed and configured first
   - Microsoft Teams for notification functionality
@@ -42,7 +44,7 @@ There are two main personas involved in the main agent compliance workstream: ag
 
 ### Administrator
 
-The scope of the agent admin depends on the organization, however, the admin responsibilities for managing compliance commonly falls under the responsibility of either Microsoft tenant admin, Power Platform admin or the Agent/AI Center Of Excellence team.
+The scope of the agent admin depends on the organization, however, the admin responsibilities for managing compliance commonly falls under the responsibility of either Microsoft tenant admin, Power Platform admin or the Agent/AI Center Of Excellence team. Users with the **CSK - Administrator** security role have full Organization-level access to all compliance tables (Compliance Case, Agent Fact Row Counts, Threshold Config, and Action Policy).
 
 - Configure compliance thresholds, risk levels, enforcement actions, and SLA timers.
 - Monitor agent inventory and compliance posture.
@@ -51,7 +53,7 @@ The scope of the agent admin depends on the organization, however, the admin res
 
 ### Maker
 
-Any user who has created a Copilot Studio agent in the organization's tenant. This agent creator is identified as the owning maker of the agent.
+Any user who has created a Copilot Studio agent in the organization's tenant. This agent creator is identified as the owning maker of the agent. Users with the **CSK - Maker** security role do not have access to the Compliance Hub dashboard or compliance tables.
 
 - Receives notifications when compliance thresholds are breached.
 - Provides business justification and confirms ownership for non-compliant agents.
