@@ -107,6 +107,9 @@ Agents which are not accessible within the environment are added using One Inven
 | 75 | Usage Data | cat_usagedata | Multiline Text | Agent usage data from the power platform admin center as json | Agent usage data from the power platform admin center as json | V3 | Agent usage data in json |
 | 76 | Agent Owner | cat_agentowner | Text | Dataverse: `systemuser` table → owner name; if owner is Teams then `team` table → team name | | V5 | Name of the agent's owner. |
 | 77 | Agent Owner Email | cat_agentowneremail | Text | Dataverse: `systemuser` table → owner email; if owner is Teams then `team` table → team email | | V5 | Email address of the agent's owner. |
+| 78 | Number Of Evaluations | cat_numberofevaluations | Whole Number | Number of test cases exist for test sets. When `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 exists with `parentbotcompenentid` mapped to test sets. | | V5 | Number of Evaluations test cases created under the evaluation sets in the agent. |
+| 79 | Uses Computer Use | cat_usescomputerusecode | Choice | Topic v2 `data` contains `InvokeComputerUsingAgentTaskAction` entries. | NA | V5 | Indicates whether the agent uses computer use. |
+| 80 | Agent Owning Business Unit | cat_agentowningbusinessunit | Text | Dataverse: `businessunit` table → name | | V5 | Agent Owning Business Unit. |
 
 ---
 
@@ -192,6 +195,9 @@ Below are concise detection rules for each derived or boolean field (refer to lo
 - Model (`cat_model`): model the agent is using.
 - Agent Owner (`cat_agentowner`): fetched from `systemuser` table for the agent owner; if the owner is a team, fetched from `team` table.
 - Agent Owner Email (`cat_agentowneremail`): fetched from `systemuser` table for the agent owner; if the owner is a team, fetched from `team` table.
+- Number Of Evaluations (`cat_numberofevaluations`): Number of test cases exist for test sets. When `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 exists with `parentbotcompenentid` mapped to test sets.
+- Uses Computer Use (`cat_usescomputerusecode`): Topic v2 `data` contains `InvokeComputerUsingAgentTaskAction` entries.
+- Agent Owning Business Unit (`cat_agentowningbusinessunit`): fetched from `businessunit` table.
 
 ---
 

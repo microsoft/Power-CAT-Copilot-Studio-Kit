@@ -1,9 +1,15 @@
 # Agent Library
 
-The Agent Library is a centralized hub within the Copilot Studio Kit that helps **Makers** discover, install, and manage pre-built agent templates and reusable components. Instead of building agents from scratch, you can browse a curated catalog of ready-to-use templates and components, install them directly into your environment, and customize them to fit your business needs.
+The Agent Library is a centralized hub within the Copilot Studio Kit that helps **Admins** and **Makers** discover, install, and manage agent templates and reusable components. It brings together three types of content in a single unified gallery:
+
+- **System templates** — Provided by Microsoft. Ready-to-use agent templates that ship with the Kit and are available out of the box. System template cards are visually distinguished with a **"System"** chip on the gallery card.
+- **Custom templates** — Bring your own templates. Organization-specific agent templates authored by admins and stored in Dataverse. Custom template cards are visually distinguished with a **"Custom"** chip on the gallery card.
+- **Reusable components** — Pre-built component collections (e.g., Document Extraction, Research, Log Chain of Thoughts) that can be added to any agent to extend its capabilities.
+
+Instead of building agents from scratch, you can browse the combined catalog, install templates directly into your environment, and extend them with reusable components. **Admins** additionally get a full authoring surface to create, edit, publish/unpublish, and delete custom templates. **Makers** see a read-only view scoped to published custom templates only.
 
 > [!NOTE]
-> The Agent Library is available starting with the **April 2026 release** of the Copilot Studio Kit. Make sure you are running the latest version to access this feature.
+> The Agent Library is available starting with the **April 2026 release** of the Copilot Studio Kit. Custom template management (bring your own templates) was introduced in the **mid-June 2026 release**. Make sure you are running the latest version to access all features.
 
 ---
 
@@ -12,38 +18,56 @@ The Agent Library is a centralized hub within the Copilot Studio Kit that helps 
 Before using the Agent Library, make sure you have:
 
 - Installed **Copilot Studio Kit** and configured in your Power Platform environment.
-- A **CSK - Maker** security role assigned in the Copilot Studio Kit.
+- A **CSK - Maker** security role assigned in the Copilot Studio Kit to browse and install templates.
+- A **CSK - Admin** security role assigned to create, edit, publish/unpublish, and delete custom templates.
 - A Power Platform environment with **Copilot Studio** enabled.
+
+### Role Capabilities
+
+| Capability | Admin | Maker |
+| --- | --- | --- |
+| Browse merged gallery (system + custom templates) | ✅ | ✅ |
+| Custom templates visible | All (drafts included) | **Published only** |
+| Install custom agent / download declarative agent | ✅ | ✅ |
+| Create custom template | ✅ | ❌ |
+| Edit / publish / unpublish custom template | ✅ | ❌ |
+| Delete custom template | ✅ | ❌ |
 
 ---
 
 ## Agent Library Experience
 
-The Agent Library is accessible from the left navigation in the Copilot Studio Kit under the **Productivity** section. It provides three views: the **Dashboard**, the **Templates** tab, and the **Components** tab.
+The Agent Library is accessible from the left navigation in the Copilot Studio Kit under the **Productivity** section. The Agent Library dashboard provides three tabs: **All**, **Templates**, and **Components**.
 
-### Dashboard
+### All Tab (Default)
 
-The Dashboard is the default landing page for the Agent Library. It shows **all available templates and components** in a single unified view, giving you a complete picture of everything the catalog offers.
+The **All** tab is selected by default when you open the Agent Library dashboard. It shows all available templates and components — both system and custom — in a single unified view, giving you a complete picture of everything the catalog offers.
 
 ![Agent Library Dashboard](media/agent-library/agent-library-dashboard.png)
 
-From the Dashboard you can:
+From the All tab you can:
 
-- **Browse all content** — See every template and component in one place
+- **Browse all content** — See every system and custom template, plus components, in one place
 - **Filter by category** — Use the category filters to narrow down results (e.g., Custom Agents, Declarative Agents, Data Acquisition, Content Generation, etc.)
+- **Identify custom templates** — Custom templates display a **"Custom"** chip on the card to distinguish them from system templates
 - **Select any card** — Open the details dialog for any template or component to view its description, setup instructions, and available actions
 
-Use the Dashboard when you want a broad overview of the full catalog, or when you are not sure whether you need a template or a component.
+Use the All tab when you want a broad overview of the full catalog, or when you are not sure whether you need a template or a component.
 
 ### Templates Tab
 
 The Templates tab filters the catalog to show **only agent templates**. Use the **All categories** dropdown to further filter by Custom Agent or Declarative Agent type.
 
-![Templates Tab](media/agent-library/templates.png)
+![Templates Tab — Maker View](media/agent-library/csk-makers-with-custom-templates.png)
 
-The Agent Library includes two categories of agent templates: **Custom Agent Templates** (for Copilot Studio) and **Declarative Agent Templates** (for Microsoft 365 Copilot).
+The Agent Library includes two categories of agent templates: **Custom Agent** (for Copilot Studio) and **Declarative Agent** (for Microsoft 365 Copilot). Templates come from two sources:
 
-#### Available Templates
+- **System templates** — Provided by Microsoft. These are built-in templates that ship with the Kit.
+- **Custom templates** — Bring your own templates. Organization-specific templates authored by admins and stored in Dataverse (see [Custom Template Management](#custom-template-management-admin-only) below). Introduced in the **mid-June 2026 release**.
+
+#### System Templates
+
+The following templates are included out of the box:
 
 | **Template** | **Type** | **Description** |
 | --- | --- | --- |
@@ -52,10 +76,15 @@ The Agent Library includes two categories of agent templates: **Custom Agent Tem
 | Executive Briefing | Declarative agent | Automatically generate concise executive summaries and briefing documents from meetings, reports, and organizational data. |
 | My Company Policy | Declarative agent | Help employees quickly find answers to company policy questions across HR, IT, travel, expense, and compliance guidelines. |
 | Request Tracker | Custom agent | Streamline request intake and tracking workflows, giving teams visibility into status, approvals, and resolution timelines. |
+| AI Learning Advisor | Declarative agent | Your smart coach for Microsoft AI and low-code innovation. Helps every skill level navigate Copilot Studio, Power Apps, Power Automate, Dataverse, & M365 Copilot with tailored support. |
+| Status Update Agent | Declarative agent | Turn busy work into visible impact. Summarizes your Microsoft 365 activity into concise progress reports, weekly reflections, and accomplishment highlights you can confidently share. |
+| SME Finder | Declarative agent | Find the right expert instantly. Identifies the best subject matter experts across your organization with evidence-backed recommendations and ready-to-send outreach messages. |
+| Project Delta Digest | Declarative agent | See the real status of every project in minutes. Summarizes activity across Microsoft 365 into trusted updates covering wins, movement, blockers, and emerging risks. |
+| Personal News Digest | Declarative agent | The fastest way to know what's happening at work. Summarizes important signals across Microsoft 365 into a personalized digest of business updates — clear, relevant, and noise-free. |
 
-#### Custom Agent Templates
+#### Custom Agent Type Templates
 
-Custom Agent Templates are pre-built Copilot Studio agents packaged as Power Platform solutions. They provide a fully functional starting point that you can customize with your own topics, knowledge sources, and components.
+Custom Agent type templates are pre-built Copilot Studio agents packaged as Power Platform solutions. They provide a fully functional starting point that you can customize with your own topics, knowledge sources, and components.
 
 ##### Install from Copilot Studio Kit (Recommended)
 
@@ -224,6 +253,80 @@ For developers who prefer a code-first approach, you can clone the template repo
 7. Follow the developer setup guide to customize the agent definition, instructions, and capabilities using the M365 Agents Toolkit extension.
 8. Manually upload the agent to Teams (see the Teams install steps in Option 1 above).
 
+#### Custom Template Management (Admin Only)
+
+Admins can extend the Agent Library by authoring **custom templates** — organization-specific agent templates stored in the Dataverse `cat_agenttemplate` table. Custom templates appear alongside system templates in the merged gallery and are available for makers to browse and install.
+
+![Agent Library — Admin View with Custom Templates](media/agent-library/csk-admin-with-custom-templates.png)
+
+> [!NOTE]
+> Custom template management is available only to users with the **CSK - Admin** security role. Makers see published custom templates in the gallery but cannot create, edit, or delete them.
+
+##### Creating a Custom Template
+
+1. In the Agent Library, select the **+ New Template** button in the top-right corner.
+2. The **New Template** dialog opens with the following fields:
+
+![New Template Dialog](media/agent-library/csk-admin-new-template.png)
+
+   - **Name** (required) — The display name for the template.
+   - **Description** (required) — A summary of what the template does, shown on the gallery card and in the details dialog.
+   - **Publish status** — Toggle on to make the template visible to makers (Active), or toggle off to keep it as a draft visible only to admins (Inactive).
+   - **Icon & color** (required) — Choose an accent color swatch and a Fluent icon to represent the template on gallery cards.
+   - **Template file (.zip)** (required) — Upload a Copilot Studio agent solution or declarative agent package (.zip, max 30 MB).
+   - **Learn more URL** (optional) — Link to docs or overview (e.g., `https://aka.ms/agent-docs`).
+   - **Setup guide URL** (optional) — Link to setup steps (e.g., `https://aka.ms/agent-setup`).
+
+3. Select **Create** to create the template.
+4. The gallery refreshes automatically to show the new template card.
+
+> [!TIP]
+> You can create a template with **Inactive** publish status to work on it as a draft. When ready, edit the template and change the status to **Active** to make it visible to makers.
+
+##### Editing a Custom Template
+
+1. In the Agent Library, select the **edit** (pencil) icon on a custom template card (identified by the **"Custom"** chip).
+2. The **Edit Template** dialog opens with the current values pre-filled.
+
+![Edit Template Dialog](media/agent-library/csk-admin-edit-template.png)
+
+3. Update any fields — name, description, icon & color, publish status, URLs, or select **Replace file** to upload a new solution ZIP.
+4. Select **Save** to apply the changes.
+
+> [!IMPORTANT]
+> When you change a template's publish status from **Active** to **Inactive**, it immediately disappears from the maker gallery. Makers who have already installed the agent are not affected, but new installations are blocked until the template is re-published.
+
+##### Publish / Unpublish a Custom Template
+
+Custom templates support two publish statuses:
+
+| **Status** | **Behavior** |
+| --- | --- |
+| **Active** | Visible to both admins and makers. Makers can browse and install. |
+| **Inactive** | Visible to admins only. Acts as a draft — makers cannot see or install it. |
+
+To toggle the publish status, edit the template and change the **Publish status** field.
+
+##### Deleting a Custom Template
+
+1. In the Agent Library, select the **edit** (pencil) icon on a custom template card to open the Edit Template dialog.
+2. At the bottom-left of the dialog, select **Delete template**.
+3. Confirm the deletion in the confirmation dialog.
+4. The template row and its attached solution ZIP are permanently removed from Dataverse.
+5. A success toast confirms the deletion and the gallery refreshes automatically.
+
+> [!IMPORTANT]
+> Deleting a custom template is a **permanent** action — there is no undo or recycle bin. The Dataverse row and its attached solution file are removed immediately. Agents that were previously installed from this template are **not** affected — only the template entry in the library is removed.
+
+##### Theming: Icons and Accent Colors
+
+When authoring a custom template, the **Icon & color** picker lets you choose both the icon and accent color that are rendered on the gallery card:
+
+- **Accent color** — The top row of the picker shows color swatches. The selected color defines the card's gradient background. If an unknown key is stored, the card falls back to the default accent.
+- **Icon** — The bottom row shows available Fluent icons (e.g., code, document, people, chat, bot). The selected icon is displayed within the accent-colored circle on the gallery card.
+
+Both values are stored as free-text strings in Dataverse, so new icon and accent options introduced in future Kit updates work automatically without any code changes.
+
 ---
 
 ### Components Tab
@@ -329,22 +432,25 @@ This section walks you through the complete workflow of discovering a template, 
 ### Step 1: Discover a Template
 
 1. Open the Copilot Studio Kit and navigate to the **Agent Library**.
-2. Use the **Dashboard** to see what templates and components are available.
+2. Use the **All** tab to see what templates and components are available.
 3. Switch to the **Templates** tab to browse the catalog.
 4. Use search and category filters to find a template that matches your scenario.
 5. Select a template card to read the full description, included features, and setup instructions.
 
 ### Step 2: Install / Import
 
-**For Custom Agent Templates:**
+**For Custom Agent type templates (system or custom source):**
 
 1. Select **Install** on the template details dialog (recommended) — this imports the solution directly.
 2. If you don't have install privileges, select **Download** and follow the manual import steps via Power Apps.
 3. Configure any required connection references during installation.
 
-**For Declarative Agent Templates:**
+> [!TIP]
+> Templates authored by your organization's admins follow the same install workflow as system templates. Look for the **"Custom"** chip on the card to identify organization-specific templates.
 
-1. Choose your preferred path: **Agent Builder** (guided) or **VS Code** (code-first).
+**For Declarative Agent type templates:**
+
+1. Choose your preferred path: **Customize & download** (recommended), **Agent Builder** (guided), or **VS Code** (code-first).
 2. Download the template package and follow the setup guide.
 3. Manually upload the downloaded zip to Teams (see [Declarative Agent Templates](#declarative-agent-templates) for upload steps).
 
@@ -397,6 +503,14 @@ This section walks you through the complete workflow of discovering a template, 
 - **One instance per environment** — Components are shared across all agents in an environment. Changes to a component affect every agent that uses it.
 - **Test in a development environment first** — Install and validate templates in a non-production environment before promoting to production.
 - **Keep solutions up to date** — Check the [Copilot Studio Kit releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases) for new templates, components, and improvements.
+
+### Custom Template Management (Admin)
+
+- **Start with Inactive status** — Author and refine templates as drafts before publishing to makers. This prevents incomplete templates from appearing in the maker gallery.
+- **Use descriptive icons and accents** — A well-themed template card helps makers quickly identify the right agent. Choose icons and accent colors that visually communicate the template's purpose.
+- **Provide learn-more and setup-guide URLs** — Link to documentation or setup guides to help makers understand the template before installing.
+- **Delete with caution** — Deleting a custom template is permanent with no undo. Previously installed agents are not affected, but the template can no longer be discovered or reinstalled from the library.
+- **Keep solution ZIPs up to date** — When you update an agent solution, edit the custom template and replace the attached ZIP so makers always install the latest version.
 
 ---
 
