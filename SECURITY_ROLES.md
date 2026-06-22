@@ -14,9 +14,9 @@ The Copilot Agent Kit includes two primary security roles designed to support di
 > [!NOTE]
 > The following legacy security roles have been deprecated and should no longer be used. Please migrate users to the new **CAK - Administrator** or **CAK - Maker** roles:
 >
-> - Copilot Agent Kit - Administrator - Deprecated
-> - Copilot Agent Kit - Configurator - Deprecated
-> - Copilot Agent Kit - Tester/KPI Viewer - Deprecated
+> - Copilot Studio Kit - Administrator - Deprecated
+> - Copilot Studio Kit - Configurator - Deprecated
+> - Copilot Studio Kit - Tester/KPI Viewer - Deprecated
 
 ---
 
