@@ -1,14 +1,14 @@
-# Power CAT Copilot Studio Kit
+# Copilot Agent Kit
 
-The **Power CAT Copilot Studio Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers develop, govern, and test custom agents, use a large language model to validate AI-generated content, optimize prompts, and track aggregated key performance indicators of their custom agents.
+The **Copilot Agent Kit** is a comprehensive set of capabilities designed to augment [Microsoft Copilot Studio](https://aka.ms/CopilotStudio). The kit helps makers develop, govern, and test custom agents, use a large language model to validate AI-generated content, optimize prompts, and track aggregated key performance indicators of their custom agents.
 
 <img width="1879" height="1136" alt="new_landing_page" src="https://github.com/user-attachments/assets/e0dbbb47-d92b-489e-b517-a0b9cc336b81" />
 
 # Features
 ## Testing capabilities  
-Copilot Studio Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match, multi-turn and generative answers which leverages AI Builder for response analysis. 
+Copilot Agent Kit allows makers to configure agents, tests and test sets, and use them to batch test their custom agents. Test runs produce detailed results including latencies, observed responses and run level aggregates. Different test types include response match, attachment match, topic match, multi-turn and generative answers which leverages AI Builder for response analysis. 
 
-***Copilot Studio Kit test automation now supports user-defined rubrics for generative answers.***
+***Copilot Agent Kit test automation now supports user-defined rubrics for generative answers.***
 
 More information on [testing capabilities](./TESTING_CAPABILITIES.md) 
 
@@ -26,12 +26,12 @@ More information on [Agent Insights Hub](https://github.com/microsoft/Power-CAT-
 
 ## Agent Debugger
 
-**Agent Debugger** is a diagnostic tool inside the **Copilot Studio Kit Admin** app that lets administrators load any recorded conversation and inspect every decision the agent made — step by step, with timing, token usage, knowledge sources, arguments, and observations — without leaving the Power Platform.
+**Agent Debugger** is a diagnostic tool inside the **Copilot Agent Kit Admin** app that lets administrators load any recorded conversation and inspect every decision the agent made — step by step, with timing, token usage, knowledge sources, arguments, and observations — without leaving the Power Platform.
 
 More information on [Agent Debugger](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_DEBUGGER.md)
 
 ## Agent Library (Preview)
-The Agent Library is a centralized hub within the Copilot Studio Kit that helps makers discover, install, and manage pre-built agent templates and reusable components. Instead of building agents from scratch, you can browse a curated catalog of ready-to-use templates (Custom Agent and Declarative Agent) and components, install them directly into your environment, and customize them to fit your business needs.
+The Agent Library is a centralized hub within the Copilot Agent Kit that helps makers discover, install, and manage pre-built agent templates and reusable components. Instead of building agents from scratch, you can browse a curated catalog of ready-to-use templates (Custom Agent and Declarative Agent) and components, install them directly into your environment, and customize them to fit your business needs.
 
 More information on [Agent Library](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_LIBRARY.md)
 
@@ -41,7 +41,7 @@ The Component Library is a collection of ready-to-use, pre-built components for 
 More information on [Component Library](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/COMPONENT_LIBRARY.md)
 
 ## Rubrics refinement
-Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
+Rubrics Refinement is a powerful capability in Copilot Agent Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
 
 More information on [Rubrics Refinement](./RubricRefinement/01-rubrics-refinement-overview.md) 
 
@@ -100,13 +100,13 @@ More information on [Agent Value dashboard](./AGENT_VALUE_SUMMARY_DASHBOARD.md)
 
 ## Automated testing using Power Platform Pipelines (Advanced)
 
-This feature allows users to automate the testing and deployment of Copilot Studio custom agents using Power Platform Pipelines. The goal is to ensure that agents are automatically validated through test runs before they are deployed to target environments (production). By integrating Power Automate flows with Dataverse and the Copilot Studio Kit, this approach introduces a quality gate into the deployment process. Only agents that pass the required amount of test cases are allowed to proceed, ensuring higher reliability and reducing manual intervention. This method supports continuous delivery practices and enhances the overall governance of the deployment lifecycle.
+This feature allows users to automate the testing and deployment of Copilot Studio custom agents using Power Platform Pipelines. The goal is to ensure that agents are automatically validated through test runs before they are deployed to target environments (production). By integrating Power Automate flows with Dataverse and the Copilot Agent Kit, this approach introduces a quality gate into the deployment process. Only agents that pass the required amount of test cases are allowed to proceed, ensuring higher reliability and reducing manual intervention. This method supports continuous delivery practices and enhances the overall governance of the deployment lifecycle.
 
 More information on [automated testing using Power Platform Pipelines](./AUTOMATED_TESTING.md)
 
 # Setup instructions and documentation
 
-There is a Setup Wizard in the Kit which allows easy editing of connection references and environment variables as well as turning on cloud flows. After deploying the Kit from either AppSource or GitHub, you may access the Setup Wizard from the Home-page of the Copilot Studio Kit. Please see additional information [here](./SETUP_WIZARD.md).
+There is a Setup Wizard in the Kit which allows easy editing of connection references and environment variables as well as turning on cloud flows. After deploying the Kit from either AppSource or GitHub, you may access the Setup Wizard from the Home-page of the Copilot Agent Kit. Please see additional information [here](./SETUP_WIZARD.md).
 
 - [Prerequisites](./PREREQUISITES.md)
 - [Installation instructions](./INSTALLATION_INSTRUCTIONS.md)
@@ -138,7 +138,7 @@ Stay up to date with our releases by **subscribing** to them:
 
 # About this GitHub repo
 
-The Power CAT Copilot Studio Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Power CAT Copilot Studio Kit.
+The Copilot Agent Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Copilot Agent Kit.
 
 ## Submit a feature request
 

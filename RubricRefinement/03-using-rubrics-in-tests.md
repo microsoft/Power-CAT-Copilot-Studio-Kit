@@ -2,7 +2,7 @@
 
 ## Overview
 
-Rubrics can be used in two distinct modes within Copilot Studio Kit test automation. Understanding the difference between these modes is essential for effective use of the Rubrics Refinement feature.
+Rubrics can be used in two distinct modes within Copilot Agent Kit test automation. Understanding the difference between these modes is essential for effective use of the Rubrics Refinement feature.
 
 ## Two Modes of Rubric Usage
 
@@ -21,10 +21,10 @@ Rubrics can be used in two distinct modes within Copilot Studio Kit test automat
 
 ### When to Use Testing Mode
 
-Use test case level rubrics in Copilot Studio Kit when you:
+Use test case level rubrics in Copilot Agent Kit when you:
 - Have a refined, trustworthy custom rubric ready for regular use
 - Want to automate quality checks for Generative Answer responses in existing test sets
-- Need custom evaluation criteria beyond standard validation in Copilot Studio Kit
+- Need custom evaluation criteria beyond standard validation in Copilot Agent Kit
 
 ### How to Assign a Rubric at Test Case Level
 

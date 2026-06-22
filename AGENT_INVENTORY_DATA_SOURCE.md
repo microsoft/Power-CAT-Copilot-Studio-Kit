@@ -3,7 +3,7 @@
 Overview
 --------
 
-This document is the authoritative reference for the Agent Details table (Dataverse) that powers the Agent Inventory page in Copilot Studio Kit. It lists every field, the Dataverse source or detection rule, version/maturity, and a concise description for downstream consumers.
+This document is the authoritative reference for the Agent Details table (Dataverse) that powers the Agent Inventory page in Copilot Agent Kit. It lists every field, the Dataverse source or detection rule, version/maturity, and a concise description for downstream consumers.
 
 Audience
 --------
@@ -163,7 +163,7 @@ Below are concise detection rules for each derived or boolean field (refer to lo
 - Environment Url (`cat_environmenturl`): Power Platform for Admins V2 — `Retrieve a list of environments` output: instance URL.
 - Is Transcript Available (`cat_istranscriptavailablecode`): true when records exist for the agent in `conversationtranscript`.
 - Agent Created By ADID (`cat_agentcreatedbyadid`): `systemuser` table → ADID or Azure Object ID of the user who created the agent.
-- Agent Test Configured (`cat_agenttestconfiguredcode`): true when test run exists in Agent Test Run and test case exists in Agent Test Case table for the agent (Copilot Studio Kit test automation).
+- Agent Test Configured (`cat_agenttestconfiguredcode`): true when test run exists in Agent Test Run and test case exists in Agent Test Case table for the agent (Copilot Agent Kit test automation).
 - Last Usage Date (`cat_lastusagedate`): last usage date from usage metrics in Power Platform Admin Center.
 - Last Usage Feature (`cat_lastusagefeature`): last usage feature from usage metrics in Power Platform Admin Center.
 - Template (`cat_template`): `bot` table → identifies template and version used for bot default content.

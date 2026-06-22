@@ -1,6 +1,6 @@
 # Agent Review Pipeline
 
-Part of the **Copilot Studio Kit** - a set of tools for managing, monitoring, and governing Copilot Studio agents at scale.
+Part of the **Copilot Agent Kit** - a set of tools for managing, monitoring, and governing Copilot Studio agents at scale.
 
 ## What is the Agent Review Tool?
 
@@ -38,4 +38,4 @@ Automated quality gate for agents deployed via Power Platform Pipelines. When a 
 
 ## License
 
-Part of the [Copilot Studio Kit](https://github.com/Ramakrishnan24689/Power-CAT-Copilot-Studio-Kit).
+Part of the [Copilot Agent Kit](https://github.com/Ramakrishnan24689/Power-CAT-Copilot-Studio-Kit).

@@ -2,7 +2,7 @@
 
 ## Overview
 
-This feature allows users to automate the testing and deployment of Copilot Studio custom agents using Power Platform Pipelines. The goal is to ensure that agents are automatically validated through test runs before they are deployed to target environments (production). By integrating Power Automate flows with Dataverse and the Copilot Studio Kit, this approach introduces a quality gate into the deployment process. Only agents that pass the required amount of test cases are allowed to proceed, ensuring higher reliability and reducing manual intervention. This method supports continuous delivery practices and enhances the overall governance of the deployment lifecycle .
+This feature allows users to automate the testing and deployment of Copilot Studio custom agents using Power Platform Pipelines. The goal is to ensure that agents are automatically validated through test runs before they are deployed to target environments (production). By integrating Power Automate flows with Dataverse and the Copilot Agent Kit, this approach introduces a quality gate into the deployment process. Only agents that pass the required amount of test cases are allowed to proceed, ensuring higher reliability and reducing manual intervention. This method supports continuous delivery practices and enhances the overall governance of the deployment lifecycle .
 
 ## What it allows users to do
 

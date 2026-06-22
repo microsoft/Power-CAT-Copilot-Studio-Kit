@@ -1,10 +1,10 @@
-# Running tests in Power CAT Copilot Studio Kit
+# Running tests in Copilot Agent Kit
 
 **Test Runs** allow to execute multiple **Tests** contained in a single test set against a specific **Agent Configuration**.
 
 ## Creating a Test Run
 
-1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
+1. Open the Copilot Agent Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app))
 2. Navigate to **Test Runs**.
 3. Create a **New** Agent Test Run record.
 4. Provide a **Name**.

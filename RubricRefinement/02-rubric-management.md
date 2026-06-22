@@ -14,7 +14,7 @@ A rubric consists of three main components:
 
 ## Accessing Rubric Management
 
-Navigate to the Rubric Management interface in Copilot Studio Kit to view and manage your rubrics.
+Navigate to the Rubric Management interface in Copilot Agent Kit to view and manage your rubrics.
 
 ![Rubric List View](RubricManagementListView.png)
 

@@ -1,22 +1,22 @@
 # Security Roles
 
-This document describes the security roles available in the Copilot Studio Kit (CSK) and their associated table permissions.
+This document describes the security roles available in the Copilot Agent Kit (CAK) and their associated table permissions.
 
 ## Overview
 
-The Copilot Studio Kit includes two primary security roles designed to support different user personas:
+The Copilot Agent Kit includes two primary security roles designed to support different user personas:
 
 | Role                    | Description                                                                                                                                                                                                                                                                                                     |
 | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **CSK - Administrator** | Full administrative access to all CSK features. Intended for solution administrators who need to configure, manage, and maintain the entire Copilot Studio Kit. Administrators have Organization-level access to most tables, allowing them to view and manage all records across the organization.             |
-| **CSK - Maker**         | Limited access designed for users who create and test agents. Makers typically have User-level access, allowing them to work with their own records while having read access to shared configuration data. This role is suitable for developers and testers who need to build and validate agent functionality. |
+| **CAK - Administrator** | Full administrative access to all CAK features. Intended for solution administrators who need to configure, manage, and maintain the entire Copilot Agent Kit. Administrators have Organization-level access to most tables, allowing them to view and manage all records across the organization.             |
+| **CAK - Maker**         | Limited access designed for users who create and test agents. Makers typically have User-level access, allowing them to work with their own records while having read access to shared configuration data. This role is suitable for developers and testers who need to build and validate agent functionality. |
 
 > [!NOTE]
-> The following legacy security roles have been deprecated and should no longer be used. Please migrate users to the new **CSK - Administrator** or **CSK - Maker** roles:
+> The following legacy security roles have been deprecated and should no longer be used. Please migrate users to the new **CAK - Administrator** or **CAK - Maker** roles:
 >
-> - Copilot Studio Kit - Administrator - Deprecated
-> - Copilot Studio Kit - Configurator - Deprecated
-> - Copilot Studio Kit - Tester/KPI Viewer - Deprecated
+> - Copilot Agent Kit - Administrator - Deprecated
+> - Copilot Agent Kit - Configurator - Deprecated
+> - Copilot Agent Kit - Tester/KPI Viewer - Deprecated
 
 ---
 
@@ -63,9 +63,9 @@ The Copilot Studio Kit includes two primary security roles designed to support d
 
 ---
 
-## CSK - Administrator Role
+## CAK - Administrator Role
 
-The Administrator role provides comprehensive access to manage all aspects of the Copilot Studio Kit.
+The Administrator role provides comprehensive access to manage all aspects of the Copilot Agent Kit.
 
 **Legend:** 🟢 Organization | 🔵 User | 🚫 None
 
@@ -424,7 +424,7 @@ The Administrator role provides comprehensive access to manage all aspects of th
 <td>🟢</td>
 </tr>
 <tr>
-<td>Copilot Studio Kit Logs</td>
+<td>Copilot Agent Kit Logs</td>
 <td>🟢</td>
 <td>🟢</td>
 <td>🟢</td>
@@ -438,7 +438,7 @@ The Administrator role provides comprehensive access to manage all aspects of th
 
 ---
 
-## CSK - Maker Role
+## CAK - Maker Role
 
 The Maker role provides access for users who build and test agents, with limited administrative capabilities.
 
@@ -799,7 +799,7 @@ The Maker role provides access for users who build and test agents, with limited
 <td>🟢</td>
 </tr>
 <tr>
-<td>Copilot Studio Kit Logs</td>
+<td>Copilot Agent Kit Logs</td>
 <td>🔵</td>
 <td>🔵</td>
 <td>🔵</td>

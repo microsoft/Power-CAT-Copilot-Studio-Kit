@@ -18,7 +18,7 @@ The Compliance Hub enables organizations using Copilot Studio to balance innovat
 
 Before setting up the Compliance Hub, ensure you have:
 
-- **Copilot Studio Kit prerequisites**: All [prerequisites for the Copilot Studio Kit](PREREQUISITES.md)
+- **Copilot Agent Kit prerequisites**: All [prerequisites for the Copilot Agent Kit](PREREQUISITES.md)
 - **Permissions (for admin)**: 
   - System Administrator role in the target environment
   - Ability to create and configure cloud flows
@@ -63,11 +63,11 @@ Any user who has created a Copilot Studio agent in the organization's tenant. Th
 
 ## Get started
 
-Setup and configure the governance components using the Copilot Studio Kit setup wizard.
+Setup and configure the governance components using the Copilot Agent Kit setup wizard.
 
 **Estimated time to complete**: 20 minutes (excluding prerequisite installations)
 
-1. Install and launch the Copilot Studio Kit. Follow the [installation instructions](./INSTALLATION_INSTRUCTIONS.md) and [prerequisites](./PREREQUISITES.md) for the essential install steps to install the base solution and [agent inventory](./AGENT_INVENTORY.md) before setting up the compliance components.
+1. Install and launch the Copilot Agent Kit. Follow the [installation instructions](./INSTALLATION_INSTRUCTIONS.md) and [prerequisites](./PREREQUISITES.md) for the essential install steps to install the base solution and [agent inventory](./AGENT_INVENTORY.md) before setting up the compliance components.
 
 1. Run the **setup wizard**.
 
@@ -81,7 +81,7 @@ Setup and configure the governance components using the Copilot Studio Kit setup
 
     | Display Name| Description| Example |
     |--------------------------------------------|-----------------------------------------------------------------------------|------------------------|
-    | App ID | Unique identifier for the Copilot Studio Kit application | `12345678-1234-1234-1234-123456789abc` |
+    | App ID | Unique identifier for the Copilot Agent Kit application | `12345678-1234-1234-1234-123456789abc` |
     | Compliance Admin Group ID | Microsoft Entra ID (Azure AD) security group ID for compliance administrators | `87654321-4321-4321-4321-cba987654321` | 
     | Instance Url | URL of the environment instance | `https://orgname.crm.dynamics.com` |
     | Maker Team ID | Group ID for makers in the organization | `12345678-1234-1234-1234-123456789abc` |
@@ -153,7 +153,7 @@ Governance policies in compliance hub are configured by:
 The following components can be configured to define and enforce the compliance policies that best define your organization's requirements.
 
 ### Compliance thresholds (`Threshold Config` table)
-This is how 'violations' are defined in compliance hub. Each row in the `Threshold Config` table must be associated with a specific agent attribute (aka property/column) and a specific value. It is designed to be fully customizable within the scope of the agent components represented in Copilot Studio Kit's `Agent Details` custom table properties.
+This is how 'violations' are defined in compliance hub. Each row in the `Threshold Config` table must be associated with a specific agent attribute (aka property/column) and a specific value. It is designed to be fully customizable within the scope of the agent components represented in Copilot Agent Kit's `Agent Details` custom table properties.
 
 ![Threshold Configuration Table](./media/ch_1.png)
 *Figure 2: Default configurations for Threshold Config table showing filter columns, operators, and risk levels*
@@ -365,7 +365,7 @@ A: A quarantined agent is disabled and cannot be accessed by end users. However,
 
 - Compliance re-evaluation occurs daily (typically runs overnight)
 - Manually trigger a compliance scan from the Compliance Hub dashboard
-- Verify remediation changes are saved and published in Copilot Studio Kit Inventory
+- Verify remediation changes are saved and published in Copilot Agent Kit Inventory
 - Check the case timeline for evaluation history
 
 **Issue: Filter operators not working as expected**

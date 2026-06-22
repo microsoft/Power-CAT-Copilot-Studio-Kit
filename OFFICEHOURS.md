@@ -1,13 +1,13 @@
-# Copilot Studio Kit Office Hours
-## Join the Copilot Studio Kit Office hours
+# Copilot Agent Kit Office Hours
+## Join the Copilot Agent Kit Office hours
 
 > [!NOTE]
-> Starting May 13, 2026, Copilot Studio Kit Office Hours will move to an every-other-week schedule.
+> Starting May 13, 2026, Copilot Agent Kit Office Hours will move to an every-other-week schedule.
 > The format is also changing: each session will now include updates and demos from the team, including highlights of new features and walkthroughs showing how to configure features or accomplish more complex scenarios with existing capabilities.
 > * US-friendly slot: 10:05 AM Pacific Time (PT)
 > * APAC-friendly slot: 9:05 PM Pacific Time (PT) (next-day morning in IST)
 
-During office hours we will have Copilot Studio Kit team present and part of the meeting is dedicated for updates from the team, and demonstration of new features.
+During office hours we will have Copilot Agent Kit team present and part of the meeting is dedicated for updates from the team, and demonstration of new features.
 
 There are two regional time slots, and you may join either (or both) depending on your preferred time zone.
 
@@ -29,7 +29,7 @@ This session is open to public, will be attended by multiple customers and partn
 Please state any questions with the appropriate level of detail for this broader audience.
 We are unable to do detailed troubleshooting or consulting not relevant to a broader audience in this session.
 
-Remember: You can always raise an issue to the Copilot Studio Kit team in the Github: https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues
+Remember: You can always raise an issue to the Copilot Agent Kit team in the Github: https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues
 
 | Session (US Date / APAC Date) | Status | Regional Slot | Notes |
 |-------------------------------|--------|----------------|--------|

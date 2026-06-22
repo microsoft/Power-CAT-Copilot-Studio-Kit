@@ -1,17 +1,17 @@
-# Power CAT Copilot Studio Kit prerequisites
+# Copilot Agent Kit prerequisites
 
-The Power CAT Copilot Studio Kit is built using Power Platform and requires adequate licensing and capacity.
+The Copilot Agent Kit is built using Power Platform and requires adequate licensing and capacity.
 
 ## Mandatory requirements
 
 - A [**Power Platform environment with Dataverse as a data store**](https://learn.microsoft.com/power-platform/admin/create-environment). <br>
-  Microsoft Dataverse is used to store the Power CAT Copilot Studio Kit configuration and test tables data. <br>
-  The user performing the installation of the Power CAT Copilot Studio Kit must have the **system administrator** security role on the environment.
+  Microsoft Dataverse is used to store the Copilot Agent Kit configuration and test tables data. <br>
+  The user performing the installation of the Copilot Agent Kit must have the **system administrator** security role on the environment.
 - Adequate licensing to run a **Power Apps model-driven application**.
 - Adequate licensing to run **Power Automate cloud flows** using **Premium** connectors.
 
 > [!NOTE]
-> Power CAT Copilot Studio Kit can be installed in the same environment where you host your custom agents, but this isn't mandatory. More information on licensing:
+> Copilot Agent Kit can be installed in the same environment where you host your custom agents, but this isn't mandatory. More information on licensing:
 > - If installed as part of Power Platform, refer to [Microsoft Power Platform Licensing Guide](https://go.microsoft.com/fwlink/?linkid=2085130).
 > - If installed as part of Dynamics 365, refer to  [Dynamics 365 Licensing Guide](https://go.microsoft.com/fwlink/p/?LinkId=866544)
 
@@ -20,7 +20,7 @@ The Power CAT Copilot Studio Kit is built using Power Platform and requires adeq
 * This solution requires PCF Components to be enabled for the Dataverse Environment before you install any of the solution files.  You can find details of how to turn that feature on in the public documentation page below,
   * [Enabling Power Apps Component Framework Feature](https://learn.microsoft.com/power-apps/developer/component-framework/component-framework-for-canvas-apps#enable-the-power-apps-component-framework-feature)
  
-* Copilot Studio Kit is using advanced components from the Creator Kit, please make sure to deploy it before deploying Copilot Studio Kit
+* Copilot Agent Kit is using advanced components from the Creator Kit, please make sure to deploy it before deploying Copilot Agent Kit
   * [Creator Kit installation instructions](https://learn.microsoft.com/power-platform/guidance/creator-kit/setup)
 
 * This solution requires Code Apps to be enabled on the environment.

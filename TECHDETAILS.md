@@ -1,4 +1,4 @@
-# Technical information about Copilot Studio Kit
+# Technical information about Copilot Agent Kit
 ## Environment variables
 
 | Name | Description  | Notes |
@@ -13,9 +13,9 @@
 
 | Name | Description  | Notes |
 | :-- | :-- | :-- |
-| Copilot Studio Kit - Dataverse | Microsoft Dataverse connection reference for Copilot Studio Kit | Required |
-| Copilot Studio Kit - Power Platform for Admins | This connection reference is used to get a list of environments in Agent Inventory feature | Required for Agent Inventory |
-| Copilot Studio Kit - SharePoint | This connection reference is used with SharePoint synchronization | Required for SharePoint synchronization |
+| Copilot Agent Kit - Dataverse | Microsoft Dataverse connection reference for Copilot Agent Kit | Required |
+| Copilot Agent Kit - Power Platform for Admins | This connection reference is used to get a list of environments in Agent Inventory feature | Required for Agent Inventory |
+| Copilot Agent Kit - SharePoint | This connection reference is used with SharePoint synchronization | Required for SharePoint synchronization |
 
 ## Connectors used (for DLP configuration purposes)
 

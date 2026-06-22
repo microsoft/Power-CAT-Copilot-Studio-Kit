@@ -270,7 +270,7 @@ Using a rubric at the individual test case level for regular quality assurance. 
 Using a rubric at the test run level specifically for iterative rubric refinement. AI provides grade + detailed rationale. Non-Generative Answer test types are skipped. Goal is to minimize misalignment between AI and human grades.
 
 ### Generative Answer Test (GA Test)
-A test type in Copilot Studio Kit where the agent generates natural-language responses (using generative orchestration) that are evaluated against provided validation instructions or a rubric.
+A test type in Copilot Agent Kit where the agent generates natural-language responses (using generative orchestration) that are evaluated against provided validation instructions or a rubric.
 
 ### Test Set
 A collection of one or more test cases executed together. In refinement mode, the same rubric applies to all Generative Answer test cases in the set.
@@ -321,10 +321,10 @@ A focused interface for reviewing and grading individual test cases with longer 
 Text-based instructions used in standard Generative Answer tests to specify what makes a response acceptable. Mutually exclusive with rubric-based grading—when a rubric is selected, validation instructions are hidden or ignored.
 
 ### Custom Grader (Copilot Studio)
-A future Copilot Studio feature that will allow makers to define custom evaluation logic for copilot responses. Rubrics refined in Copilot Studio Kit are designed to be compatible with this system (future integration).
+A future Copilot Studio feature that will allow makers to define custom evaluation logic for copilot responses. Rubrics refined in Copilot Agent Kit are designed to be compatible with this system (future integration).
 
 ### Maker
-A user of Copilot Studio Kit who creates, tests, and manages copilots and evaluation rubrics. In the context of rubric refinement, the maker provides human judgments that serve as the evaluation standard.
+A user of Copilot Agent Kit who creates, tests, and manages copilots and evaluation rubrics. In the context of rubric refinement, the maker provides human judgments that serve as the evaluation standard.
 
 ### Agent
 The copilot or AI assistant being tested. In rubric refinement, the agent generates responses that are evaluated by both AI judges and human makers.
