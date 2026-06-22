@@ -78,7 +78,7 @@ See the Agent Inventory documentation for full setup instructions:
 
 ### 2. Security role and connection permissions
 
-The user must have the **CSK - Administrator** or **System Administrator** security role within the kit for this feature to be accessible.
+The user must have the **CAK - Administrator** or **System Administrator** security role within the kit for this feature to be accessible.
 
 The **signed in user** used by the app must have **Read** access to the following tables in the target environment:
 
@@ -445,7 +445,7 @@ Use this when:
 **Cause:** Missing roles or permissions in one or both environments.
 
 **Resolution:**
-1. In the **kit environment**, the user must have the **CSK - Administrator** or **System Administrator** role to access Agent Debugger.
+1. In the **kit environment**, the user must have the **CAK - Administrator** or **System Administrator** role to access Agent Debugger.
 2. In the **target environment** where the agent resides, the signed-in user must have sufficient access to read the `conversationtranscripts`, `bot`, and `botcomponents` tables.
 
 

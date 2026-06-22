@@ -1,5 +1,5 @@
 ## Testing capabilities  
-The Power CAT Copilot Studio Kit is a user-friendly application that empowers makers to configure agents and test sets. It has native capabilities such as Excel export or import for bulk creation and updates.
+The Copilot Agent Kit is a user-friendly application that empowers makers to configure agents and test sets. It has native capabilities such as Excel export or import for bulk creation and updates.
 
 By running individual tests against the Copilot Studio APIs (Direct Line), the agent responses are evaluated against expected results.
 To further enrich results, additional data points can be retrieved from Azure Application Insights and from Dataverse, by analyzing Conversation Transcript records (to get the exact triggered topic name, intent recognition scores, etc.).

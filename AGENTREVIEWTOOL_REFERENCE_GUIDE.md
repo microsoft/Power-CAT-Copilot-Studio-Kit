@@ -653,4 +653,4 @@ Yes. Use the "Export All" button in the agent grid toolbar to generate an Excel 
 
 ---
 
-*Documentation version: April 2026. For the latest changes, see the [Power CAT Copilot Studio Kit GitHub repository](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit).*
+*Documentation version: April 2026. For the latest changes, see the [Copilot Agent Kit GitHub repository](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit).*

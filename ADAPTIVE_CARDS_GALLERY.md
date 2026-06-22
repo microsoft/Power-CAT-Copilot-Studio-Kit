@@ -1,7 +1,7 @@
 # Adaptive cards gallery
 ## Setup Note
 
-To get the Adaptive cards gallery working after you install the Copilot Studio Kit solution, you will need to go to the ````Adaptive Card Gallery```` Agent that was installed in the solution file.  
+To get the Adaptive cards gallery working after you install the Copilot Agent Kit solution, you will need to go to the ````Adaptive Card Gallery```` Agent that was installed in the solution file.  
 
 * Open Copilot Studio in your current environment
 * Open the ````Adaptive Card Gallery```` Agent that was deployed in the solution file
@@ -29,7 +29,7 @@ Each sample adaptive card comes with a template and sample data. Adaptive cards 
 ![adaptivecards2](https://github.com/user-attachments/assets/d4e7ca66-2e7c-497c-94e8-0695e12253dd)
 
 > [!NOTE]
-> By default, emulator is used to preview the adaptive cards. To preview the adaptive cards using a real Copilot Studio webchat, publish the "**Adaptive Card Gallery**"-agent that ships with Copilot Studio Kit, and set the environment variable **cat_AgentTokenEndpoint** to its Token Endpoint. The token endpoint of Copilot Studio custom agent can be copied from Channels -> Mobile app.
+> By default, emulator is used to preview the adaptive cards. To preview the adaptive cards using a real Copilot Studio webchat, publish the "**Adaptive Card Gallery**"-agent that ships with Copilot Agent Kit, and set the environment variable **cat_AgentTokenEndpoint** to its Token Endpoint. The token endpoint of Copilot Studio custom agent can be copied from Channels -> Mobile app.
 
 
 Back to the [landing page](./README.md#power-cat-copilot-studio-kit)

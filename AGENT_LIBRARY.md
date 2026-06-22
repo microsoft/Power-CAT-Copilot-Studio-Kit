@@ -1,6 +1,6 @@
 # Agent Library
 
-The Agent Library is a centralized hub within the Copilot Studio Kit that helps **Admins** and **Makers** discover, install, and manage agent templates and reusable components. It brings together three types of content in a single unified gallery:
+The Agent Library is a centralized hub within the Copilot Agent Kit that helps **Admins** and **Makers** discover, install, and manage agent templates and reusable components. It brings together three types of content in a single unified gallery:
 
 - **System templates** — Provided by Microsoft. Ready-to-use agent templates that ship with the Kit and are available out of the box. System template cards are visually distinguished with a **"System"** chip on the gallery card.
 - **Custom templates** — Bring your own templates. Organization-specific agent templates authored by admins and stored in Dataverse. Custom template cards are visually distinguished with a **"Custom"** chip on the gallery card.
@@ -9,7 +9,7 @@ The Agent Library is a centralized hub within the Copilot Studio Kit that helps 
 Instead of building agents from scratch, you can browse the combined catalog, install templates directly into your environment, and extend them with reusable components. **Admins** additionally get a full authoring surface to create, edit, publish/unpublish, and delete custom templates. **Makers** see a read-only view scoped to published custom templates only.
 
 > [!NOTE]
-> The Agent Library is available starting with the **April 2026 release** of the Copilot Studio Kit. Custom template management (bring your own templates) was introduced in the **mid-June 2026 release**. Make sure you are running the latest version to access all features.
+> The Agent Library is available starting with the **April 2026 release** of the Copilot Agent Kit. Custom template management (bring your own templates) was introduced in the **mid-June 2026 release**. Make sure you are running the latest version to access all features.
 
 ---
 
@@ -17,9 +17,9 @@ Instead of building agents from scratch, you can browse the combined catalog, in
 
 Before using the Agent Library, make sure you have:
 
-- Installed **Copilot Studio Kit** and configured in your Power Platform environment.
-- A **CSK - Maker** security role assigned in the Copilot Studio Kit to browse and install templates.
-- A **CSK - Admin** security role assigned to create, edit, publish/unpublish, and delete custom templates.
+- Installed **Copilot Agent Kit** and configured in your Power Platform environment.
+- A **CAK - Maker** security role assigned in the Copilot Agent Kit to browse and install templates.
+- A **CAK - Admin** security role assigned to create, edit, publish/unpublish, and delete custom templates.
 - A Power Platform environment with **Copilot Studio** enabled.
 
 ### Role Capabilities
@@ -37,7 +37,7 @@ Before using the Agent Library, make sure you have:
 
 ## Agent Library Experience
 
-The Agent Library is accessible from the left navigation in the Copilot Studio Kit under the **Productivity** section. The Agent Library dashboard provides three tabs: **All**, **Templates**, and **Components**.
+The Agent Library is accessible from the left navigation in the Copilot Agent Kit under the **Productivity** section. The Agent Library dashboard provides three tabs: **All**, **Templates**, and **Components**.
 
 ### All Tab (Default)
 
@@ -86,11 +86,11 @@ The following templates are included out of the box:
 
 Custom Agent type templates are pre-built Copilot Studio agents packaged as Power Platform solutions. They provide a fully functional starting point that you can customize with your own topics, knowledge sources, and components.
 
-##### Install from Copilot Studio Kit (Recommended)
+##### Install from Copilot Agent Kit (Recommended)
 
-If you are running the Copilot Studio Kit, you can browse and install custom agent templates directly from the Agent Library.
+If you are running the Copilot Agent Kit, you can browse and install custom agent templates directly from the Agent Library.
 
-1. In the Copilot Studio Kit, navigate to **Agent Library** in the left navigation.
+1. In the Copilot Agent Kit, navigate to **Agent Library** in the left navigation.
 2. Select the **Templates** tab.
 3. Browse or search for the custom agent template you want to install.
 4. Select a template card to open the template details dialog.
@@ -260,7 +260,7 @@ Admins can extend the Agent Library by authoring **custom templates** — organi
 ![Agent Library — Admin View with Custom Templates](media/agent-library/csk-admin-with-custom-templates.png)
 
 > [!NOTE]
-> Custom template management is available only to users with the **CSK - Admin** security role. Makers see published custom templates in the gallery but cannot create, edit, or delete them.
+> Custom template management is available only to users with the **CAK - Admin** security role. Makers see published custom templates in the gallery but cannot create, edit, or delete them.
 
 ##### Creating a Custom Template
 
@@ -351,9 +351,9 @@ The Components tab filters the catalog to show **only reusable components** that
 
 There are two ways to install components.
 
-##### Option A — Install from the Copilot Studio Kit (Recommended)
+##### Option A — Install from the Copilot Agent Kit (Recommended)
 
-1. In the Copilot Studio Kit, navigate to the **Agent Library** and select the **Components** tab.
+1. In the Copilot Agent Kit, navigate to the **Agent Library** and select the **Components** tab.
 2. Select a component card to open the component details dialog.
 
 ![Component Details](media/agent-library/components-details.png)
@@ -371,7 +371,7 @@ There are two ways to install components.
 
 ##### Option B — Manual Import via Power Apps
 
-Use this option to import the component in other environment where Copilot Studio Kit is not installed, or if you downloaded the `.zip` file and need to import it manually.
+Use this option to import the component in other environment where Copilot Agent Kit is not installed, or if you downloaded the `.zip` file and need to import it manually.
 
 1. Download the `.zip` file that contains the component solution:
    - **From the Agent Library** — Open the component details dialog and select **Download**.
@@ -431,7 +431,7 @@ This section walks you through the complete workflow of discovering a template, 
 
 ### Step 1: Discover a Template
 
-1. Open the Copilot Studio Kit and navigate to the **Agent Library**.
+1. Open the Copilot Agent Kit and navigate to the **Agent Library**.
 2. Use the **All** tab to see what templates and components are available.
 3. Switch to the **Templates** tab to browse the catalog.
 4. Use search and category filters to find a template that matches your scenario.
@@ -502,7 +502,7 @@ This section walks you through the complete workflow of discovering a template, 
 
 - **One instance per environment** — Components are shared across all agents in an environment. Changes to a component affect every agent that uses it.
 - **Test in a development environment first** — Install and validate templates in a non-production environment before promoting to production.
-- **Keep solutions up to date** — Check the [Copilot Studio Kit releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases) for new templates, components, and improvements.
+- **Keep solutions up to date** — Check the [Copilot Agent Kit releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases) for new templates, components, and improvements.
 
 ### Custom Template Management (Admin)
 
@@ -516,8 +516,8 @@ This section walks you through the complete workflow of discovering a template, 
 
 ## Related Content
 
-- [Copilot Studio Kit overview](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-overview)
-- [Install Copilot Studio Kit](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-install)
+- [Copilot Agent Kit overview](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-overview)
+- [Install Copilot Agent Kit](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-install)
 - [Component Library documentation](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/COMPONENT_LIBRARY.md)
 - [Create and share reusable component collections](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components)
 - [Create and manage solutions in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-overview)

@@ -97,7 +97,7 @@ Based on the [Microsoft Agents Sample Documentation](https://github.com/microsof
 2. **Create New Registration**
 
    - Click **New registration**
-   - Provide a **Name**: `Copilot Studio Kit - Microsoft Auth (Name can be anything)`
+   - Provide a **Name**: `Copilot Agent Kit - Microsoft Auth (Name can be anything)`
    - Choose **Accounts in this organizational directory only**
    - For **Redirect URI**: **Leave blank** (we'll configure this after creation)
    - Click **Register**

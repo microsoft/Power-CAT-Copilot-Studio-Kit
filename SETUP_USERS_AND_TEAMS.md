@@ -1,6 +1,6 @@
-# Setup users and teams in Power CAT Copilot Studio Kit
+# Setup users and teams in Copilot Agent Kit
 
-After completing the installation of Power CAT Copilot Studio Kit, you can grant security roles to your users so that they can configure new agents and tests.
+After completing the installation of Copilot Agent Kit, you can grant security roles to your users so that they can configure new agents and tests.
 
 It's a best practice to security assign roles via Entra ID group and team memberships, but you can also assign them manually and individually to users.
 
@@ -10,7 +10,7 @@ For more information on security roles, go to the [Security Roles](https://githu
 
 1. Go to the [Power Platform Admin Center](https://admin.powerplatform.microsoft.com/).
 2. Navigate to **Environments**
-3. Select the environments where you have installed the Power CAT Copilot Studio Kit on.
+3. Select the environments where you have installed the Copilot Agent Kit on.
 
 ## Assign security roles to users
 
@@ -25,7 +25,7 @@ That way users can inherit security roles automatically, simply by being member 
 4. Set the required properties, and in **Team type**, select either **Microsoft Entra ID Security Group** or **Microsoft Entra ID Office Group**.
 5. Search and select the desired **group**.
 6. Select **Next**
-7. Select the desired Power CAT Copilot Studio Kit **security role**.
+7. Select the desired Copilot Agent Kit **security role**.
 8. **Save**
 
 > [!NOTE]
@@ -41,7 +41,7 @@ That way users can inherit security roles automatically, simply by being member 
 3. If the user isn't present in the list, select** Add user** and add them.
 4. Select the **user**.
 5. Select **Manage roles**.
-6. Select the desired Power CAT Copilot Studio Kit **security role**.
+6. Select the desired Copilot Agent Kit **security role**.
 7. **Save**
 
 > [!NOTE]
@@ -66,7 +66,7 @@ _Note: if you don't store secrets in these columns, this step isn't required._
 1. From the **environment** overview page
 2. Go **Settings**
 3. Under **Users + permissions**, select **Column security profiles**
-4. Select **Power CAT Copilot Studio Kit Column Security Profile**
+4. Select **Copilot Agent Kit Column Security Profile**
 5. Navigate to the **Teams** or **Users** tab and add the relevant **teams** and/or **users** that should have access to these secured columns.
 
 ## Next step

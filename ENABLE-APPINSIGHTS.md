@@ -4,12 +4,12 @@
 
 - Application Insights resource has been created and Agent has been configured to send telemetry to it. Please see instructions [here](https://learn.microsoft.com/microsoft-copilot-studio/advanced-bot-framework-composer-capture-telemetry?tabs=webApp#connect-your-copilot-studio-copilot-to-application-insights).
 
-## Steps to enable Application Insights support in Copilot Studio Kit
+## Steps to enable Application Insights support in Copilot Agent Kit
 
-To enable Application Insights support in Copilot Studio Kit, new application registration is required.
+To enable Application Insights support in Copilot Agent Kit, new application registration is required.
 
 > [!NOTE]  
-> If you have already created app registration for Copilot Studio Kit to use with user authentication, you **may** reuse that application for App Insights enrichment instead of creating another application. If you wish to do that, you can skip step 1 below and start with step 2 after navigating to the existing app registration. 
+> If you have already created app registration for Copilot Agent Kit to use with user authentication, you **may** reuse that application for App Insights enrichment instead of creating another application. If you wish to do that, you can skip step 1 below and start with step 2 after navigating to the existing app registration. 
 
 1. [Register new application in Microsoft Entra ID](https://learn.microsoft.com/azure/azure-monitor/logs/api/register-app-for-token) and add new client secret for it. Make note of the secret as it will be used later as **App Insights Secret** in the Agent configuration (depending on App Insights Secret location, please see the details [here](./CONFIGURE_COPILOTS.md#configure-a-new-copilot).)
 1. Make note of the **Directory (tenant) ID** and **Application (client) ID** of the application as they will be used later as **App Insights Tenant ID** and **App Insights Client ID** in the Agent configuration

@@ -39,7 +39,7 @@ Pipeline approved (score ≥ threshold) or rejected
 
 > ⚠️ **Custom host is required.** The pre-deployment flow must run in the pipeline host environment. With Platform host, that environment is managed by Microsoft and you cannot deploy flows there. You need a [custom host](https://learn.microsoft.com/en-us/power-platform/alm/custom-host-pipelines) so the flow, AI prompts, and extensibility actions all live in an environment you control. See [Extend pipelines - Triggers](https://learn.microsoft.com/en-us/power-platform/alm/extend-pipelines#triggers): *"Triggers are available in Power Automate cloud flows within the pipelines host environment."*
 
-> **Note:** The Copilot Studio Kit is NOT required. The pipeline solution ships its own AI prompts and can be installed in any custom host environment independently.
+> **Note:** The Copilot Agent Kit is NOT required. The pipeline solution ships its own AI prompts and can be installed in any custom host environment independently.
 
 ---
 
@@ -63,7 +63,7 @@ Generate a client secret. Save these three values:
 
 ### 2. Set Up GitHub Repo
 
-Clone or fork the [Agent Review Pipeline](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/tree/main/agent-review-pipeline) folder from the Copilot Studio Kit repository into your own repo. The folder contains everything needed to run the action:
+Clone or fork the [Agent Review Pipeline](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/tree/main/agent-review-pipeline) folder from the Copilot Agent Kit repository into your own repo. The folder contains everything needed to run the action:
 
 ```
 your-repo/
@@ -104,7 +104,7 @@ Copy the token.
 
 ### 4. Import Solution
 
-Download the **Agent Review Pipeline** managed solution (`AgentReviewPipeline_managed.zip`) from the [Copilot Studio Kit GitHub releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases) page, then import it into the **pipeline host environment**.
+Download the **Agent Review Pipeline** managed solution (`AgentReviewPipeline_managed.zip`) from the [Copilot Agent Kit GitHub releases](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases) page, then import it into the **pipeline host environment**.
 
 During import, the wizard will prompt for environment variable values and connection references. Fill in:
 

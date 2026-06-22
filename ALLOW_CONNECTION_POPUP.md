@@ -6,7 +6,7 @@ When testing Copilot Studio agents that integrate with external data sources lik
 
 
 
-**Challenge:** How do users execute test cases within Copilot Studio Kit to handle this authorization flow and test agent responses that require connector permissions?
+**Challenge:** How do users execute test cases within Copilot Agent Kit to handle this authorization flow and test agent responses that require connector permissions?
 
 ---
 

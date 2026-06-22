@@ -1,11 +1,11 @@
 # Enable user authentication
 
-**Copilot Studio Kit** supports testing custom Agents with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider with SSO enabled. These instructions include all the steps required to enable end user authentication on your agent in Copilot Studio, create and configure the required applications in Azure Portal and finally create the agent configuration in Copilot Studio Kit.
+**Copilot Agent Kit** supports testing custom Agents with user authentication using Entra ID v2 (Azure Active Directory v2) as the service provider with SSO enabled. These instructions include all the steps required to enable end user authentication on your agent in Copilot Studio, create and configure the required applications in Azure Portal and finally create the agent configuration in Copilot Agent Kit.
 
 ## Prerequisites
-- Copilot Studio Kit has been installed
+- Copilot Agent Kit has been installed
 
-## Create authentication application for Copilot Studio Kit
+## Create authentication application for Copilot Agent Kit
 Related instructions in Microsoft Learn: https://learn.microsoft.com/en-us/microsoft-copilot-studio/configure-sso?tabs=classic#create-an-app-registration-in-microsoft-entra-id-for-your-custom-canvas
 
 1. Navigate to **Azure Portal**
@@ -15,7 +15,7 @@ Related instructions in Microsoft Learn: https://learn.microsoft.com/en-us/micro
 1. Under **Supported account types**, select **Accounts in any organizational tenant (Any Microsoft Entra ID directory - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)**.
 1. Leave the **Redirect URI** section blank for now. We will be entering that information later in the next steps.
 1. Select **Register**, you will be sent to the "**Overview**"-page of your new application.
-1. Make note of the "**Directory (tenant) ID**" and "**Application (client) ID**". We will need these when creating agent registration in Copilot Studio Kit and associating the Copilot Studio with the Copilot Studio Kit app.
+1. Make note of the "**Directory (tenant) ID**" and "**Application (client) ID**". We will need these when creating agent registration in Copilot Agent Kit and associating the Copilot Studio with the Copilot Agent Kit app.
 1. Expand **Manage** and select **Authentication**
 1. Under **Platform configurations**, select **Add a platform**, and then select **Web**.
 1. Under **Redirect URIs**, enter your **Dataverse environment URL** (https://\<hostname>\.crm.dynamics.com/)
@@ -90,9 +90,9 @@ Related instructions in Microsoft Learn: https://learn.microsoft.com/microsoft-c
 1. Click **Publish**, then **Publish** again from the dialog.
 
 ## Create agent configuration with end user authentication enabled
-Related instructions in the Copilot Studio Kit repository: https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/CONFIGURE_COPILOTS.md
+Related instructions in the Copilot Agent Kit repository: https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/CONFIGURE_COPILOTS.md
 
-1. Navigate to Copilot Studio Kit
+1. Navigate to Copilot Agent Kit
 1. Select **Agents** from the navigation.
 1. Click **New**
 1. Enter **Name**
@@ -107,8 +107,8 @@ Related instructions in the Copilot Studio Kit repository: https://github.com/mi
 Now you are ready to start testing your agent with end user authentication enabled!
 
 To recap what we did here:
-- Created app registration specifically for Copilot Studio Kit authentication purpose
+- Created app registration specifically for Copilot Agent Kit authentication purpose
 - Created app registration for Copilot Studio authentication
-- Linked the applications so that Copilot Studio Kit is able to authenticate to Direct Line via Copilot Studio authentication application
+- Linked the applications so that Copilot Agent Kit is able to authenticate to Direct Line via Copilot Studio authentication application
 - Enabled authentication in custom agent in Copilot Studio
-- Created agent configuration in Copilot Studio Kit with end user authentication enabled
+- Created agent configuration in Copilot Agent Kit with end user authentication enabled

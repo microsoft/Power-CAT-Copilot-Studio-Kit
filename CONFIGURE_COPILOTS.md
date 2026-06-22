@@ -1,6 +1,6 @@
-# Configure agents in Power CAT Copilot Studio Kit
+# Configure agents in Copilot Agent Kit
 
-The custom agents you create and configure in Microsoft Copilot Studio can be tested from the Power CAT Copilot Studio Kit.
+The custom agents you create and configure in Microsoft Copilot Studio can be tested from the Copilot Agent Kit.
 To do this, you need to create a **Agent Configuration** record that will contain the required information to connect to these agents and run tests against them.
 
 ![configure agents](https://github.com/user-attachments/assets/23586e64-4ea2-4056-abbc-17bb3d4e69a5)
@@ -14,7 +14,7 @@ Multiple configuration types are supported in single agent configuration record.
 
 ## Create new Agent Configuration record
 
-1. Open the Power CAT Copilot Studio Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app)).
+1. Open the Copilot Agent Kit application (as seen in [installation instructions](./INSTALLATION_INSTRUCTIONS.md#access-the-copilot-studio-accelerator-app)).
 2. Navigate to **Agents**.
 3. Create a **New** Agent Configuration record.
 4. Fill in the following  **information**.
@@ -108,11 +108,11 @@ Note: These fields are mandatory for all configuration types.
 
 ## Note about end user authentication
 
-Copilot Studio Kit supports testing custom agents with Entra ID v2 (Azure Active Directory v2) service provider (with SSO) for end user authentication. To enable Copilot Studio Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
+Copilot Agent Kit supports testing custom agents with Entra ID v2 (Azure Active Directory v2) service provider (with SSO) for end user authentication. To enable Copilot Agent Kit end user authentication on your application, please see instructions [here](./ENABLE-AUTHENTICATION.md).
 
 ## Note about results enrichment with Dataverse Conversation Transcripts
 
-* For the Copilot Studio Kit to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
+* For the Copilot Agent Kit to be able to retrieve Conversation Transcript records from other Power Platform environments, the Microsoft Dataverse connection that is used when setting up solution must have `Read` access on the `ConversationTranscript` table records in the target environments.
 * Only environments within the same tenant can be targeted.
 
 ## Note about results enrichment with Application Insights
@@ -120,7 +120,7 @@ Copilot Studio Kit supports testing custom agents with Entra ID v2 (Azure Active
 * For enriching test results from Application Insights, app registration is required within the same tenant as the Application Insights resource
 * Application Insights resource and the application can reside in a different tenant than the custom agent being tested
 * For detailed instructions on how to register the application and get the required information for the Application Insights resource, please see [here](./ENABLE-APPINSIGHTS.md).
-* Make sure that the custom agent is configured to send telemetry to Application Insights resource and that it is the same as in the agent configuration in the Copilot Studio Kit. For information on how to connect your custom Agent to Application Insights, please see [here](./ENABLE-APPINSIGHTS.md)
+* Make sure that the custom agent is configured to send telemetry to Application Insights resource and that it is the same as in the agent configuration in the Copilot Agent Kit. For information on how to connect your custom Agent to Application Insights, please see [here](./ENABLE-APPINSIGHTS.md)
 
 ## Configure secrets in Azure Key Vault
 
@@ -128,15 +128,15 @@ Copilot Studio Kit supports testing custom agents with Entra ID v2 (Azure Active
 > Configuring this requires at least the System Administrator security role on the environment, as well as specific permissions in the Azure Key Vault.
 
 If you do not want to store secrets directly in Dataverse, you can choose to store them in Azure Key Vault.
-If you choose to do so, you then need to use environment variables of type secrets so that the Power CAT Copilot Studio Kit can fetch secrets from the key vault when running tests.
+If you choose to do so, you then need to use environment variables of type secrets so that the Copilot Agent Kit can fetch secrets from the key vault when running tests.
 Because each agent configuration may target a different agent and use a different secret, you need to create individual environment variables for each secret.
 
 1. Configure your Azure Key Vault by following this documentation: [Configure Azure Key Vault](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#configure-azure-key-vault).
 2. Go to **[make.powerapps.com](https://make.powerapps.com/)**
-3. Select the **environment** in which you want to install the Power CAT Copilot Studio Kit.
+3. Select the **environment** in which you want to install the Copilot Agent Kit.
 4. Go to **Solutions**
 5. Select **Common Data Services Default Solution** <br>
-   _Note: you can choose to create or use your own custom solution as well. The idea here is to create environment variables that will be used by Power CAT Copilot Studio Kit to retrieve secrets from the Azure Key Vault._
+   _Note: you can choose to create or use your own custom solution as well. The idea here is to create environment variables that will be used by Copilot Agent Kit to retrieve secrets from the Azure Key Vault._
 6. Follow the steps in: [Create a new environment variable for the Key Vault secret](https://learn.microsoft.com/power-apps/maker/data-platform/environmentvariables-azure-key-vault-secrets#create-a-new-environment-variable-for-the-key-vault-secret)
 7. Once created, use the environment variable **schema name** (e.g., cr42e_Copilot1DirectLineSecret) in the agent Configuration record.
 

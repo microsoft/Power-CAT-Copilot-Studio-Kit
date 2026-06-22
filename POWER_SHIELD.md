@@ -16,9 +16,9 @@ Power Shield enables organizations to manage Power Platform connector access thr
 
 Power Shield is delivered as an embedded feature within two dedicated code apps and is also accessible from the model-driven app:
 
-- **Copilot Studio Kit** (model-driven app) — launches Power Shield and routes to the appropriate code app based on the user's security role
-- **Copilot Studio Kit for Makers** — submit and manage connector access requests
-- **Copilot Studio Kit for Admins** — review, approve, and configure Power Shield
+- **Copilot Agent Kit** (model-driven app) — launches Power Shield and routes to the appropriate code app based on the user's security role
+- **Copilot Agent Kit for Makers** — submit and manage connector access requests
+- **Copilot Agent Kit for Admins** — review, approve, and configure Power Shield
 
 ## Key concepts
 
@@ -35,10 +35,10 @@ Power Shield is delivered as an embedded feature within two dedicated code apps 
 
 Before using Power Shield, ensure you have:
 
-- **Copilot Studio Kit prerequisites**: All [prerequisites for the Copilot Studio Kit](PREREQUISITES.md) installed and configured for both code apps.
+- **Copilot Agent Kit prerequisites**: All [prerequisites for the Copilot Agent Kit](PREREQUISITES.md) installed and configured for both code apps.
 - **Security roles**: Users must be assigned one of the following Dataverse security roles:
-  - **CSK - Maker** or **System Administrator** — maker experience in Copilot Studio Kit for Makers
-  - **CSK - Administrator** or **System Administrator** — admin experience in Copilot Studio Kit for Admins
+  - **CAK - Maker** or **System Administrator** — maker experience in Copilot Agent Kit for Makers
+  - **CAK - Administrator** or **System Administrator** — admin experience in Copilot Agent Kit for Admins
 - **Power Platform Administrator role** (admins only): Admins who approve requests and create DLP policies must also have the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). This Microsoft Entra ID role grants permission to create, update, and delete DLP policies via the Power Platform for Admins connector. Without it, DLP policy creation fails after approval.
 
 > [!WARNING]
@@ -138,7 +138,7 @@ The flow runs on a **daily schedule**. The connector sync preserves admin overri
 
 ### Maker
 
-Requires the **CSK - Maker** or **System Administrator** security role. Access Power Shield through the **Copilot Studio Kit for Makers** app (a **[Maker]** badge displays in the header).
+Requires the **CAK - Maker** or **System Administrator** security role. Access Power Shield through the **Copilot Agent Kit for Makers** app (a **[Maker]** badge displays in the header).
 
 Makers can:
 
@@ -151,7 +151,7 @@ Makers can:
 
 ### Admin
 
-Requires the **CSK - Administrator** or **System Administrator** security role. Access Power Shield through the **Copilot Studio Kit for Admins** app (an **[Admin]** badge displays in the header). Approving requests also requires the **Power Platform Administrator** role (see [Prerequisites](#prerequisites)) — the Dataverse security role controls app access; the Power Platform Administrator role controls DLP policy operations.
+Requires the **CAK - Administrator** or **System Administrator** security role. Access Power Shield through the **Copilot Agent Kit for Admins** app (an **[Admin]** badge displays in the header). Approving requests also requires the **Power Platform Administrator** role (see [Prerequisites](#prerequisites)) — the Dataverse security role controls app access; the Power Platform Administrator role controls DLP policy operations.
 
 Admins can:
 
@@ -168,28 +168,28 @@ Users with the **System Administrator** role have access to both apps.
 
 ### Launch options
 
-Power Shield is accessible from three apps within the Copilot Studio Kit solution. Choose the launch option that matches your role and workflow.
+Power Shield is accessible from three apps within the Copilot Agent Kit solution. Choose the launch option that matches your role and workflow.
 
 | App | Type | Audience | Internal name |
 |-----|------|----------|---------------|
-| Copilot Studio Kit | Model-Driven App | All users (auto-routes by role) | `cat_CopilotStudioAccelerator` |
-| Copilot Studio Kit for Admins | Code App | Admins | `cat_copilotstudiokitforadmins` |
-| Copilot Studio Kit for Makers | Code App | Makers | `cat_copilotstudiokitformakers` |
+| Copilot Agent Kit | Model-Driven App | All users (auto-routes by role) | `cat_CopilotStudioAccelerator` |
+| Copilot Agent Kit for Admins | Code App | Admins | `cat_copilotstudiokitforadmins` |
+| Copilot Agent Kit for Makers | Code App | Makers | `cat_copilotstudiokitformakers` |
 
-#### Option A: Launch from the Copilot Studio Kit model-driven app
+#### Option A: Launch from the Copilot Agent Kit model-driven app
 
-1. Open the **Copilot Studio Kit** model-driven app.
+1. Open the **Copilot Agent Kit** model-driven app.
 2. In the left navigation, expand the **Governance** area.
 3. Select **Power Shield**. The unified launcher detects your security role and routes you to the appropriate code app (admin app takes precedence if you have both roles).
 
-#### Option B: Launch from Copilot Studio Kit for Admins
+#### Option B: Launch from Copilot Agent Kit for Admins
 
-1. Open the **Copilot Studio Kit for Admins** code app.
+1. Open the **Copilot Agent Kit for Admins** code app.
 2. In the left sidebar, navigate to **Governance** → **Power Shield**.
 
-#### Option C: Launch from Copilot Studio Kit for Makers
+#### Option C: Launch from Copilot Agent Kit for Makers
 
-1. Open the **Copilot Studio Kit for Makers** code app.
+1. Open the **Copilot Agent Kit for Makers** code app.
 2. In the left sidebar, navigate to **Governance** → **Power Shield**.
 
 ## Maker workflow
@@ -413,7 +413,7 @@ Four configuration areas:
 
 ### Connection Health
 
-Connection Health is the single place to manage Power Shield connection references and cloud flow activation. Use it for initial setup and ongoing monitoring — connections can break and flows can be turned off at any time. Available only to users with the **CSK - Administrator** or **System Administrator** security role.
+Connection Health is the single place to manage Power Shield connection references and cloud flow activation. Use it for initial setup and ongoing monitoring — connections can break and flows can be turned off at any time. Available only to users with the **CAK - Administrator** or **System Administrator** security role.
 
 Open Connection Health from either:
 
@@ -694,7 +694,7 @@ All tables use the `cat_` publisher prefix.
 
 **Cannot see the Settings Hub or admin configuration screens**
 
-- Requires the **CSK - Administrator** security role. Contact your Dataverse administrator.
+- Requires the **CAK - Administrator** security role. Contact your Dataverse administrator.
 
 **Connector icons not loading**
 

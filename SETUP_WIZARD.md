@@ -1,7 +1,7 @@
 # Setup wizard
 ## Overview
 
-Setup Wizard can be accessed from the home page of the Copilot Studio Kit. Setup Wizard provides a guided flow through most of the post deployment steps where pre-requisites are checked, connection references and environment variables can be set, and cloud flows can be turned on. You can move forward and backward between steps by clicking Back and Next buttons.
+Setup Wizard can be accessed from the home page of the Copilot Agent Kit. Setup Wizard provides a guided flow through most of the post deployment steps where pre-requisites are checked, connection references and environment variables can be set, and cloud flows can be turned on. You can move forward and backward between steps by clicking Back and Next buttons.
 
 ![image](https://github.com/user-attachments/assets/db4095ff-9f35-4458-b2e5-b2d41e3ca7b9)
 
@@ -19,13 +19,13 @@ The connection references step lists all the connection references used by the K
 
 ## Environment Variables
 
-The environment variables step lists all the environment variables that are used in the Copilot Studio Kit, with descriptions how they are used, how they should be set and when. Setting the environment variables from this view is also possible.
+The environment variables step lists all the environment variables that are used in the Copilot Agent Kit, with descriptions how they are used, how they should be set and when. Setting the environment variables from this view is also possible.
 
 ![image](https://github.com/user-attachments/assets/e0f6031b-17de-48af-843a-a773e7e66375)
 
 ## Flow activation
 
-Flow activation view allows user to view the current status of Copilot Studio Kit flows and they can be easily turned on from this view as well. Some of the flows cannot be turned on before setting related connection references. Flows are named so that the feature they are used in can easily be seen as the prefix. Users only need to enable the flows for the features they are planning to use.
+Flow activation view allows user to view the current status of Copilot Agent Kit flows and they can be easily turned on from this view as well. Some of the flows cannot be turned on before setting related connection references. Flows are named so that the feature they are used in can easily be seen as the prefix. Users only need to enable the flows for the features they are planning to use.
 
 ![image](https://github.com/user-attachments/assets/fdbc6ab7-6512-4ab1-ae8f-965cfa2cb5ca)
 

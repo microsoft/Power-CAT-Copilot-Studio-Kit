@@ -1,4 +1,4 @@
-# Troubleshoot errors in Power CAT Copilot Studio Kit
+# Troubleshoot errors in Copilot Agent Kit
 ## AppForbidden or other DLP errors
 
 Ensure that you have the following connectors allowed in the DLP policy
@@ -9,16 +9,16 @@ Ensure that you have the following connectors allowed in the DLP policy
 
 Typically, two app registrations need to be created for the end user authentication:
 
-**KitAuthApp** – Used in Copilot Studio Kit agent configurations
+**KitAuthApp** – Used in Copilot Agent Kit agent configurations
 
 **CopilotStudioAuthApp**  - Used in Copilot Studio, linked to KitAuthApp
 
 #### General checklist
-* Ensure that the custom agent (Copilot Studio) and the Copilot Studio Kit are on the same tenant
-* Before enabling end user authentication, make sure authentication is disabled on both the custom agent and agent configuration in Copilot Studio Kit and run a simple test to verify that the connectivity works
+* Ensure that the custom agent (Copilot Studio) and the Copilot Agent Kit are on the same tenant
+* Before enabling end user authentication, make sure authentication is disabled on both the custom agent and agent configuration in Copilot Agent Kit and run a simple test to verify that the connectivity works
 
 #### Checklist for KitAuthApp
-* In Azure Portal, Authentication, verify that Web Redirect URI has the Dataverse URI where Copilot Studio Kit is deployed to
+* In Azure Portal, Authentication, verify that Web Redirect URI has the Dataverse URI where Copilot Agent Kit is deployed to
 * Verify that supported account types is “Accounts in any organizational directory (Any Microsoft Entra ID tenant - Multitenant) and personal Microsoft accounts (e.g. Skype, Xbox)”
 * In API permissions, verify that User.Read permission is in the list, delegated and has admin consent granted
 * Verify that client secret is created and that secret is in the Agent Configuration (User Authentication->Client Secret)
@@ -48,7 +48,7 @@ Typically, two app registrations need to be created for the end user authenticat
 *	Ensure that test pane works
 *	Ensure that demo site works (including login)
 
-#### Checklist for the agent configuration in Copilot Studio Kit
+#### Checklist for the agent configuration in Copilot Agent Kit
 * Ensure token endpoint is correctly set (copied from mobile channel) OR channel security is set and the correct secret is configured
 * Ensure user authentication is set to “Entra ID v2”
 * Ensure that the Client ID is the client id of KitAuthApp

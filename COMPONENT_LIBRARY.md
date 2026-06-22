@@ -1,8 +1,8 @@
-# Copilot Studio Kit Component Library
+# Copilot Agent Kit Component Library
 
 The Component Library provides a set of reusable, pre-built components for Microsoft Copilot Studio. Each component is packaged as its own [component collection](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components), so you can install only the components you need. Import the solution into your environment, add the component collections you want to your agent, and use your agent’s instructions to tell the agent how to use them, or directly reference the prompts and flows to enhance your topic.
 
-![Component Library in the Copilot Studio Kit](docs/images/component-library.png)
+![Component Library in the Copilot Agent Kit](docs/images/component-library.png)
 
 > [!NOTE]
 > The Component Library is available as both a managed and an unmanaged solution. Use the **managed** solution to [add components to your agents](#using-components-with-a-managed-solution) without modification. Use the **unmanaged** solution only if you need to [edit component internals](#customizing-components-with-an-unmanaged-solution). There is only one instance of each component per environment, so any edit you make to a topic, prompt, or flow inside the Component Library applies to **every agent** that uses that component in the same environment.
@@ -360,15 +360,15 @@ The Component Library is shipped as five separate solutions:
 
 Import the **Content Synthesizer** solution first — the Research and Executive Brief components depend on it. Only import the ServiceNow solution if you have a ServiceNow instance and need incident management capabilities.
 
-There are two ways to install components: using the built-in Component Library in the Copilot Studio Kit, or by manually importing solutions.
+There are two ways to install components: using the built-in Component Library in the Copilot Agent Kit, or by manually importing solutions.
 
-#### Option A — Install from the Copilot Studio Kit (recommended)
+#### Option A — Install from the Copilot Agent Kit (recommended)
 
-If you are running the Copilot Studio Kit, you can browse and install components directly from the built-in **Component Library** page.
+If you are running the Copilot Agent Kit, you can browse and install components directly from the built-in **Component Library** page.
 
-![Component Library in the Copilot Studio Kit](docs/images/component-library.png)
+![Component Library in the Copilot Agent Kit](docs/images/component-library.png)
 
-1.  In the Copilot Studio Kit, select **Component Library** in the left navigation under Productivity.
+1.  In the Copilot Agent Kit, select **Component Library** in the left navigation under Productivity.
 2.  Browse the available components or use the category tabs and search bar to find what you need.
 3.  Select a component card to open the component details dialog.
 
@@ -384,13 +384,13 @@ The details dialog shows the component description, category, input/output varia
 
 #### Option B — Manual import via Power Apps
 
-Use this option if you do not have the Copilot Studio Kit installed, or if you downloaded the solutions .zip from the Component Library and need to import them manually.
+Use this option if you do not have the Copilot Agent Kit installed, or if you downloaded the solutions .zip from the Component Library and need to import them manually.
 
 ##### Step 1 — Download and extract the solutions
 
 All five component solutions are distributed as a single compressed (.zip) file. You can get this file in one of two ways:
 
-*   **From the Copilot Studio Kit** — select the **Download** button on any component in the Component Library.
+*   **From the Copilot Agent Kit** — select the **Download** button on any component in the Component Library.
 *   **From GitHub** — go to the [latest release](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/latest) and download the component solutions .zip under Assets.
 
 After downloading:
@@ -549,8 +549,8 @@ Common customizations include:
 
 ## Related content
 
-*   [Copilot Studio Kit overview](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-overview)
-*   [Install Copilot Studio Kit](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-install)
+*   [Copilot Agent Kit overview](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-overview)
+*   [Install Copilot Agent Kit](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-install)
 *   [Create and share reusable component collections](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components)
 *   [Create and manage solutions in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-overview)
 *   [Export and import agents using solutions](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-import-export)
@@ -558,6 +558,6 @@ Common customizations include:
 *   [Add an agent flow to an agent as a tool](https://learn.microsoft.com/microsoft-copilot-studio/flow-agent)
 *   [Use Power Platform connectors as tools](https://learn.microsoft.com/microsoft-copilot-studio/advanced-connectors)
 *   [Use prompts to make your agent perform specific tasks](https://learn.microsoft.com/microsoft-copilot-studio/nlu-prompt-node)
-*   [Copilot Studio Kit on GitHub](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit)
+*   [Copilot Agent Kit on GitHub](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit)
 *   [Microsoft Copilot Studio documentation](https://learn.microsoft.com/microsoft-copilot-studio/)
 *   [AI Builder documentation](https://learn.microsoft.com/ai-builder/)

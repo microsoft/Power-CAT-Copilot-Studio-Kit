@@ -1,4 +1,4 @@
-# Analyzing test results in Power CAT Copilot Studio Kit
+# Analyzing test results in Copilot Agent Kit
 
 ## Test run details
 

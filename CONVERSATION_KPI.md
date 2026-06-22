@@ -4,11 +4,11 @@ Conversation KPI are designed to help makers track and analyze the performance o
 
 * Aggregated Data: The feature surfaces simplified conversation outcome results, making it easier to understand the performance of your custom agents. This includes metrics such as the number of sessions, turns, and the global outcome of conversations (e.g., resolved, partially resolved, escalated, or abandoned).
 
-* Sample Power BI Reports: The Copilot Studio Kit offers a sample Power BI reports based on aggregated KPIs. These reports provide a visual representation of the data, helping you quickly identify trends and areas for improvement, and provide a solid starting point for your own custom reports.
+* Sample Power BI Reports: The Copilot Agent Kit offers a sample Power BI reports based on aggregated KPIs. These reports provide a visual representation of the data, helping you quickly identify trends and areas for improvement, and provide a solid starting point for your own custom reports.
 
 * Tracked Variables: You can define specific variables to track as part of the aggregated conversation KPI, such as custom Net Promoter Score (NPS) or other relevant metrics. This allows you to tailor the KPIs to your specific needs.
 
-* Optional Full Transcript Storage: Users have the option to include the full conversation transcript with the KPI records (as file). This allows for a more detailed analysis if needed, using the transcript visualizer built into the Copilot Studio Kit.
+* Optional Full Transcript Storage: Users have the option to include the full conversation transcript with the KPI records (as file). This allows for a more detailed analysis if needed, using the transcript visualizer built into the Copilot Agent Kit.
 
 * Long-term tracking: Conversation KPI can be stored in the system for as long as required which allows tracking the impact of improvements and performance of custom copilots over long time-period.
 

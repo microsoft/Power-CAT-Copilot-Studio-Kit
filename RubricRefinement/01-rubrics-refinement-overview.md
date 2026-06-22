@@ -2,7 +2,7 @@
 
 ## What is Rubrics Refinement?
 
-Rubrics Refinement is a powerful capability in Copilot Studio Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
+Rubrics Refinement is a powerful capability in Copilot Agent Kit that enables you to create, test, and iteratively improve reusable evaluation standards (rubrics) for AI-generated responses. This feature helps ensure that AI grading of your agent's responses aligns with human judgment and organizational quality standards.
 
 ## The Problem It Solves
 
@@ -64,7 +64,7 @@ Response optimizationâ€”actually improving the quality of your agent's answersâ€
 
 ## Two Modes of Rubric Usage
 
-Rubrics in Copilot Studio Kit serve two distinct purposes:
+Rubrics in Copilot Agent Kit serve two distinct purposes:
 
 ### 1. Testing Mode (Test Case Level)
 - **Purpose**: Regular test automation with custom grading criteria
