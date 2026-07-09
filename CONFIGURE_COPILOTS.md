@@ -60,6 +60,17 @@ Note: These fields are mandatory for all configuration types.
 
 3. **Save**
 
+### Scheduled Testing
+
+If you want to run tests through Power Platform pipelines, enable the **Scheduled Testing** section and provide the required pipeline details.
+
+| Column Name | Required | Description |
+| --- | --- | --- |
+| **Pipeline Enabled** | No | Enable this option if this agent configuration should be used for scheduled or pipeline-based test execution. |
+| **Agent Schema Name** | Depends | Required when **Pipeline Enabled** is set to **Yes**. Enter the schema name of the agent to be used for pipeline execution. |
+| **Environment Id** | Depends | Required when **Pipeline Enabled** is set to **Yes**. Enter the environment ID where the agent is available and where the pipeline execution should run. |
+
+
 ## Configure a new Agent for Conversation KPIs
 
 1. Select "**Conversation KPIs**" from Configuration Type(s).
