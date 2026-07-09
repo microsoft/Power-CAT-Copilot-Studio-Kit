@@ -69,7 +69,13 @@ If you want to run tests through Power Platform pipelines, enable the **Schedule
 | **Pipeline Enabled** | No | Enable this option if this agent configuration should be used for scheduled or pipeline-based test execution. |
 | **Agent Schema Name** | Depends | Required when **Pipeline Enabled** is set to **Yes**. Enter the schema name of the agent to be used for pipeline execution. |
 | **Environment Id** | Depends | Required when **Pipeline Enabled** is set to **Yes**. Enter the environment ID where the agent is available and where the pipeline execution should run. |
+### Scheduled Testing limitations
 
+The following capabilities are currently not supported in Scheduled Testing:
+
+- **Send startConversation Event**
+- **External Variables JSON**
+- **Invoke Actions** in the **Attachments (Adaptive Cards, etc.)** test type
 
 ## Configure a new Agent for Conversation KPIs
 
