@@ -147,7 +147,7 @@ Based on the [Microsoft Agents Sample Documentation](https://github.com/microsof
 3. **Verify Account Types**
    - Ensure **Accounts in this organizational directory only** is selected
 
-### **Step 4: Getting Environment ID & Agent Identifier (Schema Name)**
+### **Step 4: Getting Environment ID & Agent Schema Name (Schema Name)**
 
 1. **Navigate to Copilot Studio**
 
@@ -168,7 +168,7 @@ Based on the [Microsoft Agents Sample Documentation](https://github.com/microsof
 
 4. **Copy Environment ID & Schema Name**
    - Note the **Environment ID** value
-   - Note the **Schema name** value. This is your **Agent Identifier**. Format: `cr123_agentname` or similar
+   - Note the **Schema name** value. This is your **Agent Schema Name**. Format: `cr123_agentname` or similar
 
 ### **Step 5: Configure Agent Configuration**
 
@@ -180,7 +180,7 @@ Create **Agent Configuration** record in Dataverse with the values from previous
 | **Client ID**           | Application (client) ID from Step 1  | `12345678-1234-1234-1234-123456789012` |
 | **Tenant ID**           | Directory (tenant) ID from Step 1    | `87654321-4321-4321-4321-210987654321` |
 | **Environment ID**      | Environment ID from previous section | `11111111-2222-3333-4444-555555555555` |
-| **Agent Identifier**    | Schema name from previous section    | `cr123_testagent`                      |
+| **Agent Schema Name**    | Schema name from previous section    | `cr123_testagent`                      |
 
 ## Troubleshooting Guide
 
@@ -224,9 +224,9 @@ Create **Agent Configuration** record in Dataverse with the values from previous
 
 #### **Error: "404 Not Found - Agent not found"**
 
-- **Cause**: Incorrect Agent Identifier or Environment ID
+- **Cause**: Incorrect Agent Schema Name or Environment ID
 - **Solution**:
-  1. Verify Agent Identifier in Copilot Studio > Settings > Advanced > Metadata
+  1. Verify Agent Schema Name in Copilot Studio > Settings > Advanced > Metadata
   2. Ensure Environment ID matches the environment where agent is published
   3. Confirm agent is published and accessible
 
@@ -256,7 +256,7 @@ Create **Agent Configuration** record in Dataverse with the values from previous
      - Client ID
      - Tenant ID
      - Environment ID
-     - Agent Identifier
+     - Agent Schema Name
   2. Check for extra spaces or invalid characters
 
 #### **Error: "External service call blocked"**
