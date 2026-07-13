@@ -19,16 +19,20 @@
 
 ## Connectors used (for DLP configuration purposes)
 
-| Name | Description  | Notes |
-| :-- | :-- | :-- |
-| Microsoft Dataverse | Provides access to Microsoft Dataverse actions and triggers for Power Platform environments. | Used everywhere in Kit |
-| Sharepoint |  | Used in SharePoint synchronization |
-| Office 365 Outlook | | Used in Agent Review Tool |
-| Power Platform for Admins | | Used in Agent Inventory |
-| Microsoft Entra ID | Used to obtain a user access token for connecting to the agent during test automation when the agent is configured with manual authentication. | Used in Test Automation |
-| [Legacy] Microsoft Dataverse | | |
-| Direct Line channels in Copilot Studio | | Used in Test Automation |
-| Power Apps for Makers | Used to get or create the required connections in the Power Platform environment. | Used in the Setup Wizard |
+| Connector | Used by feature(s) |
+| :-- | :-- |
+| Microsoft Dataverse | Core (all features), Power Shield, Agent Review Tool |
+| Power Platform for Admins | Agent Inventory |
+| Power Platform for Admins V2 | Agent Inventory, Compliance Hub |
+| Microsoft Teams | Compliance Hub |
+| Office 365 Groups | Compliance Hub |
+| Office 365 Users | Compliance Hub |
+| Office 365 Outlook | Compliance Hub |
+| Approvals | Compliance Hub |
+| SharePoint Online | SharePoint File Sync |
+| Power Apps for Makers | Setup Wizard, Power Shield |
+| HTTP with Microsoft Entra ID (preauthorized) | Power Shield, Usage Metrics |
+| Microsoft Copilot Studio | Test Automation and Pipeline |
 
 ## Agent Inventory data sources
 Please refer to the [Agent Inventory -Data Source](AGENT_INVENTORY_DATA_SOURCE.md) file for more information.

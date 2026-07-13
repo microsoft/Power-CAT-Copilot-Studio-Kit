@@ -1,9 +1,24 @@
 # Troubleshoot errors in Copilot Agent Kit
 ## AppForbidden or other DLP errors
 
-Ensure that you have the following connectors allowed in the DLP policy
+Ensure that the following connectors are allowed in the DLP policies applied to the environment. Every connector shipped in the Kit solution must be allowed and its connection populated at solution import time — regardless of which features you use afterwards.
 
-![image](https://github.com/user-attachments/assets/5fc5ead4-72d4-427b-b354-12940a00a0d8)
+| Connector | Used by feature(s) |
+| :-- | :-- |
+| Microsoft Dataverse | Core (all features), Power Shield, Agent Review Tool |
+| Power Platform for Admins | Agent Inventory |
+| Power Platform for Admins V2 | Agent Inventory, Compliance Hub |
+| Microsoft Teams | Compliance Hub |
+| Office 365 Groups | Compliance Hub |
+| Office 365 Users | Compliance Hub |
+| Office 365 Outlook | Compliance Hub |
+| Approvals | Compliance Hub |
+| SharePoint Online | SharePoint File Sync |
+| Power Apps for Makers | Setup Wizard, Power Shield |
+| HTTP with Microsoft Entra ID (preauthorized) | Power Shield, Usage Metrics |
+| Microsoft Copilot Studio | Test Automation and Pipeline |
+
+See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the authoritative list.
 
 ## Authentication errors
 

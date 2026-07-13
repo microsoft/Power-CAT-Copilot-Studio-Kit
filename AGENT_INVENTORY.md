@@ -31,6 +31,19 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 
 ![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
 
+## Connectors used
+
+Agent Inventory (including Usage Metrics) uses the following connectors. All must be allowed by the DLP policies applied to the environment, and connections must be populated at solution import time.
+
+| Connector |
+| :-- |
+| Microsoft Dataverse |
+| Power Platform for Admins |
+| Power Platform for Admins V2 |
+| HTTP with Microsoft Entra ID (preauthorized) |
+
+See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
+
 ## Using Usage Metrics in Agent Inventory 
 You can view usage details for your agent over the past 180 days in **Agent Inventory**. Agent Usage Metrics is distributed as an optional separate solution due to its connector requirements.
 

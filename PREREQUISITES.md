@@ -53,7 +53,22 @@ AI Builder capabilities consume Copilot Credits (and first AI Builder credits if
 
 ## Connector requirements
 
-- [Microsoft Dataverse](https://learn.microsoft.com/connectors/commondataserviceforapps/)
+Every connector shipped in the Copilot Agent Kit solution must be allowed by the Data Loss Prevention (DLP) policies applied to the target environment, and the corresponding connections must be populated at solution import time — regardless of which features you intend to use afterwards.
+
+| Connector | Used by feature(s) |
+| :-- | :-- |
+| [Microsoft Dataverse](https://learn.microsoft.com/connectors/commondataserviceforapps/) | Core (all features), Power Shield, Agent Review Tool |
+| [Power Platform for Admins](https://learn.microsoft.com/connectors/powerplatformforadmins/) | Agent Inventory |
+| [Power Platform for Admins V2](https://learn.microsoft.com/connectors/powerplatformadminv2/) | Agent Inventory, Compliance Hub |
+| [Microsoft Teams](https://learn.microsoft.com/connectors/teams/) | Compliance Hub |
+| [Office 365 Groups](https://learn.microsoft.com/connectors/office365groups/) | Compliance Hub |
+| [Office 365 Users](https://learn.microsoft.com/connectors/office365users/) | Compliance Hub |
+| [Office 365 Outlook](https://learn.microsoft.com/connectors/office365/) | Compliance Hub |
+| [Approvals](https://learn.microsoft.com/connectors/approvals/) | Compliance Hub |
+| [SharePoint Online](https://learn.microsoft.com/connectors/sharepointonline/) | SharePoint File Sync |
+| [Power Apps for Makers](https://learn.microsoft.com/connectors/powerappsforappmakers/) | Setup Wizard, Power Shield |
+| [HTTP with Microsoft Entra ID (preauthorized)](https://learn.microsoft.com/connectors/webcontents/) | Power Shield, Usage Metrics |
+| [Microsoft Copilot Studio](https://learn.microsoft.com/connectors/microsoftcopilotstudio/) | Test Automation and Pipeline |
 
 ## Next step
 [Installation instructions](./INSTALLATION_INSTRUCTIONS.md)
