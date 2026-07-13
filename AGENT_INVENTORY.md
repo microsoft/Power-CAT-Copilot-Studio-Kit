@@ -31,6 +31,19 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 
 ![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
 
+## Connectors used
+
+Agent Inventory uses the following connectors. All must be allowed by the DLP policies applied to the environment, and connections must be populated at solution import time.
+
+| Connector | Connector API | Solution |
+| :-- | :-- | :-- |
+| Microsoft Dataverse | `shared_commondataserviceforapps` | CopilotAgentKit (main) |
+| Power Platform for Admins | `shared_powerplatformforadmins` | CopilotAgentKit (main) |
+| Power Platform for Admins V2 | `shared_powerplatformadminv2` | CopilotAgentKit (main) |
+| HTTP with Microsoft Entra ID (preauthorized) | `shared_webcontents` | AgentInventoryUsage (add-on, for Usage Metrics) |
+
+See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
+
 ## Using Usage Metrics in Agent Inventory 
 You can view usage details for your agent over the past 180 days in **Agent Inventory**. Agent Usage Metrics is distributed as an optional separate solution due to its connector requirements.
 

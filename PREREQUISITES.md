@@ -53,7 +53,26 @@ AI Builder capabilities consume Copilot Credits (and first AI Builder credits if
 
 ## Connector requirements
 
-- [Microsoft Dataverse](https://learn.microsoft.com/connectors/commondataserviceforapps/)
+The Copilot Agent Kit solutions ship connection references for the connectors below. Every connector shipped in a solution must be allowed by the Data Loss Prevention (DLP) policies applied to the target environment, and the corresponding connections must be populated at import time — regardless of which features you intend to use afterwards. Which connectors apply depends on which solutions you import:
+
+- **CopilotAgentKit** (main solution) — required for all installations.
+- **AgentInventoryUsage** (optional add-on) — adds the *Power Platform Licensing* connection (HTTP with Microsoft Entra ID preauthorized).
+- **AgentReviewTool** (optional add-on) — adds an additional Microsoft Dataverse connection reference.
+
+| Connector | Connector API | Used by feature(s) |
+| :-- | :-- | :-- |
+| [Microsoft Dataverse](https://learn.microsoft.com/connectors/commondataserviceforapps/) | `shared_commondataserviceforapps` | Core (all features), Power Shield, Agent Review Tool |
+| [Power Platform for Admins](https://learn.microsoft.com/connectors/powerplatformforadmins/) | `shared_powerplatformforadmins` | Agent Inventory |
+| [Power Platform for Admins V2](https://learn.microsoft.com/connectors/powerplatformadminv2/) | `shared_powerplatformadminv2` | Agent Inventory, Compliance Hub |
+| [Microsoft Teams](https://learn.microsoft.com/connectors/teams/) | `shared_teams` | Compliance Hub |
+| [Office 365 Groups](https://learn.microsoft.com/connectors/office365groups/) | `shared_office365groups` | Compliance Hub |
+| [Office 365 Users](https://learn.microsoft.com/connectors/office365users/) | `shared_office365users` | Compliance Hub |
+| [Office 365 Outlook](https://learn.microsoft.com/connectors/office365/) | `shared_office365` | Compliance Hub |
+| [Approvals](https://learn.microsoft.com/connectors/approvals/) | `shared_approvals` | Compliance Hub |
+| [SharePoint Online](https://learn.microsoft.com/connectors/sharepointonline/) | `shared_sharepointonline` | SharePoint File Sync |
+| [Power Apps for Makers](https://learn.microsoft.com/connectors/powerappsforappmakers/) | `shared_powerappsforappmakers` | Setup Wizard, Power Shield |
+| [HTTP with Microsoft Entra ID (preauthorized)](https://learn.microsoft.com/connectors/webcontents/) | `shared_webcontents` | Power Shield, Usage Metrics (add-on) |
+| [Microsoft Copilot Studio](https://learn.microsoft.com/connectors/microsoftcopilotstudio/) | `shared_microsoftcopilotstudio` | Test Automation and Pipeline |
 
 ## Next step
 [Installation instructions](./INSTALLATION_INSTRUCTIONS.md)

@@ -1,9 +1,24 @@
 # Troubleshoot errors in Copilot Agent Kit
 ## AppForbidden or other DLP errors
 
-Ensure that you have the following connectors allowed in the DLP policy
+Ensure that the following connectors are allowed in the DLP policies applied to the environment. Every connector shipped in a Kit solution must be allowed and its connection populated at solution import time — regardless of which features you use afterwards.
 
-![image](https://github.com/user-attachments/assets/5fc5ead4-72d4-427b-b354-12940a00a0d8)
+| Connector | Connector API | Used by feature(s) |
+| :-- | :-- | :-- |
+| Microsoft Dataverse | `shared_commondataserviceforapps` | Core (all features), Power Shield, Agent Review Tool |
+| Power Platform for Admins | `shared_powerplatformforadmins` | Agent Inventory |
+| Power Platform for Admins V2 | `shared_powerplatformadminv2` | Agent Inventory, Compliance Hub |
+| Microsoft Teams | `shared_teams` | Compliance Hub |
+| Office 365 Groups | `shared_office365groups` | Compliance Hub |
+| Office 365 Users | `shared_office365users` | Compliance Hub |
+| Office 365 Outlook | `shared_office365` | Compliance Hub |
+| Approvals | `shared_approvals` | Compliance Hub |
+| SharePoint Online | `shared_sharepointonline` | SharePoint File Sync |
+| Power Apps for Makers | `shared_powerappsforappmakers` | Setup Wizard, Power Shield |
+| HTTP with Microsoft Entra ID (preauthorized) | `shared_webcontents` | Power Shield, Usage Metrics (add-on) |
+| Microsoft Copilot Studio | `shared_microsoftcopilotstudio` | Test Automation and Pipeline |
+
+See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the authoritative list.
 
 ## Authentication errors
 
