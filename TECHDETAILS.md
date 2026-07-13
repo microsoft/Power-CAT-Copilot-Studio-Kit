@@ -19,20 +19,20 @@
 
 ## Connectors used (for DLP configuration purposes)
 
-| Connector | Connector API | Used by feature(s) |
-| :-- | :-- | :-- |
-| Microsoft Dataverse | `shared_commondataserviceforapps` | Core (all features), Power Shield, Agent Review Tool |
-| Power Platform for Admins | `shared_powerplatformforadmins` | Agent Inventory |
-| Power Platform for Admins V2 | `shared_powerplatformadminv2` | Agent Inventory, Compliance Hub |
-| Microsoft Teams | `shared_teams` | Compliance Hub |
-| Office 365 Groups | `shared_office365groups` | Compliance Hub |
-| Office 365 Users | `shared_office365users` | Compliance Hub |
-| Office 365 Outlook | `shared_office365` | Compliance Hub |
-| Approvals | `shared_approvals` | Compliance Hub |
-| SharePoint Online | `shared_sharepointonline` | SharePoint File Sync |
-| Power Apps for Makers | `shared_powerappsforappmakers` | Setup Wizard, Power Shield |
-| HTTP with Microsoft Entra ID (preauthorized) | `shared_webcontents` | Power Shield, Usage Metrics (add-on) |
-| Microsoft Copilot Studio | `shared_microsoftcopilotstudio` | Test Automation and Pipeline |
+| Connector | Used by feature(s) |
+| :-- | :-- |
+| Microsoft Dataverse | Core (all features), Power Shield, Agent Review Tool |
+| Power Platform for Admins | Agent Inventory |
+| Power Platform for Admins V2 | Agent Inventory, Compliance Hub |
+| Microsoft Teams | Compliance Hub |
+| Office 365 Groups | Compliance Hub |
+| Office 365 Users | Compliance Hub |
+| Office 365 Outlook | Compliance Hub |
+| Approvals | Compliance Hub |
+| SharePoint Online | SharePoint File Sync |
+| Power Apps for Makers | Setup Wizard, Power Shield |
+| HTTP with Microsoft Entra ID (preauthorized) | Power Shield, Usage Metrics |
+| Microsoft Copilot Studio | Test Automation and Pipeline |
 
 ## Agent Inventory data sources
 Please refer to the [Agent Inventory -Data Source](AGENT_INVENTORY_DATA_SOURCE.md) file for more information.

@@ -33,14 +33,14 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 
 ## Connectors used
 
-Agent Inventory uses the following connectors. All must be allowed by the DLP policies applied to the environment, and connections must be populated at solution import time.
+Agent Inventory (including Usage Metrics) uses the following connectors. All must be allowed by the DLP policies applied to the environment, and connections must be populated at solution import time.
 
-| Connector | Connector API | Solution |
-| :-- | :-- | :-- |
-| Microsoft Dataverse | `shared_commondataserviceforapps` | CopilotAgentKit (main) |
-| Power Platform for Admins | `shared_powerplatformforadmins` | CopilotAgentKit (main) |
-| Power Platform for Admins V2 | `shared_powerplatformadminv2` | CopilotAgentKit (main) |
-| HTTP with Microsoft Entra ID (preauthorized) | `shared_webcontents` | AgentInventoryUsage (add-on, for Usage Metrics) |
+| Connector |
+| :-- |
+| Microsoft Dataverse |
+| Power Platform for Admins |
+| Power Platform for Admins V2 |
+| HTTP with Microsoft Entra ID (preauthorized) |
 
 See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
 

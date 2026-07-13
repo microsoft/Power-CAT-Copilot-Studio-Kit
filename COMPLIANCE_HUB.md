@@ -29,18 +29,18 @@ Before setting up the Compliance Hub, ensure you have:
   - Outlook for additional notification channel
 - **Data Loss Prevention policy** must allow the following connectors:
 
-  | Connector | Connector API |
-  | :-- | :-- |
-  | Microsoft Dataverse | `shared_commondataserviceforapps` |
-  | Power Platform for Admins V2 | `shared_powerplatformadminv2` |
-  | Microsoft Teams | `shared_teams` |
-  | Office 365 Groups | `shared_office365groups` |
-  | Office 365 Users | `shared_office365users` |
-  | Office 365 Outlook | `shared_office365` |
-  | Approvals | `shared_approvals` |
+  | Connector |
+  | :-- |
+  | Microsoft Dataverse |
+  | Power Platform for Admins V2 |
+  | Microsoft Teams |
+  | Office 365 Groups |
+  | Office 365 Users |
+  | Office 365 Outlook |
+  | Approvals |
 
   > [!NOTE]
-  > Agent Inventory is a prerequisite for Compliance Hub, so the connectors it requires ([Power Platform for Admins](https://learn.microsoft.com/connectors/powerplatformforadmins/) `shared_powerplatformforadmins` and Microsoft Dataverse) must also be allowed. See [Prerequisites](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
+  > Agent Inventory is a prerequisite for Compliance Hub, so the connectors it requires (**Power Platform for Admins** and **Microsoft Dataverse**) must also be allowed. See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
 
 ## Roles and responsibilities
 
