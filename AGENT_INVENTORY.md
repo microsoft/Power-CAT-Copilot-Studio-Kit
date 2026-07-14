@@ -31,6 +31,51 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 
 ![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
 
+## Actions (New Feature)
+
+Agent Inventory lets administrators act on agents directly from the grid. The available actions are **View Details**, **Reassign**, **Quarantine**, and **Unquarantine**. The actions appear on the command bar based on the number and status of the agents selected in the grid.
+
+![actions shown on the Inventory grid](./media/agent-inventory/actions-shown.png)
+
+### Action availability
+
+The **Status** column in the grid is populated during the Agent Inventory sync and reflects the value coming from PPAC (One Inventory data). Which actions are shown depends on how many records are selected and their status:
+
+| Action | Selection rule | Hidden when |
+| :-- | :-- | :-- |
+| **View Details** | Shown only when exactly **one** record is selected. | Zero or more than one record is selected. |
+| **Reassign** | One or many records (up to a **maximum of 50**) can be selected. | Any selected agent is not eligible for reassign. |
+| **Quarantine** | One or many records in **Draft** or **Available** status (up to a **maximum of 50**) can be selected. | Any selected agent is **Blocked** or not eligible for quarantine. |
+| **Unquarantine** | One or many records in **Blocked** status (up to a **maximum of 50**) can be selected. | Any selected agent is **Draft**, **Available**, or not eligible for unquarantine. |
+
+When the selection includes an agent that does not meet the criteria for an action, that action is hidden from the command bar.
+
+![actions hidden when selection is not eligible](./media/agent-inventory/actions-hide.png)
+
+The action is hidden when any selected agent's status is incompatible with the operation (for example, Quarantine is hidden if a **Blocked** agent is selected).
+
+![Quarantine action hidden for ineligible selection](./media/agent-inventory/quarantine-unquarantine-hide.png)
+
+### Reassign
+
+Some organizations require agents to have owners for compliance purposes. The agent's owner can edit the agent, publish updates, delete it, or share it with teammates. Selecting **Reassign** opens a dialog where you can choose any user who has a license for Microsoft 365 Copilot. All selected agents will be reassigned to the chosen user.
+
+![Reassign Agent dialog](./media/agent-inventory/reassign-agents.png)
+
+Once the reassignment completes, the **Reassign Status** column shows **Complete** for each agent.
+
+![Reassign Agent completed](./media/agent-inventory/reassign-agents-success.png)
+
+### Quarantine and Unquarantine
+
+**Quarantine** blocks an agent, and **Unquarantine**  unblocks an agent. Selecting the action opens a confirmation dialog listing the environment, agent, and current agent status. Confirm the operation to apply the change to the selected agents.
+
+![Quarantine / Unquarantine confirmation dialog](./media/agent-inventory/quarantine-unquarantine-show.png)
+
+### Actions on the Agent Details screen
+
+The same actions are available on the **Agent Details** screen for the individual agent. On this screen the quarantine/unquarantine status shown is based on the **live status** of the agent, rather than the synced status displayed in the grid.
+
 ## Connectors used
 
 Agent Inventory (including Usage Metrics) uses the following connectors. All must be allowed by the DLP policies applied to the environment, and connections must be populated at solution import time.
@@ -45,7 +90,7 @@ Agent Inventory (including Usage Metrics) uses the following connectors. All mus
 See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
 
 ## Using Usage Metrics in Agent Inventory 
-You can view usage details for your agent over the past 180 days in **Agent Inventory**. Agent Usage Metrics is distributed as an optional separate solution due to its connector requirements.
+You can view usage details for your agent over the past 180 days in **Agent Inventory**. Usage Metrics is now included in the **Copilot Agent Kit main solution**, so no separate solution import is required.
 
 ### Prerequisites 
 
@@ -54,13 +99,16 @@ Before using the usage metrics feature:
 1. **Install** the **Copilot Agent Kit main solution**.
 2. **Ensure** that the connector **HTTP with Microsoft Entra ID (preauthorized)** is allowed in your environment.
 
-### Installation Instructions 
+### Connection Creation 
 
-To enable usage metrics on top of the Copilot Agent Kit main solution, you must **import the `AgentInventoryUsage` solution**, available in the **Latest release Assets directory**.
+The **HTTP with Microsoft Entra ID (preauthorized)** connection values depend on the cloud your tenant runs in (Commercial, GCC, GCC High, or DoD). Use the **Base Resource URL** and **Microsoft Entra ID Resource URI** that match your cloud when creating the connection:
 
-During the import process, create a connection using the licensing host URL: https://licensing.powerplatform.microsoft.com/
+| Cloud | Base Resource URL | Microsoft Entra ID Resource URI |
+| :-- | :-- | :-- |
+| **Commercial** | `https://licensing.powerplatform.microsoft.com/` | `https://licensing.powerplatform.microsoft.com/` |
+| **GCC** | `https://gov.licensing.powerplatform.microsoft.us/` | `https://gov.licensing.powerplatform.microsoft.us/` |
+| **GCC High** | `https://high.licensing.powerplatform.microsoft.us/` | `https://high.licensing.powerplatform.microsoft.us/` |
 
-<img width="400" alt="agent inventory usage" src="https://github.com/user-attachments/assets/bac647a7-462a-4021-ae60-e74094787a64" />
 
 ### How Usage Metrics Are Updated 
 

@@ -85,7 +85,7 @@ Agents which are not accessible within the environment are added using One Inven
 | 52 | Agent Schema Name | cat_agentschemaname | Text | Dataverse: Table `bot` SchemaName | From power platform resource query → `properties.schemaName` | V4 | Agent's schema name |
 | 54 | HasSysAdminAccess | cat_hassysadminaccesscode | Choice | True | false | V4 | True if the agent is accessible within the environment to fetch data for agent inventory. If true then the features of the agent will be available in agent inventory else you may see NA and empty for the agent (Only limited data is available from one inventory PPAC). |
 | 55 | Location | cat_location | Text | Location of the agent (Environmen region) | From power platform resource query → `location` | V4 | Location of the agent |
-| 56 | Model | cat_model | Text |  | From power platform resource query → `properties.model` | V4 | Model the agent is using |
+| 56 | Model | cat_model | Text | Dataverse: Table `botcomponent` where `componenttypename` = Custom GPT and `componenttype` = 15 → `data.modelNameHint`. If `modelNameHint` has a value, use it; if it is empty and the agent type is Declarative, use `Microsoft 365 Copilot`; otherwise use `Copilot Studio default`. | From power platform resource query → `properties.model` | V4 | Model the agent is using |
 | 57 | First Usage Date | cat_firstusagedate | Date | Usage metrics data available in Power Platform Admin Center | Usage metrics data available in Power Platform Admin Center | V3 | Represents the agent's first usage date derived from available usage metrics. Currently supports a maximum look‑back of 180 days. |
 | 58 | First Usage Feature | cat_firstusagefeature | Text | Usage metrics data available in Power Platform Admin Center | Usage metrics data available in Power Platform Admin Center | V3 | Represents the first feature used within the agent, based on usage metrics available in the system. Currently supports a maximum look‑back of 180 days. |
 | 59 | Last Usage Date | cat_lastusagedate | Date | Agent last usage date from the usage metrics data from power platform admin center | Agent last usage date from the usage metrics data from power platform admin center | V3 | Agent last usage date from the usage metrics data from power platform admin center |
@@ -110,6 +110,7 @@ Agents which are not accessible within the environment are added using One Inven
 | 78 | Number Of Evaluations | cat_numberofevaluations | Whole Number | Number of test cases exist for test sets. When `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 exists with `parentbotcompenentid` mapped to test sets. | | V5 | Number of Evaluations test cases created under the evaluation sets in the agent. |
 | 79 | Uses Computer Use | cat_usescomputerusecode | Choice | Topic v2 `data` contains `InvokeComputerUsingAgentTaskAction` entries. | NA | V5 | Indicates whether the agent uses computer use. |
 | 80 | Agent Owning Business Unit | cat_agentowningbusinessunit | Text | Dataverse: `businessunit` table → name | | V5 | Agent Owning Business Unit. |
+| 81 | Agent Status | cat_agentstatus | Text | | From power platform resource query → `properties.isQuarantined` | V5 | Current status of the agent (e.g., Draft, Available, Blocked) |
 
 ---
 
@@ -198,6 +199,7 @@ Below are concise detection rules for each derived or boolean field (refer to lo
 - Number Of Evaluations (`cat_numberofevaluations`): Number of test cases exist for test sets. When `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 exists with `parentbotcompenentid` mapped to test sets.
 - Uses Computer Use (`cat_usescomputerusecode`): Topic v2 `data` contains `InvokeComputerUsingAgentTaskAction` entries.
 - Agent Owning Business Unit (`cat_agentowningbusinessunit`): fetched from `businessunit` table.
+- Agent Status (`cat_agentstatus`): Indicates the agent's current status (e.g., Draft, Available, Blocked).
 
 ---
 
