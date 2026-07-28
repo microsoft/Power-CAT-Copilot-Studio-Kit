@@ -1,0 +1,43 @@
+{
+    "$schema":  "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+    "manifestVersion":  "1.24",
+    "version":  "0.5.0",
+    "id":  "8aa69fae-9756-4b10-8e5d-0692f793b25a",
+    "developer":  {
+                      "name":  "Ask - ServiceNow",
+                      "websiteUrl":  "https://www.example.com",
+                      "privacyUrl":  "https://www.example.com/privacy",
+                      "termsOfUseUrl":  "https://www.example.com/termofuse"
+                  },
+    "icons":  {
+                  "color":  "color.png",
+                  "outline":  "outline.png"
+              },
+    "name":  {
+                 "short":  "Ask - ServiceNow",
+                 "full":  "Ask - ServiceNow"
+             },
+    "description":  {
+                        "short":  "ServiceNow ITSM in Microsoft Teams via M365 Copilot",
+                        "full":  "Ask - ServiceNow — an MCP App that connects to ServiceNow ITSM (Incidents, Service Requests, Change Requests, Problems, Approvals, Knowledge, HR Cases) and renders interactive widgets directly in M365 Copilot chat with full create/update capability."
+                    },
+    "accentColor":  "#293E40",
+    "composeExtensions":  [
+
+                          ],
+    "copilotAgents":  {
+                          "declarativeAgents":  [
+                                                    {
+                                                        "id":  "declarativeAgent",
+                                                        "file":  "declarativeAgent.json"
+                                                    }
+                                                ]
+                      },
+    "permissions":  [
+                        "identity",
+                        "messageTeamMembers"
+                    ],
+    "validDomains":  [
+
+                     ]
+}

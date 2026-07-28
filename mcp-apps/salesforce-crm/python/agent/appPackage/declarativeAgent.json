@@ -1,0 +1,35 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+    "version": "v1.5",
+    "name": "Ask - Salesforce${{APP_NAME_SUFFIX}}",
+    "description": "Manage your Salesforce CRM directly from Microsoft Teams — leads, opportunities, accounts, contacts, cases, tasks, campaigns, and pipeline analytics. Interactive widgets with full create/read/update across all entities, id-based view and edit, multi-field filtering across each entity's documented filter set, and inline case activity.",
+    "instructions": "$[file('instruction.txt')]",
+    "conversation_starters": [
+        {
+            "title": "Lead-to-opportunity pipeline",
+            "text": "Show me the latest leads. I want to review them and check the opportunities pipeline."
+        },
+        {
+            "title": "Pipeline dashboard",
+            "text": "Show me the sales pipeline dashboard."
+        },
+        {
+            "title": "Filter by revenue",
+            "text": "Show me accounts with annual revenue between $10M and $100M."
+        },
+        {
+            "title": "Account 360",
+            "text": "Give me the full picture on Acme Corp — accounts, contacts, opportunities, and recent cases."
+        },
+        {
+            "title": "Open P1 cases",
+            "text": "Show me open cases with priority High."
+        }
+    ],
+    "actions": [
+        {
+            "id": "action_1",
+            "file": "ai-plugin.json"
+        }
+    ]
+}

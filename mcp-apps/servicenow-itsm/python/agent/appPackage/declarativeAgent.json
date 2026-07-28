@@ -1,0 +1,31 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.5/schema.json",
+    "version": "v1.5",
+    "name": "Ask - ServiceNow${{APP_NAME_SUFFIX}}",
+    "description": "Manage your ServiceNow ITSM directly from Microsoft Teams — incidents, service requests, change requests, problems, approvals, knowledge articles, and HR cases. Interactive widgets with full create, read, and update.",
+    "instructions": "$[file('instruction.txt')]",
+    "conversation_starters": [
+        {
+            "title": "Triage IT incidents",
+            "text": "Show me open incidents sorted by priority. I need to check the critical ones."
+        },
+        {
+            "title": "Resolve an incident",
+            "text": "Resolve incident INC0010001."
+        },
+        {
+            "title": "Service request status",
+            "text": "Show me the latest service requests. I need to check what items are pending delivery."
+        },
+        {
+            "title": "Create change request",
+            "text": "Create a change request for the API integration go-live next Friday."
+        }
+    ],
+    "actions": [
+        {
+            "id": "action_1",
+            "file": "ai-plugin.json"
+        }
+    ]
+}

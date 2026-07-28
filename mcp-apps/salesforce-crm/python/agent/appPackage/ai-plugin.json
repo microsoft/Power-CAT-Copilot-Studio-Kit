@@ -1,0 +1,176 @@
+{
+    "$schema": "https://aka.ms/json-schemas/copilot-extensions/v2.1/plugin.schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "Ask - Salesforce",
+    "description_for_human": "Ask - Salesforce${{APP_NAME_SUFFIX}}",
+    "contact_email": "publisher-email@example.com",
+    "namespace": "sf",
+    "functions": [
+        {
+            "name": "sf__get_leads",
+            "description": "Get Salesforce Leads (5 most recent). Pass lead_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: name, company, campaign_id, email, phone, status, lead_source."
+        },
+        {
+            "name": "sf__create_lead",
+            "description": "Create a new Lead in Salesforce. Requires last_name and company. Optional: first_name, email, phone, status, lead_source, title, annual_revenue."
+        },
+        {
+            "name": "sf__update_lead",
+            "description": "Update an existing Lead in Salesforce by its record Id. Only fields provided will be updated. Fields: first_name, last_name, company, email, phone, status, lead_source, title, annual_revenue."
+        },
+        {
+            "name": "sf__get_opportunities",
+            "description": "Get Salesforce Opportunities (5 most recent). Pass opportunity_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: account_id, account_name (parent-traversal LIKE on Account.Name \u2014 e.g. 'opps for Acme'), name, stage, amount_min, amount_max, close_date_from, close_date_to, probability_min, probability_max, type, lead_source."
+        },
+        {
+            "name": "sf__create_opportunity",
+            "description": "Create a new Opportunity in Salesforce. Requires name, stage, close_date. Optional: amount, probability, account_name (server resolves to AccountId; errors with suggestions if not found), type, lead_source."
+        },
+        {
+            "name": "sf__update_opportunity",
+            "description": "Update an existing Opportunity in Salesforce by its record Id. Only fields provided will be updated. Fields: name, stage, amount, close_date, probability, type, lead_source. (Account is not reassignable from this tool \u2014 it is read-only on the edit form.)"
+        },
+        {
+            "name": "sf__get_opportunity_products",
+            "description": "Get line items (products) on an opportunity. Required: opportunity_id. Returns Product Name, Code, Quantity, Unit Price, Total Price."
+        },
+        {
+            "name": "sf__get_opportunity_contact_roles",
+            "description": "Get contact roles on an opportunity \u2014 the people directly attached to this deal with their roles (Decision Maker, Influencer, etc.) and primary flag. Required: opportunity_id."
+        },
+        {
+            "name": "sf__get_accounts",
+            "description": "Get Salesforce Accounts (5 most recent). Pass account_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: name, industry, sic, account_number, ticker_symbol, annual_revenue_min, annual_revenue_max, type."
+        },
+        {
+            "name": "sf__create_account",
+            "description": "Create a new Account in Salesforce. Requires name. Optional: industry, phone, website, billing_city, type, account_number, annual_revenue, sic, ticker_symbol."
+        },
+        {
+            "name": "sf__update_account",
+            "description": "Update an existing Account in Salesforce by its record Id. Only fields provided will be updated. Fields: name, industry, phone, website, billing_city, type, account_number, annual_revenue, sic, ticker_symbol."
+        },
+        {
+            "name": "sf__get_contacts",
+            "description": "Get Salesforce Contacts (5 most recent). Pass contact_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: account_id, account_name (parent-traversal LIKE on Account.Name \u2014 e.g. 'contacts at Acme'), name (first/last LIKE), title (LIKE \u2014 e.g. 'contacts with title Manager'), department, lead_source."
+        },
+        {
+            "name": "sf__create_contact",
+            "description": "Create a new Contact in Salesforce. Requires last_name. Optional: first_name, email, phone, title, account_id, account_name (server resolves to AccountId; errors with suggestions if not found), department, lead_source."
+        },
+        {
+            "name": "sf__update_contact",
+            "description": "Update an existing Contact in Salesforce by its record Id. Only fields provided will be updated. Fields: first_name, last_name, email, phone, title, account_id, department, lead_source. (Reassigning Account by name is not supported here \u2014 pass account_id explicitly if you must change it.)"
+        },
+        {
+            "name": "sf__get_cases",
+            "description": "Get Salesforce Cases (5 most recent). Pass case_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: account_id, account_name (parent-traversal LIKE on Account.Name \u2014 e.g. 'cases for Acme'), subject (search by subject), case_number, priority, status, type."
+        },
+        {
+            "name": "sf__create_case",
+            "description": "Create a new Salesforce Case. Required: subject. Optional: priority (High/Medium/Low), status (New/Working/Escalated/Closed), account_id, account_name (server resolves to AccountId; alert with suggestions if not found), contact_id, contact_name (server resolves to ContactId; alert with suggestions if not found), description, type."
+        },
+        {
+            "name": "sf__update_case",
+            "description": "Update a Salesforce Case. Required: case_id. Optional: status, priority, subject, description, resolution (Internal Comments), type. (Account is read-only on the edit form \u2014 not reassignable from this tool.)"
+        },
+        {
+            "name": "sf__get_case_activity",
+            "description": "Get activity for a Salesforce Case by Id \u2014 runs parallel queries for case comments and related tasks. Returns both sections (comments above, tasks below)."
+        },
+        {
+            "name": "sf__get_tasks",
+            "description": "Get Salesforce Tasks (5 most recent). Pass task_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: subject, status, priority, activity_date_from, activity_date_to, related_name (matches tasks linked to an Account/Opportunity/Contact/Lead whose name contains the string \u2014 e.g. related_name='Acme')."
+        },
+        {
+            "name": "sf__create_task",
+            "description": "Create a new Salesforce Task (activity). Required: subject. Optional: priority, status, activity_date (YYYY-MM-DD), description, who_name (Contact/Lead person \u2014 server resolves to WhoId; alert with suggestions if not found), what_name (Account/Opportunity/Campaign \u2014 server resolves to WhatId; alert with suggestions if not found)."
+        },
+        {
+            "name": "sf__update_task",
+            "description": "Update a Salesforce Task. Required: task_id. Optional: subject, priority, status, activity_date, description."
+        },
+        {
+            "name": "sf__convert_lead",
+            "description": "Convert a Salesforce Lead atomically into Account + Contact (and optionally Opportunity) via the native SOAP convertLead operation. Required: lead_id. Optional: account_id (reuse existing Account), contact_id (reuse existing Contact), do_not_create_opportunity (default false), opportunity_name, converted_status (auto-resolved from active IsConverted status if blank). On success, returns the new Opportunity as a single-row list view; falls back to a textual success card if no opportunity was created."
+        },
+        {
+            "name": "sf__get_pipeline_dashboard",
+            "description": "Get the Salesforce opportunity pipeline grouped by stage. Returns deal count and total amount per stage."
+        },
+        {
+            "name": "sf__get_campaigns",
+            "description": "Get Salesforce Campaigns (5 most recent). Pass campaign_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: name, status, type."
+        },
+        {
+            "name": "sf__create_campaign",
+            "description": "Create a new Salesforce Campaign. Required: name. Optional: status (Planned/Active/Completed/Aborted), type, start_date (YYYY-MM-DD), end_date (YYYY-MM-DD), budgeted_cost, actual_cost."
+        },
+        {
+            "name": "sf__update_campaign",
+            "description": "Update a Salesforce Campaign. Required: campaign_id. Optional: name, status, type, start_date, end_date, budgeted_cost, actual_cost."
+        },
+        {
+            "name": "sf__get_pending_approvals",
+            "description": "Get pending Salesforce approval requests assigned to the current user. Returns pending ProcessInstance workitems requiring action. Filters: submitted_by (LIKE on submitter name), target_type (Account/Contact/Opportunity/Case/Lead/Task/Campaign)."
+        },
+        {
+            "name": "sf__approve_record",
+            "description": "Approve a pending Salesforce approval. Required: approval_id (the ProcessInstanceWorkitem Id from sf__get_pending_approvals items[].id). Optional: comments. Returns the refreshed pending approvals list."
+        },
+        {
+            "name": "sf__reject_record",
+            "description": "Reject a pending Salesforce approval. Required: approval_id. Optional: comments. Returns the refreshed pending approvals list."
+        },
+        {
+            "name": "sf__show_create_form",
+            "description": "Use this when the user asks to create a new Salesforce lead, account, contact, opportunity, case, task, or campaign. Opens the interactive creation form \u2014 do NOT call sf__create_lead or other direct create tools. Pass entity name (lead/account/contact/opportunity/case/task/campaign). Pass prefill dict to pre-populate fields (e.g. {\"account_name\": \"GlobalFizz\", \"amount\": \"2000000\", \"stage\": \"Qualification\"})."
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "RemoteMCPServer",
+            "spec": {
+                "url": "https://lob-mcp-apps-sf.gentlepond-dd579c1b.southindia.azurecontainerapps.io/mcp",
+                "mcp_tool_description": {
+                    "file": "mcp-tools.json"
+                }
+            },
+            "run_for_functions": [
+                "sf__get_leads",
+                "sf__create_lead",
+                "sf__update_lead",
+                "sf__get_opportunities",
+                "sf__create_opportunity",
+                "sf__update_opportunity",
+                "sf__get_opportunity_products",
+                "sf__get_opportunity_contact_roles",
+                "sf__get_accounts",
+                "sf__create_account",
+                "sf__update_account",
+                "sf__get_contacts",
+                "sf__create_contact",
+                "sf__update_contact",
+                "sf__get_cases",
+                "sf__create_case",
+                "sf__update_case",
+                "sf__get_case_activity",
+                "sf__get_tasks",
+                "sf__create_task",
+                "sf__update_task",
+                "sf__convert_lead",
+                "sf__get_pipeline_dashboard",
+                "sf__get_campaigns",
+                "sf__create_campaign",
+                "sf__update_campaign",
+                "sf__get_pending_approvals",
+                "sf__approve_record",
+                "sf__reject_record",
+                "sf__show_create_form"
+            ],
+            "auth": {
+                "type": "None"
+            }
+        }
+    ]
+}

@@ -1,0 +1,1331 @@
+{
+    "tools": [
+        {
+            "name": "sf__get_leads",
+            "description": "Get Salesforce Leads (5 most recent). Pass lead_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: name, company, campaign_id, email, phone, status, lead_source.",
+            "inputSchema": {
+                "properties": {
+                    "lead_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "company": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "campaign_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "email": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "action": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get leads",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__create_lead",
+            "description": "Create a new Lead in Salesforce. Requires last_name and company. Optional: first_name, email, phone, status, lead_source, title, annual_revenue.",
+            "inputSchema": {
+                "properties": {
+                    "last_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "company": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "email": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "Open - Not Contacted",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "title": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "annual_revenue": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Create lead",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__update_lead",
+            "description": "Update an existing Lead in Salesforce by its record Id. Only fields provided will be updated. Fields: first_name, last_name, company, email, phone, status, lead_source, title, annual_revenue.",
+            "inputSchema": {
+                "properties": {
+                    "lead_id": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "company": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "email": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "title": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "annual_revenue": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lead_id"
+                ],
+                "type": "object"
+            },
+            "title": "Update lead",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_opportunities",
+            "description": "Get Salesforce Opportunities (5 most recent). Pass opportunity_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: account_id, account_name (parent-traversal LIKE on Account.Name \u2014 e.g. 'opps for Acme'), name, stage, amount_min, amount_max, close_date_from, close_date_to, probability_min, probability_max, type, lead_source.",
+            "inputSchema": {
+                "properties": {
+                    "opportunity_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "stage": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "amount_min": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "amount_max": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "close_date_from": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "close_date_to": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "probability_min": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "probability_max": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "action": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get opportunities",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__create_opportunity",
+            "description": "Create a new Opportunity in Salesforce. Requires name, stage, close_date. Optional: amount, probability, account_name (server resolves to AccountId; errors with suggestions if not found), type, lead_source.",
+            "inputSchema": {
+                "properties": {
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "stage": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "close_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "amount": {
+                        "default": 0.0,
+                        "type": "number"
+                    },
+                    "probability": {
+                        "default": 0,
+                        "type": "integer"
+                    },
+                    "account_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Create opportunity",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__update_opportunity",
+            "description": "Update an existing Opportunity in Salesforce by its record Id. Only fields provided will be updated. Fields: name, stage, amount, close_date, probability, type, lead_source. (Account is not reassignable from this tool \u2014 it is read-only on the edit form.)",
+            "inputSchema": {
+                "properties": {
+                    "opportunity_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "stage": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "amount": {
+                        "default": 0.0,
+                        "type": "number"
+                    },
+                    "close_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "probability": {
+                        "default": 0,
+                        "type": "integer"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "opportunity_id"
+                ],
+                "type": "object"
+            },
+            "title": "Update opportunity",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_opportunity_products",
+            "description": "Get line items (products) on an opportunity. Required: opportunity_id. Returns Product Name, Code, Quantity, Unit Price, Total Price.",
+            "inputSchema": {
+                "properties": {
+                    "opportunity_id": {
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "opportunity_id"
+                ],
+                "type": "object"
+            },
+            "title": "Get opportunity products",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_opportunity_contact_roles",
+            "description": "Get contact roles on an opportunity \u2014 the people directly attached to this deal with their roles (Decision Maker, Influencer, etc.) and primary flag. Required: opportunity_id.",
+            "inputSchema": {
+                "properties": {
+                    "opportunity_id": {
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "opportunity_id"
+                ],
+                "type": "object"
+            },
+            "title": "Get opportunity contact roles",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_accounts",
+            "description": "Get Salesforce Accounts (5 most recent). Pass account_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: name, industry, sic, account_number, ticker_symbol, annual_revenue_min, annual_revenue_max, type.",
+            "inputSchema": {
+                "properties": {
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "industry": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "sic": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_number": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "ticker_symbol": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "annual_revenue_min": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "annual_revenue_max": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "action": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get accounts",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__create_account",
+            "description": "Create a new Account in Salesforce. Requires name. Optional: industry, phone, website, billing_city, type, account_number, annual_revenue, sic, ticker_symbol.",
+            "inputSchema": {
+                "properties": {
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "industry": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "website": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "billing_city": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_number": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "annual_revenue": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "sic": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "ticker_symbol": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Create account",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__update_account",
+            "description": "Update an existing Account in Salesforce by its record Id. Only fields provided will be updated. Fields: name, industry, phone, website, billing_city, type, account_number, annual_revenue, sic, ticker_symbol.",
+            "inputSchema": {
+                "properties": {
+                    "account_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "industry": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "website": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "billing_city": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_number": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "annual_revenue": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "sic": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "ticker_symbol": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "account_id"
+                ],
+                "type": "object"
+            },
+            "title": "Update account",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_contacts",
+            "description": "Get Salesforce Contacts (5 most recent). Pass contact_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: account_id, account_name (parent-traversal LIKE on Account.Name \u2014 e.g. 'contacts at Acme'), name (first/last LIKE), title (LIKE \u2014 e.g. 'contacts with title Manager'), department, lead_source.",
+            "inputSchema": {
+                "properties": {
+                    "contact_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "title": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "department": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "action": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get contacts",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__create_contact",
+            "description": "Create a new Contact in Salesforce. Requires last_name. Optional: first_name, email, phone, title, account_id, account_name (server resolves to AccountId; errors with suggestions if not found), department, lead_source.",
+            "inputSchema": {
+                "properties": {
+                    "last_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "email": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "title": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "department": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Create contact",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__update_contact",
+            "description": "Update an existing Contact in Salesforce by its record Id. Only fields provided will be updated. Fields: first_name, last_name, email, phone, title, account_id, department, lead_source. (Reassigning Account by name is not supported here \u2014 pass account_id explicitly if you must change it.)",
+            "inputSchema": {
+                "properties": {
+                    "contact_id": {
+                        "type": "string"
+                    },
+                    "first_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "email": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "title": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "department": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "lead_source": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "contact_id"
+                ],
+                "type": "object"
+            },
+            "title": "Update contact",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_cases",
+            "description": "Get Salesforce Cases (5 most recent). Pass case_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: account_id, account_name (parent-traversal LIKE on Account.Name \u2014 e.g. 'cases for Acme'), subject (search by subject), case_number, priority, status, type.",
+            "inputSchema": {
+                "properties": {
+                    "case_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "subject": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "case_number": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "action": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get cases",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__create_case",
+            "description": "Create a new Salesforce Case. Required: subject. Optional: priority (High/Medium/Low), status (New/Working/Escalated/Closed), account_id, account_name (server resolves to AccountId; alert with suggestions if not found), contact_id, contact_name (server resolves to ContactId; alert with suggestions if not found), description, type.",
+            "inputSchema": {
+                "properties": {
+                    "subject": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "default": "Medium",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "account_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "contact_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "contact_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Create case",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__update_case",
+            "description": "Update a Salesforce Case. Required: case_id. Optional: status, priority, subject, description, resolution (Internal Comments), type. (Account is read-only on the edit form \u2014 not reassignable from this tool.)",
+            "inputSchema": {
+                "properties": {
+                    "case_id": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "subject": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "resolution": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "case_id"
+                ],
+                "type": "object"
+            },
+            "title": "Update case",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_case_activity",
+            "description": "Get activity for a Salesforce Case by Id \u2014 runs parallel queries for case comments and related tasks. Returns both sections (comments above, tasks below).",
+            "inputSchema": {
+                "properties": {
+                    "case_id": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "case_id"
+                ],
+                "type": "object"
+            },
+            "title": "Get case activity",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_tasks",
+            "description": "Get Salesforce Tasks (5 most recent). Pass task_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: subject, status, priority, activity_date_from, activity_date_to, related_name (matches tasks linked to an Account/Opportunity/Contact/Lead whose name contains the string \u2014 e.g. related_name='Acme').",
+            "inputSchema": {
+                "properties": {
+                    "task_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "subject": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "activity_date_from": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "activity_date_to": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "related_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "action": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get tasks",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__create_task",
+            "description": "Create a new Salesforce Task (activity). Required: subject. Optional: priority, status, activity_date (YYYY-MM-DD), description, who_name (Contact/Lead person \u2014 server resolves to WhoId; alert with suggestions if not found), what_name (Account/Opportunity/Campaign \u2014 server resolves to WhatId; alert with suggestions if not found).",
+            "inputSchema": {
+                "properties": {
+                    "subject": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "default": "Normal",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "Not Started",
+                        "type": "string"
+                    },
+                    "activity_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "who_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "what_name": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Create task",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__update_task",
+            "description": "Update a Salesforce Task. Required: task_id. Optional: subject, priority, status, activity_date, description.",
+            "inputSchema": {
+                "properties": {
+                    "task_id": {
+                        "type": "string"
+                    },
+                    "subject": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "priority": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "activity_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "task_id"
+                ],
+                "type": "object"
+            },
+            "title": "Update task",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__convert_lead",
+            "description": "Convert a Salesforce Lead atomically into Account + Contact (and optionally Opportunity) via the native SOAP convertLead operation. Required: lead_id. Optional: account_id (reuse existing Account), contact_id (reuse existing Contact), do_not_create_opportunity (default false), opportunity_name, converted_status (auto-resolved from active IsConverted status if blank). On success, returns the new Opportunity as a single-row list view; falls back to a textual success card if no opportunity was created.",
+            "inputSchema": {
+                "properties": {
+                    "lead_id": {
+                        "type": "string"
+                    },
+                    "account_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "contact_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "do_not_create_opportunity": {
+                        "default": false,
+                        "type": "boolean"
+                    },
+                    "opportunity_name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "converted_status": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lead_id"
+                ],
+                "type": "object"
+            },
+            "title": "Convert lead",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_pipeline_dashboard",
+            "description": "Get the Salesforce opportunity pipeline grouped by stage. Returns deal count and total amount per stage.",
+            "inputSchema": {
+                "properties": {},
+                "type": "object",
+                "required": []
+            },
+            "title": "Get pipeline dashboard",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_campaigns",
+            "description": "Get Salesforce Campaigns (5 most recent). Pass campaign_id to view one record; add action='edit' (or 'change') to open the edit form. Filters: name, status, type.",
+            "inputSchema": {
+                "properties": {
+                    "campaign_id": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "action": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "refresh": {
+                        "default": false,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get campaigns",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__create_campaign",
+            "description": "Create a new Salesforce Campaign. Required: name. Optional: status (Planned/Active/Completed/Aborted), type, start_date (YYYY-MM-DD), end_date (YYYY-MM-DD), budgeted_cost, actual_cost.",
+            "inputSchema": {
+                "properties": {
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "Planned",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "start_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "end_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "budgeted_cost": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "actual_cost": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Create campaign",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__update_campaign",
+            "description": "Update a Salesforce Campaign. Required: campaign_id. Optional: name, status, type, start_date, end_date, budgeted_cost, actual_cost.",
+            "inputSchema": {
+                "properties": {
+                    "campaign_id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "status": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "type": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "start_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "end_date": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "budgeted_cost": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "actual_cost": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "campaign_id"
+                ],
+                "type": "object"
+            },
+            "title": "Update campaign",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__get_pending_approvals",
+            "description": "Get pending Salesforce approval requests assigned to the current user. Returns pending ProcessInstance workitems requiring action. Filters: submitted_by (LIKE on submitter name), target_type (Account/Contact/Opportunity/Case/Lead/Task/Campaign).",
+            "inputSchema": {
+                "properties": {
+                    "submitted_by": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "target_type": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": []
+            },
+            "title": "Get pending approvals",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__approve_record",
+            "description": "Approve a pending Salesforce approval. Required: approval_id (the ProcessInstanceWorkitem Id from sf__get_pending_approvals items[].id). Optional: comments. Returns the refreshed pending approvals list.",
+            "inputSchema": {
+                "properties": {
+                    "approval_id": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "approval_id"
+                ],
+                "type": "object"
+            },
+            "title": "Approve record",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__reject_record",
+            "description": "Reject a pending Salesforce approval. Required: approval_id. Optional: comments. Returns the refreshed pending approvals list.",
+            "inputSchema": {
+                "properties": {
+                    "approval_id": {
+                        "type": "string"
+                    },
+                    "comments": {
+                        "default": "",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "approval_id"
+                ],
+                "type": "object"
+            },
+            "title": "Reject record",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        },
+        {
+            "name": "sf__show_create_form",
+            "description": "Use this when the user asks to create a new Salesforce lead, account, contact, opportunity, case, task, or campaign. Opens the interactive creation form \u2014 do NOT call sf__create_lead or other direct create tools. Pass entity name (lead/account/contact/opportunity/case/task/campaign). Pass prefill dict to pre-populate fields (e.g. {\"account_name\": \"GlobalFizz\", \"amount\": \"2000000\", \"stage\": \"Qualification\"}).",
+            "inputSchema": {
+                "properties": {
+                    "entity": {
+                        "type": "string"
+                    },
+                    "prefill": {
+                        "additionalProperties": true,
+                        "default": null,
+                        "type": "object"
+                    },
+                    "fk_options": {
+                        "additionalProperties": true,
+                        "default": null,
+                        "type": "object"
+                    }
+                },
+                "required": [
+                    "entity"
+                ],
+                "type": "object"
+            },
+            "title": "Show create form",
+            "_meta": {
+                "ui": {
+                    "resourceUri": "ui://widget/crm.html"
+                }
+            }
+        }
+    ]
+}

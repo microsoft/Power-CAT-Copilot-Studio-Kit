@@ -1,0 +1,16 @@
+{
+  "name": "@gtc/mcp-shared",
+  "version": "0.5.0",
+  "description": "Shared widget components (McpBridge, FluentWrapper, Toast, ErrorBoundary) for LOB MCP Copilots",
+  "main": "./widgets/src/index.ts",
+  "types": "./widgets/src/index.ts",
+  "files": [
+    "widgets/src"
+  ],
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@fluentui/react-components": "^9.0.0",
+    "@modelcontextprotocol/ext-apps": "*"
+  }
+}

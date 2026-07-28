@@ -1,0 +1,181 @@
+{
+    "$schema": "https://aka.ms/json-schemas/copilot-extensions/v2.1/plugin.schema.json",
+    "schema_version": "v2.4",
+    "name_for_human": "Ask - ServiceNow",
+    "description_for_human": "Ask - ServiceNow${{APP_NAME_SUFFIX}}",
+    "contact_email": "publisher-email@example.com",
+    "namespace": "sn",
+    "functions": [
+        {
+            "name": "sn__get_incidents",
+            "description": "Retrieve incidents from ServiceNow. No args \u2192 latest N (default 5). 'query' for free-text search across short_description+description. 'number' alone (e.g. INC0010001) \u2192 list-of-one for that record; add action='edit' to open the edit form, action='resolve' for the resolve form. Filters: short_description (LIKE), state, priority, assigned_to (sys_id), assigned_to_name (dot-walk CONTAINS on assigned_to.name \u2014 e.g. 'incidents assigned to Joe'), category, caller_id (sys_id), caller_name (dot-walk CONTAINS on caller_id.name), created_at_from/to (YYYY-MM-DD). State accepts 'new'/'in progress'/'on hold'/'resolved'/'closed'/'canceled' or numeric codes 1-8 or group aliases 'open'/'active' (= 1,2,3). Priority accepts 'P1'-'P4' / 'critical'/'high'/'moderate'/'low' / '1'-'4'. Both state and priority accept comma-separated lists (e.g. 'new,in progress' or 'P1,P2')."
+        },
+        {
+            "name": "sn__get_requests",
+            "description": "Retrieve service requests from ServiceNow. No args \u2192 latest N (default 5). 'query' for free-text search. 'number' alone (e.g. REQ0010001) \u2192 list-of-one for that record; add action='edit' to open the edit form. Filters: short_description (LIKE), request_state, priority, approval, requested_for (sys_id), due_date_from/to (YYYY-MM-DD), created_at_from/to (YYYY-MM-DD). request_state accepts 'pending'/'pending approval'/'approved'/'in process' or 'closed' (matches all closed_* variants) or the raw keys (requested, in_process, closed_complete, closed_incomplete, closed_rejected, closed_cancelled, closed_skipped). Priority accepts 'P1'-'P4' / 'critical'/'high'/'moderate'/'low' / '1'-'4'. Both fields accept comma-separated lists."
+        },
+        {
+            "name": "sn__get_request_items",
+            "description": "Retrieve request items for a specific service request. request_sys_id is the sys_id of the parent sc_request record. Called from the widget when expanding a request row."
+        },
+        {
+            "name": "sn__get_change_requests",
+            "description": "Retrieve change requests from ServiceNow. No args \u2192 latest N (default 5). 'query' for free-text search. 'number' alone (e.g. CHG0010001) \u2192 list-of-one for that record; add action='edit' to open the edit form. Filters: short_description (LIKE), state, priority, risk, category, assigned_to (sys_id), planned_start_from/to (YYYY-MM-DD), planned_end_from/to (YYYY-MM-DD), created_at_from/to (YYYY-MM-DD). State accepts 'new'/'assess'/'authorize'/'scheduled'/'implement'/'review'/'closed'/'canceled' or numeric codes (-5,-4,-3,-2,-1,0,3,4) or group alias 'open' (= all non-terminal states). Priority accepts 'P1'-'P4' / 'critical'/'high'/'moderate'/'low' / '1'-'4'. Both state and priority accept comma-separated lists."
+        },
+        {
+            "name": "sn__get_problems",
+            "description": "Retrieve problem records from ServiceNow. No args \u2192 latest N (default 5). 'query' for free-text search. 'number' alone (e.g. PRB0010001) \u2192 list-of-one for that record; add action='edit' to open the edit form. Filters: short_description (LIKE), state, priority, assigned_to (sys_id). State accepts 'new'/'assess'/'root cause analysis'/'fix in progress'/'resolved'/'closed' or numeric codes (101-104, 106, 107) or group alias 'open' (= 101,102,103,104). Priority accepts 'P1'-'P4' / 'critical'/'high'/'moderate'/'low' / '1'-'4'. Both state and priority accept comma-separated lists."
+        },
+        {
+            "name": "sn__get_pending_approvals",
+            "description": "Get pending approval requests in ServiceNow. Returns up to 'limit' approvals (default 10) with approver, document, and state."
+        },
+        {
+            "name": "sn__get_service_catalog_items",
+            "description": "Get available items from the ServiceNow Service Catalog. Returns up to 'limit' catalog items (default 10)."
+        },
+        {
+            "name": "sn__get_knowledge_articles",
+            "description": "Search knowledge articles in ServiceNow. Returns articles from the kb_knowledge table matching the query."
+        },
+        {
+            "name": "sn__create_incident",
+            "description": "Create a new incident in ServiceNow. Required: short_description. Optional: description, priority (1-4), impact (1-3), category, state ('new'/'in progress'/'on hold'/'resolved'/'closed' or numeric 1/2/3/6/7), assigned_to (sys_id), assigned_to_name (resolved server-side against sys_user; on miss returns alert with suggestions), caller_id (sys_id), caller_name (resolved server-side, same alert semantics), work_note."
+        },
+        {
+            "name": "sn__create_request",
+            "description": "Create a new service request in ServiceNow. Required: short_description. Optional: description, priority (1-4), requested_for (sys_id), requested_for_name (resolved server-side against sys_user; on miss returns alert with suggestions), due_date (YYYY-MM-DD), approval ('approved'/'requested'/'rejected'/'not requested'), request_state ('pending approval'/'in process'/'closed_complete'/'closed_incomplete'/'closed_cancelled'/'closed_rejected'/'closed_skipped' \u2014 display strings or canonical keys both accepted), work_note."
+        },
+        {
+            "name": "sn__create_change_request",
+            "description": "Create a new Change Request in ServiceNow. Required: short_description. Optional: description, category ('Normal'/'Standard'/'Emergency', defaults Normal), risk ('low'/'moderate'/'high', defaults moderate), priority (1-4), state ('new'/'assess'/'authorize'/'scheduled'/'implement'/'review'/'closed' or numeric -5/-4/-3/-2/-1/0/3), assigned_to (sys_id), assigned_to_name (resolved server-side against sys_user; on miss returns alert with suggestions), planned_start_date (YYYY-MM-DD), planned_end_date (YYYY-MM-DD), work_note."
+        },
+        {
+            "name": "sn__update_change_request",
+            "description": "Update an existing Change Request in ServiceNow. Required: sys_id. Optional editable fields: short_description, description, category ('Normal'/'Standard'/'Emergency'), risk ('low'/'moderate'/'high'), priority (1-4), state ('new'/'assess'/'authorize'/'scheduled'/'implement'/'review'/'closed' or numeric -5/-4/-3/-2/-1/0/3), assigned_to (sys_id), assigned_to_name (resolved server-side against sys_user; on miss returns alert with suggestions), planned_start_date (YYYY-MM-DD), planned_end_date (YYYY-MM-DD), work_note (appended to journal)."
+        },
+        {
+            "name": "sn__update_incident",
+            "description": "Update an existing incident in ServiceNow. Required: sys_id. Optional editable fields: short_description, description, priority (1-4), impact (1-3), state ('new'/'in progress'/'on hold'/'resolved'/'closed' or numeric 1/2/3/6/7), category, assigned_to (sys_id), assigned_to_name (resolved server-side against sys_user; on miss returns alert with suggestions), caller_id (sys_id), caller_name (resolved server-side, same alert semantics), work_note (appended to journal)."
+        },
+        {
+            "name": "sn__update_request",
+            "description": "Update an existing service request in ServiceNow. Required: sys_id. Optional editable fields: short_description, description, priority (1-4), approval ('approved'/'requested'/'rejected'/'not requested'), request_state ('pending approval'/'in process'/'closed_complete'/'closed_incomplete'/'closed_cancelled'/'closed_rejected'/'closed_skipped'), requested_for (sys_id), requested_for_name (resolved server-side against sys_user; on miss returns alert with suggestions), due_date (YYYY-MM-DD), work_note (appended to journal)."
+        },
+        {
+            "name": "sn__update_request_item",
+            "description": "Update an existing request item in ServiceNow. Requires sys_id. Editable field: quantity."
+        },
+        {
+            "name": "sn__update_problem",
+            "description": "Update an existing Problem record in ServiceNow. Required: sys_id. Optional editable fields: short_description, description, priority (1-4), state ('new'/'assess'/'rca'/'fix in progress'/'resolved'/'closed' or numeric 101/102/103/104/106/107), assigned_to (sys_id), assigned_to_name (resolved server-side against sys_user; on miss returns alert with suggestions), workaround, work_note (appended to journal)."
+        },
+        {
+            "name": "sn__resolve_incident",
+            "description": "Resolve an incident in ServiceNow by setting state to Resolved. Requires close_code (one of: Duplicate, Known error, No resolution provided, Resolved by caller, Resolved by change, Resolved by problem, Resolved by request, Solution provided, Workaround provided, User error) and close_notes."
+        },
+        {
+            "name": "sn__create_incident_form",
+            "description": "Open the Incident creation form. Optional prefill args: short_description, description, priority, caller_name, assigned_to_name. FK names are passed through as text \u2014 the create tool resolves them at submit."
+        },
+        {
+            "name": "sn__create_request_form",
+            "description": "Open the Service Request creation form. Optional prefill args: short_description, description, priority, requested_for_name."
+        },
+        {
+            "name": "sn__create_change_request_form",
+            "description": "Open the Change Request creation form. Optional prefill args: short_description, description, priority, category, risk, assigned_to_name."
+        },
+        {
+            "name": "sn__create_problem_form",
+            "description": "Open the Problem creation form. Optional prefill args: short_description, description, priority, assigned_to_name."
+        },
+        {
+            "name": "sn__create_hr_case_form",
+            "description": "Open the HR Case creation form. Optional prefill args: subject, description, priority, opened_for_name, assigned_to_name, hr_service_name."
+        },
+        {
+            "name": "sn__get_change_tasks",
+            "description": "Get change tasks for a specific change request. Requires change_sys_id (the sys_id of the parent change_request). Called from the widget when expanding a change request row."
+        },
+        {
+            "name": "sn__create_problem",
+            "description": "Create a new Problem record in ServiceNow. Required: short_description. Optional: description, priority (1=Critical, 2=High, 3=Moderate, 4=Low), state ('new'/'assess'/'rca'/'fix in progress'/'resolved'/'closed' or numeric 101/102/103/104/106/107), assigned_to (sys_id), assigned_to_name (resolved server-side against sys_user; on miss returns alert with suggestions), workaround, work_note."
+        },
+        {
+            "name": "sn__get_hr_cases",
+            "description": "Retrieve HR cases from ServiceNow. No args \u2192 latest N (default 10). 'sys_id' alone \u2192 list-of-one for that record; add action='edit' to open the edit form. Filters: subject (LIKE on short_description), state, priority, opened_for (sys_id), assigned_to (sys_id), hr_service (sys_id), created_at_from/to (YYYY-MM-DD). State accepts 'draft'/'ready'/'awaiting approval'/'work in progress'/'awaiting acceptance'/'closed complete'/'closed incomplete'/'cancelled'/'suspended' or numeric codes (1,3,4,7,10,11,18,20,24) or group alias 'open' (= 1,10,11,18,20). Priority accepts 'P1'-'P4' / 'critical'/'high'/'moderate'/'low' / '1'-'4'. Both state and priority accept comma-separated lists."
+        },
+        {
+            "name": "sn__create_hr_case",
+            "description": "Create a new HR case in ServiceNow. Required: subject. Optional: description, priority (1=Critical, 2=High, 3=Moderate, 4=Low), state ('draft'/'ready'/'awaiting approval'/'work in progress'/'awaiting acceptance'/'closed complete'/'closed incomplete'/'cancelled'/'suspended' or numeric 1/3/4/7/10/11/18/20/24), opened_for (sys_id), opened_for_name (resolved server-side against sys_user; on miss returns alert with suggestions), assigned_to (sys_id), assigned_to_name (resolved server-side, same alert semantics), hr_service (sys_id), hr_service_name (resolved server-side against sn_hr_core_service, same alert semantics), work_note."
+        },
+        {
+            "name": "sn__update_hr_case",
+            "description": "Update an existing HR case in ServiceNow. Required: sys_id. Optional editable fields: subject, description, priority (1-4), state ('draft'/'ready'/'awaiting approval'/'work in progress'/'awaiting acceptance'/'closed complete'/'closed incomplete'/'cancelled'/'suspended' or numeric 1/3/4/7/10/11/18/20/24), opened_for (sys_id), opened_for_name (resolved server-side against sys_user; on miss returns alert with suggestions), assigned_to (sys_id), assigned_to_name (resolved server-side, same alert semantics), hr_service (sys_id), hr_service_name (resolved server-side against sn_hr_core_service, same alert semantics), work_note (appended to journal)."
+        },
+        {
+            "name": "sn__approve_record",
+            "description": "Approve a pending approval in ServiceNow. Requires sys_id of the sysapproval_approver record."
+        },
+        {
+            "name": "sn__reject_record",
+            "description": "Reject a pending approval in ServiceNow. Requires sys_id. Optional: comments explaining the rejection."
+        },
+        {
+            "name": "sn__get_users",
+            "description": "Search ServiceNow users (sys_user) by name, user_name, or email. Returns up to 10 candidates with sys_ids. Use this to find a sys_id BEFORE filtering another tool by an FK (e.g. 'incidents assigned to Joe' \u2192 call sn__get_users(name='Joe') first, then sn__get_incidents with the resolved sys_id)."
+        },
+        {
+            "name": "sn__get_hr_services",
+            "description": "Search ServiceNow HR services (sn_hr_core_service) by name. Returns up to 10 candidates with sys_ids. Use this to find an hr_service sys_id BEFORE filtering or creating HR cases by service."
+        }
+    ],
+    "runtimes": [
+        {
+            "type": "RemoteMCPServer",
+            "spec": {
+                "url": "https://gtc-sn-gw.gentlepond-dd579c1b.southindia.azurecontainerapps.io/mcp",
+                "mcp_tool_description": {
+                    "file": "mcp-tools.json"
+                }
+            },
+            "run_for_functions": [
+                "sn__get_incidents",
+                "sn__get_requests",
+                "sn__get_request_items",
+                "sn__get_change_requests",
+                "sn__get_problems",
+                "sn__get_pending_approvals",
+                "sn__get_service_catalog_items",
+                "sn__get_knowledge_articles",
+                "sn__create_incident",
+                "sn__create_request",
+                "sn__create_change_request",
+                "sn__update_change_request",
+                "sn__update_incident",
+                "sn__update_request",
+                "sn__update_request_item",
+                "sn__update_problem",
+                "sn__resolve_incident",
+                "sn__create_incident_form",
+                "sn__create_request_form",
+                "sn__create_change_request_form",
+                "sn__create_problem_form",
+                "sn__create_hr_case_form",
+                "sn__get_change_tasks",
+                "sn__create_problem",
+                "sn__get_hr_cases",
+                "sn__create_hr_case",
+                "sn__update_hr_case",
+                "sn__approve_record",
+                "sn__reject_record",
+                "sn__get_users",
+                "sn__get_hr_services"
+            ],
+            "auth": {
+                "type": "None"
+            }
+        }
+    ]
+}

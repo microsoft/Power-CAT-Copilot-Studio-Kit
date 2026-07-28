@@ -1,0 +1,43 @@
+{
+    "$schema":  "https://developer.microsoft.com/en-us/json-schemas/teams/v1.24/MicrosoftTeams.schema.json",
+    "manifestVersion":  "1.24",
+    "version":  "0.5.0",
+    "id":  "427feffd-880d-49cb-84c0-db30d5956555",
+    "developer":  {
+                      "name":  "Ask - Salesforce",
+                      "websiteUrl":  "https://www.example.com",
+                      "privacyUrl":  "https://www.example.com/privacy",
+                      "termsOfUseUrl":  "https://www.example.com/termofuse"
+                  },
+    "icons":  {
+                  "color":  "color.png",
+                  "outline":  "outline.png"
+              },
+    "name":  {
+                 "short":  "Ask - Salesforce",
+                 "full":  "Ask - Salesforce"
+             },
+    "description":  {
+                        "short":  "Salesforce CRM in Microsoft Teams via M365 Copilot",
+                        "full":  "Ask - Salesforce — an MCP App that connects to Salesforce CRM (Leads, Opportunities, Accounts, Contacts, Cases, Tasks, Campaigns, Pipeline) and renders interactive widgets directly in M365 Copilot chat. Full create/read/update with id-based view/edit, multi-field filtering, and inline case activity."
+                    },
+    "accentColor":  "#0078D4",
+    "composeExtensions":  [
+
+                          ],
+    "copilotAgents":  {
+                          "declarativeAgents":  [
+                                                    {
+                                                        "id":  "declarativeAgent",
+                                                        "file":  "declarativeAgent.json"
+                                                    }
+                                                ]
+                      },
+    "permissions":  [
+                        "identity",
+                        "messageTeamMembers"
+                    ],
+    "validDomains":  [
+
+                     ]
+}

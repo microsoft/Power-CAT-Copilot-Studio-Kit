@@ -1,0 +1,222 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.45.15.27210",
+      "templateHash": "6266404041900927329"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "[resourceGroup().location]",
+      "metadata": {
+        "description": "Azure region."
+      }
+    },
+    "environmentName": {
+      "type": "string",
+      "defaultValue": "lob-mcp-apps-env",
+      "metadata": {
+        "description": "Container Apps Environment name (shared with SF — same env hosts both LOB container apps)"
+      }
+    },
+    "acrName": {
+      "type": "string",
+      "defaultValue": "lobmcpapps",
+      "metadata": {
+        "description": "Azure Container Registry name (shared with SF — must be globally unique)"
+      }
+    },
+    "logRetentionDays": {
+      "type": "int",
+      "defaultValue": 30,
+      "metadata": {
+        "description": "Log Analytics retention in days"
+      }
+    },
+    "servicenowInstance": {
+      "type": "string",
+      "defaultValue": ""
+    },
+    "servicenowAuthMode": {
+      "type": "string",
+      "defaultValue": "oauth"
+    },
+    "servicenowClientId": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
+    "servicenowClientSecret": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
+    "servicenowUsername": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
+    "servicenowPassword": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
+    "appInsightsConnectionString": {
+      "type": "securestring",
+      "defaultValue": ""
+    },
+    "appInsightsRoleName": {
+      "type": "string",
+      "defaultValue": "lob-mcp-sn"
+    }
+  },
+  "variables": {
+    "acrPullRoleId": "7f951dda-4ed3-4680-a7ca-43fe172d538d"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.ContainerRegistry/registries",
+      "apiVersion": "2023-07-01",
+      "name": "[parameters('acrName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "Basic"
+      },
+      "properties": {
+        "adminUserEnabled": false
+      }
+    },
+    {
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "apiVersion": "2023-09-01",
+      "name": "[format('{0}-logs', parameters('environmentName'))]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "retentionInDays": "[parameters('logRetentionDays')]",
+        "sku": {
+          "name": "PerGB2018"
+        }
+      }
+    },
+    {
+      "type": "Microsoft.App/managedEnvironments",
+      "apiVersion": "2024-03-01",
+      "name": "[parameters('environmentName')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "appLogsConfiguration": {
+          "destination": "log-analytics",
+          "logAnalyticsConfiguration": {
+            "customerId": "[reference(resourceId('Microsoft.OperationalInsights/workspaces', format('{0}-logs', parameters('environmentName'))), '2023-09-01').customerId]",
+            "sharedKey": "[listKeys(resourceId('Microsoft.OperationalInsights/workspaces', format('{0}-logs', parameters('environmentName'))), '2023-09-01').primarySharedKey]"
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.OperationalInsights/workspaces', format('{0}-logs', parameters('environmentName')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
+      "apiVersion": "2023-01-31",
+      "name": "[format('{0}-identity', parameters('environmentName'))]",
+      "location": "[parameters('location')]"
+    },
+    {
+      "type": "Microsoft.Authorization/roleAssignments",
+      "apiVersion": "2022-04-01",
+      "scope": "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+      "name": "[guid(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('{0}-identity', parameters('environmentName'))), variables('acrPullRoleId'))]",
+      "properties": {
+        "roleDefinitionId": "[subscriptionResourceId('Microsoft.Authorization/roleDefinitions', variables('acrPullRoleId'))]",
+        "principalId": "[reference(resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('{0}-identity', parameters('environmentName'))), '2023-01-31').principalId]",
+        "principalType": "ServicePrincipal"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('{0}-identity', parameters('environmentName')))]"
+      ]
+    },
+    {
+      "type": "Microsoft.App/containerApps",
+      "apiVersion": "2024-03-01",
+      "name": "gtc-sn-gw",
+      "location": "[parameters('location')]",
+      "identity": {
+        "type": "UserAssigned",
+        "userAssignedIdentities": {
+          "[format('{0}', resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('{0}-identity', parameters('environmentName'))))]": {}
+        }
+      },
+      "properties": {
+        "environmentId": "[resourceId('Microsoft.App/managedEnvironments', parameters('environmentName'))]",
+        "configuration": {
+          "registries": [
+            {
+              "server": "[reference(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), '2023-07-01').loginServer]",
+              "identity": "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('{0}-identity', parameters('environmentName')))]"
+            }
+          ],
+          "ingress": {
+            "external": true,
+            "targetPort": 8081,
+            "transport": "http",
+            "corsPolicy": {
+              "allowedOrigins": [
+                "*"
+              ],
+              "allowedHeaders": [
+                "*"
+              ],
+              "allowedMethods": [
+                "GET",
+                "POST",
+                "OPTIONS"
+              ],
+              "allowCredentials": false
+            }
+          },
+          "secrets": "[concat(createArray(createObject('name', 'sn-client-id', 'value', parameters('servicenowClientId')), createObject('name', 'sn-client-secret', 'value', parameters('servicenowClientSecret'))), if(empty(parameters('servicenowUsername')), createArray(), createArray(createObject('name', 'sn-username', 'value', parameters('servicenowUsername')))), if(empty(parameters('servicenowPassword')), createArray(), createArray(createObject('name', 'sn-password', 'value', parameters('servicenowPassword')))), if(empty(parameters('appInsightsConnectionString')), createArray(), createArray(createObject('name', 'appinsights-conn-string', 'value', parameters('appInsightsConnectionString')))))]"
+        },
+        "template": {
+          "containers": [
+            {
+              "name": "sn",
+              "image": "mcr.microsoft.com/k8se/quickstart:latest",
+              "resources": {
+                "cpu": "[json('0.5')]",
+                "memory": "1Gi"
+              },
+              "env": "[concat(createArray(createObject('name', 'SERVICENOW_INSTANCE', 'value', parameters('servicenowInstance')), createObject('name', 'SERVICENOW_AUTH_MODE', 'value', parameters('servicenowAuthMode')), createObject('name', 'SERVICENOW_CLIENT_ID', 'secretRef', 'sn-client-id'), createObject('name', 'SERVICENOW_CLIENT_SECRET', 'secretRef', 'sn-client-secret'), createObject('name', 'PORT', 'value', '8081'), createObject('name', 'APPINSIGHTS_ROLE_NAME', 'value', parameters('appInsightsRoleName'))), if(empty(parameters('servicenowUsername')), createArray(), createArray(createObject('name', 'SERVICENOW_USERNAME', 'secretRef', 'sn-username'))), if(empty(parameters('servicenowPassword')), createArray(), createArray(createObject('name', 'SERVICENOW_PASSWORD', 'secretRef', 'sn-password'))), if(empty(parameters('appInsightsConnectionString')), createArray(), createArray(createObject('name', 'APPINSIGHTS_CONNECTION_STRING', 'secretRef', 'appinsights-conn-string'))))]"
+            }
+          ],
+          "scale": {
+            "minReplicas": 1,
+            "maxReplicas": 3
+          }
+        }
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName'))]",
+        "[resourceId('Microsoft.App/managedEnvironments', parameters('environmentName'))]",
+        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', format('{0}-identity', parameters('environmentName')))]"
+      ]
+    }
+  ],
+  "outputs": {
+    "snUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "Public HTTPS URL of the SN Copilot container app"
+      },
+      "value": "[format('https://{0}', reference(resourceId('Microsoft.App/containerApps', 'gtc-sn-gw'), '2024-03-01').configuration.ingress.fqdn)]"
+    },
+    "acrLoginServer": {
+      "type": "string",
+      "metadata": {
+        "description": "ACR login server"
+      },
+      "value": "[reference(resourceId('Microsoft.ContainerRegistry/registries', parameters('acrName')), '2023-07-01').loginServer]"
+    }
+  }
+}

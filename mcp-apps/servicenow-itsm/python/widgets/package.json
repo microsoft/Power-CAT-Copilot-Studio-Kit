@@ -1,0 +1,27 @@
+{
+  "name": "sn-mcp-copilot-widget",
+  "version": "0.5.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "INPUT=src/index.html vite build --watch"
+  },
+  "dependencies": {
+    "@fluentui/react-components": "^9.56.0",
+    "@fluentui/react-datepicker-compat": "^0.6.32",
+    "@fluentui/react-icons": "^2.0.258",
+    "@gtc/mcp-shared": "file:./mcp-shared",
+    "@modelcontextprotocol/ext-apps": "^1.6.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.4.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vite-plugin-singlefile": "^2.0.3"
+  }
+}
