@@ -69,6 +69,10 @@ Remember: You can always raise an issue to the Copilot Agent Kit team in the Git
 | May 13 (US) / N/A | Cancelled | US | Transition to every-other-week schedule and new session format |
 | Jun 3 (US) | Confirmed | US | Every-other-week US slot |
 | Jun 17 (APAC) | Planned | APAC | Every-other-week APAC slot |
+| Aug 5 (US) | Confirmed | US | Every-other-week US slot |
+| Aug 20 (APAC) | Confirmed | APAC | Every-other-week APAC slot |
+| Sept 9 (US) | Planned | US | Every-other-week US slot |
+| Sept 24 (APAC) | Planned | APAC | Every-other-week APAC slot |
 
 
 [World Clock Meeting Planner](https://www.timeanddate.com/worldclock/meeting.html)
