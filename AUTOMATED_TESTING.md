@@ -14,6 +14,12 @@ This feature allows users to automate the testing and deployment of Copilot Stud
 
 *Governed Deployment*: Enforce governance and control over the deployment process, reducing manual steps and errors.
 
+## Prerequisites
+
+The **Power Platform Pipelines** application must be installed and configured before you enable automated pipeline-based or scheduled testing. This application provides the pipeline infrastructure required to configure and execute automated test runs.
+
+For information about installing and configuring Power Platform Pipelines, see [Set up pipelines in Power Platform](https://learn.microsoft.com/power-platform/alm/set-up-pipelines).
+
 ## Requirements
 
 *Pipeline Host Environment*: The central control point for the deployment process.
