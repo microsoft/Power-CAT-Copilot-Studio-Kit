@@ -32,7 +32,7 @@ More information on [Agent Debugger](https://github.com/microsoft/Power-CAT-Copi
 
 ## Agent Change Tracker (Preview)
 
-**Agent Change Tracker** helps makers monitor changes to tracked Microsoft Copilot Studio agents. After an agent is added for tracking, supported saved changes from any maker are automatically captured and displayed in a chronological history showing what changed, who made the change, and when it occurred.
+**Agent Change Tracker** helps makers monitor changes to Microsoft Copilot Studio agents. After an agent is added for tracking, supported saved changes from any maker are automatically captured and displayed in a chronological history showing what changed, who made the change, and when it occurred.
 
 More information on [Agent Change Tracker](./AGENT_CHANGE_TRACKER.md)
 
