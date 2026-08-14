@@ -1,8 +1,10 @@
 # Agent Review Tool reference guide
 
-The Agent Review Tool is part of Microsoft Copilot Agent Kit. It reviews agent
-configuration and uploaded artifacts. It identifies quality, safety,
-orchestration, test coverage, and efficiency findings.
+The Agent Review Tool is part of Microsoft Copilot Agent Kit. It reviews
+Copilot Studio agents, Microsoft 365 Declarative Agent packages, Agent skills
+for Copilot Studio, Microsoft 365 Copilot Cowork, and Microsoft Scout, and
+Scout automation artifacts. It identifies quality, safety, orchestration, test
+coverage, and efficiency findings.
 
 The tool is a preview feature. Use its results as guidance. Verify important
 findings before you change or publish an agent.
@@ -34,8 +36,8 @@ Use the Agent Review Tool to:
 - Review an active Copilot Studio agent in an environment that you can access.
 - Review a Copilot Studio agent from an exported solution ZIP.
 - Review a Microsoft 365 Declarative Agent from an Agent Builder ZIP.
-- Review a `SKILL.md` file, an automation JSON file, or a ZIP that contains
-  supported skill or automation files.
+- Review Agent skills for Copilot Studio, Microsoft 365 Copilot Cowork, and
+  Microsoft Scout, and review Scout automation artifacts.
 - Find configuration gaps and instruction issues.
 - Review skills, supporting resources, cross-skill orchestration, and
   evaluation coverage.
@@ -47,19 +49,26 @@ Use the Agent Review Tool to:
 The tool reads the source agent or uploaded artifact. It does not change the
 source agent.
 
+![Agent Review Tool dashboard with quick statistics, review sources, and saved results](media/agent-review-landing.png)
+
+*The dashboard brings Copilot Studio agents, Microsoft 365 Declarative Agents,
+and Skills & Automations review into one experience.*
+
 ## Capability summary
 
 | Capability | What it provides |
 | --- | --- |
-| Copilot Studio agent review | Reviews a live agent or solution ZIP for configuration and instruction issues. GitHub Copilot agents can also show skills, resources, evaluation coverage, Agent Map, and efficiency guidance. |
+| Copilot Studio agent review | Reviews a live agent from an accessible environment or an exported solution ZIP. Standard results cover configuration and instructions. GitHub Copilot results add architecture, skills, resources, orchestration, evaluation coverage, and cost and efficiency guidance. |
 | Microsoft 365 Declarative Agent review | Reviews an Agent Builder ZIP for instructions, knowledge, capabilities, actions, starters, error handling, and manifest issues. |
-| Skills and Automations review | Reviews one supported file or ZIP for selected target runtimes, safety, authoring quality, and file-specific issues. |
+| Skills and Automations review | Reviews Agent skills for Copilot Studio, Copilot Cowork, or Microsoft Scout. It also reviews Scout automation and installer files. It checks runtime fit, safety, authoring quality, and file-specific issues. |
 | Agent Map for GitHub Copilot agents | A map and accessible list of the agent, skills, tools, knowledge, triggers, and connected agents. |
 | Skill and resource analysis for GitHub Copilot agents | Shows skill findings and eligible supporting files, with detailed resource analysis when available. |
 | Cross-skill orchestration for GitHub Copilot agents | Findings for overlap, redundancy, and routing across the skill set. |
 | Evaluation coverage for GitHub Copilot agents | Shows which agent capabilities have saved tests and which capabilities need coverage. |
 | Cost and efficiency guidance for GitHub Copilot agents | A 30-day observed-use view, improvement opportunities, evaluation-pass planning, and a budget estimate. |
-| Results and exports | Gives a review summary, actionable findings, supporting evidence, and the export actions available for that review type. |
+| Grounded findings | Depending on the review type, combines deterministic checks with AI-supported analysis. Findings can include evidence, impact, recommendations, fix steps, citations, and detection sources. The tool keeps available checks when an AI stage cannot run and marks the result as partial. |
+| Safe artifact analysis | Scans uploaded files in the browser, withholds content that matches high-risk secret patterns, and sends only eligible text for deeper analysis. |
+| Results and exports | Gives a review summary, actionable findings, supporting evidence, and review-specific actions. Supported outputs include PDF, Excel, SARIF, and a portfolio workbook. |
 
 ## Requirements and setup for administrators
 
@@ -163,10 +172,6 @@ The dashboard has these tabs:
 The header shows **Uses Copilot Credits**. This label means that a review can
 consume Copilot Credits.
 
-![Agent Review Tool landing page with quick statistics and the agent list](media/agent-review-landing.png)
-
-*Agent Review Tool landing page.*
-
 ## Choose what to review
 
 ### Supported sources
@@ -176,7 +181,9 @@ consume Copilot Credits.
 | Live Copilot Studio agent | Reads active, generative-AI-enabled agents from the selected environment. | You need read access to the source agent and environment. |
 | Copilot Studio solution ZIP | Use **Review from ZIP** on the Copilot Studio tab. | If the ZIP contains more than one agent, select the agent to review. |
 | Microsoft 365 Declarative Agent | Upload an Agent Builder ZIP. | The tool does not browse the live Microsoft 365 agent catalog. |
-| Skill or automation artifact | Upload one `.md`, `.json`, or `.zip` file on the Skills & Automations tab. | The maximum upload size is 30 MB. |
+| Agent skill | Upload a `SKILL.md` file or a ZIP that contains `SKILL.md` on the Skills & Automations tab. | Select one or more target runtimes: Copilot Studio, Copilot Cowork, or Microsoft Scout. The maximum upload size is 30 MB. |
+| Scout automation | Upload a supported automation `.json` file on the Skills & Automations tab. | Microsoft Scout is the applicable runtime. The maximum upload size is 30 MB. |
+| Scout automation installer | Upload a ZIP that contains `INSTALL.md` and an automation `.json` file on the Skills & Automations tab. | Microsoft Scout is the applicable runtime. The maximum upload size is 30 MB. |
 
 The M365 Declarative Agents tab also lists Declarative Agents that were
 previously reviewed in the current Copilot Agent Kit environment. This list is
@@ -189,8 +196,8 @@ The **Powered by** value tells you which result areas to expect.
 
 | Powered by | Result areas |
 | --- | --- |
-| Standard | Configuration patterns and agent instruction analysis. |
-| GitHub Copilot | Configuration findings, skill and resource analysis, evaluation coverage, Agent Map, and cost and efficiency guidance. |
+| Standard | Configuration patterns, agent instruction analysis, findings, evidence, and supported exports. |
+| GitHub Copilot | Overview and score, instruction coverage, grounded findings, Agent Map, skill and resource analysis, cross-skill orchestration, evaluation coverage, and cost and efficiency guidance. |
 
 Some detailed result areas depend on the environment setup and available AI
 capacity. A partial result can still contain useful checks. Ask an
@@ -206,11 +213,14 @@ consume more Copilot Credits.
 4. Select **Review**.
 5. Keep the page open while the progress view runs.
 6. Open the saved result when the review completes.
-7. Review high-severity findings first.
+7. Review the overview and high-severity findings first.
 8. Open each finding to read its evidence, impact, recommendation, fix, and
    source.
-9. Change and test the agent in Copilot Studio.
-10. Run the review again to replace the saved result.
+9. For a GitHub Copilot agent, use **Agent Map**, **Skill evaluator**,
+   **Evaluation coverage**, and **Cost & efficiency** to review the wider agent
+   design.
+10. Change and test the agent in Copilot Studio.
+11. Run the review again to replace the saved result.
 
 ![Agent review progress while checking compliance](media/review-progress.png)
 
@@ -258,6 +268,11 @@ This section applies to Copilot Studio agent reviews. **Agent Map**, **Skill
 evaluator**, **Evaluation coverage**, and **Cost & efficiency** are available
 for GitHub Copilot agents. They are not part of a Microsoft 365 Declarative
 Agent review.
+
+A GitHub Copilot result connects the agent overview, instructions, grounded
+findings and citations, architecture, skills, resources, cross-skill
+orchestration, evaluation coverage, and efficiency guidance. Use these views
+together. A score alone does not show the full agent design.
 
 ### Scores and counts
 
@@ -426,9 +441,6 @@ The current Cost and efficiency page has four questions:
 3. **How do I validate it?**
 4. **How do I plan a budget?**
 
-> **Screenshot placeholder:** Cost and Efficiency results
-> (`cost-efficiency.png`).
-
 #### What did we observe?
 
 This section uses conversation transcript signals from the last 30 days.
@@ -510,20 +522,23 @@ artifact.
 
 ### Supported artifact files
 
-- A `SKILL.md` file
-- An automation `.json` file
-- A `.zip` file that contains supported skill or automation files
+| Artifact | Upload | Applicable target runtimes |
+| --- | --- | --- |
+| Agent skill | A `SKILL.md` file or a ZIP that contains `SKILL.md` | Copilot Studio, Copilot Cowork, and Microsoft Scout |
+| Scout automation | A supported automation `.json` file | Microsoft Scout |
+| Scout automation installer | A ZIP that contains `INSTALL.md` and an automation `.json` file | Microsoft Scout |
 
 The tool accepts one file for each upload. The maximum file size is 30 MB.
-The tool detects the artifact type.
+The tool detects the artifact type from its files.
 
 ### Run the artifact review
 
 1. Open **Skills & Automations**.
 2. Select the upload action.
 3. Select one supported file.
-4. Select the applicable target runtimes, such as Copilot Studio, Cowork, or
-   Microsoft Scout.
+4. For an Agent skill, select one or more applicable target runtimes:
+   Copilot Studio, Copilot Cowork, or Microsoft Scout. Scout automation
+   formats use Microsoft Scout.
 5. Start the review.
 6. Wait for the progress view to complete.
 7. Open the saved result.
@@ -532,8 +547,12 @@ The tool detects the artifact type.
 
 *Select the artifact and each target runtime that applies.*
 
-The review checks packaging, structure, safety, runtime fit, wording, and
-instructions. It then applies the authoring rubric.
+The review first runs deterministic checks for packaging, structure, secret
+patterns, file content, and runtime fit. When the AI stage is available, it
+also assesses task focus, instruction quality, safety, and evidence discipline.
+The tool then applies the authoring rubric and creates a separate verdict for
+each applicable runtime. If the AI stage cannot run, the result is partial. It
+does not present the deterministic-only result as a full assessment.
 
 ### Read artifact results
 
