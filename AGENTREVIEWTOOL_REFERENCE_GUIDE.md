@@ -1,656 +1,782 @@
-# Agent Review Tool 
-
----
-
-## Table of Contents
-
-1. [What Is the Agent Review Tool?](#1-what-is-the-agent-review-tool)
-2. [Key Capabilities at a Glance](#2-key-capabilities-at-a-glance)
-3. [Getting Started - The Dashboard](#3-getting-started---the-dashboard)
-4. [Review Modes](#4-review-modes)
-   - [Copilot Studio Agent Review](#copilot-studio-agent-review)
-   - [Declarative Agent (M365 Copilot) Review](#declarative-agent-m365-copilot-review)
-5. [What Happens During a Review](#5-what-happens-during-a-review)
-6. [Patterns Detected](#6-patterns-detected)
-   - [All 18 Patterns](#all-18-patterns)
-   - [Pattern Categories](#pattern-categories)
-   - [Severity Logic](#severity-logic)
-7. [Compliance Criteria](#7-compliance-criteria)
-   - [All 15 Criteria](#all-15-criteria)
-   - [Category Breakdown](#category-breakdown)
-8. [How Scores Are Calculated](#8-how-scores-are-calculated)
-   - [Pattern Score](#pattern-score)
-   - [Instruction Score](#instruction-score)
-   - [Overall Score](#overall-score)
-   - [Score Color and Label Guide](#score-color-and-label-guide)
-9. [Reviewing Results](#9-reviewing-results)
-   - [Overview Tab](#overview-tab)
-   - [Patterns Tab](#patterns-tab)
-   - [Compliance Tab](#compliance-tab)
-   - [Pattern Detail Drill-Down](#pattern-detail-drill-down)
-   - [Compliance Detail Drill-Down](#compliance-detail-drill-down)
-10. [Exporting Results](#10-exporting-results)
-    - [PDF Report](#pdf-report)
-    - [SARIF Export](#sarif-export)
-    - [Excel Export](#excel-export)
-11. [Declarative Agent Review - Deep Dive](#11-declarative-agent-review---deep-dive)
-12. [Security and Data Access](#12-security-and-data-access)
-13. [First-Run Experience and Welcome Tour](#13-first-run-experience-and-welcome-tour)
-14. [Frequently Asked Questions](#14-frequently-asked-questions)
+# Agent Review Tool reference guide
+
+The Agent Review Tool is part of Microsoft Copilot Agent Kit. It reviews
+Copilot Studio agents, Microsoft 365 Declarative Agent packages, Agent skills
+for Copilot Studio, Microsoft 365 Copilot Cowork, and Microsoft Scout, and
+Scout automation artifacts. It identifies quality, safety, orchestration, test
+coverage, and efficiency findings.
+
+The tool is a preview feature. Use its results as guidance. Verify important
+findings before you change or publish an agent.
+
+## Contents
+
+- [Purpose](#purpose)
+- [Capability summary](#capability-summary)
+- [Requirements and setup for administrators](#requirements-and-setup-for-administrators)
+- [Launch the tool](#launch-the-tool)
+- [Choose what to review](#choose-what-to-review)
+- [Review a Copilot Studio agent](#review-a-copilot-studio-agent)
+- [Review a Copilot Studio solution ZIP](#review-a-copilot-studio-solution-zip)
+- [Read Copilot Studio agent results](#read-copilot-studio-agent-results)
+- [Review a Microsoft 365 Declarative Agent](#review-a-microsoft-365-declarative-agent)
+- [Review skills and automations](#review-skills-and-automations)
+- [Use result actions and exports](#use-result-actions-and-exports)
+- [Review history and persistence](#review-history-and-persistence)
+- [Security, privacy, ownership, and retention](#security-privacy-ownership-and-retention)
+- [Copilot Credit use and cost information](#copilot-credit-use-and-cost-information)
+- [Limitations](#limitations)
+- [Troubleshooting](#troubleshooting)
+- [Related Microsoft documentation](#related-microsoft-documentation)
+
+## Purpose
+
+Use the Agent Review Tool to:
+
+- Review an active Copilot Studio agent in an environment that you can access.
+- Review a Copilot Studio agent from an exported solution ZIP.
+- Review a Microsoft 365 Declarative Agent from an Agent Builder ZIP.
+- Review Agent skills for Copilot Studio, Microsoft 365 Copilot Cowork, and
+  Microsoft Scout, and review Scout automation artifacts.
+- Find configuration gaps and instruction issues.
+- Review skills, supporting resources, cross-skill orchestration, and
+  evaluation coverage.
+- View an evidence-based agent map.
+- Find configuration and observed-use signals that can help you improve
+  efficiency.
+- Export supported result types for follow-up work.
+
+The tool reads the source agent or uploaded artifact. It does not change the
+source agent.
+
+![Agent Review Tool dashboard with quick statistics, review sources, and saved results](media/agent-review-landing.png)
+
+*The dashboard brings Copilot Studio agents, Microsoft 365 Declarative Agents,
+and Skills & Automations review into one experience.*
+
+## Capability summary
+
+| Capability | What it provides |
+| --- | --- |
+| Copilot Studio agent review | Reviews a live agent from an accessible environment or an exported solution ZIP. Standard results cover configuration and instructions. GitHub Copilot results add architecture, skills, resources, orchestration, evaluation coverage, and cost and efficiency guidance. |
+| Microsoft 365 Declarative Agent review | Reviews an Agent Builder ZIP for instructions, knowledge, capabilities, actions, starters, error handling, and manifest issues. |
+| Skills and Automations review | Reviews Agent skills for Copilot Studio, Copilot Cowork, or Microsoft Scout. It also reviews Scout automation and installer files. It checks runtime fit, safety, authoring quality, and file-specific issues. |
+| Agent Map for GitHub Copilot agents | A map and accessible list of the agent, skills, tools, knowledge, triggers, and connected agents. |
+| Skill and resource analysis for GitHub Copilot agents | Shows skill findings and eligible supporting files, with detailed resource analysis when available. |
+| Cross-skill orchestration for GitHub Copilot agents | Findings for overlap, redundancy, and routing across the skill set. |
+| Evaluation coverage for GitHub Copilot agents | Shows which agent capabilities have saved tests and which capabilities need coverage. |
+| Cost and efficiency guidance for GitHub Copilot agents | A 30-day observed-use view, improvement opportunities, evaluation-pass planning, and a budget estimate. |
+| Grounded findings | Depending on the review type, combines deterministic checks with AI-supported analysis. Findings can include evidence, impact, recommendations, fix steps, citations, and detection sources. The tool keeps available checks when an AI stage cannot run and marks the result as partial. |
+| Safe artifact analysis | Scans uploaded files in the browser, withholds content that matches high-risk secret patterns, and sends only eligible text for deeper analysis. |
+| Results and exports | Gives a review summary, actionable findings, supporting evidence, and review-specific actions. Supported outputs include PDF, Excel, SARIF, and a portfolio workbook. |
+
+## Requirements and setup for administrators
+
+This section is for administrators who prepare Copilot Agent Kit. Makers can
+continue at [Launch the tool](#launch-the-tool) after an administrator completes
+the setup.
+
+### Platform requirements
+
+An administrator must prepare the environment before a maker runs a review.
+
+| Requirement | Why it is required |
+| --- | --- |
+| A Power Platform environment with Dataverse | The kit stores configuration and review data in Dataverse. |
+| Power Apps Code Apps enabled | The Makers app and the Agent Review installer are Code Apps. |
+| Copilot Agent Kit and its required dependencies installed | The Agent Review Tool uses kit apps, tables, roles, connections, and flows. |
+| Required Power Apps and Power Automate licenses | Users must be able to run the app and Premium cloud flows. |
+| Copilot Credits or applicable AI capacity | AI-supported review areas consume this capacity. |
+| Allowed connectors in data policies | A blocked connector can stop setup or review execution. |
+| Shared access to the Makers app | Makers must have permission to run the app. |
+| An applicable security role | Use `CSK - Maker`, `CSK - Administrator`, System Administrator, or an equivalent custom role. |
+
+For complete kit requirements, see
+[Copilot Agent Kit prerequisites](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/kit-prerequisites).
+
+### Connections required for Agent Review setup
+
+The setup process uses these connections:
+
+| Connection | Purpose |
+| --- | --- |
+| Microsoft Dataverse | Reads and updates the Agent Review setup records. |
+| Agents | Gives the review workflow access to Copilot Studio agent components. |
+| Power Apps for Makers | Finds the signed-in user's connected Agents connection when the connection reference is empty. |
+
+Use a setup account that owns a working Agents connection. The installer does
+not replace an Agents connection reference that already has a value.
+
+The full Copilot Agent Kit solution contains more connectors. Your data
+policies must allow all connectors that the solution import requires, even if
+you do not use every kit feature.
+
+### Set up Agent Review with the Setup Wizard and Installer
+
+1. Install or upgrade Copilot Agent Kit in the target environment.
+2. Assign the required security roles.
+3. Share the Makers app and the installer app with the applicable users or
+   groups.
+4. Open the Copilot Agent Kit administration experience.
+5. Open **Setup Wizard**.
+6. Confirm the kit prerequisites.
+7. Configure the required connection references.
+8. Use the Agent Review installer link in the wizard. This link opens the
+   standalone Copilot Agent Kit Installer.
+9. Select **Set up Agent Review**.
+10. Wait for these four setup items to show **Ready**:
+    - **Agents connection**
+    - **Dataverse connection**
+    - **Workflow connections**
+    - **Review workflow**
+11. Select **Open Agent Review Tool**.
+
+**Agents connection** confirms that the signed-in user's Agents connection
+works. **Dataverse connection** confirms that the signed-in user's Dataverse
+connection works. **Workflow connections** confirms that the workflow uses the
+assigned Agents and Dataverse connections. **Review workflow** confirms that the
+**Review Agent Components** workflow is on.
+
+![Agent Review installer showing all four setup checks as Ready and the Open Agent Review Tool button.](media/agent-review-installer-ready.png)
+
+The installer performs the initial setup and can be run again to verify or
+repair it. When setup is required, it validates the signed-in user's Agents and
+Dataverse connections. It repairs the workflow connections when required. It
+turns on the **Review Agent Components** workflow if it is off.
+
+The Setup Wizard link is a manual launch action. It does not run the installer
+automatically. If the installer cannot be found, confirm that the current
+Copilot Agent Kit solution includes the installer app.
+
+### Direct installer access
+
+An administrator can also open the standalone Copilot Agent Kit Installer
+directly from the environment app list. Use this method if the Setup Wizard
+link is not available.
+
+## Launch the tool
+
+You can open the Agent Review Tool in either of these ways:
+
+1. Complete Agent Review setup in the standalone installer, then select
+   **Open Agent Review Tool**.
+2. Open the Copilot Agent Kit Makers app, then select
+   **Agent Review Tool** in the navigation.
+
+The dashboard has these tabs:
+
+- **Copilot Studio Agents**
+- **M365 Declarative Agents**
+- **Skills & Automations**
+
+The header shows **Uses Copilot Credits**. This label means that a review can
+consume Copilot Credits.
+
+## Choose what to review
+
+### Supported sources
+
+| Source | How the tool gets it | Important note |
+| --- | --- | --- |
+| Live Copilot Studio agent | Reads active, generative-AI-enabled agents from the selected environment. | You need read access to the source agent and environment. |
+| Copilot Studio solution ZIP | Use **Review from ZIP** on the Copilot Studio tab. | If the ZIP contains more than one agent, select the agent to review. |
+| Microsoft 365 Declarative Agent | Upload an Agent Builder ZIP. | The tool does not browse the live Microsoft 365 agent catalog. |
+| Agent skill | Upload a `SKILL.md` file or a ZIP that contains `SKILL.md` on the Skills & Automations tab. | Select one or more target runtimes: Copilot Studio, Copilot Cowork, or Microsoft Scout. The maximum upload size is 30 MB. |
+| Scout automation | Upload a supported automation `.json` file on the Skills & Automations tab. | Microsoft Scout is the applicable runtime. The maximum upload size is 30 MB. |
+| Scout automation installer | Upload a ZIP that contains `INSTALL.md` and an automation `.json` file on the Skills & Automations tab. | Microsoft Scout is the applicable runtime. The maximum upload size is 30 MB. |
+
+The M365 Declarative Agents tab also lists Declarative Agents that were
+previously reviewed in the current Copilot Agent Kit environment. This list is
+not a live Microsoft 365 catalog.
+
+### Why Copilot Studio results can differ
+
+The tool selects the review automatically. You do not select a review mode.
+The **Powered by** value tells you which result areas to expect.
+
+| Powered by | Result areas |
+| --- | --- |
+| Standard | Configuration patterns, agent instruction analysis, findings, evidence, and supported exports. |
+| GitHub Copilot | Overview and score, instruction coverage, grounded findings, Agent Map, skill and resource analysis, cross-skill orchestration, evaluation coverage, and cost and efficiency guidance. |
+
+Some detailed result areas depend on the environment setup and available AI
+capacity. A partial result can still contain useful checks. Ask an
+administrator to correct the setup, then run the review again if you need the
+missing result areas. A review with more result areas can take more time and
+consume more Copilot Credits.
+
+## Review a Copilot Studio agent
+
+1. Open **Copilot Studio Agents**.
+2. Select the environment that contains the agent.
+3. Search for the agent.
+4. Select **Review**.
+5. Keep the page open while the progress view runs.
+6. Open the saved result when the review completes.
+7. Review the overview and high-severity findings first.
+8. Open each finding to read its evidence, impact, recommendation, fix, and
+   source.
+9. For a GitHub Copilot agent, use **Agent Map**, **Skill evaluator**,
+   **Evaluation coverage**, and **Cost & efficiency** to review the wider agent
+   design.
+10. Change and test the agent in Copilot Studio.
+11. Run the review again to replace the saved result.
+
+![Agent review progress while checking compliance](media/review-progress.png)
+
+*The progress view identifies the active review stage and the item being
+reviewed.*
+
+![Agent review progress while saving results](media/agent-review-progress.png)
+
+*The review stays open while it saves the completed result.*
+
+The progress view shows the current stage. For GitHub Copilot agents, it can
+also show the skill or resource being reviewed. Keep the page open until the
+review is complete.
 
----
+If you select a different source environment, the tool reads the source agent
+from that environment. It saves the review in the environment that hosts
+Copilot Agent Kit.
 
-## 1. What Is the Agent Review Tool?
+## Review a Copilot Studio solution ZIP
+
+Use a ZIP review when the source agent is not available as a live agent in the
+selected environment.
+
+1. Open **Copilot Studio Agents**.
+2. Select **Review from ZIP**.
+3. Select the exported Copilot Studio solution ZIP.
+4. If the ZIP contains more than one agent, select one agent.
+5. Start the review.
+6. Wait for the result page.
 
-The **Agent Review Tool** is an automated quality assessment and compliance review system for Microsoft Copilot Studio agents and Microsoft 365 Declarative Agents. It was built to help makers, admins, and governance teams identify issues, anti-patterns, and compliance gaps in their agents before those issues reach end users.
+The ZIP must be a valid Copilot Studio solution package. It must contain the
+required solution metadata.
 
-> **The core problem it solves:** As organizations scale their Copilot Studio deployments, manually reviewing each agent's configuration, instructions, and topic structure becomes impossible. The Agent Review Tool automates that review through an AI-powered analysis, surfacing actionable findings in under 60 seconds.
+The app does not retain the uploaded ZIP. Upload it again when you want a new
+review. Actions that require a live agent, such as opening the agent in Copilot
+Studio, are not available for ZIP reviews.
+
+The app does not publish a fixed size limit for Copilot Studio ZIP or
+Declarative Agent ZIP uploads. Very large ZIP files can exceed browser memory
+or processing limits.
 
-**Who it's for:**
-- **Makers** - get actionable feedback to improve agent quality before deployment
-- **Admins and CoE teams** - enforce governance standards across all agents in an environment
-- **Security and Compliance officers** - verify agents follow privacy, safety, and accuracy guidelines
+## Read Copilot Studio agent results
 
----
+This section applies to Copilot Studio agent reviews. **Agent Map**, **Skill
+evaluator**, **Evaluation coverage**, and **Cost & efficiency** are available
+for GitHub Copilot agents. They are not part of a Microsoft 365 Declarative
+Agent review.
 
-## 2. Key Capabilities at a Glance
+A GitHub Copilot result connects the agent overview, instructions, grounded
+findings and citations, architecture, skills, resources, cross-skill
+orchestration, evaluation coverage, and efficiency guidance. Use these views
+together. A score alone does not show the full agent design.
 
-| Capability | Details |
-|---|---|
-| **Agent coverage** | Copilot Studio agents + M365 Declarative Agents |
-| **Review time** | Typically under 60 seconds per agent |
-| **Patterns checked** | 18 patterns (10 deterministic + 8 AI-powered) |
-| **Compliance criteria** | 15 instruction quality criteria |
-| **Score system** | 0-100 overall score (50% patterns, 50% compliance) |
-| **Export formats** | PDF, SARIF, Excel |
-| **Data storage** | Microsoft Dataverse (user-scoped, RLS protected) |
-| **AI engine** | Microsoft Copilot Studio AI Prompts via Dataverse PredictV2 |
+### Scores and counts
 
----
+Scores help you prioritize work. A high score is not a certification. A low
+score does not prove that an agent is unsafe. Always read the supporting
+findings.
 
-## 3. Getting Started - The Dashboard
+The user interface uses these general score bands:
 
-When you open the Agent Review Tool, you land on the **Dashboard**, the central hub showing all agents in your environment and their review status.
+| Score | General meaning |
+| --- | --- |
+| 80 to 100 | Stronger result. Review remaining findings. |
+| 60 to 79 | Improvement is recommended. |
+| 40 to 59 | Important gaps are present. |
+| 0 to 39 | Give the result immediate attention. |
 
-### Dashboard Layout
+The exact label can differ by review type. Use the score with the issue counts,
+severity, and evidence.
 
-![Home page / dashboard](media/art_1.png)
+Counts such as `failed / total` show how many checks did not pass. A
+`could not run`, `not applicable`, or unavailable status is not a pass.
 
-The dashboard shows everything at a glance: the tab bar switching between Copilot Studio and M365 agents, four stat cards summarizing the portfolio health, a search toolbar, the paginated agent grid, and the Upload ZIP button for offline reviews.
+A GitHub Copilot agent without a saved test set cannot receive the Evaluation
+points and cannot enter the highest score band.
 
-### Stat Cards Explained
+### Standard agent score
 
-The four stat cards at the top give you an instant health snapshot of your agent portfolio:
+The Standard result uses a 0-to-100 overall score.
 
-| Card | What It Shows | How It's Calculated |
-|---|---|---|
-| **Total Agents** | Count of all active bots in the environment | Query `bot` table where `statecode = 0` |
-| **Reviewed** | Number and percentage of agents that have been reviewed | Count of completed reviews / total agents |
-| **Average Score** | Mean overall score across all completed reviews | Sum of scores / reviewed count |
-| **Total Issues** | Cumulative issues found across all reviewed agents | Sum of pattern failures + compliance failures |
+- Pattern analysis contributes 50 percent when both score areas are present.
+- Instruction analysis contributes 50 percent when both score areas are
+  present.
+- If only one score area is available, that area supplies the overall score.
 
-### Agent Grid Columns
+The result page has **Pattern analysis** and **Agent instructions**. Open
+**Instruction analysis** to see the compliance details.
 
-| Column | Content |
-|---|---|
-| **Name** | Agent display name with icon |
-| **Score** | Overall review score (0-100) or `--` if not yet reviewed; color-coded |
-| **Issues** | Summary of high / medium / low severity findings; `--` if not reviewed |
-| **Last Reviewed** | Relative time ("2 hours ago", "1 week ago") or "Not reviewed" |
-| **Actions** | "Review" for unreviewed agents; "View" for agents with existing reviews |
+### GitHub Copilot agent score
 
-### Selecting an Environment
+A GitHub Copilot agent result uses one 0-to-100 **Grounded configuration
+score**.
 
-By default, the tool shows agents from the environment it is installed in. If you need to review an agent from a different environment, use the **environment selector** in the Dashboard toolbar to switch environments. The dropdown lists all Power Platform environments you have access to.
+| Pillar | Base weight |
+| --- | --- |
+| Evaluation | 30 percent |
+| Instructions | 25 percent |
+| Skills | 15 percent |
+| Tools | 12 percent |
+| Orchestration | 10 percent |
+| Knowledge | 8 percent |
 
-Once you select a different environment, the agent grid refreshes to show agents from that environment. You can then review any of those agents normally. The review result is stored in the current (home) environment, not the one you selected.
+When an agent does not use one of the other areas, the tool shares that weight
+across the areas that apply. It does not move the Evaluation weight. If the
+agent has no saved test set, it cannot receive the Evaluation points and
+cannot reach 100.
 
-![Environment selector dropdown](media/art_2.png)
+A partial label means that one or more result areas did not complete. Other
+checks and findings can still be available.
 
----
+### Instruction coverage
 
-## 4. Review Modes
+For GitHub Copilot agents, instruction coverage checks five elements:
 
-The tool supports two distinct review modes, accessible via the tab bar at the top of the dashboard.
+- Role
+- Tone
+- Boundaries
+- Ambiguity handling
+- Escalation
 
-### Copilot Studio Agent Review
+The result is **complete**, **partial**, or **failed**. It is not a percentage.
+If the review cannot classify an element, it does not count that element as a
+failure.
 
-This mode reviews agents built in Microsoft Copilot Studio. It reads directly from Dataverse - no file upload required.
+### Review findings and all checks
 
-**What it analyzes:**
-- Topic configurations (names, descriptions, variables)
-- Tool/action configurations (count, descriptions, routing)
-- Knowledge source types
-- Test case coverage
-- Agent instructions (generative mode)
-- Agent metadata (language, authentication, AI settings)
+Use **Review findings** to focus on checks that need action. A finding can show:
 
-**How to start a review:**
-1. Find your agent in the grid
-2. Click **Review** - the analysis starts automatically
-3. A progress dialog shows what's happening in real time
-4. Results open in the Review Dialog when complete
+- Parsed fact or evidence
+- Impact
+- Recommendation
+- How to fix
+- Official references
+- Detection method
+- Reference source
 
-**Re-reviewing an agent:**
-Any agent can be re-reviewed at any time. Each review creates a new record in Dataverse. The grid always shows the most recent review result.
+Use **All checks** to see passed, failed, warning, information,
+not-applicable, and could-not-run results. Clean rule groups can be collapsed.
 
----
+### Citations and sources
 
-### Declarative Agent (M365 Copilot) Review
+Citations appear in each applicable finding. There is no separate Citations
+tab.
 
-This mode reviews Microsoft 365 Declarative Agents, which are defined by a manifest JSON file and deployed to the Microsoft 365 Copilot ecosystem.
+A citation connects a finding to an approved source and evidence in the
+reviewed content. It shows why a recommendation applies. It does not prove
+that the source agent is compliant.
 
-**Two ways to submit a DA for review:**
+### Agent Map for GitHub Copilot agents
 
-| Method | How | When to use |
-|---|---|---|
-| **Upload ZIP** | Click "Upload ZIP" in the page header; select exported package | Agent is from another tenant or not in catalog |
-| **From M365 Catalog** | Connect to Microsoft 365 via the Graph API setup wizard; browse agents | Agent is deployed in your M365 tenant |
+Use **Agent map** to understand the configured agent structure.
 
-**What it analyzes (5 criteria, not 15):**
+The map can show:
 
-| Criterion | Weight | What's Checked |
-|---|---|---|
-| Instructions | 30% | Clarity, completeness, and quality of agent instructions |
-| Knowledge | 20% | Grounding via connected knowledge sources |
-| Capabilities | 15% | Use of CodeInterpreter and OneDriveAndSharePoint |
-| Actions | 15% | Tool routing and action descriptions |
-| Conversation Starters | 10% | Min 3, recommended 6 (max 12) |
-| Graceful Error Handling | 10% | Error recovery and fallback behaviors |
+- The main agent
+- Skills
+- Tools
+- Knowledge
+- Connected agents
+- Triggers
+- Evidence-based relationships
 
-> **Note:** The 15-criterion instruction compliance check is specific to Copilot Studio agents and does not apply to Declarative Agents.
+Switch to the list view when you need an accessible text representation. Use
+the inspector to read identity, details, findings, and connected-agent
+components.
 
----
+The map is a configuration view. It is not a runtime execution trace. It does
+not prove that a connection ran.
 
-## 5. What Happens During a Review
+![Agent Map showing configured agent components and relationships](media/skill-evaluator-agent-map.png)
 
-When you click **Review**, the tool runs an automated analysis that typically completes in under 60 seconds. A progress dialog keeps you informed while it works.
+*Agent Map distinguishes configured relationships from possible references
+found by the review.*
 
-![Review Progress Dialog](media/art_3.png)
+### Skill evaluator, files, resources, and orchestration for GitHub Copilot agents
 
-The analysis covers three things in sequence:
+Use **Skill evaluator** to group results by pattern or by skill.
 
-**1. Configuration analysis**
-The tool reads the agent's complete configuration from Dataverse - every topic, tool, knowledge source, test case, and instruction. It checks for missing fields across all components and measures things like tool count and test coverage against Microsoft's documented best practices.
+For an individual skill, open its file explorer to review:
 
-**2. AI-powered pattern evaluation**
-An AI model reviews the same configuration to assess *quality*, not just completeness. It looks at whether topic names and descriptions are clear enough for the generative orchestrator to route correctly, whether multiple topics overlap in a way that would cause routing confusion, and whether tool descriptions give the AI enough guidance to invoke the right tool at the right time.
+- File path and type
+- Size
+- Risk and readiness
+- File findings
+- Sanitized resource analysis
+- A redacted `SKILL.md` view when available
 
-**3. Instruction compliance check**
-A second AI model reads the agent's system instructions and checks them against 15 best-practice criteria from Microsoft's generative mode guidance - covering scope, safety, response quality, and user experience. For each criterion the instructions don't satisfy, it surfaces a specific finding and a concrete recommendation.
+Use **Cross-skill orchestration** to find set-level overlap, redundancy, or
+routing issues across skills. These are agent-level findings. They are not
+findings for only one skill.
 
-Once all three are complete, a PDF report is automatically generated and the results open in the Review Dialog.
+Individual skill results show Quality, Integrity, Safety, and Readiness. These
+four 0-to-100 dimensions do not form a separate single composite skill score.
+This in-agent skill score is different from the six-dimension, 0-to-5 rubric
+for a standalone Skills & Automations upload.
 
-> **Copilot Credits:** Each review consumes Copilot credits. The AI-powered steps (pattern evaluation, instruction compliance check, and PDF generation) each invoke an AI model via Dataverse. Plan accordingly if you are reviewing a large number of agents.
+### Evaluation coverage for GitHub Copilot agents
 
----
+Use **Evaluation coverage** to compare agent capabilities with saved test
+coverage.
 
-## 6. Patterns Detected
+The page can show:
 
-Patterns identify specific anti-patterns or missing best practices in an agent's configuration. The tool checks **18 patterns** across 7 categories.
+- Nothing to cover
+- No evaluation coverage yet
+- Covered and total capability counts
+- Capabilities without test coverage
 
-### All 18 Patterns
+Add and run tests before you use the review score as a release decision.
 
-| ID | Pattern Name | Category | Impact |
-|---|---|---|---|
-| `pat-001` | Missing Model Name | Model Naming | Generative orchestrator cannot reliably route to this topic |
-| `pat-002` | Missing Model Description | Model Description | Topic may be skipped or wrongly triggered during routing |
-| `pat-003` | Missing Input Variable Name | Input Variables | Users see unnamed variables, causing confusion in the conversation |
-| `pat-004` | Missing Input Variable Description | Input Variables | AI cannot correctly extract the right value from user input |
-| `pat-005` | Missing Output Variable Name | Output Variables | Output values are unlabelled and hard for users to interpret |
-| `pat-006` | Missing Output Variable Description | Output Variables | AI lacks context to populate the variable correctly |
-| `pat-007` | Excessive Tools Usage | Architecture | Too many tools degrade routing accuracy and increase latency |
-| `pat-008` | Inadequate Test Cases | Evaluation | Regressions in topic behavior go undetected before deployment |
-| `pat-009` | Missing Child Agent Description | Architecture | Orchestrator cannot decide when to delegate to the child agent |
-| `pat-010` | Child Agent Architecture Sprawl | Architecture | Excessive delegation creates orchestration complexity and latency |
-| `pat-011` | Unclear Model Name | Model Naming | Vague names cause the orchestrator to route to the wrong topic |
-| `pat-012` | Unclear Model Description | Model Description | Poor descriptions lead to missed or incorrect topic triggers |
-| `pat-013` | Unclear Input Variable Name | Input Variables | Ambiguous names make it harder for the AI to fill the variable correctly |
-| `pat-014` | Unclear Input Variable Description | Input Variables | AI extracts the wrong value or asks unnecessary clarifying questions |
-| `pat-015` | Unclear Output Variable Name | Output Variables | Downstream topics or flows that consume this variable may misinterpret it |
-| `pat-016` | Unclear Output Variable Description | Output Variables | AI cannot reliably produce the expected output format or value |
-| `pat-017` | Overlapping Topic Descriptions | Model Description | Multiple topics compete for the same user utterances, causing unpredictable routing |
-| `pat-018` | Tool Routing Gap | Architecture | AI cannot decide which tool to call, leading to wrong tool invocations or no action |
+### Cost and efficiency for GitHub Copilot agents
 
-For each failing pattern, the tool shows which topics are affected, the current value that triggered the finding, a suggested improvement, and a link to the relevant Microsoft Learn documentation.
+The current Cost and efficiency page has four questions:
 
-![Patterns tab](media/art_4.png)
+1. **What did we observe?**
+2. **What should I improve?**
+3. **How do I validate it?**
+4. **How do I plan a budget?**
 
----
+#### What did we observe?
 
-### Pattern Categories
+This section uses conversation transcript signals from the last 30 days.
+It can classify a configured capability as:
 
-Patterns are grouped into 7 categories, sorted in this order in the results grid:
+- Observed
+- Not observed in the window
+- Not attributable
 
-| # | Category | Patterns Included |
-|---|---|---|
-| 1 | Model Naming | pat-001, pat-011 |
-| 2 | Model Description | pat-002, pat-012, pat-017 |
-| 3 | Input Variables | pat-003, pat-004, pat-013, pat-014 |
-| 4 | Output Variables | pat-005, pat-006, pat-015, pat-016 |
-| 5 | Architecture | pat-007, pat-009, pat-010, pat-018 |
-| 6 | Orchestration | (reserved for future AI-detected patterns) |
-| 7 | Evaluation | pat-008 |
+`Not observed` does not mean `unused`, `dead`, or `wasteful`. The transcript
+data does not show the billed cost of an individual capability.
 
----
+#### What should I improve?
 
-### Severity Logic
+This section combines configuration signals with grounded opportunities.
+Examples can include weak descriptions, overlapping skills, redundant
+capabilities, or evaluation gaps.
 
-Pattern severity is determined by a combination of keyword matching and topic count:
+AI-reviewed cost opportunities come only from saved, grounded overlap or
+redundancy findings. They do not promise a saving amount.
 
-| Condition | Severity Assigned |
-|---|---|
-| Pattern name contains "model name" or "model description" | **High** |
-| Pattern name contains "variable" | **Medium** (unless topic count is 5 or more) |
-| Topic count is 5 or more | **High** |
-| Topic count is 2 or more | **Medium** |
-| Topic count is 1 | **Low** |
+#### How do I validate it?
 
-> Severity drives both the visual badge in the results grid and the SARIF error level in the exported report.
+This section estimates the cost of one evaluation pass from the saved test
+set. It is not the agent's current runtime spend. It is not expected savings.
 
----
+#### How do I plan a budget?
 
-## 7. Compliance Criteria
+Enter:
 
-This part of the review evaluates the quality of an agent's **system instructions** - the natural language text a maker provides in the "Generative" settings of Copilot Studio. These instructions define how the agent behaves across all conversations.
+- Monthly agent tasks
+- A Light, Medium, or Heavy scenario
 
-The 15 criteria are derived from Microsoft's [generative mode guidance](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-mode-guidance) and represent the most impactful best practices for instruction quality.
+The tool applies these planning bands:
 
-### All 15 Criteria
+| Scenario | Workload guide | Copilot Credits for one task |
+| --- | --- | --- |
+| Light | Few sources, light reasoning, and no more than one output | 100 to 300 |
+| Medium | Many sources, structured reasoning, and two or more outputs | 300 to 500 |
+| Heavy | Broad aggregation, deep reasoning, and many outputs | More than 500; no fixed upper bound |
 
-| # | ID | Criterion Name | Category | Severity | What It Checks |
-|---|---|---|---|---|---|
-| 1 | `scope-definition` | Scope Definition | Scope | **High** | Agent instructions explicitly define which topics the agent should and should not respond to |
-| 2 | `out-of-scope-handling` | Out-of-Scope Handling | Scope | Medium | Instructions specify what to say when a user asks about something outside the agent's scope |
-| 3 | `persona-and-tone` | Persona and Tone | UX | Low | Instructions define tone for non-default scenarios (professional/polite is already the default - skip if not needed) |
-| 4 | `privacy-and-sensitive-data` | Privacy and Sensitive Data | Safety | **High** | Instructions contain explicit guidance on not storing, displaying, or repeating personal data |
-| 5 | `fallback-when-uncertain` | Fallback When Uncertain | Quality | **High** | Instructions specify what to do when the agent doesn't have the information needed to answer |
-| 6 | `citations-and-sources` | Citations and Sources | Quality | Medium | Instructions require the agent to cite document names and sections when referencing knowledge sources |
-| 7 | `formatting-guidelines` | Formatting Guidelines | UX | Low | Instructions specify response format (bullets, tables, numbered steps) for structured output |
-| 8 | `clarifying-questions` | Clarifying Questions | UX | Medium | Instructions address how to handle ambiguous queries by asking clarifying follow-up questions |
-| 9 | `prompt-injection-resilience` | Prompt Injection Protection | Safety | **High** | Instructions include explicit safeguards against jailbreak attempts or prompt injection |
-| 10 | `link-safety` | Link Safety | Safety | Medium | Instructions ensure only verified, safe links are shared with users |
-| 11 | `advice-disclaimers` | Advice Disclaimers | Safety | **High** | Instructions include disclaimers for sensitive advice domains (finance, health, legal) |
-| 12 | `accuracy-quality` | Accuracy and Quality | Quality | **High** | Instructions explicitly ground the agent in its knowledge sources and prohibit fabrication or guessing |
-| 13 | `tool-routing-hints` | Tool Routing Hints | Quality | Medium | Instructions provide guidance on which tools or knowledge sources to use when routing is ambiguous |
-| 14 | `escalation-guidance` | Escalation Guidance | UX | **High** | Instructions define what to do when the agent can't help: hand off to a human, suggest an alternative, or exit gracefully |
-| 15 | `deterministic-language` | Deterministic Language | Quality | Medium | Instructions use absolute directives (always, never, only, must) rather than vague modifiers (might, usually, try, sometimes) |
+The estimate multiplies monthly tasks by the selected credit range. The
+current tool uses a public pay-as-you-go planning rate of USD 0.01 for one
+Copilot Credit. It also shows all three scenarios for the same task volume.
+Light and Medium share a boundary value because they are planning ranges.
+Select a scenario from the workload characteristics, not from a measured
+credit value.
 
-![Compliance tab](media/art_5.png)
+This result is a planning estimate. It is not based on the agent's transcripts
+or billed usage. Confirm current Microsoft rates before you approve a budget.
 
----
+## Review a Microsoft 365 Declarative Agent
 
-### Category Breakdown
+Use an Agent Builder ZIP to review a Microsoft 365 Declarative Agent.
 
-| Category | Criteria Count | Focus |
-|---|---|---|
-| **Scope** | 2 | Defines what the agent does and doesn't answer |
-| **Safety** | 4 | Protects users from misinformation, data leakage, and manipulation |
-| **Quality** | 5 | Ensures accurate, grounded, well-structured responses |
-| **UX** | 4 | Shapes the conversational experience and escalation paths |
+1. Export the Declarative Agent from Agent Builder.
+2. Open **M365 Declarative Agents**.
+3. Upload the ZIP.
+4. Start the review.
+5. Open the saved result.
+6. Review these result areas:
+   - All
+   - Instructions
+   - Knowledge
+   - Capabilities
+   - Actions
+   - Starters
+   - Error Handling
+   - Manifest, when available
+7. Export the result as PDF or Excel when required.
 
----
+The tab lists saved Declarative Agent reviews. It does not connect to or
+browse the live Microsoft 365 agent catalog.
 
-## 8. How Scores Are Calculated
+## Review skills and automations
 
-All scores are on a 0-100 scale and are deterministic - the same inputs always produce the same score.
+Use this separate review operation for a standalone skill or automation
+artifact.
 
-### Pattern Score
+### Supported artifact files
 
-```
-Pattern Score = (Passed Patterns / Total Patterns) x 100
-```
+| Artifact | Upload | Applicable target runtimes |
+| --- | --- | --- |
+| Agent skill | A `SKILL.md` file or a ZIP that contains `SKILL.md` | Copilot Studio, Copilot Cowork, and Microsoft Scout |
+| Scout automation | A supported automation `.json` file | Microsoft Scout |
+| Scout automation installer | A ZIP that contains `INSTALL.md` and an automation `.json` file | Microsoft Scout |
 
-- **Total patterns** = 10 deterministic + however many AI-detected patterns were returned (up to 8)
-- **Passed patterns** = count where the pattern status is "pass"
-- Result is rounded to the nearest integer
+The tool accepts one file for each upload. The maximum file size is 30 MB.
+The tool detects the artifact type from its files.
 
-**Example:** 15 patterns total, 12 passing = Pattern Score of 80
+### Run the artifact review
 
----
+1. Open **Skills & Automations**.
+2. Select the upload action.
+3. Select one supported file.
+4. For an Agent skill, select one or more applicable target runtimes:
+   Copilot Studio, Copilot Cowork, or Microsoft Scout. Scout automation
+   formats use Microsoft Scout.
+5. Start the review.
+6. Wait for the progress view to complete.
+7. Open the saved result.
 
-### Instruction Score
+![Skills and Automations upload dialog with target runtime selections](media/skills-automations-upload.png)
 
-The instruction score uses a **weighted point system** based on the inherent severity of each criterion:
+*Select the artifact and each target runtime that applies.*
 
-| Inherent Severity | Points if Passed | Criteria Count | Max Points |
-|---|---|---|---|
-| High | 3 | 7 | 21 |
-| Medium | 2 | 6 | 12 |
-| Low | 1 | 2 | 2 |
-| **Total** | | **15** | **35** |
+The review first runs deterministic checks for packaging, structure, secret
+patterns, file content, and runtime fit. When the AI stage is available, it
+also assesses task focus, instruction quality, safety, and evidence discipline.
+The tool then applies the authoring rubric and creates a separate verdict for
+each applicable runtime. If the AI stage cannot run, the result is partial. It
+does not present the deterministic-only result as a full assessment.
 
-```
-Instruction Score = (Earned Points / 35) x 100
-```
+### Read artifact results
 
-- For each of the 15 criteria: if no issue is found for that criterion, its inherent severity points are added
-- If "missing instructions" is detected, all criteria fail and the score is 0
-- Result is clamped to 100 and rounded to nearest integer
+The result page contains:
 
-**Example:** 3 High and 2 Medium criteria fail:
-- Points earned: (4 x 3) + (4 x 2) + (2 x 1) = 12 + 8 + 2 = **22 points**
-- Score = (22 / 35) x 100 = **63**
+- **Findings**
+- **Rubric dimensions**
+- **Runtime verdicts**
+- **Files**
 
----
+![Standalone skill review result with findings, rubric dimensions, runtime verdicts, and files](media/skills-automations-review.png)
 
-### Overall Score
+*The saved artifact result connects findings to rubric scores, runtime
+verdicts, and reviewed files.*
 
-```
-Overall Score = (Pattern Score x 0.5) + (Instruction Score x 0.5)
-```
+The six rubric dimensions use a 0-to-5 score:
 
-Both dimensions carry equal weight. If only one dimension is available (e.g., no instructions exist), that dimension's score is used directly.
+1. Trigger clarity
+2. Task focus
+3. Instruction quality
+4. Portability
+5. Safety and evidence discipline
+6. Packaging quality
 
----
+Use **Runtime verdicts** to see whether the artifact is ready for each selected
+runtime. Use **Files** to find file-specific risks and readiness findings.
 
-### Score Color and Label Guide
+The review can evaluate eligible text resources in more detail. It can skip
+binary, unreadable, or high-risk resources that the secret scan withholds.
 
-| Score Range | Label | Color |
-|---|---|---|
-| 80 and above | Excellent | Green |
-| 60 to 79 | Good | Amber |
-| 40 to 59 | Fair | Red |
-| Below 40 | Needs Improvement | Red |
+Select **Review another** to start a new artifact review. Artifact result pages
+do not provide PDF, Excel, or SARIF export.
 
----
+## Use result actions and exports
 
-## 9. Reviewing Results
+| Review type | Available actions |
+| --- | --- |
+| Standard agent result | Download PDF, download SARIF, and open finding details. |
+| GitHub Copilot agent result | Export PDF, export Excel, rerun a live review, and open or evaluate the live agent in Copilot Studio. |
+| Microsoft 365 Declarative Agent review | Export PDF and export Excel. |
+| Skills & Automations review | Review another artifact. |
+| Dashboard | Export the latest reviews in the current agent view to Excel with **Export All**. |
 
-After a review completes, results are displayed in the **Review Dialog**, a panel with three tabs.
+For a ZIP-sourced Copilot Studio review, upload the ZIP again to rerun the
+review. Live-agent follow-up actions are not available.
 
----
+**Export All** creates a portfolio workbook. It is separate from the export
+actions on one result page.
 
-### Overview Tab
+SARIF is useful for tools that accept Static Analysis Results Interchange
+Format. PDF is useful for a readable report. Excel is useful for sorting and
+portfolio analysis.
 
-The Overview tab gives you a high-level summary:
+Review exported files before you share them. They can contain agent
+configuration, evidence, findings, and recommendations.
 
-- **Overall score** - a circular gauge colored green, amber, or red
-- **Pattern Score** and **Instruction Score** side by side
-- **Agent metadata** - name, environment, language, authentication mode, AI settings
-- **AI-generated summary** - a natural language description of the most significant findings
-- **Review timestamp** and data source (live environment or ZIP upload)
+## Review history and persistence
 
-![Review Dialog - Overview tab](media/art_6.png)
+The dashboard shows the current saved result for each reviewed subject. It
+does not keep an attempt-by-attempt version history.
 
----
+- A rerun of the same live Copilot Studio agent replaces its saved result.
+- A rerun of the same Declarative Agent replaces its saved result.
+- A rerun of the same artifact with the same selected runtimes replaces its
+  saved result.
+- A changed artifact or a different runtime selection creates a separate
+  saved result.
 
-### Patterns Tab
+Lists on the dashboard show distinct reviewed subjects. They are not lists of
+all prior review attempts.
 
-The Patterns tab shows the full grid of all 18 patterns evaluated, with columns:
+Export a result before a rerun when you must keep an audit snapshot.
 
-| Column | Description |
-|---|---|
-| Status | Pass or Fail |
-| Severity | High / Medium / Low badge |
-| Category | Pattern category (Model Naming, Architecture, etc.) |
-| Pattern Name | Full pattern name |
-| Affected Topics | Count of topics affected by this pattern |
-| Actions | "Details" button to open the Pattern Details dialog |
+## Security, privacy, ownership, and retention
 
-The grid is sortable by any column. Failing patterns appear first by default, sorted by severity (High, then Medium, then Low).
+### Source access
 
----
+The tool reads agent configuration from environments that the signed-in user
+can access. It does not edit the source agent.
 
-### Compliance Tab
+The source environment and the Copilot Agent Kit environment can be different.
+The source data comes from the selected environment. Review records stay in
+the kit environment.
 
-The Compliance tab shows all 15 instruction criteria:
+### Access to saved reviews
 
-| Column | Description |
-|---|---|
-| Status | Pass or Fail |
-| Severity | High / Medium / Low badge |
-| Category | Scope / Safety / Quality / UX |
-| Criterion Name | Full criterion name |
-| Issues Found | Count of specific issues under this criterion |
-| Actions | "Details" button to open the Compliance Details dialog |
+Security roles control access to saved reviews. A Maker can normally read the
+reviews that they run. An administrator or a user with broader privileges can
+have access to more reviews.
 
----
+Use least-privilege roles. Do not give organization-wide review table access
+only to solve a review access problem.
 
-### Pattern Detail Drill-Down
+### Transcript access
 
-Clicking **Details** on any failing pattern opens the **Pattern Details dialog**, which shows:
+Observed-use evidence requires read access to conversation transcripts. The
+supplied Maker role can include broad transcript read privileges. An
+administrator must review this scope before the role is assigned.
 
-- **Pattern name and description** - what this pattern checks
-- **Why it matters** - the impact of this anti-pattern on agent quality
-- **Affected topics table** - each topic with its current value and the AI's suggested replacement
-- **Recommendation** - a concrete action to fix the issue
-- **Learn More** - a direct link to the relevant Microsoft Learn documentation
+The tool filters transcript evidence to the agent under review and the
+applicable time window. Dataverse role privileges still define what the user
+can access outside this page.
 
-![Pattern Details dialog](media/art_7.png)
+### Uploaded artifact handling
 
----
+The browser scans uploaded artifact files before it prepares AI input.
 
-### Compliance Detail Drill-Down
+- Raw file bytes stay in the browser.
+- The tool withholds content from files that match high-risk secret patterns.
+- The tool does not send withheld file text for AI review.
+- The tool sends eligible text excerpts for review.
+- The tool stores final findings and sanitized analysis in the Copilot Agent
+  Kit environment.
+- Exports apply a second secret-redaction pass.
 
-Clicking **Details** on any failing compliance criterion opens the **Compliance Details dialog**, which shows:
+Secret scanning reduces risk. It cannot replace a data-classification review.
+Remove information that the review does not need before you upload a file.
 
-- **Criterion name, category, and severity**
-- **What the criterion checks** - a plain-language explanation
-- **Specific issue found** - the AI's analysis of what's missing or wrong
-- **Recommendation** - exact language or patterns to add to the agent's instructions
-- **Example** - where available, an example of a compliant instruction
-- **Learn More** - link to the relevant Microsoft Learn guidance
+### AI processing
 
----
+AI processing runs in the configured Power Platform environment. Your
+organization's data residency, data policy, connector, and AI governance
+settings apply.
 
-## 10. Exporting Results
+AI-generated content can be incorrect. Verify recommendations before you use
+them.
 
-Three export formats are available from the Review Dialog header.
+### Data retention
 
----
+The Agent Review Tool does not automatically delete or expire saved reviews
+and related review data.
 
-### PDF Report
+Use Dataverse retention and deletion policies that meet your organization's
+requirements. Delete saved reviews when they are no longer required.
 
-A polished, human-readable PDF report suitable for sharing with stakeholders or attaching to a governance audit.
+Conversation transcripts have their own environment retention settings. The
+cost and efficiency view uses a maximum 30-day query window, but the available
+data also depends on the environment's transcript retention configuration.
 
-**Contents:**
-- Executive summary with scores and key metrics
-- Pattern evaluation results (status, severity, affected topics)
-- Compliance findings (all 15 criteria)
-- Recommendations for every issue found
-- Agent metadata (name, environment, review date)
+## Copilot Credit use and cost information
 
-**File name:** `{AgentName}_review_{YYYY-MM-DD}.pdf`
+A review can consume Copilot Credits for AI-supported analysis of
+configuration, instructions, skills, resources, and cross-skill orchestration.
+A review with more files or result areas can consume more credits. A rerun can
+consume credits again.
 
-The PDF is generated automatically at the end of every review and stored in Dataverse alongside the review record. Subsequent downloads retrieve the stored file without re-running the analysis.
+Exact consumption depends on the input size, configured AI models, number of
+eligible files, number of review stages, and current Microsoft rates. Do not
+use the dashboard planning estimate as a usage invoice.
 
----
+If the environment has no applicable AI capacity, the tool shows
+**AI capacity not available**. An administrator must allocate or enable the
+required capacity before the missing AI-supported result areas can run.
 
-### SARIF Export
+See
+[Licensing and Copilot Credits](https://learn.microsoft.com/en-us/ai-builder/message-management)
+for current consumption rules and rates.
 
-SARIF (Static Analysis Results Interchange Format v2.1.0) is a JSON format designed for integration with developer tools and CI/CD pipelines.
+## Limitations
 
-**Use cases:**
-- Upload to **GitHub Advanced Security** for SARIF-based PR annotations
-- Import into **Azure DevOps** quality gate checks
-- Process with third-party tools that consume SARIF (SonarQube, VS Code, etc.)
+- The tool is in preview.
+- The tool does not change the source agent.
+- AI-generated findings can be incomplete or incorrect.
+- The result areas for a Copilot Studio agent depend on its **Powered by**
+  value, the environment setup, and available AI capacity. The tool selects
+  them automatically.
+- Only active, generative-AI-enabled live agents appear in the Copilot Studio
+  agent list.
+- Detailed skill and resource analysis is not available in every environment.
+- The Microsoft 365 Declarative Agent source is upload-only. There is no live
+  catalog browser.
+- Saved results do not provide attempt-by-attempt history.
+- A ZIP-sourced review cannot rerun without a new upload.
+- A ZIP-sourced review cannot open a live source agent.
+- Copilot Studio and Declarative Agent ZIP uploads do not have a published
+  hard size limit in the app.
+- Artifact uploads accept one file and have a 30 MB limit.
+- Artifact results do not have PDF, Excel, or SARIF export.
+- The agent map shows configured relationships, not runtime proof.
+- Transcript evidence does not contain billing data.
+- `Not observed` does not mean that a capability is unused.
+- The budget view is a planning estimate. It is not actual spend or guaranteed
+  savings.
+- Binary, unreadable, or withheld high-risk resources can be excluded from
+  detailed analysis.
+- A partial review can still contain useful checks and findings.
 
-**Structure overview:**
-```json
-{
-  "version": "2.1.0",
-  "runs": [{
-    "tool": {
-      "driver": {
-        "name": "Copilot Studio Agent Review Tool",
-        "version": "1.0"
-      }
-    },
-    "results": [
-      {
-        "ruleId": "pat-007",
-        "level": "error",
-        "message": { "text": "Excessive Tools Usage: 28 tools exceed the recommended limit of 25" },
-        "properties": {
-          "category": "Architecture",
-          "recommendation": "Reduce tool count to 25 or fewer"
-        }
-      }
-    ]
-  }]
-}
-```
+## Troubleshooting
 
-**Severity-to-SARIF level mapping:**
-- High = `"error"`
-- Medium = `"warning"`
-- Low = `"note"`
+| Problem | Action |
+| --- | --- |
+| The Setup Wizard cannot find the installer | Confirm that the current Copilot Agent Kit solution includes the standalone installer app. Confirm that the app is shared with the setup user. |
+| An installer item shows **Action needed** | Use the correct environment. Sign in with an account that owns a working Agents connection. Confirm Dataverse and Power Apps for Makers connections. |
+| Setup reports a permission error | Assign `CSK - Maker`, `CSK - Administrator`, System Administrator, or equivalent privileges. Then refresh and retry. |
+| The installer cannot authorize the Agents connection | Reauthenticate the connection. Confirm that the signed-in user owns it. Refresh the installer and run setup again. |
+| The workflow is not ready | In the Setup Wizard or Power Automate, confirm that the **Review Agent Components** workflow is on and that its connection references are valid. |
+| A flow is off or suspended | Open its run history. Fix the failed connection or policy issue, then turn on the flow. |
+| The review shows **AI capacity not available** | Allocate the required Copilot Credits or applicable AI capacity to the environment, then rerun the review. |
+| A review appears but its result details do not open | Ask an administrator to confirm your security role and the current Agent Review setup. Rerun the review after the correction. Do not grant organization-wide table access as the first fix. |
+| A review is partial | Use the checks and findings that are available. Ask an administrator to confirm the Agent Review setup and AI capacity, then rerun the review if you need the missing result areas. |
+| Detailed resource analysis is unavailable | Ask an administrator to confirm the Agent Review setup and AI capacity. |
+| A review stops or times out | Retry a temporary failure. For a GitHub Copilot agent review, an administrator can check the Power Automate run history and connection health. |
+| A connection returns 401 or 403 | Reauthenticate the connection. Confirm the security role, source access, DLP policy, and connection ownership. |
+| The service returns 429 or a temporary 5xx error | Wait, then retry. Check service health if the problem continues. |
+| A Copilot Studio ZIP is rejected | Use a valid exported solution ZIP that contains the required solution metadata. |
+| A skill or automation file is rejected | Use one `.md`, `.json`, or `.zip` file that is 30 MB or smaller. Confirm that it contains a supported artifact. |
+| A ZIP review has no rerun action | Upload the ZIP again. |
+| The M365 Declarative Agents list is empty | Upload and review an Agent Builder ZIP. The tab does not browse the live catalog. |
+| Observed-use evidence is empty | Confirm transcript read access. Confirm that the agent has transcript signals in the last 30 days. Some signals cannot be attributed to one configured item. |
+| Cross-environment agents are missing | Select the correct environment and confirm that the signed-in user has read access to its agents. |
+| A previous result is no longer available | A rerun replaced it. Keep PDF, Excel, or SARIF exports when you need an audit snapshot. |
 
-**File name:** `{AgentName}_review.sarif`
+For general flow connection errors, see
+[Fix connection failures in cloud flows](https://learn.microsoft.com/en-us/power-automate/fix-connection-failures).
 
----
+## Related Microsoft documentation
 
-### Excel Export
-
-A multi-sheet Excel workbook for data analysis, reporting, and archival.
-
-**Sheets:**
-
-| Sheet | Contents |
-|---|---|
-| **Summary** | One row per reviewed agent - name, scores, issue counts, review date |
-| **Patterns** | All 18 patterns - ID, name, category, severity, status, affected topics, recommendation |
-| **Compliance** | All 15 criteria - ID, name, category, severity, status, issue count, recommendation |
-
-**Formatting:** Headers are bold with brand-color backgrounds. Score and severity cells are color-coded (green/amber/red). Column widths are auto-adjusted.
-
-**File name:** `{AgentName}_review_{YYYY-MM-DD}.xlsx`
-
----
-
-## 11. Declarative Agent Review - Deep Dive
-
-M365 Declarative Agents are a different kind of agent from Copilot Studio agents. They're defined entirely by a JSON manifest file and deployed to the Microsoft 365 ecosystem.
-
-### What the DA Review Checks
-
-The review first validates the manifest structure, checking that all required fields are present and the schema is well-formed. It then runs an AI evaluation against 5 quality criteria and generates a PDF report. The 15-criterion instruction compliance check (specific to Copilot Studio agents) does not apply here.
-
-### The 5 DA Evaluation Criteria
-
-| Criterion | Weight | What's Evaluated |
-|---|---|---|
-| Instructions | 30% | Clarity, specificity, and completeness of the agent's system prompt |
-| Knowledge | 20% | Use of connected knowledge sources for grounding |
-| Capabilities | 15% | Use of CodeInterpreter and OneDriveAndSharePoint capabilities |
-| Actions | 15% | Presence and quality of tool action descriptions |
-| Conversation Starters | 10% | Count and quality (minimum 3, recommended 6) |
-| Graceful Error Handling | 10% | Handling of unknown inputs and error states |
-
-### Manifest Health Check (Local Validation)
-
-Before the AI runs, a deterministic health check validates the manifest structure:
-
-- Required fields present (`name`, `description`, `instructions`)
-- Schema version compatibility
-- Action plugin references valid
-- Conversation starter count within bounds (3-12)
-- Capability declarations correctly formed
-
-Any health check failures are surfaced as issues in the DA review results, independently of the AI evaluation.
-
-### Submitting a DA for Review
-
-**Via ZIP upload** (most common):
-1. Export the Declarative Agent from your authoring tool as a ZIP package
-2. Click "Upload ZIP" in the Agent Review Tool page header
-3. If the ZIP contains multiple agents, a selector dialog lets you pick which one to review
-4. The review runs automatically
-
-**Via M365 Catalog** (requires Graph API setup):
-1. Click "Connect to Microsoft 365" in the M365 Agents tab
-2. Complete the Graph API authorization wizard
-3. Your deployed DAs appear in the DA grid
-4. Click "Review" on any DA
-
-![Declarative Agent Review Dialog](media/art_8.png)
-
----
-
-## 12. Security and Data Access
-
-### Data Storage
-
-All review results are stored in the **`cat_agentreviews`** Dataverse table. Each record stores:
-
-| Field | Content |
-|---|---|
-| `cat_agentreviewsid` | Unique review record ID |
-| `cat_botid` | Reference to the reviewed agent |
-| `cat_overallscore` | 0-100 overall score |
-| `cat_patternscore` | Pattern evaluation score |
-| `cat_instructionscore` | Instruction compliance score |
-| `cat_totalissues` | Total issue count |
-| `cat_reviewresultjson` | Full review result as JSON |
-| `cat_reviewpdfreport_name` | PDF report (Dataverse file column) |
-| `cat_sourceenvironment` | Source environment URL or "zip" |
-| `cat_agenttype` | 1 = Copilot Studio, 2 = Declarative Agent |
-
-### Row-Level Security
-
-The `cat_agentreviews` table uses **user-level (Basic) read scope** in Dataverse. Users can only see reviews they created. Another user's reviews are never visible, even in the same environment. This is enforced by Dataverse natively, not by application code.
-
-### Source Environments
-
-Users can review agents from environments they have access to, not just the current environment. The Dashboard supports cross-environment reviews via the org selector. Reviews from other environments are tagged with the source org URL so they appear correctly when the tool loads.
-
-Reviews sourced from a ZIP upload are always shown regardless of which environment the tool is connected to.
-
-### What Data Leaves the Environment
-
-- The agent's configuration (topics, tools, instructions) is sent to the AI models via Dataverse PredictV2. This goes through the standard Dataverse AI model invocation path and is subject to the same data residency policies as any Dataverse AI operation.
-- No data is sent to any third-party service or external endpoint.
-- Review results (including the PDF) are stored exclusively in Dataverse.
-
----
-
-## 13. First-Run Experience and Welcome Tour
-
-The first time a user opens the Agent Review Tool, a **Welcome Tour** guides them through the key parts of the interface:
-
-1. The Dashboard stat cards and what they represent
-2. How to read the Agents grid
-3. How to start a review
-4. How to interpret results
-5. The export options
-
-Tour progress is persisted in Dataverse, so the tour does not repeat after completion. Users can re-open the tour at any time from the **Help / Quick Links** section in the page header.
-
----
-
-## 14. Frequently Asked Questions
-
-**Q: How long does a review take?**
-A typical agent with under 20 topics completes in under 60 seconds. The tool has a 2-minute hard timeout. Very large agents (50+ topics, many tools) may approach the limit.
-
-**Q: Does the tool modify my agent?**
-No. The tool is entirely read-only with respect to agent data. It only reads agent configuration. All writes go to the `cat_agentreviews` table.
-
-**Q: Can I re-review an agent after making changes?**
-Yes. Each review creates a new record. The grid always shows the most recent review. Old reviews remain in Dataverse and can be accessed programmatically if needed.
-
-**Q: What if my agent is in a different environment?**
-Use the organization selector on the Dashboard to point the tool at another environment you have access to. The review runs against that environment and the result is stored in the current environment.
-
-**Q: Can I review agents I didn't create?**
-Yes - you can review any agent you have read access to in Dataverse. However, you can only *see* reviews you created (Row-Level Security). Reviews from other users are not visible.
-
-**Q: What is SARIF and do I need it?**
-SARIF is a standard format for static analysis results. You only need it if you're integrating agent quality checks into a CI/CD pipeline (GitHub Actions, Azure DevOps). For most users, PDF and Excel exports are sufficient.
-
-**Q: The tool says my agent has no instructions. Is that a problem?**
-Yes. The tool only shows agents that have Generative AI enabled, so every agent in the grid is expected to have instructions. If the compliance check reports no instructions, it means the agent's generative orchestration is active but no system instructions have been written yet. Adding instructions is strongly recommended.
-
-**Q: Why is "Persona and Tone" low severity?**
-Microsoft's guidance notes that a professional, polite tone is already the default behavior for Copilot Studio agents. Instructions for tone are only necessary if you want a non-default tone. This criterion is Low because failing it rarely causes user-facing problems.
-
-**Q: Does running a review consume Copilot credits?**
-Yes. Each review invokes AI models three times — for pattern evaluation, instruction compliance, and PDF generation. Each invocation consumes Copilot credits from your tenant. Re-reviewing the same agent also consumes credits, so it is best to make your changes first and then re-review.
-
-**Q: Can I export all reviews at once?**
-Yes. Use the "Export All" button in the agent grid toolbar to generate an Excel workbook covering all reviewed agents in the current view.
-
----
-
-*Documentation version: April 2026. For the latest changes, see the [Copilot Agent Kit GitHub repository](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit).*
+- [Analyze agents using Agent Review Tool](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/kit-agent-review-tool)
+- [Copilot Agent Kit prerequisites](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/kit-prerequisites)
+- [Install Copilot Agent Kit](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/kit-install)
+- [Set up Copilot Agent Kit by using the Setup Wizard](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/kit-setup-wizard)
+- [Configure high-quality instructions for generative orchestration](https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-mode-guidance)
+- [Licensing and Copilot Credits](https://learn.microsoft.com/en-us/ai-builder/message-management)
+- [Security roles and privileges for Dataverse](https://learn.microsoft.com/en-us/power-platform/admin/security-roles-privileges)
+- [Data policies](https://learn.microsoft.com/en-us/power-platform/admin/wp-data-loss-prevention)
+- [Fix connection failures in cloud flows](https://learn.microsoft.com/en-us/power-automate/fix-connection-failures)
+- [Copilot Agent Kit GitHub repository](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit)
