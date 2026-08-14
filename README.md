@@ -30,6 +30,12 @@ More information on [Agent Insights Hub](https://github.com/microsoft/Power-CAT-
 
 More information on [Agent Debugger](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_DEBUGGER.md)
 
+## Agent Change Tracker (Preview)
+
+**Agent Change Tracker** helps makers monitor changes to Microsoft Copilot Studio agents. After an agent is added for tracking, supported saved changes from any maker are automatically captured and displayed in a chronological history showing what changed, who made the change, and when it occurred.
+
+More information on [Agent Change Tracker](./AGENT_CHANGE_TRACKER.md)
+
 ## Agent Library (Preview)
 The Agent Library is a centralized hub within the Copilot Agent Kit that helps makers discover, install, and manage pre-built agent templates and reusable components. Instead of building agents from scratch, you can browse a curated catalog of ready-to-use templates (Custom Agent and Declarative Agent) and components, install them directly into your environment, and customize them to fit your business needs.
 
