@@ -31,6 +31,27 @@ And finally, pressing *Show more* from the dashboard view, brings up a list view
 
 ![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
 
+## Sync Configuration
+
+The **Agent Sync Configuration** page controls which environments and agents are included in Agent Inventory, how data is collected, and whether synchronization and usage metrics are enabled.
+
+### Environment and agent filters
+
+- **Environment types:** Select the environment types to include in agent discovery. The available types are **Developer**, **Default**, **Sandbox**, **Production**, **Trial**, and **Teams**. If no specific types are selected, all environment types are included by default.
+- **Agent types:** Select the agent types to include in the inventory sync. The available types are **Custom** and **Declarative**. If no specific types are selected, all agent types are included by default.
+- **Environment groups:** Create reusable groups of environments and select the active groups to scope the sync. Groups can be based on selected environment types and region. If no groups are selected, all environments are included by default.
+
+![Agent Sync Configuration - environment and agent filters](./media/agent-inventory/inventory-config-1.png)
+
+### System agents and sync options
+
+- **Exclude system agents:** When enabled, Microsoft-provided system agents are skipped during synchronization. When disabled, they are included in the inventory.
+- **Data collection mode:** Choose between **One Inventory** and **Standard** mode. One Inventory retrieves data from the Power Platform admin center and the environments for richer metadata. Standard mode connects directly to each environment to fetch agents.
+- **Enable automatic sync:** When enabled, Agent Inventory refreshes automatically on the configured daily schedule. When disabled, synchronization must be started manually.
+- **Include Usage Metrics:** When enabled, the sync fetches usage data for the past **180 days**. When disabled, usage metrics are not collected during synchronization.
+
+![Agent Sync Configuration - environment groups and system agents](./media/agent-inventory/inventory-config-2.png)
+
 ## Actions (New Feature)
 
 Agent Inventory lets administrators act on agents directly from the grid. The available actions are **View Details**, **Reassign**, **Quarantine**, and **Unquarantine**. The actions appear on the command bar based on the number and status of the agents selected in the grid.
@@ -75,6 +96,19 @@ Once the reassignment completes, the **Reassign Status** column shows **Complete
 ### Actions on the Agent Details screen
 
 The same actions are available on the **Agent Details** screen for the individual agent. On this screen the quarantine/unquarantine status shown is based on the **live status** of the agent, rather than the synced status displayed in the grid.
+
+### Bulk actions in MDA
+
+The model-driven app supports bulk actions from the Agent Inventory grid. Select multiple eligible agents, then choose **Reassign Agent**, **Quarantine Agent**, or **Unquarantine Agent** from the command bar.
+
+- **Bulk Reassign:** Select a user with a Microsoft 365 Copilot license. The dialog lists the selected environments and agents together with their current owners and reassignment status. Confirm the operation to assign all selected agents to the chosen user.
+- **Bulk Quarantine:** Select agents in **Draft** or **Available** status. The confirmation dialog lists the selected environments, agents, agent statuses, and quarantine status. Confirm the operation to quarantine all selected agents.
+- **Bulk Unquarantine:** Select agents in **Blocked** status. Confirm the operation to unblock all selected agents.
+- Bulk actions support up to **50 agents** per operation. The action is available only when every selected agent is eligible for that operation.
+
+![Bulk Reassign Agents dialog in the model-driven app](./media/agent-inventory/bulk-action-reassign-mda.png)
+
+![Bulk Quarantine Agents dialog in the model-driven app](./media/agent-inventory/bulk-action-quarantine-mda.png)
 
 ## Connectors used
 

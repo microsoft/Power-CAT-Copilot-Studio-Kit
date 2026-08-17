@@ -1,15 +1,16 @@
 # Agent Library
 
-The Agent Library is a centralized hub within the Copilot Agent Kit that helps **Admins** and **Makers** discover, install, and manage agent templates and reusable components. It brings together three types of content in a single unified gallery:
+The Agent Library is a centralized hub within the Copilot Agent Kit that helps **Admins** and **Makers** discover, install, and manage agent templates, reusable components, and MCP Apps. It brings together four types of content in a single unified gallery:
 
 - **System templates** — Provided by Microsoft. Ready-to-use agent templates that ship with the Kit and are available out of the box. System template cards are visually distinguished with a **"System"** chip on the gallery card.
 - **Custom templates** — Bring your own templates. Organization-specific agent templates authored by admins and stored in Dataverse. Custom template cards are visually distinguished with a **"Custom"** chip on the gallery card.
 - **Reusable components** — Pre-built component collections (e.g., Document Extraction, Research, Log Chain of Thoughts) that can be added to any agent to extend its capabilities.
+- **MCP Apps** — Ready-to-deploy Model Context Protocol (MCP) apps that connect Microsoft 365 Copilot to business systems and render rich, interactive widgets in Copilot chat.
 
-Instead of building agents from scratch, you can browse the combined catalog, install templates directly into your environment, and extend them with reusable components. **Admins** additionally get a full authoring surface to create, edit, publish/unpublish, and delete custom templates. **Makers** see a read-only view scoped to published custom templates only.
+Instead of building agents from scratch, you can browse the combined catalog, install templates directly into your environment, extend them with reusable components, and download MCP Apps for deployment. **Admins** additionally get a full authoring surface to create, edit, publish/unpublish, and delete custom templates. **Makers** see a read-only view scoped to published custom templates only. Both roles can browse and download MCP Apps.
 
 > [!NOTE]
-> The Agent Library is available starting with the **April 2026 release** of the Copilot Agent Kit. Custom template management (bring your own templates) was introduced in the **mid-June 2026 release**. Make sure you are running the latest version to access all features.
+> The Agent Library is available starting with the **April 2026 release** of the Copilot Agent Kit. Custom template management (bring your own templates) was introduced in the **mid-June 2026 release**. MCP Apps are available in the **August 2026 release**. Make sure you are running the latest version to access all features.
 
 ---
 
@@ -18,7 +19,7 @@ Instead of building agents from scratch, you can browse the combined catalog, in
 Before using the Agent Library, make sure you have:
 
 - Installed **Copilot Agent Kit** and configured in your Power Platform environment.
-- A **CAK - Maker** security role assigned in the Copilot Agent Kit to browse and install templates.
+- A **CAK - Maker** security role assigned in the Copilot Agent Kit to browse and install templates and components, and to browse and download MCP Apps.
 - A **CAK - Admin** security role assigned to create, edit, publish/unpublish, and delete custom templates.
 - A Power Platform environment with **Copilot Studio** enabled.
 
@@ -29,6 +30,7 @@ Before using the Agent Library, make sure you have:
 | Browse merged gallery (system + custom templates) | ✅ | ✅ |
 | Custom templates visible | All (drafts included) | **Published only** |
 | Install custom agent / download declarative agent | ✅ | ✅ |
+| Browse and download MCP Apps | ✅ | ✅ |
 | Create custom template | ✅ | ❌ |
 | Edit / publish / unpublish custom template | ✅ | ❌ |
 | Delete custom template | ✅ | ❌ |
@@ -37,22 +39,22 @@ Before using the Agent Library, make sure you have:
 
 ## Agent Library Experience
 
-The Agent Library is accessible from the left navigation in the Copilot Agent Kit under the **Productivity** section. The Agent Library dashboard provides three tabs: **All**, **Templates**, and **Components**.
+The Agent Library is accessible from the left navigation in the Copilot Agent Kit under the **Productivity** section. The Agent Library dashboard provides four tabs: **All**, **Templates**, **Components**, and **MCP Apps**.
 
 ### All Tab (Default)
 
-The **All** tab is selected by default when you open the Agent Library dashboard. It shows all available templates and components — both system and custom — in a single unified view, giving you a complete picture of everything the catalog offers.
+The **All** tab is selected by default when you open the Agent Library dashboard. It shows all available templates, components, and MCP Apps - including both system and custom templates - in a single unified view, giving you a complete picture of everything the catalog offers.
 
 ![Agent Library Dashboard](media/agent-library/agent-library-dashboard.png)
 
 From the All tab you can:
 
-- **Browse all content** — See every system and custom template, plus components, in one place
+- **Browse all content** — See every system and custom template, plus components and MCP Apps, in one place
 - **Filter by category** — Use the category filters to narrow down results (e.g., Custom Agents, Declarative Agents, Data Acquisition, Content Generation, etc.)
 - **Identify custom templates** — Custom templates display a **"Custom"** chip on the card to distinguish them from system templates
-- **Select any card** — Open the details dialog for any template or component to view its description, setup instructions, and available actions
+- **Select any card** — Open the details dialog for any template, component, or MCP App to view its description and available actions
 
-Use the All tab when you want a broad overview of the full catalog, or when you are not sure whether you need a template or a component.
+Use the All tab when you want a broad overview of the full catalog, or when you are not sure whether you need a template, component, or MCP App.
 
 ### Templates Tab
 
@@ -425,14 +427,51 @@ Once connected, the component's topics and tools are available inside your agent
 
 ---
 
+### MCP Apps Tab
+
+The **MCP Apps** tab filters the catalog to show ready-to-deploy apps built on the [Model Context Protocol](https://modelcontextprotocol.io/). An MCP App combines an MCP server with an interactive user interface, allowing Microsoft 365 Copilot to display live cards, lists, forms, and record views instead of returning only text. The same MCP Apps gallery and download actions are available to both **Admins** and **Makers**.
+
+![MCP Apps Gallery](media/agent-library/mcp-apps-gallery.png)
+
+Use the **All categories** dropdown to narrow the gallery by business scenario. Each card shows the app name, **MCP App** content type, a short description, and category tags.
+
+#### Available MCP Apps
+
+| **MCP App** | **Connected system** | **Example capabilities** |
+| --- | --- | --- |
+| Ask - Salesforce | Salesforce CRM | Browse and work with leads, opportunities, accounts, contacts, and cases as interactive records in Microsoft 365 Copilot. |
+| Ask - ServiceNow | ServiceNow ITSM | Triage incidents, raise requests, push changes, clear approvals, and search knowledge without switching to the ServiceNow console. |
+| Ask - HubSpot | HubSpot CRM | Browse and update companies, contacts, deals, orders, products, and activities as connected record views. |
+
+#### View Details and Download an MCP App
+
+1. In the Copilot Agent Kit, navigate to **Agent Library** and select the **MCP Apps** tab.
+2. Browse the gallery or use **All categories** to filter the available apps.
+3. Select an MCP App card to open its details dialog.
+
+   ![MCP App Details](media/agent-library/mcp-app-details.png)
+
+4. Review the description, category tags, and **About this app** section.
+5. Select **Learn more** to open the app-specific documentation and review its prerequisites, supported operations, deployment options, and troubleshooting guidance.
+6. Select **Download** to download the MCP App package as a self-contained `.zip` file.
+7. Extract the downloaded package and follow the Learn More documentation for detailed installation instructions. Each app supports scripted local deployment for development and optional deployment to Azure Container Apps for persistent availability.
+
+> [!IMPORTANT]
+> Downloading an MCP App does not install or deploy it automatically. Before running the deployment scripts, review the app-specific prerequisites and configure credentials for the connected system. Never commit credentials or local environment files to source control.
+
+> [!TIP]
+> Microsoft 365 Copilot must be able to reach the MCP endpoint through a public HTTPS URL. A local-only endpoint cannot be registered directly. Follow the app-specific installation guide to configure a publicly reachable endpoint.
+
+---
+
 ## End-to-End Usage Guide
 
-This section walks you through the complete workflow of discovering a template, installing it, configuring the agent, and extending it with components.
+This section walks you through the complete workflow of discovering Agent Library content, installing or downloading it, configuring an agent, and extending it with components or MCP Apps.
 
 ### Step 1: Discover a Template
 
 1. Open the Copilot Agent Kit and navigate to the **Agent Library**.
-2. Use the **All** tab to see what templates and components are available.
+2. Use the **All** tab to see what templates, components, and MCP Apps are available.
 3. Switch to the **Templates** tab to browse the catalog.
 4. Use search and category filters to find a template that matches your scenario.
 5. Select a template card to read the full description, included features, and setup instructions.
@@ -453,6 +492,13 @@ This section walks you through the complete workflow of discovering a template, 
 1. Choose your preferred path: **Customize & download** (recommended), **Agent Builder** (guided), or **VS Code** (code-first).
 2. Download the template package and follow the setup guide.
 3. Manually upload the downloaded zip to Teams (see [Declarative Agent Templates](#declarative-agent-templates) for upload steps).
+
+**For MCP Apps:**
+
+1. Select the **MCP Apps** tab and open the app you want to use.
+2. Select **Learn more** to review the app-specific requirements and deployment guide.
+3. Select **Download**, extract the `.zip` package, and and follow the `Learn More` documentation for installation instructions.
+4. Configure the connected-system credentials, deploy locally or to Azure, and verify the app in Microsoft 365 Copilot.
 
 ### Step 3: Configure the Agent
 
@@ -492,6 +538,14 @@ This section walks you through the complete workflow of discovering a template, 
 - **Use managed solutions** — Import the managed solution unless you specifically need to edit component internals. Managed solutions prevent accidental modifications to shared components.
 - **Leverage agent instructions** — Your agent's Instructions field is the primary way to control component behavior without editing the component itself. Define when, how, and in what order components should be used.
 
+### Working with MCP Apps
+
+- **Read the app guide before deployment** — Each MCP App has different connected-system credentials, permissions, ports, and supported operations.
+- **Use a public HTTPS endpoint** — Microsoft 365 Copilot cannot register a local-only MCP endpoint. Deploy the app as described in its installation guide so the endpoint is publicly reachable.
+- **Protect credentials** — Store connected-system secrets in the app's supported deployment configuration and keep them out of source control.
+- **Use least-privilege access** — Grant the connected-system account only the permissions required for the records and actions the app exposes.
+- **Plan for persistent hosting** — Use the documented Azure Container Apps deployment when the app must remain continuously available.
+
 ### Connection Management
 
 - **Set up connections before publishing** — Missing or expired connections are the most common cause of runtime failures.
@@ -519,6 +573,7 @@ This section walks you through the complete workflow of discovering a template, 
 - [Copilot Agent Kit overview](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-overview)
 - [Install Copilot Agent Kit](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-install)
 - [Component Library documentation](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/COMPONENT_LIBRARY.md)
+- [MCP Apps documentation](mcp-apps/README.md)
 - [Create and share reusable component collections](https://learn.microsoft.com/microsoft-copilot-studio/authoring-export-import-copilot-components)
 - [Create and manage solutions in Copilot Studio](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-overview)
 - [Export and import agents using solutions](https://learn.microsoft.com/microsoft-copilot-studio/authoring-solutions-import-export)
