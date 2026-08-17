@@ -49,7 +49,7 @@ Agents which are not accessible within the environment are added using One Inven
 | 16 | Published By | cat_publishedby | Text | Dataverse: Table `bot` → `publishedby` column | | V2 | User who published the agent. |
 | 17 | Default Application ID | cat_defaultapplicationid | Text | Dataverse: Table `bot` → `synchronizationstatus` JSON → `applicationId` property | From power platform resource query → `properties.entraId` | V1 | Default application ID associated with the agent. |
 | 18 | Uses Gen AI | cat_usesgenaicode | Choice | Derived: true if agent uses any of tools, prompts, knowledge sources, MCP, customized responses, classic generative sources, AI knowledge, or has generative orchestration | NA | V1 | Indicates whether the agent uses generative AI capabilities. |
-| 19 | Orchestration Type | cat_orchestrationtype | Text | Dataverse: Table `bot` → `configuration` JSON → `GenerativeActionsEnabled` (true → generative; otherwise classic) | From power platform resource query → `properties.orchestrationType` | V1 | Orchestration type (generative or classic). |
+| 19 | Orchestration Type | cat_orchestrationtype | Text | If `Powered By` is GitHub Copilot, set to Generative; otherwise Dataverse: Table `bot` → `configuration` JSON → `GenerativeActionsEnabled` (true → generative; otherwise classic) | From power platform resource query → `properties.orchestrationType` | V1 | Orchestration type (generative or classic). |
 | 20 | Autonomous Agent | cat_autonomousagentcode | Choice | Dataverse: Table `botcomponent` → `componenttypename` = External Trigger (17) → presence = true | NA | V2 | True if the agent contains an external trigger component (autonomous). |
 | 21 | Uses Enhanced Search Results | cat_usesenhancedsearchresultscode | Choice | Dataverse: Table `bot` → `configuration` JSON → `isSemanticSearchEnabled` (true → true) | NA | V1 | Indicates whether semantic/enhanced search is enabled. |
 | 22 | Uses Tools | cat_usestoolscode | Choice | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `TaskDialog` → true | NA | V1 | True if the agent uses tool/action nodes. |
@@ -111,6 +111,8 @@ Agents which are not accessible within the environment are added using One Inven
 | 79 | Uses Computer Use | cat_usescomputerusecode | Choice | Topic v2 `data` contains `InvokeComputerUsingAgentTaskAction` entries. | NA | V5 | Indicates whether the agent uses computer use. |
 | 80 | Agent Owning Business Unit | cat_agentowningbusinessunit | Text | Dataverse: `businessunit` table → name | | V5 | Agent Owning Business Unit. |
 | 81 | Agent Status | cat_agentstatus | Text | | From power platform resource query → `properties.isQuarantined` | V5 | Current status of the agent (e.g., Draft, Available, Blocked) |
+| 82 | Skills | cat_skills | Text | Topic v2 `data` contains `InlineAgentSkill` entries. | | V5 | Skills configured for a modern agent. |
+| 83 | Powered By | cat_poweredby | Choice | Derived from agent type and origin: declarative agents are powered by Copilot Chat, modern agents are powered by GitHub Copilot, and other agents are powered by Standard | | V5 | Platform that powers the agent: Copilot Chat, GitHub Copilot, or Standard. |
 
 ---
 
@@ -136,7 +138,7 @@ Below are concise detection rules for each derived or boolean field (refer to lo
 - Published By (`cat_publishedby`): `bot.publishedby`.
 - Default Application ID (`cat_defaultapplicationid`): `bot.synchronizationstatus` JSON → `applicationId`.
 - Uses Gen AI (`cat_usesgenaicode`): true if agent uses any of tools/actions, prompts, knowledge sources, MCP, customized responses, classic generative sources, AI knowledge, or has generative orchestration enabled.
-- Orchestration Type (`cat_orchestrationtype`): `bot.configuration.GenerativeActionsEnabled` → `generative` else `classic`.
+- Orchestration Type (`cat_orchestrationtype`): if `Powered By` is **GitHub Copilot**, set to **Generative**; otherwise use `bot.configuration.GenerativeActionsEnabled` → `generative` else `classic`.
 - Autonomous Agent (`cat_autonomousagentcode`): true when `botcomponent.componenttypename` = External Trigger (17) exists.
 - Uses Enhanced Search Results (`cat_usesenhancedsearchresultscode`): `bot.configuration.isSemanticSearchEnabled` = true.
 - Uses Tools (`cat_usestoolscode`): Topic v2 `botcomponent.data` contains `TaskDialog` entries.
@@ -200,6 +202,8 @@ Below are concise detection rules for each derived or boolean field (refer to lo
 - Uses Computer Use (`cat_usescomputerusecode`): Topic v2 `data` contains `InvokeComputerUsingAgentTaskAction` entries.
 - Agent Owning Business Unit (`cat_agentowningbusinessunit`): fetched from `businessunit` table.
 - Agent Status (`cat_agentstatus`): Indicates the agent's current status (e.g., Draft, Available, Blocked).
+- Skills (`cat_skills`): Topic v2 `data` contains `InlineAgentSkill` entries.
+- Powered By (`cat_poweredby`): derived from the agent type and origin — declarative agents are marked **Copilot Chat**, modern agents are marked **GitHub Copilot**, and all other agents are marked **Standard**.
 
 ---
 
