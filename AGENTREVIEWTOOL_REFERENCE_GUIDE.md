@@ -415,7 +415,7 @@ findings for only one skill.
 
 Individual skill results show Quality, Integrity, Safety, and Readiness. These
 four 0-to-100 dimensions do not form a separate single composite skill score.
-This in-agent skill score is different from the five-dimension, 0-to-100 rubric
+This in-agent skill assessment is different from the five-dimensional, 0-to-100 rubric
 for a standalone Skills & Automations upload.
 
 ### Evaluation coverage for GitHub Copilot agents
