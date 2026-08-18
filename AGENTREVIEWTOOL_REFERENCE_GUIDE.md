@@ -552,8 +552,8 @@ consider. This selection does not establish runtime compatibility.*
 The review first runs deterministic checks for package format, structure,
 official limits, unsafe or secret patterns, and file content. When the AI stage
 is available, it also assesses task focus, instruction quality, safety, and
-evidence discipline. A score deduction must identify an artifact-specific gap
-and improvement. If the AI stage cannot run, the result is partial. It does not
+evidence discipline. Any score deduction must cite an artifact-specific gap and a
+concrete improvement. If the AI stage cannot run, the result is partial. It does not
 present the deterministic-only result as a full assessment.
 
 Selected runtimes define the scope of the review guidance. They are not
