@@ -60,7 +60,7 @@ and Skills & Automations review into one experience.*
 | --- | --- |
 | Copilot Studio agent review | Reviews a live agent from an accessible environment or an exported solution ZIP. Standard results cover configuration and instructions. GitHub Copilot results add architecture, skills, resources, orchestration, evaluation coverage, and cost and efficiency guidance. |
 | Microsoft 365 Declarative Agent review | Reviews an Agent Builder ZIP for instructions, knowledge, capabilities, actions, starters, error handling, and manifest issues. |
-| Skills and Automations review | Reviews Agent skills for Copilot Studio, Copilot Cowork, or Microsoft Scout. It also reviews Scout automation and installer files. It checks runtime fit, safety, authoring quality, and file-specific issues. |
+| Skills and Automations review | Reviews Agent skills for Copilot Studio, Copilot Cowork, or Microsoft Scout. It also reviews Scout automation and installer files. It checks package structure, safety, authoring quality, secret patterns, and file-specific issues. Runtime selections scope the review guidance; they do not prove runtime compatibility. |
 | Agent Map for GitHub Copilot agents | A map and accessible list of the agent, skills, tools, knowledge, triggers, and connected agents. |
 | Skill and resource analysis for GitHub Copilot agents | Shows skill findings and eligible supporting files, with detailed resource analysis when available. |
 | Cross-skill orchestration for GitHub Copilot agents | Findings for overlap, redundancy, and routing across the skill set. |
@@ -415,7 +415,7 @@ findings for only one skill.
 
 Individual skill results show Quality, Integrity, Safety, and Readiness. These
 four 0-to-100 dimensions do not form a separate single composite skill score.
-This in-agent skill score is different from the six-dimension, 0-to-5 rubric
+This in-agent skill assessment is different from the five-dimensional, 0-to-100 rubric
 for a standalone Skills & Automations upload.
 
 ### Evaluation coverage for GitHub Copilot agents
@@ -536,7 +536,8 @@ The tool detects the artifact type from its files.
 1. Open **Skills & Automations**.
 2. Select the upload action.
 3. Select one supported file.
-4. For an Agent skill, select one or more applicable target runtimes:
+4. For an Agent skill, select one or more target runtimes for the review to
+   consider:
    Copilot Studio, Copilot Cowork, or Microsoft Scout. Scout automation
    formats use Microsoft Scout.
 5. Start the review.
@@ -545,14 +546,21 @@ The tool detects the artifact type from its files.
 
 ![Skills and Automations upload dialog with target runtime selections](media/skills-automations-upload.png)
 
-*Select the artifact and each target runtime that applies.*
+*Select the artifact and the target runtimes whose guidance the review should
+consider. This selection does not establish runtime compatibility.*
 
-The review first runs deterministic checks for packaging, structure, secret
-patterns, file content, and runtime fit. When the AI stage is available, it
-also assesses task focus, instruction quality, safety, and evidence discipline.
-The tool then applies the authoring rubric and creates a separate verdict for
-each applicable runtime. If the AI stage cannot run, the result is partial. It
-does not present the deterministic-only result as a full assessment.
+The review first runs deterministic checks for package format, structure,
+official limits, unsafe or secret patterns, and file content. When the AI stage
+is available, it also assesses task focus, instruction quality, safety, and
+evidence discipline. Any score deduction must cite an artifact-specific gap and a
+concrete improvement. If the AI stage cannot run, the result is partial. It does not
+present the deterministic-only result as a full assessment.
+
+Selected runtimes define the scope of the review guidance. They are not
+evidence that the artifact runs on those products. Tool availability, target
+agent configuration, and runtime behavior remain **Not assessed** unless they
+can be verified from a connected agent or runtime test. Treat the result as an
+evidence-based preflight review, not as runtime certification.
 
 ### Read artifact results
 
@@ -560,31 +568,34 @@ The result page contains:
 
 - **Findings**
 - **Rubric dimensions**
-- **Runtime verdicts**
 - **Files**
 
-![Standalone skill review result with findings, rubric dimensions, runtime verdicts, and files](media/skills-automations-review.png)
+![Standalone skill review result with findings, rubric dimensions, and files](media/skills-automations-review.png)
 
-*The saved artifact result connects findings to rubric scores, runtime
-verdicts, and reviewed files.*
+*The saved artifact result connects evidence-based findings to rubric scores
+and reviewed files.*
 
-The six rubric dimensions use a 0-to-5 score:
+The five rubric dimensions use a 0-to-100 score:
 
 1. Trigger clarity
 2. Task focus
 3. Instruction quality
-4. Portability
-5. Safety and evidence discipline
-6. Packaging quality
+4. Safety and evidence discipline
+5. Packaging quality
 
-Use **Runtime verdicts** to see whether the artifact is ready for each selected
-runtime. Use **Files** to find file-specific risks and readiness findings.
+Portability is not a scored dimension for an artifact-only review because an
+uploaded file cannot prove runtime compatibility. Open **Why this score** to
+see the evidence and explanation for a dimension. Use **Files** to find
+file-specific risks and readiness findings.
 
 The review can evaluate eligible text resources in more detail. It can skip
 binary, unreadable, or high-risk resources that the secret scan withholds.
 
 Select **Review another** to start a new artifact review. Artifact result pages
 do not provide PDF, Excel, or SARIF export.
+
+Rerun older artifact reviews before relying on them so the result uses the
+current evidence and scoring rules.
 
 ## Use result actions and exports
 
