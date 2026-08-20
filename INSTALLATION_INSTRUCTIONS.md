@@ -6,11 +6,11 @@ Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.m
 > [!NOTE]
 > May 2025 release onwards the Copilot Agent Kit has had a **setup wizard**, which allows viewing and editing connection references, environment variables and set up cloud flows. Please see more information from [here](./SETUP_WIZARD.md).
 
-# Installing the Copilot Agent Kit ([Appsource](http://aka.ms/DownloadCopilotStudioKit))
+# Installing the Copilot Agent Kit ([Microsoft Marketplace](http://aka.ms/DownloadCopilotStudioKit))
 
-## Deploy from AppSource
+## Deploy from Microsoft Marketplace
 
-1. Navigate to Copilot Agent Kit in [AppSource](http://aka.ms/DownloadCopilotStudioKit)
+1. Navigate to Copilot Agent Kit in [Microsoft Marketplace](http://aka.ms/DownloadCopilotStudioKit)
 1. Click **Get it now**
 1. Sign-in if required
 1. You are presented with **Install Copilot Agent Kit** view
@@ -74,7 +74,7 @@ If you have earlier version of Copilot Agent Kit installed and want to upgrade i
 >
 > This is a known issue that is being investigated. As a workaround, stage the upgrade before applying it. For detailed instructions, please see [here](https://learn.microsoft.com/power-apps/maker/data-platform/update-solutions).
 
-# Common and shared configuration steps (applies to both AppSource and GitHub)
+# Common and shared configuration steps (applies to both Microsoft Marketplace and GitHub)
 
 ## Configure SharePoint Synchronization
 Following steps are **optional** and required only if you plan to use the **SharePoint Synchronization** feature. You can also set these later at any time before using the feature.

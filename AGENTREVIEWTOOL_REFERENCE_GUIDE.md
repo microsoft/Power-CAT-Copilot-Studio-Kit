@@ -119,11 +119,20 @@ you do not use every kit feature.
    groups.
 4. Open the Copilot Agent Kit administration experience.
 5. Open **Setup Wizard**.
+
+    ![Copilot Agent Kit Setup Wizard showing the Agent Review installer option.](media/agent-review-setup-wizard.png)
+
 6. Confirm the kit prerequisites.
 7. Configure the required connection references.
 8. Use the Agent Review installer link in the wizard. This link opens the
    standalone Copilot Agent Kit Installer.
+
+    ![Copilot Agent Kit Installer showing the Set up Agent Review option.](media/agent-review-installer.png)
+
 9. Select **Set up Agent Review**.
+
+    ![Agent Review installer showing connection and workflow setup checks.](media/agent-review-installer-checks.png)
+
 10. Wait for these four setup items to show **Ready**:
     - **Agents connection**
     - **Dataverse connection**

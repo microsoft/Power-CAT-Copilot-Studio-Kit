@@ -112,7 +112,7 @@ More information on [automated testing using Power Platform Pipelines](./AUTOMAT
 
 # Setup instructions and documentation
 
-There is a Setup Wizard in the Kit which allows easy editing of connection references and environment variables as well as turning on cloud flows. After deploying the Kit from either AppSource or GitHub, you may access the Setup Wizard from the Home-page of the Copilot Agent Kit. Please see additional information [here](./SETUP_WIZARD.md).
+There is a Setup Wizard in the Kit which allows easy editing of connection references and environment variables as well as turning on cloud flows. After deploying the Kit from either Microsoft Marketplace or GitHub, you may access the Setup Wizard from the Home-page of the Copilot Agent Kit. Please see additional information [here](./SETUP_WIZARD.md).
 
 - [Prerequisites](./PREREQUISITES.md)
 - [Installation instructions](./INSTALLATION_INSTRUCTIONS.md)
