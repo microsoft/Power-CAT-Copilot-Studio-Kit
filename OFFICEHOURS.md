@@ -5,7 +5,7 @@
 > Starting May 13, 2026, Copilot Agent Kit Office Hours will move to an every-other-week schedule.
 > The format is also changing: each session will now include updates and demos from the team, including highlights of new features and walkthroughs showing how to configure features or accomplish more complex scenarios with existing capabilities.
 > * US-friendly slot: 10:05 AM Pacific Time (PT)
-> * APAC-friendly slot: 9:05 PM Pacific Time (PT) (next-day morning in IST)
+> * APAC-friendly slot: 11:35 AM India Standard Time (IST), which is 10:05 PM Pacific Time (PT) the previous day
 
 During office hours we will have Copilot Agent Kit team present and part of the meeting is dedicated for updates from the team, and demonstration of new features.
 
