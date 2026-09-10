@@ -1,190 +1,392 @@
-# Agent Inventory
+# Agent Inventory V2 (Preview)
 
-## Agent Inventory overview
+Agent Inventory gives administrators tenant-wide visibility into custom and declarative agents across Power Platform environments. It combines lifecycle and ownership metadata with configuration, capability adoption, governance signals, and usage metrics.
 
-Copilot Agent Kit Agent Inventory feature can be used to easily get a tenant-wide visibility to all the **custom agents** and **declarative agents** in the organization, across environments. Agent inventory data includes basic metadata like creation times, publish status and authentication mode, as well as information on the feature usage like knowledge sources used, usage of prompts, orchestration type and more.
+Agent Inventory V2 is the default experience. It is a responsive Power Apps code app with a dashboard, advanced agents grid, per-agent details, governance actions, and centralized synchronization settings. For the legacy experience, see [Agent Inventory V1](./AGENT_INVENTORY_V1.md).
+
+> [!NOTE]
+> This feature is currently in **Preview** and may change in the future. Please review it carefully to ensure it meets your organization's support, security, compliance, and production requirements before using it in a live environment.
+
+## Contents
+
+- [Use the legacy Agent Inventory experience](#use-the-legacy-agent-inventory-experience)
+- [Overview](#overview)
+- [Dashboard](#dashboard)
+- [Synchronize or refresh inventory data](#synchronize-or-refresh-inventory-data)
+- [Browse all agents](#browse-all-agents)
+- [Filter, sort, group, and customize the grid](#filter-sort-group-and-customize-the-grid)
+- [Agent details](#agent-details)
+- [Governance actions](#governance-actions)
+- [Configure Agent Inventory](#configure-agent-inventory)
+- [Usage metrics](#usage-metrics)
+- [Data collection modes](#data-collection-modes)
+- [Permissions and connector requirements](#permissions-and-connector-requirements)
+- [Operational guidance](#operational-guidance)
+- [Agent Inventory V1](#agent-inventory-v1)
+- [Data source reference](#data-source-reference)
+
+## Use the legacy Agent Inventory experience
+
+Agent Inventory navigation is controlled by the Dataverse environment variable **Enable Agent Inventory V2**.
+
+The Copilot Agent Kit solution is configured to show Agent Inventory V2 by default.
+
+| Environment variable value | Agent Inventory destination |
+| --- | --- |
+| **Yes** | Opens the Agent Inventory V2 code-app experience documented below. This is the default solution configuration. |
+| **No** | Opens the legacy Agent Inventory V1 custom-page experience. |
+
+The Admin app resolves this setting once per app session. If the value changes while the app is open, reload the app before selecting **Agent Inventory**.
+
+For guidance on the legacy custom-page experience, see [Agent Inventory V1](./AGENT_INVENTORY_V1.md).
+
+## Overview
+
+Agent Inventory V2 provides a tenant-wide view of:
+
+- Custom and declarative agents discovered across Power Platform environments.
+- Agent lifecycle status, ownership, authentication, and environment metadata.
+- Adoption of capabilities such as generative AI, autonomous triggers, knowledge sources, tools, prompts, and other agent components.
+- Agent usage and Copilot credit consumption when usage collection is enabled.
+- Governance signals that help administrators identify agents requiring attention.
+
+V2 improves on the earlier Agent Inventory experience with:
+
+- A responsive dashboard organized around governance and adoption.
+- Direct drill-through from dashboard metrics and charts into filtered grid views.
+- A searchable, sortable, groupable, and configurable agents grid.
+- Dedicated **Overview**, **Components**, **Usage**, and **Metadata** tabs for each agent.
+- Bulk governance actions from the grid and individual actions from agent details.
+- A dashboard refresh action that reloads existing data without starting an Agent Sync.
+- In-app configuration for inventory scope, environment groups, collection mode, usage metrics, and the daily synchronization schedule.
 
 ## Dashboard
 
-Agent Inventory feature ships with a dashboard that provides an overview on agents, growth and AI adoption. Detailed data is available for each agent and can be exported for use in other applications.
+The V2 dashboard summarizes the current inventory and provides drill-through navigation.
 
-![agent inventory dashboard](https://github.com/user-attachments/assets/f5c556f9-3dd0-41fb-acda-00c64c781b3e)
+![Agent Inventory V2 dashboard](./media/agent-inventory/v2/inventory-v2-dashboard.png)
 
-## Detailed view
+### Inventory context
 
-From the Agent Inventory dashboard, users can see the total amount of agents in the tenant, usage % of generative AI features, actions and AI builder prompts
-and how many agents are leveraging knowledge sources. Also visible are authentication mechanism used by the custom agents, agent creation timeline
-visualizing the growth, and a list of top 5 environments by agent count.
+The status row shows:
 
-Selecting an agent and pressing *View details* brings up a detailed view of the selected agent, including basic metadata on the custom agent,
-the environment, creation time and creator, and detailed information the usage of different features such as actions, generative AI, skills, prompts,
-knowledge sources and more.
+- **Inventory current**, **Inventory empty**, or **Sync in-progress**.
+- The percentage of records enriched with detailed configuration.
+- The number of agents with limited details.
+- The number of synchronized environments.
+- The last successful synchronization time, when available.
 
-> **Disclaimer:** The usage percentages shown here depend on the environments for which the user has System Administrator access.
+### Portfolio metrics
 
-![Copilot Agent Kit - Agent Details](https://github.com/user-attachments/assets/5e4e4344-2b0b-4ee6-91d9-7bc87f047fbe)
+The top metric tiles provide direct access to important inventory segments:
 
+- **Number of agents**
+- **Powered by**
+- **Autonomous agents**
+- **Draft agents**
+- **Agents with knowledge**
 
-## List view
+Select a tile to open all agents or a filtered subset. The **Powered by** tile groups agents into categories such as **Standard**, **GitHub Copilot**, and **Copilot Chat**.
 
-And finally, pressing *Show more* from the dashboard view, brings up a list view where users can find the information they are looking for by filtering, sorting and adding additional columns.
+### Analytics and governance
 
-![agent inventory list view](https://github.com/user-attachments/assets/2e10abe5-e13e-4aae-a18b-ca6eb6c14469)
+The dashboard also includes:
 
-## Sync Configuration
+- **Portfolio growth** with 6-month and 12-month ranges.
+- **Authentication** distribution.
+- **Governance priorities** requiring administrator review.
+- **Portfolio status** distribution.
+- **Capability adoption** across enriched agents.
+- **Top environments** ranked by agent count.
+- **Agents to watch** for records requiring attention.
 
-The **Agent Sync Configuration** page controls which environments and agents are included in Agent Inventory, how data is collected, and whether synchronization and usage metrics are enabled.
+![Agents to watch](./media/agent-inventory/v2/inventory-v2-dashboard-agents-to-watch.png)
 
-### Environment and agent filters
+Percentages depend on the environments for which the configured connection identities can retrieve agent data and detailed configuration.
 
-- **Environment types:** Select the environment types to include in agent discovery. The available types are **Developer**, **Default**, **Sandbox**, **Production**, **Trial**, and **Teams**. If no specific types are selected, all environment types are included by default.
-- **Agent types:** Select the agent types to include in the inventory sync. The available types are **Custom** and **Declarative**. If no specific types are selected, all agent types are included by default.
-- **Environment groups:** Create reusable groups of environments and select the active groups to scope the sync. Groups can be based on selected environment types and region. If no groups are selected, all environments are included by default.
+## Synchronize or refresh inventory data
 
-![Agent Sync Configuration - environment and agent filters](./media/agent-inventory/inventory-config-1.png)
+Agent Inventory V2 separates synchronization from dashboard refresh.
 
-### System agents and sync options
+### Sync agents
 
-- **Exclude system agents:** When enabled, Microsoft-provided system agents are skipped during synchronization. When disabled, they are included in the inventory.
-- **Data collection mode:** Choose between **One Inventory** and **Standard** mode. One Inventory retrieves data from the Power Platform admin center and the environments for richer metadata. Standard mode connects directly to each environment to fetch agents.
-- **Enable automatic sync:** When enabled, Agent Inventory refreshes automatically on the configured daily schedule. When disabled, synchronization must be started manually.
-- **Include Usage Metrics:** When enabled, the sync fetches usage data for the past **180 days**. When disabled, usage metrics are not collected during synchronization.
+Select **Sync agents** when the tenant inventory needs to be collected again. The sync follows the filters, environment groups, data collection mode, usage setting, and schedule configuration saved on the settings page.
 
-![Agent Sync Configuration - environment groups and system agents](./media/agent-inventory/inventory-config-2.png)
+While a sync is running:
 
-## Actions (New Feature)
+- The inventory status changes to **Sync in-progress**.
+- **Sync agents** is disabled to prevent duplicate operations.
+- Settings that could change the active sync configuration are unavailable.
+- The dashboard reloads Agent Details, usage history, sync status, and last-synchronized information after the sync settles.
 
-Agent Inventory lets administrators act on agents directly from the grid. The available actions are **View Details**, **Reassign**, **Quarantine**, and **Unquarantine**. The actions appear on the command bar based on the number and status of the agents selected in the grid.
+### Refresh dashboard data
 
-![actions shown on the Inventory grid](./media/agent-inventory/actions-shown.png)
+Select **Refresh dashboard data** to reload data already stored in the Agent Details and Agent Usage History tables.
 
-### Action availability
+Refresh:
 
-The **Status** column in the grid is populated during the Agent Inventory sync and reflects the value coming from PPAC (One Inventory data). Which actions are shown depends on how many records are selected and their status:
+- Does not start an Agent Sync.
+- Does not rediscover environments or agents.
+- Is useful after a sync has completed or when the dashboard is showing stale cached data.
+- Shows a success, informational, or error notification when the operation finishes.
 
-| Action | Selection rule | Hidden when |
-| :-- | :-- | :-- |
-| **View Details** | Shown only when exactly **one** record is selected. | Zero or more than one record is selected. |
-| **Reassign** | One or many records (up to a **maximum of 50**) can be selected. | Any selected agent is not eligible for reassign. |
-| **Quarantine** | One or many records in **Draft** or **Available** status (up to a **maximum of 50**) can be selected. | Any selected agent is **Blocked** or not eligible for quarantine. |
-| **Unquarantine** | One or many records in **Blocked** status (up to a **maximum of 50**) can be selected. | Any selected agent is **Draft**, **Available**, or not eligible for unquarantine. |
+> [!IMPORTANT]
+> Agent synchronization does not use Copilot Credits. Credits are used only when AI-generated descriptions are enabled and an eligible GitHub Copilot agent details page is visited.
 
-When the selection includes an agent that does not meet the criteria for an action, that action is hidden from the command bar.
+## Browse all agents
 
-![actions hidden when selection is not eligible](./media/agent-inventory/actions-hide.png)
+Select **View full inventory** from the dashboard to open the agents grid.
 
-The action is hidden when any selected agent's status is incompatible with the operation (for example, Quarantine is hidden if a **Blocked** agent is selected).
+![Agent Inventory V2 agents grid](./media/agent-inventory/v2/inventory-v2-all-agents-grid.png)
 
-![Quarantine action hidden for ineligible selection](./media/agent-inventory/quarantine-unquarantine-hide.png)
+### Filter, sort, group, and customize the grid
+
+Use the grid to find the information you need by filtering, sorting, grouping, and adding columns.
+
+You can also export the inventory data.
+
+## Agent details
+
+Select an agent name from the grid to open the Agent Details experience.
+
+The header shows the agent identity, environment context, lifecycle status, ownership, and available actions. An information banner explains whether the record has full Dataverse enrichment or limited configuration details.
+
+![Agent Inventory V2 agent details](./media/agent-inventory/v2/inventory-v2-all-agent-details.png)
+
+### Overview
+
+The **Overview** tab provides:
+
+- Agent summary and environment information.
+- Governance posture and signals.
+- An AI-generated description for an eligible GitHub Copilot agent when the setting is enabled.
+- A usage snapshot when usage history exists.
+
+### Components
+
+The **Components** tab is shown only when component data exists. Use it to:
+
+- Explore the agent architecture in **Component map** view.
+- Browse categorized content in **Component group** view.
+- Expand one populated component group at a time.
+- Turn on **Raw** mode to inspect JSON.
+- Copy component JSON for investigation or support.
+
+![Agent components](./media/agent-inventory/v2/inventory-v2-all-agent-details-components.png)
+
+![Agent component groups](./media/agent-inventory/v2/inventory-v2-all-agent-details-component-group.png)
+
+### Usage
+
+The **Usage** tab is shown only when usage records exist. It includes:
+
+- Month-to-date, the two preceding calendar months, last-three-months, and last-six-months ranges. **Last six months** is selected by default.
+- Total Copilot credits and average credits per active week.
+- Reported users and primary usage feature.
+- Weekly credit trends.
+- Usage highlights.
+- Credits by feature and channel.
+- Recent usage records.
+- Agent-specific Excel export.
+
+![Agent usage overview](./media/agent-inventory/v2/inventory-v2-all-agent-details-usage.png)
+
+![Agent usage details](./media/agent-inventory/v2/inventory-v2-all-agent-details-usage-2.png)
+
+### Metadata
+
+The **Metadata** tab is always available. Use it to inspect technical values such as:
+
+- Agent ID and schema name.
+- Environment ID and URL.
+- Location and source identifiers.
+- Raw inventory fields used for diagnostics and integration.
+
+![Agent metadata](./media/agent-inventory/v2/inventory-v2-all-agent-details-metadata.png)
+
+## Governance actions
+
+Agent Inventory supports **Reassign**, **Quarantine**, and **Unquarantine**. Actions appear only when every selected agent is eligible.
+
+| Action | Availability |
+| --- | --- |
+| **Reassign** | One or more eligible agents are selected, up to 50. |
+| **Quarantine** | All selected agents are eligible and have Draft or Available status, up to 50. |
+| **Unquarantine** | All selected agents are eligible and have Blocked status, up to 50. |
+
+If any selected record is incompatible with an operation, that operation is hidden. Records whose Power Platform admin-center context does not match the inventory environment are not offered unsupported governance actions.
+
+The grid uses the status captured during the latest inventory sync. On the Agent Details page, quarantine and unquarantine availability is based on the agent's live status.
+
+![Agent Inventory V2 bulk actions](./media/agent-inventory/v2/inventory-v2-all-agents-bulk-actions.png)
 
 ### Reassign
 
-Some organizations require agents to have owners for compliance purposes. The agent's owner can edit the agent, publish updates, delete it, or share it with teammates. Selecting **Reassign** opens a dialog where you can choose any user who has a license for Microsoft 365 Copilot. All selected agents will be reassigned to the chosen user.
+Some organizations require agents to have owners for compliance purposes. The owner can edit the agent, publish updates, delete it, or share it with teammates according to their permissions.
 
-![Reassign Agent dialog](./media/agent-inventory/reassign-agents.png)
+Select **Reassign** and choose a user who has a Microsoft 365 Copilot license. For bulk reassignment, the dialog displays the selected environments, agents, current owners, and operation status.
 
-Once the reassignment completes, the **Reassign Status** column shows **Complete** for each agent.
+After reassignment completes, the reassignment status is shown as complete for each successfully processed agent.
 
-![Reassign Agent completed](./media/agent-inventory/reassign-agents-success.png)
+### Quarantine and unquarantine
 
-### Quarantine and Unquarantine
+**Quarantine** blocks an eligible agent. **Unquarantine** restores an eligible blocked agent. Confirmation dialogs identify the affected agents, environments, and statuses before an operation is submitted.
 
-**Quarantine** blocks an agent, and **Unquarantine**  unblocks an agent. Selecting the action opens a confirmation dialog listing the environment, agent, and current agent status. Confirm the operation to apply the change to the selected agents.
+Bulk actions support up to **50 agents** per operation and are available only when every selected record is eligible.
 
-![Quarantine / Unquarantine confirmation dialog](./media/agent-inventory/quarantine-unquarantine-show.png)
+## Configure Agent Inventory
 
-### Actions on the Agent Details screen
+Select **Settings** from the V2 dashboard header to open **Agent sync configuration**.
 
-The same actions are available on the **Agent Details** screen for the individual agent. On this screen the quarantine/unquarantine status shown is based on the **live status** of the agent, rather than the synced status displayed in the grid.
+![Agent Inventory V2 sync configuration settings](./media/agent-inventory/v2/inventory-v2-settings.png)
 
-### Bulk actions in MDA
+### Environment types
 
-The model-driven app supports bulk actions from the Agent Inventory grid. Select multiple eligible agents, then choose **Reassign Agent**, **Quarantine Agent**, or **Unquarantine Agent** from the command bar.
+Choose which environment types are scanned:
 
-- **Bulk Reassign:** Select a user with a Microsoft 365 Copilot license. The dialog lists the selected environments and agents together with their current owners and reassignment status. Confirm the operation to assign all selected agents to the chosen user.
-- **Bulk Quarantine:** Select agents in **Draft** or **Available** status. The confirmation dialog lists the selected environments, agents, agent statuses, and quarantine status. Confirm the operation to quarantine all selected agents.
-- **Bulk Unquarantine:** Select agents in **Blocked** status. Confirm the operation to unblock all selected agents.
-- Bulk actions support up to **50 agents** per operation. The action is available only when every selected agent is eligible for that operation.
+- Developer
+- Default
+- Sandbox
+- Production
+- Trial
+- Teams
 
-![Bulk Reassign Agents dialog in the model-driven app](./media/agent-inventory/bulk-action-reassign-mda.png)
+If no environment type is selected, all environment types are included.
 
-![Bulk Quarantine Agents dialog in the model-driven app](./media/agent-inventory/bulk-action-quarantine-mda.png)
+### Agent types
 
-## Connectors used
+Choose whether the inventory includes:
 
-Agent Inventory (including Usage Metrics) uses the following connectors. All must be allowed by the DLP policies applied to the environment, and connections must be populated at solution import time.
+- Custom agents
+- Declarative agents
 
-| Connector |
-| :-- |
-| Microsoft Dataverse |
-| Power Platform for Admins |
-| Power Platform for Admins V2 |
-| HTTP with Microsoft Entra ID (preauthorized) |
+If no agent type is selected, all agent types are included.
 
-See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
+### Environment groups
 
-## Using Usage Metrics in Agent Inventory 
-You can view usage details for your agent over the past 180 days in **Agent Inventory**. Usage Metrics is now included in the **Copilot Agent Kit main solution**, so no separate solution import is required.
+Environment groups provide reusable sync scopes. Administrators can:
 
-### Prerequisites 
+- Create and edit a group.
+- Select member environments using environment-type and region filters.
+- Enable or disable the group.
+- Delete a group that is no longer needed.
 
-Before using the usage metrics feature:
+If no group is enabled, all environments allowed by the other settings are included.
 
-1. **Install** the **Copilot Agent Kit main solution**.
-2. **Ensure** that the connector **HTTP with Microsoft Entra ID (preauthorized)** is allowed in your environment.
+### Inventory options
 
-### Connection Creation 
+- **Exclude system agents** - skips Microsoft-provided system agents during synchronization.
+- **Enable AI-generated description for GitHub Copilot agents** - allows description generation when an eligible agent details page is visited.
+- **Include usage metrics** - collects the retained 180-day usage window during synchronization.
 
-The **HTTP with Microsoft Entra ID (preauthorized)** connection values depend on the cloud your tenant runs in (Commercial, GCC, GCC High, or DoD). Use the **Base Resource URL** and **Microsoft Entra ID Resource URI** that match your cloud when creating the connection:
+### Sync schedule and collection mode
+
+- **One Inventory (Power Platform admin center)** - combines admin-center inventory with environment data for broader discovery and richer metadata.
+- **Standard (environments only)** - retrieves inventory directly from accessible environments.
+- **Enable daily automatic sync** - runs Agent Inventory on the configured daily schedule.
+
+Select **Save** to persist changes. The button is disabled while no setting has changed, while a save is in progress, or while settings are unavailable during an active sync.
+
+## Usage metrics
+
+Usage metrics are included in the Copilot Agent Kit main solution. Agent Inventory can retain and display up to **180 days** of agent usage data.
+
+To make usage analytics available:
+
+1. Ensure the required solution connections are configured and permitted by data loss prevention policies.
+2. Open **Agent sync configuration**.
+3. Turn on **Include usage metrics**.
+4. Save the configuration.
+5. Select **Sync agents** or wait for the daily automatic sync.
+
+Usage data are stored in the **Agent Details** and **Agent Usage History** tables. An agent's **Usage** tab appears only when matching usage-history records are available.
+
+### HTTP connection configuration
+
+The **HTTP with Microsoft Entra ID (preauthorized)** connection values depend on the tenant cloud.
 
 | Cloud | Base Resource URL | Microsoft Entra ID Resource URI |
-| :-- | :-- | :-- |
+| --- | --- | --- |
 | **Commercial** | `https://licensing.powerplatform.microsoft.com/` | `https://licensing.powerplatform.microsoft.com/` |
 | **GCC** | `https://gov.licensing.powerplatform.microsoft.us/` | `https://gov.licensing.powerplatform.microsoft.us/` |
 | **GCC High** | `https://high.licensing.powerplatform.microsoft.us/` | `https://high.licensing.powerplatform.microsoft.us/` |
 
+## Data collection modes
 
-### How Usage Metrics Are Updated 
+The **Data collection mode** setting determines how agent records are discovered and collected.
 
-Usage data in the **Agent Details** table is refreshed in two ways:
+### One Inventory mode
 
-1. **Automatically** when the Agent inventory runs on a daily schedule.  
-2. **Manually** when you perform an **Agent Sync** operation.
-
-### Where to View Usage Metrics 
-
-In the **Agent Inventory Dashboard**, review the **Agents** grid. 
-If the **Total Usage/Month** field contains a value, the **Usage Metrics** section will be displayed on the **Agent Details** page.
-
-![Copilot Agent Kit - Agent Details With Usage](https://github.com/user-attachments/assets/197f0539-016c-4c26-8439-e2382fab9349)
-
-
-> [!NOTE]
-> The visibility to agents is *limited* and *controlled* by the connection references in the solution. 
-
-## Data Collection Modes
-
-The data collection process is controlled by the **Enable One Inventory** environment variable, which determines how agent data is retrieved and loaded into Agent Inventory.
-
-### Enable One Inventory = "Yes" (One Inventory mode)
-
-When **Enable One Inventory** is set to **Yes**, the process uses One Inventory data:
+One Inventory mode:
 
 1. Agent data is retrieved from One Inventory through the Power Platform Admin Center.
 2. Environments are listed using the **Copilot Agent Kit - Power Platform for Admins V2** connector.
 3. The One Inventory agent data is combined with the environments list to construct environment details.
 4. For each environment, agent details are loaded into Agent Inventory by merging agents fetched from the environment with the corresponding One Inventory data.
 
-### Enable One Inventory = "No" (Standard mode)
+Use this mode when broader tenant discovery and richer Power Platform admin-center metadata are required. Agents discovered through PPAC but inaccessible in their environment are still added with limited details.
 
-When **Enable One Inventory** is set to **No**, the process follows the standard data collection approach:
+### Standard mode
+
+Standard mode:
 
 1. All environments are listed using the **Copilot Agent Kit - Power Platform for Admins V1** connector.
 2. Agents are fetched for each environment.
 3. Agent data is loaded into Agent Inventory.
 
+Use this mode when collection should rely only on accessible environments.
+
 In both modes, the **Copilot Agent Kit - Dataverse** connector connects to each environment to gather detailed agent information (metadata, feature usage, configuration) — but only where the configured account has **system admin access**.
 
 For full tenant-wide visibility, the connection references must be configured with an account that has the **Power Platform admin role** and to view all the features need to have **system admin level permission** to all environments. Other accounts can be used, but the inventory will be limited to the environments the user has system admin access to.
 
-Back to the [landing page](./README.md#power-cat-copilot-studio-kit)
+## Permissions and connector requirements
+
+### Recommended permissions
+
+- Power Platform administrator access for broad environment and inventory discovery.
+- System administrator access in each environment that requires full agent-configuration enrichment.
+- Appropriate Dataverse privileges for Agent Inventory settings, environment groups, action auditing, and usage-history data.
+
+For full tenant-wide visibility, configure the connection references with an account that has the **Power Platform administrator** role. To retrieve all feature-level details, that account also needs **system administrator** access to the relevant environments.
+
+### Connectors
+
+All required connectors must be allowed by the data loss prevention policies applied to the environment, and connections must be populated during solution import.
+
+| Connector |
+| --- |
+| Microsoft Dataverse |
+| Power Platform for Admins |
+| Power Platform for Admins V2 |
+| HTTP with Microsoft Entra ID (preauthorized) |
+
+See [Prerequisites - Connector requirements](./PREREQUISITES.md#connector-requirements) for the full list across the Kit.
+
+### Core Dataverse tables
+
+| Table | Purpose |
+| --- | --- |
+| `cat_agentdetails` | Discovered agents, metadata, capabilities, ownership, and synchronized status. |
+| `cat_agentusagehistory` | Retained usage dimensions and Copilot credit values. |
+| `cat_agentinventorysettings` | Inventory filters, mode, and feature settings. |
+| `cat_environmentgroups` | Reusable environment scopes. |
+| `cat_agentinventoryactionaudit` | Governance action tracking. |
+| `cat_copilotstudiokitlogs` | Feature and operation logging. |
+
+## Operational guidance
+
+- Use **Refresh dashboard data** after a completed sync when the dashboard needs to reload existing table data.
+- Use **Sync agents** only when inventory collection must run again.
+- Keep environment and agent filters as narrow as practical in very large tenants.
+- Disable usage collection when 180-day usage analytics are not required.
+- Use grid filters before exporting large inventories.
+- Treat limited-detail and enrichment indicators as permission or environment-coverage signals.
+- Confirm action eligibility and selected-record count before submitting a bulk operation.
+- Review connection ownership and data loss prevention policies after importing or upgrading the solution.
+
+## Data source reference
+
+For the authoritative Agent Details and Agent Usage History schemas, logical column names, source mappings, and feature-detection rules, see [Agent Inventory - Data Source](./AGENT_INVENTORY_DATA_SOURCE.md).
+
+Back to the [landing page](./README.md#power-cat-copilot-studio-kit).
