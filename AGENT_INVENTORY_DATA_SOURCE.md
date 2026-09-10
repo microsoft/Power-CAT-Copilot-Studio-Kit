@@ -113,6 +113,10 @@ Agents which are not accessible within the environment are added using One Inven
 | 81 | Agent Status | cat_agentstatus | Text | | From power platform resource query → `properties.isQuarantined` | V5 | Current status of the agent (e.g., Draft, Available, Blocked) |
 | 82 | Skills | cat_skills | Text | Topic v2 `data` contains `InlineAgentSkill` entries. | | V5 | Skills configured for a modern agent. |
 | 83 | Powered By | cat_poweredby | Choice | Derived from agent type and origin: declarative agents are powered by Copilot Chat, modern agents are powered by GitHub Copilot, and other agents are powered by Standard | | V5 | Platform that powers the agent: Copilot Chat, GitHub Copilot, or Standard. |
+| 84 | MCP | cat_mcp | Multiline Text | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `kind: InvokeExternalAgentTaskAction` or `kind: McpTool` entries | | V5 | List of Model Context Protocol (MCP) servers available to the agent. |
+| 85 | Connected Agents | cat_connectedagents | Multiline Text | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `kind: InvokeConnectedAgentTaskAction` or `kind: ConnectedAgentTool` (connected/child agent references) entries | | V5 | List of other agents connected to (available to) the agent. |
+| 86 | Evaluations | cat_evaluations | Multiline Text | Dataverse: Table `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 (evaluation sets and their test cases) | | V5 | List of evaluation configurations (test sets/test cases) associated with the agent. |
+| 87 | Agent Owner ADID | cat_agentowneradid | Text | Dataverse: `systemuser` table → owner ADID or Azure Object ID; if the owner is Teams then `team` table | | V5 | Azure active directory id of the agent owner. |
 
 ---
 
@@ -204,6 +208,10 @@ Below are concise detection rules for each derived or boolean field (refer to lo
 - Agent Status (`cat_agentstatus`): Indicates the agent's current status (e.g., Draft, Available, Blocked).
 - Skills (`cat_skills`): Topic v2 `data` contains `InlineAgentSkill` entries.
 - Powered By (`cat_poweredby`): derived from the agent type and origin — declarative agents are marked **Copilot Chat**, modern agents are marked **GitHub Copilot**, and all other agents are marked **Standard**.
+- MCP (`cat_mcp`): Topic v2 `data` contains `kind: InvokeExternalAgentTaskAction` or `kind: McpTool` — Model Context Protocol servers available to the agent.
+- Connected Agents (`cat_connectedagents`): Topic v2 `data` contains `kind: InvokeConnectedAgentTaskAction` or `kind: ConnectedAgentTool` connected/child agent references — other agents available to (connected to) the agent.
+- Evaluations (`cat_evaluations`): `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 — evaluation sets and their test cases configured for the agent.
+- Agent Owner ADID (`cat_agentowneradid`): `systemuser` table → ADID or Azure Object ID of the agent owner; if the owner is a team, fetched from `team` table.
 
 ---
 
