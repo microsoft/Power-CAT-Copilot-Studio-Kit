@@ -23,13 +23,13 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       # Set up Node 20 unconditionally — both Node sub-projects in this repo
       # (agent-review-pipeline/ on main, site-src/ on feature/github-pages-agent)
       # need it, and the agent may also use Node for ad-hoc tooling.
       - name: Set up Node.js 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "20"
 
@@ -39,7 +39,7 @@ jobs:
       # site-src/ doesn't exist yet (e.g. main, before the redesign PR lands).
       - name: Cache site-src npm
         if: hashFiles('site-src/package-lock.json') != ''
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "20"
           cache: "npm"
@@ -59,7 +59,7 @@ jobs:
       # Present on main. Same hashFiles guard pattern so it's a no-op when absent.
       - name: Cache agent-review-pipeline npm
         if: hashFiles('agent-review-pipeline/package-lock.json') != ''
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: "20"
           cache: "npm"
