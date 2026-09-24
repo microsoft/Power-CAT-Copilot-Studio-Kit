@@ -3,6 +3,7 @@
 ## Table of Contents
 
 - [1. Overview](#1-overview)
+  - [Architecture](#architecture)
 - [2. Prerequisites](#2-prerequisites)
 - [3. Setup Instructions](#3-setup-instructions)
   - [3.1 Integrate Copilot Studio with Application Insights](#31-integrate-copilot-studio-with-application-insights)
@@ -46,6 +47,10 @@ Built as a Power Apps Code App using React and Fluent UI v9, it connects directl
 | **Azure Application Insights** | Overview, Daily Metrics, Topics, Tools, Actions, Errors | Telemetry logs from agent conversations — response times, topic triggers, tool calls, errors |
 | **Conversation Transcripts** | Transcripts | Session-level data from Copilot Studio — engagement, resolution, escalation, CSAT, feedback |
 | **Power Platform Admin Center** | Usage History | Copilot credit consumption — billed and non-billed credits by agent, environment, and feature |
+
+### Architecture
+
+![Agent Insights Hub architecture showing Application Insights, Conversation Transcripts and Agent Usage History flowing through Power Automate and Dataverse into the Agent Insights Hub code app](media/AIH-Architecture.png)
 
 
 ---
