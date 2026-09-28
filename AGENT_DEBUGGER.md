@@ -140,16 +140,9 @@ For more information, see [Create or edit a security role](https://learn.microso
 
 When you open Agent Debugger, the command bar shows the pickers that identify what to analyze. Every other filter is in the **Advanced filters** drawer.
 
-```
-┌──────────────────────┐   ┌──────────────────────┐   ┌──────────────────────┐
-│  Agent               │ → │  Conversation        │ → │  Session             │
-│  (grouped by env.)   │   │  (search + list)     │   │  (multi-session only)│
-└──────────────────────┘   └──────────────────────┘   └──────────────────────┘
+![Agent Debugger command bar](./media/agent-debugger/agent-debugger-command-bar.png)
 
-        [ Advanced filters (n) ]   [ Analyze ]   [ Upload snapshot ]   [ ? ]
-
-   Applied filters appear below the command bar as removable chips.
-```
+The **Session** picker appears next to **Conversation** after analysis, when the conversation has more than one session. Applied filters appear below the command bar as removable chips.
 
 ### Agent
 
