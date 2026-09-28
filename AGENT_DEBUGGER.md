@@ -102,14 +102,7 @@ The **access level** (scope) of these privileges decides **which agents** you se
 
 ### 3. Optional: custom "Agent Debugger" security role
 
-The kit **doesn't ship** a custom security role. If a user needs to debug **all** agents in an environment, not just their own and the ones shared with them, an administrator can create a custom security role in the **target environment**. For example, name it **Agent Debugger** and give it these privileges:
-
-| Table | Create | Read | Write | Delete | Append | Append To | Assign | Share |
-|---|---|---|---|---|---|---|---|---|
-| **Agent** (Bot) | None | **Organization** | None | None | None | None | None | None |
-| **Agent component** (Bot Component) | None | **Organization** | None | None | None | None | None | None |
-| **ConversationTranscript** | None | **Organization** | None | None | None | None | None | None |
-| **Flow Run** *(optional)* | None | **Organization** | None | None | None | None | None | None |
+The kit **doesn't ship** a custom security role. If a user needs to debug **all** agents in an environment, not just their own and the ones shared with them, an administrator can create a custom security role in the **target environment**. For example, name it **Agent Debugger** and give it **Organization**-level **Read** on the tables listed above:
 
 ![Custom Agent Debugger security role with Organization-level Read on Agent, Agent component and ConversationTranscript](./media/agent-debugger/agent-debugger-security-role.png)
 
