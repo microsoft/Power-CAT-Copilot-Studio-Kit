@@ -34,7 +34,7 @@ The **Agent Debugger** is a diagnostic tool in the **Copilot Agent Kit Admin** a
 
 The Agent Debugger supports two data sources:
 
-- **Conversation Transcript (Dataverse)**: When a conversation takes place in Copilot Studio, the platform records a detailed activity log as a Conversation Transcript in Dataverse. The Agent Debugger reads those records **directly from each environment, using the signed-in user's identity**. Any agent you can read that has transcript data shows up right away. You don't need to sync an inventory first.
+- **Conversation Transcript (Dataverse)**: When a conversation takes place in Copilot Studio, the platform records a detailed activity log as a Conversation Transcript in Dataverse. The Agent Debugger reads those records **directly from each environment, using the signed-in user's identity**. Any agent you can read that has transcript data shows up right away.
 - **Copilot Studio Snapshot (ZIP)**: The Copilot Studio **test pane** has a **Download snapshot** button. It exports the current test conversation as a ZIP file that contains `dialog.json` and `botContent.yml`. Upload that ZIP to the Agent Debugger to get the full analysis view without a Dataverse connection. Snapshots are useful when you need to:
   - Debug conversations before an agent goes to production.
   - Reproduce issues offline.
@@ -54,12 +54,10 @@ Both data sources lead to the same analysis interface.
 
 **Key capabilities:**
 
-- **No Agent Inventory dependency.** Agents and environments are discovered live from Dataverse, based on what the signed-in user can access.
 - **Multi-session conversations.** A conversation is split into sessions when the user goes idle and reconnects. You can focus the analysis on a single session.
 - **Advanced filters.** Filter by time range, channel, session outcome, session type, locale, step types, errors, slow steps, and number of turns.
 - **Multi-agent conversations.** Connected and child agents are detected automatically, and their transcripts are loaded.
 - **Step arguments and observations.** See exactly what inputs went to every action, tool, or knowledge source, and what each one returned.
-- **Token consumption.** Prompt and completion token counts for each step.
 - **Knowledge sources.** See what was searched, what was returned, and what was cited.
 - **AI reasoning.** See the orchestrator's thought process before each step.
 - **Flow run links.** Jump from a flow step to the matching Power Automate run.
@@ -71,16 +69,6 @@ Both data sources lead to the same analysis interface.
 ## Architecture
 
 ![Agent Debugger architecture](./media/agent-debugger/agent-debugger-architecture.png)
-
-Copilot Studio agents write their metadata to the **Agents** (`bot`) table. They write topics, tools, skills, and connected agents to the **Agent Components** (`botcomponent`) table. They write conversation transcripts to the **Conversation Transcripts** (`conversationtranscript`) table.
-
-The Agent Debugger reads these three tables directly, using the signed-in user's permissions. It uses them to:
-
-- Replay the conversation.
-- Analyze execution.
-- Show performance data and recommendations.
-
-The Agent Debugger can also analyze a **snapshot ZIP** (`dialog.json` · `botContent.yml`) downloaded from the Copilot Studio test pane. Snapshots don't need any Dataverse access.
 
 ---
 
@@ -98,8 +86,8 @@ The Agent Debugger uses the **signed-in user's** identity to query each environm
 
 | Table (display name) | Logical name | Used for |
 |---|---|---|
-| **Copilot** (Bot) | `bot` | Listing agents, agent configuration, languages |
-| **Copilot component** (Bot Component) | `botcomponent` | Topic, tool, knowledge, and child-agent names and configuration |
+| **Agent** (Bot) | `bot` | Listing agents, agent configuration, languages |
+| **Agent component** (Bot Component) | `botcomponent` | Topic, tool, knowledge, and child-agent names and configuration |
 | **ConversationTranscript** | `conversationtranscript` | Loading conversations and connected-agent transcripts |
 | **Flow Run** *(optional)* | `flowrun` | **Open flow run** links on flow steps |
 
@@ -107,8 +95,8 @@ The **access level** (scope) of these privileges decides **which agents** you se
 
 | Role setup | What the user sees |
 |---|---|
-| **Bot Viewer** + **Bot Transcript Viewer** (out-of-the-box roles) | Agents the user **owns** and agents **shared with** the user |
-| Custom role with **Organization**-level **Read** on Bot, Bot Component, and Conversation Transcript | **All agents** in that environment that have transcripts |
+| **Bot Viewer** + **Bot Transcript Viewer** (out-of-the-box roles) | Agents the user **owns** and agents **shared with** the user, plus the conversation transcripts they have access to |
+| Custom role with **Organization**-level **Read** on Agent, Agent component, and ConversationTranscript | **All agents** in that environment that have transcripts |
 
 > Only agents that have **at least one conversation transcript** appear in the Agent picker.
 
@@ -118,10 +106,12 @@ The kit **doesn't ship** a custom security role. If a user needs to debug **all*
 
 | Table | Create | Read | Write | Delete | Append | Append To | Assign | Share |
 |---|---|---|---|---|---|---|---|---|
-| **Copilot** (Bot) | None | **Organization** | None | None | None | None | None | None |
-| **Copilot component** (Bot Component) | None | **Organization** | None | None | None | None | None | None |
+| **Agent** (Bot) | None | **Organization** | None | None | None | None | None | None |
+| **Agent component** (Bot Component) | None | **Organization** | None | None | None | None | None | None |
 | **ConversationTranscript** | None | **Organization** | None | None | None | None | None | None |
 | **Flow Run** *(optional)* | None | **Organization** | None | None | None | None | None | None |
+
+![Custom Agent Debugger security role with Organization-level Read on Agent, Agent component and ConversationTranscript](./media/agent-debugger/agent-debugger-security-role.png)
 
 To create the role:
 
@@ -228,14 +218,7 @@ Agent Debugger can be opened with a conversation already loaded by passing these
 
 ## Analysis View
 
-The analysis view opens after you select **Analyze** or upload a snapshot. It has four tabs:
-
-| Tab | Badge |
-|---|---|
-| **Performance timeline** | — |
-| **Execution flow** | Number of timed steps |
-| **Conversation & activities** | — |
-| **Agent insights** | Number of recommendations (red when any have high severity) |
+The analysis view opens after you select **Analyze** or upload a snapshot. It has four tabs: **Performance timeline**, **Execution flow**, **Conversation & activities**, and **Agent insights**.
 
 ### Performance Timeline
 
