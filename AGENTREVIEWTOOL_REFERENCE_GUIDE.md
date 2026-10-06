@@ -9,6 +9,11 @@ coverage, and efficiency findings.
 The tool is a preview feature. Use its results as guidance. Verify important
 findings before you change or publish an agent.
 
+> [!IMPORTANT]
+> **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.**
+> This notice applies only to Agent Review Tool. It does not change the support
+> status of the rest of Copilot Agent Kit or Copilot Studio.
+
 ## Contents
 
 - [Purpose](#purpose)
@@ -82,6 +87,7 @@ An administrator must prepare the environment before a maker runs a review.
 
 | Requirement | Why it is required |
 | --- | --- |
+| A commercial environment for Agent Review | Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD. |
 | A Power Platform environment with Dataverse | The kit stores configuration and review data in Dataverse. |
 | Power Apps Code Apps enabled | The Makers app and the Agent Review installer are Code Apps. |
 | Copilot Agent Kit and its required dependencies installed | The Agent Review Tool uses kit apps, tables, roles, connections, and flows. |
@@ -134,11 +140,12 @@ packaging changes.
 
 For a release that provides it, **Agent Review Workflow**
 (`AgentReviewWorkflow`) is a separate commercial add-on to **Copilot Agent Kit**
-(`CopilotStudioAccelerator`). The add-on contains the **Copilot Agent Kit
-Installer** app, the Agents connection reference, and the **Review Agent
-Components** workflow. Shared tables and the Dataverse connection reference
-stay in the main kit. This separation keeps commercial review and Agents
-dependencies out of the core kit.
+(`CopilotStudioAccelerator`). The add-on includes the **Copilot Agent Kit
+Installer** app and the **Review Agent Components** workflow. It includes the
+**Agent Review Job** and **Agent Review Job Item** tables. The package also
+includes the Agents and Agent Review Tool Dataverse connection references.
+The job tables can also be shared with the main kit. This separation keeps
+commercial review and Agents dependencies out of the core kit.
 
 The installer app is separate from Admin and Makers so that ordinary Makers
 users do not receive an Agents connector consent prompt.
@@ -149,10 +156,9 @@ to check package availability and read the instructions for your release.
 **Agent Review Workflow**.
 
 > [!IMPORTANT]
-> These Agent Review setup steps are for commercial environments. New reviews
-> are not supported in GCC, GCC High, or DoD. Do not import the commercial
-> add-on in those clouds. Saved reviews remain available, subject to your
-> permissions.
+> **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.**
+> These setup steps are for commercial environments. Do not import the
+> commercial add-on in any of those government clouds.
 
 > [!NOTE]
 > For an existing commercial installation, follow the published release's
@@ -181,46 +187,100 @@ to check package availability and read the instructions for your release.
 7. Confirm the kit prerequisites.
 8. Configure the required connection references.
 9. Use the Agent Review installer link in the wizard. This link opens the
-   standalone Copilot Agent Kit Installer. Assign the existing Agents and
-   Dataverse connections when Power Apps prompts you.
+   standalone Copilot Agent Kit Installer. Assign the intended Agents and
+   Dataverse connections when Power Apps prompts you. Confirm the selected
+   accounts before you continue.
 
     ![Setup Wizard showing the link to Copilot Agent Kit Installer.](media/agent-review-installer.png)
 
-10. If setup is required, select **Set up Agent Review**.
+10. If setup is required, select **Set up Agent Review**. This action can change
+    the connections used by the workflow.
 
     ![Agent Review installer showing connection and workflow setup checks.](media/agent-review-installer-checks.png)
 
-11. Wait for these four setup items to show **Ready**:
+11. Wait for these four setup items to show **Ready** and for the installer to
+    show **Setup is complete**:
     - **Agents connection**
     - **Dataverse connection**
     - **Workflow connections**
     - **Review workflow**
-12. Select **Open Agent Review Tool**.
+12. Reopen the installer in the target environment. Confirm that all four
+    checks remain **Ready**, then select **Open Agent Review Tool**.
 13. Return to Makers. If a setup message remains, select **Check again**.
 
-The first two items show the Agents and Dataverse connections assigned to the
-installer. When setup is required, **Set up Agent Review** validates those
-connections. **Workflow connections** checks the workflow's connection
-bindings. **Review workflow** checks that **Review Agent Components** is on.
+Setup can take several minutes. Connection changes need time to synchronize.
+The service can also retry, publish, or start the workflow during setup. The
+cards can still show the previous result. Do not refresh the app or start
+another setup attempt while it runs. If setup reports a failure, follow the
+error message. Check the current state before another repair.
+
+#### Connection checks and repair
+
+Use the installer for a first install, including a Marketplace install, when
+reference connections are not yet assigned. Use it again for later repair.
+An import can turn the workflow **On** if its connections are available and
+authorized. **On** alone does not confirm that it uses the intended connections.
+
+| Check | Meaning of **Ready** |
+| --- | --- |
+| **Agents connection** | Power Apps has assigned an Agents connection to the installer. |
+| **Dataverse connection** | Power Apps has assigned a Dataverse connection to the installer. |
+| **Workflow connections** | The workflow uses the same connection IDs as the connections assigned to the installer. |
+| **Review workflow** | **Review Agent Components** is started (**On**). |
+
+**Workflow connections** can show **Action needed** while the other three
+checks show **Ready**. This can mean that the workflow uses different connection
+IDs. It does not, by itself, prove that a dependency is missing or that a
+working connection is broken. Confirm the intended connections before setup.
 
 ![Agent Review installer showing all four setup checks as Ready and the Open Agent Review Tool button.](media/agent-review-installer-ready.png)
 
-The installer can be run again to check or repair setup. Its **Set up Agent
-Review** action repairs incorrect connection references when required, starts
-the workflow, and checks its connection bindings and started state. If the
-setup is already correct, it makes no changes. There is no separate manual
-activation step. The workflow owner or a co-owner must run the installer.
+Opening the installer or checking its status does not change the workflow.
+When setup is required, **Set up Agent Review** validates the assigned
+connections. It repairs used connection bindings and starts the workflow when
+required. If all four checks are already **Ready**, it makes no changes. No
+separate manual activation is required when setup succeeds. The workflow owner
+or a co-owner must run it.
+
+Setup finds the supported references used by the workflow or its stored
+imported draft. It checks each selected reference before it makes changes.
+The Agents reference is `cat_CopilotStudioAcceleratorAgent`. For Dataverse,
+it supports **Agent Review Tool | Dataverse**
+(`cat_AgentReviewToolDataverseConnectionRef`) and the legacy
+`cat_CopilotStudioAcceleratorDataverse` reference.
+
+Setup keeps the logical reference names and workflow logic. It can assign the
+installer-selected connections to the references used by the workflow. It does
+not change an unused shared kit Dataverse reference. Do not rename references
+or add replacement references for this setup.
 
 The Setup Wizard link is a manual launch action. It does not run the installer
 automatically. If the installer cannot be found, confirm that your published
 release provides it in this environment. Confirm that the app is shared with
 the setup account.
 
+#### Check setup before release
+
+Before release, check setup once in the target environment with the intended
+connections. Prefer a fresh install with no connections assigned to the
+references. Reopen the installer after completion and confirm that all four
+checks remain **Ready**. This setup check does not require a full paid review.
+
+A successful setup in a development environment does not verify the target
+environment. A metadata check alone does not prove target connection access,
+managed-workflow activation, or a successful AI review.
+
+A Code App source update does not change an exported managed ZIP or apps
+installed in other environments. Use a new managed release package to
+distribute the installer and connection-reference repair. Import that package
+into the target environment. Follow its published install or upgrade
+instructions.
+
 #### Read the Makers setup message
 
-The setup message does not block lists or saved reviews. Your permissions still
-control access to saved results. The tool checks availability again before it
-starts a new review.
+In a supported commercial environment, the setup message does not block lists
+or saved reviews. Your permissions still control access to saved results. The
+tool checks availability again before it starts a new review.
 
 | Setup state | Action |
 | --- | --- |
@@ -229,7 +289,7 @@ starts a new review.
 | Add-on installed, but review workflow missing | Ask an administrator to check the import result and the required workflow in the same environment. |
 | More than one review workflow found | Ask an administrator to correct the duplicate workflows. |
 | Unable to verify setup | Ask an administrator to check permissions, environment access, connections, and the reported service or network error. A failed status check or workflow access error does not prove that the add-on is absent. |
-| New reviews unavailable in GCC, GCC High, or DoD | Do not install the commercial add-on as a remedy. You can still read saved reviews if you have permission. |
+| Government cloud | **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.** Do not install the commercial add-on as a remedy. |
 
 **Check again** repeats read-only solution and workflow status checks. It does
 not install a solution, repair connections, turn on a workflow, or run a paid
@@ -711,8 +771,9 @@ configuration, evidence, findings, and recommendations.
 
 ## Review history and persistence
 
-The dashboard shows the current saved result for each reviewed subject. It
-does not keep an attempt-by-attempt version history.
+In a supported commercial environment, the dashboard shows the current saved
+result for each reviewed subject. It does not keep an attempt-by-attempt version
+history.
 
 - A rerun of the same live Copilot Studio agent replaces its saved result.
 - A rerun of the same Declarative Agent replaces its saved result.
@@ -814,6 +875,7 @@ for current consumption rules and rates.
 ## Limitations
 
 - The tool is in preview.
+- **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.**
 - The tool does not change the source agent.
 - AI-generated findings can be incomplete or incorrect.
 - The result areas for a Copilot Studio agent depend on its **Powered by**
@@ -844,10 +906,14 @@ for current consumption rules and rates.
 
 | Problem | Action |
 | --- | --- |
+| Agent Review Tool in a government cloud | **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.** Do not install the commercial add-on as a remedy. |
 | The Setup Wizard cannot find the installer | Confirm that your published release provides the installer app in this environment. Confirm that the setup account can open it. See [Administrator setup steps](#administrator-setup-steps). |
 | An installer item shows **Action needed** | Use the correct environment. Assign working Agents and Dataverse connections to the installer. Use the workflow owner or a co-owner as the setup account. |
-| Setup reports a permission error | Confirm the required security role, app access, and workflow ownership or co-ownership. A security role alone does not give workflow ownership. Then refresh and retry. |
-| The installer cannot authorize the Agents connection | Reauthenticate the connection. Confirm that the signed-in user owns it. Refresh the installer and run setup again. |
+| **Workflow connections** shows **Action needed**, but the other checks are **Ready** | The workflow can use different connection IDs from those assigned to the installer. Confirm the intended accounts before setup. See [Connection checks and repair](#connection-checks-and-repair). |
+| Setup takes several minutes | Wait for the current attempt to finish. The cards can show the previous result. Do not refresh the app or start another setup attempt while it runs. |
+| Setup reports a failure | Follow the reported error. After the attempt ends, check the current state before another repair. |
+| Setup reports a permission error | Confirm the required security role, app access, and workflow ownership or co-ownership. A security role alone does not give workflow ownership. After the failed attempt ends, check status before another repair. |
+| The installer cannot authorize the Agents connection | Reauthenticate the connection. Confirm that the signed-in user owns it. After the failed attempt ends, reopen the installer and check status before another repair. |
 | The workflow is not ready | Read the [Makers setup message](#read-the-makers-setup-message). Ask the workflow owner or a co-owner to run the installer. A failed status check does not prove that a solution is missing. |
 | A flow is off or suspended | Open its run history. Fix the failed connection or policy issue, then turn on the flow. |
 | The review shows **AI capacity not available** | Allocate the required Copilot Credits or applicable AI capacity to the environment, then rerun the review. |
