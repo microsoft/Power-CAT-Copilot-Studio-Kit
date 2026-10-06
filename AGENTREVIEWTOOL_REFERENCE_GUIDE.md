@@ -132,32 +132,72 @@ import requires, even if you do not use every kit feature. See
 
 ### Set up Agent Review with the Setup Wizard and Installer
 
-Use the environment that contains the Copilot Agent Kit Makers app. The source
-agent can be in a different environment.
+Use a **commercial environment** with the main Copilot Agent Kit and Makers
+app installed. [Install the main kit](./INSTALLATION_INSTRUCTIONS.md) first
+if needed. The setup account must own the Agents connection and own or co-own
+**Review Agent Components**. It must have the required security role and access
+to the Admin, Makers, and installer apps.
+
+No separate add-on is currently published. An active main-kit review workflow
+does not require an add-on reinstall. For upgrades, follow the release's
+instructions, not the new-install order below.
+
+#### Administrator setup steps
+
+1. In [Power Apps](https://make.powerapps.com/), select that environment.
+   Select **Solutions** > **Import Solution**. Import the managed **Agent
+   Review Workflow** solution only if your release supplies it.
+2. Open the Copilot Agent Kit administration experience, then **Setup Wizard**.
+
+    ![Copilot Agent Kit home page showing the Setup Wizard option.](media/agent-review-setup-wizard.png)
+
+3. Complete **Confirm pre-requisites**, **Connection References**,
+   **Configure Environment Variables**, and **Activate Flows**.
+4. At **Set up Agent Review**, select **Open Installer App**.
+
+    ![Setup Wizard showing the link to Copilot Agent Kit Installer.](media/agent-review-installer.png)
+
+5. In the Power Apps prompt, assign the intended **Agents** and **Microsoft
+   Dataverse** connections. Confirm the selected accounts.
+6. If required, select **Set up Agent Review** in the installer. It can
+   change the connections used by the workflow.
+
+    ![Agent Review installer showing connection and workflow setup checks.](media/agent-review-installer-checks.png)
+
+7. Wait for **Setup is complete** and all four checks to show **Ready**:
+   **Agents connection**, **Dataverse connection**, **Workflow connections**,
+   and **Review workflow**.
+
+    ![Agent Review installer showing all four setup checks as Ready and the Open Agent Review Tool button.](media/agent-review-installer-ready.png)
+
+8. Reopen the installer and confirm that all four checks remain **Ready**.
+   Select **Open Agent Review Tool**. In Makers, select **Check again** if the
+   message remains.
+
+Complete the Agents reference in the installer, not with a Dataverse
+connection. **Open Installer App** only opens the app; it does not run setup.
+
+Setup can take several minutes. Do not refresh the app or start setup again
+while it runs. If setup fails, follow the error and check status before
+another repair.
 
 #### Release availability and the add-on solution
 
 The current published release,
 [Copilot Agent Kit September 2026](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases/tag/CopilotAgentKit-September2026),
-contains **Review Agent Components** in the main kit. No separate
-`AgentReviewWorkflow` download is currently published. An active workflow from
-the main kit is accepted without the add-on. Do not reinstall only because the
-packaging changes.
-
-For a release that provides it, **Agent Review Workflow**
-(`AgentReviewWorkflow`) is a separate commercial add-on to **Copilot Agent Kit**
-(`CopilotStudioAccelerator`). The add-on includes the **Copilot Agent Kit
-Installer** app and the **Review Agent Components** workflow. It includes the
-**Agent Review Job** and **Agent Review Job Item** tables. The package also
-includes the Agents and Agent Review Tool Dataverse connection references.
-The job tables can also be shared with the main kit. This separation keeps
-commercial review and Agents dependencies out of the core kit.
-
-The installer app is separate from Admin and Makers so that ordinary Makers
-users do not receive an Agents connector consent prompt.
+contains **Review Agent Components** in the main kit. It has no separate
+`AgentReviewWorkflow` download. The source agent can be in a different
+environment.
 
 Use the [official Releases page](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/releases)
 to check package availability and read the instructions for your release.
+
+For a release that supplies it, **Agent Review Workflow**
+(`AgentReviewWorkflow`) separates commercial review and Agents dependencies
+from the main kit (`CopilotStudioAccelerator`). The installer app is separate
+from Admin and Makers so that ordinary Makers users do not receive Agents
+connector consent prompts.
+
 **Agent Review Pipeline** is a different solution. It is not a substitute for
 **Agent Review Workflow**.
 
@@ -176,55 +216,6 @@ to check package availability and read the instructions for your release.
 > For an existing commercial installation, follow the published release's
 > upgrade instructions. If a release moves the workflow out of the main kit,
 > do not use the new-install import order to upgrade an existing kit.
-
-#### Administrator setup steps
-
-1. Install the main Copilot Agent Kit in the target environment if it is not
-   already installed. Follow the
-   [installation instructions](./INSTALLATION_INSTRUCTIONS.md).
-2. If your published release provides **Agent Review Workflow**, import its
-   managed solution. Use the **same environment** as the main kit and Makers
-   app. In [Power Apps](https://make.powerapps.com/), select that environment,
-   then select **Solutions** > **Import Solution**. Use the package from that
-   release.
-3. Assign the required security roles. Use the owner or a co-owner of
-   **Review Agent Components** as the setup account.
-4. Share the Makers app with the applicable users or groups. Give the setup
-   account access to the installer app.
-5. Open the Copilot Agent Kit administration experience.
-6. Open **Setup Wizard**.
-
-    ![Copilot Agent Kit home page showing the Setup Wizard option.](media/agent-review-setup-wizard.png)
-
-7. Confirm the kit prerequisites.
-8. Configure the required connection references.
-9. Use the Agent Review installer link in the wizard. This link opens the
-   standalone Copilot Agent Kit Installer. Assign the intended Agents and
-   Dataverse connections when Power Apps prompts you. Confirm the selected
-   accounts before you continue.
-
-    ![Setup Wizard showing the link to Copilot Agent Kit Installer.](media/agent-review-installer.png)
-
-10. If setup is required, select **Set up Agent Review**. This action can change
-    the connections used by the workflow.
-
-    ![Agent Review installer showing connection and workflow setup checks.](media/agent-review-installer-checks.png)
-
-11. Wait for these four setup items to show **Ready** and for the installer to
-    show **Setup is complete**:
-    - **Agents connection**
-    - **Dataverse connection**
-    - **Workflow connections**
-    - **Review workflow**
-12. Reopen the installer in the target environment. Confirm that all four
-    checks remain **Ready**, then select **Open Agent Review Tool**.
-13. Return to Makers. If a setup message remains, select **Check again**.
-
-Setup can take several minutes. Connection changes need time to synchronize.
-The service can also retry, publish, or start the workflow during setup. The
-cards can still show the previous result. Do not refresh the app or start
-another setup attempt while it runs. If setup reports a failure, follow the
-error message. Check the current state before another repair.
 
 #### Connection checks and repair
 
@@ -245,7 +236,8 @@ checks show **Ready**. This can mean that the workflow uses different connection
 IDs. It does not, by itself, prove that a dependency is missing or that a
 working connection is broken. Confirm the intended connections before setup.
 
-![Agent Review installer showing all four setup checks as Ready and the Open Agent Review Tool button.](media/agent-review-installer-ready.png)
+During setup, the cards can show the previous result. Connection changes must
+synchronize, and the service can retry, publish, or start the workflow.
 
 Opening the installer or checking its status does not change the workflow.
 When setup is required, **Set up Agent Review** validates the assigned
@@ -266,10 +258,8 @@ installer-selected connections to the references used by the workflow. It does
 not change an unused shared kit Dataverse reference. Do not rename references
 or add replacement references for this setup.
 
-The Setup Wizard link is a manual launch action. It does not run the installer
-automatically. If the installer cannot be found, confirm that your published
-release provides it in this environment. Confirm that the app is shared with
-the setup account.
+If the installer cannot be found, confirm that your release provides it in
+this environment and that the setup account can open it.
 
 #### Check setup before release
 
