@@ -13,6 +13,12 @@ findings before you change or publish an agent.
 > **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.**
 > This notice applies only to Agent Review Tool. It does not change the support
 > status of the rest of Copilot Agent Kit or Copilot Studio.
+>
+> GCC support for Copilot Studio workflows with inline agents, configured
+> through an agent node, is on the roadmap. It is not available in the current
+> release, and no release date is confirmed. This is a roadmap item for that
+> capability, not released end-to-end Agent Review Tool support. It does not
+> promise GCC High or DoD support.
 
 ## Contents
 
@@ -159,6 +165,12 @@ to check package availability and read the instructions for your release.
 > **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.**
 > These setup steps are for commercial environments. Do not import the
 > commercial add-on in any of those government clouds.
+>
+> GCC support for Copilot Studio workflows with inline agents, configured
+> through an agent node, is on the roadmap. It is not available in the current
+> release, and no release date is confirmed. This does not change the current
+> Agent Review Tool support limits. For the feature terms, see
+> [Add an agent node to a workflow](https://learn.microsoft.com/en-us/microsoft-copilot-studio/workflows-experience/agent-node-workflow).
 
 > [!NOTE]
 > For an existing commercial installation, follow the published release's
