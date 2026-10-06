@@ -12,7 +12,7 @@ findings before you change or publish an agent.
 > [!IMPORTANT]
 > **Agent Review Tool is no longer supported in GCC, GCC High (GCCH), or DoD.**
 > This notice applies only to Agent Review Tool. It does not change the support
-> status of the rest of Copilot Agent Kit or Copilot Studio.
+> status of the rest of Copilot Agent Kit.
 >
 > GCC support for Copilot Studio workflows with inline agents, configured
 > through an agent node, is on the roadmap. It is not available in the current
