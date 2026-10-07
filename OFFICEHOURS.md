@@ -5,7 +5,7 @@
 > Starting May 13, 2026, Copilot Agent Kit Office Hours will move to an every-other-week schedule.
 > The format is also changing: each session will now include updates and demos from the team, including highlights of new features and walkthroughs showing how to configure features or accomplish more complex scenarios with existing capabilities.
 > * US-friendly slot: 10:05 AM Pacific Time (PT)
-> * APAC-friendly slot: 10:35 AM India Standard Time (IST), which is 10:05 PM Pacific Time (PT) the previous day
+> * APAC-friendly slot: 10:35 AM India Standard Time (IST), which is 10:05 PM Pacific Time (PT) the previous day. The series is anchored to Pacific Time, so it lands at 11:35 AM IST while the US is on standard time (Nov–Mar).
 
 During office hours we will have Copilot Agent Kit team present and part of the meeting is dedicated for updates from the team, and demonstration of new features.
 
@@ -21,6 +21,9 @@ https://aka.ms/CopilotStudioKitOfficeHoursJoin
 
 You can also join the APAC office hours meeting using this link:
 https://aka.ms/CopilotStudioKitOfficeHoursJoinAPAC
+
+Direct Teams join link for the APAC series (Meeting ID: 293 906 683 407 034, Passcode: p2Yo388A):
+https://teams.microsoft.com/meet/293906683407034?p=o6Mh5MgqU2h54Mg8NG
 
 
 Please note:
@@ -73,6 +76,11 @@ Remember: You can always raise an issue to the Copilot Agent Kit team in the Git
 | Aug 20 (APAC) | Confirmed | APAC | Every-other-week APAC slot |
 | Sept 9 (US) | Planned | US | Every-other-week US slot |
 | Sept 24 (APAC) | Planned | APAC | Every-other-week APAC slot |
+| Oct 7 (US) / Oct 8 (APAC) | Confirmed | APAC | New APAC series starts — see updated join link above |
+| Nov 4 (US) / Nov 5 (APAC) | Confirmed | APAC | – |
+| Dec 2 (US) / Dec 3 (APAC) | Confirmed | APAC | – |
+| Dec 30 (US) / Dec 31 (APAC) | Confirmed | APAC | – |
+| Jan 27 (US) / Jan 28 (APAC) | Confirmed | APAC | – |
 
 
 [World Clock Meeting Planner](https://www.timeanddate.com/worldclock/meeting.html)
