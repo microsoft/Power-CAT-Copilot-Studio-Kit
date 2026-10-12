@@ -117,6 +117,11 @@ Agents which are not accessible within the environment are added using One Inven
 | 85 | Connected Agents | cat_connectedagents | Multiline Text | Dataverse: Table `botcomponent` (Topic v2) → `data` contains `kind: InvokeConnectedAgentTaskAction` or `kind: ConnectedAgentTool` (connected/child agent references) entries | | V5 | List of other agents connected to (available to) the agent. |
 | 86 | Evaluations | cat_evaluations | Multiline Text | Dataverse: Table `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 (evaluation sets and their test cases) | | V5 | List of evaluation configurations (test sets/test cases) associated with the agent. |
 | 87 | Agent Owner ADID | cat_agentowneradid | Text | Dataverse: `systemuser` table → owner ADID or Azure Object ID; if the owner is Teams then `team` table | | V5 | Azure active directory id of the agent owner. |
+| 88 | Shared with editor group count | cat_sharedwitheditorgroupcount | Whole Number | | From power platform resource query → `properties.sharedWithEditor.Group` | V5 | Number of groups with which the agent is shared as editor. |
+| 89 | Shared with editor user count | cat_sharedwitheditorusercount | Whole Number | | From power platform resource query → `properties.sharedWithEditor.User` | V5 | Number of users with whom the agent is shared as editor. |
+| 90 | Shared with viewer group count | cat_sharedwithviewergroupcount | Whole Number | | From power platform resource query → `properties.sharedWithViewer.Group` | V5 | Number of groups with which the agent is shared as viewer. |
+| 91 | Shared with viewer user count | cat_sharedwithviewerusercount | Whole Number | | From power platform resource query → `properties.sharedWithViewer.User` | V5 | Number of users with whom the agent is shared as viewer. |
+| 92 | Shared with entire tenant as viewer | cat_sharedwithentiretenantasviewer | Choice | | From power platform resource query → `properties.sharedWithViewer.isTenant` | V5 | Indicates whether the agent is shared with the entire tenant as viewer. |
 
 ---
 
@@ -212,6 +217,11 @@ Below are concise detection rules for each derived or boolean field (refer to lo
 - Connected Agents (`cat_connectedagents`): Topic v2 `data` contains `kind: InvokeConnectedAgentTaskAction` or `kind: ConnectedAgentTool` connected/child agent references — other agents available to (connected to) the agent.
 - Evaluations (`cat_evaluations`): `botcomponent` where `componenttypename` = Test Case and `componenttype` = 19 — evaluation sets and their test cases configured for the agent.
 - Agent Owner ADID (`cat_agentowneradid`): `systemuser` table → ADID or Azure Object ID of the agent owner; if the owner is a team, fetched from `team` table.
+- Shared with editor group count (`cat_sharedwitheditorgroupcount`): Power Platform resource query → `properties.sharedWithEditor.Group`.
+- Shared with editor user count (`cat_sharedwitheditorusercount`): Power Platform resource query → `properties.sharedWithEditor.User`.
+- Shared with viewer group count (`cat_sharedwithviewergroupcount`): Power Platform resource query → `properties.sharedWithViewer.Group`.
+- Shared with viewer user count (`cat_sharedwithviewerusercount`): Power Platform resource query → `properties.sharedWithViewer.User`.
+- Shared with entire tenant as viewer (`cat_sharedwithentiretenantasviewer`): Power Platform resource query → `properties.sharedWithViewer.isTenant`.
 
 ---
 

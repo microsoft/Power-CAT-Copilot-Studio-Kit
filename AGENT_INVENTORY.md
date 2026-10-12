@@ -277,7 +277,7 @@ If no group is enabled, all environments allowed by the other settings are inclu
 
 - **Exclude system agents** - skips Microsoft-provided system agents during synchronization.
 - **Enable AI-generated description for GitHub Copilot agents** - allows description generation when an eligible agent details page is visited.
-- **Include usage metrics** - collects the retained 180-day usage window during synchronization.
+- **Include usage metrics** - use this option to control whether usage information is collected during Agent Inventory synchronization. Enabled: Usage metrics are collected and synchronized, including available usage data from the retained 180-day period. Disabled: Usage metrics are not collected during synchronization.
 
 ### Sync schedule and collection mode
 
@@ -288,6 +288,7 @@ If no group is enabled, all environments allowed by the other settings are inclu
 Select **Save** to persist changes. The button is disabled while no setting has changed, while a save is in progress, or while settings are unavailable during an active sync.
 
 ## Usage metrics
+> **Note:** Usage metrics are temporarily unavailable due to a dependency on usage data endpoints that are currently restricted. Usage metrics will remain disabled until access to these endpoints is restored.
 
 Usage metrics are included in the Copilot Agent Kit main solution. Agent Inventory can retain and display up to **180 days** of agent usage data.
 
@@ -298,6 +299,8 @@ To make usage analytics available:
 3. Turn on **Include usage metrics**.
 4. Save the configuration.
 5. Select **Sync agents** or wait for the daily automatic sync.
+
+> **Important:** Usage data is collected only when **Include usage metrics** is enabled and the **Usage Data Load** and **Usage Data Load (Child)** processes are activated.
 
 Usage data are stored in the **Agent Details** and **Agent Usage History** tables. An agent's **Usage** tab appears only when matching usage-history records are available.
 
