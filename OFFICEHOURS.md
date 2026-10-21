@@ -2,25 +2,21 @@
 ## Join the Copilot Agent Kit Office hours
 
 > [!NOTE]
-> Starting May 13, 2026, Copilot Agent Kit Office Hours will move to an every-other-week schedule.
+> Starting Nov 4th 2026, Copilot Agent Kit Office Hours will move to an every-other-week schedule to allow for different timezones.
 > The format is also changing: each session will now include updates and demos from the team, including highlights of new features and walkthroughs showing how to configure features or accomplish more complex scenarios with existing capabilities.
-> * US-friendly slot: 10:05 AM Pacific Time (PT)
-> * APAC-friendly slot: 10:35 AM India Standard Time (IST), which is 10:05 PM Pacific Time (PT) the previous day
+> * EU - friendly slot: Wednesday, 10:00 AM Eastern Time (EST)
+> * US - friendly slot: Wednesday, 9:00 AM Pacific Time (PST)
+> * APAC-friendly slot: 10:35 AM India Standard Time (IST), which is Thursday 10:05 PM Pacific Time (PT) the previous day
 
 During office hours we will have Copilot Agent Kit team present and part of the meeting is dedicated for updates from the team, and demonstration of new features.
 
-There are two regional time slots, and you may join either (or both) depending on your preferred time zone.
+There are three regional time slots, and you may join either (or both) depending on your preferred time zone.
 
-[Download US Office Hours Calendar information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-USA.ics)
+[Download EU (EU/EST) Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-EU-EST.ics)
 
-[Download APAC Office Hours Calendar information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-APAC.ics)
+[Download US (EST/PST) Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-EST-PST.ics)
 
-
-You can also join the US office hours meeting using this link:
-https://aka.ms/CopilotStudioKitOfficeHoursJoin
-
-You can also join the APAC office hours meeting using this link:
-https://aka.ms/CopilotStudioKitOfficeHoursJoinAPAC
+[Download APAC Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-APAC.ics)
 
 
 Please note:
@@ -30,49 +26,6 @@ Please state any questions with the appropriate level of detail for this broader
 We are unable to do detailed troubleshooting or consulting not relevant to a broader audience in this session.
 
 Remember: You can always raise an issue to the Copilot Agent Kit team in the Github: https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/issues
-
-| Session (US Date / APAC Date) | Status | Regional Slot | Notes |
-|-------------------------------|--------|----------------|--------|
-| May 14 / N/A | Completed | US | Original single-slot schedule (7:30 AM PT) |
-| May 28 / N/A | Completed | US | – |
-| June 11 / N/A | Completed | US | – |
-| June 25 / N/A | Completed | US | – |
-| July 9 / N/A | Completed | US | – |
-| July 23 / N/A | Completed | US | – |
-| Aug 6 / N/A | Completed | US | – |
-| Aug 20 / N/A | Completed | US | – |
-| Sep 3 / N/A | Completed | US | – |
-| Sep 17 / N/A | Completed | US | – |
-| Oct 1 / N/A | Completed | US | – |
-| Oct 15 / N/A | Completed | US | – |
-| Oct 29 / N/A | Cancelled (PPCC) | US | – |
-| Nov 12 / N/A | Completed | US | – |
-| Nov 26 / N/A | Completed | US | – |
-| Dec 3 (US) / Dec 4 (APAC) | Completed | APAC | First APAC-friendly slot (9:05 PM PT → next day APAC) |
-| Dec 10 (US) / N/A | Confirmed | US | – |
-| Dec 17 (US) / Dec 18 (APAC) | Confirmed | APAC | APAC session occurs next day |
-| Dec 24 (US) / N/A | Cancelled | US | – |
-| Dec 31 (US) / Jan 1 (APAC) | TBC | APAC | APAC session occurs next day |
-| Jan 7 (US) / N/A | Confirmed | US | – |
-| Jan 14 (US) / Jan 15 (APAC) | Confirmed | APAC | APAC session occurs next day |
-| Jan 21 (US) / N/A | Confirmed | US | – |
-| Jan 28 (US) / Jan 29 (APAC) | Confirmed | APAC | APAC session occurs next day |
-| Feb 11 (US) / Feb 12 (APAC) | Confirmed | APAC | APAC session occurs next day |
-| Feb 18 (US) / N/A | Confirmed | US | – |
-| Feb 26 (APAC) | Confirmed | APAC | APAC session |
-| Mar 4 (US) / N/A | Confirmed | US | – |
-| Mar 12 (APAC) | Cancelled | APAC | APAC session |
-| Apr 1 (US) / N/A | Cancelled | US | – |
-| Apr 9 (APAC) | Confirmed | APAC | APAC session |
-| Apr 15 (US) / N/A | Confirmed | US | – |
-| May 7 (APAC) | Confirmed | APAC | – |
-| May 13 (US) / N/A | Cancelled | US | Transition to every-other-week schedule and new session format |
-| Jun 3 (US) | Confirmed | US | Every-other-week US slot |
-| Jun 17 (APAC) | Planned | APAC | Every-other-week APAC slot |
-| Aug 5 (US) | Confirmed | US | Every-other-week US slot |
-| Aug 20 (APAC) | Confirmed | APAC | Every-other-week APAC slot |
-| Sept 9 (US) | Planned | US | Every-other-week US slot |
-| Sept 24 (APAC) | Planned | APAC | Every-other-week APAC slot |
 
 
 [World Clock Meeting Planner](https://www.timeanddate.com/worldclock/meeting.html)
