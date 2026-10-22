@@ -1,0 +1,774 @@
+/* App-level refinements layered on top of the approved workspace.css.
+   workspace.css is byte-identical to the design and must not be edited, so
+   anything the prototype did not need lives here. */
+
+/* Agent insights is taller than the other views and activates the layout's
+   vertical scrollbar. Reserve that gutter on every debugger tab so the content
+   width and tab coordinates do not change when the scrollbar appears. */
+main:has(.w-shell > .w-app) {
+  scrollbar-gutter: stable;
+}
+
+.w-shell {
+  --debuggerReviewBrand: #4858eb;
+  --debuggerReviewBrandHover: #5a68ef;
+  --debuggerReviewBrandPressed: #3845c0;
+  --appBackground: linear-gradient(
+    160deg,
+    var(--colorNeutralBackground2) 0%,
+    #e5e8fd 100%
+  );
+  background-attachment: fixed;
+}
+
+.w-diagturn[aria-current="true"] {
+  border-color: var(--colorBrandStroke1);
+  box-shadow: 0 0 0 1px var(--colorBrandStroke1);
+}
+
+.w-diagturn:focus-visible {
+  outline: 2px solid var(--colorStrokeFocus2);
+  outline-offset: 2px;
+}
+
+/* The prototype never styled the combobox search placeholder, so it inherited
+   the browser default, which reads as body text rather than a hint. */
+.w-combo-input input::placeholder,
+.w-input::placeholder,
+.w-dialog-hdr input::placeholder {
+  color: var(--colorNeutralForeground4);
+  opacity: 1;
+}
+
+.w-combo-input .lines.one.session-lines {
+  gap: 16px;
+}
+
+.w-combo-input .lines.one.session-lines.individual {
+  gap: 24px;
+}
+
+/* The sticky header must fully mask scrolled panel borders beneath it. */
+.w-hdr {
+  background: var(--appBackground);
+  background-attachment: fixed;
+  border-bottom: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  margin-inline: calc(-1 * var(--gutter));
+  padding-inline: var(--gutter);
+}
+
+.w-btn,
+.w-iconbtn {
+  border-radius: 6px;
+}
+
+.w-btn.primary:not(:disabled) {
+  background: var(--debuggerReviewBrand);
+  border-color: var(--debuggerReviewBrand);
+  color: var(--colorNeutralForegroundOnBrand);
+}
+
+.w-btn.primary:not(:disabled):hover {
+  background: var(--debuggerReviewBrandHover);
+  border-color: var(--debuggerReviewBrandHover);
+}
+
+.w-btn.primary:not(:disabled):active {
+  background: var(--debuggerReviewBrandPressed);
+  border-color: var(--debuggerReviewBrandPressed);
+}
+
+.w-btn.primary:disabled {
+  background: var(--colorNeutralBackgroundDisabled);
+  border-color: var(--colorNeutralStrokeDisabled);
+  color: var(--colorNeutralForegroundDisabled);
+  opacity: 1;
+}
+
+.w-agent-transcript-links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacingXS);
+  padding: 7px var(--spacingM);
+  border-top: 1px solid var(--colorNeutralStroke2);
+  background: var(--colorNeutralBackground1);
+  font-size: 12px;
+}
+
+.w-agent-transcript-links .w-ic {
+  flex: 0 0 auto;
+  color: var(--colorBrandForeground1);
+}
+
+.w-agent-transcript-links a {
+  color: var(--colorBrandForegroundLink);
+  text-decoration: none;
+}
+
+.w-agent-transcript-links a:hover {
+  text-decoration: underline;
+}
+
+.w-feedback-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacingM);
+  padding: var(--spacingM);
+}
+
+.w-feedback-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacingS);
+  padding: var(--spacingM);
+  border: 1px solid var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusMedium);
+  background: var(--colorNeutralBackground2);
+}
+
+.w-feedback-reaction {
+  display: flex;
+  align-items: center;
+  gap: var(--spacingS);
+}
+
+.w-feedback-reaction > .positive {
+  color: var(--colorPaletteGreenForeground1);
+}
+
+.w-feedback-reaction > .negative {
+  color: var(--colorPaletteRedForeground1);
+}
+
+.w-feedback-field {
+  padding: var(--spacingS) var(--spacingM);
+  border-left: 2px solid var(--colorBrandStroke1);
+  background: var(--colorNeutralBackground1);
+}
+
+.w-feedback-field b,
+.w-feedback-comment b {
+  display: block;
+  margin-bottom: var(--spacingXS);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--colorNeutralForeground2);
+}
+
+.w-feedback-field p,
+.w-feedback-comment p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 19px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.w-feedback-comment {
+  padding: var(--spacingS) var(--spacingM);
+  background: var(--colorNeutralBackground1);
+}
+
+.w-feedback-comment p {
+  font-style: italic;
+}
+
+/* Option rows stack the agent name over its environment. Without a gap the two
+   lines read as one run of text. */
+.w-opt .lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* Configuration cards render names and descriptions as stacked lines. Keeping
+   the text column shrinkable prevents long copy from running under status badges. */
+.w-li .lines {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  overflow: hidden;
+}
+.w-li .l1,
+.w-li .l2 {
+  display: block;
+  width: 100%;
+}
+
+/* Fluent Dialog supplies the focus trap, backdrop and Escape handling for the
+   snapshot popup, but it renders into a portal outside the app root, so the
+   design font and surface chrome have to be restated here. */
+.fui-DialogSurface.w-dialog-surface {
+  padding: 0;
+  max-width: min(620px, 100%);
+  max-height: 86vh;
+  /* `auto` + Fluent's `inset: 0` over-constrains the fixed box and stretches it. */
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: none;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  font-family: var(--fontFamilyBase);
+  font-size: 14px;
+  color: var(--colorNeutralForeground1);
+}
+.fui-DialogSurface.w-dialog-surface .w-dialog-body {
+  max-height: 60vh;
+}
+
+.fui-DialogSurface.w-dialog-surface .w-iconbtn.fui-Button {
+  flex: 0 0 32px;
+  width: 32px;
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  padding: 0;
+}
+
+.fui-DialogSurface.w-dialog-surface .w-iconbtn.fui-Button:focus,
+.fui-DialogSurface.w-dialog-surface .w-iconbtn.fui-Button:focus-visible {
+  border-color: transparent;
+  background: transparent;
+  color: var(--colorNeutralForeground1);
+}
+
+.fui-DialogSurface.w-dialog-surface .w-iconbtn.fui-Button:hover,
+.fui-DialogSurface.w-dialog-surface .w-iconbtn.fui-Button:active {
+  border-color: transparent;
+  background: var(--colorNeutralBackground3Hover);
+  color: var(--colorNeutralForeground1);
+}
+
+.fui-DialogSurface.w-dialog-surface.snap .w-drop.fui-Button {
+  border: 1px dashed var(--colorNeutralStroke1);
+  border-radius: var(--borderRadiusLarge);
+  background: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground1);
+}
+
+.fui-DialogSurface.w-dialog-surface.snap .w-drop.fui-Button:hover {
+  border-color: var(--colorNeutralStroke1);
+  background: var(--colorNeutralBackground3);
+  color: var(--colorNeutralForeground1);
+}
+
+.fui-DialogSurface.w-dialog-surface.snap .w-drop.fui-Button:focus-visible {
+  border-color: var(--colorNeutralStroke1);
+  background: var(--colorNeutralBackground2);
+  color: var(--colorNeutralForeground1);
+}
+
+.fui-DialogSurface.w-dialog-surface.snap .w-drop.fui-Button.dragging {
+  border-color: var(--colorBrandStroke1);
+  background: var(--colorBrandBackground2);
+}
+
+.fui-DialogSurface.w-dialog-surface.snap .w-drop .uico {
+  width: 30px;
+  height: 30px;
+  color: var(--colorNeutralForeground3);
+}
+
+.fui-DialogSurface.w-dialog-surface.snap .w-drop.dragging .uico {
+  color: var(--colorBrandForeground1);
+}
+
+.w-app .w-header-help.fui-Button {
+  flex: 0 0 32px;
+  width: 32px;
+  min-width: 32px;
+  max-width: 32px;
+  height: 32px;
+  min-height: 32px;
+  max-height: 32px;
+  padding: 0;
+}
+
+.w-app .w-header-help.fui-Button:focus,
+.w-app .w-header-help.fui-Button:focus-visible {
+  border-color: transparent;
+  background: transparent;
+  color: var(--colorNeutralForeground1);
+}
+
+.w-app .w-header-help.fui-Button:hover,
+.w-app .w-header-help.fui-Button:active {
+  border-color: transparent;
+  background: var(--colorNeutralBackground3Hover);
+  color: var(--colorNeutralForeground1);
+}
+
+.fui-DialogSurface.w-json-dialog-surface {
+  padding: 0;
+  border: 0;
+  border-radius: var(--borderRadiusXLarge);
+  background: var(--colorNeutralBackground1);
+  font-family: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--colorNeutralForeground1);
+}
+
+/* Snapshot mode keeps the command row occupied by a status strip now that the
+   uploader has moved into the dialog. */
+.w-snapstate {
+  display: flex;
+  align-items: center;
+  gap: var(--spacingM);
+  min-height: 32px;
+  flex-wrap: wrap;
+}
+.w-snapstate-label {
+  font-size: 13px;
+  color: var(--colorNeutralForeground2);
+}
+/* The prototype always has an agent, conversation and session selected, so it
+   never needed an empty state for the pickers. The app does, and those strings
+   are prompts rather than values, so they read as placeholder text. */
+.w-combo-input .l1.placeholder {
+  color: var(--colorNeutralForeground4);
+  font-weight: 400;
+}
+/* ---------------------------------------------------------------------------
+   Switch track fill.
+
+   The prototype paints the unchecked track with --colorNeutralBackground5
+   (a solid grey). Fluent v9's Switch leaves the track transparent and relies
+   on the --colorNeutralStrokeAccessible border plus thumb, so the design's
+   grey is a prototype-ism rather than a Fluent token usage. Following Fluent.
+   --------------------------------------------------------------------------- */
+.w-switch .track { background: transparent; }
+.w-switch:hover .track { border-color: var(--colorNeutralStrokeAccessibleHover); }
+.w-switch:hover .track::after { background: var(--colorNeutralStrokeAccessibleHover); }
+
+.w-radio-fluent {
+  padding: 5px 6px;
+  border-radius: var(--borderRadiusSmall);
+}
+
+.w-radio-fluent:hover {
+  background: var(--colorNeutralBackground2);
+}
+
+.w-switch-fluent {
+  min-height: 32px;
+  white-space: nowrap;
+}
+
+/* workspace.css styles .w-select as a native select. Fluent Select puts that
+   class on its wrapper, so reset the wrapper and let Fluent draw one border and
+   one chevron around the actual select element. */
+.w-drawer .w-select {
+  display: inline-flex;
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.w-drawer .w-select > select {
+  width: 100%;
+  min-width: 0;
+}
+
+.w-drawer-surface {
+  overflow: hidden;
+}
+
+.w-drawer-hdr,
+.w-drawer-actions {
+  flex: 0 0 auto;
+}
+
+.w-drawer-body {
+  min-height: 0;
+  scrollbar-gutter: stable;
+}
+
+.w-radios.compact {
+  align-items: start;
+  grid-template-columns: repeat(3, max-content);
+  gap: 0 var(--spacingXS);
+}
+
+.w-radios.compact .w-radio-fluent {
+  padding: 0 2px;
+}
+
+.w-customwrap .w-daterow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(124px, 1.1fr);
+  gap: var(--spacingS);
+}
+
+.w-customwrap .w-daterow .w-date-picker,
+.w-customwrap .w-daterow .w-time-picker {
+  width: 100%;
+  min-width: 0;
+}
+
+.w-customwrap .w-daterow .w-time-picker {
+  min-width: 124px;
+}
+
+@media (max-width: 479px) {
+  .w-radios.compact,
+  .w-customwrap .w-daterow {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.w-radio-fluent,
+.w-switch-fluent {
+  min-width: 0;
+}
+
+/* Fluent Button and Tab add a content slot around children. The approved
+   workspace classes lay those children out directly, so flatten the slot while
+   retaining Fluent's root semantics, keyboard handling, and disabled states. */
+.w-app .fui-Button__content,
+.w-drawer .fui-Button__content,
+.w-btn > .fui-Button__content,
+.w-iconbtn > .fui-Button__content,
+.w-opt > .fui-Button__content,
+.w-chip > .fui-Button__content,
+.w-drop > .fui-Button__content,
+.w-rnode > .fui-Button__content,
+.ghead > .fui-Button__content,
+.adaptive-action > .fui-Button__content,
+.oauth-signin-button > .fui-Button__content,
+.suggested-action-btn > .fui-Button__content {
+  display: contents;
+}
+
+/* Flow ports sit four pixels outside each card. Fluent Button clips overflow
+   by default, which cuts the outgoing port into a semicircle. */
+.w-rnode.fui-Button {
+  overflow: visible;
+}
+
+.w-agentgrp.inline-only > .ghead {
+  border-bottom: 0;
+  border-radius: 18px;
+}
+
+/* The selected header already has a tinted background. Remove the prototype's
+   inset stripe so the connected-agent container keeps one continuous dashed
+   edge around its rounded corner. */
+.w-agentgrp > .ghead[aria-current="true"] {
+  box-shadow: none;
+}
+
+.w-clearfilters.fui-Button {
+  min-width: auto;
+  height: 28px;
+  padding: 0 8px;
+  color: var(--colorBrandForeground1) !important;
+  font-weight: 500;
+}
+
+.w-clearfilters.fui-Button .fui-Button__content {
+  color: inherit !important;
+}
+
+.w-clearfilters.fui-Button:hover {
+  color: var(--colorBrandForeground1Hover) !important;
+  background: var(--colorSubtleBackgroundHover);
+}
+
+.w-clearfilters.fui-Button:active {
+  color: var(--colorBrandForeground1Pressed) !important;
+  background: var(--colorSubtleBackgroundPressed);
+}
+
+.w-tabs .w-tab .fui-Tab__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  font-weight: 500 !important;
+}
+
+.w-tabs .w-tab {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  border-radius: 0;
+  column-gap: 7px;
+  flex: 0 0 auto;
+  min-width: max-content;
+  justify-content: center;
+}
+
+.w-tabs .w-tab[aria-selected="true"] {
+  font-weight: 600;
+}
+
+.w-tabs .w-tab[aria-selected="true"],
+.w-tabs .w-tab[aria-selected="true"] .fui-Tab__content,
+.w-tabs .w-tab[aria-selected="true"] .fui-Tab__icon,
+.w-tabs .w-tab[aria-selected="true"] .w-ic {
+  color: var(--colorBrandForeground1) !important;
+}
+
+.w-tabs .w-tab[aria-selected="true"] .fui-Tab__content {
+  font-weight: 600 !important;
+}
+
+/* The approved tab strip owns its underline and focus treatment. */
+.w-tabs .w-tab::before,
+.w-tabs .w-tab::after {
+  display: none !important;
+}
+
+.w-tabs .w-tab[data-fui-focus-visible] {
+  outline: 0 !important;
+  box-shadow: none !important;
+  background: var(--colorNeutralBackground1Hover);
+}
+
+/* Match turn totals to the waterfall's fixed duration column. */
+.w-ti.turn > .w-tl > .aside {
+  box-sizing: border-box;
+  width: 76px;
+  justify-content: flex-end;
+  padding: 0;
+  text-align: right;
+}
+
+/* Keep the slowest step structurally neutral; only its duration is red. */
+.w-ti.step.slowest > .w-tl {
+  background: transparent;
+  box-shadow: none;
+}
+
+.w-ti.step.slowest > .w-tl > .w-rowname .nm {
+  color: inherit;
+  font-weight: inherit;
+}
+
+.w-ti.step.slowest .w-bar.slowest {
+  outline: 0;
+}
+
+.w-ti.step.slowest .w-badge.slowest {
+  color: var(--colorNeutralForeground2);
+  background: var(--colorNeutralBackground1);
+  border-color: var(--colorNeutralStroke2);
+}
+
+/* Failure is an execution state, so it remains visible even when the step is
+   not the slowest item in the turn. Keep the row itself neutral and use the
+   status, name, bar, and duration as the failure cues. */
+.w-ti.step.failed > .w-tl {
+  background: transparent;
+  box-shadow: none;
+}
+
+.w-ti.step.failed > .w-tl > .w-rowname .nm,
+.w-ti.step.failed .w-rowdur.failed {
+  color: var(--colorPaletteRedForeground1);
+  font-weight: 600;
+}
+
+.w-ti.step.failed .w-bar.failed {
+  outline: 1px solid var(--colorPaletteRedForeground1);
+  outline-offset: 1px;
+}
+
+.w-ti.step.failed .w-badge.stepfail {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 0 6px;
+  font-size: 10px;
+}
+
+.w-ti.step.failed .w-badge.stepfail .w-ic {
+  font-size: 11px;
+}
+
+/* Failed workflow entries use icon and text without badge chrome. This keeps
+   the state visible without adding another red rectangle inside the node. */
+.w-failed-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  color: var(--colorPaletteRedForeground1);
+  font-size: 11.5px;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.w-failed-status .w-ic,
+.w-failed-status svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* The approved stylesheet still carries the retired Data 10 reasoning color. */
+.w-reason {
+  border-color: #E3008C;
+  background: #fff4fa;
+}
+
+.w-reason b {
+  color: #9c0062;
+}
+
+/* ------------------------------------------------------------------
+   Detail pane — design parity.
+
+   The type-specific detail renderers are reused verbatim from the
+   legacy debug panel so no data is lost, but the prototype
+   (design/assets/workspace.js `detailPane`) styles its sections with
+   .w-sec / .w-kv / .w-quote / .w-json rather than Fluent defaults.
+   The renderers therefore carry stable `w-dsec-*` hooks that are
+   re-skinned here to the prototype's visual language.
+   ------------------------------------------------------------------ */
+.w-detailbody .w-dsec { margin-bottom: var(--spacingM); }
+.w-detailbody .w-dsec:last-child { margin-bottom: 0; }
+
+/* Matches `.w-sec > h4` */
+.w-detailbody .w-dsec-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin: 0 0 5px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--colorNeutralForeground3);
+  line-height: 16px;
+}
+
+/* Field labels sit a notch below section titles but share the tone. */
+.w-detailbody .w-dsec-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  color: var(--colorNeutralForeground3);
+}
+
+/* Matches `.w-code` — the prototype's payload container. */
+.w-detailbody .w-dsec-box {
+  background: var(--colorNeutralBackground1);
+  border: 1px solid var(--colorNeutralStroke2);
+  border-radius: var(--borderRadiusMedium);
+  padding: 9px 11px;
+  font-size: 12px;
+  line-height: 17px;
+}
+
+.w-detailbody .w-dsec-codehead {
+  background: var(--colorNeutralBackground2);
+  border-bottom: 1px solid var(--colorNeutralStroke2);
+  padding: 6px 11px;
+  font-size: 11.5px;
+}
+
+/* Matches `.w-quote.md` — thought / description prose. */
+.w-detailbody .w-dsec-quote {
+  background: var(--colorNeutralBackground1);
+  border-left: 2px solid var(--colorPaletteDarkOrangeBorder1);
+  border-radius: var(--borderRadiusSmall);
+  padding: 9px 11px;
+  font-size: 12.5px;
+  line-height: 19px;
+  max-height: 240px;
+  overflow: auto;
+}
+
+.w-detailbody .w-dsec-empty {
+  font-size: 12.5px;
+  color: var(--colorNeutralForeground3);
+}
+
+/* The prototype renders JSON payloads edge-to-edge inside their card. */
+.w-detailbody .w-dsec-box pre,
+.w-detailbody .w-dsec-box code {
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Clear affordance inside a command-bar picker (`.w-combo`). The prototype
+   exposes the same gesture on filter tags (`.x` -> clearFilter) and on the
+   loaded-snapshot chip (clearSnapshot); the pickers need it so a selection can
+   be dropped without choosing a different one. */
+.w-combo-clear {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  margin-right: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--borderRadiusMedium);
+  background: transparent;
+  color: var(--colorNeutralForeground3);
+  cursor: pointer;
+}
+.w-combo-clear:hover {
+  background: var(--colorNeutralBackground3);
+  color: var(--colorNeutralForeground1);
+}
+.w-combo-clear:focus-visible {
+  outline: 2px solid var(--colorBrandStroke1);
+  outline-offset: 1px;
+}
+
+/* ---------------------------------------------------------------------------
+   Agent configuration drill-down (Topics / Skills / Tools / Knowledge / Agents)
+   These sections come from the source `AgentDetailsPanel`, which the design
+   prototype has no analogue for, so they are rendered in the design's `.w-card`
+   + `.w-list` idiom and need an even two-column shell alongside `.w-split-3565`.
+--------------------------------------------------------------------------- */
+.w-split-5050{display:grid;gap:var(--spacingL);grid-template-columns:1fr}
+@media (min-width:1024px){.w-split-5050{grid-template-columns:1fr 1fr;align-items:start}}
+
+/* Config rows stack several trailing badges; keep them from stretching. */
+.w-split-5050 .w-li .w-badge{align-self:center;white-space:nowrap}
+.w-split-5050 .w-li .lines .l2 .w-badge{margin-right:4px}
+.w-split-5050 .w-li .lines .l2 a{color:var(--colorBrandForegroundLink);word-break:break-all}
+
+/* ---------------------------------------------------------------------------
+   Transcript extras restored from the source `MessageBubble`: knowledge-source
+   citations, OAuth / sign-in cards and suggested actions. The design prototype
+   has no analogue for these, so they are styled to sit inside `.w-bub`.
+--------------------------------------------------------------------------- */
+.w-refs{margin-top:8px;border-top:1px solid var(--colorNeutralStroke2);padding-top:6px}
+.w-refs-head{display:flex;align-items:center;gap:4px;background:none;border:0;padding:0;cursor:pointer;
+  font-size:11px;font-weight:600;color:var(--colorNeutralForeground3)}
+.w-refs-head:hover{color:var(--colorNeutralForeground2)}
+.w-refs-list{display:flex;flex-direction:column;gap:4px;margin-top:6px}
+.w-ref{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--colorNeutralForeground2)}
+.w-ref .n{flex:none;min-width:16px;height:16px;border-radius:8px;display:inline-flex;align-items:center;
+  justify-content:center;font-size:10px;font-weight:600;
+  background:var(--colorNeutralBackground3);color:var(--colorNeutralForeground3)}
+
+.w-oauth{margin-top:8px;padding:10px;border:1px solid var(--colorNeutralStroke2);
+  border-radius:var(--borderRadiusMedium);background:var(--colorNeutralBackground1)}
+.w-oauth-text{margin:0 0 8px;font-size:12px;color:var(--colorNeutralForeground2)}
+.w-oauth-actions{display:flex;flex-wrap:wrap;gap:6px}
+.w-oauth-btn,.w-sugg-btn{font-size:12px;padding:4px 10px;border-radius:var(--borderRadiusMedium);
+  border:1px solid var(--colorNeutralStroke2);background:var(--colorNeutralBackground3);
+  color:var(--colorNeutralForeground3);cursor:not-allowed}
+
+.w-sugg{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.w-sugg-img{width:14px;height:14px;margin-right:4px;vertical-align:middle}

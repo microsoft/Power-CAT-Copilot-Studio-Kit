@@ -11,6 +11,7 @@ Ready-to-deploy MCP Copilot apps, packaged as self-contained zips.
 | `ask-salesforce` | `ask-salesforce.zip` | Ask - Salesforce CRM Copilot |
 | `ask-servicenow` | `ask-servicenow.zip` | Ask - ServiceNow ITSM Copilot |
 | `ask-hubspot` | `ask-hubspot.zip` | Ask - HubSpot CRM Copilot |
+| `copilot-agent-kit` | - (source code, no zip) | Copilot Agent Kit MCP apps: Agent Review, Agent Map, Review Browser, Agent Debugger and Evaluation Builder |
 
 ## Getting started
 
@@ -19,3 +20,4 @@ Ready-to-deploy MCP Copilot apps, packaged as self-contained zips.
 
 Each in-folder README's **Step 1 — Get the code** tells you to extract the `.zip` already included in that folder.
 
+`copilot-agent-kit` is source code, not a zip. Its `README.md` and `SELF-HOSTING.md` give the build steps and the Azure hosting steps.

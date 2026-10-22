@@ -1,0 +1,29 @@
+{
+  "id": "${{AGENT_REVIEW_MCP_OBJECT_ID}}",
+  "appId": "${{AGENT_REVIEW_MCP_CLIENT_ID}}",
+  "displayName": "Agent Review MCP${{APP_NAME_SUFFIX}}",
+  "identifierUris": [
+    "api://${{AGENT_REVIEW_MCP_CLIENT_ID}}"
+  ],
+  "signInAudience": "AzureADMyOrg",
+  "api": {
+    "requestedAccessTokenVersion": 2,
+    "oauth2PermissionScopes": [
+      {
+        "adminConsentDescription": "Allow Agent Review to act on behalf of the signed-in user.",
+        "adminConsentDisplayName": "Access Agent Review as the signed-in user",
+        "id": "8d57a907-9168-4778-a65e-31741f871062",
+        "isEnabled": true,
+        "type": "User",
+        "userConsentDescription": "Allow Agent Review to act on your behalf.",
+        "userConsentDisplayName": "Access Agent Review as you",
+        "value": "access_as_user"
+      }
+    ]
+  },
+  "web": {
+    "redirectUris": [
+      "https://teams.microsoft.com/api/platform/v1.0/oAuthRedirect"
+    ]
+  }
+}

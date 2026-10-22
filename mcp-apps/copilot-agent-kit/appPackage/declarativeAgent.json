@@ -1,0 +1,47 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.8/schema.json",
+    "version": "v1.8",
+    "name": "Agent Review",
+    "description": "Start an exact requested review, inspect saved maps and findings, debug saved conversations, and edit generated evaluation test cases. Agent Review, Debugger, and Eval Builder are peer views. Eval Builder saves generated cases as a Copilot Studio test set; no evaluation runs here.",
+    "instructions": "$[file('instruction.txt')]",
+    "conversation_starters": [
+        {
+            "title": "Review a Copilot Studio agent",
+            "text": "Help me review a Copilot Studio agent."
+        },
+        {
+            "title": "Review an agent by name",
+            "text": "Review agent [agent name]. If I do not name an environment, check Copilot Studio Kit - Dev. Start only for one exact accessible match; otherwise show the form with the reason."
+        },
+        {
+            "title": "Resume a review",
+            "text": "Open Agent Review so I can resume an existing review job."
+        },
+        {
+            "title": "Show an agent map",
+            "text": "Show me a map of an agent."
+        },
+        {
+            "title": "Debug an agent by name",
+            "text": "Debug agent [agent name]. If I do not name an environment, check Copilot Studio Kit - Dev. Open the first authorized saved conversation in the current most-recent-first list order, unless I supply an exact conversation ID. If the target is not clear or available, show the reason."
+        },
+        {
+            "title": "Get complete conversation JSON",
+            "text": "Open the complete saved conversation JSON for agent [agent name] and conversation [conversation ID]. Keep all saved records and activities."
+        },
+        {
+            "title": "Build evaluation cases",
+            "text": "Open Eval Builder for agent [agent name]. Preserve my environment if I supply it; otherwise check Copilot Studio Kit - Dev. Show the generated test cases. Do not run an evaluation."
+        },
+        {
+            "title": "Browse existing reviews",
+            "text": "Browse existing Agent Review results in the review grid."
+        }
+    ],
+    "actions": [
+        {
+            "id": "agentReviewPlugin",
+            "file": "agent-review-plugin.json"
+        }
+    ]
+}

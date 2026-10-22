@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en" data-mcp-auto-resize="true">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eval Builder</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <link rel="stylesheet" href="../src/widgets/evaluation-builder/theme.css" />
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="../src/widgets/evaluation-builder/index.tsx"></script>
+</body>
+</html>

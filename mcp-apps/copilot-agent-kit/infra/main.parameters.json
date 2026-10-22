@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "value": "${AZURE_ENV_NAME}"
+    },
+    "location": {
+      "value": "${AZURE_LOCATION=centralindia}"
+    },
+    "resourceGroupName": {
+      "value": "${AZURE_RESOURCE_GROUP_NAME=rg-agent-review-mcpapp-dev}"
+    },
+    "entraClientId": {
+      "value": "${ENTRA_CLIENT_ID}"
+    },
+    "entraTenantId": {
+      "value": "${ENTRA_TENANT_ID}"
+    },
+    "entraClientSecret": {
+      "value": "${ENTRA_CLIENT_SECRET}"
+    },
+    "agentKitHomeEnvironmentId": {
+      "value": "${AGENT_KIT_HOME_ENVIRONMENT_ID}"
+    }
+  }
+}

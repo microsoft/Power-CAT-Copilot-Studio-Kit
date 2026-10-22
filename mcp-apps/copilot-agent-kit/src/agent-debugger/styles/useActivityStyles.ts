@@ -1,0 +1,437 @@
+import { makeStyles, shorthands, tokens } from '@fluentui/react-components';
+
+import { DATA_SLOT } from '../theme/component-colors';
+import { FONT_MONO, MEDIA, REASON_BORDER, REASON_SURFACE } from '../theme/design-tokens';
+
+/**
+ * The Conversation & activities tab: a grouped surface whose panes sit side by side and
+ * never stack. The tab fills the content area; each pane scrolls inside its own box.
+ */
+export const useActivityStyles = makeStyles({
+  triGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: tokens.spacingVerticalM,
+    boxSizing: 'border-box',
+    height: '100%',
+    minHeight: '360px',
+    overflowX: 'clip',
+    overflowY: 'clip',
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    borderRadius: tokens.borderRadiusXLarge,
+    backgroundColor: tokens.colorNeutralBackground3,
+    boxShadow: tokens.shadow2,
+    ...shorthands.padding(tokens.spacingVerticalL),
+  },
+  /** Two panes or the pane switch: less chrome, so the panes keep their width. */
+  triGroupCompact: {
+    rowGap: tokens.spacingVerticalS,
+    boxShadow: 'none',
+    ...shorthands.padding(tokens.spacingVerticalS),
+  },
+  tri: {
+    display: 'grid',
+    flex: '1 1 auto',
+    minHeight: 0,
+    gap: tokens.spacingHorizontalL,
+    gridTemplateColumns: 'minmax(0, 1fr)',
+    gridTemplateRows: 'minmax(0, 1fr)',
+    alignItems: 'stretch',
+    '& > section': {
+      ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+      borderRadius: tokens.borderRadiusMedium,
+      boxShadow: 'none',
+    },
+  },
+  triColumns: {
+    gridTemplateColumns: 'minmax(320px, 1.05fr) minmax(280px, .95fr) minmax(300px, 1fr)',
+    [MEDIA.minXl]: {
+      gridTemplateColumns: 'minmax(400px, 1.1fr) minmax(340px, 1fr) minmax(340px, 1fr)',
+    },
+  },
+  duoColumns: {
+    gap: tokens.spacingHorizontalS,
+    gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)',
+  },
+  /** The full screen Execution flow from 1080 px: conversation, flow (the widest) and step details. */
+  flowColumns: {
+    gridTemplateColumns: 'minmax(240px, .8fr) minmax(380px, 1.5fr) minmax(300px, 1fr)',
+  },
+  /** The flow column: the legend and the turn actions wrap, so the narrow column does not clip them. */
+  flowPane: {
+    '& > header > div': { maxWidth: '100%' },
+    '& > header .w-legend': { rowGap: tokens.spacingVerticalXS },
+    '& .w-diagturn > .th': { flexWrap: 'wrap' },
+  },
+  /** One column of the tab. The same height for every column; the content scrolls inside it. */
+  pane: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 0,
+    minWidth: 0,
+    '& > .w-chat': {
+      flex: '1 1 auto',
+      minHeight: 0,
+      maxHeight: 'none',
+      overflowY: 'auto',
+      overflowX: 'hidden',
+      scrollbarGutter: 'stable',
+      overscrollBehaviorY: 'contain',
+    },
+  },
+  paneScroll: {
+    flex: '1 1 auto',
+    minHeight: 0,
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    scrollbarGutter: 'stable',
+    overscrollBehaviorY: 'contain',
+  },
+  paneEmpty: {
+    ...shorthands.padding('40px', tokens.spacingHorizontalL),
+    textAlign: 'center',
+    color: tokens.colorNeutralForeground3,
+    fontSize: '13px',
+  },
+  paneHeaderMeta: {
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: tokens.spacingHorizontalXS,
+    flexWrap: 'wrap',
+  },
+  turnQuestion: {
+    ...shorthands.margin(0),
+    ...shorthands.padding(tokens.spacingVerticalS, tokens.spacingHorizontalM, 0),
+    fontSize: '12px',
+    lineHeight: '16px',
+    color: tokens.colorNeutralForeground3,
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  /** The "Conversation | Activities" switch below 640 px. */
+  switcher: {
+    display: 'flex',
+    flexShrink: 0,
+    columnGap: '2px',
+    ...shorthands.padding('2px'),
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    borderRadius: tokens.borderRadiusMedium,
+    backgroundColor: tokens.colorNeutralBackground1,
+  },
+  switchButton: {
+    flex: '1 1 0',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    columnGap: '6px',
+    minHeight: '30px',
+    ...shorthands.border('0'),
+    borderRadius: tokens.borderRadiusSmall,
+    backgroundColor: 'transparent',
+    color: tokens.colorNeutralForeground2,
+    fontSize: '13px',
+    fontWeight: tokens.fontWeightSemibold,
+    cursor: 'pointer',
+    ':hover': { backgroundColor: tokens.colorNeutralBackground1Hover, color: tokens.colorNeutralForeground1 },
+    ':focus-visible': { outlineWidth: '2px', outlineStyle: 'solid', outlineColor: tokens.colorStrokeFocus2, outlineOffset: '-2px' },
+    '&[aria-pressed="true"]': { backgroundColor: tokens.colorBrandBackground, color: tokens.colorNeutralForegroundOnBrand },
+    '&[aria-pressed="true"]:hover': { backgroundColor: tokens.colorBrandBackgroundHover, color: tokens.colorNeutralForegroundOnBrand },
+  },
+  /** A small inline message for an optional read that the host refused or that failed. */
+  note: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    columnGap: '6px',
+    ...shorthands.padding('6px', '10px'),
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    borderRadius: tokens.borderRadiusMedium,
+    backgroundColor: tokens.colorNeutralBackground3,
+    color: tokens.colorNeutralForeground2,
+    fontSize: '12px',
+    lineHeight: '16px',
+    textAlign: 'left',
+    marginBottom: tokens.spacingVerticalM,
+    '& > svg': { flexShrink: 0, color: tokens.colorNeutralForeground3 },
+  },
+  detailCard: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 0,
+    minWidth: 0,
+    '&.w-card': {
+      overflow: 'hidden',
+    },
+  },
+  /** `.w-empty` — empty-state text inside a column. */
+  empty: {
+    ...shorthands.padding('56px', tokens.spacingHorizontalL),
+    textAlign: 'center',
+    color: tokens.colorNeutralForeground3,
+    fontSize: '13px',
+  },
+  detailBody: {
+    flex: '1 1 auto',
+    ...shorthands.padding(tokens.spacingVerticalL),
+    minHeight: 0,
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    scrollbarGutter: 'stable',
+    overscrollBehaviorY: 'contain',
+  },
+  /** Details opened in place below an activity row: no own scroll box, the pane scrolls. */
+  detailBodyEmbedded: {
+    minWidth: 0,
+  },
+  embeddedBadges: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: '6px',
+    marginBottom: tokens.spacingVerticalS,
+    ':empty': { display: 'none' },
+  },
+  detailHeaderTitle: {
+    flexGrow: 1,
+    minWidth: 0,
+    overflowX: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+  },
+  detailIcon: {
+    width: '26px',
+    height: '26px',
+    borderRadius: tokens.borderRadiusLarge,
+    display: 'grid',
+    placeItems: 'center',
+    color: tokens.colorNeutralForegroundOnBrand,
+    fontSize: '13px',
+    flexShrink: 0,
+  },
+  iconData1: { backgroundColor: DATA_SLOT.data1 },
+  iconData2: { backgroundColor: DATA_SLOT.data2 },
+  iconData3: { backgroundColor: DATA_SLOT.data3 },
+  iconData7: { backgroundColor: DATA_SLOT.data7 },
+
+  /**
+   * The activity list of a turn: a vertical timeline in the `.w-acts` design language
+   * (`.w-act`, `.w-acthdr`, `.w-acticon`, `.w-actlines`, `.w-actdur`, `.w-actbody`).
+   */
+  acts: {
+    position: 'relative',
+    listStyleType: 'none',
+    ...shorthands.margin(0),
+    ...shorthands.padding(tokens.spacingVerticalM, tokens.spacingHorizontalM, tokens.spacingVerticalM, '34px'),
+    '::before': { content: '""', position: 'absolute', left: '16px', top: '22px', bottom: '22px', width: '2px', backgroundColor: tokens.colorNeutralStroke2 },
+  },
+  actsCompact: {
+    ...shorthands.padding(tokens.spacingVerticalS, tokens.spacingHorizontalS, tokens.spacingVerticalS, '28px'),
+    '::before': { left: '12px', top: '18px', bottom: '18px' },
+  },
+  act: {
+    position: 'relative',
+    marginBottom: tokens.spacingVerticalS,
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    borderRadius: tokens.borderRadiusLarge,
+    backgroundColor: tokens.colorNeutralBackground1,
+    ':last-child': { marginBottom: 0 },
+    '::before': { content: '""', position: 'absolute', left: '-24px', top: '14px', width: '12px', height: '12px', zIndex: 1, borderRadius: tokens.borderRadiusCircular, backgroundColor: tokens.colorNeutralBackground1, ...shorthands.border('2.5px', 'solid', tokens.colorNeutralStroke1) },
+  },
+  actCompact: {
+    '::before': { left: '-20px', top: '12px' },
+  },
+  actOpen: {
+    borderTopColor: tokens.colorBrandBackground, borderRightColor: tokens.colorBrandBackground, borderBottomColor: tokens.colorBrandBackground, borderLeftColor: tokens.colorBrandBackground,
+    boxShadow: tokens.shadow4,
+    '::before': { borderTopColor: tokens.colorBrandBackground, borderRightColor: tokens.colorBrandBackground, borderBottomColor: tokens.colorBrandBackground, borderLeftColor: tokens.colorBrandBackground, backgroundColor: tokens.colorBrandBackground },
+  },
+  actFailed: {
+    '::before': { borderTopColor: tokens.colorPaletteRedBorder2, borderRightColor: tokens.colorPaletteRedBorder2, borderBottomColor: tokens.colorPaletteRedBorder2, borderLeftColor: tokens.colorPaletteRedBorder2 },
+  },
+  /** Reasoning is context between the steps: muted text, not a selectable card. */
+  actReason: {
+    ...shorthands.borderStyle('dashed'),
+    ...shorthands.borderColor(REASON_BORDER),
+    backgroundColor: REASON_SURFACE,
+    ...shorthands.padding('8px', tokens.spacingHorizontalM),
+    fontSize: '12px',
+    lineHeight: '18px',
+    color: tokens.colorNeutralForeground2,
+    '::before': { width: '10px', height: '10px', left: '-23px', top: '12px', ...shorthands.borderColor(REASON_BORDER), backgroundColor: REASON_SURFACE },
+  },
+  actReasonCompact: {
+    '::before': { left: '-19px', top: '10px' },
+  },
+  actHeader: {
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: '9px',
+    width: '100%',
+    minWidth: 0,
+    ...shorthands.border('0'),
+    borderRadius: 'inherit',
+    backgroundColor: 'transparent',
+    color: 'inherit',
+    fontFamily: 'inherit',
+    ...shorthands.padding('9px', tokens.spacingHorizontalM),
+    textAlign: 'left',
+    cursor: 'pointer',
+    ':hover': { backgroundColor: tokens.colorNeutralBackground1Hover },
+    ':focus-visible': { outlineWidth: '2px', outlineStyle: 'solid', outlineColor: tokens.colorStrokeFocus2, outlineOffset: '-2px' },
+  },
+  actHeaderStatic: {
+    cursor: 'default',
+    ':hover': { backgroundColor: 'transparent' },
+  },
+  /** The header of a row with content below it keeps square bottom corners. */
+  actHeaderTop: {
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0,
+  },
+  actHeaderSmall: {
+    columnGap: '8px',
+    ...shorthands.padding('6px', '10px'),
+  },
+  actIcon: {
+    width: '26px',
+    height: '26px',
+    borderRadius: tokens.borderRadiusMedium,
+    display: 'grid',
+    placeItems: 'center',
+    fontSize: '15px',
+    flexShrink: 0,
+    color: tokens.colorNeutralForegroundOnBrand,
+  },
+  actIconSmall: {
+    width: '22px',
+    height: '22px',
+    fontSize: '13px',
+  },
+  actLines: {
+    flexGrow: 1,
+    minWidth: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '1px',
+    '& .a1': { fontSize: '13.5px', lineHeight: '18px', fontWeight: tokens.fontWeightSemibold, overflowX: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+    '& .a2': { fontSize: '11.5px', lineHeight: '16px', color: tokens.colorNeutralForeground3, display: 'flex', columnGap: '7px', flexWrap: 'wrap', alignItems: 'center' },
+  },
+  actLinesSmall: {
+    '& .a1': { fontSize: '12.5px', lineHeight: '17px' },
+  },
+  actDuration: { fontSize: '12px', fontVariantNumeric: 'tabular-nums', color: tokens.colorNeutralForeground3, whiteSpace: 'nowrap', flexShrink: 0 },
+  actChevron: {
+    flexShrink: 0,
+    color: tokens.colorNeutralForeground3,
+    transitionProperty: 'transform',
+    transitionDuration: '.12s',
+    '@media (prefers-reduced-motion: reduce)': { transitionDuration: '0s' },
+  },
+  actChevronOpen: { transform: 'rotate(180deg)' },
+  actBody: {
+    borderTop: `1px solid ${tokens.colorNeutralStroke2}`,
+    backgroundColor: tokens.colorNeutralBackground2,
+    ...shorthands.padding(tokens.spacingVerticalM),
+    borderBottomLeftRadius: 'inherit',
+    borderBottomRightRadius: 'inherit',
+  },
+  /** A connected or child agent: its header row, the transcript links and its own steps. */
+  groupBody: {
+    borderTop: `1px solid ${tokens.colorNeutralStroke2}`,
+    backgroundColor: tokens.colorNeutralBackground2,
+    ...shorthands.padding('6px', tokens.spacingHorizontalS, tokens.spacingHorizontalS),
+    borderBottomLeftRadius: 'inherit',
+    borderBottomRightRadius: 'inherit',
+  },
+  groupLinks: {
+    '&.w-agent-transcript-links': { ...shorthands.padding('6px', tokens.spacingHorizontalM) },
+  },
+  groupEmpty: {
+    ...shorthands.padding('6px', '4px'),
+    fontSize: '12px',
+    color: tokens.colorNeutralForeground3,
+  },
+  childList: {
+    listStyleType: 'none',
+    ...shorthands.margin(0),
+    ...shorthands.padding(0),
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '6px',
+  },
+  child: {
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    borderRadius: tokens.borderRadiusMedium,
+    backgroundColor: tokens.colorNeutralBackground1,
+  },
+  childOpen: {
+    borderTopColor: tokens.colorBrandBackground, borderRightColor: tokens.colorBrandBackground, borderBottomColor: tokens.colorBrandBackground, borderLeftColor: tokens.colorBrandBackground,
+    boxShadow: tokens.shadow2,
+  },
+  childReason: {
+    ...shorthands.border('1px', 'dashed', REASON_BORDER),
+    borderRadius: tokens.borderRadiusMedium,
+    backgroundColor: REASON_SURFACE,
+    ...shorthands.padding('6px', '10px'),
+    fontSize: '12px',
+    lineHeight: '18px',
+    color: tokens.colorNeutralForeground2,
+  },
+
+  /** Mirrors `.w-sec`, `.w-code`, `.w-quote`, `.w-json`, and JSON token classes. */
+  section: {
+    marginBottom: tokens.spacingVerticalM,
+    ':last-child': { marginBottom: 0 },
+    '& > h4': { ...shorthands.margin(0, 0, '5px'), fontSize: '11px', fontWeight: tokens.fontWeightBold, letterSpacing: '.04em', textTransform: 'uppercase', color: tokens.colorNeutralForeground3, display: 'flex', alignItems: 'center', columnGap: '5px' },
+  },
+  code: {
+    backgroundColor: tokens.colorNeutralBackground1,
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    borderRadius: tokens.borderRadiusMedium,
+    ...shorthands.padding('9px', '11px'),
+    fontFamily: FONT_MONO,
+    fontSize: '11.5px',
+    lineHeight: '17px',
+    maxHeight: '260px',
+    overflowY: 'auto',
+    whiteSpace: 'pre-wrap',
+    wordBreak: 'break-word',
+    ...shorthands.margin(0),
+  },
+  quote: {
+    backgroundColor: tokens.colorNeutralBackground1,
+    borderLeft: `2px solid ${tokens.colorPaletteDarkOrangeBorder1}`,
+    borderRadius: tokens.borderRadiusSmall,
+    ...shorthands.padding('9px', '11px'),
+    fontSize: '12.5px',
+    lineHeight: '19px',
+    whiteSpace: 'pre-wrap',
+    maxHeight: '240px',
+    overflowY: 'auto',
+  },
+  quoteError: {
+    borderLeftColor: tokens.colorPaletteRedForeground1,
+  },
+  /** `.w-json` / `.w-jsonnav` — payload viewer and its match navigator. */
+  json: {
+    ...shorthands.margin(0),
+    ...shorthands.padding(tokens.spacingVerticalM),
+    fontFamily: FONT_MONO,
+    fontSize: '12px',
+    lineHeight: 1.5,
+    color: tokens.colorNeutralForeground1,
+    whiteSpace: 'pre-wrap',
+    wordWrap: 'break-word',
+    backgroundColor: tokens.colorNeutralBackground1,
+    ...shorthands.border('1px', 'solid', tokens.colorNeutralStroke2),
+    borderRadius: tokens.borderRadiusMedium,
+    overflowY: 'auto',
+    maxHeight: '420px',
+  },
+  jsonKey: { color: tokens.colorBrandForeground1 },
+  jsonString: { color: tokens.colorPaletteRedForeground1 },
+  jsonNumber: { color: tokens.colorPaletteGreenForeground1 },
+  jsonBoolean: { color: tokens.colorBrandForeground2 },
+  jsonNull: { color: tokens.colorBrandForeground2 },
+  jsonPunct: { color: tokens.colorNeutralForeground3 },
+});

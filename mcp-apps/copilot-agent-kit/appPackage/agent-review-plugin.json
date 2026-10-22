@@ -1,0 +1,1395 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "name_for_human": "Agent Review",
+  "description_for_human": "Map, debug, and review Copilot Studio agents from Microsoft 365 Copilot",
+  "contact_email": "admin@contoso.com",
+  "namespace": "agentreview",
+  "functions": [
+    {
+      "name": "open_agent_review",
+      "description": "Start one review for one exact accessible agentName in the supplied environment or Copilot Studio Kit - Dev, including when the optional startReview flag is omitted. Return the acknowledged job ID for the stepper. An unclear, missing or unavailable target opens the existing form without a start, with Dev selected when no environment is supplied. Set startReview false only for manual selection. Resume an existing job or saved result without another start; recovery never starts a replacement."
+    },
+    {
+      "name": "show_agent_map",
+      "description": "Show a workflow-free deterministic map of a Copilot Studio agent powered by the GitHub Copilot harness, its configured components, and conservative Skill-to-Tool or Knowledge references."
+    },
+    {
+      "name": "browse_agent_reviews",
+      "description": "Browse completed Agent Review records in a paginated grid and open an existing persisted review fullscreen."
+    },
+    {
+      "name": "open_agent_debugger",
+      "description": "Open a read-only debugger for saved Copilot Studio conversations. Pass the agent and, when known, the conversation ID. The inline view has no pickers. Resolve one exact agent in the supplied environment or Copilot Studio Kit - Dev without the target form or full agent catalog. Preserve a supplied conversation ID and load its analysis only if it belongs to that target and date range; otherwise show the list with the reason. With no conversation ID, automatically select and analyze the first authorized saved conversation in the existing most-recent-first list order. Show an empty state when none exist. Keep errors visible. Never start a review."
+    },
+    {
+      "name": "open_evaluation_builder",
+      "description": "Shows the generated test cases for one Copilot Studio agent. If a generated set exists, it shows that set. Else it generates new cases and saves them as one test set in Copilot Studio. Inline edits sync to Copilot Studio. Pass the exact agent name. The server resolves it in the supplied environment or in Copilot Studio Kit - Dev. Never runs evaluations."
+    },
+    {
+      "name": "get_evaluation_draft",
+      "description": "Read the complete unchanged temporary draft for this caller. No start, save or evaluation execution."
+    },
+    {
+      "name": "get_evaluation_native_support",
+      "description": "Check caller-scoped target metadata, case-sensitive native parent binds, existing Conversation templates and harness limits. This is not new-save or grading proof. No write."
+    },
+    {
+      "name": "create_agent_evaluation_set",
+      "description": "App-only save of one generated Eval Builder draft as one native Conversation test set in Copilot Studio. The app calls it automatically when the generated cases appear. Bound to this caller, target, the generated questions or the user's question edits, the expected responses and the immutable request UUID (the draft ID). General quality does not compare expected answers. One atomic changeset, inner-status checks and complete exact read-back. Never runs evaluations or publishes an agent. An uncertain response requires read-only recovery, not another creation."
+    },
+    {
+      "name": "get_agent_evaluation_save",
+      "description": "Read-only recovery of an existing immutable native save. Verify all components and parent relationships for the same caller, draft, grant and request UUID. Never sends another changeset, runs an evaluation or publishes."
+    },
+    {
+      "name": "update_agent_evaluation_case",
+      "description": "App-only inline edit or deletion of one case in a verified saved set for this caller, draft, grant and request UUID. Used by generated sets, which save automatically. Reads back the exact change. Never runs an evaluation or publishes."
+    },
+    {
+      "name": "get_initial_widget_data",
+      "description": "Read a caller-scoped complete app result or one immutable lossless gzip/base64 chunk. Every serialized reply is at most 65536 bytes. Retain every record and app-only metadata. This recovery cannot start a Review, save or run an evaluation."
+    },
+    {
+      "name": "get_app_view_resource",
+      "description": "Read a small immutable manifest for one compiled peer view. App-only chunks each stay under 65536 serialized bytes. Reassemble and verify the exact resource hash in the existing app without another host handshake. No target initialization, Review start, save or evaluation execution."
+    },
+    {
+      "name": "get_app_view_chunk",
+      "description": "Read one immutable lossless base64 resource chunk for an app peer view. The complete serialized tool reply is below 65536 bytes. Reassemble only against the matching manifest hash. No Review, native write, evaluation execution or publication."
+    },
+    {
+      "name": "list_debugger_agents",
+      "description": "List active classic and generative Copilot Studio agents in one environment for the Agent Debugger interface."
+    },
+    {
+      "name": "list_debugger_conversations",
+      "description": "List bounded saved conversations for the selected Copilot Studio agent in the Agent Debugger interface."
+    },
+    {
+      "name": "analyze_debugger_conversation",
+      "description": "Analyze one saved Copilot Studio conversation in the Agent Debugger interface."
+    },
+    {
+      "name": "get_debugger_turn_details",
+      "description": "Load full activity details for one selected conversation turn in the Agent Debugger interface."
+    },
+    {
+      "name": "get_debugger_child_transcript",
+      "description": "Load the transcript for one connected-agent session selected in the Agent Debugger interface."
+    },
+    {
+      "name": "get_debugger_conversation_transcript",
+      "description": "Load complete saved parent-agent conversation JSON on demand. Requires authentication. Limited to 500 transcript records and an 8 MiB response; rejects incomplete exports. Connected-agent transcripts remain separate."
+    },
+    {
+      "name": "list_reviewable_agents",
+      "description": "List Copilot Studio agents powered by the GitHub Copilot harness in a selected environment. Call after the user selects an environment."
+    },
+    {
+      "name": "get_agent_map",
+      "description": "Build a workflow-free deterministic map for a selected Copilot Studio agent powered by the GitHub Copilot harness."
+    },
+    {
+      "name": "get_connected_agent_map",
+      "description": "Load the current components for a connected agent selected inside Agent Map."
+    },
+    {
+      "name": "list_agent_reviews",
+      "description": "List persisted Agent Review records for a selected source environment."
+    },
+    {
+      "name": "start_agent_review",
+      "description": "Create an Agent Review job only after the user confirms the selected target with Create in the live Review form. Requires confirmed:true; can consume credits. Preserve its acknowledged job ID on success or partial failure. Never call to open a form or restore progress."
+    },
+    {
+      "name": "get_agent_review_status",
+      "description": "Get progress for an existing Agent Review job."
+    },
+    {
+      "name": "finalize_agent_review",
+      "description": "Finalize a completed or salvageable Agent Review job and persist the result."
+    },
+    {
+      "name": "get_agent_review_result",
+      "description": "Load an existing saved Agent Review by reviewId with its saved Agent Map and complete findings in the Review UI. Use summary for the inline view or fullReview for the expanded view. This read never starts or finalizes a review."
+    }
+  ],
+  "runtimes": [
+    {
+      "type": "RemoteMCPServer",
+      "spec": {
+        "url": "${{MCP_SERVER_URL}}/mcp",
+        "mcp_tool_description": {
+          "tools": [
+            {
+              "name": "open_agent_review",
+              "title": "Open Agent Review",
+              "description": "Start one review for one exact accessible agentName in the supplied environment or Copilot Studio Kit - Dev, including when the optional startReview flag is omitted. Return the acknowledged job ID for the stepper. An unclear, missing or unavailable target opens the existing form without a start, with Dev selected when no environment is supplied. Set startReview false only for manual selection. Resume an existing job or saved result without another start; recovery never starts a replacement.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "reviewId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Completed review ID to open"
+                  },
+                  "jobId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Existing review job ID to resume"
+                  },
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Environment ID explicitly selected in the conversation"
+                  },
+                  "environmentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "Exact environment display name explicitly selected in the conversation"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Agent ID explicitly selected in the conversation"
+                  },
+                  "agentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "Exact agent display name explicitly selected in the conversation"
+                  },
+                  "componentIdUnique": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Selected agent component version ID when already known"
+                  },
+                  "startReview": {
+                    "type": "boolean",
+                    "description": "Optional Review intent. True or an omitted flag with one exact accessible agentName permits one start. False opens the manual form. Unresolved targets never start."
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Stable request UUID for duplicate-start protection. Reuse it for retries and recovery; use a new UUID only for an intentional new review."
+                  },
+                  "resumeOnly": {
+                    "type": "boolean",
+                    "description": "Read-only initial-data recovery. Restore the original request or acknowledged job without a new start. If the request is unavailable, show the form."
+                  }
+                },
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": false,
+                "destructiveHint": false,
+                "idempotentHint": false,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_review/v1.0.18/agent-review.html"
+                },
+                "ui/resourceUri": "ui://open_agent_review/v1.0.18/agent-review.html"
+              }
+            },
+            {
+              "name": "show_agent_map",
+              "title": "Show Agent Map",
+              "description": "Show a workflow-free deterministic map of a Copilot Studio agent powered by the GitHub Copilot harness, its configured components, and conservative Skill-to-Tool or Knowledge references.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Power Platform environment containing the agent"
+                  },
+                  "environmentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "Exact environment display name explicitly selected in the conversation"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Copilot Studio agent ID"
+                  },
+                  "agentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "Exact agent display name explicitly selected in the conversation"
+                  },
+                  "componentIdUnique": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Selected agent component version ID"
+                  }
+                },
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://show_agent_map/v1.0.18/agent-map.html"
+                },
+                "ui/resourceUri": "ui://show_agent_map/v1.0.18/agent-map.html"
+              }
+            },
+            {
+              "name": "browse_agent_reviews",
+              "title": "Browse Agent Reviews",
+              "description": "Browse completed Agent Review records in a paginated grid and open an existing persisted review fullscreen.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Power Platform source environment to browse"
+                  },
+                  "presentation": {
+                    "type": "string",
+                    "enum": [
+                      "inline",
+                      "fullscreen"
+                    ],
+                    "description": "Render the review grid inline or in the fullscreen side panel"
+                  }
+                },
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://browse_agent_reviews/v1.0.18/review-browser.html"
+                },
+                "ui/resourceUri": "ui://browse_agent_reviews/v1.0.18/review-browser.html"
+              }
+            },
+            {
+              "name": "open_agent_debugger",
+              "title": "Open Agent Debugger",
+              "description": "Open a read-only debugger for saved Copilot Studio conversations. Pass the agent and, when known, the conversation ID. The inline view has no pickers. Resolve one exact agent in the supplied environment or Copilot Studio Kit - Dev without the target form or full agent catalog. Preserve a supplied conversation ID and load its analysis only if it belongs to that target and date range; otherwise show the list with the reason. With no conversation ID, automatically select and analyze the first authorized saved conversation in the existing most-recent-first list order. Show an empty state when none exist. Keep errors visible. Never start a review.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Power Platform environment explicitly selected in the conversation"
+                  },
+                  "environmentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "Exact Power Platform environment display name explicitly selected in the conversation"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                    "description": "Copilot Studio agent explicitly selected in the conversation"
+                  },
+                  "agentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200,
+                    "description": "Exact Copilot Studio agent display name explicitly selected in the conversation"
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "description": "Exact saved conversation ID. Preserve this ID and load its saved analysis only if it belongs to the selected agent and date range. If omitted, select the first authorized saved conversation in the existing most-recent-first list order."
+                  },
+                  "startedAfter": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "startedBefore": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                },
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+                },
+                "ui/resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+              }
+            },
+            {
+              "name": "open_evaluation_builder",
+              "title": "Open Eval Builder",
+              "description": "Shows the generated test cases for one Copilot Studio agent. If a generated set exists, it shows that set. Else it generates new cases and saves them as one test set in Copilot Studio. Inline edits sync to Copilot Studio. Pass the exact agent name. The server resolves it in the supplied environment or in Copilot Studio Kit - Dev. Never runs evaluations.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "environmentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "mode": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "Ignored. Kept only so that older callers do not fail."
+                  }
+                },
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "get_evaluation_draft",
+              "title": "Read Complete Evaluation Draft",
+              "description": "Read the complete unchanged temporary draft for this caller. No start, save or evaluation execution.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "draftId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  }
+                },
+                "required": [
+                  "draftId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "get_evaluation_native_support",
+              "title": "Check Native Evaluation Support",
+              "description": "Check caller-scoped target metadata, case-sensitive native parent binds, existing Conversation templates and harness limits. This is not new-save or grading proof. No write.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "draftId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  }
+                },
+                "required": [
+                  "draftId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "create_agent_evaluation_set",
+              "title": "Save Generated Test Set",
+              "description": "App-only save of one generated Eval Builder draft as one native Conversation test set in Copilot Studio. The app calls it automatically when the generated cases appear. Bound to this caller, target, the generated questions or the user's question edits, the expected responses and the immutable request UUID (the draft ID). General quality does not compare expected answers. One atomic changeset, inner-status checks and complete exact read-back. Never runs evaluations or publishes an agent. An uncertain response requires read-only recovery, not another creation.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "draftId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "saveGrant": {
+                    "type": "string",
+                    "minLength": 32,
+                    "maxLength": 128,
+                    "description": "App-only opaque grant from the Eval Builder opener metadata. Never generate or change it."
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "method": {
+                    "type": "string",
+                    "const": "GeneralQualityGrader"
+                  },
+                  "selectedCases": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "caseId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 128
+                        },
+                        "expectedResponses": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "maxLength": 16000
+                          },
+                          "minItems": 1,
+                          "maxItems": 6
+                        },
+                        "questions": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 16000
+                          },
+                          "minItems": 1,
+                          "maxItems": 6
+                        }
+                      },
+                      "required": [
+                        "caseId",
+                        "expectedResponses"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 1,
+                    "maxItems": 20
+                  },
+                  "confirmed": {
+                    "type": "boolean",
+                    "const": true
+                  }
+                },
+                "required": [
+                  "draftId",
+                  "requestId",
+                  "saveGrant",
+                  "name",
+                  "method",
+                  "selectedCases",
+                  "confirmed"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": false,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "get_agent_evaluation_save",
+              "title": "Check Existing Evaluation Set",
+              "description": "Read-only recovery of an existing immutable native save. Verify all components and parent relationships for the same caller, draft, grant and request UUID. Never sends another changeset, runs an evaluation or publishes.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "draftId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "saveGrant": {
+                    "type": "string",
+                    "minLength": 32,
+                    "maxLength": 128,
+                    "description": "App-only opaque grant from the Eval Builder opener metadata. Never generate or change it."
+                  }
+                },
+                "required": [
+                  "draftId",
+                  "requestId",
+                  "saveGrant"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "update_agent_evaluation_case",
+              "title": "Update Saved Evaluation Case",
+              "description": "App-only inline edit or deletion of one case in a verified saved set for this caller, draft, grant and request UUID. Used by generated sets, which save automatically. Reads back the exact change. Never runs an evaluation or publishes.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "draftId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "requestId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "saveGrant": {
+                    "type": "string",
+                    "minLength": 32,
+                    "maxLength": 128,
+                    "description": "App-only opaque grant from the Eval Builder opener metadata. Never generate or change it."
+                  },
+                  "caseId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128
+                  },
+                  "question": {
+                    "type": "string",
+                    "maxLength": 16000
+                  },
+                  "expectedResponse": {
+                    "type": "string",
+                    "maxLength": 16000
+                  },
+                  "remove": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "draftId",
+                  "requestId",
+                  "saveGrant",
+                  "caseId",
+                  "question",
+                  "expectedResponse"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": false,
+                "destructiveHint": true,
+                "idempotentHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "get_initial_widget_data",
+              "title": "Read Complete Initial App Data",
+              "description": "Read a caller-scoped complete app result or one immutable lossless gzip/base64 chunk. Every serialized reply is at most 65536 bytes. Retain every record and app-only metadata. This recovery cannot start a Review, save or run an evaluation.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {}
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "get_app_view_resource",
+              "title": "Read App Peer View",
+              "description": "Read a small immutable manifest for one compiled peer view. App-only chunks each stay under 65536 serialized bytes. Reassemble and verify the exact resource hash in the existing app without another host handshake. No target initialization, Review start, save or evaluation execution.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "string",
+                    "enum": [
+                      "review",
+                      "debugger",
+                      "evaluation"
+                    ]
+                  }
+                },
+                "required": [
+                  "view"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "get_app_view_chunk",
+              "title": "Read App Peer View Chunk",
+              "description": "Read one immutable lossless base64 resource chunk for an app peer view. The complete serialized tool reply is below 65536 bytes. Reassemble only against the matching manifest hash. No Review, native write, evaluation execution or publication.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "view": {
+                    "type": "string",
+                    "enum": [
+                      "review",
+                      "debugger",
+                      "evaluation"
+                    ]
+                  },
+                  "index": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "maximum": 31
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  }
+                },
+                "required": [
+                  "view",
+                  "index",
+                  "sha256"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_evaluation_builder/v1.0.18/evaluation-builder.html"
+              }
+            },
+            {
+              "name": "list_debugger_agents",
+              "title": "List Agent Debugger Agents",
+              "description": "List active classic and generative Copilot Studio agents in one environment for the Agent Debugger interface.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "query": {
+                    "type": "string",
+                    "maxLength": 200
+                  }
+                },
+                "required": [
+                  "environmentId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+              }
+            },
+            {
+              "name": "list_debugger_conversations",
+              "title": "List Agent Debugger Conversations",
+              "description": "List bounded saved conversations for the selected Copilot Studio agent in the Agent Debugger interface.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "query": {
+                    "type": "string",
+                    "maxLength": 500
+                  },
+                  "limit": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 250
+                  },
+                  "startedAfter": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Inclusive session start-time lower bound; applied in Dataverse"
+                  },
+                  "startedBefore": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Inclusive session start-time upper bound; applied in Dataverse"
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "agentId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+              }
+            },
+            {
+              "name": "analyze_debugger_conversation",
+              "title": "Analyze Agent Debugger Conversation",
+              "description": "Analyze one saved Copilot Studio conversation in the Agent Debugger interface.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "agentId",
+                  "conversationId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+              }
+            },
+            {
+              "name": "get_debugger_turn_details",
+              "title": "Get Agent Debugger Turn Details",
+              "description": "Load full activity details for one selected conversation turn in the Agent Debugger interface.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  },
+                  "turnId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "agentId",
+                  "conversationId",
+                  "turnId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+              }
+            },
+            {
+              "name": "get_debugger_child_transcript",
+              "title": "Get Agent Debugger Connected-Agent Transcript",
+              "description": "Load the transcript for one connected-agent session selected in the Agent Debugger interface.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  },
+                  "sessionId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "agentId",
+                  "conversationId",
+                  "sessionId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+              }
+            },
+            {
+              "name": "get_debugger_conversation_transcript",
+              "title": "Get Agent Debugger Conversation JSON",
+              "description": "Load complete saved parent-agent conversation JSON on demand. Requires authentication. Limited to 500 transcript records and an 8 MiB response; rejects incomplete exports. Connected-agent transcripts remain separate.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "conversationId": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "agentId",
+                  "conversationId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_agent_debugger/v1.0.18/agent-debugger.html"
+              }
+            },
+            {
+              "name": "list_reviewable_agents",
+              "description": "List Copilot Studio agents powered by the GitHub Copilot harness in a selected environment. Call after the user selects an environment.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "query": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "environmentId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_agent_map",
+              "description": "Build a workflow-free deterministic map for a selected Copilot Studio agent powered by the GitHub Copilot harness.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "componentIdUnique": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "agentId",
+                  "componentIdUnique"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_connected_agent_map",
+              "description": "Load the current components for a connected agent selected inside Agent Map.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "targetSchemaName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "targetSchemaName"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "list_agent_reviews",
+              "description": "List persisted Agent Review records for a selected source environment.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "presentation": {
+                    "type": "string",
+                    "enum": [
+                      "inline",
+                      "fullscreen"
+                    ]
+                  }
+                },
+                "required": [
+                  "environmentId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "start_agent_review",
+              "title": "Start Confirmed Agent Review",
+              "description": "Create an Agent Review job only after the user confirms the selected target with Create in the live Review form. Requires confirmed:true; can consume credits. Preserve its acknowledged job ID on success or partial failure. Never call to open a form or restore progress.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "environmentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "agentId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "componentIdUnique": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "projectName": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "transcriptStart": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "transcriptEnd": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "confirmed": {
+                    "type": "boolean",
+                    "const": true
+                  }
+                },
+                "required": [
+                  "environmentId",
+                  "agentId",
+                  "componentIdUnique",
+                  "projectName",
+                  "confirmed"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": false,
+                "destructiveHint": false,
+                "idempotentHint": false,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_review/v1.0.18/agent-review.html",
+                  "visibility": [
+                    "app"
+                  ]
+                },
+                "ui/resourceUri": "ui://open_agent_review/v1.0.18/agent-review.html"
+              }
+            },
+            {
+              "name": "get_agent_review_status",
+              "description": "Get progress for an existing Agent Review job.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "jobId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  }
+                },
+                "required": [
+                  "jobId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "finalize_agent_review",
+              "description": "Finalize a completed or salvageable Agent Review job and persist the result.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "jobId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  }
+                },
+                "required": [
+                  "jobId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_agent_review_result",
+              "title": "Get Agent Review Result",
+              "description": "Load an existing saved Agent Review by reviewId with its saved Agent Map and complete findings in the Review UI. Use summary for the inline view or fullReview for the expanded view. This read never starts or finalizes a review.",
+              "inputSchema": {
+                "type": "object",
+                "properties": {
+                  "reviewId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+                  },
+                  "presentation": {
+                    "type": "string",
+                    "enum": [
+                      "summary",
+                      "fullReview"
+                    ],
+                    "description": "Render the result as an inline summary or the complete fullscreen review"
+                  }
+                },
+                "required": [
+                  "reviewId"
+                ],
+                "additionalProperties": false,
+                "$schema": "http://json-schema.org/draft-07/schema#"
+              },
+              "annotations": {
+                "readOnlyHint": true,
+                "openWorldHint": true
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              },
+              "_meta": {
+                "ui": {
+                  "resourceUri": "ui://open_agent_review/v1.0.18/agent-review.html"
+                },
+                "ui/resourceUri": "ui://open_agent_review/v1.0.18/agent-review.html"
+              }
+            }
+          ]
+        }
+      },
+      "run_for_functions": [
+        "open_agent_review",
+        "show_agent_map",
+        "browse_agent_reviews",
+        "open_agent_debugger",
+        "open_evaluation_builder",
+        "get_evaluation_draft",
+        "get_evaluation_native_support",
+        "create_agent_evaluation_set",
+        "get_agent_evaluation_save",
+        "update_agent_evaluation_case",
+        "get_initial_widget_data",
+        "get_app_view_resource",
+        "get_app_view_chunk",
+        "list_debugger_agents",
+        "list_debugger_conversations",
+        "analyze_debugger_conversation",
+        "get_debugger_turn_details",
+        "get_debugger_child_transcript",
+        "get_debugger_conversation_transcript",
+        "list_reviewable_agents",
+        "get_agent_map",
+        "get_connected_agent_map",
+        "list_agent_reviews",
+        "start_agent_review",
+        "get_agent_review_status",
+        "finalize_agent_review",
+        "get_agent_review_result"
+      ],
+      "auth": {
+        "type": "OAuthPluginVault",
+        "reference_id": "${{AGENT_REVIEW_MCP_AUTH_ID}}"
+      }
+    }
+  ]
+}
