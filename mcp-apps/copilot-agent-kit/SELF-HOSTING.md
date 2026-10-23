@@ -9,7 +9,7 @@ This guide tells you how to host the Agent Review MCP app in your Azure subscrip
 
 ## What you get
 
-- One Linux App Service web app. It hosts the MCP server (27 tools) and 5 UI views: Agent Review, Review Browser, Agent Map, Agent Debugger and Evaluation Builder.
+- One Linux App Service web app. It hosts the MCP server (23 tools) and 5 UI views: Agent Review, Review Browser, Agent Map, Agent Debugger and Evaluation Builder.
 - One Key Vault for the server client secret. A managed identity reads the secret.
 - Log Analytics and Application Insights for logs and metrics.
 - Two Microsoft Entra app registrations: the server API (app 1) and the Copilot Studio client (app 2).
@@ -217,7 +217,7 @@ Keep the zip and its SHA-256. You can use the zip for a rollback.
 
    Expected result: `{"status":"ok"}`.
 
-2. Count the tools. Expected result: `27`.
+2. Count the tools. Expected result: `23`.
 
    ```bash
    curl -s -X POST "$WEB_URL/mcp" \
@@ -402,9 +402,8 @@ These changes are recommended. They are not done yet:
 1. **Environment setting.** Add `AGENT_KIT_JOB_ENVIRONMENT_ID` (and an optional default environment name). Use it in `src/tools/target-selection.ts`, `src/agent-review/server/service.ts` and `src/evaluation/`. If the setting is empty, keep the current name lookup. Remove the fixed name from the tool descriptions in `server.ts` and `appPackage/agent-review-plugin.json`.
 2. **Node.js 22.** Change `linuxFxVersion` to `NODE|22-lts` in `infra/modules/resources.bicep`. Test on App Service.
 3. **Release package.** Add a GitHub Actions workflow on `ubuntu-latest`. It runs `build-runtime-package.sh` and attaches the zip and its SHA-256 to a GitHub release. Then users do not need a Linux build host.
-4. **Two apps in the README.** Replace the one-app Copilot Studio steps with the app 2 steps from this guide.
-5. **Agents Toolkit client.** In `m365agents.yml`, use app 2 as the `oauth/register` client, or use the GUID form of the scope.
-6. **Secret parameter.** In the template, do not write the Key Vault secret when `entraClientSecret` is empty, or make the parameter required.
-7. **Web app name.** Add an optional `webAppName` parameter for a readable host name.
-8. **Release zips.** Publish release zips (see item 3). The code is under the MIT license of the Kit (`LICENSE.txt` at the repository root), and the Kit `SUPPORT.md` is the support statement.
-9. **Token check in the server.** Optional extra protection: make the server validate the signature, the issuer and the audience (app 1) of the caller token before a tool call. Now only the on-behalf-of exchange validates the token.
+4. **Agents Toolkit client.** In `m365agents.yml`, use app 2 as the `oauth/register` client, or use the GUID form of the scope.
+5. **Secret parameter.** In the template, do not write the Key Vault secret when `entraClientSecret` is empty, or make the parameter required.
+6. **Web app name.** Add an optional `webAppName` parameter for a readable host name.
+7. **Release zips.** Publish release zips (see item 3). The code is under the MIT license of the Kit (`LICENSE.txt` at the repository root), and the Kit `SUPPORT.md` is the support statement.
+8. **Token check in the server.** Optional extra protection: make the server validate the signature, the issuer and the audience (app 1) of the caller token before a tool call. Now only the on-behalf-of exchange validates the token.
