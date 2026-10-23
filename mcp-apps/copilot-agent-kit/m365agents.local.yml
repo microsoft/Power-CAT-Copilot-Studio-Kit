@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://aka.ms/m365-agents-toolkits/v1.12/yaml.schema.json
+version: v1.12
+environmentFolderPath: ./env
+
+provision:
+  - uses: aadApp/create
+    with:
+      name: Agent Review MCP${{APP_NAME_SUFFIX}}
+      generateClientSecret: true
+      generateServicePrincipal: true
+      signInAudience: AzureADMyOrg
+    writeToEnvironmentFile:
+      clientId: AGENT_REVIEW_MCP_CLIENT_ID
+      clientSecret: SECRET_AGENT_REVIEW_MCP_CLIENT_SECRET
+      objectId: AGENT_REVIEW_MCP_OBJECT_ID
+      tenantId: AAD_APP_TENANT_ID
+
+  - uses: teamsApp/create
+    with:
+      name: Agent Review${{APP_NAME_SUFFIX}}
+    writeToEnvironmentFile:
+      teamsAppId: TEAMS_APP_ID
+
+  - uses: aadApp/update
+    with:
+      manifestPath: ./aad.manifest.json
+      outputFilePath: ./appPackage/build/aad.manifest.${{TEAMSFX_ENV}}.json
+
+  - uses: script
+    with:
+      run: node ./scripts/ensure-dataverse-permission.mjs ${{AGENT_REVIEW_MCP_CLIENT_ID}}
+
+  - uses: oauth/register
+    with:
+      name: agent-review-mcp-auth
+      appId: ${{TEAMS_APP_ID}}
+      clientId: ${{AGENT_REVIEW_MCP_CLIENT_ID}}
+      clientSecret: ${{SECRET_AGENT_REVIEW_MCP_CLIENT_SECRET}}
+      authorizationUrl: https://login.microsoftonline.com/${{AAD_APP_TENANT_ID}}/oauth2/v2.0/authorize
+      tokenUrl: https://login.microsoftonline.com/${{AAD_APP_TENANT_ID}}/oauth2/v2.0/token
+      refreshUrl: https://login.microsoftonline.com/${{AAD_APP_TENANT_ID}}/oauth2/v2.0/token
+      scope: api://${{AGENT_REVIEW_MCP_CLIENT_ID}}/access_as_user
+      flow: authorizationCode
+      identityProvider: Custom
+      isPKCEEnabled: true
+      tokenExchangeMethodType: PostRequestBody
+      baseUrl: ${{MCP_SERVER_URL}}
+    writeToEnvironmentFile:
+      configurationId: AGENT_REVIEW_MCP_AUTH_ID
+
+  - uses: teamsApp/zipAppPackage
+    with:
+      manifestPath: ./appPackage/manifest.json
+      outputZipPath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      outputFolder: ./appPackage/build
+
+  - uses: teamsApp/validateAppPackage
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  - uses: teamsApp/update
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+
+  - uses: copilotAgent/publish
+    with:
+      appPackagePath: ./appPackage/build/appPackage.${{TEAMSFX_ENV}}.zip
+      scope: personal
+    writeToEnvironmentFile:
+      titleId: M365_TITLE_ID
+      appId: M365_APP_ID
+      shareLink: SHARE_LINK

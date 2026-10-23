@@ -1,0 +1,43 @@
+const RULE_DISPLAY_LABELS: Record<string, string> = {
+  'CON-01': 'Connected agent availability',
+  'CON-02': 'Connected agent publish status',
+  'CON-03': 'Delegation descriptions',
+  'CON-04': 'Connected agent inventory',
+  'EVL-01': 'Evaluation test set availability',
+  'EVL-03': 'Evaluation grader configuration',
+  'EVL-04': 'Expected responses for similarity grading',
+  'EVL-05': 'Multi-turn evaluation coverage',
+  'EVL-06': 'Evaluation result retention',
+  'INS-01': 'Instruction completeness',
+  'INS-07': 'Referenced capability availability',
+  'INS-08': 'Citation behavior guidance',
+  'INS-09': 'Hidden instruction characters',
+  'KNW-01': 'Knowledge inventory',
+  'KNW-02': 'Promised knowledge availability',
+  'KNW-03': 'Work IQ preview usage',
+  'KNW-04': 'Memory configuration',
+  'LCY-01': 'Agent harness',
+  'LCY-02': 'Agent composition',
+  'MDL-01': 'Model selection',
+  'SKL-01': 'Skill name',
+  'SKL-02': 'Skill description',
+  'SKL-03': 'Skill instructions',
+  'SKL-05': 'Skill safety',
+  'SKL-07': 'Skill structure and size',
+  'SKL-08': 'Cross-skill references',
+  'SKL-09': 'Referenced capability availability',
+  'SKL-11': 'Ordered execution steps',
+  'SKL-12': 'Skill routing guidance',
+  'SKL-13': 'Skill negative scope',
+  'SKL-14': 'Skill examples and evaluations',
+  'TOL-01': 'Tool inventory',
+  'TOL-02': 'Tool descriptions',
+  'TOL-03': 'Tool authentication',
+  'TOL-04': 'Tool connections',
+  'TOL-05': 'Duplicate tool operations',
+};
+
+/** Returns a maker-facing check name without exposing its internal rule id. */
+export function ruleDisplayLabel(ruleId: string, family: string): string {
+  return RULE_DISPLAY_LABELS[ruleId] ?? `${family} check`;
+}

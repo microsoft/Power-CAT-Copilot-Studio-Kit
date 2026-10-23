@@ -1,0 +1,61 @@
+/* ============================================================
+   Design-token bridge
+   ------------------------------------------------------------
+   workspace.css (copied verbatim from the approved prototype)
+   references CSS custom properties by name. 58 of the 72 it uses
+   are *already* emitted by the Fluent <FluentProvider> under exactly
+   these names -- `tokens.colorNeutralBackground1` is literally the
+   string `var(--colorNeutralBackground1)`. Those therefore resolve
+   against the live Fluent theme with no work, which is what keeps
+   light/dark theming and token updates flowing through.
+
+   The prototype additionally used a numeric spacing scale that
+   Fluent does not emit (Fluent ships spacingHorizontal and spacingVertical instead). Those values are re-declared here,
+   mapped onto the Fluent horizontal scale so they stay in step with
+   the theme rather than being hardcoded a second time.
+   ============================================================ */
+.w-shell,
+.w-dialog-surface {
+  --fontFamilyBase: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --spacingXXS: var(--spacingHorizontalXXS, 2px);
+  --spacingXS: var(--spacingHorizontalXS, 4px);
+  --spacingS: var(--spacingHorizontalS, 8px);
+  --spacingM: var(--spacingHorizontalM, 12px);
+  --spacingL: var(--spacingHorizontalL, 16px);
+  --spacingXL: var(--spacingHorizontalXL, 20px);
+  --spacingXXL: var(--spacingHorizontalXXL, 24px);
+  font-family: var(--fontFamilyBase);
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The prototype relied on page-level resets from shared.css. Only the
+   handful that affect .w-* rendering are reproduced, scoped to the
+   feature so they cannot leak into the host application. */
+.w-dialog-surface *,
+.w-dialog-surface *::before,
+.w-dialog-surface *::after,
+.w-shell *,
+.w-shell *::before,
+.w-shell *::after {
+  box-sizing: border-box;
+}
+
+:where(.w-dialog-surface, .w-shell) :where(button) {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.w-dialog-surface a,
+.w-shell a {
+  color: var(--colorBrandForegroundLink);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.w-dialog-surface a:hover,
+.w-shell a:hover {
+  text-decoration: underline;
+}

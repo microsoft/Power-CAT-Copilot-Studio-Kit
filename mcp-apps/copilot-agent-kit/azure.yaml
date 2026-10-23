@@ -1,0 +1,9 @@
+name: agent-review-mcpapp
+metadata:
+  template: agent-review-mcpapp-azd
+
+services:
+  web:
+    project: .
+    language: ts
+    host: appservice

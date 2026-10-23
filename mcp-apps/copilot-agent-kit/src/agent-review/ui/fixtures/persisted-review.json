@@ -1,0 +1,3422 @@
+{
+  "reviewId": "00000000-0000-4000-8000-00000000a001",
+  "reviewDate": "2026-08-20T11:20:01Z",
+  "botId": "00000000-0000-4000-8000-000000000021",
+  "botName": "Modern Agent",
+  "overallScore": 67,
+  "durationMs": 177143,
+  "timestamp": "2026-08-20T11:20:01.445Z",
+  "reviewedBy": "Reviewer",
+  "agentsExperience": {
+    "model": {
+      "agentSettings": {
+        "instructions": "",
+        "modelSeries": "claude-opus-5",
+        "enableMemory": true,
+        "raw": {}
+      },
+      "tools": [
+        {
+          "name": "Display Photo Library",
+          "description": "Stores and retrieves photographs of built ZAVA in-store displays. Use this to save a finished display plan for the build team, or to retrieve the photograph of a display that has already been built.",
+          "kind": "ConnectorTool",
+          "authMode": "Invoker",
+          "connectionReference": "cr306_zavavisualmerchandiser_aDyscS.cr.shared_commondataserviceforapps",
+          "connectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+          "operationId": "GetItemWithOrganization",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.tool.GetarowbyIDfromselectedenvironment_C7x",
+          "componentId": "00000000-0000-4000-8000-000000000001",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000002"
+        },
+        {
+          "name": "Planogram Archive",
+          "description": "Retrieves the approved planogram layout for a ZAVA store bay. Use this when a display team needs the current approved layout for a specific store, bay, and campaign before planning or auditing a display.",
+          "kind": "ConnectorTool",
+          "authMode": "Invoker",
+          "connectionReference": "cr306_zavavisualmerchandiser_aDyscS.cr.shared_commondataserviceforapps",
+          "connectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+          "operationId": "ListRecordsWithOrganization",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.tool.Listrowsfromselectedenvironment_fxN",
+          "componentId": "00000000-0000-4000-8000-000000000003",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000004"
+        }
+      ],
+      "skills": [
+        {
+          "name": "display-audit",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+          "markdown": "---\nname: display-audit\ndescription: Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.\n---\n<!-- bic:source=blank -->\n# Display Audit\n\n## Steps\n\n1. Ask for the store, bay, and build date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve the build photographs from the \"Display Photo Library\" tool.\n4. Check the display against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Compare the photographs with the approved layout and standards. Report each issue with its evidence and required corrective action.\n6. If required evidence is unavailable, identify what is missing and stop the audit. Do not infer compliance.\n7. Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.\n\n## Boundaries\n\nDo not sign off a display that fails the audit or lacks required evidence. Do not alter the approved layout or visual standards. Do not invent compliance scores or tool results.\n\n## Examples\n\n- Audit the completed display in store 104, bay A12, built on August 18.\n- Check whether the latest bay photograph complies with its approved planogram.\n",
+          "frontmatterName": "display-audit",
+          "frontmatterDescription": "Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.",
+          "body": "<!-- bic:source=blank -->\n# Display Audit\n\n## Steps\n\n1. Ask for the store, bay, and build date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve the build photographs from the \"Display Photo Library\" tool.\n4. Check the display against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Compare the photographs with the approved layout and standards. Report each issue with its evidence and required corrective action.\n6. If required evidence is unavailable, identify what is missing and stop the audit. Do not infer compliance.\n7. Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.\n\n## Boundaries\n\nDo not sign off a display that fails the audit or lacks required evidence. Do not alter the approved layout or visual standards. Do not invent compliance scores or tool results.\n\n## Examples\n\n- Audit the completed display in store 104, bay A12, built on August 18.\n- Check whether the latest bay photograph complies with its approved planogram.",
+          "componentId": "00000000-0000-4000-8000-000000000005",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000006",
+          "source": "inline-markdown",
+          "resourceCount": 0
+        },
+        {
+          "name": "display-handover",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+          "markdown": "---\nname: display-handover\ndescription: Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.\n---\n<!-- bic:source=blank -->\n# Display Handover\n\n## Steps\n\n1. Ask for the store, bay, build date, recipient, and completed audit result.\n2. Retrieve the build photographs from the \"Display Photo Library\" tool.\n3. Retrieve the approved layout from the \"Planogram Archive\" tool.\n4. Confirm that the supplied audit result records a passing display and has no unresolved critical issues.\n5. Prepare a handover summary containing the layout reference, build photographs, audit status, outstanding actions, owners, and sign-off checklist.\n6. If the audit evidence is missing or the display failed, stop the handover and explain what must be resolved.\n7. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not sign off a failing display or one without sufficient audit evidence. Do not claim that a visit or task was scheduled unless a configured capability confirms it. Do not invent scores, evidence, or completion status.\n\n## Examples\n\n- Prepare the handover pack for the completed display in store 104, bay A12.\n- Hand over the approved display and identify any remaining actions for the store team.",
+          "frontmatterName": "display-handover",
+          "frontmatterDescription": "Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.",
+          "body": "<!-- bic:source=blank -->\n# Display Handover\n\n## Steps\n\n1. Ask for the store, bay, build date, recipient, and completed audit result.\n2. Retrieve the build photographs from the \"Display Photo Library\" tool.\n3. Retrieve the approved layout from the \"Planogram Archive\" tool.\n4. Confirm that the supplied audit result records a passing display and has no unresolved critical issues.\n5. Prepare a handover summary containing the layout reference, build photographs, audit status, outstanding actions, owners, and sign-off checklist.\n6. If the audit evidence is missing or the display failed, stop the handover and explain what must be resolved.\n7. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not sign off a failing display or one without sufficient audit evidence. Do not claim that a visit or task was scheduled unless a configured capability confirms it. Do not invent scores, evidence, or completion status.\n\n## Examples\n\n- Prepare the handover pack for the completed display in store 104, bay A12.\n- Hand over the approved display and identify any remaining actions for the store team.",
+          "componentId": "00000000-0000-4000-8000-000000000007",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000008",
+          "source": "inline-markdown",
+          "resourceCount": 0
+        },
+        {
+          "name": "display-planner",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+          "markdown": "---\nname: display-planner\ndescription: Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.\n---\n<!-- bic:source=blank -->\n# Display Planner\n\n## Steps\n\n1. Ask for the store, bay, campaign, store format, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n4. Identify any missing campaign, fixture, signage, or dimensional information before continuing.\n5. Produce a build sequence covering fixtures, facings, signage, dependencies, and validation checkpoints.\n6. Clearly distinguish approved requirements from assumptions or information that still needs confirmation.\n7. If the layout or standards are unavailable, stop and explain what is missing.\n\n## Boundaries\n\nDo not approve a layout that conflicts with the visual standards. Do not commit fixture spending, inventory, or scheduling. Do not claim that a plan was saved unless a configured capability confirms it.\n\n## Examples\n\n- Plan the summer campaign display for store 104, bay A12.\n- Produce a build sequence for an approved planogram and identify missing fixture information.",
+          "frontmatterName": "display-planner",
+          "frontmatterDescription": "Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.",
+          "body": "<!-- bic:source=blank -->\n# Display Planner\n\n## Steps\n\n1. Ask for the store, bay, campaign, store format, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n4. Identify any missing campaign, fixture, signage, or dimensional information before continuing.\n5. Produce a build sequence covering fixtures, facings, signage, dependencies, and validation checkpoints.\n6. Clearly distinguish approved requirements from assumptions or information that still needs confirmation.\n7. If the layout or standards are unavailable, stop and explain what is missing.\n\n## Boundaries\n\nDo not approve a layout that conflicts with the visual standards. Do not commit fixture spending, inventory, or scheduling. Do not claim that a plan was saved unless a configured capability confirms it.\n\n## Examples\n\n- Plan the summer campaign display for store 104, bay A12.\n- Produce a build sequence for an approved planogram and identify missing fixture information.",
+          "componentId": "00000000-0000-4000-8000-000000000009",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000010",
+          "source": "inline-markdown",
+          "resourceCount": 0
+        },
+        {
+          "name": "display-refresh",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+          "markdown": "---\nname: display-refresh\ndescription: Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.\n---\n<!-- bic:source=blank -->\n# Display Refresh\n\n## Steps\n\n1. Ask for the store, bay, current campaign, new campaign, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve current display photographs from the \"Display Photo Library\" tool.\n4. Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Ask the user to provide or identify the approved campaign assets and fixture details required for the refresh.\n6. Identify graphics, signage, facings, or other elements that must be replaced while preserving the fixture layout.\n7. Produce a refresh sequence with prerequisites, validation checkpoints, and unresolved dependencies.\n8. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not change the fixture layout or extend the campaign end date. Do not invent campaign assets, fixture compatibility, schedules, or task confirmations. If required information is unavailable, identify it and stop before presenting the refresh as ready.\n\n## Examples\n\n- Refresh the display in store 104, bay A12, for the autumn campaign.\n- Identify what must change for the new campaign while retaining the approved fixture layout.",
+          "frontmatterName": "display-refresh",
+          "frontmatterDescription": "Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.",
+          "body": "<!-- bic:source=blank -->\n# Display Refresh\n\n## Steps\n\n1. Ask for the store, bay, current campaign, new campaign, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve current display photographs from the \"Display Photo Library\" tool.\n4. Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Ask the user to provide or identify the approved campaign assets and fixture details required for the refresh.\n6. Identify graphics, signage, facings, or other elements that must be replaced while preserving the fixture layout.\n7. Produce a refresh sequence with prerequisites, validation checkpoints, and unresolved dependencies.\n8. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not change the fixture layout or extend the campaign end date. Do not invent campaign assets, fixture compatibility, schedules, or task confirmations. If required information is unavailable, identify it and stop before presenting the refresh as ready.\n\n## Examples\n\n- Refresh the display in store 104, bay A12, for the autumn campaign.\n- Identify what must change for the new campaign while retaining the approved fixture layout.",
+          "componentId": "00000000-0000-4000-8000-000000000011",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000012",
+          "source": "inline-markdown",
+          "resourceCount": 0
+        }
+      ],
+      "connectedAgents": [
+        {
+          "name": "ZAVA Store Ops Assistant",
+          "description": "Handles ZAVA store operations questions",
+          "botSchemaName": "cr306_zavastoreopsassistant_lmpyHR",
+          "historyTypeKind": "ConversationHistory",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.action.cr306_zavastoreopsassistant_lmpyHR_N_aq0r3P",
+          "componentId": "00000000-0000-4000-8000-000000000013",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000014"
+        }
+      ],
+      "knowledge": [
+        {
+          "name": "ZAVA-Visual-Merchandising-Standards-v4.2.docx",
+          "sourceKind": "SharePointKnowledgeSource",
+          "schemaname": "cr306_zavavisualmerchandiser_aDyscS.ZAVAVisualMerchandisingStandardsv42docx_WIUmOtcS9D7PM9eXi3JU6",
+          "componentId": "00000000-0000-4000-8000-000000000015",
+          "componentIdUnique": "00000000-0000-4000-8000-000000000016"
+        }
+      ],
+      "evaluationSets": [],
+      "testCases": [],
+      "multiTurnCases": [],
+      "triggers": [],
+      "unknownKinds": []
+    },
+    "findings": [
+      {
+        "id": "INS-09",
+        "family": "Instructions",
+        "severity": "warning",
+        "referenceId": "ms-authoring-instructions",
+        "ai": false,
+        "title": "Instructions contain invisible characters",
+        "fact": "hidden characters: U+200B (zero-width space) x1, U+200C (zero-width non-joiner) x1",
+        "why": "Zero-width and bidirectional control characters are invisible in the designer but remain in the model prompt, so instructions can differ from what a reviewer sees. They are a known way to hide injected text.",
+        "fix": "Retype the affected line, or paste as plain text, so the instructions contain only visible characters."
+      },
+      {
+        "id": "TOL-01",
+        "family": "Tools",
+        "severity": "info",
+        "referenceId": "ms-tools-skills",
+        "ai": false,
+        "title": "Tool inventory: 2 tools",
+        "fact": "ConnectorTool: 2 · McpTool: 0\nDisplay Photo Library → GetItemWithOrganization (Invoker)\nPlanogram Archive → ListRecordsWithOrganization (Invoker)",
+        "why": "The orchestrator selects tools by their name and description; a clear inventory is the basis for the checks below.",
+        "fix": "No action required — inventory shown for the review record."
+      },
+      {
+        "id": "KNW-01",
+        "family": "Knowledge",
+        "severity": "info",
+        "referenceId": "ms-knowledge-add",
+        "ai": false,
+        "title": "Knowledge inventory: 1 sources",
+        "fact": "ZAVA-Visual-Merchandising-Standards-v4.2.docx (SharePointKnowledgeSource)\nwebSearch: false",
+        "why": "Knowledge sources define what the agent can reference when answering.",
+        "fix": "No action required — inventory shown for the review record."
+      },
+      {
+        "id": "KNW-04",
+        "family": "Knowledge",
+        "severity": "info",
+        "referenceId": "ms-memory",
+        "ai": false,
+        "title": "Memory is enabled",
+        "fact": "agentSettings.enableMemory: true",
+        "why": "Memory persists user preferences per user across sessions.",
+        "fix": "Confirm memory's per-user persistence fits your data-handling requirements."
+      },
+      {
+        "id": "MDL-01",
+        "family": "Model",
+        "severity": "info",
+        "referenceId": "ms-select-model",
+        "ai": false,
+        "title": "Model: Claude Opus 5",
+        "fact": "agentSettings.model.series: claude-opus-5",
+        "why": "The selected model affects reasoning depth, response quality, and speed.",
+        "fix": "No action required — surfaced for the review record."
+      },
+      {
+        "id": "CON-04",
+        "family": "Connected agents",
+        "severity": "info",
+        "referenceId": "ms-connected-agent",
+        "ai": false,
+        "title": "Connected agents: 1",
+        "fact": "ZAVA Store Ops Assistant → cr306_zavastoreopsassistant_lmpyHR (history: ConversationHistory)",
+        "why": "Connected agents let the primary agent delegate specialized tasks; conversation history passing is surfaced for review.",
+        "fix": "No action required — inventory shown for the review record."
+      },
+      {
+        "id": "EVL-01",
+        "family": "Evaluation",
+        "severity": "warning",
+        "referenceId": "ms-eval-intro",
+        "ai": false,
+        "title": "No evaluation test set exists",
+        "fact": "EvaluationSet components: 0",
+        "why": "Evaluations validate agent behavior before publishing.",
+        "fix": "Create a test set in the Evaluate tab and run it before publishing."
+      },
+      {
+        "id": "LCY-01",
+        "family": "Lifecycle",
+        "severity": "info",
+        "referenceId": "ms-classic-vs-new",
+        "ai": false,
+        "title": "This agent runs on the GitHub Copilot harness",
+        "fact": "bot.configuration contains agentSettings",
+        "why": "The GitHub Copilot and standard harnesses expose different capabilities, and an agent cannot be moved between them.",
+        "fix": "Check the harness comparison before you depend on a capability the standard harness provides."
+      },
+      {
+        "id": "LCY-02",
+        "family": "Lifecycle",
+        "severity": "info",
+        "referenceId": "ms-agents-overview",
+        "ai": false,
+        "title": "Agent composition",
+        "fact": "2 tools · 4 skills · 1 connected agents · 1 knowledge sources · 0 evaluation sets",
+        "why": "A GitHub Copilot agent is organized around instructions, knowledge, tools, skills, model, and connected agents.",
+        "fix": "No action required — surfaced for the review record."
+      },
+      {
+        "id": "INS-02",
+        "family": "Instructions",
+        "severity": "info",
+        "referenceId": "ms-authoring-instructions",
+        "ai": true,
+        "title": "Instructions cover all five documented elements",
+        "fact": "role, tone, boundaries, ambiguity handling, and escalation are all present",
+        "why": "Microsoft's authoring guidance lists these five elements for effective instructions.",
+        "fix": "No action required — surfaced as a positive finding."
+      }
+    ],
+    "skillEvaluations": [],
+    "bundleRetrievalIssues": [],
+    "crossSkillOrchestration": {
+      "status": "complete",
+      "findings": [
+        {
+          "id": "XSK-04:display-audit+display-handover+display-planner+display-refresh",
+          "ruleId": "XSK-04",
+          "type": "coverage-gap",
+          "severity": "medium",
+          "title": "Capability Coverage Gap",
+          "skills": [
+            "display-audit",
+            "display-handover",
+            "display-planner",
+            "display-refresh"
+          ],
+          "evidence": "Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.",
+          "rationale": "The agent's stated purpose implies a capability that no skill covers, so requests in that area will fail or fall back to generic behaviour.",
+          "recommendation": "Add a skill (or extend an existing one) to cover the missing capability implied by the agent's instructions.",
+          "fixSteps": [
+            {
+              "order": 1,
+              "action": "Confirm the agent instructions imply a capability with no matching skill."
+            },
+            {
+              "order": 2,
+              "action": "Author a skill that covers the gap, or note it as out of scope."
+            }
+          ],
+          "referenceIds": [
+            "ms-skills-overview"
+          ],
+          "confidence": "low"
+        }
+      ],
+      "summary": "The four-skill set (display-planner, display-refresh, display-audit, display-handover) is cleanly partitioned by lifecycle stage with explicit \"do not use for\" exclusions in each description, so no overlap, redundancy, or contradiction was found between them, and heading/structure conventions (Steps/Boundaries/Examples) are consistent across all four files. Two set-level issues were identified: (1) a coupling between display-handover and display-audit — display-handover's workflow requires \"the supplied audit result\" and explicitly checks that it \"records a passing display and has no unresolved critical issues,\" meaning it depends on display-audit's prior output rather than being independently invokable; (2) a coverage gap — the parent agent's escalation guidance requires stating that Regional Visual Manager approval is needed when a display can't meet the standard in the available space or a vendor requests an exception, but none of the four skills implement or reference any such escalation path; each skill's only implemented escalation channel routes to the \"ZAVA Store Ops Assistant\" connected agent for unresolved operational actions, leaving the Regional Visual Manager exception-approval capability uncovered by any skill.",
+      "referenceIds": [
+        "ms-skills-overview"
+      ]
+    },
+    "skillBundleReviews": [
+      {
+        "schemaVersion": 1,
+        "skillComponentId": "00000000-0000-4000-8000-000000000005",
+        "skillComponentUniqueId": "00000000-0000-4000-8000-000000000006",
+        "skillSchemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "skillName": "display-audit",
+        "bundleHash": "a93027eca395d1e64a8529dceff18914ecf17246fd038cb752c34ba89e381ce8",
+        "reviewInputHash": "363aa86d",
+        "mode": "deep",
+        "status": "complete",
+        "startedAt": "2026-08-20T11:17:04.286Z",
+        "completedAt": "2026-08-20T11:20:01.429Z",
+        "promptVersions": {
+          "standard": "00000000-0000-4000-8000-000000000017",
+          "resource": "00000000-0000-4000-8000-000000000018",
+          "fileSynthesis": "00000000-0000-4000-8000-000000000019",
+          "bundleSynthesis": "00000000-0000-4000-8000-000000000020"
+        },
+        "manifest": [],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1229,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "retrievalIssues": [],
+        "deterministic": {
+          "findings": [],
+          "integrity": {
+            "referencedButMissing": [],
+            "presentButUnreferenced": [],
+            "progressiveDisclosureOk": true,
+            "findings": [],
+            "referenceGraph": []
+          }
+        },
+        "standard": {
+          "status": "complete",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 93,
+              "rationale": "The frontmatter name and description precisely describe an audit-only workflow, explicitly excluding planning/refreshing, and the seven numbered steps proceed in a clear logical order from information gathering to escalation."
+            },
+            {
+              "key": "Actionability",
+              "score": 95,
+              "rationale": "Every named capability the skill invokes (Planogram Archive, Display Photo Library, the standards docx, ZAVA Store Ops Assistant) is present in configuredCapabilities, so each step is executable as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 94,
+              "rationale": "The skill confines itself strictly to auditing a completed display, its Boundaries section reinforces the agent's Out-of-Scope prohibition on approving failing displays, and it correctly hands off operational follow-up rather than performing it directly."
+            },
+            {
+              "key": "Composability",
+              "score": 90,
+              "rationale": "The skill is self-contained, relying only on its own listed tools and a connected agent for escalation, without referencing sibling skills like display-handover or display-planner or depending on undocumented hidden state."
+            }
+          ],
+          "findings": [],
+          "resourcePurposeAlignment": [],
+          "operationalAssumptions": [
+            {
+              "statement": "The skill assumes the user or requester can supply the store, bay, and build date before the audit can proceed.",
+              "evidence": "1. Ask for the store, bay, and build date."
+            },
+            {
+              "statement": "The skill assumes build photographs of the completed display exist and are retrievable.",
+              "evidence": "3. Retrieve the build photographs from the \"Display Photo Library\" tool."
+            },
+            {
+              "statement": "The skill assumes an approved layout/planogram exists in the archive for the given bay.",
+              "evidence": "2. Retrieve the approved layout from the \"Planogram Archive\" tool."
+            }
+          ],
+          "unreviewedResources": [],
+          "summary": "The display-audit skill defines a clear, ordered audit workflow whose every invoked capability (Planogram Archive, Display Photo Library, the standards docx, and ZAVA Store Ops Assistant) is present in configuredCapabilities, and its boundaries align with the parent agent's out-of-scope rules. No resource files were provided in the bundle, and no SKL-09 or SKL-10 conditions were found.",
+          "referenceIds": [],
+          "capabilityEdges": [
+            {
+              "capabilityName": "Planogram Archive",
+              "usage": "invoke",
+              "evidence": "2. Retrieve the approved layout from the \"Planogram Archive\" tool.",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "Display Photo Library",
+              "usage": "invoke",
+              "evidence": "3. Retrieve the build photographs from the \"Display Photo Library\" tool.",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "ZAVA-Visual-Merchandising-Standards-v4.2.docx",
+              "usage": "reference",
+              "evidence": "4. Check the display against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "ZAVA Store Ops Assistant",
+              "usage": "delegate",
+              "evidence": "7. Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.",
+              "confidence": "high"
+            }
+          ],
+          "missingCapabilities": []
+        },
+        "deep": {
+          "status": "complete",
+          "synthesisLevel": "final",
+          "resources": [],
+          "crossFileChains": [],
+          "findings": [],
+          "operationalAssumptions": [],
+          "summary": "The skill has no supporting resources to analyse; the review covers its instructions only.",
+          "referenceIds": []
+        },
+        "findings": [],
+        "scores": {
+          "quality": {
+            "value": 93,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "coverage": {
+          "resourcesTotal": 0,
+          "resourcesReviewed": 0,
+          "resourcesPartial": 0,
+          "resourcesFailed": 0,
+          "resourcesSkipped": 0,
+          "resourcesOversized": 0,
+          "resourcesCancelled": 0,
+          "chunksTotal": 0,
+          "chunksReviewed": 0
+        },
+        "citations": []
+      },
+      {
+        "schemaVersion": 1,
+        "skillComponentId": "00000000-0000-4000-8000-000000000007",
+        "skillComponentUniqueId": "00000000-0000-4000-8000-000000000008",
+        "skillSchemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "skillName": "display-handover",
+        "bundleHash": "812fc19ec79d2d62391d7f2dd795f830a82688133ecc280ff57eed52a8f00a09",
+        "reviewInputHash": "20a6ae05",
+        "mode": "deep",
+        "status": "complete",
+        "startedAt": "2026-08-20T11:17:04.286Z",
+        "completedAt": "2026-08-20T11:20:01.429Z",
+        "promptVersions": {
+          "standard": "00000000-0000-4000-8000-000000000017",
+          "resource": "00000000-0000-4000-8000-000000000018",
+          "fileSynthesis": "00000000-0000-4000-8000-000000000019",
+          "bundleSynthesis": "00000000-0000-4000-8000-000000000020"
+        },
+        "manifest": [],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1356,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "retrievalIssues": [],
+        "deterministic": {
+          "findings": [],
+          "integrity": {
+            "referencedButMissing": [],
+            "presentButUnreferenced": [],
+            "progressiveDisclosureOk": true,
+            "findings": [],
+            "referenceGraph": []
+          }
+        },
+        "standard": {
+          "status": "complete",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 92,
+              "rationale": "The frontmatter description precisely matches the seven ordered steps, which move from intake through evidence retrieval, validation, summary assembly, and escalation without ambiguity."
+            },
+            {
+              "key": "Actionability",
+              "score": 90,
+              "rationale": "Every named tool (Display Photo Library, Planogram Archive) and connected agent (ZAVA Store Ops Assistant) invoked in the steps is present in configuredCapabilities, so each step is executable as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 95,
+              "rationale": "The skill confines itself to handing over a completed, audited display and explicitly excludes planning, building, or auditing, matching the agent's in-scope item 'Preparing a handover summary for a completed and audited display'."
+            },
+            {
+              "key": "Composability",
+              "score": 75,
+              "rationale": "The skill is self-contained in its own tool calls but silently assumes an audit has already been produced elsewhere (by the sibling display-audit skill) rather than invoking or verifying that dependency itself."
+            }
+          ],
+          "findings": [],
+          "resourcePurposeAlignment": [],
+          "operationalAssumptions": [
+            {
+              "statement": "Assumes a completed audit result already exists and is supplied by the requester before handover begins.",
+              "evidence": "Ask for the store, bay, build date, recipient, and completed audit result.",
+              "resourcePath": "SKILL.md"
+            },
+            {
+              "statement": "Assumes the Display Photo Library tool holds photographs of the finished build for the specified store/bay.",
+              "evidence": "Retrieve the build photographs from the \"Display Photo Library\" tool.",
+              "resourcePath": "SKILL.md"
+            },
+            {
+              "statement": "Assumes the Planogram Archive tool holds the approved layout to reference in the handover summary.",
+              "evidence": "Retrieve the approved layout from the \"Planogram Archive\" tool.",
+              "resourcePath": "SKILL.md"
+            }
+          ],
+          "unreviewedResources": [],
+          "summary": "The display-handover skill's steps invoke only capabilities present in configuredCapabilities (Display Photo Library, Planogram Archive, ZAVA Store Ops Assistant), and no contradictions with visible resources were found. No SKL-09 or SKL-10 findings apply.",
+          "referenceIds": [],
+          "capabilityEdges": [
+            {
+              "capabilityName": "Display Photo Library",
+              "usage": "read",
+              "evidence": "Retrieve the build photographs from the \"Display Photo Library\" tool.",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "Planogram Archive",
+              "usage": "read",
+              "evidence": "Retrieve the approved layout from the \"Planogram Archive\" tool.",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "ZAVA Store Ops Assistant",
+              "usage": "delegate",
+              "evidence": "Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.",
+              "confidence": "high"
+            }
+          ],
+          "missingCapabilities": []
+        },
+        "deep": {
+          "status": "complete",
+          "synthesisLevel": "final",
+          "resources": [],
+          "crossFileChains": [],
+          "findings": [],
+          "operationalAssumptions": [],
+          "summary": "The skill has no supporting resources to analyse; the review covers its instructions only.",
+          "referenceIds": []
+        },
+        "findings": [],
+        "scores": {
+          "quality": {
+            "value": 88,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "coverage": {
+          "resourcesTotal": 0,
+          "resourcesReviewed": 0,
+          "resourcesPartial": 0,
+          "resourcesFailed": 0,
+          "resourcesSkipped": 0,
+          "resourcesOversized": 0,
+          "resourcesCancelled": 0,
+          "chunksTotal": 0,
+          "chunksReviewed": 0
+        },
+        "citations": []
+      },
+      {
+        "schemaVersion": 1,
+        "skillComponentId": "00000000-0000-4000-8000-000000000009",
+        "skillComponentUniqueId": "00000000-0000-4000-8000-000000000010",
+        "skillSchemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "skillName": "display-planner",
+        "bundleHash": "703673827db0819ad65e069037604258b59a1c1ba0366a64b6c4be444b13142b",
+        "reviewInputHash": "2b403756",
+        "mode": "deep",
+        "status": "complete",
+        "startedAt": "2026-08-20T11:17:04.286Z",
+        "completedAt": "2026-08-20T11:20:01.429Z",
+        "promptVersions": {
+          "standard": "00000000-0000-4000-8000-000000000017",
+          "resource": "00000000-0000-4000-8000-000000000018",
+          "fileSynthesis": "00000000-0000-4000-8000-000000000019",
+          "bundleSynthesis": "00000000-0000-4000-8000-000000000020"
+        },
+        "manifest": [],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1267,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "retrievalIssues": [],
+        "deterministic": {
+          "findings": [],
+          "integrity": {
+            "referencedButMissing": [],
+            "presentButUnreferenced": [],
+            "progressiveDisclosureOk": true,
+            "findings": [],
+            "referenceGraph": []
+          }
+        },
+        "standard": {
+          "status": "complete",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 90,
+              "rationale": "The frontmatter name and description accurately describe a new-display planning workflow, explicitly excluding audit/refresh/handover, and the numbered steps proceed in a logical, unambiguous order."
+            },
+            {
+              "key": "Actionability",
+              "score": 90,
+              "rationale": "Every capability the steps explicitly invoke (Planogram Archive tool and the ZAVA-Visual-Merchandising-Standards-v4.2.docx check) is present in configuredCapabilities, so the agent can execute each step as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 92,
+              "rationale": "The skill confines itself to planning a new display, explicitly refuses approval, spend, and completion claims, and its exclusions align cleanly with the sibling skills' distinct remits (audit, refresh, handover)."
+            },
+            {
+              "key": "Composability",
+              "score": 85,
+              "rationale": "The skill is self-contained, using only its own listed tool/document references without invoking sibling skills or depending on undocumented hidden state, though it implicitly relies on those siblings existing for excluded activities."
+            }
+          ],
+          "findings": [],
+          "resourcePurposeAlignment": [],
+          "operationalAssumptions": [
+            {
+              "statement": "The skill assumes the Planogram Archive tool is reachable and returns an approved layout for the requested store/bay.",
+              "evidence": "Retrieve the approved layout from the \"Planogram Archive\" tool."
+            },
+            {
+              "statement": "The skill assumes the ZAVA-Visual-Merchandising-Standards-v4.2.docx document is accessible for compliance checking.",
+              "evidence": "Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\"."
+            },
+            {
+              "statement": "The skill assumes the requester will supply store, bay, campaign, store format, and completion date before planning can proceed.",
+              "evidence": "Ask for the store, bay, campaign, store format, and required completion date."
+            }
+          ],
+          "unreviewedResources": [],
+          "summary": "The display-planner skill defines a clear, in-scope workflow for planning new ZAVA displays, invoking only capabilities (Planogram Archive, the visual standards document) that are present in configuredCapabilities, with no missing-capability or contradiction issues found. No bundled resource files were supplied for this component.",
+          "referenceIds": [],
+          "capabilityEdges": [
+            {
+              "capabilityName": "Planogram Archive",
+              "usage": "invoke",
+              "evidence": "Retrieve the approved layout from the \"Planogram Archive\" tool.",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "ZAVA-Visual-Merchandising-Standards-v4.2.docx",
+              "usage": "reference",
+              "evidence": "Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".",
+              "confidence": "high"
+            }
+          ],
+          "missingCapabilities": []
+        },
+        "deep": {
+          "status": "complete",
+          "synthesisLevel": "final",
+          "resources": [],
+          "crossFileChains": [],
+          "findings": [],
+          "operationalAssumptions": [],
+          "summary": "The skill has no supporting resources to analyse; the review covers its instructions only.",
+          "referenceIds": []
+        },
+        "findings": [],
+        "scores": {
+          "quality": {
+            "value": 89,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "coverage": {
+          "resourcesTotal": 0,
+          "resourcesReviewed": 0,
+          "resourcesPartial": 0,
+          "resourcesFailed": 0,
+          "resourcesSkipped": 0,
+          "resourcesOversized": 0,
+          "resourcesCancelled": 0,
+          "chunksTotal": 0,
+          "chunksReviewed": 0
+        },
+        "citations": []
+      },
+      {
+        "schemaVersion": 1,
+        "skillComponentId": "00000000-0000-4000-8000-000000000011",
+        "skillComponentUniqueId": "00000000-0000-4000-8000-000000000012",
+        "skillSchemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "skillName": "display-refresh",
+        "bundleHash": "a31bafe32f45afa648b424e6591763dd60e1abce118f9dc5ee011fe8fb178470",
+        "reviewInputHash": "3a698efd",
+        "mode": "deep",
+        "status": "complete",
+        "startedAt": "2026-08-20T11:17:04.286Z",
+        "completedAt": "2026-08-20T11:20:01.429Z",
+        "promptVersions": {
+          "standard": "00000000-0000-4000-8000-000000000017",
+          "resource": "00000000-0000-4000-8000-000000000018",
+          "fileSynthesis": "00000000-0000-4000-8000-000000000019",
+          "bundleSynthesis": "00000000-0000-4000-8000-000000000020"
+        },
+        "manifest": [],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1475,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "retrievalIssues": [],
+        "deterministic": {
+          "findings": [],
+          "integrity": {
+            "referencedButMissing": [],
+            "presentButUnreferenced": [],
+            "progressiveDisclosureOk": true,
+            "findings": [],
+            "referenceGraph": []
+          }
+        },
+        "standard": {
+          "status": "complete",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 90,
+              "rationale": "The frontmatter name and description precisely scope the skill to refreshing an existing display without a fixture rebuild, and the eight steps proceed in a logical, unambiguous order from intake to escalation."
+            },
+            {
+              "key": "Actionability",
+              "score": 92,
+              "rationale": "Every retrieval and delegation step names a capability (Planogram Archive, Display Photo Library, the standards docx, ZAVA Store Ops Assistant) that is present in configuredCapabilities, so the agent can execute each step as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 93,
+              "rationale": "The skill restricts itself to campaign-asset refresh while explicitly excluding fixture-layout changes and end-date extension, matching the agent's stated in-scope item \"Refreshing an existing display for a new campaign\"."
+            },
+            {
+              "key": "Composability",
+              "score": 85,
+              "rationale": "The skill is self-contained and does not reference sibling skills, though it hands off unresolved actions to an external connected agent rather than resolving them internally."
+            }
+          ],
+          "findings": [],
+          "resourcePurposeAlignment": [],
+          "operationalAssumptions": [
+            {
+              "statement": "Assumes the Planogram Archive tool holds the currently approved layout for the specified bay.",
+              "evidence": "Retrieve the approved layout from the \"Planogram Archive\" tool.",
+              "resourcePath": "SKILL.md"
+            },
+            {
+              "statement": "Assumes the Display Photo Library holds up-to-date photographs of the current display.",
+              "evidence": "Retrieve current display photographs from the \"Display Photo Library\" tool.",
+              "resourcePath": "SKILL.md"
+            },
+            {
+              "statement": "Assumes the ZAVA-Visual-Merchandising-Standards-v4.2.docx is accessible for compliance checking.",
+              "evidence": "Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".",
+              "resourcePath": "SKILL.md"
+            },
+            {
+              "statement": "Assumes the ZAVA Store Ops Assistant connected agent is available to receive escalations.",
+              "evidence": "Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.",
+              "resourcePath": "SKILL.md"
+            }
+          ],
+          "unreviewedResources": [],
+          "summary": "The display-refresh skill uses only capabilities present in configuredCapabilities (Planogram Archive, Display Photo Library, the standards docx, and the ZAVA Store Ops Assistant) and stays within its stated remit of campaign-only refreshes without fixture changes. No SKL-09 or SKL-10 issues were found, and no resource files were provided in this bundle.",
+          "referenceIds": [],
+          "capabilityEdges": [
+            {
+              "capabilityName": "Planogram Archive",
+              "usage": "read",
+              "evidence": "Retrieve the approved layout from the \"Planogram Archive\" tool.",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "Display Photo Library",
+              "usage": "read",
+              "evidence": "Retrieve current display photographs from the \"Display Photo Library\" tool.",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "ZAVA-Visual-Merchandising-Standards-v4.2.docx",
+              "usage": "reference",
+              "evidence": "Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".",
+              "confidence": "high"
+            },
+            {
+              "capabilityName": "ZAVA Store Ops Assistant",
+              "usage": "delegate",
+              "evidence": "Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.",
+              "confidence": "high"
+            }
+          ],
+          "missingCapabilities": []
+        },
+        "deep": {
+          "status": "complete",
+          "synthesisLevel": "final",
+          "resources": [],
+          "crossFileChains": [],
+          "findings": [],
+          "operationalAssumptions": [],
+          "summary": "The skill has no supporting resources to analyse; the review covers its instructions only.",
+          "referenceIds": []
+        },
+        "findings": [],
+        "scores": {
+          "quality": {
+            "value": 90,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "coverage": {
+          "resourcesTotal": 0,
+          "resourcesReviewed": 0,
+          "resourcesPartial": 0,
+          "resourcesFailed": 0,
+          "resourcesSkipped": 0,
+          "resourcesOversized": 0,
+          "resourcesCancelled": 0,
+          "chunksTotal": 0,
+          "chunksReviewed": 0
+        },
+        "citations": []
+      }
+    ],
+    "skillReviewMode": "deep",
+    "coverage": [
+      {
+        "name": "Display Photo Library",
+        "kind": "Connector tool",
+        "cases": 0
+      },
+      {
+        "name": "Planogram Archive",
+        "kind": "Connector tool",
+        "cases": 0
+      },
+      {
+        "name": "display-audit",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "display-handover",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "display-planner",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "display-refresh",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "ZAVA Store Ops Assistant",
+        "kind": "Connected agent",
+        "cases": 0
+      }
+    ],
+    "coverageBasis": "inferred",
+    "coverageSets": [],
+    "score": {
+      "grounded": 67,
+      "passed": 16,
+      "warnings": 2,
+      "errors": 0,
+      "evaluated": 25,
+      "basisVersion": 2,
+      "status": "complete",
+      "pillars": [
+        {
+          "pillar": "Evaluation",
+          "weight": 30,
+          "applicable": true,
+          "score": 0,
+          "complete": true
+        },
+        {
+          "pillar": "Instructions",
+          "weight": 25,
+          "applicable": true,
+          "score": 88,
+          "complete": true
+        },
+        {
+          "pillar": "Skills",
+          "weight": 15,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        },
+        {
+          "pillar": "Tools",
+          "weight": 12,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        },
+        {
+          "pillar": "Knowledge",
+          "weight": 8,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        },
+        {
+          "pillar": "Orchestration",
+          "weight": 10,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        }
+      ]
+    },
+    "analysisStatus": {
+      "instructionCoverage": {
+        "state": "complete"
+      }
+    },
+    "ruleResults": [
+      {
+        "key": "INS-01",
+        "ruleId": "INS-01",
+        "family": "Instructions",
+        "status": "passed"
+      },
+      {
+        "key": "INS-07",
+        "ruleId": "INS-07",
+        "family": "Instructions",
+        "status": "passed"
+      },
+      {
+        "key": "INS-08",
+        "ruleId": "INS-08",
+        "family": "Instructions",
+        "status": "passed"
+      },
+      {
+        "key": "INS-09",
+        "ruleId": "INS-09",
+        "family": "Instructions",
+        "status": "warning"
+      },
+      {
+        "key": "TOL-01",
+        "ruleId": "TOL-01",
+        "family": "Tools",
+        "status": "info",
+        "kind": "record"
+      },
+      {
+        "key": "TOL-02",
+        "ruleId": "TOL-02",
+        "family": "Tools",
+        "status": "passed"
+      },
+      {
+        "key": "TOL-03",
+        "ruleId": "TOL-03",
+        "family": "Tools",
+        "status": "passed"
+      },
+      {
+        "key": "TOL-04",
+        "ruleId": "TOL-04",
+        "family": "Tools",
+        "status": "passed"
+      },
+      {
+        "key": "TOL-05",
+        "ruleId": "TOL-05",
+        "family": "Tools",
+        "status": "passed"
+      },
+      {
+        "key": "SKL-08",
+        "ruleId": "SKL-08",
+        "family": "Skills",
+        "status": "passed"
+      },
+      {
+        "key": "SKL-09",
+        "ruleId": "SKL-09",
+        "family": "Skills",
+        "status": "passed"
+      },
+      {
+        "key": "KNW-01",
+        "ruleId": "KNW-01",
+        "family": "Knowledge",
+        "status": "info",
+        "kind": "record"
+      },
+      {
+        "key": "KNW-02",
+        "ruleId": "KNW-02",
+        "family": "Knowledge",
+        "status": "passed"
+      },
+      {
+        "key": "KNW-03",
+        "ruleId": "KNW-03",
+        "family": "Knowledge",
+        "status": "passed"
+      },
+      {
+        "key": "KNW-04",
+        "ruleId": "KNW-04",
+        "family": "Knowledge",
+        "status": "info"
+      },
+      {
+        "key": "MDL-01",
+        "ruleId": "MDL-01",
+        "family": "Model",
+        "status": "info",
+        "kind": "record"
+      },
+      {
+        "key": "CON-03",
+        "ruleId": "CON-03",
+        "family": "Connected agents",
+        "status": "passed"
+      },
+      {
+        "key": "CON-04",
+        "ruleId": "CON-04",
+        "family": "Connected agents",
+        "status": "info",
+        "kind": "record"
+      },
+      {
+        "key": "EVL-01",
+        "ruleId": "EVL-01",
+        "family": "Evaluation",
+        "status": "warning"
+      },
+      {
+        "key": "EVL-03",
+        "ruleId": "EVL-03",
+        "family": "Evaluation",
+        "status": "passed",
+        "kind": "record"
+      },
+      {
+        "key": "EVL-04",
+        "ruleId": "EVL-04",
+        "family": "Evaluation",
+        "status": "passed"
+      },
+      {
+        "key": "EVL-05",
+        "ruleId": "EVL-05",
+        "family": "Evaluation",
+        "status": "passed"
+      },
+      {
+        "key": "EVL-06",
+        "ruleId": "EVL-06",
+        "family": "Evaluation",
+        "status": "passed"
+      },
+      {
+        "key": "LCY-01",
+        "ruleId": "LCY-01",
+        "family": "Lifecycle",
+        "status": "info",
+        "kind": "record"
+      },
+      {
+        "key": "LCY-02",
+        "ruleId": "LCY-02",
+        "family": "Lifecycle",
+        "status": "info",
+        "kind": "record"
+      },
+      {
+        "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-01",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-02",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-03",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-05",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-07",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-11",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-12",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-13",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "ruleId": "SKL-14",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-audit",
+        "subjectId": "00000000-0000-4000-8000-000000000006"
+      },
+      {
+        "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-01",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-02",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-03",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-05",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-07",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-11",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-12",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-13",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "ruleId": "SKL-14",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-handover",
+        "subjectId": "00000000-0000-4000-8000-000000000008"
+      },
+      {
+        "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-01",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-02",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-03",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-05",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-07",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-11",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-12",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-13",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "ruleId": "SKL-14",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-planner",
+        "subjectId": "00000000-0000-4000-8000-000000000010"
+      },
+      {
+        "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-01",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-02",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-03",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-05",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-07",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-11",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-12",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-13",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      },
+      {
+        "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "ruleId": "SKL-14",
+        "family": "Skills",
+        "status": "passed",
+        "subject": "display-refresh",
+        "subjectId": "00000000-0000-4000-8000-000000000012"
+      }
+    ],
+    "persistenceIssues": []
+  },
+  "expectedViewModel": {
+    "summary": {
+      "agentName": "Travel Assistant",
+      "score": 67,
+      "passed": 51,
+      "warnings": 2,
+      "errors": 0,
+      "infos": 8,
+      "notApplicable": 0,
+      "countsAreChecks": true,
+      "rulesEvaluated": 54,
+      "model": "Claude Opus 5",
+      "memoryEnabled": true,
+      "webSearchEnabled": false,
+      "duration": "00:42",
+      "reviewedBy": "You",
+      "refCounts": {
+        "learn": 10,
+        "owasp": 0,
+        "anthropic": 0,
+        "mitreCwe": 0
+      },
+      "capabilitiesCovered": 0,
+      "capabilitiesTotal": 7,
+      "testCases": 0,
+      "multiTurnCases": 0,
+      "graders": "none",
+      "evaluationSets": 0,
+      "scoreBasisVersion": 2,
+      "scoreStatus": "complete",
+      "pillars": [
+        {
+          "pillar": "Evaluation",
+          "weight": 30,
+          "applicable": true,
+          "score": 0,
+          "complete": true
+        },
+        {
+          "pillar": "Instructions",
+          "weight": 25,
+          "applicable": true,
+          "score": 88,
+          "complete": true
+        },
+        {
+          "pillar": "Skills",
+          "weight": 15,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        },
+        {
+          "pillar": "Tools",
+          "weight": 12,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        },
+        {
+          "pillar": "Knowledge",
+          "weight": 8,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        },
+        {
+          "pillar": "Orchestration",
+          "weight": 10,
+          "applicable": true,
+          "score": 100,
+          "complete": true
+        }
+      ],
+      "instructionCoverageStatus": {
+        "state": "complete"
+      }
+    },
+    "findings": [
+      {
+        "id": "INS-09",
+        "sev": "warning",
+        "family": "Instructions",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "Instructions contain invisible characters",
+        "sub": "hidden characters: U+200B (zero-width space) x1, U+200C (zero-width non-joiner) x1",
+        "fact": "hidden characters: U+200B (zero-width space) x1, U+200C (zero-width non-joiner) x1",
+        "why": "Zero-width and bidirectional control characters are invisible in the designer but remain in the model prompt, so instructions can differ from what a reviewer sees. They are a known way to hide injected text.",
+        "fix": "Retype the affected line, or paste as plain text, so the instructions contain only visible characters.",
+        "dimension": "safety",
+        "refTitle": "Configure agent details and instructions",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-authoring-instructions",
+            "title": "Configure agent details and instructions",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "TOL-01",
+        "sev": "info",
+        "family": "Tools",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "Tool inventory: 2 tools",
+        "sub": "ConnectorTool: 2 · McpTool: 0",
+        "fact": "ConnectorTool: 2 · McpTool: 0\nDisplay Photo Library → GetItemWithOrganization (Invoker)\nPlanogram Archive → ListRecordsWithOrganization (Invoker)",
+        "why": "The orchestrator selects tools by their name and description; a clear inventory is the basis for the checks below.",
+        "fix": "No action required — inventory shown for the review record.",
+        "dimension": "safety",
+        "refTitle": "Build an agent",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/build-overview",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-tools-skills",
+            "title": "Build an agent",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/build-overview",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "KNW-01",
+        "sev": "info",
+        "family": "Knowledge",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "Knowledge inventory: 1 sources",
+        "sub": "ZAVA-Visual-Merchandising-Standards-v4.2.docx (SharePointKnowledgeSource)",
+        "fact": "ZAVA-Visual-Merchandising-Standards-v4.2.docx (SharePointKnowledgeSource)\nwebSearch: false",
+        "why": "Knowledge sources define what the agent can reference when answering.",
+        "fix": "No action required — inventory shown for the review record.",
+        "dimension": "safety",
+        "refTitle": "Add knowledge sources to an agent",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-knowledge-add",
+            "title": "Add knowledge sources to an agent",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "KNW-04",
+        "sev": "info",
+        "family": "Knowledge",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "Memory is enabled",
+        "sub": "agentSettings.enableMemory: true",
+        "fact": "agentSettings.enableMemory: true",
+        "why": "Memory persists user preferences per user across sessions.",
+        "fix": "Confirm memory's per-user persistence fits your data-handling requirements.",
+        "dimension": "safety",
+        "refTitle": "Memory (preview)",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/memory-overview",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-memory",
+            "title": "Memory (preview)",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/memory-overview",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "MDL-01",
+        "sev": "info",
+        "family": "Model",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "Model: Claude Opus 5",
+        "sub": "agentSettings.model.series: claude-opus-5",
+        "fact": "agentSettings.model.series: claude-opus-5",
+        "why": "The selected model affects reasoning depth, response quality, and speed.",
+        "fix": "No action required — surfaced for the review record.",
+        "dimension": "safety",
+        "refTitle": "Select a model for an agent",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-select-agent-model",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-select-model",
+            "title": "Select a model for an agent",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-select-agent-model",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "CON-04",
+        "sev": "info",
+        "family": "Connected agents",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "Connected agents: 1",
+        "sub": "ZAVA Store Ops Assistant → cr306_zavastoreopsassistant_lmpyHR (history: ConversationHistory)",
+        "fact": "ZAVA Store Ops Assistant → cr306_zavastoreopsassistant_lmpyHR (history: ConversationHistory)",
+        "why": "Connected agents let the primary agent delegate specialized tasks; conversation history passing is surfaced for review.",
+        "fix": "No action required — inventory shown for the review record.",
+        "dimension": "safety",
+        "refTitle": "Add a connected agent to an agent",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/add-agent-connected",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-connected-agent",
+            "title": "Add a connected agent to an agent",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/add-agent-connected",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "EVL-01",
+        "sev": "warning",
+        "family": "Evaluation",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "No evaluation test set exists",
+        "sub": "EvaluationSet components: 0",
+        "fact": "EvaluationSet components: 0",
+        "why": "Evaluations validate agent behavior before publishing.",
+        "fix": "Create a test set in the Evaluate tab and run it before publishing.",
+        "dimension": "safety",
+        "refTitle": "Evaluate an agent (preview)",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/analytics-agent-evaluation-intro",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-eval-intro",
+            "title": "Evaluate an agent (preview)",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/analytics-agent-evaluation-intro",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "LCY-01",
+        "sev": "info",
+        "family": "Lifecycle",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "This agent runs on the GitHub Copilot harness",
+        "sub": "bot.configuration contains agentSettings",
+        "fact": "bot.configuration contains agentSettings",
+        "why": "The GitHub Copilot and standard harnesses expose different capabilities, and an agent cannot be moved between them.",
+        "fix": "Check the harness comparison before you depend on a capability the standard harness provides.",
+        "dimension": "safety",
+        "refTitle": "Choose a harness",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/harnesses-overview",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-classic-vs-new",
+            "title": "Choose a harness",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/harnesses-overview",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "LCY-02",
+        "sev": "info",
+        "family": "Lifecycle",
+        "provenance": "deterministic",
+        "ai": false,
+        "title": "Agent composition",
+        "sub": "2 tools · 4 skills · 1 connected agents · 1 knowledge sources · 0 evaluation sets",
+        "fact": "2 tools · 4 skills · 1 connected agents · 1 knowledge sources · 0 evaluation sets",
+        "why": "A GitHub Copilot agent is organized around instructions, knowledge, tools, skills, model, and connected agents.",
+        "fix": "No action required — surfaced for the review record.",
+        "dimension": "safety",
+        "refTitle": "Agents overview",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/overview",
+        "source": "Microsoft Learn",
+        "how": "Automated check",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-agents-overview",
+            "title": "Agents overview",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/overview",
+            "source": "Microsoft Learn"
+          }
+        ]
+      },
+      {
+        "id": "INS-02",
+        "sev": "info",
+        "family": "Instructions",
+        "provenance": "ai-generated",
+        "ai": true,
+        "title": "Instructions cover all five documented elements",
+        "sub": "role, tone, boundaries, ambiguity handling, and escalation are all present",
+        "fact": "role, tone, boundaries, ambiguity handling, and escalation are all present",
+        "why": "Microsoft's authoring guidance lists these five elements for effective instructions.",
+        "fix": "No action required — surfaced as a positive finding.",
+        "dimension": "safety",
+        "refTitle": "Configure agent details and instructions",
+        "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions",
+        "source": "Microsoft Learn",
+        "how": "AI-generated",
+        "fixSteps": [],
+        "references": [
+          {
+            "id": "ms-authoring-instructions",
+            "title": "Configure agent details and instructions",
+            "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions",
+            "source": "Microsoft Learn"
+          }
+        ]
+      }
+    ],
+    "checks": {
+      "recorded": true,
+      "groups": [
+        {
+          "family": "Evaluation",
+          "rows": [
+            {
+              "key": "EVL-01",
+              "ruleId": "EVL-01",
+              "family": "Evaluation",
+              "status": "warning",
+              "record": false,
+              "findings": [
+                {
+                  "id": "EVL-01",
+                  "sev": "warning",
+                  "family": "Evaluation",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "No evaluation test set exists",
+                  "sub": "EvaluationSet components: 0",
+                  "fact": "EvaluationSet components: 0",
+                  "why": "Evaluations validate agent behavior before publishing.",
+                  "fix": "Create a test set in the Evaluate tab and run it before publishing.",
+                  "dimension": "safety",
+                  "refTitle": "Evaluate an agent (preview)",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/analytics-agent-evaluation-intro",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-eval-intro",
+                      "title": "Evaluate an agent (preview)",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/analytics-agent-evaluation-intro",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "EVL-03",
+              "ruleId": "EVL-03",
+              "family": "Evaluation",
+              "status": "passed",
+              "record": true,
+              "findings": []
+            },
+            {
+              "key": "EVL-04",
+              "ruleId": "EVL-04",
+              "family": "Evaluation",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "EVL-05",
+              "ruleId": "EVL-05",
+              "family": "Evaluation",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "EVL-06",
+              "ruleId": "EVL-06",
+              "family": "Evaluation",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            }
+          ],
+          "counts": {
+            "passed": 3,
+            "info": 0,
+            "warning": 1,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 1
+          }
+        },
+        {
+          "family": "Instructions",
+          "rows": [
+            {
+              "key": "INS-09",
+              "ruleId": "INS-09",
+              "family": "Instructions",
+              "status": "warning",
+              "record": false,
+              "findings": [
+                {
+                  "id": "INS-09",
+                  "sev": "warning",
+                  "family": "Instructions",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "Instructions contain invisible characters",
+                  "sub": "hidden characters: U+200B (zero-width space) x1, U+200C (zero-width non-joiner) x1",
+                  "fact": "hidden characters: U+200B (zero-width space) x1, U+200C (zero-width non-joiner) x1",
+                  "why": "Zero-width and bidirectional control characters are invisible in the designer but remain in the model prompt, so instructions can differ from what a reviewer sees. They are a known way to hide injected text.",
+                  "fix": "Retype the affected line, or paste as plain text, so the instructions contain only visible characters.",
+                  "dimension": "safety",
+                  "refTitle": "Configure agent details and instructions",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-authoring-instructions",
+                      "title": "Configure agent details and instructions",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-instructions",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "INS-01",
+              "ruleId": "INS-01",
+              "family": "Instructions",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "INS-07",
+              "ruleId": "INS-07",
+              "family": "Instructions",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "INS-08",
+              "ruleId": "INS-08",
+              "family": "Instructions",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            }
+          ],
+          "counts": {
+            "passed": 3,
+            "info": 0,
+            "warning": 1,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 0
+          }
+        },
+        {
+          "family": "Connected agents",
+          "rows": [
+            {
+              "key": "CON-04",
+              "ruleId": "CON-04",
+              "family": "Connected agents",
+              "status": "info",
+              "record": true,
+              "findings": [
+                {
+                  "id": "CON-04",
+                  "sev": "info",
+                  "family": "Connected agents",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "Connected agents: 1",
+                  "sub": "ZAVA Store Ops Assistant → cr306_zavastoreopsassistant_lmpyHR (history: ConversationHistory)",
+                  "fact": "ZAVA Store Ops Assistant → cr306_zavastoreopsassistant_lmpyHR (history: ConversationHistory)",
+                  "why": "Connected agents let the primary agent delegate specialized tasks; conversation history passing is surfaced for review.",
+                  "fix": "No action required — inventory shown for the review record.",
+                  "dimension": "safety",
+                  "refTitle": "Add a connected agent to an agent",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/add-agent-connected",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-connected-agent",
+                      "title": "Add a connected agent to an agent",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/add-agent-connected",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "CON-03",
+              "ruleId": "CON-03",
+              "family": "Connected agents",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            }
+          ],
+          "counts": {
+            "passed": 1,
+            "info": 0,
+            "warning": 0,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 1
+          }
+        },
+        {
+          "family": "Knowledge",
+          "rows": [
+            {
+              "key": "KNW-01",
+              "ruleId": "KNW-01",
+              "family": "Knowledge",
+              "status": "info",
+              "record": true,
+              "findings": [
+                {
+                  "id": "KNW-01",
+                  "sev": "info",
+                  "family": "Knowledge",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "Knowledge inventory: 1 sources",
+                  "sub": "ZAVA-Visual-Merchandising-Standards-v4.2.docx (SharePointKnowledgeSource)",
+                  "fact": "ZAVA-Visual-Merchandising-Standards-v4.2.docx (SharePointKnowledgeSource)\nwebSearch: false",
+                  "why": "Knowledge sources define what the agent can reference when answering.",
+                  "fix": "No action required — inventory shown for the review record.",
+                  "dimension": "safety",
+                  "refTitle": "Add knowledge sources to an agent",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-knowledge-add",
+                      "title": "Add knowledge sources to an agent",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "KNW-04",
+              "ruleId": "KNW-04",
+              "family": "Knowledge",
+              "status": "info",
+              "record": false,
+              "findings": [
+                {
+                  "id": "KNW-04",
+                  "sev": "info",
+                  "family": "Knowledge",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "Memory is enabled",
+                  "sub": "agentSettings.enableMemory: true",
+                  "fact": "agentSettings.enableMemory: true",
+                  "why": "Memory persists user preferences per user across sessions.",
+                  "fix": "Confirm memory's per-user persistence fits your data-handling requirements.",
+                  "dimension": "safety",
+                  "refTitle": "Memory (preview)",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/memory-overview",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-memory",
+                      "title": "Memory (preview)",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/memory-overview",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "KNW-02",
+              "ruleId": "KNW-02",
+              "family": "Knowledge",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "KNW-03",
+              "ruleId": "KNW-03",
+              "family": "Knowledge",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            }
+          ],
+          "counts": {
+            "passed": 2,
+            "info": 1,
+            "warning": 0,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 1
+          }
+        },
+        {
+          "family": "Lifecycle",
+          "rows": [
+            {
+              "key": "LCY-01",
+              "ruleId": "LCY-01",
+              "family": "Lifecycle",
+              "status": "info",
+              "record": true,
+              "findings": [
+                {
+                  "id": "LCY-01",
+                  "sev": "info",
+                  "family": "Lifecycle",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "This agent runs on the GitHub Copilot harness",
+                  "sub": "bot.configuration contains agentSettings",
+                  "fact": "bot.configuration contains agentSettings",
+                  "why": "The GitHub Copilot and standard harnesses expose different capabilities, and an agent cannot be moved between them.",
+                  "fix": "Check the harness comparison before you depend on a capability the standard harness provides.",
+                  "dimension": "safety",
+                  "refTitle": "Choose a harness",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/harnesses-overview",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-classic-vs-new",
+                      "title": "Choose a harness",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/harnesses-overview",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "LCY-02",
+              "ruleId": "LCY-02",
+              "family": "Lifecycle",
+              "status": "info",
+              "record": true,
+              "findings": [
+                {
+                  "id": "LCY-02",
+                  "sev": "info",
+                  "family": "Lifecycle",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "Agent composition",
+                  "sub": "2 tools · 4 skills · 1 connected agents · 1 knowledge sources · 0 evaluation sets",
+                  "fact": "2 tools · 4 skills · 1 connected agents · 1 knowledge sources · 0 evaluation sets",
+                  "why": "A GitHub Copilot agent is organized around instructions, knowledge, tools, skills, model, and connected agents.",
+                  "fix": "No action required — surfaced for the review record.",
+                  "dimension": "safety",
+                  "refTitle": "Agents overview",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/overview",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-agents-overview",
+                      "title": "Agents overview",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/overview",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "counts": {
+            "passed": 0,
+            "info": 0,
+            "warning": 0,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 2
+          }
+        },
+        {
+          "family": "Model",
+          "rows": [
+            {
+              "key": "MDL-01",
+              "ruleId": "MDL-01",
+              "family": "Model",
+              "status": "info",
+              "record": true,
+              "findings": [
+                {
+                  "id": "MDL-01",
+                  "sev": "info",
+                  "family": "Model",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "Model: Claude Opus 5",
+                  "sub": "agentSettings.model.series: claude-opus-5",
+                  "fact": "agentSettings.model.series: claude-opus-5",
+                  "why": "The selected model affects reasoning depth, response quality, and speed.",
+                  "fix": "No action required — surfaced for the review record.",
+                  "dimension": "safety",
+                  "refTitle": "Select a model for an agent",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-select-agent-model",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-select-model",
+                      "title": "Select a model for an agent",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/authoring-select-agent-model",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "counts": {
+            "passed": 0,
+            "info": 0,
+            "warning": 0,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 1
+          }
+        },
+        {
+          "family": "Tools",
+          "rows": [
+            {
+              "key": "TOL-01",
+              "ruleId": "TOL-01",
+              "family": "Tools",
+              "status": "info",
+              "record": true,
+              "findings": [
+                {
+                  "id": "TOL-01",
+                  "sev": "info",
+                  "family": "Tools",
+                  "provenance": "deterministic",
+                  "ai": false,
+                  "title": "Tool inventory: 2 tools",
+                  "sub": "ConnectorTool: 2 · McpTool: 0",
+                  "fact": "ConnectorTool: 2 · McpTool: 0\nDisplay Photo Library → GetItemWithOrganization (Invoker)\nPlanogram Archive → ListRecordsWithOrganization (Invoker)",
+                  "why": "The orchestrator selects tools by their name and description; a clear inventory is the basis for the checks below.",
+                  "fix": "No action required — inventory shown for the review record.",
+                  "dimension": "safety",
+                  "refTitle": "Build an agent",
+                  "refUrl": "learn.microsoft.com/microsoft-copilot-studio/agents-experience/build-overview",
+                  "source": "Microsoft Learn",
+                  "how": "Automated check",
+                  "fixSteps": [],
+                  "references": [
+                    {
+                      "id": "ms-tools-skills",
+                      "title": "Build an agent",
+                      "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/build-overview",
+                      "source": "Microsoft Learn"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "TOL-02",
+              "ruleId": "TOL-02",
+              "family": "Tools",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "TOL-03",
+              "ruleId": "TOL-03",
+              "family": "Tools",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "TOL-04",
+              "ruleId": "TOL-04",
+              "family": "Tools",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "TOL-05",
+              "ruleId": "TOL-05",
+              "family": "Tools",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            }
+          ],
+          "counts": {
+            "passed": 4,
+            "info": 0,
+            "warning": 0,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 1
+          }
+        },
+        {
+          "family": "Skills",
+          "rows": [
+            {
+              "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-01",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-01",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-01",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-01:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-01",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-02",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-02",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-02",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-02:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-02",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-03",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-03",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-03",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-03:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-03",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-05",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-05",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-05",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-05:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-05",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-07",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-07",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-07",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-07:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-07",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-08",
+              "ruleId": "SKL-08",
+              "family": "Skills",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-09",
+              "ruleId": "SKL-09",
+              "family": "Skills",
+              "status": "passed",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-11",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-11",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-11",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-11:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-11",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-12",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-12",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-12",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-12:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-12",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-13",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-13",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-13",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-13:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-13",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+              "ruleId": "SKL-14",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-audit",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+              "ruleId": "SKL-14",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-handover",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+              "ruleId": "SKL-14",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-planner",
+              "record": false,
+              "findings": []
+            },
+            {
+              "key": "SKL-14:cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+              "ruleId": "SKL-14",
+              "family": "Skills",
+              "status": "passed",
+              "subject": "display-refresh",
+              "record": false,
+              "findings": []
+            }
+          ],
+          "counts": {
+            "passed": 38,
+            "info": 0,
+            "warning": 0,
+            "error": 0,
+            "notApplicable": 0,
+            "failed": 0,
+            "recorded": 0
+          }
+        }
+      ],
+      "totals": {
+        "passed": 51,
+        "info": 1,
+        "warning": 2,
+        "error": 0,
+        "notApplicable": 0,
+        "failed": 0,
+        "recorded": 7,
+        "evaluated": 54
+      }
+    },
+    "coverage": [
+      {
+        "name": "Display Photo Library",
+        "kind": "Connector tool",
+        "cases": 0
+      },
+      {
+        "name": "Planogram Archive",
+        "kind": "Connector tool",
+        "cases": 0
+      },
+      {
+        "name": "display-audit",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "display-handover",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "display-planner",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "display-refresh",
+        "kind": "Skill",
+        "cases": 0
+      },
+      {
+        "name": "ZAVA Store Ops Assistant",
+        "kind": "Connected agent",
+        "cases": 0
+      }
+    ],
+    "coverageBasis": "inferred",
+    "coverageSets": [],
+    "skills": [
+      {
+        "id": "00000000-0000-4000-8000-000000000006",
+        "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+        "name": "display-audit",
+        "description": "Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.",
+        "source": "blank",
+        "safetyFlagged": false,
+        "sizeLabel": "1.2 KB",
+        "dimensions": [
+          {
+            "key": "Clarity",
+            "score": 93,
+            "rationale": "The frontmatter name and description precisely describe an audit-only workflow, explicitly excluding planning/refreshing, and the seven numbered steps proceed in a clear logical order from information gathering to escalation."
+          },
+          {
+            "key": "Actionability",
+            "score": 95,
+            "rationale": "Every named capability the skill invokes (Planogram Archive, Display Photo Library, the standards docx, ZAVA Store Ops Assistant) is present in configuredCapabilities, so each step is executable as written."
+          },
+          {
+            "key": "Scope discipline",
+            "score": 94,
+            "rationale": "The skill confines itself strictly to auditing a completed display, its Boundaries section reinforces the agent's Out-of-Scope prohibition on approving failing displays, and it correctly hands off operational follow-up rather than performing it directly."
+          },
+          {
+            "key": "Composability",
+            "score": 90,
+            "rationale": "The skill is self-contained, relying only on its own listed tools and a connected agent for escalation, without referencing sibling skills like display-handover or display-planner or depending on undocumented hidden state."
+          }
+        ],
+        "evaluationState": "evaluated",
+        "markdown": "---\nname: display-audit\ndescription: Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.\n---\n<!-- bic:source=blank -->\n# Display Audit\n\n## Steps\n\n1. Ask for the store, bay, and build date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve the build photographs from the \"Display Photo Library\" tool.\n4. Check the display against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Compare the photographs with the approved layout and standards. Report each issue with its evidence and required corrective action.\n6. If required evidence is unavailable, identify what is missing and stop the audit. Do not infer compliance.\n7. Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.\n\n## Boundaries\n\nDo not sign off a display that fails the audit or lacks required evidence. Do not alter the approved layout or visual standards. Do not invent compliance scores or tool results.\n\n## Examples\n\n- Audit the completed display in store 104, bay A12, built on August 18.\n- Check whether the latest bay photograph complies with its approved planogram.\n",
+        "mode": "deep",
+        "scores": {
+          "quality": {
+            "value": 93,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "resourceRows": [],
+        "resourceManifest": [],
+        "resourceAnalyses": [],
+        "files": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1229,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1229,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "skillDefinitionSource": "---\nname: display-audit\ndescription: Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.\n---\n<!-- bic:source=blank -->\n# Display Audit\n\n## Steps\n\n1. Ask for the store, bay, and build date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve the build photographs from the \"Display Photo Library\" tool.\n4. Check the display against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Compare the photographs with the approved layout and standards. Report each issue with its evidence and required corrective action.\n6. If required evidence is unavailable, identify what is missing and stop the audit. Do not infer compliance.\n7. Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.\n\n## Boundaries\n\nDo not sign off a display that fails the audit or lacks required evidence. Do not alter the approved layout or visual standards. Do not invent compliance scores or tool results.\n\n## Examples\n\n- Audit the completed display in store 104, bay A12, built on August 18.\n- Check whether the latest bay photograph complies with its approved planogram.\n"
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000008",
+        "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+        "name": "display-handover",
+        "description": "Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.",
+        "source": "blank",
+        "safetyFlagged": false,
+        "sizeLabel": "1.3 KB",
+        "dimensions": [
+          {
+            "key": "Clarity",
+            "score": 92,
+            "rationale": "The frontmatter description precisely matches the seven ordered steps, which move from intake through evidence retrieval, validation, summary assembly, and escalation without ambiguity."
+          },
+          {
+            "key": "Actionability",
+            "score": 90,
+            "rationale": "Every named tool (Display Photo Library, Planogram Archive) and connected agent (ZAVA Store Ops Assistant) invoked in the steps is present in configuredCapabilities, so each step is executable as written."
+          },
+          {
+            "key": "Scope discipline",
+            "score": 95,
+            "rationale": "The skill confines itself to handing over a completed, audited display and explicitly excludes planning, building, or auditing, matching the agent's in-scope item 'Preparing a handover summary for a completed and audited display'."
+          },
+          {
+            "key": "Composability",
+            "score": 75,
+            "rationale": "The skill is self-contained in its own tool calls but silently assumes an audit has already been produced elsewhere (by the sibling display-audit skill) rather than invoking or verifying that dependency itself."
+          }
+        ],
+        "evaluationState": "evaluated",
+        "markdown": "---\nname: display-handover\ndescription: Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.\n---\n<!-- bic:source=blank -->\n# Display Handover\n\n## Steps\n\n1. Ask for the store, bay, build date, recipient, and completed audit result.\n2. Retrieve the build photographs from the \"Display Photo Library\" tool.\n3. Retrieve the approved layout from the \"Planogram Archive\" tool.\n4. Confirm that the supplied audit result records a passing display and has no unresolved critical issues.\n5. Prepare a handover summary containing the layout reference, build photographs, audit status, outstanding actions, owners, and sign-off checklist.\n6. If the audit evidence is missing or the display failed, stop the handover and explain what must be resolved.\n7. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not sign off a failing display or one without sufficient audit evidence. Do not claim that a visit or task was scheduled unless a configured capability confirms it. Do not invent scores, evidence, or completion status.\n\n## Examples\n\n- Prepare the handover pack for the completed display in store 104, bay A12.\n- Hand over the approved display and identify any remaining actions for the store team.",
+        "mode": "deep",
+        "scores": {
+          "quality": {
+            "value": 88,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "resourceRows": [],
+        "resourceManifest": [],
+        "resourceAnalyses": [],
+        "files": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1356,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1356,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "skillDefinitionSource": "---\nname: display-handover\ndescription: Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.\n---\n<!-- bic:source=blank -->\n# Display Handover\n\n## Steps\n\n1. Ask for the store, bay, build date, recipient, and completed audit result.\n2. Retrieve the build photographs from the \"Display Photo Library\" tool.\n3. Retrieve the approved layout from the \"Planogram Archive\" tool.\n4. Confirm that the supplied audit result records a passing display and has no unresolved critical issues.\n5. Prepare a handover summary containing the layout reference, build photographs, audit status, outstanding actions, owners, and sign-off checklist.\n6. If the audit evidence is missing or the display failed, stop the handover and explain what must be resolved.\n7. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not sign off a failing display or one without sufficient audit evidence. Do not claim that a visit or task was scheduled unless a configured capability confirms it. Do not invent scores, evidence, or completion status.\n\n## Examples\n\n- Prepare the handover pack for the completed display in store 104, bay A12.\n- Hand over the approved display and identify any remaining actions for the store team."
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000010",
+        "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+        "name": "display-planner",
+        "description": "Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.",
+        "source": "blank",
+        "safetyFlagged": false,
+        "sizeLabel": "1.2 KB",
+        "dimensions": [
+          {
+            "key": "Clarity",
+            "score": 90,
+            "rationale": "The frontmatter name and description accurately describe a new-display planning workflow, explicitly excluding audit/refresh/handover, and the numbered steps proceed in a logical, unambiguous order."
+          },
+          {
+            "key": "Actionability",
+            "score": 90,
+            "rationale": "Every capability the steps explicitly invoke (Planogram Archive tool and the ZAVA-Visual-Merchandising-Standards-v4.2.docx check) is present in configuredCapabilities, so the agent can execute each step as written."
+          },
+          {
+            "key": "Scope discipline",
+            "score": 92,
+            "rationale": "The skill confines itself to planning a new display, explicitly refuses approval, spend, and completion claims, and its exclusions align cleanly with the sibling skills' distinct remits (audit, refresh, handover)."
+          },
+          {
+            "key": "Composability",
+            "score": 85,
+            "rationale": "The skill is self-contained, using only its own listed tool/document references without invoking sibling skills or depending on undocumented hidden state, though it implicitly relies on those siblings existing for excluded activities."
+          }
+        ],
+        "evaluationState": "evaluated",
+        "markdown": "---\nname: display-planner\ndescription: Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.\n---\n<!-- bic:source=blank -->\n# Display Planner\n\n## Steps\n\n1. Ask for the store, bay, campaign, store format, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n4. Identify any missing campaign, fixture, signage, or dimensional information before continuing.\n5. Produce a build sequence covering fixtures, facings, signage, dependencies, and validation checkpoints.\n6. Clearly distinguish approved requirements from assumptions or information that still needs confirmation.\n7. If the layout or standards are unavailable, stop and explain what is missing.\n\n## Boundaries\n\nDo not approve a layout that conflicts with the visual standards. Do not commit fixture spending, inventory, or scheduling. Do not claim that a plan was saved unless a configured capability confirms it.\n\n## Examples\n\n- Plan the summer campaign display for store 104, bay A12.\n- Produce a build sequence for an approved planogram and identify missing fixture information.",
+        "mode": "deep",
+        "scores": {
+          "quality": {
+            "value": 89,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "resourceRows": [],
+        "resourceManifest": [],
+        "resourceAnalyses": [],
+        "files": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1267,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1267,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "skillDefinitionSource": "---\nname: display-planner\ndescription: Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.\n---\n<!-- bic:source=blank -->\n# Display Planner\n\n## Steps\n\n1. Ask for the store, bay, campaign, store format, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n4. Identify any missing campaign, fixture, signage, or dimensional information before continuing.\n5. Produce a build sequence covering fixtures, facings, signage, dependencies, and validation checkpoints.\n6. Clearly distinguish approved requirements from assumptions or information that still needs confirmation.\n7. If the layout or standards are unavailable, stop and explain what is missing.\n\n## Boundaries\n\nDo not approve a layout that conflicts with the visual standards. Do not commit fixture spending, inventory, or scheduling. Do not claim that a plan was saved unless a configured capability confirms it.\n\n## Examples\n\n- Plan the summer campaign display for store 104, bay A12.\n- Produce a build sequence for an approved planogram and identify missing fixture information."
+      },
+      {
+        "id": "00000000-0000-4000-8000-000000000012",
+        "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+        "name": "display-refresh",
+        "description": "Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.",
+        "source": "blank",
+        "safetyFlagged": false,
+        "sizeLabel": "1.4 KB",
+        "dimensions": [
+          {
+            "key": "Clarity",
+            "score": 90,
+            "rationale": "The frontmatter name and description precisely scope the skill to refreshing an existing display without a fixture rebuild, and the eight steps proceed in a logical, unambiguous order from intake to escalation."
+          },
+          {
+            "key": "Actionability",
+            "score": 92,
+            "rationale": "Every retrieval and delegation step names a capability (Planogram Archive, Display Photo Library, the standards docx, ZAVA Store Ops Assistant) that is present in configuredCapabilities, so the agent can execute each step as written."
+          },
+          {
+            "key": "Scope discipline",
+            "score": 93,
+            "rationale": "The skill restricts itself to campaign-asset refresh while explicitly excluding fixture-layout changes and end-date extension, matching the agent's stated in-scope item \"Refreshing an existing display for a new campaign\"."
+          },
+          {
+            "key": "Composability",
+            "score": 85,
+            "rationale": "The skill is self-contained and does not reference sibling skills, though it hands off unresolved actions to an external connected agent rather than resolving them internally."
+          }
+        ],
+        "evaluationState": "evaluated",
+        "markdown": "---\nname: display-refresh\ndescription: Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.\n---\n<!-- bic:source=blank -->\n# Display Refresh\n\n## Steps\n\n1. Ask for the store, bay, current campaign, new campaign, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve current display photographs from the \"Display Photo Library\" tool.\n4. Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Ask the user to provide or identify the approved campaign assets and fixture details required for the refresh.\n6. Identify graphics, signage, facings, or other elements that must be replaced while preserving the fixture layout.\n7. Produce a refresh sequence with prerequisites, validation checkpoints, and unresolved dependencies.\n8. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not change the fixture layout or extend the campaign end date. Do not invent campaign assets, fixture compatibility, schedules, or task confirmations. If required information is unavailable, identify it and stop before presenting the refresh as ready.\n\n## Examples\n\n- Refresh the display in store 104, bay A12, for the autumn campaign.\n- Identify what must change for the new campaign while retaining the approved fixture layout.",
+        "mode": "deep",
+        "scores": {
+          "quality": {
+            "value": 90,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "integrity": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safety": {
+            "value": 100,
+            "status": "unavailable",
+            "coveragePercent": 100
+          },
+          "readiness": {
+            "value": 100,
+            "status": "complete",
+            "coveragePercent": 100
+          },
+          "safetyGate": "none"
+        },
+        "resourceRows": [],
+        "resourceManifest": [],
+        "resourceAnalyses": [],
+        "files": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1475,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "sourceFiles": [
+          {
+            "path": "SKILL.md",
+            "sizeBytes": 1475,
+            "language": "markdown",
+            "isSkillDefinition": true
+          }
+        ],
+        "skillDefinitionSource": "---\nname: display-refresh\ndescription: Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.\n---\n<!-- bic:source=blank -->\n# Display Refresh\n\n## Steps\n\n1. Ask for the store, bay, current campaign, new campaign, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve current display photographs from the \"Display Photo Library\" tool.\n4. Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Ask the user to provide or identify the approved campaign assets and fixture details required for the refresh.\n6. Identify graphics, signage, facings, or other elements that must be replaced while preserving the fixture layout.\n7. Produce a refresh sequence with prerequisites, validation checkpoints, and unresolved dependencies.\n8. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not change the fixture layout or extend the campaign end date. Do not invent campaign assets, fixture compatibility, schedules, or task confirmations. If required information is unavailable, identify it and stop before presenting the refresh as ready.\n\n## Examples\n\n- Refresh the display in store 104, bay A12, for the autumn campaign.\n- Identify what must change for the new campaign while retaining the approved fixture layout."
+      }
+    ],
+    "skillsGrouped": {
+      "groups": [
+        {
+          "dimension": "quality",
+          "label": "Instruction quality",
+          "score": 88,
+          "patterns": []
+        },
+        {
+          "dimension": "integrity",
+          "label": "Bundle integrity",
+          "score": 100,
+          "patterns": []
+        },
+        {
+          "dimension": "safety",
+          "label": "Resource safety",
+          "score": 100,
+          "patterns": []
+        },
+        {
+          "dimension": "readiness",
+          "label": "Operational readiness",
+          "score": 100,
+          "patterns": []
+        }
+      ],
+      "orchestration": [
+        {
+          "ruleId": "XSK-04",
+          "title": "Capability Coverage Gap",
+          "sev": "warning",
+          "type": "coverage-gap",
+          "meaning": "The agent's stated purpose implies a capability that no skill covers, so requests in that area will fail or fall back to generic behaviour.",
+          "fix": "Add a skill (or extend an existing one) to cover the missing capability implied by the agent's instructions.",
+          "fixSteps": [
+            {
+              "order": 1,
+              "action": "Confirm the agent instructions imply a capability with no matching skill."
+            },
+            {
+              "order": 2,
+              "action": "Author a skill that covers the gap, or note it as out of scope."
+            }
+          ],
+          "skills": [
+            "display-audit",
+            "display-handover",
+            "display-planner",
+            "display-refresh"
+          ],
+          "pairs": [],
+          "references": [
+            {
+              "id": "ms-skills-overview",
+              "title": "Skills overview for agents",
+              "url": "https://learn.microsoft.com/microsoft-copilot-studio/agents-experience/skills-overview",
+              "source": "Microsoft Learn"
+            }
+          ]
+        }
+      ],
+      "skillsById": {
+        "00000000-0000-4000-8000-000000000006": {
+          "id": "00000000-0000-4000-8000-000000000006",
+          "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-audit_QaQ",
+          "name": "display-audit",
+          "description": "Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.",
+          "source": "blank",
+          "safetyFlagged": false,
+          "sizeLabel": "1.2 KB",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 93,
+              "rationale": "The frontmatter name and description precisely describe an audit-only workflow, explicitly excluding planning/refreshing, and the seven numbered steps proceed in a clear logical order from information gathering to escalation."
+            },
+            {
+              "key": "Actionability",
+              "score": 95,
+              "rationale": "Every named capability the skill invokes (Planogram Archive, Display Photo Library, the standards docx, ZAVA Store Ops Assistant) is present in configuredCapabilities, so each step is executable as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 94,
+              "rationale": "The skill confines itself strictly to auditing a completed display, its Boundaries section reinforces the agent's Out-of-Scope prohibition on approving failing displays, and it correctly hands off operational follow-up rather than performing it directly."
+            },
+            {
+              "key": "Composability",
+              "score": 90,
+              "rationale": "The skill is self-contained, relying only on its own listed tools and a connected agent for escalation, without referencing sibling skills like display-handover or display-planner or depending on undocumented hidden state."
+            }
+          ],
+          "evaluationState": "evaluated",
+          "markdown": "---\nname: display-audit\ndescription: Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.\n---\n<!-- bic:source=blank -->\n# Display Audit\n\n## Steps\n\n1. Ask for the store, bay, and build date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve the build photographs from the \"Display Photo Library\" tool.\n4. Check the display against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Compare the photographs with the approved layout and standards. Report each issue with its evidence and required corrective action.\n6. If required evidence is unavailable, identify what is missing and stop the audit. Do not infer compliance.\n7. Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.\n\n## Boundaries\n\nDo not sign off a display that fails the audit or lacks required evidence. Do not alter the approved layout or visual standards. Do not invent compliance scores or tool results.\n\n## Examples\n\n- Audit the completed display in store 104, bay A12, built on August 18.\n- Check whether the latest bay photograph complies with its approved planogram.\n",
+          "mode": "deep",
+          "scores": {
+            "quality": {
+              "value": 93,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "integrity": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safety": {
+              "value": 100,
+              "status": "unavailable",
+              "coveragePercent": 100
+            },
+            "readiness": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safetyGate": "none"
+          },
+          "resourceRows": [],
+          "resourceManifest": [],
+          "resourceAnalyses": [],
+          "files": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1229,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "sourceFiles": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1229,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "skillDefinitionSource": "---\nname: display-audit\ndescription: Use when a completed ZAVA display needs to be audited against its approved layout and visual standards. Do not use for planning or refreshing a display.\n---\n<!-- bic:source=blank -->\n# Display Audit\n\n## Steps\n\n1. Ask for the store, bay, and build date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve the build photographs from the \"Display Photo Library\" tool.\n4. Check the display against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Compare the photographs with the approved layout and standards. Report each issue with its evidence and required corrective action.\n6. If required evidence is unavailable, identify what is missing and stop the audit. Do not infer compliance.\n7. Send failed or unresolved findings to the \"ZAVA Store Ops Assistant\" connected agent for operational follow-up.\n\n## Boundaries\n\nDo not sign off a display that fails the audit or lacks required evidence. Do not alter the approved layout or visual standards. Do not invent compliance scores or tool results.\n\n## Examples\n\n- Audit the completed display in store 104, bay A12, built on August 18.\n- Check whether the latest bay photograph complies with its approved planogram.\n"
+        },
+        "00000000-0000-4000-8000-000000000008": {
+          "id": "00000000-0000-4000-8000-000000000008",
+          "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-handover_cxm",
+          "name": "display-handover",
+          "description": "Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.",
+          "source": "blank",
+          "safetyFlagged": false,
+          "sizeLabel": "1.3 KB",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 92,
+              "rationale": "The frontmatter description precisely matches the seven ordered steps, which move from intake through evidence retrieval, validation, summary assembly, and escalation without ambiguity."
+            },
+            {
+              "key": "Actionability",
+              "score": 90,
+              "rationale": "Every named tool (Display Photo Library, Planogram Archive) and connected agent (ZAVA Store Ops Assistant) invoked in the steps is present in configuredCapabilities, so each step is executable as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 95,
+              "rationale": "The skill confines itself to handing over a completed, audited display and explicitly excludes planning, building, or auditing, matching the agent's in-scope item 'Preparing a handover summary for a completed and audited display'."
+            },
+            {
+              "key": "Composability",
+              "score": 75,
+              "rationale": "The skill is self-contained in its own tool calls but silently assumes an audit has already been produced elsewhere (by the sibling display-audit skill) rather than invoking or verifying that dependency itself."
+            }
+          ],
+          "evaluationState": "evaluated",
+          "markdown": "---\nname: display-handover\ndescription: Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.\n---\n<!-- bic:source=blank -->\n# Display Handover\n\n## Steps\n\n1. Ask for the store, bay, build date, recipient, and completed audit result.\n2. Retrieve the build photographs from the \"Display Photo Library\" tool.\n3. Retrieve the approved layout from the \"Planogram Archive\" tool.\n4. Confirm that the supplied audit result records a passing display and has no unresolved critical issues.\n5. Prepare a handover summary containing the layout reference, build photographs, audit status, outstanding actions, owners, and sign-off checklist.\n6. If the audit evidence is missing or the display failed, stop the handover and explain what must be resolved.\n7. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not sign off a failing display or one without sufficient audit evidence. Do not claim that a visit or task was scheduled unless a configured capability confirms it. Do not invent scores, evidence, or completion status.\n\n## Examples\n\n- Prepare the handover pack for the completed display in store 104, bay A12.\n- Hand over the approved display and identify any remaining actions for the store team.",
+          "mode": "deep",
+          "scores": {
+            "quality": {
+              "value": 88,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "integrity": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safety": {
+              "value": 100,
+              "status": "unavailable",
+              "coveragePercent": 100
+            },
+            "readiness": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safetyGate": "none"
+          },
+          "resourceRows": [],
+          "resourceManifest": [],
+          "resourceAnalyses": [],
+          "files": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1356,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "sourceFiles": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1356,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "skillDefinitionSource": "---\nname: display-handover\ndescription: Use when a completed and audited ZAVA display is ready to be handed over to the store team. Do not use for planning, building, or auditing a display.\n---\n<!-- bic:source=blank -->\n# Display Handover\n\n## Steps\n\n1. Ask for the store, bay, build date, recipient, and completed audit result.\n2. Retrieve the build photographs from the \"Display Photo Library\" tool.\n3. Retrieve the approved layout from the \"Planogram Archive\" tool.\n4. Confirm that the supplied audit result records a passing display and has no unresolved critical issues.\n5. Prepare a handover summary containing the layout reference, build photographs, audit status, outstanding actions, owners, and sign-off checklist.\n6. If the audit evidence is missing or the display failed, stop the handover and explain what must be resolved.\n7. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not sign off a failing display or one without sufficient audit evidence. Do not claim that a visit or task was scheduled unless a configured capability confirms it. Do not invent scores, evidence, or completion status.\n\n## Examples\n\n- Prepare the handover pack for the completed display in store 104, bay A12.\n- Hand over the approved display and identify any remaining actions for the store team."
+        },
+        "00000000-0000-4000-8000-000000000010": {
+          "id": "00000000-0000-4000-8000-000000000010",
+          "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-planner_ueK",
+          "name": "display-planner",
+          "description": "Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.",
+          "source": "blank",
+          "safetyFlagged": false,
+          "sizeLabel": "1.2 KB",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 90,
+              "rationale": "The frontmatter name and description accurately describe a new-display planning workflow, explicitly excluding audit/refresh/handover, and the numbered steps proceed in a logical, unambiguous order."
+            },
+            {
+              "key": "Actionability",
+              "score": 90,
+              "rationale": "Every capability the steps explicitly invoke (Planogram Archive tool and the ZAVA-Visual-Merchandising-Standards-v4.2.docx check) is present in configuredCapabilities, so the agent can execute each step as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 92,
+              "rationale": "The skill confines itself to planning a new display, explicitly refuses approval, spend, and completion claims, and its exclusions align cleanly with the sibling skills' distinct remits (audit, refresh, handover)."
+            },
+            {
+              "key": "Composability",
+              "score": 85,
+              "rationale": "The skill is self-contained, using only its own listed tool/document references without invoking sibling skills or depending on undocumented hidden state, though it implicitly relies on those siblings existing for excluded activities."
+            }
+          ],
+          "evaluationState": "evaluated",
+          "markdown": "---\nname: display-planner\ndescription: Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.\n---\n<!-- bic:source=blank -->\n# Display Planner\n\n## Steps\n\n1. Ask for the store, bay, campaign, store format, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n4. Identify any missing campaign, fixture, signage, or dimensional information before continuing.\n5. Produce a build sequence covering fixtures, facings, signage, dependencies, and validation checkpoints.\n6. Clearly distinguish approved requirements from assumptions or information that still needs confirmation.\n7. If the layout or standards are unavailable, stop and explain what is missing.\n\n## Boundaries\n\nDo not approve a layout that conflicts with the visual standards. Do not commit fixture spending, inventory, or scheduling. Do not claim that a plan was saved unless a configured capability confirms it.\n\n## Examples\n\n- Plan the summer campaign display for store 104, bay A12.\n- Produce a build sequence for an approved planogram and identify missing fixture information.",
+          "mode": "deep",
+          "scores": {
+            "quality": {
+              "value": 89,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "integrity": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safety": {
+              "value": 100,
+              "status": "unavailable",
+              "coveragePercent": 100
+            },
+            "readiness": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safetyGate": "none"
+          },
+          "resourceRows": [],
+          "resourceManifest": [],
+          "resourceAnalyses": [],
+          "files": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1267,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "sourceFiles": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1267,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "skillDefinitionSource": "---\nname: display-planner\ndescription: Use when a team needs to plan a new ZAVA display for a specific store, bay, and campaign. Do not use for auditing, refreshing, or handing over a completed display.\n---\n<!-- bic:source=blank -->\n# Display Planner\n\n## Steps\n\n1. Ask for the store, bay, campaign, store format, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Check the layout against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n4. Identify any missing campaign, fixture, signage, or dimensional information before continuing.\n5. Produce a build sequence covering fixtures, facings, signage, dependencies, and validation checkpoints.\n6. Clearly distinguish approved requirements from assumptions or information that still needs confirmation.\n7. If the layout or standards are unavailable, stop and explain what is missing.\n\n## Boundaries\n\nDo not approve a layout that conflicts with the visual standards. Do not commit fixture spending, inventory, or scheduling. Do not claim that a plan was saved unless a configured capability confirms it.\n\n## Examples\n\n- Plan the summer campaign display for store 104, bay A12.\n- Produce a build sequence for an approved planogram and identify missing fixture information."
+        },
+        "00000000-0000-4000-8000-000000000012": {
+          "id": "00000000-0000-4000-8000-000000000012",
+          "schemaName": "cr306_zavavisualmerchandiser_aDyscS.skill.display-refresh_j9t",
+          "name": "display-refresh",
+          "description": "Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.",
+          "source": "blank",
+          "safetyFlagged": false,
+          "sizeLabel": "1.4 KB",
+          "dimensions": [
+            {
+              "key": "Clarity",
+              "score": 90,
+              "rationale": "The frontmatter name and description precisely scope the skill to refreshing an existing display without a fixture rebuild, and the eight steps proceed in a logical, unambiguous order from intake to escalation."
+            },
+            {
+              "key": "Actionability",
+              "score": 92,
+              "rationale": "Every retrieval and delegation step names a capability (Planogram Archive, Display Photo Library, the standards docx, ZAVA Store Ops Assistant) that is present in configuredCapabilities, so the agent can execute each step as written."
+            },
+            {
+              "key": "Scope discipline",
+              "score": 93,
+              "rationale": "The skill restricts itself to campaign-asset refresh while explicitly excluding fixture-layout changes and end-date extension, matching the agent's stated in-scope item \"Refreshing an existing display for a new campaign\"."
+            },
+            {
+              "key": "Composability",
+              "score": 85,
+              "rationale": "The skill is self-contained and does not reference sibling skills, though it hands off unresolved actions to an external connected agent rather than resolving them internally."
+            }
+          ],
+          "evaluationState": "evaluated",
+          "markdown": "---\nname: display-refresh\ndescription: Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.\n---\n<!-- bic:source=blank -->\n# Display Refresh\n\n## Steps\n\n1. Ask for the store, bay, current campaign, new campaign, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve current display photographs from the \"Display Photo Library\" tool.\n4. Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Ask the user to provide or identify the approved campaign assets and fixture details required for the refresh.\n6. Identify graphics, signage, facings, or other elements that must be replaced while preserving the fixture layout.\n7. Produce a refresh sequence with prerequisites, validation checkpoints, and unresolved dependencies.\n8. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not change the fixture layout or extend the campaign end date. Do not invent campaign assets, fixture compatibility, schedules, or task confirmations. If required information is unavailable, identify it and stop before presenting the refresh as ready.\n\n## Examples\n\n- Refresh the display in store 104, bay A12, for the autumn campaign.\n- Identify what must change for the new campaign while retaining the approved fixture layout.",
+          "mode": "deep",
+          "scores": {
+            "quality": {
+              "value": 90,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "integrity": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safety": {
+              "value": 100,
+              "status": "unavailable",
+              "coveragePercent": 100
+            },
+            "readiness": {
+              "value": 100,
+              "status": "complete",
+              "coveragePercent": 100
+            },
+            "safetyGate": "none"
+          },
+          "resourceRows": [],
+          "resourceManifest": [],
+          "resourceAnalyses": [],
+          "files": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1475,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "sourceFiles": [
+            {
+              "path": "SKILL.md",
+              "sizeBytes": 1475,
+              "language": "markdown",
+              "isSkillDefinition": true
+            }
+          ],
+          "skillDefinitionSource": "---\nname: display-refresh\ndescription: Use when an existing ZAVA display needs approved campaign updates without changing its underlying fixture layout. Do not use for a full rebuild or a new display design.\n---\n<!-- bic:source=blank -->\n# Display Refresh\n\n## Steps\n\n1. Ask for the store, bay, current campaign, new campaign, and required completion date.\n2. Retrieve the approved layout from the \"Planogram Archive\" tool.\n3. Retrieve current display photographs from the \"Display Photo Library\" tool.\n4. Check the proposed refresh against \"ZAVA-Visual-Merchandising-Standards-v4.2.docx\".\n5. Ask the user to provide or identify the approved campaign assets and fixture details required for the refresh.\n6. Identify graphics, signage, facings, or other elements that must be replaced while preserving the fixture layout.\n7. Produce a refresh sequence with prerequisites, validation checkpoints, and unresolved dependencies.\n8. Send unresolved operational actions to the \"ZAVA Store Ops Assistant\" connected agent for follow-up.\n\n## Boundaries\n\nDo not change the fixture layout or extend the campaign end date. Do not invent campaign assets, fixture compatibility, schedules, or task confirmations. If required information is unavailable, identify it and stop before presenting the refresh as ready.\n\n## Examples\n\n- Refresh the display in store 104, bay A12, for the autumn campaign.\n- Identify what must change for the new campaign while retaining the approved fixture layout."
+        }
+      }
+    },
+    "capabilityChips": [
+      {
+        "kind": "tool",
+        "label": "Connector tools",
+        "count": 2,
+        "color": "#0F6CBD"
+      },
+      {
+        "kind": "skill",
+        "label": "Skills",
+        "count": 4,
+        "color": "#7C3AED"
+      },
+      {
+        "kind": "agent",
+        "label": "Connected agents",
+        "count": 1,
+        "color": "#C239B3"
+      },
+      {
+        "kind": "knw",
+        "label": "Knowledge",
+        "count": 1,
+        "color": "#0E7878"
+      }
+    ]
+  }
+}

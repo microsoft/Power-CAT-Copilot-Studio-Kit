@@ -1,0 +1,46 @@
+{
+    "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+    "manifestVersion": "1.29",
+    "version": "1.0.18",
+    "id": "${{TEAMS_APP_ID}}",
+    "developer": {
+        "name": "Copilot Acceleration Team",
+        "websiteUrl": "https://microsoft.github.io/cat/",
+        "privacyUrl": "https://go.microsoft.com/fwlink/?LinkId=521839",
+        "termsOfUseUrl": "https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/LICENSE.txt"
+    },
+    "icons": {
+        "color": "color.png",
+        "outline": "outline.png"
+    },
+    "name": {
+        "short": "Agent Review${{APP_NAME_SUFFIX}}",
+        "full": "Review, debug, and build agent evaluations"
+    },
+    "description": {
+        "short": "Review, debug, and build agent evaluations",
+        "full": "Use Agent Review, Debugger, and Eval Builder in one interactive MCP app. Start an exact requested review, inspect saved maps and findings, debug saved conversations, and edit generated test cases that Eval Builder saves as a Copilot Studio test set. No evaluations run in this app."
+    },
+    "accentColor": "#FFFFFF",
+    "supportsChannelFeatures": "tier1",
+    "composeExtensions": [],
+    "permissions": [
+        "identity",
+        "messageTeamMembers"
+    ],
+    "copilotAgents": {
+        "declarativeAgents": [            
+            {
+                "id": "declarativeAgent",
+                "file": "declarativeAgent.json"
+            }
+        ]
+    },
+    "validDomains": [
+        "${{MCP_SERVER_DOMAIN}}"
+    ],
+    "webApplicationInfo": {
+        "id": "${{AGENT_REVIEW_MCP_CLIENT_ID}}",
+        "resource": "api://${{AGENT_REVIEW_MCP_CLIENT_ID}}"
+    }
+}

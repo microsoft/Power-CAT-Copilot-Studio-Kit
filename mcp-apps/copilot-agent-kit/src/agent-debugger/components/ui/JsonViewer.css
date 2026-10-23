@@ -1,0 +1,163 @@
+.json-viewer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--colorNeutralBackground1);
+  border-radius: 4px;
+  border: 1px solid var(--colorNeutralStroke2);
+  overflow: hidden;
+}
+
+.json-search-bar {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.json-dialog-toolbar {
+  gap: 12px !important;
+  padding: 16px !important;
+  background: var(--colorNeutralBackground1) !important;
+}
+
+.json-toolbar-title {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.json-dialog-toolbar > .fui-Input {
+  flex: 1;
+  min-width: 0;
+}
+
+.json-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+
+.json-search-navigation {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.w-json-dialog-surface .json-viewer {
+  border: 0;
+  border-radius: 0;
+}
+
+.json-content-wrapper {
+  flex: 1;
+  overflow: auto;
+  min-height: 0;
+}
+
+.json-content {
+  margin: 0;
+  padding: 16px;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--colorNeutralForeground1);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.json-content code {
+  font-family: inherit;
+}
+
+.json-virtual-viewport {
+  height: 100%;
+  overflow: auto;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--colorNeutralForeground1);
+}
+
+.json-virtual-spacer {
+  position: relative;
+  min-width: 100%;
+}
+
+.json-virtual-lines {
+  position: absolute;
+  inset: 0 auto auto 0;
+  min-width: 100%;
+  width: max-content;
+}
+
+.json-virtual-line {
+  height: 18px;
+  white-space: pre;
+}
+
+.json-virtual-line-text {
+  padding: 0 16px;
+}
+
+/* Syntax highlighting - light theme */
+.json-key {
+  color: var(--colorBrandForeground1);
+}
+
+.json-string {
+  color: var(--colorPaletteRedForeground1);
+}
+
+.json-number {
+  color: var(--colorPaletteGreenForeground1);
+}
+
+.json-boolean {
+  color: var(--colorBrandForeground2);
+}
+
+.json-null {
+  color: var(--colorBrandForeground2);
+}
+
+/* Collapsed sections */
+.json-collapsible {
+  cursor: pointer;
+  user-select: none;
+}
+
+.json-collapsible:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.json-collapsed::before {
+  content: "▶ ";
+  color: var(--colorNeutralForeground4);
+}
+
+.json-expanded::before {
+  content: "▼ ";
+  color: var(--colorNeutralForeground4);
+}
+
+/* Search highlighting */
+.json-search-match {
+  background-color: var(--colorBrandBackground2);
+  color: var(--colorBrandForeground2);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+.json-search-current {
+  background-color: var(--colorBrandBackground);
+  color: var(--colorNeutralForegroundOnBrand);
+  box-shadow: 0 0 0 2px var(--colorBrandStroke1);
+}
