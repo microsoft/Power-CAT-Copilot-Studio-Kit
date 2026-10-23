@@ -62,29 +62,6 @@ export async function openEvaluationBuilder(token: string | undefined, input: Ev
     return { ...failed, ...(visible ? { isError: undefined } : {}), structuredContent: { ...context, state: "error", error: failed.structuredContent?.error } };
   }
 }
-export async function getEvaluationDraft(token: string | undefined, input: { draftId: string }, factory?: ServiceFactory): Promise<CallToolResult> {
-  try {
-    const current = service(token, factory);
-    const { draft, saveGrant } = current.registry.read(current.token, input.draftId);
-    return success("Loaded the complete unchanged temporary draft. This read cannot create or run an evaluation.", {
-      view: "evaluation", state: "mined", draftId: draft.id, draft, target: draft.target, testType: draft.testType,
-    }, { evaluationSaveGrant: saveGrant });
-  } catch (error) { return failure(error); }
-}
-export async function getEvaluationNativeSupport(token: string | undefined, input: { draftId: string }, factory?: ServiceFactory): Promise<CallToolResult> {
-  try {
-    const current = service(token, factory);
-    const { draft } = current.registry.read(current.token, input.draftId);
-    const native = await current.nativeContext(draft.target);
-    return success("Checked caller-scoped native metadata and existing target templates without writing.", {
-      view: "evaluation", state: "nativeSupport", allowMultiPair: native.allowMultiPair,
-      nativeTestType: "conversation", method: "GeneralQualityGrader",
-      message: native.allowMultiPair
-        ? "Native Conversation metadata matches. Up to 20 cases and six pairs per case. New Studio rendering and grading are not proved by this check."
-        : "This GitHub Copilot harness target proves single-pair Conversation templates only. Full multi-pair native save is blocked. Studio rendering and grading of a new set are not proved.",
-    });
-  } catch (error) { return failure(error); }
-}
 export async function createAgentEvaluationSet(token: string | undefined, input: NativeEvaluationInput, factory?: ServiceFactory): Promise<CallToolResult> {
   try {
     const current = service(token, factory);

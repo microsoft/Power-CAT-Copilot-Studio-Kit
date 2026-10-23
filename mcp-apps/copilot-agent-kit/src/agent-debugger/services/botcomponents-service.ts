@@ -35,7 +35,3 @@ export function parseBotComponentData(data?: string): BotComponentParsedData {
   }
   return parsed;
 }
-
-export function normalizeOrganizationUrl(value: string): string {
-  return value.trim().replace(/\/+$/g, "");
-}

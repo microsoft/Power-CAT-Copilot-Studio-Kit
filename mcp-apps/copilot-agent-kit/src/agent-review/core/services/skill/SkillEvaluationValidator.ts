@@ -8,12 +8,8 @@
  * No broad catch or silent success fallback.
  */
 import type { GroundedSkillFinding } from "../../contracts/Findings.js";
-import type { ResourceChunk } from "../../contracts/SkillBundle.js";
 import type {
-  ResourceChunkEvaluation,
   StandardSkillBundleEvaluation,
-  SkillResourceEvaluation,
-  DeepSkillBundleEvaluation,
   SkillDimension,
   CrossSkillOrchestrationEvaluation,
   CrossSkillOrchestrationFinding,
@@ -36,39 +32,11 @@ export interface ValidationIssue {
 }
 
 // ---------------------------------------------------------------------------
-// Chunk evaluation result
-// ---------------------------------------------------------------------------
-
-export interface ChunkValidationResult {
-  evaluation?: ResourceChunkEvaluation;
-  findings: GroundedSkillFinding[];
-  issues: ValidationIssue[];
-}
-
-// ---------------------------------------------------------------------------
 // Standard evaluation result
 // ---------------------------------------------------------------------------
 
 export interface StandardValidationResult {
   evaluation: StandardSkillBundleEvaluation;
-  issues: ValidationIssue[];
-}
-
-// ---------------------------------------------------------------------------
-// Resource evaluation result
-// ---------------------------------------------------------------------------
-
-export interface ResourceValidationResult {
-  evaluation: SkillResourceEvaluation;
-  issues: ValidationIssue[];
-}
-
-// ---------------------------------------------------------------------------
-// Deep bundle evaluation result
-// ---------------------------------------------------------------------------
-
-export interface DeepBundleValidationResult {
-  evaluation: DeepSkillBundleEvaluation;
   issues: ValidationIssue[];
 }
 
@@ -103,41 +71,12 @@ export function containsUrl(text: string): boolean {
 }
 
 /**
- * Strips all http(s) URLs from a string, collapsing resulting double-spaces.
- */
-export function stripUrls(text: string): string {
-  return text.replace(/https?:\/\/[^\s"')<>\]]+/gi, "").replace(/ {2,}/g, " ").trim();
-}
-
-/**
  * Validates that evidence text is present in the submitted source content.
  * Uses case-insensitive substring matching.
  */
 function evidenceIsGrounded(evidence: string, sourceContent: string): boolean {
   if (!evidence || !sourceContent) return false;
   return sourceContent.toLowerCase().includes(evidence.toLowerCase());
-}
-
-function keepGroundedEvidence<T extends { evidence?: string }>(
-  items: T[],
-  sourceContent: string,
-  code: string,
-  label: string,
-  issues: ValidationIssue[],
-): T[] {
-  return items.filter((item) => {
-    if (
-      typeof item.evidence === "string" &&
-      evidenceIsGrounded(item.evidence, sourceContent)
-    ) {
-      return true;
-    }
-    issues.push({
-      code,
-      message: `${label} evidence was not found in the submitted chunk.`,
-    });
-    return false;
-  });
 }
 
 /**
@@ -295,132 +234,6 @@ function removeDeterministicDuplicateFindings(
 }
 
 // ---------------------------------------------------------------------------
-// Public API: Chunk evaluation validation
-// ---------------------------------------------------------------------------
-
-/**
- * Validates a ResourceChunkEvaluation against the submitted chunk content.
- * Drops invalid findings and returns validation issues for each.
- * Also validates that resourcePath and chunkId match the submitted chunk.
- *
- * @param evaluation - The raw AI-returned chunk evaluation.
- * @param chunk - The submitted resource chunk (source of truth for evidence).
- */
-export function validateChunkEvaluation(
-  evaluation: ResourceChunkEvaluation,
-  chunk: ResourceChunk,
-): ChunkValidationResult {
-  const issues: ValidationIssue[] = [];
-
-  // Validate resourcePath matches the submitted chunk
-  if (evaluation.resourcePath !== chunk.resourcePath) {
-    issues.push({
-      code: "resourcePath-mismatch",
-      message: `Evaluation resourcePath "${evaluation.resourcePath}" does not match submitted chunk path "${chunk.resourcePath}".`,
-    });
-  }
-
-  // Validate chunkId matches the submitted chunk
-  if (evaluation.chunkId !== chunk.chunkId) {
-    issues.push({
-      code: "chunkId-mismatch",
-      message: `Evaluation chunkId "${evaluation.chunkId}" does not match submitted chunk "${chunk.chunkId}".`,
-    });
-  }
-
-  const { validFindings, issues: findingIssues } = validateFindings(
-    evaluation.findings,
-    chunk.content,
-  );
-  issues.push(...findingIssues);
-
-  const observedBehaviors = keepGroundedEvidence(
-    evaluation.observedBehaviors,
-    chunk.content,
-    "ungrounded-observed-behavior",
-    "Observed behavior",
-    issues,
-  );
-  const dependencies = keepGroundedEvidence(
-    evaluation.dependencies,
-    chunk.content,
-    "ungrounded-dependency",
-    "Dependency",
-    issues,
-  );
-  const capabilities = keepGroundedEvidence(
-    evaluation.capabilities,
-    chunk.content,
-    "ungrounded-capability",
-    "Capability",
-    issues,
-  );
-  const runtimeAssumptions = keepGroundedEvidence(
-    evaluation.runtimeAssumptions,
-    chunk.content,
-    "ungrounded-runtime-assumption",
-    "Runtime assumption",
-    issues,
-  );
-  const externalEndpoints = evaluation.externalEndpoints.filter((endpoint) => {
-    if (
-      evidenceIsGrounded(endpoint.evidence, chunk.content) &&
-      evidenceIsGrounded(endpoint.value, chunk.content)
-    ) {
-      return true;
-    }
-    issues.push({
-      code: "ungrounded-external-endpoint",
-      message: "External endpoint value or evidence was not found in the submitted chunk.",
-    });
-    return false;
-  });
-  const validStatus =
-    evaluation.status === "complete" || evaluation.status === "partial";
-  if (!validStatus) {
-    issues.push({
-      code: "invalid-status",
-      message: `Invalid status "${evaluation.status}".`,
-    });
-  }
-  const purposeRationale = stripUrls(evaluation.purposeAlignment.rationale);
-  if (purposeRationale !== evaluation.purposeAlignment.rationale) {
-    issues.push({
-      code: "url-in-purpose-rationale",
-      message: "Purpose alignment rationale contained a URL which is not permitted.",
-    });
-  }
-  const status =
-    validStatus && evaluation.status === "complete" && issues.length === 0
-      ? "complete"
-      : "partial";
-
-  return {
-    evaluation: {
-      ...evaluation,
-      resourcePath: chunk.resourcePath,
-      chunkId: chunk.chunkId,
-      status,
-      observedBehaviors,
-      dependencies,
-      externalEndpoints,
-      capabilities,
-      runtimeAssumptions,
-      findings: validFindings,
-      purposeAlignment: {
-        matches: evaluation.purposeAlignment.matches === true,
-        rationale: purposeRationale,
-      },
-      referenceIds: [
-        ...new Set(validFindings.flatMap((finding) => finding.referenceIds)),
-      ],
-    },
-    findings: validFindings,
-    issues,
-  };
-}
-
-// ---------------------------------------------------------------------------
 // Public API: Standard evaluation validation
 // ---------------------------------------------------------------------------
 
@@ -529,158 +342,6 @@ export function validateStandardEvaluation(
 }
 
 // ---------------------------------------------------------------------------
-// Public API: Resource evaluation validation
-// ---------------------------------------------------------------------------
-
-/**
- * Validates a SkillResourceEvaluation output.
- * Checks known resource paths, enums, and finding validity.
- * Findings are validated through the same registered-rule/reference/remediation
- * gate as chunk findings, using the provided source corpus for evidence grounding.
- *
- * @param evaluation - The raw AI-returned resource evaluation.
- * @param knownPaths - List of valid resource paths from the bundle.
- * @param sourceCorpus - Combined chunk content for evidence grounding.
- */
-export function validateResourceEvaluation(
-  evaluation: SkillResourceEvaluation,
-  knownPaths: string[],
-  sourceCorpus: string = "",
-): ResourceValidationResult {
-  const issues: ValidationIssue[] = [];
-
-  // Validate resource path
-  if (!knownPaths.includes(evaluation.resourcePath)) {
-    issues.push({
-      code: "unknown-resource-path",
-      message: `Resource path "${evaluation.resourcePath}" not in bundle manifest.`,
-    });
-  }
-
-  // Validate status enum
-  const validStatuses = ["complete", "partial", "failed", "skipped", "cancelled"];
-  if (!validStatuses.includes(evaluation.status)) {
-    issues.push({
-      code: "invalid-status",
-      message: `Invalid status "${evaluation.status}".`,
-    });
-  }
-
-  // Validate riskLevel enum
-  const validRiskLevels = ["none", "info", "medium", "high", "critical"];
-  if (!validRiskLevels.includes(evaluation.riskLevel)) {
-    issues.push({
-      code: "invalid-risk-level",
-      message: `Invalid riskLevel "${evaluation.riskLevel}".`,
-    });
-  }
-
-  // Validate readiness enum
-  const validReadiness = ["ready", "needs-configuration", "unsupported", "unknown"];
-  if (!validReadiness.includes(evaluation.readiness)) {
-    issues.push({
-      code: "invalid-readiness",
-      message: `Invalid readiness "${evaluation.readiness}".`,
-    });
-  }
-
-  // Validate findings through the registered-rule/reference/remediation gate
-  const { validFindings, issues: findingIssues } = validateFindings(
-    evaluation.findings,
-    sourceCorpus,
-  );
-  issues.push(...findingIssues);
-
-  return { evaluation: { ...evaluation, findings: validFindings }, issues };
-}
-
-// ---------------------------------------------------------------------------
-// Public API: Deep bundle evaluation validation
-// ---------------------------------------------------------------------------
-
-/**
- * Validates a DeepSkillBundleEvaluation output.
- * Checks synthesis level, resource paths, structure, and finding validity.
- * Findings are validated through the same registered-rule/reference/remediation
- * gate as chunk findings, using the provided source corpus for evidence grounding.
- *
- * @param evaluation - The raw AI-returned deep bundle evaluation.
- * @param knownPaths - List of valid resource paths from the bundle.
- * @param sourceCorpus - Combined evidence text from resource evaluations for grounding.
- */
-export function validateDeepBundleEvaluation(
-  evaluation: DeepSkillBundleEvaluation,
-  knownPaths: string[],
-  sourceCorpus: string = "",
-  deterministicFindings: readonly GroundedSkillFinding[] = [],
-): DeepBundleValidationResult {
-  const issues: ValidationIssue[] = [];
-
-  // Validate synthesis level
-  if (!["partial", "final"].includes(evaluation.synthesisLevel)) {
-    issues.push({
-      code: "invalid-synthesis-level",
-      message: `Invalid synthesisLevel "${evaluation.synthesisLevel}".`,
-    });
-  }
-
-  // Validate status enum
-  const validStatuses = ["complete", "partial", "failed", "cancelled"];
-  if (!validStatuses.includes(evaluation.status)) {
-    issues.push({
-      code: "invalid-status",
-      message: `Invalid status "${evaluation.status}".`,
-    });
-  }
-
-  // Validate resource paths in resources array
-  for (const resource of evaluation.resources) {
-    if (knownPaths.length > 0 && !knownPaths.includes(resource.resourcePath)) {
-      issues.push({
-        code: "unknown-resource-path",
-        message: `Resource "${resource.resourcePath}" not in bundle manifest.`,
-      });
-    }
-  }
-
-  // Validate cross-file chains reference known paths
-  for (const chain of evaluation.crossFileChains) {
-    for (const path of chain.resourcePaths) {
-      if (knownPaths.length > 0 && !knownPaths.includes(path)) {
-        issues.push({
-          code: "unknown-chain-path",
-          message: `Cross-file chain references unknown path "${path}".`,
-        });
-      }
-    }
-  }
-
-  const deduplicatedFindings = removeDeterministicDuplicateFindings(
-    evaluation.findings,
-    deterministicFindings,
-    issues,
-  );
-
-  // Validate findings through the registered-rule/reference/remediation gate
-  const { validFindings, issues: findingIssues } = validateFindings(
-    deduplicatedFindings,
-    sourceCorpus,
-  );
-  issues.push(...findingIssues);
-
-  return {
-    evaluation: {
-      ...evaluation,
-      findings: validFindings,
-      referenceIds: [
-        ...new Set(validFindings.flatMap((finding) => finding.referenceIds)),
-      ],
-    },
-    issues,
-  };
-}
-
-// ---------------------------------------------------------------------------
 // Cross-skill orchestration evaluation result
 // ---------------------------------------------------------------------------
 
@@ -728,7 +389,7 @@ export function validateOrchestrationEvaluation(
   // model omits `status` on every observed run (2026-08-05, three consecutive
   // runs) even when the instruction demands it as its closing line. Treating
   // that as invalid degraded a complete evaluation to "partial" and logged an
-  // issue on every review. `mapReviewJobItems` already makes the same choice for
+  // issue on every review. `toComponentResult` already makes the same choice for
   // per-component results (`candidate.status ?? "complete"`).
   //
   // A status that is present but not a legal value is still an error: that means

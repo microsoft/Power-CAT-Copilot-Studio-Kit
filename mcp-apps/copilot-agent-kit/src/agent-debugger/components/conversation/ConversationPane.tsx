@@ -53,7 +53,7 @@ type OAuthCardContent = {
 };
 
 /**
- * Mirrors `MessageBubble`'s OAuth filter: sign-in cards are only rendered when
+ * OAuth filter: sign-in cards are only rendered when
  * they carry visible text or buttons, since empty token-exchange cards would
  * otherwise show up as blank bubbles.
  */
@@ -68,7 +68,7 @@ function isOAuthCard(attachment: Attachment): boolean {
   return hasText || hasButtons;
 }
 
-/** Mirrors `MessageBubble`'s collapsible knowledge-source citation list. */
+/** Collapsible knowledge-source citation list. */
 function References({ references }: { references?: string[] }) {
   const [open, setOpen] = useState(false);
   if (!references?.length) return null;
@@ -291,5 +291,3 @@ export const ConversationPane = forwardRef(function ConversationPane(
     </div>
   );
 });
-
-export default ConversationPane;

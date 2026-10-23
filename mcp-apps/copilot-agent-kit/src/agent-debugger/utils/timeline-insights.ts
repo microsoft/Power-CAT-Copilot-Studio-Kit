@@ -5,7 +5,6 @@ import {
   guessStepSubtitle,
 } from './step-classification';
 import { GENERATIVE_THINKING_TASK_ID } from './transcript/parse-generative-transcript';
-import { SLOWEST_BANNER_THRESHOLD_MS, SLOW_STEP_THRESHOLD_MS } from '../theme/layout';
 
 /** Step executions that are bookkeeping rather than real, timed work. */
 const NON_TIMED_TASK_IDS = new Set([
@@ -77,98 +76,12 @@ export function collectStepTypes(turns: ProcessedTurn[]): string[] {
   return out;
 }
 
-export interface SlowestStepInfo {
-  /** True only when the slowest turn breaches the banner threshold. */
-  showBanner: boolean;
-  stepName: string;
-  stepType: string;
-  turnNumber: number;
-  durationMs: number;
-  turnDurationMs: number;
-  /** Activity ID of the user message that started the turn. */
-  messageId?: string;
-}
-
-/**
- * Finds the slowest step in the transcript.
- *
- * The banner is only surfaced when the slowest *turn* takes longer than the
- * threshold, so healthy conversations stay uncluttered.
- */
-export function findSlowestStep(turns: ProcessedTurn[]): SlowestStepInfo {
-  let best: SlowestStepInfo = {
-    showBanner: false,
-    stepName: '',
-    stepType: '',
-    turnNumber: 0,
-    durationMs: 0,
-    turnDurationMs: 0,
-  };
-
-  let slowestTurnMs = 0;
-  let turnNumber = 0;
-  let pendingMessageId: string | undefined;
-
-  for (const turn of turns) {
-    if (turn.role === 'user') {
-      pendingMessageId = turn.id;
-      continue;
-    }
-    turnNumber += 1;
-    const turnMs = turnDurationMs(turn);
-    if (turnMs > slowestTurnMs) slowestTurnMs = turnMs;
-
-    for (const exec of turn.debugInfo?.stepExecutions ?? []) {
-      if (!isTimedStep(exec.taskDialogId)) continue;
-      const ms = stepDurationMs(exec);
-      if (ms <= best.durationMs) continue;
-      best = {
-        showBanner: false,
-        stepName:
-          exec.displayName || exec.taskDialogId.split(/[.:]/).pop() || exec.taskDialogId,
-        stepType: exec.subtitle || guessStepSubtitle(exec.taskDialogId, exec.type, undefined, exec.observation) || 'Step',
-        turnNumber,
-        durationMs: ms,
-        turnDurationMs: turnMs,
-        messageId: pendingMessageId,
-      };
-    }
-  }
-
-  best.showBanner = best.durationMs > 0 && slowestTurnMs > SLOWEST_BANNER_THRESHOLD_MS;
-  return best;
-}
-
-/** Number of steps at or beyond the "slow" threshold used by Agent insights. */
-export function countSlowSteps(turns: ProcessedTurn[]): number {
-  let count = 0;
-  for (const turn of turns) {
-    for (const exec of turn.debugInfo?.stepExecutions ?? []) {
-      if (!isTimedStep(exec.taskDialogId)) continue;
-      if (stepDurationMs(exec) >= SLOW_STEP_THRESHOLD_MS) count += 1;
-    }
-  }
-  return count;
-}
-
 /** Total number of timed steps across the transcript. */
 export function countSteps(turns: ProcessedTurn[]): number {
   let count = 0;
   for (const turn of turns) {
     for (const exec of turn.debugInfo?.stepExecutions ?? []) {
       if (isTimedStep(exec.taskDialogId)) count += 1;
-    }
-  }
-  return count;
-}
-
-/** Number of steps that ended in a failure state. */
-export function countFailedSteps(turns: ProcessedTurn[]): number {
-  let count = 0;
-  for (const turn of turns) {
-    for (const exec of turn.debugInfo?.stepExecutions ?? []) {
-      if (!isTimedStep(exec.taskDialogId)) continue;
-      if (exec.errorMessage || exec.blockedError) count += 1;
     }
   }
   return count;

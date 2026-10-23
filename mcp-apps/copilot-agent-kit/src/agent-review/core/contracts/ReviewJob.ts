@@ -13,19 +13,6 @@ import type { AeStandardTopic } from './AgentsExperienceModel.js';
  * reaches the UI.
  */
 
-/** Dataverse entity set for the parent job row. */
-export const REVIEW_JOB_ENTITY_SET = 'cat_agentreviewjobs';
-
-/**
- * Dataverse entity set for per-component results.
- *
- * The workflow loop writes one row here per agent-node call rather than
- * accumulating an array. That keeps parallel iterations free of shared state
- * and means a crash part-way through still leaves the completed components
- * readable.
- */
-export const REVIEW_JOB_ITEM_ENTITY_SET = 'cat_agentreviewjobitems';
-
 /** `cat_jobstatus` option set. */
 export const ReviewJobStatus = {
   Queued: 1,
@@ -43,12 +30,6 @@ export const ReviewJobKind = {
 } as const;
 export type ReviewJobKindValue =
   (typeof ReviewJobKind)[keyof typeof ReviewJobKind];
-
-/** Terminal states — polling stops when the row reaches one of these. */
-export const TERMINAL_STATUSES: readonly ReviewJobStatusValue[] = [
-  ReviewJobStatus.Succeeded,
-  ReviewJobStatus.Failed,
-];
 
 /** `cat_itemstatus` option set on a job item row. */
 export const ReviewJobItemStatus = {

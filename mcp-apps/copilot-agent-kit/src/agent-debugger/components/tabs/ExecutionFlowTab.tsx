@@ -369,5 +369,3 @@ export function ExecutionFlowTab({
     </>
   );
 }
-
-export default ExecutionFlowTab;

@@ -1,28 +1,3 @@
-import { Badge } from '@fluentui/react-components';
-import type { Severity } from './viewTypes.js';
-
-/** Severity → Fluent Badge mapping used across findings, coverage, and skills. */
-
-const SEV_LABEL: Record<Severity, string> = {
-  error: 'Error',
-  warning: 'Warning',
-  info: 'Info',
-};
-
-const SEV_COLOR: Record<Severity, 'danger' | 'warning' | 'informative'> = {
-  error: 'danger',
-  warning: 'warning',
-  info: 'informative',
-};
-
-export function SeverityBadge({ sev }: { sev: Severity }) {
-  return (
-    <Badge appearance="tint" color={SEV_COLOR[sev]} shape="circular" size="medium">
-      {SEV_LABEL[sev]}
-    </Badge>
-  );
-}
-
 /** Agent-skill glyph (gradient), carried over from the HTML mock. */
 export function SkillGlyph({ size = 17 }: { size?: number }) {
   return (

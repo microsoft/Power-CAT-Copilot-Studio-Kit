@@ -7,7 +7,7 @@
  * saved before this rule existed still carries edges that were never validated,
  * and the map draws persisted edges directly. The deterministic text path
  * already re-validates persisted evidence for the same reason
- * (`isSkillCapabilityReferenceSupported`); this keeps the model path honest to
+ * (`analyzeSkillCapabilityReferences`); this keeps the model path honest to
  * the same standard.
  */
 

@@ -372,5 +372,3 @@ export function ActivityDetailPane({
     </>
   );
 }
-
-export default ActivityDetailPane;

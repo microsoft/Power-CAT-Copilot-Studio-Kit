@@ -12,16 +12,9 @@ import type { SkillBundle, SkillBundleResource } from "../../contracts/SkillBund
 // Standard limits
 // ---------------------------------------------------------------------------
 
-export const STANDARD_SKILL_CHARS = 64_000;
 export const STANDARD_RESOURCE_CHARS = 8_000;
 export const STANDARD_RESOURCE_TOTAL_CHARS = 96_000;
 export const STANDARD_TOKEN_CEILING = 50_000;
-
-// Deep limits
-
-export const RESOURCE_TOKEN_CEILING = 12_000;
-export const FILE_SYNTHESIS_TOKEN_CEILING = 30_000;
-export const BUNDLE_SYNTHESIS_TOKEN_CEILING = 45_000;
 
 // ---------------------------------------------------------------------------
 // Token estimation
@@ -62,13 +55,6 @@ export interface StandardExcerptOptions {
 // ---------------------------------------------------------------------------
 // Budget enforcement interface
 // ---------------------------------------------------------------------------
-
-export interface BudgetResult {
-  payload: unknown;
-  tokenCount: number;
-  withinBudget: boolean;
-  omissions: string[];
-}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -146,49 +132,4 @@ export function buildStandardResourceExcerpts(
   }
 
   return { excerpts, omissions };
-}
-
-/**
- * Enforces a token-count ceiling on an arbitrary payload object by
- * progressively removing optional keys.
- *
- * Removal order: `excerpts` → `results`. Never slices serialised JSON.
- *
- * @param payload - The payload object to trim.
- * @param ceiling - Maximum allowed token count.
- */
-export function enforcePayloadBudget(
-  payload: Record<string, unknown>,
-  ceiling: number,
-): BudgetResult {
-  const omissions: string[] = [];
-  let current: Record<string, unknown> = { ...payload };
-  let tokenCount = estimateTokens(current);
-
-  if (tokenCount <= ceiling) {
-    return { payload: current, tokenCount, withinBudget: true, omissions };
-  }
-
-  // Remove "excerpts" first (optional context, largest contributor)
-  if ("excerpts" in current) {
-    omissions.push("excerpts");
-    const { excerpts: _e, ...rest } = current;
-    void _e;
-    current = rest;
-    tokenCount = estimateTokens(current);
-    if (tokenCount <= ceiling) {
-      return { payload: current, tokenCount, withinBudget: true, omissions };
-    }
-  }
-
-  // Remove "results" next
-  if ("results" in current) {
-    omissions.push("results");
-    const { results: _r, ...rest } = current;
-    void _r;
-    current = rest;
-    tokenCount = estimateTokens(current);
-  }
-
-  return { payload: current, tokenCount, withinBudget: tokenCount <= ceiling, omissions };
 }

@@ -241,5 +241,3 @@ export function ActivityTimeline({
     </ol>
   );
 }
-
-export default ActivityTimeline;

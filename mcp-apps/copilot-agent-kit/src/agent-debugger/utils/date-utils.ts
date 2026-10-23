@@ -2,14 +2,6 @@
  * Shared date formatting utilities for the Agent Debugger feature.
  */
 
-/** Formats an ISO date string as a short date (e.g. "Mar 25, 2026"). */
-export function formatDate(isoDate: string | undefined): string {
-  if (!isoDate) return "";
-  const d = new Date(isoDate);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-}
-
 /**
  * Formats a session start in the viewer's local time zone (e.g. "Mar 25, 3:45 PM").
  * The server `startText` has no time zone label, so it is only the fallback for a missing or invalid `startTimeUtc`.

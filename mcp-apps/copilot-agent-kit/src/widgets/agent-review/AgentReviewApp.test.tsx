@@ -1223,8 +1223,14 @@ async function activateListNode(user: ReturnType<typeof userEvent.setup>, name =
   if (keyboard) {
     node.focus();
     await user.keyboard(keyboard);
-  } else {
+  } else if (list) {
     await user.click(node);
+  } else {
+    // A canvas node click skips the mousedown that d3-drag cannot read in jsdom.
+    await act(async () => {
+      fireEvent.click(node);
+      await new Promise(resolve => setTimeout(resolve, 0));
+    });
   }
 }
 

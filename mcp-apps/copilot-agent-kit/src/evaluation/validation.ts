@@ -2,7 +2,6 @@ import type { EvaluationCase, EvaluationMethod, EvaluationSelection, EvaluationT
 import { ReviewError } from "../agent-review/server/types.js";
 
 const controlCharacters = /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/;
-const formulaPrefix = /^[\s]*[=+\-@]/;
 
 export function validateEvaluationText(text: string, label: string, maximum?: number): void {
   if (controlCharacters.test(text)) throw new ReviewError("EVALUATION_INVALID_TEXT", `${label} contains an unsupported control character.`);
@@ -66,30 +65,4 @@ export function validateEvaluationSelection(
     }
   }
   return selected;
-}
-
-function csvCell(value: string, neutralizeFormula = false): string {
-  const safe = neutralizeFormula && formulaPrefix.test(value) ? `'${value}` : value;
-  return `"${safe.replace(/"/g, '""')}"`;
-}
-
-export function studioImportCsv(cases: readonly EvaluationCase[], selection: readonly EvaluationSelection[], method: EvaluationMethod): string {
-  const selected = validateEvaluationSelection("single-response", method, cases, selection);
-  const rows = selected.map(item => {
-    const { question, expectedResponse } = item.turns[0];
-    if (formulaPrefix.test(question) || formulaPrefix.test(expectedResponse)) {
-      throw new ReviewError("EVALUATION_UNSAFE_CSV", "A question or expectation starts with a spreadsheet formula character. CSV export was rejected rather than changing its text. Use the evidence report or JSON instead.");
-    }
-    return [question, expectedResponse].map(value => csvCell(value)).join(",");
-  });
-  return `Question,Expected response\r\n${rows.join("\r\n")}\r\n`;
-}
-
-export function evidenceCsv(cases: readonly EvaluationCase[], selection: readonly EvaluationSelection[]): string {
-  const rows = selectedCases(cases, selection).map(item => [
-    item.id, item.provenance.conversationId, item.provenance.transcriptId,
-    item.turns[0].question, item.turns[0].observedResponse, item.turns[0].expectedResponse,
-    item.outcome, JSON.stringify(item.path), JSON.stringify(item.turns),
-  ].map(value => csvCell(value, true)).join(","));
-  return `Case ID,Conversation ID,Transcript ID,Question,Observed response,Expected response,Recorded outcome,Recorded path,All turns\r\n${rows.join("\r\n")}\r\n`;
 }

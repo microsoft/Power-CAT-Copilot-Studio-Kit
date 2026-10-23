@@ -9,7 +9,6 @@
  */
 
 import type { ComponentInfo } from "../services/botcomponents-service.js";
-import { formatDuration } from "./format-duration.js";
 
 /**
  * Returns the best executionTime string ("hh:mm:ss.fffffff") for a step exec.
@@ -217,15 +216,6 @@ export function execTimeToMs(executionTime?: string): number {
   const min = parts[parts.length - 2] ?? "0";
   const hr  = parts.length >= 3 ? (parts[parts.length - 3] ?? "0") : "0";
   return (n(hr) * 3600 + n(min) * 60 + n(sec)) * 1000;
-}
-
-/**
- * Formats a millisecond duration as a human-readable string that scales from
- * milliseconds to days. Delegates to the shared {@link formatDuration} so every
- * duration display in the feature stays consistent.
- */
-export function fmtDuration(ms: number): string {
-  return formatDuration(ms);
 }
 
 /**

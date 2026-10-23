@@ -46,5 +46,3 @@ export function ComponentLegend({ types, showIdle, showSlowest }: ComponentLegen
     </div>
   );
 }
-
-export default ComponentLegend;

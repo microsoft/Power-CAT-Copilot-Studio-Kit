@@ -149,7 +149,7 @@ test("large Debugger analysis is compact initially and complete through existing
     const decoded = await readCompleteToolResult(pulled, request => client.callTool(request));
     assert.deepEqual(decoded.structuredContent?.processedTranscript, analysis.processedTranscript);
     const tools = await client.listTools();
-    assert.equal(tools.tools.length, 27);
+    assert.equal(tools.tools.length, 23);
     assert.deepEqual(tools.tools.find((tool) => tool.name === "analyze_debugger_conversation")?._meta?.ui, {
       resourceUri: `ui://open_agent_debugger/${resourceVersion}/agent-debugger.html`, visibility: ["app"],
     });

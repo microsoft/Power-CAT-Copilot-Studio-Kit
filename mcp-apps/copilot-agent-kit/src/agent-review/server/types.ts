@@ -1,6 +1,6 @@
-import type { Guid, ReviewJobItemRow, ReviewJobRow } from "../core/index.js";
+import type { Guid } from "../core/index.js";
 
-export type { Guid, ReviewJobItemRow, ReviewJobRow };
+export type { Guid };
 
 export interface ReviewEnvironment {
   id: Guid;

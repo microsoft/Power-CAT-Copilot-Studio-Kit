@@ -386,16 +386,3 @@ export function analyzeSkillCapabilityReferences(
       left.matchedName.localeCompare(right.matchedName)),
   };
 }
-
-/** Reapply current conservative matching rules to one persisted reference evidence line. */
-export function isSkillCapabilityReferenceSupported(
-  reference: SkillCapabilityReference,
-  model: AgentsExperienceModel,
-): boolean {
-  const expectedKind = reference.matchKind ?? 'exact';
-  return analyzeSkillCapabilityReferences(reference.evidence, model).references.some(candidate =>
-    candidate.category === reference.category &&
-    normalizeReferenceText(candidate.targetSchemaName) ===
-      normalizeReferenceText(reference.targetSchemaName) &&
-    (candidate.matchKind ?? 'exact') === expectedKind);
-}

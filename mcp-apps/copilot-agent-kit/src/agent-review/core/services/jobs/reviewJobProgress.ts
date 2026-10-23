@@ -38,7 +38,7 @@ const PHASE_STAGE: Record<WorkflowJobProgress['phase'], SkillReviewProgress['sta
 
 /**
  * Converts a workflow phase into a `SkillReviewProgress` the existing
- * `CopilotReviewProgress` component renders unchanged.
+ * Review progress UI renders unchanged.
  *
  * While the workflow runs, the percentage is derived from the child-row count
  * rather than the phase, so the bar tracks real work. Without a count it falls

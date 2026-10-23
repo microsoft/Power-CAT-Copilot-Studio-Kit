@@ -8,8 +8,6 @@ import {
   tokens,
 } from "@fluentui/react-components";
 
-export { displayAgentMapDetail } from "./agentMapDetailFormatting";
-
 const useStyles = makeStyles({
   section: {
     display: "flex",

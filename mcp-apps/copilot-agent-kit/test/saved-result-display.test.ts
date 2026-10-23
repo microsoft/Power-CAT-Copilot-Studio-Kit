@@ -29,7 +29,7 @@ test("actual discovery binds the model-callable saved-result tool to the registe
   const { client, close } = await connected();
   try {
     const { tools } = await client.listTools();
-    assert.equal(tools.length, 27);
+    assert.equal(tools.length, 23);
     const opener = tools.find(tool => tool.name === "open_agent_review");
     const saved = tools.find(tool => tool.name === "get_agent_review_result");
     assert.ok(opener?._meta?.ui);

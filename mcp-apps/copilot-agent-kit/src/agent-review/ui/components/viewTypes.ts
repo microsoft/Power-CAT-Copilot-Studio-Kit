@@ -301,18 +301,6 @@ export interface FindingRowView {
   finding: FindingView;
 }
 
-/** A findings group (one per rule family) in the grouped Findings rail. */
-export interface FindingGroupView {
-  family: string;
-  rows: FindingRowView[];
-  counts: { error: number; warning: number; info: number };
-}
-
-/** Grouped-by-family view of the review findings, worst family first. */
-export interface FindingsGroupedView {
-  groups: FindingGroupView[];
-}
-
 export interface ReviewSummaryView {
   agentName: string;
   /** Retained target harness; absent for older saved reviews. */

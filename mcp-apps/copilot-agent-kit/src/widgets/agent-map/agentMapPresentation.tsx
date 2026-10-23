@@ -21,7 +21,6 @@ export {
   AGENT_MAP_CATEGORY_LABELS,
   AGENT_MAP_PROVENANCE_LABELS,
   AGENT_MAP_RESOLUTION_LABELS,
-  agentMapCategoryIconIsBranded,
   agentMapNodeIconIsBranded,
   agentMapProvenanceDash,
   getAgentMapNodeTypeLabel,

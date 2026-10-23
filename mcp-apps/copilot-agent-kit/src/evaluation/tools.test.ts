@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { createAgentEvaluationSet, getAgentEvaluationSave, getEvaluationDraft, getEvaluationNativeSupport, openEvaluationBuilder } from "./tools.js";
+import { createAgentEvaluationSet, getAgentEvaluationSave, openEvaluationBuilder } from "./tools.js";
 import { compactInitialWidgetResult, getInitialWidgetData } from "../tools/initialWidgetPayload.js";
 import { readCompleteToolResult } from "../widgets/shared/tool-result.js";
 import { EvaluationService } from "./service.js";
@@ -86,8 +86,6 @@ test("all evaluation boundaries reject anonymous calls before a service is const
   const factory = () => { constructed += 1; throw new Error("An anonymous call must not construct a service."); };
   const results = await Promise.all([
     openEvaluationBuilder(undefined, { agentName: "Exact agent" }, factory),
-    getEvaluationDraft(undefined, { draftId: id }, factory),
-    getEvaluationNativeSupport(undefined, { draftId: id }, factory),
     createAgentEvaluationSet(undefined, { draftId: id, requestId: id, saveGrant: "x".repeat(43), name: "Anonymous fixture", method: "GeneralQualityGrader", selectedCases: [{ caseId: "dummy", expectedResponses: [""] }], confirmed: true }, factory),
     getAgentEvaluationSave(undefined, { draftId: id, requestId: id, saveGrant: "x".repeat(43) }, factory),
   ]);

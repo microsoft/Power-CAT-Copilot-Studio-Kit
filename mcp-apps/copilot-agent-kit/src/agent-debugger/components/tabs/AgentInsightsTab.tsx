@@ -637,5 +637,3 @@ export function AgentInsightsTab({
     </div>
   );
 }
-
-export default AgentInsightsTab;

@@ -474,5 +474,3 @@ export function PerformanceTimelineTab({ transcript, componentNameBySchemaName, 
     </section>
   );
 }
-
-export default PerformanceTimelineTab;

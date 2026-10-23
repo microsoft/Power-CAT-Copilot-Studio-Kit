@@ -14,7 +14,7 @@ export interface ConnectedAgentInfo {
    * `InvokeConnectedAgentTaskAction`, with its own child transcript fetched
    * from Dataverse) from a CHILD agent (in-app sub-agent surfaced inline via
    * `DynamicPlanStepTriggered` with `type === "Agent"` and a `.agent.`
-   * schema). Drives icon + label selection in `ConnectedAgentCard`.
+   * schema).
    */
   agentKind: "connected" | "child";
   /** The schema name of the connected agent (e.g., cr7f9_contosoSupportAssistant) */

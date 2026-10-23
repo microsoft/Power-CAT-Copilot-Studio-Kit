@@ -42,7 +42,7 @@ test("tools/list exposes exact strict complete-context callback fields through S
   const { client, close } = await connectedClient(caller);
   try {
     const { tools } = await client.listTools();
-    assert.equal(tools.length, 27);
+    assert.equal(tools.length, 23);
     const tool = tools.find(item => item.name === "get_initial_widget_data");
     assert.ok(tool);
     context.diagnostic(JSON.stringify({
@@ -170,16 +170,12 @@ const toolContracts = [
   ["open_agent_review", "reviewId jobId environmentId environmentName agentId agentName componentIdUnique startReview requestId resumeOnly", ""],
   ["show_agent_map", "environmentId environmentName agentId agentName componentIdUnique", ""],
   ["browse_agent_reviews", "environmentId presentation", ""],
-  ["open_agent_debugger", "environmentId environmentName agentId agentName conversationId", ""],
+  ["open_agent_debugger", "environmentId environmentName agentId agentName conversationId startedAfter startedBefore", ""],
   ["open_evaluation_builder", "environmentId environmentName agentId agentName mode", ""],
-  ["get_evaluation_draft", "draftId", "draftId"],
-  ["get_evaluation_native_support", "draftId", "draftId"],
   ["create_agent_evaluation_set", "draftId requestId saveGrant name method selectedCases confirmed", "draftId requestId saveGrant name method selectedCases confirmed"],
   ["get_agent_evaluation_save", "draftId requestId saveGrant", "draftId requestId saveGrant"],
   ["update_agent_evaluation_case", "draftId requestId saveGrant caseId question expectedResponse remove", "draftId requestId saveGrant caseId question expectedResponse"],
   ["get_initial_widget_data", "contextId index sha256", "contextId"],
-  ["get_app_view_resource", "view", "view"],
-  ["get_app_view_chunk", "view index sha256", "view index sha256"],
   ["list_debugger_agents", "environmentId query", "environmentId"],
   ["list_debugger_conversations", "environmentId agentId query limit startedAfter startedBefore", "environmentId agentId"],
   ["analyze_debugger_conversation", "environmentId agentId conversationId", "environmentId agentId conversationId"],
@@ -196,7 +192,7 @@ const toolContracts = [
   ["get_agent_review_result", "reviewId presentation", "reviewId"],
 ] as const;
 
-test("SDK discovery retains the exact fields, required arguments and strict declarations of all 27 tools", async context => {
+test("SDK discovery retains the exact fields, required arguments and strict declarations of all 23 tools", async context => {
   const remote = context.mock.method(globalThis, "fetch", async () => { assert.fail("This protocol test forbids remote requests."); });
   const { client, close } = await connectedClient();
   try {
@@ -273,7 +269,7 @@ test("SDK enforces the Debugger 50-conversation limit before its anonymous handl
   } finally { await close(); }
 });
 
-test("all 27 SDK handlers reject an unknown key before handling well-typed anonymous arguments", async context => {
+test("all 23 SDK handlers reject an unknown key before handling well-typed anonymous arguments", async context => {
   const remote = context.mock.method(globalThis, "fetch", async () => { assert.fail("This protocol test forbids remote requests."); });
   const { client, close } = await connectedClient();
   const environmentId = "11111111-1111-4111-8111-111111111111";
@@ -291,15 +287,11 @@ test("all 27 SDK handlers reject an unknown key before handling well-typed anony
     browse_agent_reviews: { environmentId },
     open_agent_debugger: target,
     open_evaluation_builder: target,
-    get_evaluation_draft: { draftId },
-    get_evaluation_native_support: { draftId },
     create_agent_evaluation_set: { ...saveIdentity, name: "Offline fixture", method: "GeneralQualityGrader",
       selectedCases: [{ caseId: "offline-case", expectedResponses: [""] }], confirmed: true },
     get_agent_evaluation_save: saveIdentity,
     update_agent_evaluation_case: { ...saveIdentity, caseId: "offline-case", question: "Offline question", expectedResponse: "Offline answer" },
     get_initial_widget_data: { contextId: draftId },
-    get_app_view_resource: { view: "review" },
-    get_app_view_chunk: { view: "review", index: 0, sha256: "0".repeat(64) },
     list_debugger_agents: { environmentId },
     list_debugger_conversations: { ...target, limit: 50 },
     analyze_debugger_conversation: conversation,

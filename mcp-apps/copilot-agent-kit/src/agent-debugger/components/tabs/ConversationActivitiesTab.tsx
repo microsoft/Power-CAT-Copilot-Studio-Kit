@@ -315,5 +315,3 @@ export const ConversationActivitiesTab = forwardRef<
     </div>
   );
 });
-
-export default ConversationActivitiesTab;

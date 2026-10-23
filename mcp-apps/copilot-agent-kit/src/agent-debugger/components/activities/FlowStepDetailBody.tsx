@@ -384,5 +384,3 @@ export function FlowStepStatusBadges({ step }: { step: FlowStep }): React.ReactE
     </>
   );
 }
-
-export default FlowStepDetailBody;

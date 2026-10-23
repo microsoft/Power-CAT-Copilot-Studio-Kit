@@ -234,23 +234,6 @@ export function reduceWorkflowResultRows(
   };
 }
 
-export function mapReviewJobItems(
-  rows: readonly ReviewJobItemRow[],
-): AgentComponentResult[] {
-  return reduceWorkflowResultRows(rows).components.map(
-    (component) => component.result,
-  );
-}
-
-export function selectNewestUsableStageResult(
-  rows: readonly ReviewJobItemRow[],
-  index: number,
-): unknown | null {
-  return reduceWorkflowResultRows(
-    rows.filter((row) => row.cat_componentindex === index),
-  ).stages.get(index)?.value ?? null;
-}
-
 function canonicalizeQuotedEvidence(value: string | undefined): string {
   const evidence = (value ?? '').trim();
   return evidence.replace(/^(?:[-*+]\s+|\d+[.)]\s+)/, '').trim() || evidence;

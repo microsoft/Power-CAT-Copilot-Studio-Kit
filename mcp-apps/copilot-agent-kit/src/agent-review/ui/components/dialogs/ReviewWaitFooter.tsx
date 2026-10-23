@@ -1,12 +1,6 @@
 /**
  * Waiting affordances for a review that can run for minutes.
  *
- * Extracted from `ReviewProgressDialog` rather than written inline, for two
- * reasons. The dialog renders through a Fluent portal, so nothing inside it can
- * be proved by a server-rendered test; and the stage list already made that
- * file long. Keeping this piece separate makes the part that matters during a
- * long wait independently verifiable.
- *
  * Everything rendered here is measured. The expected duration and the
  * slow-run threshold both come from observed run durations — never from a guess
  * about how long the backend "should" take.

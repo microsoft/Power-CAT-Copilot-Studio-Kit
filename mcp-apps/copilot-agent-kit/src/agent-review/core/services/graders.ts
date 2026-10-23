@@ -50,7 +50,3 @@ export function distinctGraders(sets: AeEvaluationSet[]): AeGrader[] {
   }
   return [...seen.values()];
 }
-
-/** Graders that cannot return a verdict because their configuration is missing. */
-export const unconfiguredGraders = (sets: AeEvaluationSet[]): AeGrader[] =>
-  distinctGraders(sets).filter((g) => !g.configured);

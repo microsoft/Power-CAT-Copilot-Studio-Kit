@@ -50,14 +50,3 @@ const applyStudioRadius = (theme: Theme): Theme => ({
 });
 
 export const copilotStudioReviewLightTheme: Theme = applyStudioRadius(createLightTheme(copilotStudioReviewBrand));
-
-/**
- * Review brand color as an 8-digit ARGB string for ExcelJS.
- *
- * ExcelJS wants `AARRGGBB`, not CSS hex, so exported workbooks cannot read a
- * Fluent token at runtime. Every Agent Review Tool exporter stamps its header
- * row with this, so the spreadsheet matches the indigo review UI it came from.
- * Deriving it from stop 80 stops the three exporters drifting apart: each one
- * used to hardcode the brand separately.
- */
-export const reviewBrandArgb = `FF${copilotStudioReviewBrand[80].replace('#', '')}`.toUpperCase();

@@ -35,9 +35,6 @@ export const PILLAR_WEIGHTS: Record<PillarName, number> = {
   Orchestration: 10,
 };
 
-/** Pillars normally scored for reviewable agents. */
-export const BASELINE_PILLARS: PillarName[] = ['Evaluation', 'Instructions'];
-
 /** Maps a rule/finding family to its scored pillar. Families absent here (Model, Lifecycle) are unscored. */
 const FAMILY_TO_PILLAR: Record<string, PillarName> = {
   Instructions: 'Instructions',

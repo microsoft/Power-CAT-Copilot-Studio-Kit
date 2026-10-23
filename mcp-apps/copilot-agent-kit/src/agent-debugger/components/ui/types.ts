@@ -107,15 +107,3 @@ export interface FeedbackData {
     rating?: number;
   };
 }
-
-// Parsed message for display
-export interface ParsedMessage {
-  id: string;
-  type: "user" | "bot" | "system";
-  text?: string;
-  timestamp: string;
-  attachments?: Attachment[];
-  suggestedActions?: SuggestedActions;
-  feedback?: FeedbackData;
-  hasFeedback?: boolean;
-}

@@ -112,7 +112,7 @@ test("each Agent Review surface gets an isolated invocation identity", () => {
   const open = tools.slice(openStart, openEnd);
 
   assert.match(open, /const selectionId = randomUUID\(\)/);
-  assert.match(open, /state:\s*"selecting",\s*selectionId,/);
+  assert.match(open, /state:\s*input\.reviewId\s*\?\s*"error"\s*:\s*input\.jobId\s*\?\s*"load-error"\s*:\s*"selecting",\s*\.\.\.\(input\.reviewId\s*\?\s*\{\s*reviewId:\s*input\.reviewId\s*\}\s*:\s*input\.jobId\s*\?\s*\{\s*jobId:\s*input\.jobId\s*\}\s*:\s*\{\}\),\s*selectionId,/);
 });
 
 test("each review browser surface gets an isolated invocation identity", () => {
@@ -139,7 +139,7 @@ test("agent instructions use direct exact requests and retain optional Create co
   assert.match(instructions, /resumeOnly/);
   assert.match(instructions, /unresolved target keeps the form without a start/i);
   assert.match(instructions, /acknowledged jobId/);
-  assert.match(instructions, /opener reply alone does not prove that the dialog or stepper is visible/i);
+  assert.match(instructions, /An opener or result reply does not prove that the host displayed the Review UI\./i);
 });
 
 test("user-facing copy follows the current Copilot Studio agent terminology", () => {

@@ -75,11 +75,3 @@ export function getNodeFindingBadge(
     label: `${countText(linked.length, "finding", "findings")}: ${parts.join(", ")}`,
   };
 }
-
-export function countUnmappedFindings(
-  findings: readonly FindingView[],
-  nodes: readonly Pick<AgentMapViewNode, "componentIdUnique">[],
-): number {
-  const identities = new Set(nodes.map(node => componentKey(node.componentIdUnique)).filter(Boolean));
-  return findings.filter(finding => !identities.has(componentKey(finding.componentIdUnique))).length;
-}

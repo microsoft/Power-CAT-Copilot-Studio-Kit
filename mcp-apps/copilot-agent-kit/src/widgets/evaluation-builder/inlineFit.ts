@@ -120,5 +120,3 @@ export function useInlineFit(host: McpUiHostContext | undefined, app: App | null
     note, requestFullscreen, exitFullscreen,
   };
 }
-
-export type InlineFit = ReturnType<typeof useInlineFit>;

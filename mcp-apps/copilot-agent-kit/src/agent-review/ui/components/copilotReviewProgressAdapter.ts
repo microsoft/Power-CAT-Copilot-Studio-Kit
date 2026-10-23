@@ -103,15 +103,3 @@ export function reachedIndex(stages: ProgressStage[] | undefined): number {
   });
   return furthest;
 }
-
-/**
- * Indicates whether a running GitHub Copilot harness review can be cancelled.
- *
- * A workflow run cannot be cancelled by aborting its browser-side poll. Hiding
- * that control avoids claiming that server-side work was stopped.
- */
-export function shouldShowCopilotReviewCancel(
-  actions: Pick<WorkflowProgressActions, 'canCancelExecution'>,
-): boolean {
-  return actions.canCancelExecution;
-}

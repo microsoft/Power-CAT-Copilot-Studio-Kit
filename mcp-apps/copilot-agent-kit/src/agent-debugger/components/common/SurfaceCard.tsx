@@ -90,5 +90,3 @@ export function SurfaceCard({
     </section>
   );
 }
-
-export default SurfaceCard;

@@ -11,7 +11,6 @@ import type {
   InstructionCoverageElement,
   InstructionCoverageResult,
 } from "../../contracts/AiCoverage.js";
-import type { ReviewStageStatus } from "../../contracts/ReviewResult.js";
 
 // ---------------------------------------------------------------------------
 // Rule IDs — map each P1 coverage key to its numbered rule ID
@@ -150,58 +149,4 @@ export function validateInstructionCoverage(
   }
 
   return raw;
-}
-
-// ---------------------------------------------------------------------------
-// Task 4 — lenient classification (never throws)
-// ---------------------------------------------------------------------------
-
-export interface InstructionCoverageClassification {
-  /** Explicit infrastructure status, independent of which elements were found. */
-  status: ReviewStageStatus;
-  /** Only the well-formed, evidence-grounded elements — never fabricated ones. */
-  elements: InstructionCoverageElement[];
-}
-
-/**
- * Classifies a raw AI response into an explicit {@link ReviewStageStatus}
- * without throwing. Unlike {@link validateInstructionCoverage} (strict,
- * all-or-nothing), this keeps whatever subset of the five elements is
- * well-formed and evidence-grounded so a partial AI response still yields
- * real, non-fabricated findings instead of being discarded entirely.
- * Malformed, duplicate, or fabricated elements are silently dropped;
- * unclassified elements are never treated as failures — only the overall
- * infrastructure status can be 'partial' or 'failed'.
- */
-export function classifyInstructionCoverage(
-  raw: InstructionCoverageResult | null | undefined,
-  sourceInstructions: string,
-): InstructionCoverageClassification {
-  const normalizedInstructions = normalize(sourceInstructions);
-  const seen = new Set<string>();
-  const elements: InstructionCoverageElement[] = [];
-
-  for (const el of raw?.elements ?? []) {
-    if (!el || typeof el.key !== "string") continue;
-    if (!REQUIRED_KEYS.has(el.key as InstructionCoverageElement["key"])) continue;
-    if (seen.has(el.key)) continue; // duplicate key — keep only the first
-
-    if (el.present) {
-      if (!el.evidence || el.evidence.trim().length === 0) continue; // present but no evidence — drop
-      if (!normalizedInstructions.includes(normalize(el.evidence))) continue; // fabricated evidence — drop
-    } else if (el.evidence && el.evidence.trim().length > 0) {
-      continue; // absent but has evidence — inconsistent, drop
-    }
-
-    seen.add(el.key);
-    elements.push(el);
-  }
-
-  if (elements.length === 0) {
-    return { status: { state: "failed", reason: "incomplete-response" }, elements: [] };
-  }
-  if (elements.length < REQUIRED_KEYS.size) {
-    return { status: { state: "partial", reason: "incomplete-response" }, elements };
-  }
-  return { status: { state: "complete" }, elements };
 }

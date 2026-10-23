@@ -33,41 +33,19 @@ export * from './services/rules/instructionRules.js';
 export * from './services/rules/knowledgeRules.js';
 export * from './services/rules/lifecycleRules.js';
 export * from './services/rules/modelRules.js';
-export { norm } from './services/rules/ruleTypes.js';
 export * from './services/rules/skillRules.js';
 export * from './services/rules/toolRules.js';
 export * from './services/scoring.js';
 export * from './services/standardTopicEvaluation.js';
-export {
-  canRunDeepReview,
-  computeDeterministicFindings,
-  computeDeterministicFindingsByBundle,
-  executeSkillBundleReview,
-  type SkillBundleReviewAiPort,
-  type SkillBundleReviewDeps,
-} from './services/SkillBundleReviewService.js';
 export * from './services/skill/bundleAssembler.js';
 export * from './services/skill/bundleIntegrity.js';
 export * from './services/skill/capabilityEvidence.js';
-export * from './services/skill/chunking.js';
-export * from './services/skill/concurrency.js';
-export * from './services/skill/deepBundleSynthesis.js';
-export {
-  deepEvaluationFromStandard,
-  executeDeepSkillBundleReview,
-  type StandardReviewRunner,
-} from './services/skill/deepFacade.js';
-export * from './services/skill/deepResourceEvaluation.js';
-export * from './services/skill/deepReviewHelpers.js';
-export * from './services/skill/DeepSkillReviewOrchestrator.js';
-export * from './services/skill/deepSynthesis.js';
 export * from './services/skill/injectionPatterns.js';
 export * from './services/skill/InstructionCoverageValidator.js';
 export * from './services/skill/L0SkillAnalyzer.js';
 export * from './services/skill/normalize.js';
 export * from './services/skill/orchestrationRuleRegistry.js';
 export * from './services/skill/persistedSkillReview.js';
-export * from './services/skill/progressTracker.js';
 export * from './services/skill/resourceNormalizer.js';
 export * from './services/skill/resourceScanners.js';
 export * from './services/skill/scoreNormalization.js';

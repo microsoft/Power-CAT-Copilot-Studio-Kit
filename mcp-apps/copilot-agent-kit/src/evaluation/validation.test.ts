@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { EvaluationCase, EvaluationSelection } from "./contracts.js";
-import { evidenceCsv, studioImportCsv, validateEvaluationSelection } from "./validation.js";
+import { validateEvaluationSelection } from "./validation.js";
 
 const candidate = (id = "case-1", pairs = 1): EvaluationCase => ({
   id, question: "What is the policy?", outcome: "unknown", path: [], pathKey: "no-recorded-path",
@@ -65,28 +65,6 @@ test("selection rejects unknown cases, duplicate IDs, changed turn counts and em
 test("Exact match requires a reviewed expectation", () => {
   const cases = [candidate()];
   assert.throws(() => validateEvaluationSelection("single-response", "ExactMatchGrader", cases, selections(cases)), /expected response/i);
-});
-test("Studio CSV has only the two documented columns, in order, with lossless CSV quoting", () => {
-  const item = candidate();
-  item.turns[0].question = 'What is "policy", exactly?\nSecond line';
-  const csv = studioImportCsv([item], selections([item], 'Approved "answer", with a comma'), "ExactMatchGrader");
-  assert.equal(csv, 'Question,Expected response\r\n"What is ""policy"", exactly?\nSecond line","Approved ""answer"", with a comma"\r\n');
-});
-test("Studio CSV rejects formula-like questions rather than changing their identity", () => {
-  for (const question of ["=cmd()", "+1+1", "-1+2", "@SUM(1)", "\t=cmd()"]) {
-    const item = candidate();
-    item.turns[0].question = question;
-    assert.throws(() => studioImportCsv([item], selections([item]), "GeneralQualityGrader"), /spreadsheet formula/i);
-  }
-});
-test("evidence CSV is separate, preserves unknown outcomes and neutralizes spreadsheet formulas", () => {
-  const item = candidate();
-  item.turns[0].question = "=cmd()";
-  const csv = evidenceCsv([item], selections([item]));
-  assert.match(csv, /Conversation ID/);
-  assert.match(csv, /unknown/);
-  assert.match(csv, /'=cmd\(\)/);
-  assert.doesNotMatch(csv, /^Question,Expected response\r\n/);
 });
 test("control characters and oversized expectations are errors, not silent cleanup", () => {
   const cases = [candidate()];

@@ -11,17 +11,6 @@
  * must be consumed via `tokens.*` from @fluentui/react-components directly.
  */
 
-/** Radial app canvas behind the whole workspace (`.w-shell --appBackground`). */
-export const APP_BACKGROUND =
-  'radial-gradient(124.48% 109.39% at 26.98% 6.02%,' +
-  ' rgb(254,255,255) 0%,' +
-  ' rgb(250,251,254) 37.08%,' +
-  ' rgb(245,249,252) 69.66%,' +
-  ' rgb(242,248,250) 100%)';
-
-/** Translucent sticky header fill (`.w-hdr`). */
-export const HEADER_BACKGROUND = 'rgba(250,251,254,.96)';
-
 /** Ink used for workflow-canvas connectors, ports and turn links. */
 export const CANVAS_INK = '#24233a';
 
@@ -32,16 +21,6 @@ export const CANVAS_SURFACE = '#fbfbfd';
 export const REASON_BORDER = '#E3008C';
 export const REASON_SURFACE = '#fff4fa';
 export const REASON_LABEL = '#9c0062';
-
-/** Content measure and gutters (`.w-app`). */
-export const CONTENT_MAX_WIDTH = '1728px';
-
-export const GUTTER = {
-  base: '48px',
-  lg: '32px',
-  md: '20px',
-  sm: '12px',
-} as const;
 
 /**
  * Breakpoints, expressed as ready-to-use media query strings so makeStyles
@@ -71,18 +50,6 @@ export const NODE_WIDTH = {
   default: '360px',
   compact: '340px',
 } as const;
-
-/** One indent unit in the performance tree (`--treeIndent`). */
-export const TREE_INDENT = 24;
-
-/** Fixed grid tracks shared by timeline step rows and the axis. */
-export const TIMELINE_GRID = '220px 1fr 76px';
-
-/**
- * A step slower than this is called out with the bottleneck banner and the
- * red "slowest" emphasis. Agreed during design review.
- */
-export const SLOW_STEP_THRESHOLD_MS = 30_000;
 
 /** Monospace stack used for schema names, IDs and JSON. */
 export const FONT_MONO = '"Cascadia Mono", Consolas, "Courier New", monospace';

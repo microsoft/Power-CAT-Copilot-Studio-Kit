@@ -9,7 +9,6 @@ import type {
   SkillFindingSeverity,
   SkillSafetyDisposition,
 } from "./Findings.js";
-import type { ResourceChunk } from "./SkillBundle.js";
 
 // ---------------------------------------------------------------------------
 // Shared dimension contract
@@ -164,11 +163,8 @@ export interface StandardSkillBundleEvaluation {
    * Per-resource analysis, when the backend produced it in the same call.
    *
    * The workflow agent receives every resource's text in its input, so it
-   * analyses them alongside the skill and returns this. The AI Builder path
-   * cannot -- a prompt has no loop and a small window -- so it leaves this
-   * undefined and the deep orchestrator runs its chunk/synthesise cascade
-   * instead. Its presence is what lets {@link executeDeepSkillBundleReview}
-   * skip that cascade entirely.
+   * analyses them alongside the skill and returns this.
+   * `deepEvaluationFromStandard` reshapes it into the deep evaluation.
    */
   resources?: SkillResourceEvaluation[];
   /**
@@ -254,27 +250,4 @@ export interface DeepSkillBundleEvaluation {
   summary: string;
   referenceIds: string[];
   parseError?: string;
-}
-
-// ---------------------------------------------------------------------------
-// P2-R prompt input context
-// ---------------------------------------------------------------------------
-
-export interface ResourcePromptContext {
-  skillContext: {
-    skillName: string;
-    description?: string;
-    agentInstructions: string;
-    declaredPurpose?: string;
-  };
-  resourceMetadata: {
-    path: string;
-    kind: string;
-    language?: string;
-    sizeBytes: number;
-    sha256: string;
-    referencedBy: string[];
-  };
-  chunk: ResourceChunk;
-  deterministicFindings: GroundedSkillFinding[];
 }

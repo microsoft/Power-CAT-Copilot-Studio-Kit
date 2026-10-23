@@ -62,42 +62,10 @@ export const COMPONENT_COLORS: Readonly<Record<string, string>> = {
 
 export const DEFAULT_COMPONENT_COLOR = DATA_SLOT.data1;
 
-/**
- * Every component type the palette knows about, sorted.
- *
- * The design derives its step-type chips from facets across the loaded
- * transcripts (`uniq(a => a.facets?.stepTypes)`), so the list is never empty.
- * Here the facets only exist once a transcript has been analysed, so this acts
- * as the fallback that keeps the Step types section present at all times.
- */
-export const KNOWN_COMPONENT_TYPES: readonly string[] = Object.keys(COMPONENT_COLORS).sort((a, b) =>
-  a.localeCompare(b),
-);
-
 /** Resolves the palette colour for a component/step type. */
 export function componentColor(type: string | undefined, override?: string): string {
   if (!type) return override ?? DEFAULT_COMPONENT_COLOR;
   if (type === 'MCPServer') return COMPONENT_COLORS['MCP server'];
   if (type.startsWith('Scope:')) return DATA_SLOT.data13;
   return COMPONENT_COLORS[type] ?? DIAGNOSTIC_COLORS[type] ?? override ?? DEFAULT_COMPONENT_COLOR;
-}
-
-/**
- * Translucent tint of a component colour, used for node glyph backgrounds and
- * legend swatches. `percent` is the share of the component colour.
- */
-export function componentTint(color: string, percent = 12): string {
-  return `color-mix(in srgb, ${color} ${percent}%, #ffffff)`;
-}
-
-/** Distinct component types present in a set of steps, in first-seen order. */
-export function distinctComponentTypes(types: Array<string | undefined>): string[] {
-  const seen = new Set<string>();
-  const out: string[] = [];
-  for (const type of types) {
-    if (!type || seen.has(type)) continue;
-    seen.add(type);
-    out.push(type);
-  }
-  return out;
 }

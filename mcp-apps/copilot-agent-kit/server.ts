@@ -6,7 +6,6 @@ import {
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { CallToolResult, ReadResourceResult } from "@modelcontextprotocol/sdk/types.js";
 import { readFile } from "node:fs/promises";
-import { createHash } from "node:crypto";
 import path from "node:path";
 import { z } from "zod";
 import {
@@ -33,7 +32,7 @@ import {
 } from "./src/agent-debugger/server/tools.js";
 import { boundedToolResult, compactInitialWidgetResult, getInitialWidgetData, type WidgetOpeningTool } from "./src/tools/initialWidgetPayload.js";
 import {
-  openEvaluationBuilder, getEvaluationDraft, getEvaluationNativeSupport,
+  openEvaluationBuilder,
   createAgentEvaluationSet, getAgentEvaluationSave, updateAgentEvaluationCase,
 } from "./src/evaluation/tools.js";
 
@@ -55,23 +54,6 @@ const dataverseGuid = () => z.string().regex(
 const distDir = import.meta.filename.endsWith(".ts")
   ? path.join(import.meta.dirname, "dist", "ui")
   : path.join(import.meta.dirname, "..", "ui");
-const peerChunkSize = 52_000;
-const peerResources = new Map<string, Promise<{ uri: string; htmlBytes: number; hash: string; encoded: string }>>();
-function peerResource(view: "review" | "debugger" | "evaluation") {
-  const cached = peerResources.get(view);
-  if (cached) return cached;
-  const file = { review: reviewWidgetFile, debugger: debuggerWidgetFile, evaluation: evaluationWidgetFile }[view];
-  const uri = { review: reviewWidgetUri, debugger: debuggerWidgetUri, evaluation: evaluationWidgetUri }[view];
-  const pending = readFile(path.join(distDir, file)).then(bytes => ({
-    uri, htmlBytes: bytes.byteLength, hash: createHash("sha256").update(bytes).digest("hex"), encoded: bytes.toString("base64"),
-  }));
-  peerResources.set(view, pending);
-  return pending;
-}
-function anonymousView(): CallToolResult {
-  return { isError: true, content: [{ type: "text", text: "Sign in to open the app view." }],
-    structuredContent: { state: "error", error: { code: "AUTH_REQUIRED", message: "Sign in to open the app view." } } };
-}
 
 async function withWidgetResource(
   toolResult: Promise<CallToolResult>,
@@ -241,18 +223,6 @@ export function createServer(incomingToken?: string): McpServer {
       text: await readFile(path.join(distDir, evaluationWidgetFile), "utf8"),
     }] }));
 
-  for (const [name, title, callback] of [
-    ["get_evaluation_draft", "Read Complete Evaluation Draft", getEvaluationDraft],
-    ["get_evaluation_native_support", "Check Native Evaluation Support", getEvaluationNativeSupport],
-  ] as const) registerAppTool<z.ZodRawShape, z.ZodType<{ draftId: string }>>(server, name, {
-    title, description: name === "get_evaluation_draft"
-      ? "Read the complete unchanged temporary draft for this caller. No start, save or evaluation execution."
-      : "Check caller-scoped target metadata, case-sensitive native parent binds, existing Conversation templates and harness limits. This is not new-save or grading proof. No write.",
-    inputSchema: z.object({ draftId: dataverseGuid() }).strict(),
-    annotations: { readOnlyHint: true, openWorldHint: true },
-    _meta: { ui: { resourceUri: evaluationWidgetUri, visibility: ["app"] } },
-  }, args => withWidgetResource(callback(incomingToken, args), evaluationWidgetUri, undefined, incomingToken));
-
   const saveIdentity = {
     draftId: dataverseGuid(), requestId: dataverseGuid(),
     saveGrant: z.string().min(32).max(128).describe("App-only opaque grant from the Eval Builder opener metadata. Never generate or change it."),
@@ -305,42 +275,6 @@ export function createServer(incomingToken?: string): McpServer {
       throw new Error("A chunk requires both index and SHA-256.");
     }
     return getInitialWidgetData(incomingToken, args);
-  });
-
-  registerAppTool<z.ZodRawShape, z.ZodType<{ view: "review" | "debugger" | "evaluation" }>>(server, "get_app_view_resource", {
-    title: "Read App Peer View",
-    description: "Read a small immutable manifest for one compiled peer view. App-only chunks each stay under 65536 serialized bytes. Reassemble and verify the exact resource hash in the existing app without another host handshake. No target initialization, Review start, save or evaluation execution.",
-    inputSchema: z.object({ view: z.enum(["review", "debugger", "evaluation"]) }).strict(),
-    annotations: { readOnlyHint: true, openWorldHint: false },
-    _meta: { ui: { resourceUri: evaluationWidgetUri, visibility: ["app"] } },
-  }, async args => {
-    if (!incomingToken) return anonymousView();
-    const resource = await peerResource(args.view);
-    return { content: [], structuredContent: {
-      state: "viewResource", view: args.view, uri: resource.uri, mimeType: RESOURCE_MIME_TYPE,
-      htmlBytes: resource.htmlBytes, sha256: resource.hash, encoding: "base64",
-      chunkCount: Math.ceil(resource.encoded.length / peerChunkSize), chunkSize: peerChunkSize,
-    } };
-  });
-  registerAppTool<z.ZodRawShape, z.ZodType<{ view: "review" | "debugger" | "evaluation"; index: number; sha256: string }>>(server, "get_app_view_chunk", {
-    title: "Read App Peer View Chunk",
-    description: "Read one immutable lossless base64 resource chunk for an app peer view. The complete serialized tool reply is below 65536 bytes. Reassemble only against the matching manifest hash. No Review, native write, evaluation execution or publication.",
-    inputSchema: z.object({ view: z.enum(["review", "debugger", "evaluation"]), index: z.number().int().min(0).max(31), sha256: z.string().regex(/^[a-f0-9]{64}$/) }).strict(),
-    annotations: { readOnlyHint: true, openWorldHint: false },
-    _meta: { ui: { resourceUri: evaluationWidgetUri, visibility: ["app"] } },
-  }, async args => {
-    if (!incomingToken) return anonymousView();
-    const resource = await peerResource(args.view);
-    if (args.sha256 !== resource.hash || args.index >= Math.ceil(resource.encoded.length / peerChunkSize)) return {
-      isError: true, content: [{ type: "text", text: "The peer resource identity or chunk index changed. No partial view was loaded." }],
-      structuredContent: { state: "error", error: { code: "PEER_RESOURCE_CHANGED", message: "The peer resource identity or chunk index changed." } },
-    };
-    const result: CallToolResult = { content: [], structuredContent: {
-      state: "viewChunk", view: args.view, index: args.index, sha256: resource.hash,
-      data: resource.encoded.slice(args.index * peerChunkSize, (args.index + 1) * peerChunkSize),
-    } };
-    if (Buffer.byteLength(JSON.stringify(result), "utf8") > 65_536) throw new Error("The peer resource chunk exceeds the complete tool-result bound.");
-    return result;
   });
 
   registerAppResource(
