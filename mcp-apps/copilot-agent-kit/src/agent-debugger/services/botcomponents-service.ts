@@ -23,8 +23,16 @@ export function parseBotComponentData(data?: string): BotComponentParsedData {
   }
   const description = normalized.match(/^modelDescription:\s*["']?(.+?)["']?\s*$/m);
   if (description) {
-    const quoted = normalized.match(/modelDescription:\s*["']([^"']+)["']/s);
-    parsed.modelDescription = (quoted?.[1] ?? description[1]).trim();
+    // The closing quote must be the opening quote. Double-quoted YAML values use
+    // backslash escapes; single-quoted values write a quote as ''.
+    const quoted = normalized.match(/^modelDescription:\s*(?:"((?:[^"\\]|\\[\s\S])*)"|'((?:[^']|'')*)')/m);
+    let value = description[1];
+    if (quoted?.[1] !== undefined) {
+      value = quoted[1].replace(/\\([\s\S])/g, (_escape, char: string) => (char === "n" ? "\n" : char === "t" ? "\t" : char));
+    } else if (quoted?.[2] !== undefined) {
+      value = quoted[2].replace(/''/g, "'");
+    }
+    parsed.modelDescription = value.trim();
   }
   const queries = normalized.match(/triggerQueries:\s*\n((?:\s+-\s*.+\n?)+)/m);
   if (queries) {

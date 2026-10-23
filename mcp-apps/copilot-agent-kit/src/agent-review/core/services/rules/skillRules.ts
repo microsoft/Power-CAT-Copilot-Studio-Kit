@@ -44,7 +44,11 @@ export const skillRules: Rule[] = [
       if (capabilities.length === 0) return null;
       const out: GroundedFinding[] = [];
       for (const skill of model.skills) {
-        const refs = referencedNames(skill.body).map(norm).filter(r => /\s/.test(r) || /[a-z][A-Z]/.test(r));
+        // Only multi-word names count as capability references. Single words in
+        // quotes or backticks are frequently field or parameter names (for example
+        // `customerId`), not tools. The AI review stage reports other missing
+        // capabilities.
+        const refs = referencedNames(skill.body).map(norm).filter(r => /\s/.test(r));
         if (refs.length === 0) continue;
         const matched = refs.filter(r => capabilities.some(c => c === r || c.includes(r) || r.includes(c)));
         const unmatched = refs.filter(r => !capabilities.some(c => c === r || c.includes(r) || r.includes(c)));
