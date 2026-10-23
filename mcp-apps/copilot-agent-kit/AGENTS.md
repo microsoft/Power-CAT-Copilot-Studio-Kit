@@ -1,6 +1,6 @@
 # Agent Review MCP App
 
-This folder (`mcp-apps/copilot-agent-kit/` in the Copilot Studio Kit repository) is a standalone reference implementation for reviewing Copilot Studio agents with an MCP app and Microsoft 365 declarative agent. Run all commands from this folder.
+This folder (`mcp-apps/copilot-agent-kit/` in the Copilot Agent Kit repository) is a standalone reference implementation for reviewing Copilot Studio agents with an MCP app and Microsoft 365 declarative agent. Run all commands from this folder.
 
 ## Required skill routing
 

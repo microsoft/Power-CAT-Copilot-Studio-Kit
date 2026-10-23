@@ -50,7 +50,7 @@ The `/mcp` endpoint answers `tools/list`, `resources/list` and `resources/read` 
 3. **Linux package.** App Service does not build the app. You build a runtime package on Linux x64 and deploy it (step 7).
 4. **Node.js version.** The template uses `NODE|20-lts`. Node.js 20 is at end of life (April 2026). The planned change is `NODE|22-lts`.
 5. **Copilot Studio connection.** Use two app registrations (step 5). With one app, the token refresh can fail after approximately one hour with `AADSTS90009`.
-6. **Access to the code.** The code is public, in the folder `mcp-apps/copilot-agent-kit/` of the Copilot Studio Kit repository.
+6. **Access to the code.** The code is public, in the folder `mcp-apps/copilot-agent-kit/` of the Copilot Agent Kit repository.
 
 ## 1. Prerequisites
 
@@ -108,7 +108,7 @@ https://<org>/api/data/v9.2/EntityDefinitions(LogicalName='cat_agentreviewjobite
 https://<org>/api/data/v9.2/EntityDefinitions(LogicalName='cat_agentreviews')?$select=LogicalName
 ```
 
-Each URL must show JSON with the `LogicalName`. If a URL shows an error, your Kit version does not have the Agent Review job tables. Stop, and open an issue in the Copilot Studio Kit repository.
+Each URL must show JSON with the `LogicalName`. If a URL shows an error, your Kit version does not have the Agent Review job tables. Stop, and open an issue in the Copilot Agent Kit repository.
 
 ### 3.4 Set the environment name
 
@@ -397,7 +397,7 @@ The text for AI coding agents is now in the section "Self-host in an Azure subsc
 
 ## Appendix B: Recommended changes to the repository
 
-Do these changes before you share the guide with customers:
+These changes are recommended. They are not done yet:
 
 1. **Environment setting.** Add `AGENT_KIT_JOB_ENVIRONMENT_ID` (and an optional default environment name). Use it in `src/tools/target-selection.ts`, `src/agent-review/server/service.ts` and `src/evaluation/`. If the setting is empty, keep the current name lookup. Remove the fixed name from the tool descriptions in `server.ts` and `appPackage/agent-review-plugin.json`.
 2. **Node.js 22.** Change `linuxFxVersion` to `NODE|22-lts` in `infra/modules/resources.bicep`. Test on App Service.

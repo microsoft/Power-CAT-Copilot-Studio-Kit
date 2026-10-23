@@ -2,7 +2,7 @@
 
 `agent-review-mcpapp` is a standalone MCP app and Microsoft 365 declarative agent for Copilot Studio agents. One MCP server registers 27 tools and 5 UI resources. Agent Review, Agent Debugger, and Eval Builder are 3 standalone views. Agent Map and Review Browser are 2 entry points that reuse Agent Review UI parts. Each opener loads only its own complete view, without shared app tabs or embedded views. You can start an exact requested review, inspect saved maps and findings, debug saved conversations, and edit evaluation test cases that are generated from saved conversations. The app does not run evaluations.
 
-> This folder is part of the [Copilot Studio Kit](../../README.md) repository. Run all the commands in this README from `mcp-apps/copilot-agent-kit/`.
+> This folder is part of the [Copilot Agent Kit](../../README.md) repository. Run all the commands in this README from `mcp-apps/copilot-agent-kit/`.
 
 ## What this project includes
 
