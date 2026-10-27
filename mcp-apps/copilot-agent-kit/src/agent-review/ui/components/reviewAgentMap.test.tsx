@@ -822,7 +822,7 @@ describe("relationship details over the inline map", () => {
       model, showSummary: false, fullscreenAvailable,
       onActivateNode: activated, onViewAllFindings: vi.fn(), onOpenFullscreen: openFullscreen,
     }));
-    // The edges and the outer nodes show only after the map fits all nodes in view.
+    // The edge shows after React Flow measures both of its end nodes.
     const line = await waitFor(() => {
       canvasNode("Planogram Archive");
       return canvasEdge("display-audit", "Display Photo Library");

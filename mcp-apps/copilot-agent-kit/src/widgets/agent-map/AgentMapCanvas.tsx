@@ -27,6 +27,7 @@ import {
   ReactFlow,
   ReactFlowProvider,
   applyNodeChanges,
+  getViewportForBounds,
   useReactFlow,
   type EdgeMouseHandler,
   type NodeMouseHandler,
@@ -72,6 +73,7 @@ const edgeTypes = { agentMapEdge: AgentMapEdgeLine };
  * drag -- which re-renders on every frame -- wrote to the store on every frame.
  */
 const fitViewOptions = { padding: 0.18, duration: 0 };
+const AGENT_MAP_MAX_ZOOM = 2;
 const inlineControlsStyle = { margin: `${AGENT_MAP_INLINE_CONTROLS_MARGIN_PX}px` };
 const proOptions = { hideAttribution: true };
 const nodeDataCache = new WeakMap<
@@ -113,6 +115,41 @@ function getNodeData(
   };
   nodeDataCache.set(node, data);
   return dimmed ? data.dimmed : data.emphasized;
+}
+
+interface PaneSize {
+  width: number;
+  height: number;
+}
+
+/** The map pane size in the DOM now, not the copy that React Flow keeps. */
+function measurePane(container: HTMLElement | null): PaneSize {
+  const pane = container?.querySelector<HTMLElement>(".react-flow__renderer") ?? container;
+  return pane ? { width: pane.offsetWidth, height: pane.offsetHeight } : { width: 0, height: 0 };
+}
+
+function positiveSize(value: unknown, fallback: number): number {
+  return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : fallback;
+}
+
+/** The bounds of the shown nodes. Before React Flow measures a node, its layout size applies. */
+function nodeBounds(nodes: readonly AgentMapFlowNode[]) {
+  let left = Infinity;
+  let top = Infinity;
+  let right = -Infinity;
+  let bottom = -Infinity;
+  for (const node of nodes) {
+    if (node.hidden) continue;
+    const width = positiveSize(node.measured?.width, positiveSize(node.style?.width, 220));
+    const height = positiveSize(node.measured?.height, positiveSize(node.style?.height, 92));
+    left = Math.min(left, node.position.x);
+    top = Math.min(top, node.position.y);
+    right = Math.max(right, node.position.x + width);
+    bottom = Math.max(bottom, node.position.y + height);
+  }
+  return Number.isFinite(left) && Number.isFinite(top)
+    ? { x: left, y: top, width: right - left, height: bottom - top }
+    : undefined;
 }
 
 function getEdgeData(edge: AgentMapViewEdge, dimmed: boolean): AgentMapFlowEdge["data"] {
@@ -251,7 +288,7 @@ export interface AgentMapCanvasProps {
    * button in the map controls that opens the same content (inline).
    */
   legend?: AgentMapLegendMode;
-  /** Inline: the fit keeps every node clear of the map controls and refits when the canvas resizes. */
+  /** Inline: the fit keeps every node clear of the map controls. Both modes refit when the canvas resizes. */
   inline?: boolean;
   /** Inline: the height of an overlay at the bottom edge of the map that no node may sit under. */
   inlineBottomInset?: number;
@@ -322,6 +359,8 @@ function AgentMapCanvasInner({
   const containerRef = useRef<HTMLDivElement>(null);
   /** True after the maker pans or zooms; a resize then keeps their view instead of refitting. */
   const userMovedRef = useRef(false);
+  /** The pane size of the last fit. Undefined when no fit is shown. */
+  const fittedSizeRef = useRef<PaneSize | undefined>(undefined);
   // Stable identity per mode: React Flow copies fit options into its store when they change.
   const fitOptions = useMemo(
     () => inline
@@ -329,6 +368,7 @@ function AgentMapCanvasInner({
       : fitViewOptions,
     [inline, inlineBottomInset],
   );
+  const minZoom = inline ? AGENT_MAP_INLINE_MIN_ZOOM : AGENT_MAP_MIN_ZOOM;
   const layout = useMemo(() => createRadialAgentMapLayout(graph.nodes), [graph.nodes]);
   const positions = useMemo(
     () => new Map(layout.nodes.map((node) => [node.id, node])),
@@ -468,43 +508,56 @@ function AgentMapCanvasInner({
     [graph.edges, graph.matchedEdgeIds, nodeLabels, selectedEdgeId],
   );
 
+  /**
+   * Fit the graph to the pane size in the DOM now.
+   *
+   * React Flow's own fit waits for the first node measurement and then uses the
+   * pane size that it read at mount. A host that resized the frame in that gap,
+   * for example on the return from full screen, left the graph fitted to the old
+   * size: off the pane or very small, so the map looked empty.
+   */
+  const fitToPane = useCallback(() => {
+    const size = measurePane(containerRef.current);
+    const bounds = nodeBounds(instance.getNodes());
+    if (!instance.viewportInitialized || size.width < 1 || size.height < 1 || !bounds) {
+      fittedSizeRef.current = undefined;
+      return;
+    }
+    const viewport = getViewportForBounds(
+      bounds, size.width, size.height, minZoom, AGENT_MAP_MAX_ZOOM, fitOptions.padding,
+    );
+    if (![viewport.x, viewport.y, viewport.zoom].every(Number.isFinite)) {
+      fittedSizeRef.current = undefined;
+      return;
+    }
+    void instance.setViewport(viewport, { duration: 0 });
+    fittedSizeRef.current = size;
+  }, [fitOptions, instance, minZoom]);
+
   useEffect(() => {
     // A new graph or a new fit mode starts from the fitted view again.
     userMovedRef.current = false;
-    const frame = requestAnimationFrame(() => {
-      void instance.fitView(fitOptions);
-    });
-    return () => cancelAnimationFrame(frame);
+    fitToPane();
     // Count-only dependencies avoid camera jumps when search changes emphasis in place.
-  }, [fitOptions, instance, nodes.length, edges.length]);
+  }, [fitToPane, nodes.length, edges.length]);
 
-  // Inline, the canvas can change size after the first fit (host resize, a caption
-  // above the map). Refit then, so no node moves under the map controls, unless the
-  // maker already panned or zoomed.
+  // The pane can change size after a fit: the host resizes the frame (a display
+  // mode change or a host resize), or a caption shows above the map. Refit to each
+  // new size, unless the maker already panned or zoomed. The first observation
+  // counts too, because the host can resize the frame before the first paint.
   useEffect(() => {
     const container = containerRef.current;
-    if (!inline || !container || typeof ResizeObserver === "undefined") return undefined;
-    let frame = 0;
-    let last: { width: number; height: number } | undefined;
-    const observer = new ResizeObserver(([entry]) => {
-      if (!entry) return;
-      const { width, height } = entry.contentRect;
-      const previous = last;
-      last = { width, height };
-      // The first observation is the size React Flow already fitted to.
-      if (!previous || (previous.width === width && previous.height === height)) return;
+    if (!container || typeof ResizeObserver === "undefined") return undefined;
+    const observer = new ResizeObserver(() => {
       if (userMovedRef.current) return;
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        void instance.fitView(fitOptions);
-      });
+      const size = measurePane(container);
+      const fitted = fittedSizeRef.current;
+      if (fitted && Math.abs(fitted.width - size.width) < 1 && Math.abs(fitted.height - size.height) < 1) return;
+      fitToPane();
     });
     observer.observe(container);
-    return () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-    };
-  }, [fitOptions, inline, instance]);
+    return () => observer.disconnect();
+  }, [fitToPane]);
 
   /** Only user pan and zoom carry an event; a programmatic fit does not. */
   const handleMove = useCallback<OnMove>((event) => {
@@ -515,6 +568,7 @@ function AgentMapCanvasInner({
   }, []);
   const markFitted = useCallback(() => {
     userMovedRef.current = false;
+    fittedSizeRef.current = measurePane(containerRef.current);
   }, []);
 
   /**
@@ -628,11 +682,10 @@ function AgentMapCanvasInner({
         nodesConnectable={false}
         elementsSelectable
         deleteKeyCode={null}
-        onlyRenderVisibleElements
-        minZoom={inline ? AGENT_MAP_INLINE_MIN_ZOOM : AGENT_MAP_MIN_ZOOM}
-        maxZoom={2}
-        fitView
-        fitViewOptions={fitOptions}
+        // Not onlyRenderVisibleElements: it culls with React Flow's copy of the pane
+        // size, and a stale copy must never hide the whole map.
+        minZoom={minZoom}
+        maxZoom={AGENT_MAP_MAX_ZOOM}
         proOptions={proOptions}
         aria-label="Agent architecture map. Use the Map and List tabs to inspect components and relationships."
       >
