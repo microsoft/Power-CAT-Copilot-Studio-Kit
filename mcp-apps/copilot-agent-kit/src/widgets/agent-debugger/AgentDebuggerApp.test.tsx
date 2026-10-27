@@ -1102,36 +1102,51 @@ it("opens the loaded Agent and Conversation lists at once without a server call"
   expect(call).not.toHaveBeenCalled();
 });
 
-it("filters the loaded agents and a short conversation list locally without a server call", async () => {
+it("filters the loaded agents locally without a server call, and searches the server for a typed conversation query", async () => {
   const user = userEvent.setup();
   const { call } = mount({ ...listOnly, agents: [agent, agentB] }, undefined, fullscreenHost);
+  call.mockImplementation(async request => {
+    if (request.name !== "list_debugger_conversations") throw new Error(`Unexpected ${request.name}`);
+    return { content: [], structuredContent: { conversations: [{ id: "older-second", name: "older-second" }] } };
+  });
   await user.click(screen.getByRole("combobox", { name: "Agent" }));
   await user.keyboard("billing");
   expect(openOptions("Agent")).toHaveLength(1);
   expect(screen.getByRole("option", { name: /^Billing helper/ })).toBeInTheDocument();
+  await pause(350);
+  expect(openOptions("Agent")).toHaveLength(1);
+  expect(call).not.toHaveBeenCalled();
   await user.keyboard("{Escape}");
+  // The short loaded list can be incomplete, so the query goes to the server.
   await user.click(screen.getByRole("combobox", { name: "Conversation" }));
   await user.keyboard("sec");
+  await waitFor(() => expect(call).toHaveBeenCalledTimes(1));
+  expect(call).toHaveBeenCalledWith({
+    name: "list_debugger_conversations",
+    arguments: { environmentId: environment.id, agentId: agent.id, query: "sec", limit: 50 },
+  });
+  expect(await screen.findByRole("option", { name: /^older-second/ })).toBeInTheDocument();
   expect(openOptions("Conversation")).toHaveLength(1);
-  expect(screen.getByRole("option", { name: /^second/ })).toBeInTheDocument();
-  await pause(350);
-  expect(openOptions("Conversation")).toHaveLength(1);
-  expect(call).not.toHaveBeenCalled();
 });
 
-it("searches the server only when the loaded conversation list is full, and restores that list without a call", async () => {
+const savedConversations = Array.from({ length: 50 }, (_, index) => {
+  const id = `saved-${String(index).padStart(2, "0")}`;
+  return { id, name: id };
+});
+
+// The server reads at most 250 transcript rows and removes duplicate names, so also a short list can be incomplete.
+it.each([
+  { size: "short", loaded: conversations },
+  { size: "full", loaded: savedConversations },
+])("searches the server for a typed query with a $size loaded conversation list, and restores that list without a call", async ({ loaded }) => {
   const user = userEvent.setup();
-  const saved = Array.from({ length: 50 }, (_, index) => {
-    const id = `saved-${String(index).padStart(2, "0")}`;
-    return { id, name: id };
-  });
-  const { call } = mount({ ...listOnly, conversations: saved }, undefined, fullscreenHost);
+  const { call } = mount({ ...listOnly, conversations: loaded }, undefined, fullscreenHost);
   call.mockImplementation(async request => {
     if (request.name !== "list_debugger_conversations") throw new Error(`Unexpected ${request.name}`);
     return { content: [], structuredContent: { conversations: [{ id: "older-match", name: "older-match" }] } };
   });
   await user.click(screen.getByRole("combobox", { name: "Conversation" }));
-  expect(openOptions("Conversation")).toHaveLength(50);
+  expect(openOptions("Conversation")).toHaveLength(loaded.length);
   await user.keyboard("older");
   expect(call).not.toHaveBeenCalled();
   await waitFor(() => expect(call).toHaveBeenCalledTimes(1));
@@ -1139,10 +1154,11 @@ it("searches the server only when the loaded conversation list is full, and rest
     name: "list_debugger_conversations",
     arguments: { environmentId: environment.id, agentId: agent.id, query: "older", limit: 50 },
   });
-  await waitFor(() => expect(openOptions("Conversation")).toHaveLength(1));
-  expect(screen.getByRole("option", { name: /^older-match/ })).toBeInTheDocument();
+  expect(await screen.findByRole("option", { name: /^older-match/ })).toBeInTheDocument();
+  expect(openOptions("Conversation")).toHaveLength(1);
   await user.keyboard("{Backspace>5/}");
-  await waitFor(() => expect(openOptions("Conversation")).toHaveLength(50));
+  await waitFor(() => expect(openOptions("Conversation")).toHaveLength(loaded.length));
+  expect(screen.queryByRole("option", { name: /^older-match/ })).toBeNull();
   await pause(350);
   expect(call).toHaveBeenCalledTimes(1);
 });

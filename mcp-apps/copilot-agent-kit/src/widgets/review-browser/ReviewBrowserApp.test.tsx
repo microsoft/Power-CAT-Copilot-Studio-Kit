@@ -252,3 +252,52 @@ it("shows the list after the host ends a full screen review, also on a later exp
   expect(view.call).toHaveBeenCalledTimes(1);
   expect(view.call).toHaveBeenCalledWith(expect.objectContaining({ name: "get_agent_review_result" }));
 });
+
+it("keeps following the host after a review opens from the full screen list, also after a remount", async () => {
+  const user = userEvent.setup();
+  frame(24);
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const first = mount(fullscreenHost, "fullscreen");
+  await user.click(screen.getAllByRole("button", { name: "View" })[0]);
+  await waitFor(() => expect(screen.getByTestId("review-results")).toHaveTextContent("Agent 01"));
+  // The host already shows full screen, so the open action makes no request.
+  expect(display).not.toHaveBeenCalled();
+  expect(sessionStorage.getItem("agent-review:presentation:selection-1")).toBe("host");
+
+  act(() => first.setHost(inlineHost));
+  expect(screen.queryByTestId("review-results")).toBeNull();
+  expect(inlineRows()).toHaveLength(4);
+  first.unmount();
+
+  // The host remounts the same tool result inline, with the same session storage.
+  mount(inlineHost, "fullscreen");
+  expect(inlineRows()).toHaveLength(4);
+  expect(screen.queryByText(/records per page/)).toBeNull();
+  expect(display).not.toHaveBeenCalled();
+});
+
+it("requests full screen for a review when the host ends full screen while the review loads", async () => {
+  const user = userEvent.setup();
+  frame(24);
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const view = mount(fullscreenHost, "fullscreen");
+  type ToolResult = Awaited<ReturnType<App["callServerTool"]>>;
+  let finish: (result: ToolResult) => void = () => undefined;
+  view.call.mockImplementationOnce(() => new Promise<ToolResult>((resolve) => { finish = resolve; }));
+  await user.click(screen.getAllByRole("button", { name: "View" })[0]);
+  expect(view.call).toHaveBeenCalledWith(expect.objectContaining({ name: "get_agent_review_result" }));
+
+  // The host close control ends full screen before the review result arrives.
+  act(() => view.setHost(inlineHost));
+  await act(async () => finish({
+    content: [],
+    structuredContent: { state: "fullReview", reviewId: "review-01", model: { summary: { agentName: "Agent 01" } } },
+  }));
+  await waitFor(() => expect(display).toHaveBeenCalledTimes(1));
+  expect(display).toHaveBeenCalledWith({ mode: "fullscreen" });
+
+  act(() => view.setHost(fullscreenHost));
+  expect(screen.getByTestId("review-results")).toHaveTextContent("Agent 01");
+  expect(sessionStorage.getItem("agent-review:presentation:selection-1")).toBe("host");
+  expect(display).toHaveBeenCalledTimes(1);
+});

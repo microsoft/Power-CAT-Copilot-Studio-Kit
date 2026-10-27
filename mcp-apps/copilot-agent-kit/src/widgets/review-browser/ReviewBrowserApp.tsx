@@ -622,6 +622,13 @@ export function ReviewBrowserApp() {
       replaceData({ ...output, selectionId: initial.selectionId });
       setDetail(output.model);
       setIsFullscreen(true);
+      // The host already shows full screen. A request would replace the follow-host marker,
+      // and a later remount would request full screen again.
+      if (shownHostMode.current === "fullscreen") {
+        setConfirmedMode("fullscreen");
+        setFullscreenRefused(false);
+        return;
+      }
       displayRequested = true;
       const mode = await requestReviewBrowserDisplayMode(
         app,

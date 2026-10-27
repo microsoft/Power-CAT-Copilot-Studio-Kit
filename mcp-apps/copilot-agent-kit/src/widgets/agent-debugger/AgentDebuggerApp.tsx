@@ -846,7 +846,8 @@ export function AgentDebuggerApp() {
     }
   };
 
-  // A server search, only when the loaded list has 50 conversations (the server limit); a shorter list is complete.
+  // A typed query always searches the server. The loaded list can be incomplete also with fewer than 50 items:
+  // the server reads at most 250 transcript rows and removes duplicate names.
   // An empty query restores the loaded list without a call.
   const searchConversations = useCallback(async (query: string) => {
     const selection = target.current;
@@ -1433,7 +1434,7 @@ export function AgentDebuggerApp() {
                   loadingInField={!restoreSpinner}
                   error={conversationSearchError || (current.restoring && !conversationList ? error : "") || undefined}
                   emptyText="No saved conversations match this search."
-                  onSearch={(loadedConversations?.length ?? 0) >= 50 ? searchConversations : undefined}
+                  onSearch={searchConversations}
                   onOpen={() => void ensureConversations()}
                   onSelect={selectConversation}
                   onClear={() => selectConversation("")}
