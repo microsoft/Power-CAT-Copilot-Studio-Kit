@@ -1,7 +1,8 @@
 import "@testing-library/jest-dom/vitest";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import type { ComponentProps } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { SearchablePicker } from "./SearchablePicker";
 
@@ -48,5 +49,55 @@ describe("searchable selectors", () => {
     await user.keyboard("{Escape}");
     await user.click(screen.getByRole("button", { name: "Clear conversation" }));
     expect(onClear).toHaveBeenCalledOnce();
+  });
+
+  it("opens with the loaded options and searches only a typed query", async () => {
+    const user = userEvent.setup();
+    const onSearch = vi.fn();
+    const onOpen = vi.fn();
+    render(<FluentProvider theme={webLightTheme}><SearchablePicker label="Conversation" options={options} onSelect={vi.fn()} onSearch={onSearch} onOpen={onOpen} /></FluentProvider>);
+    const combo = screen.getByRole("combobox", { name: "Conversation" });
+    await user.click(combo);
+    expect(onOpen).toHaveBeenCalledOnce();
+    expect(screen.getAllByRole("option")).toHaveLength(2);
+    expect(combo).toHaveAttribute("aria-busy", "false");
+    await act(() => new Promise<void>(resolve => { window.setTimeout(resolve, 300); }));
+    expect(onSearch).not.toHaveBeenCalled();
+    await user.keyboard("archived");
+    await waitFor(() => expect(onSearch).toHaveBeenCalledWith("archived"));
+    expect(onSearch).toHaveBeenCalledOnce();
+    await user.keyboard("{Backspace>8/}");
+    await waitFor(() => expect(onSearch).toHaveBeenLastCalledWith(""));
+    expect(onSearch).toHaveBeenCalledTimes(2);
+    expect(screen.getAllByRole("option")).toHaveLength(2);
+  });
+
+  it("shows a load once: in the closed field, or as the only option of the open list", async () => {
+    const user = userEvent.setup();
+    const base: ComponentProps<typeof SearchablePicker> = {
+      label: "Conversation", options, onSelect: vi.fn(), loading: true, loadingText: "Loading conversations...",
+    };
+    const view = (props: Partial<ComponentProps<typeof SearchablePicker>> = {}) =>
+      <FluentProvider theme={webLightTheme}><SearchablePicker {...base} {...props} /></FluentProvider>;
+    const { rerender } = render(view());
+    const combo = screen.getByRole("combobox", { name: "Conversation" });
+    expect(combo).toHaveAttribute("placeholder", "Loading conversations...");
+    expect(document.querySelectorAll(".fui-Spinner")).toHaveLength(0);
+
+    rerender(view({ selected: options[0] }));
+    expect(combo).toHaveValue("First conversation");
+    expect(combo).toHaveAttribute("placeholder", "Search conversation...");
+    expect(document.querySelectorAll(".fui-Combobox__expandIcon .fui-Spinner")).toHaveLength(1);
+    expect(document.querySelectorAll(".fui-Spinner")).toHaveLength(1);
+
+    await user.click(combo);
+    expect(screen.getAllByRole("option")).toHaveLength(1);
+    expect(screen.getByRole("option", { name: /Loading conversations\.\.\./ })).toHaveAttribute("aria-disabled", "true");
+    expect(document.querySelectorAll(".fui-Spinner")).toHaveLength(1);
+    expect(document.querySelectorAll(".fui-Combobox__expandIcon .fui-Spinner")).toHaveLength(0);
+
+    await user.keyboard("{Escape}");
+    rerender(view({ selected: options[0], loadingInField: false }));
+    expect(document.querySelectorAll(".fui-Combobox__expandIcon .fui-Spinner")).toHaveLength(0);
   });
 });

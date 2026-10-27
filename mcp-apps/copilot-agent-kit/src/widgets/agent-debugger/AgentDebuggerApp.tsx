@@ -205,13 +205,6 @@ const useStyles = makeStyles({
     "@media (max-width: 479px)": { flexBasis: "100%", maxWidth: "none" },
   },
   analyze: { flexShrink: 0, marginLeft: "auto" },
-  status: {
-    display: "flex",
-    alignItems: "center",
-    flexWrap: "wrap",
-    width: "100%",
-    ...shorthands.gap(tokens.spacingHorizontalM),
-  },
   analysisToolbar: {
     display: "flex",
     alignItems: "center",
@@ -309,7 +302,7 @@ const useStyles = makeStyles({
     color: tokens.colorNeutralForeground2,
     padding: `${tokens.spacingVerticalXS} ${tokens.spacingHorizontalM}`,
   },
-  analysisIdentity: {
+  visuallyHidden: {
     position: "absolute",
     width: "1px",
     height: "1px",
@@ -407,6 +400,31 @@ function OverflowTabsMenu({ entries, onSelect }: { entries: readonly TabEntry[];
 
 function structured(result: unknown): DebuggerData {
   return ((result as { structuredContent?: DebuggerData })?.structuredContent ?? {}) as DebuggerData;
+}
+
+/** A case-insensitive list key for an environment, or for an environment and an agent. */
+function listKey(...ids: string[]): string {
+  return ids.map((id) => id.toLowerCase()).join("|");
+}
+
+/**
+ * Keeps the full agent and conversation lists of host data for the life of the view.
+ * A conversation list for one explicit conversation ID is a filtered list, not the full list of the agent.
+ */
+function cacheLists(
+  data: DebuggerData,
+  agentLists: Map<string, DebuggerAgent[]>,
+  conversationLists: Map<string, DebuggerConversation[]>,
+) {
+  const environmentId = data.environmentId ?? data.environment?.id;
+  if (!environmentId) return;
+  if (data.agents) agentLists.set(listKey(environmentId), data.agents);
+  const agentId = data.agentId ?? data.agent?.id;
+  if (!agentId || !data.conversations) return;
+  const selected = (data.conversationId ?? data.conversation?.id)?.trim().toLowerCase();
+  const filtered = Boolean(selected) && data.conversations.every((item) =>
+    `${item.id} ${item.name}`.toLowerCase().includes(selected ?? ""));
+  if (!filtered) conversationLists.set(listKey(environmentId, agentId), data.conversations);
 }
 
 function transcriptData(transcript: ProcessedTranscript): FluentTranscriptData {
@@ -507,8 +525,10 @@ export function AgentDebuggerApp() {
   const [jsonOpen, setJsonOpen] = useState(false);
   const [error, setError] = useState(initial.error?.message ?? "");
   const [reloading, setReloading] = useState(false);
-  const [agentSearchError, setAgentSearchError] = useState("");
+  const [agentListError, setAgentListError] = useState("");
   const [conversationSearchError, setConversationSearchError] = useState("");
+  // Server results of a conversation search, for one environment and agent. Undefined: the loaded list shows.
+  const [conversationResults, setConversationResults] = useState<{ key: string; conversations: DebuggerConversation[] }>();
   // A failed optional turn-details read shows as a note at the turn, not as the global error.
   const [turnDetailNote, setTurnDetailNote] = useState<{ turnId: string; text: string }>();
   const agentRequest = useRef(0);
@@ -519,13 +539,19 @@ export function AgentDebuggerApp() {
   const analysisEpoch = useRef(0);
   const currentRef = useRef(current);
   const publishedData = useRef<DebuggerData>();
+  // The full lists for the life of the view: agents for each environment, conversations for each environment and agent.
+  // The first render already uses the lists of the opener data.
+  const [{ agentLists, conversationLists }] = useState(() => {
+    const lists = { agentLists: new Map<string, DebuggerAgent[]>(), conversationLists: new Map<string, DebuggerConversation[]>() };
+    cacheLists(initial, lists.agentLists, lists.conversationLists);
+    return lists;
+  });
   currentRef.current = current;
   const bootstrapTranscript = useRef(initial.processedTranscript);
   const loadedTargetRef = useRef(loadedTarget);
   loadedTargetRef.current = loadedTarget;
   const pendingRef = useRef(pending);
   pendingRef.current = pending;
-  const conversationSearch = useRef("");
   const inlineRootRef = useRef<HTMLDivElement>(null);
   // The shared bootstrap template pads #root; the reported frame size must include it, or the host frame scrolls.
   const [frameInset] = useState(measureFrameInset);
@@ -553,6 +579,8 @@ export function AgentDebuggerApp() {
   useEffect(() => {
     if (data === null && currentRef.current.state) return;
     const next = (data ?? {}) as DebuggerData;
+    // The view's own data can hold empty lists while a list loads. Only host data fills the caches.
+    if (data !== publishedData.current) cacheLists(next, agentLists, conversationLists);
     setCurrent(next);
     keepInlineLayout(next);
     setError(next.error?.message ?? "");
@@ -629,6 +657,7 @@ export function AgentDebuggerApp() {
         throw new Error("The restored Debugger data does not match the selected target or conversation.");
       }
       replaceMetadata(restored.metadata);
+      cacheLists(next, agentLists, conversationLists);
       update(next);
     } catch (caught) {
       if (epoch === analysisEpoch.current && selection.environmentId === target.current.environmentId
@@ -670,16 +699,19 @@ export function AgentDebuggerApp() {
     setAgentId("");
     setConversationId("");
     clearAnalysis();
-    conversationSearch.current = "";
-    setAgentSearchError("");
+    setConversationResults(undefined);
+    setAgentListError("");
     setConversationSearchError("");
+    // A loaded agent list shows at once, with no call and no spinner.
+    const cached = id ? agentLists.get(listKey(id)) : undefined;
     update({
+      ...(cached ? { state: "agents" } : {}),
       targetResolved: false, environmentId: id, environment: currentRef.current.environments?.find((item) => item.id === id),
-      agents: [], agent: undefined, agentId: undefined, conversations: [],
+      agents: cached ?? [], agent: undefined, agentId: undefined, conversations: [],
       conversation: undefined, processedTranscript: undefined,
     });
     setError("");
-    if (!app || !id) return;
+    if (!app || !id || cached) return;
     markLoading("agents", true);
     try {
       const next = structured(await app.callServerTool({
@@ -688,11 +720,13 @@ export function AgentDebuggerApp() {
       }));
       if (request !== agentRequest.current) return;
       if (next.error) throw new Error(next.error.message);
+      const agents = next.agents ?? [];
+      agentLists.set(listKey(id), agents);
       update({
         ...next,
         environment: current.environments?.find((item) => item.id === id),
         environmentId: id,
-        agents: next.agents ?? [],
+        agents,
         conversations: [],
         conversation: undefined,
         conversationId: undefined,
@@ -710,15 +744,21 @@ export function AgentDebuggerApp() {
     setAgentId(id);
     setConversationId("");
     clearAnalysis();
-    conversationSearch.current = "";
+    setConversationResults(undefined);
     setConversationSearchError("");
     setError("");
+    const key = environmentId && id ? listKey(environmentId, id) : "";
+    // A loaded conversation list shows at once, with no call and no spinner.
+    const cached = key ? conversationLists.get(key) : undefined;
+    const agents = (environmentId ? agentLists.get(listKey(environmentId)) : undefined) ?? currentRef.current.agents;
+    const agent = agents?.find((item) => item.id === id)
+      ?? (currentRef.current.agent?.id === id ? currentRef.current.agent : undefined);
     update({
-      agentId: id, agent: currentRef.current.agents?.find((item) => item.id === id)
-        ?? (currentRef.current.agent?.id === id ? currentRef.current.agent : undefined),
-      conversations: [], conversation: undefined, conversationId: undefined, processedTranscript: undefined,
+      ...(cached ? { state: "conversations" } : {}),
+      agentId: id, agent,
+      conversations: cached ?? [], conversation: undefined, conversationId: undefined, processedTranscript: undefined,
     });
-    if (!app || !environmentId || !id) return;
+    if (!app || !environmentId || !id || cached) return;
     markLoading("conversations", true);
     try {
       const next = structured(await app.callServerTool({
@@ -731,11 +771,13 @@ export function AgentDebuggerApp() {
       }));
       if (request !== conversationRequest.current) return;
       if (next.error) throw new Error(next.error.message);
+      const conversations = next.conversations ?? [];
+      conversationLists.set(key, conversations);
       update({
         ...next,
-        agent: current.agents?.find((item) => item.id === id),
+        agent,
         agentId: id,
-        conversations: next.conversations ?? [],
+        conversations,
         conversation: undefined,
         conversationId: undefined,
         processedTranscript: undefined,
@@ -747,36 +789,77 @@ export function AgentDebuggerApp() {
     }
   };
 
-  const searchAgents = useCallback(async (query: string) => {
+  // Opening the Agent picker loads the agent list only when it is not loaded (for example, after a failed restore).
+  const ensureAgents = async () => {
     const id = target.current.environmentId;
-    if (!app || !id) return;
+    if (!app || !id || pendingRef.current.agents || agentLists.has(listKey(id))) return;
+    // A running restore delivers the list.
+    if (currentRef.current.restoring && !currentRef.current.agents && !error) return;
     const request = ++agentRequest.current;
     markLoading("agents", true);
-    setAgentSearchError("");
+    setAgentListError("");
     try {
       const next = structured(await app.callServerTool({
-        name: "list_debugger_agents", arguments: { environmentId: id, query },
+        name: "list_debugger_agents", arguments: { environmentId: id, query: "" },
       }));
       if (request !== agentRequest.current || target.current.environmentId !== id) return;
       if (next.error) throw new Error(next.error.message);
-      setCurrent((value) => ({ ...value, agents: next.agents ?? [] }));
+      const agents = next.agents ?? [];
+      agentLists.set(listKey(id), agents);
+      setCurrent((value) => ({ ...value, agents }));
     } catch (caught) {
-      if (request === agentRequest.current) {
-        setAgentSearchError(caught instanceof Error ? caught.message : "Unable to search agents.");
-        setCurrent((value) => ({ ...value, agents: [] }));
-      }
+      if (request === agentRequest.current) setAgentListError(caught instanceof Error ? caught.message : "Unable to load agents.");
     } finally {
       if (request === agentRequest.current) markLoading("agents", false);
     }
-  }, [app, markLoading]);
+  };
 
+  // Opening the Conversation picker loads the full conversation list only when it is not loaded.
+  const ensureConversations = async () => {
+    const selection = target.current;
+    if (!app || !selection.environmentId || !selection.agentId || pendingRef.current.conversations) return;
+    const key = listKey(selection.environmentId, selection.agentId);
+    if (conversationLists.has(key)) return;
+    if (currentRef.current.restoring && !currentRef.current.conversations && !error) return;
+    const request = ++conversationRequest.current;
+    markLoading("conversations", true);
+    setConversationSearchError("");
+    try {
+      const next = structured(await app.callServerTool({
+        name: "list_debugger_conversations",
+        arguments: { environmentId: selection.environmentId, agentId: selection.agentId, query: "", limit: 50 },
+      }));
+      if (request !== conversationRequest.current
+        || target.current.environmentId !== selection.environmentId
+        || target.current.agentId !== selection.agentId) return;
+      if (next.error) throw new Error(next.error.message);
+      const conversations = next.conversations ?? [];
+      conversationLists.set(key, conversations);
+      setConversationResults(undefined);
+      setCurrent((value) => ({ ...value, conversations }));
+    } catch (caught) {
+      if (request === conversationRequest.current) {
+        setConversationSearchError(caught instanceof Error ? caught.message : "Unable to load conversations.");
+      }
+    } finally {
+      if (request === conversationRequest.current) markLoading("conversations", false);
+    }
+  };
+
+  // A server search, only when the loaded list has 50 conversations (the server limit); a shorter list is complete.
+  // An empty query restores the loaded list without a call.
   const searchConversations = useCallback(async (query: string) => {
     const selection = target.current;
     if (!app || !selection.environmentId || !selection.agentId) return;
+    const key = listKey(selection.environmentId, selection.agentId);
     const request = ++conversationRequest.current;
-    conversationSearch.current = query;
-    markLoading("conversations", true);
     setConversationSearchError("");
+    if (!query) {
+      setConversationResults(undefined);
+      markLoading("conversations", false);
+      return;
+    }
+    markLoading("conversations", true);
     try {
       const next = structured(await app.callServerTool({
         name: "list_debugger_conversations",
@@ -786,11 +869,11 @@ export function AgentDebuggerApp() {
         || target.current.environmentId !== selection.environmentId
         || target.current.agentId !== selection.agentId) return;
       if (next.error) throw new Error(next.error.message);
-      setCurrent((value) => ({ ...value, conversations: next.conversations ?? [] }));
+      setConversationResults({ key, conversations: next.conversations ?? [] });
     } catch (caught) {
       if (request === conversationRequest.current) {
         setConversationSearchError(caught instanceof Error ? caught.message : "Unable to search conversations.");
-        setCurrent((value) => ({ ...value, conversations: [] }));
+        setConversationResults({ key, conversations: [] });
       }
     } finally {
       if (request === conversationRequest.current) markLoading("conversations", false);
@@ -1029,12 +1112,21 @@ export function AgentDebuggerApp() {
   }, [current.recommendations, scoped, selectedSession, transcript]);
   const usage = selectedSession === "all" ? current.usage : current.usageBySession?.[selectedSession];
   const usageScope = selectedSession === "all" ? "all loaded parent-agent sessions" : `parent-agent session ${sessionKeys.indexOf(selectedSession) + 1}`;
-  const currentAgent = current.agent ?? current.agents?.find((item) => item.id === agentId);
+  // The cached full lists come first: later host data can omit a list, or hold one filtered conversation list.
+  const loadedAgents = environmentId ? agentLists.get(listKey(environmentId)) : undefined;
+  const agentList = loadedAgents ?? current.agents;
+  const conversationKey = environmentId && agentId ? listKey(environmentId, agentId) : "";
+  const loadedConversations = conversationKey ? conversationLists.get(conversationKey) : undefined;
+  const conversationList = conversationKey && conversationResults?.key === conversationKey
+    ? conversationResults.conversations
+    : loadedConversations ?? current.conversations;
+  const currentAgent = current.agent ?? agentList?.find((item) => item.id === agentId);
   const workflow = useWorkflowCanvasModel(scoped?.turns ?? [], current.componentNameBySchemaName, connectedAgents);
   const environment = current.environments?.find((item) => item.id === environmentId) ?? current.environment;
-  const agent = current.agents?.find((item) => item.id === agentId)
+  const agent = agentList?.find((item) => item.id === agentId)
     ?? (current.agent?.id === agentId ? current.agent : undefined);
-  const conversation = current.conversations?.find((item) => item.id === conversationId)
+  const conversation = conversationList?.find((item) => item.id === conversationId)
+    ?? current.conversations?.find((item) => item.id === conversationId)
     ?? (current.conversation?.id === conversationId ? current.conversation : undefined);
   const resolvedTarget = current.targetResolved === true && Boolean(environment && agent);
   const dateLabel = (value: string | undefined) => {
@@ -1077,13 +1169,14 @@ export function AgentDebuggerApp() {
     },
     { id: "usage", label: "Usage and credits", icon: <DataUsage20Regular /> },
   ];
+  const restoreLabel = !current.conversations ? "Loading saved conversations..."
+    : current.deferred?.includes("analysis") ? "Loading saved analysis..." : "Loading target choices...";
+  // Inline only: full screen shows picker loads in the pickers, the analysis in Analyze and a restore in the empty state.
   const statusSpinner = loading
     ? <Spinner size="tiny" label={`Loading ${loading}...`} />
-    : current.restoring && !error
-      ? <Spinner size="tiny" label={current.conversations
-        ? current.deferred?.includes("analysis") ? "Loading saved analysis..." : "Loading target choices..."
-        : "Loading saved conversations..."} />
-      : null;
+    : current.restoring && !error ? <Spinner size="tiny" label={restoreLabel} /> : null;
+  const restoreSpinner = fullscreen && !scoped && !error
+    && (Boolean(current.restoring) || Boolean(current.deferred?.includes("analysis")));
   const reloadVisible = Boolean(error && (current.restoring || current.dataLoadError));
   // Before the first measurement, estimate the content height from the inline chrome:
   // header, loading status (only while it shows), tabs, error, reload and display feedback.
@@ -1152,7 +1245,7 @@ export function AgentDebuggerApp() {
                 onSelect={(id) => { setSelectedSession(id); setSelectedTurnId(""); }}
               />
             </div>}
-            {loadedTarget && <Text size={200} className={styles.analysisIdentity}>Conversation shown: {loadedTarget.conversationId}. {selectedSession !== "all" && "Conversation-wide recommendations stay visible."}</Text>}
+            {loadedTarget && <Text size={200} className={styles.visuallyHidden}>Conversation shown: {loadedTarget.conversationId}. {selectedSession !== "all" && "Conversation-wide recommendations stay visible."}</Text>}
           </div>
           <main
             ref={setMainElement}
@@ -1243,7 +1336,9 @@ export function AgentDebuggerApp() {
     : fullscreen ? (
         <div className={styles.empty}>
           <div className={styles.emptyInner}>
-            <img className={styles.emptyImage} src={noResultsImage} alt="" aria-hidden="true" />
+            {restoreSpinner
+              ? <Spinner aria-label={restoreLabel} />
+              : <img className={styles.emptyImage} src={noResultsImage} alt="" aria-hidden="true" />}
             <Title3>{emptyTitle}</Title3>
             <Text>{emptyDetail}</Text>
           </div>
@@ -1310,13 +1405,15 @@ export function AgentDebuggerApp() {
                 <SearchablePicker
                   label="Agent"
                   hideHint
-                  options={(current.agents ?? []).map(agentOption)}
+                  options={(agentList ?? []).map(agentOption)}
                   selected={agent ? agentOption(agent) : undefined}
                   disabled={!environmentId || loading === "analysis"}
-                  loading={pending.agents || Boolean(current.restoring && !current.agents && !error)}
-                  error={agentSearchError || undefined}
+                  loading={pending.agents || Boolean(current.restoring && !agentList && !error)}
+                  loadingText="Loading agents..."
+                  loadingInField={!restoreSpinner}
+                  error={agentListError || undefined}
                   emptyText="No active agents match this search."
-                  onSearch={searchAgents}
+                  onOpen={() => void ensureAgents()}
                   onSelect={(id) => void loadConversations(id)}
                   onClear={() => {
                     if (resolvedTarget) update({ targetResolved: false });
@@ -1328,13 +1425,16 @@ export function AgentDebuggerApp() {
                 <SearchablePicker
                   label="Conversation"
                   hideHint
-                  options={(current.conversations ?? []).map(conversationOption)}
+                  options={(conversationList ?? []).map(conversationOption)}
                   selected={conversation ? conversationOption(conversation) : conversationId ? { id: conversationId, label: conversationId } : undefined}
                   disabled={!agentId || loading === "analysis"}
-                  loading={pending.conversations || Boolean(current.restoring && !current.conversations && !error)}
-                  error={conversationSearchError || (current.restoring && !current.conversations ? error : "") || undefined}
+                  loading={pending.conversations || Boolean(current.restoring && !conversationList && !error)}
+                  loadingText="Loading conversations..."
+                  loadingInField={!restoreSpinner}
+                  error={conversationSearchError || (current.restoring && !conversationList ? error : "") || undefined}
                   emptyText="No saved conversations match this search."
-                  onSearch={searchConversations}
+                  onSearch={(loadedConversations?.length ?? 0) >= 50 ? searchConversations : undefined}
+                  onOpen={() => void ensureConversations()}
                   onSelect={selectConversation}
                   onClear={() => selectConversation("")}
                 />
@@ -1342,14 +1442,17 @@ export function AgentDebuggerApp() {
               <Button
                 appearance="primary"
                 className={styles.analyze}
-                icon={<Play20Regular />}
+                icon={pending.analysis ? <Spinner size="tiny" aria-hidden="true" /> : <Play20Regular />}
+                aria-busy={pending.analysis || undefined}
                 disabled={!conversationId || !agentId || loading === "analysis" || Boolean(current.deferred?.includes("analysis"))}
                 onClick={() => void analyze()}
               >
                 Analyze
               </Button>
             </div>
-            {statusSpinner && <div className={styles.status}>{statusSpinner}</div>}
+            <span role="status" aria-live="polite" className={styles.visuallyHidden}>
+              {pending.analysis ? "Analyzing conversation..." : ""}
+            </span>
           </div>}
           {error && (
             <MessageBar intent="error" role="alert">

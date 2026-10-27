@@ -25,13 +25,19 @@ interface SearchablePickerProps {
   placeholder?: string;
   disabled?: boolean;
   loading?: boolean;
+  /** The text of the loading option, and of the empty field while it loads. */
+  loadingText?: string;
+  /** Shows a load in the closed field: the loading text, or a spinner in place of the chevron. */
+  loadingInField?: boolean;
   error?: string;
   hint?: string;
   hideHint?: boolean;
   hideLabel?: boolean;
   emptyText?: string;
   onSelect: (id: string) => void;
+  /** A remote search for a non-empty query. An empty query restores the loaded options without a search. */
   onSearch?: (query: string) => void;
+  onOpen?: () => void;
   onClear?: () => void;
 }
 
@@ -62,6 +68,8 @@ export function SearchablePicker({
   placeholder = `Search ${label.toLowerCase()}...`,
   disabled,
   loading,
+  loadingText = `Loading ${label.toLowerCase()}s...`,
+  loadingInField = true,
   error,
   hint,
   hideHint,
@@ -69,30 +77,40 @@ export function SearchablePicker({
   emptyText = "No matches found.",
   onSelect,
   onSearch,
+  onOpen,
   onClear,
 }: SearchablePickerProps) {
   const styles = useStyles();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  // The last query sent to onSearch. Undefined: the loaded options show, with no remote search.
   const [requestedQuery, setRequestedQuery] = useState<string>();
+  const trimmed = query.trim();
 
   useEffect(() => {
-    if (!open || !onSearch || disabled) return;
+    if (!open || !onSearch || disabled || trimmed === (requestedQuery ?? "")) return;
+    if (!trimmed) {
+      setRequestedQuery(undefined);
+      onSearch("");
+      return;
+    }
     const timer = window.setTimeout(() => {
-      setRequestedQuery(query.trim());
-      onSearch(query.trim());
+      setRequestedQuery(trimmed);
+      onSearch(trimmed);
     }, 250);
     return () => window.clearTimeout(timer);
-  }, [onSearch, open, query, disabled]);
+  }, [onSearch, open, trimmed, requestedQuery, disabled]);
 
   useEffect(() => { if (disabled) setOpen(false); }, [disabled]);
 
-  const needle = query.trim().toLocaleLowerCase();
-  const searching = loading || Boolean(open && onSearch && requestedQuery !== query.trim());
-  const visible = onSearch
+  const needle = trimmed.toLocaleLowerCase();
+  const searching = loading || Boolean(open && onSearch && trimmed && requestedQuery !== trimmed);
+  const visible = onSearch && needle
     ? options
     : options.filter((option) =>
       `${option.label} ${option.detail ?? ""}`.toLocaleLowerCase().includes(needle));
+  // A closed field shows its load once: as the placeholder when it is empty, or as a spinner in place of the chevron.
+  const fieldLoading = Boolean(loading && loadingInField && !open);
 
   return (
     <Field
@@ -113,11 +131,19 @@ export function SearchablePicker({
           open={open}
           value={open ? query : selected?.label ?? ""}
           selectedOptions={selected ? [selected.id] : []}
-          placeholder={placeholder}
+          placeholder={fieldLoading && !selected ? loadingText : placeholder}
+          expandIcon={fieldLoading && selected ? { children: <Spinner size="tiny" aria-hidden="true" /> } : undefined}
           onChange={(event) => setQuery(event.target.value)}
           onOpenChange={(_, detail) => {
             setOpen(detail.open);
-            if (detail.open) { setQuery(""); setRequestedQuery(undefined); }
+            if (!detail.open) return;
+            setQuery("");
+            // A new open starts with the loaded options. Only an earlier remote search must be reset.
+            if (requestedQuery !== undefined) {
+              setRequestedQuery(undefined);
+              onSearch?.("");
+            }
+            onOpen?.();
           }}
           onOptionSelect={(_, detail) => {
             if (!detail.optionValue) return;
@@ -127,8 +153,8 @@ export function SearchablePicker({
           }}
         >
           {searching && (
-            <Option value="__loading__" disabled text={`Loading ${label.toLowerCase()}`}>
-              <Spinner size="tiny" label={`Loading ${label.toLowerCase()}...`} />
+            <Option value="__loading__" disabled text={loadingText}>
+              <Spinner size="tiny" label={loadingText} />
             </Option>
           )}
           {!searching && visible.length === 0 && (

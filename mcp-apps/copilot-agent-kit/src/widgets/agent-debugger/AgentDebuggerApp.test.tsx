@@ -165,7 +165,7 @@ it("shows a named Debugger target with explicit supplemental loading and no auto
     agent, agentId: agent.id, restoring: true, deferred: ["agents", "conversations"],
   }, undefined, fullscreenHost);
   expect(screen.getByRole("combobox", { name: "Agent" })).toHaveValue("Agent");
-  expect(screen.getByText("Loading saved conversations...")).toBeInTheDocument();
+  expect(screen.getByRole("progressbar", { name: "Loading saved conversations..." })).toBeInTheDocument();
   expect(screen.queryByRole("combobox", { name: "Environment" })).toBeNull();
   expect(screen.getByRole("button", { name: "Analyze" })).toBeDisabled();
   expect(call).not.toHaveBeenCalled();
@@ -1068,4 +1068,270 @@ it("shows session start times in the viewer's local time and falls back to the s
   expect(screen.getByRole("option", { name: /^Session 1/ })).toHaveTextContent(local);
   expect(screen.getByRole("option", { name: /^Session 1/ })).not.toHaveTextContent("Server text");
   expect(screen.getByRole("option", { name: /^Session 2/ })).toHaveTextContent("Second session");
+});
+
+const agentB = { id: "33333333-3333-3333-3333-333333333333", name: "Billing helper", experience: "generative", schemaName: "cr_billing" };
+const otherEnvironment = { id: "44444444-4444-4444-4444-444444444444", name: "Other environment", url: "https://other.crm.dynamics.com" };
+const listLoadText = /^Loading (agents|conversations|analysis)\.\.\.$/;
+const pause = (ms: number) => act(() => new Promise<void>(resolve => { window.setTimeout(resolve, ms); }));
+/** Spinners in the full-screen command area (the pickers and Analyze). */
+const commandSpinners = () => document.querySelectorAll(".w-cmd .fui-Spinner");
+
+/** The options of an open picker. A closed picker has no aria-controls. */
+function openOptions(name: string) {
+  const id = screen.getByRole("combobox", { name }).getAttribute("aria-controls");
+  const listbox = id ? document.getElementById(id) : null;
+  if (!listbox) throw new Error(`The ${name} picker is not open.`);
+  return within(listbox).queryAllByRole("option");
+}
+
+it("opens the loaded Agent and Conversation lists at once without a server call", async () => {
+  const user = userEvent.setup();
+  const { call } = mount({ ...listOnly, agents: [agent, agentB] }, undefined, fullscreenHost);
+  await user.click(screen.getByRole("combobox", { name: "Agent" }));
+  expect(openOptions("Agent")).toHaveLength(2);
+  expect(openOptions("Agent").filter(option => option.textContent?.includes("Loading"))).toHaveLength(0);
+  await pause(350);
+  expect(openOptions("Agent")).toHaveLength(2);
+  await user.keyboard("{Escape}");
+  await user.click(screen.getByRole("combobox", { name: "Conversation" }));
+  expect(openOptions("Conversation")).toHaveLength(2);
+  expect(openOptions("Conversation").filter(option => option.textContent?.includes("Loading"))).toHaveLength(0);
+  await pause(350);
+  expect(openOptions("Conversation")).toHaveLength(2);
+  expect(call).not.toHaveBeenCalled();
+});
+
+it("filters the loaded agents and a short conversation list locally without a server call", async () => {
+  const user = userEvent.setup();
+  const { call } = mount({ ...listOnly, agents: [agent, agentB] }, undefined, fullscreenHost);
+  await user.click(screen.getByRole("combobox", { name: "Agent" }));
+  await user.keyboard("billing");
+  expect(openOptions("Agent")).toHaveLength(1);
+  expect(screen.getByRole("option", { name: /^Billing helper/ })).toBeInTheDocument();
+  await user.keyboard("{Escape}");
+  await user.click(screen.getByRole("combobox", { name: "Conversation" }));
+  await user.keyboard("sec");
+  expect(openOptions("Conversation")).toHaveLength(1);
+  expect(screen.getByRole("option", { name: /^second/ })).toBeInTheDocument();
+  await pause(350);
+  expect(openOptions("Conversation")).toHaveLength(1);
+  expect(call).not.toHaveBeenCalled();
+});
+
+it("searches the server only when the loaded conversation list is full, and restores that list without a call", async () => {
+  const user = userEvent.setup();
+  const saved = Array.from({ length: 50 }, (_, index) => {
+    const id = `saved-${String(index).padStart(2, "0")}`;
+    return { id, name: id };
+  });
+  const { call } = mount({ ...listOnly, conversations: saved }, undefined, fullscreenHost);
+  call.mockImplementation(async request => {
+    if (request.name !== "list_debugger_conversations") throw new Error(`Unexpected ${request.name}`);
+    return { content: [], structuredContent: { conversations: [{ id: "older-match", name: "older-match" }] } };
+  });
+  await user.click(screen.getByRole("combobox", { name: "Conversation" }));
+  expect(openOptions("Conversation")).toHaveLength(50);
+  await user.keyboard("older");
+  expect(call).not.toHaveBeenCalled();
+  await waitFor(() => expect(call).toHaveBeenCalledTimes(1));
+  expect(call).toHaveBeenCalledWith({
+    name: "list_debugger_conversations",
+    arguments: { environmentId: environment.id, agentId: agent.id, query: "older", limit: 50 },
+  });
+  await waitFor(() => expect(openOptions("Conversation")).toHaveLength(1));
+  expect(screen.getByRole("option", { name: /^older-match/ })).toBeInTheDocument();
+  await user.keyboard("{Backspace>5/}");
+  await waitFor(() => expect(openOptions("Conversation")).toHaveLength(50));
+  await pause(350);
+  expect(call).toHaveBeenCalledTimes(1);
+});
+
+it("keeps each loaded conversation list for the life of the view", async () => {
+  const user = userEvent.setup();
+  const { call } = mount({ ...listOnly, agents: [agent, agentB] }, undefined, fullscreenHost);
+  call.mockImplementation(async request => {
+    if (request.name !== "list_debugger_conversations") throw new Error(`Unexpected ${request.name}`);
+    return { content: [], structuredContent: { conversations: [{ id: "b-1", name: "b-1" }] } };
+  });
+  const chooseAgent = async (name: RegExp) => {
+    await user.click(screen.getByRole("combobox", { name: "Agent" }));
+    await user.click(screen.getByRole("option", { name }));
+  };
+  const conversationPicker = () => screen.getByRole("combobox", { name: "Conversation" });
+
+  await chooseAgent(/^Billing helper/);
+  await waitFor(() => expect(call).toHaveBeenCalledTimes(1));
+  expect(call).toHaveBeenCalledWith({
+    name: "list_debugger_conversations", arguments: { environmentId: environment.id, agentId: agentB.id, limit: 50 },
+  });
+  await waitFor(() => expect(conversationPicker()).toHaveAttribute("placeholder", "Search conversation..."));
+  await user.click(conversationPicker());
+  expect(openOptions("Conversation")).toHaveLength(1);
+  expect(screen.getByRole("option", { name: /^b-1/ })).toBeInTheDocument();
+  await user.keyboard("{Escape}");
+
+  await chooseAgent(/^Agent/);
+  expect(commandSpinners()).toHaveLength(0);
+  expect(conversationPicker()).toHaveAttribute("placeholder", "Search conversation...");
+  await user.click(conversationPicker());
+  expect(openOptions("Conversation")).toHaveLength(2);
+  expect(screen.getByRole("option", { name: /^second/ })).toBeInTheDocument();
+  await user.keyboard("{Escape}");
+
+  await chooseAgent(/^Billing helper/);
+  expect(commandSpinners()).toHaveLength(0);
+  await user.click(conversationPicker());
+  expect(openOptions("Conversation")).toHaveLength(1);
+  expect(screen.getByRole("option", { name: /^b-1/ })).toBeInTheDocument();
+  expect(call).toHaveBeenCalledTimes(1);
+});
+
+it("shows each list load only in its own picker, with no status row below the pickers", async () => {
+  const user = userEvent.setup();
+  const { call } = mount({ ...listOnly, targetResolved: false, environments: [environment, otherEnvironment] }, undefined, fullscreenHost);
+  let finishAgents!: (value: ToolResult) => void;
+  let finishConversations!: (value: ToolResult) => void;
+  call.mockImplementation(request => new Promise<ToolResult>((resolve, reject) => {
+    if (request.name === "list_debugger_agents") finishAgents = resolve;
+    else if (request.name === "list_debugger_conversations") finishConversations = resolve;
+    else reject(new Error(`Unexpected ${request.name}`));
+  }));
+  const agentPicker = () => screen.getByRole("combobox", { name: "Agent" });
+  const conversationPicker = () => screen.getByRole("combobox", { name: "Conversation" });
+
+  await user.click(screen.getByRole("combobox", { name: "Environment" }));
+  await user.click(screen.getByRole("option", { name: /^Other environment/ }));
+  expect(call).toHaveBeenCalledWith({ name: "list_debugger_agents", arguments: { environmentId: otherEnvironment.id } });
+  expect(agentPicker()).toHaveAttribute("placeholder", "Loading agents...");
+  expect(screen.queryByText(listLoadText)).toBeNull();
+  expect(commandSpinners()).toHaveLength(0);
+
+  await user.click(agentPicker());
+  const loadingOptions = openOptions("Agent");
+  expect(loadingOptions).toHaveLength(1);
+  expect(loadingOptions[0]).toHaveAccessibleName(/Loading agents\.\.\./);
+  expect(document.querySelectorAll(".fui-Spinner")).toHaveLength(1);
+  expect(call).toHaveBeenCalledTimes(1);
+
+  await act(async () => { finishAgents({ content: [], structuredContent: { agents: [agentB] } }); });
+  await user.click(await screen.findByRole("option", { name: /^Billing helper/ }));
+  expect(call).toHaveBeenCalledTimes(2);
+  expect(call).toHaveBeenLastCalledWith({
+    name: "list_debugger_conversations", arguments: { environmentId: otherEnvironment.id, agentId: agentB.id, limit: 50 },
+  });
+  expect(conversationPicker()).toHaveAttribute("placeholder", "Loading conversations...");
+  expect(screen.queryByText(listLoadText)).toBeNull();
+  expect(commandSpinners()).toHaveLength(0);
+
+  await act(async () => { finishConversations({ content: [], structuredContent: { conversations: [{ id: "b-1", name: "b-1" }] } }); });
+  expect(conversationPicker()).toHaveAttribute("placeholder", "Search conversation...");
+  expect(agentPicker()).toHaveAttribute("placeholder", "Search agent...");
+  expect(agentPicker()).toHaveValue("Billing helper");
+  expect(call).toHaveBeenCalledTimes(2);
+});
+
+it("shows a running analysis in the Analyze button and in a polite status, not in a status row", async () => {
+  const user = userEvent.setup();
+  const { call } = mount(listOnly, undefined, fullscreenHost);
+  let finish!: (value: ToolResult) => void;
+  const pending = new Promise<ToolResult>(resolve => { finish = resolve; });
+  call.mockImplementation(async request => {
+    if (request.name === "analyze_debugger_conversation") return pending;
+    throw new Error(`Unexpected ${request.name}`);
+  });
+  const analyzeButton = () => screen.getByRole("button", { name: "Analyze" });
+  await user.click(screen.getByRole("combobox", { name: "Conversation" }));
+  await user.click(screen.getByRole("option", { name: /^second/ }));
+  expect(analyzeButton().querySelector("svg")).not.toBeNull();
+  await user.click(analyzeButton());
+
+  expect(call).toHaveBeenCalledWith({
+    name: "analyze_debugger_conversation", arguments: { environmentId: environment.id, agentId: agent.id, conversationId: "second" },
+  });
+  expect(analyzeButton()).toHaveAttribute("aria-busy", "true");
+  expect(analyzeButton()).toBeDisabled();
+  expect(analyzeButton()).toHaveTextContent(/^Analyze$/);
+  expect(analyzeButton().querySelector(".fui-Spinner")).not.toBeNull();
+  expect(analyzeButton().querySelector("svg")).toBeNull();
+  const status = screen.getByText("Analyzing conversation...");
+  expect(status).toHaveAttribute("role", "status");
+  expect(status).toHaveAttribute("aria-live", "polite");
+  expect(commandSpinners()).toHaveLength(1);
+  expect(screen.queryByText(listLoadText)).toBeNull();
+
+  await act(async () => { finish({ content: [], structuredContent: analysis("second", "New analysis") }); await pending; });
+  expect(screen.getByText(/^Conversation shown: second\./)).toBeInTheDocument();
+  expect(analyzeButton().querySelector("svg")).not.toBeNull();
+  expect(analyzeButton().querySelector(".fui-Spinner")).toBeNull();
+  expect(analyzeButton()).toBeEnabled();
+  expect(analyzeButton()).not.toHaveAttribute("aria-busy");
+  expect(screen.queryByText("Analyzing conversation...")).toBeNull();
+  expect(commandSpinners()).toHaveLength(0);
+});
+
+it("loads a missing agent list once when the Agent picker opens", async () => {
+  const user = userEvent.setup();
+  const { call } = mount({
+    state: "conversations", targetResolved: true, environment, environmentId: environment.id,
+    agent, agentId: agent.id, conversations,
+    dataLoadError: { source: "initial-data" }, error: { code: "FIXTURE", message: "The supplemental read failed." },
+  }, undefined, fullscreenHost);
+  await user.click(screen.getByRole("combobox", { name: "Agent" }));
+  expect(call).toHaveBeenCalledTimes(1);
+  expect(call).toHaveBeenCalledWith({ name: "list_debugger_agents", arguments: { environmentId: environment.id, query: "" } });
+  await waitFor(() => expect(openOptions("Agent")).toHaveLength(1));
+  expect(screen.getByRole("option", { name: /^Agent/ })).toBeInTheDocument();
+  await user.keyboard("{Escape}");
+  await user.click(screen.getByRole("combobox", { name: "Agent" }));
+  expect(openOptions("Agent")).toHaveLength(1);
+  await user.keyboard("{Escape}");
+  await user.click(screen.getByRole("combobox", { name: "Conversation" }));
+  expect(openOptions("Conversation")).toHaveLength(2);
+  await pause(350);
+  expect(call).toHaveBeenCalledTimes(1);
+});
+
+it("loads the full conversation list once when the opener gave only the selected conversation", async () => {
+  const user = userEvent.setup();
+  const { call } = mount({ ...analysis(), conversationId: "first", conversations: [conversations[0]], targetResolved: true }, undefined, fullscreenHost);
+  await user.click(screen.getByRole("combobox", { name: "Conversation" }));
+  expect(call).toHaveBeenCalledTimes(1);
+  expect(call).toHaveBeenCalledWith({
+    name: "list_debugger_conversations", arguments: { environmentId: environment.id, agentId: agent.id, query: "", limit: 50 },
+  });
+  await waitFor(() => expect(openOptions("Conversation")).toHaveLength(2));
+  await user.keyboard("{Escape}");
+  await user.click(screen.getByRole("combobox", { name: "Conversation" }));
+  expect(openOptions("Conversation")).toHaveLength(2);
+  await user.keyboard("{Escape}");
+  await user.click(screen.getByRole("combobox", { name: "Agent" }));
+  expect(openOptions("Agent")).toHaveLength(1);
+  await pause(350);
+  expect(call).toHaveBeenCalledTimes(1);
+});
+
+it.each([
+  {
+    title: "Loading saved conversations",
+    data: { state: "conversations", restoring: true, deferred: ["agents", "conversations"] },
+  },
+  {
+    title: "Loading saved analysis",
+    data: {
+      state: "analysis", conversationId: "first", conversation: conversations[0], conversations,
+      restoring: true, deferred: ["agents", "analysis"],
+    },
+  },
+])("shows one spinner in the full-screen empty state while it is $title", ({ title, data }) => {
+  const { call } = mount({
+    targetResolved: true, environment, environmentId: environment.id, agent, agentId: agent.id, ...data,
+  }, undefined, fullscreenHost);
+  expect(screen.getByText(title)).toBeInTheDocument();
+  expect(document.querySelectorAll(".fui-Spinner")).toHaveLength(1);
+  expect(screen.getByRole("progressbar", { name: `${title}...` })).toBeInTheDocument();
+  expect(screen.getByRole("combobox", { name: "Agent" })).toHaveAttribute("placeholder", "Search agent...");
+  expect(screen.getByRole("combobox", { name: "Conversation" })).toHaveAttribute("placeholder", "Search conversation...");
+  expect(screen.queryByText(listLoadText)).toBeNull();
+  expect(call).not.toHaveBeenCalled();
 });
