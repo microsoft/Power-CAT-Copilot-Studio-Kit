@@ -2,7 +2,7 @@ import "@testing-library/jest-dom/vitest";
 import { createElement } from "react";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 import { App, type McpUiHostContext } from "@modelcontextprotocol/ext-apps";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { act, cleanup, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, expect, it, vi } from "vitest";
 import { McpAppProvider } from "../shared/McpAppProvider";
@@ -81,6 +81,10 @@ function mount(
     snapshot = { ...snapshot, data };
     listeners.forEach((listener) => listener());
   };
+  const setHost = (patch: Partial<McpUiHostContext>) => {
+    snapshot = { ...snapshot, host: { ...snapshot.host, ...patch } };
+    listeners.forEach((listener) => listener());
+  };
   window.__agentReviewMcpBootstrap = {
     getSnapshot: () => snapshot,
     replaceData,
@@ -103,16 +107,19 @@ function mount(
     }
     return { content: [], structuredContent: { ...inventory(), presentation: args.presentation } };
   });
-  render(
+  const view = render(
     <FluentProvider theme={webLightTheme}>
       <McpAppProvider><ReviewBrowserApp /></McpAppProvider>
     </FluentProvider>,
   );
-  return { app, call };
+  return { app, call, setHost, getData: () => snapshot.data, unmount: view.unmount };
 }
 
 const inlineRows = () => document.querySelectorAll("[data-review-row]");
 const notAvailable = "Fullscreen is not available in this host.";
+const fullscreenHost = { displayMode: "fullscreen", containerDimensions: { width: 1200, height: 900 } } as const;
+const inlineHost = { displayMode: "inline", containerDimensions: { width: 760, maxHeight: 500 } } as const;
+const exitControl = /exit full ?screen/i;
 
 it("shows a finite inline page that fits the host budget, with pagination and view all", async () => {
   const user = userEvent.setup();
@@ -166,4 +173,131 @@ it("keeps the full screen list unchanged", () => {
   expect(inlineRows()).toHaveLength(0);
   expect(screen.queryByRole("button", { name: "Next page" })).toBeNull();
   expect(screen.queryByText(notAvailable)).toBeNull();
+});
+
+it("relies on the host close control and stays inline after the host ends full screen, also after a remount", () => {
+  frame(24);
+  // The prototype spy also records a request that a mount effect could make.
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const first = mount(fullscreenHost, "fullscreen");
+  expect(screen.getByText("Page 1 of 9 (45 total)")).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: exitControl })).toBeNull();
+  expect(screen.queryByRole("button", { name: "Expand to fullscreen" })).toBeNull();
+
+  act(() => first.setHost(inlineHost));
+  expect(inlineRows()).toHaveLength(4);
+  expect(screen.getByText("Showing 1–4 of 45 reviews")).toBeInTheDocument();
+  expect(screen.getByRole("button", { name: "Expand to fullscreen" })).toBeInTheDocument();
+  expect(screen.queryByText(/records per page/)).toBeNull();
+  first.unmount();
+
+  // The host remounts the same tool result inline, with the same session storage.
+  const second = mount(inlineHost, "fullscreen");
+  expect(inlineRows()).toHaveLength(4);
+  expect(screen.queryByText(/records per page/)).toBeNull();
+  expect(display).not.toHaveBeenCalled();
+  expect(first.call).not.toHaveBeenCalled();
+  expect(second.call).not.toHaveBeenCalled();
+});
+
+it("opens full screen one time for a tool result that asks for it", async () => {
+  frame(24);
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const first = mount(inlineHost, "fullscreen");
+  await waitFor(() => expect(display).toHaveBeenCalledTimes(1));
+  expect(display).toHaveBeenCalledWith({ mode: "fullscreen" });
+  act(() => first.setHost(fullscreenHost));
+  expect(screen.getByText("Page 1 of 9 (45 total)")).toBeInTheDocument();
+
+  act(() => first.setHost(inlineHost));
+  expect(inlineRows()).toHaveLength(4);
+  first.unmount();
+  mount(inlineHost, "fullscreen");
+  expect(inlineRows()).toHaveLength(4);
+  expect(display).toHaveBeenCalledTimes(1);
+});
+
+it("shows the list after the host ends a full screen review, also on a later expand", async () => {
+  const user = userEvent.setup();
+  frame(24);
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const view = mount(inlineHost);
+  await user.click(within(inlineRows()[0] as HTMLElement).getByRole("button", { name: "View" }));
+  await waitFor(() => expect(screen.getByTestId("review-results")).toHaveTextContent("Agent 01"));
+  act(() => view.setHost(fullscreenHost));
+  expect(screen.getByTestId("review-results")).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: exitControl })).toBeNull();
+  // Only the open action requested full screen.
+  expect(display).toHaveBeenCalledTimes(1);
+
+  act(() => view.setHost(inlineHost));
+  expect(screen.queryByTestId("review-results")).toBeNull();
+  expect(inlineRows()).toHaveLength(4);
+  expect(view.getData()).toMatchObject({ state: "reviewInventory", selectionId: "selection-1" });
+  expect(display).toHaveBeenCalledTimes(1);
+
+  // A later expand shows the list, not the closed review.
+  await user.click(screen.getByRole("button", { name: "Expand to fullscreen" }));
+  act(() => view.setHost(fullscreenHost));
+  expect(screen.getByText("Page 1 of 9 (45 total)")).toBeInTheDocument();
+  expect(screen.queryByTestId("review-results")).toBeNull();
+  expect(display).toHaveBeenCalledTimes(2);
+  act(() => view.setHost(inlineHost));
+  expect(inlineRows()).toHaveLength(4);
+  view.unmount();
+
+  mount(inlineHost);
+  expect(inlineRows()).toHaveLength(4);
+  expect(display).toHaveBeenCalledTimes(2);
+  expect(view.call).toHaveBeenCalledTimes(1);
+  expect(view.call).toHaveBeenCalledWith(expect.objectContaining({ name: "get_agent_review_result" }));
+});
+
+it("keeps following the host after a review opens from the full screen list, also after a remount", async () => {
+  const user = userEvent.setup();
+  frame(24);
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const first = mount(fullscreenHost, "fullscreen");
+  await user.click(screen.getAllByRole("button", { name: "View" })[0]);
+  await waitFor(() => expect(screen.getByTestId("review-results")).toHaveTextContent("Agent 01"));
+  // The host already shows full screen, so the open action makes no request.
+  expect(display).not.toHaveBeenCalled();
+  expect(sessionStorage.getItem("agent-review:presentation:selection-1")).toBe("host");
+
+  act(() => first.setHost(inlineHost));
+  expect(screen.queryByTestId("review-results")).toBeNull();
+  expect(inlineRows()).toHaveLength(4);
+  first.unmount();
+
+  // The host remounts the same tool result inline, with the same session storage.
+  mount(inlineHost, "fullscreen");
+  expect(inlineRows()).toHaveLength(4);
+  expect(screen.queryByText(/records per page/)).toBeNull();
+  expect(display).not.toHaveBeenCalled();
+});
+
+it("requests full screen for a review when the host ends full screen while the review loads", async () => {
+  const user = userEvent.setup();
+  frame(24);
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const view = mount(fullscreenHost, "fullscreen");
+  type ToolResult = Awaited<ReturnType<App["callServerTool"]>>;
+  let finish: (result: ToolResult) => void = () => undefined;
+  view.call.mockImplementationOnce(() => new Promise<ToolResult>((resolve) => { finish = resolve; }));
+  await user.click(screen.getAllByRole("button", { name: "View" })[0]);
+  expect(view.call).toHaveBeenCalledWith(expect.objectContaining({ name: "get_agent_review_result" }));
+
+  // The host close control ends full screen before the review result arrives.
+  act(() => view.setHost(inlineHost));
+  await act(async () => finish({
+    content: [],
+    structuredContent: { state: "fullReview", reviewId: "review-01", model: { summary: { agentName: "Agent 01" } } },
+  }));
+  await waitFor(() => expect(display).toHaveBeenCalledTimes(1));
+  expect(display).toHaveBeenCalledWith({ mode: "fullscreen" });
+
+  act(() => view.setHost(fullscreenHost));
+  expect(screen.getByTestId("review-results")).toHaveTextContent("Agent 01");
+  expect(sessionStorage.getItem("agent-review:presentation:selection-1")).toBe("host");
+  expect(display).toHaveBeenCalledTimes(1);
 });

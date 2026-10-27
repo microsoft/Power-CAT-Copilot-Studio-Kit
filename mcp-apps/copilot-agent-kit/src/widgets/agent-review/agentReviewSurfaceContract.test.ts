@@ -65,7 +65,7 @@ test("review results survive an exact invocation fullscreen remount", () => {
 
 test("summary expansion persists fullscreen state before requesting a host remount", () => {
   const start = source.indexOf("const openFullReview = async");
-  const end = source.indexOf("const closeFullReview =", start);
+  const end = source.indexOf("const fullscreenAvailable =", start);
   assert.notEqual(start, -1);
   assert.notEqual(end, -1);
   assert.match(source.slice(start, end), /await requestResultDisplay\("fullscreen", output\.model\)/);
@@ -116,18 +116,25 @@ test("the bootstrap restoration guard runs after every Agent Review hook", () =>
   );
 });
 
-test("returning inline persists summary state before requesting the host remount", () => {
-  assert.match(source, /const closeFullReview = \(\) => requestResultDisplay\("inline",/);
-
-  const display = resultDisplayRequest();
-  const requestIndex = display.indexOf("app.requestDisplayMode({ mode })");
-  assert.notEqual(requestIndex, -1);
-  assert.match(display, /const intendedState = mode === "fullscreen" \? "fullReview" : "summary"/);
+test("fullscreen relies on the host close control and a host return shows the clean map", () => {
+  assert.equal(source.includes("Exit full" + "screen"), false);
+  assert.equal(source.includes("Arrow" + "MinimizeRegular"), false);
+  assert.equal(source.includes('requestResultDisplay("inline"'), false);
+  assert.match(source, /\{!expanded && <Tooltip content="Expand to fullscreen" relationship="label">/);
+  // The host close control changes the display mode. The view then shows the inline summary with the clean map.
   assert.match(
-    display.slice(0, requestIndex),
-    /if \(!save\(intendedState, intendedNavigation\(\)\)\) throw new Error\(/,
+    source,
+    /host\?\.displayMode === "inline" && current === "fullReview" \? "summary" : current/,
   );
-  assert.match(display.slice(requestIndex), /publish\(intendedState\)/);
+  assert.match(
+    source,
+    /if \(previous !== "fullReview" \|\| state !== "summary"\) return;\s*changeResultNavigation\(cleanMapIntent\(resultNavigation\.current\)\);/,
+  );
+  // The view saves and publishes the inline summary, the same as an app exit request did.
+  assert.match(
+    source,
+    /writeAgentReviewSnapshot\(reviewStorage, \{ \.\.\.summary, state: "summary" \}\);\s*replaceData\(\{ \.\.\.replayed, \.\.\.summary, state: "summary" \}\);/,
+  );
 });
 
 test("running review progress replaces the form with an embedded status card", () => {

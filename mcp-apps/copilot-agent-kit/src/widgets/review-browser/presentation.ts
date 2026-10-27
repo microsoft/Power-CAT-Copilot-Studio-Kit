@@ -28,6 +28,24 @@ export function reviewBrowserPresentationKey(
     : undefined;
 }
 
+/** The stored value after the host shows full screen. From then on, the view follows the host. */
+export const REVIEW_BROWSER_FOLLOW_HOST = "host";
+
+/**
+ * The stored presentation that the view uses. Only the host close control ends full screen,
+ * so after the host shows full screen the view follows the host display mode (also after a
+ * remount in the same session) and does not request full screen again by itself.
+ */
+export function storedReviewBrowserPresentation(
+  value: string | null | undefined,
+  hostDisplayMode: "inline" | "fullscreen" | "pip" | undefined,
+): "inline" | "fullscreen" | undefined {
+  if (value === REVIEW_BROWSER_FOLLOW_HOST) {
+    return hostDisplayMode === "fullscreen" ? "fullscreen" : "inline";
+  }
+  return value === "inline" || value === "fullscreen" ? value : undefined;
+}
+
 export type ReviewBrowserColumnId =
   | "name"
   | "poweredBy"

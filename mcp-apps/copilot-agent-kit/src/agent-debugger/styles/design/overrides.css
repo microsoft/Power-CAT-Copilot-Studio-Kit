@@ -544,6 +544,35 @@ main:has(.w-shell > .w-app) {
   text-align: right;
 }
 
+/* The turn status badge never shrinks. The quote gives up its width first. */
+.w-ti.turn > .w-tl > .main .w-badge {
+  flex: none;
+  white-space: nowrap;
+}
+
+.w-ti.turn > .w-tl > .main .q {
+  min-width: 0;
+}
+
+/* The turn actions replace the duration on hover or focus. In a narrow turn
+   row, the text labels do not fit next to the turn number and the status
+   badge, so the actions show only their icons. Each action keeps its
+   accessible name and a tooltip. */
+.w-ti.turn > .w-tl {
+  container: w-turn-row / inline-size;
+}
+
+@container w-turn-row (width < 520px) {
+  .w-ti.turn > .w-tl > .acts .w-act-label {
+    display: none;
+  }
+
+  .w-ti.turn > .w-tl > .acts > .w-btn {
+    min-width: 0;
+    padding: 0 7px;
+  }
+}
+
 /* Keep the slowest step structurally neutral; only its duration is red. */
 .w-ti.step.slowest > .w-tl {
   background: transparent;

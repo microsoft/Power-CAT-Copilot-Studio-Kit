@@ -129,6 +129,36 @@ test("restores a persisted full review when a remounted host reports inline", ()
   }), true);
 });
 
+test("follows the host display mode after the host showed full screen", () => {
+  const follow = presentation.REVIEW_BROWSER_FOLLOW_HOST;
+  const stored = presentation.storedReviewBrowserPresentation;
+  assert.equal(stored(follow, "fullscreen"), "fullscreen");
+  assert.equal(stored(follow, "inline"), "inline");
+  assert.equal(stored(follow, "pip"), "inline");
+  assert.equal(stored("fullscreen", "inline"), "fullscreen");
+  assert.equal(stored("inline", "fullscreen"), "inline");
+  assert.equal(stored(null, "inline"), undefined);
+  assert.equal(stored("unknown", "inline"), undefined);
+  // The followed value never synchronizes the host to full screen again,
+  // also for a full review or a tool result that asked for full screen.
+  for (const hostDisplayMode of ["inline", "fullscreen", "pip"] as const) {
+    const storedPresentation = stored(follow, hostDisplayMode);
+    assert.equal(presentation.shouldSynchronizeFullscreenHost({
+      presentation: "fullscreen",
+      storedPresentation,
+      state: "fullReview",
+      hostDisplayMode,
+    }), false);
+    assert.equal(resolveReviewBrowserFullscreen({
+      presentation: "fullscreen",
+      storedPresentation,
+      state: "fullReview",
+      hostDisplayMode,
+      current: true,
+    }), hostDisplayMode === "fullscreen");
+  }
+});
+
 test("fits a whole number of fixed-height inline rows in the content height", () => {
   assert.equal(presentation.REVIEW_BROWSER_INLINE_ROW_HEIGHT, 48);
   // {width: 760, maxHeight: 500} less the 48 px #root frame leaves 452 px of content.
