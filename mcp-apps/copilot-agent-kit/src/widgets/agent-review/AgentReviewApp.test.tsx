@@ -1053,16 +1053,19 @@ it("opens an existing completed review on Agent map without any start or finaliz
   expect(call).not.toHaveBeenCalled();
 });
 
-it("shows the summary only after fullscreen and removes it again on inline return", async () => {
+it("shows the summary only after fullscreen and removes it again on the host return", async () => {
   const user = userEvent.setup();
   const model = buildReviewViewModel(
     fixture.agentsExperience as CopilotReviewDisplayPayload, "You", 42_000, agent.name,
   );
-  const { app, call } = mount({ state: "summary", reviewId, model }, async request => {
+  const { app, call, setHost } = mount({ state: "summary", reviewId, model }, async request => {
     expect(request).toEqual({ name: "get_agent_review_result", arguments: { reviewId, presentation: "fullReview" } });
     return result({ state: "fullReview", reviewId, model });
   });
-  vi.spyOn(app, "requestDisplayMode").mockImplementation(async ({ mode }) => ({ mode }));
+  const display = vi.spyOn(app, "requestDisplayMode").mockImplementation(async ({ mode }) => {
+    setHost({ displayMode: mode });
+    return { mode };
+  });
   expect(screen.queryByLabelText("Review summary")).toBeNull();
   await user.click(screen.getByRole("tab", { name: /Findings/ }));
   expect(screen.queryByLabelText("Review summary")).toBeNull();
@@ -1070,8 +1073,14 @@ it("shows the summary only after fullscreen and removes it again on inline retur
   expect(screen.getByLabelText("Review summary")).toBeInTheDocument();
   await user.click(screen.getByRole("tab", { name: /Agent map/ }));
   expect(screen.getByLabelText("Review summary")).toBeInTheDocument();
-  await user.click(screen.getByRole("button", { name: "Exit fullscreen" }));
+  // Full screen relies on the host close control.
+  expect(screen.queryByRole("button", { name: /exit full ?screen/i })).toBeNull();
+  expect(screen.queryByRole("button", { name: "Expand to fullscreen" })).toBeNull();
+  act(() => setHost({ displayMode: "inline" }));
   expect(screen.queryByLabelText("Review summary")).toBeNull();
+  expect(screen.getByRole("button", { name: "Expand to fullscreen" })).toBeInTheDocument();
+  expect(display).toHaveBeenCalledTimes(1);
+  expect(display).toHaveBeenCalledWith({ mode: "fullscreen" });
   expect(call).toHaveBeenCalledTimes(1);
 });
 
@@ -1322,26 +1331,31 @@ it("keeps the exact node filter through a fullscreen remount and returns inline 
   vi.spyOn(initial.app, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
   await activateListNode(user);
   initial.unmount();
+  // The prototype spy also records a request that a mount effect could make.
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
   const fullscreen = mount(null, undefined, "fullscreen");
   expectExactNodeResults();
-  const display = vi.spyOn(fullscreen.app, "requestDisplayMode").mockImplementation(async request => {
-    const saved = JSON.parse(window.sessionStorage.getItem(`agent-review:review:snapshot:${reviewId}`)!);
-    expect(saved).toMatchObject({
-      state: "summary", activeTab: "map", nodeFilter: null, mapNavigation: { selection: null },
-    });
-    expect(request).toEqual({ mode: "inline" });
-    fullscreen.setHost({ displayMode: "inline" });
-    return { mode: "inline" };
-  });
-  await user.click(screen.getByRole("button", { name: "Exit fullscreen" }));
+  expect(screen.queryByRole("button", { name: /exit full ?screen/i })).toBeNull();
+  // The host close control ends full screen. The view saves the clean inline map without a display request.
+  act(() => fullscreen.setHost({ displayMode: "inline" }));
   expectCleanInlineMap();
+  const saved = JSON.parse(window.sessionStorage.getItem(`agent-review:review:snapshot:${reviewId}`)!);
+  expect(saved).toMatchObject({
+    state: "summary", activeTab: "map", nodeFilter: null, mapNavigation: { selection: null },
+  });
+  // The restored view had no tool data. Its summary keeps the selection of the saved snapshot.
+  expect(fullscreen.getData()).toMatchObject({
+    state: "summary", selectionId: reviewId, reviewId, activeTab: "map", nodeFilter: null,
+  });
   fullscreen.unmount();
-  const returned = mount({ state: "summary", reviewId, model });
+  // A remount does not restore the full review, also when the replayed result names it.
+  const returned = mount({ state: "fullReview", reviewId, model });
   expectCleanInlineMap();
   await user.click(screen.getByRole("tab", { name: /Findings/ }));
   expect(screen.getByRole("button", { name: /Other same-family node finding/ })).toBeInTheDocument();
   expect(screen.queryByRole("group", { name: "Selected map node" })).toBeNull();
-  expect(display).toHaveBeenCalledTimes(1);
+  expect(screen.queryByLabelText("Review summary")).toBeNull();
+  expect(display).not.toHaveBeenCalled();
   expect(initial.call).not.toHaveBeenCalled();
   expect(fullscreen.call).not.toHaveBeenCalled();
   expect(returned.call).not.toHaveBeenCalled();
@@ -1350,7 +1364,7 @@ it("keeps the exact node filter through a fullscreen remount and returns inline 
 it("returns to the clean inline map when the host ends fullscreen", async () => {
   const user = userEvent.setup();
   const { app, call, setHost } = mount({ state: "summary", reviewId, model: navigationModel() });
-  vi.spyOn(app, "requestDisplayMode").mockImplementation(async () => {
+  const display = vi.spyOn(app, "requestDisplayMode").mockImplementation(async () => {
     setHost({ displayMode: "fullscreen" });
     return { mode: "fullscreen" };
   });
@@ -1363,7 +1377,31 @@ it("returns to the clean inline map when the host ends fullscreen", async () => 
   expect(saved).toMatchObject({
     state: "summary", activeTab: "map", nodeFilter: null, mapNavigation: { selection: null },
   });
+  // Only the node activation requested full screen. The host return requests nothing.
+  expect(display).toHaveBeenCalledTimes(1);
+  expect(display).toHaveBeenCalledWith({ mode: "fullscreen" });
   expect(call).not.toHaveBeenCalled();
+});
+
+it("publishes the inline summary on the host return, so a remount with the replayed data stays inline", () => {
+  // The prototype spy also records a request that a mount effect could make.
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const first = mount({ state: "fullReview", reviewId, model: navigationModel() }, undefined, "fullscreen");
+  expect(screen.getByLabelText("Review summary")).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: /exit full ?screen/i })).toBeNull();
+  act(() => first.setHost({ displayMode: "inline" }));
+  expectCleanInlineMap();
+  const published = first.getData();
+  expect(published).toMatchObject({ state: "summary", reviewId, activeTab: "map", nodeFilter: null });
+  expect(JSON.stringify(published)).not.toContain("fullReview");
+  first.unmount();
+  const second = mount(published);
+  expectCleanInlineMap();
+  expect(screen.getByRole("button", { name: "Expand to fullscreen" })).toBeInTheDocument();
+  expect(JSON.stringify(second.getData())).not.toContain("fullReview");
+  expect(display).not.toHaveBeenCalled();
+  expect(first.call).not.toHaveBeenCalled();
+  expect(second.call).not.toHaveBeenCalled();
 });
 
 it("replaces a node filter without another display request when already fullscreen", async () => {
@@ -1568,7 +1606,8 @@ it("plays a simulated review once: not again after a display-mode change, a repe
   expectSimulatedStep(3, "50%", "Reviewed 2 of 4 skills");
   act(() => { vi.advanceTimersByTime(6_000); });
   expect(screen.queryByRole("progressbar", { name: /Reviewing/ })).toBeNull();
-  expect(screen.getByRole("button", { name: "Exit fullscreen" })).toBeInTheDocument();
+  expect(screen.getByLabelText("Review summary")).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: /exit full ?screen/i })).toBeNull();
   act(() => first.setHost({ displayMode: "inline" }));
   act(() => first.replaceData({ ...data }));
   expect(screen.queryByRole("progressbar", { name: /Reviewing/ })).toBeNull();

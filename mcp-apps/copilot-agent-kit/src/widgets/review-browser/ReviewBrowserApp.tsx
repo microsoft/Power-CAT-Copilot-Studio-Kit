@@ -30,7 +30,6 @@ import {
 } from "@fluentui/react-components";
 import {
   ArrowMaximizeRegular,
-  ArrowMinimizeRegular,
   BotSparkle24Color,
   BotSparkle24Regular,
   ChevronLeftRegular,
@@ -52,6 +51,7 @@ import {
   measureFrameInset,
 } from "../shared/fullscreen";
 import {
+  REVIEW_BROWSER_FOLLOW_HOST,
   REVIEW_BROWSER_INLINE_ROW_HEIGHT,
   estimateReviewBrowserInlineChrome,
   requestReviewBrowserDisplayMode,
@@ -63,6 +63,7 @@ import {
   reviewBrowserRangeCaption,
   resolveReviewBrowserFullscreen,
   shouldSynchronizeFullscreenHost,
+  storedReviewBrowserPresentation,
   type ReviewBrowserColumnId,
 } from "./presentation";
 
@@ -344,13 +345,16 @@ export function ReviewBrowserApp() {
   const { app, data, host, replaceData } = useMcpApp();
   const initial = (data ?? {}) as ToolData;
   const presentationKey = reviewBrowserPresentationKey(initial.selectionId);
+  // Only the host close control ends full screen. After the host shows full screen, the view
+  // follows the host display mode, also after a remount in this session (see the effect below).
+  const [followsHost, setFollowsHost] = useState(false);
   const storedPresentationValue = presentationKey
     ? window.sessionStorage.getItem(presentationKey)
     : null;
-  const storedPresentation = storedPresentationValue === "inline"
-    || storedPresentationValue === "fullscreen"
-    ? storedPresentationValue
-    : undefined;
+  const storedPresentation = storedReviewBrowserPresentation(
+    followsHost ? REVIEW_BROWSER_FOLLOW_HOST : storedPresentationValue,
+    host?.displayMode,
+  );
   const expandedHeight = fullscreenHeight(
     host?.containerDimensions,
     window.screen.availHeight,
@@ -374,6 +378,9 @@ export function ReviewBrowserApp() {
   const [fullscreenRefused, setFullscreenRefused] = useState(false);
   const inlineContentRef = useRef<HTMLDivElement>(null);
   const fullscreenSyncAttempt = useRef<string>();
+  // The list behind an open review. The host close control returns to it.
+  const reviewList = useRef<unknown>();
+  const shownHostMode = useRef(host?.displayMode);
   const [isFullscreen, setIsFullscreen] = useState(() =>
     resolveReviewBrowserFullscreen({
       presentation: initial.presentation,
@@ -404,6 +411,26 @@ export function ReviewBrowserApp() {
 
   useEffect(() => {
     if (host?.displayMode) setConfirmedMode(host.displayMode);
+  }, [host?.displayMode]);
+
+  // The host shows full screen: a stored or tool-result request for full screen is now done.
+  useEffect(() => {
+    if (host?.displayMode !== "fullscreen") return;
+    setFollowsHost(true);
+    if (presentationKey) window.sessionStorage.setItem(presentationKey, REVIEW_BROWSER_FOLLOW_HOST);
+  }, [host?.displayMode, presentationKey]);
+
+  // The host close control ended full screen. An open review closes, and the inline view
+  // shows the review list again, also after a later expand.
+  useEffect(() => {
+    const previous = shownHostMode.current;
+    shownHostMode.current = host?.displayMode;
+    if (previous !== "fullscreen" || !host?.displayMode || host.displayMode === "fullscreen") return;
+    const list = reviewList.current;
+    reviewList.current = undefined;
+    if (list === undefined) return;
+    setDetail(undefined);
+    replaceData(list);
   }, [host?.displayMode]);
 
   useEffect(() => {
@@ -546,29 +573,25 @@ export function ReviewBrowserApp() {
     }
   };
 
-  const toggleFullscreen = async () => {
+  // Inline only: full screen relies on the host close control, so the view has no exit request.
+  const requestFullscreen = async () => {
     if (!app) return;
-    const presentation = fullscreen ? "inline" : "fullscreen";
-    fullscreenSyncAttempt.current = `${presentation}:${host?.displayMode ?? "unknown"}`;
+    fullscreenSyncAttempt.current = `fullscreen:${host?.displayMode ?? "unknown"}`;
     setError(null);
-    setIsFullscreen(presentation === "fullscreen");
+    setIsFullscreen(true);
     try {
       const mode = await requestReviewBrowserDisplayMode(
         app,
-        presentation,
+        "fullscreen",
         window.sessionStorage,
         initial.selectionId,
       );
       setConfirmedMode(mode);
       setIsFullscreen(mode === "fullscreen");
-      if (presentation === "fullscreen") setFullscreenRefused(mode !== "fullscreen");
-    } catch (caught) {
-      if (presentation === "fullscreen") {
-        setIsFullscreen(false);
-        setFullscreenRefused(true);
-        return;
-      }
-      setError(caught instanceof Error ? caught.message : "Unable to change the review display mode.");
+      setFullscreenRefused(mode !== "fullscreen");
+    } catch {
+      setIsFullscreen(false);
+      setFullscreenRefused(true);
     }
   };
 
@@ -577,6 +600,7 @@ export function ReviewBrowserApp() {
     const listData = data;
     // The review summary shows only in full screen, so a refused request keeps the list.
     const keepList = () => {
+      reviewList.current = undefined;
       setDetail(undefined);
       if (listData) replaceData(listData);
       setIsFullscreen(false);
@@ -592,6 +616,9 @@ export function ReviewBrowserApp() {
       }));
       if (!output.model) throw new Error("The stored review result is unavailable.");
       setActiveTab("map");
+      reviewList.current = listData;
+      // This request opens full screen, so the synchronization effect does not request it again.
+      fullscreenSyncAttempt.current = `fullscreen:${host?.displayMode ?? "unknown"}`;
       replaceData({ ...output, selectionId: initial.selectionId });
       setDetail(output.model);
       setIsFullscreen(true);
@@ -615,35 +642,6 @@ export function ReviewBrowserApp() {
       } else {
         setError(caught instanceof Error ? caught.message : "Unable to open the review.");
       }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const closeDetail = async () => {
-    if (!app || !environmentId) return;
-    setLoading(true);
-    try {
-      const output = structured(await app.callServerTool({
-        name: "list_agent_reviews",
-        arguments: { environmentId, presentation: "inline" },
-      }));
-      if (output.state === "error") {
-        throw new Error(output.error?.message ?? "Unable to close the full review.");
-      }
-      replaceData({ ...output, selectionId: initial.selectionId });
-      setRows(output.rows ?? []);
-      setDetail(undefined);
-      setIsFullscreen(false);
-      const mode = await requestReviewBrowserDisplayMode(
-        app,
-        "inline",
-        window.sessionStorage,
-        initial.selectionId,
-      );
-      setConfirmedMode(mode);
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : "Unable to close the full review.");
     } finally {
       setLoading(false);
     }
@@ -749,15 +747,6 @@ export function ReviewBrowserApp() {
               <Text size={200}>Agent review results</Text>
             </div>
           </div>
-          <Tooltip content="Exit fullscreen" relationship="label">
-            <Button
-              appearance="secondary"
-              size="small"
-              icon={<ArrowMinimizeRegular />}
-              aria-label="Exit fullscreen"
-              onClick={() => void closeDetail()}
-            />
-          </Tooltip>
         </div>
         <div className={`${styles.fullCard} ${styles.detailCard}`}>
           <CopilotReviewResults
@@ -780,18 +769,18 @@ export function ReviewBrowserApp() {
           {filteredRows.length}
         </Badge>
       </div>
-      <Tooltip
-        content={fullscreen ? "Exit fullscreen" : "Expand to fullscreen"}
-        relationship="label"
-      >
-        <Button
-          appearance="secondary"
-          size="small"
-          icon={fullscreen ? <ArrowMinimizeRegular /> : <ArrowMaximizeRegular />}
-          aria-label={fullscreen ? "Exit fullscreen" : "Expand to fullscreen"}
-          onClick={() => void toggleFullscreen()}
-        />
-      </Tooltip>
+      {/* Full screen relies on the host close control. */}
+      {!fullscreen && (
+        <Tooltip content="Expand to fullscreen" relationship="label">
+          <Button
+            appearance="secondary"
+            size="small"
+            icon={<ArrowMaximizeRegular />}
+            aria-label="Expand to fullscreen"
+            onClick={() => void requestFullscreen()}
+          />
+        </Tooltip>
+      )}
     </div>
   );
 
@@ -1003,7 +992,7 @@ export function ReviewBrowserApp() {
                     <Button
                       size="small"
                       icon={<ArrowMaximizeRegular />}
-                      onClick={() => void toggleFullscreen()}
+                      onClick={() => void requestFullscreen()}
                     >
                       {`View all ${total} reviews in full screen`}
                     </Button>

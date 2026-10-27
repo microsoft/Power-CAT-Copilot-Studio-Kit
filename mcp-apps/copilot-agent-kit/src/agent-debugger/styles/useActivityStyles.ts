@@ -55,7 +55,7 @@ export const useActivityStyles = makeStyles({
   },
   /** The full screen Execution flow from 1080 px: conversation, flow (the widest) and step details. */
   flowColumns: {
-    gridTemplateColumns: 'minmax(240px, .8fr) minmax(380px, 1.5fr) minmax(300px, 1fr)',
+    gridTemplateColumns: 'minmax(270px, 1fr) minmax(380px, 1.4fr) minmax(270px, .9fr)',
   },
   /** The flow column: the legend and the turn actions wrap, so the narrow column does not clip them. */
   flowPane: {

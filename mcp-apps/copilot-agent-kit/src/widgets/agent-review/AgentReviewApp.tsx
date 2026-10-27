@@ -21,7 +21,6 @@ import {
 } from "@fluentui/react-components";
 import {
   ArrowMaximizeRegular,
-  ArrowMinimizeRegular,
   BotSparkle24Color,
   BrainCircuitRegular,
   CheckmarkCircle20Filled,
@@ -796,14 +795,27 @@ export function AgentReviewApp() {
       : host?.displayMode === "inline" && current === "fullReview" ? "summary" : current);
   }, [host?.displayMode, Boolean(model)]);
 
-  // Each return from fullscreen, also one that the host starts, shows the clean map inline.
+  // Full screen ends only by the host close control. Each return to inline shows the clean map, then
+  // saves and publishes the same summary data as an app exit request did, so a remount stays inline.
   const shownState = useRef(state);
+  // A full review that the view restored without tool data loses its selection when the host returns
+  // to inline. Its summary must replace the same saved snapshot, thus the view keeps that selection.
+  const fullReviewSelection = useRef<{ selectionId: string; reviewId: string }>();
+  if (state === "fullReview" && selectionId && reviewId) fullReviewSelection.current = { selectionId, reviewId };
   useEffect(() => {
     const previous = shownState.current;
     shownState.current = state;
-    if (previous === "fullReview" && state === "summary") {
-      changeResultNavigation(cleanMapIntent(resultNavigation.current));
-    }
+    if (previous !== "fullReview" || state !== "summary") return;
+    changeResultNavigation(cleanMapIntent(resultNavigation.current));
+    const current = resultContext.current;
+    if (!current.reviewId || !current.model) return;
+    const kept = fullReviewSelection.current;
+    const summary = {
+      selectionId: current.selectionId ?? (kept?.reviewId === current.reviewId ? kept.selectionId : undefined),
+      reviewId: current.reviewId, model: current.model, ...resultNavigation.current,
+    };
+    writeAgentReviewSnapshot(reviewStorage, { ...summary, state: "summary" });
+    replaceData({ ...replayed, ...summary, state: "summary" });
   }, [state]);
 
   useEffect(() => {
@@ -1281,7 +1293,7 @@ export function AgentReviewApp() {
     }
   };
 
-  const closeFullReview = () => requestResultDisplay("inline", model, cleanMapIntent);
+  // Full screen relies on the host close control (see the shownState effect).
   const fullscreenAvailable = fullscreenOffered(host) && !fullscreenRefused;
   const activateNode = (filter: ReviewNodeFilter, navigation: ReviewMapNavigation) => {
     if (state === "fullReview" || host?.displayMode === "fullscreen" || !fullscreenAvailable) {
@@ -1309,15 +1321,15 @@ export function AgentReviewApp() {
       >
         <div className={mergeClasses(styles.fullscreenHeader, !expanded && styles.inlineHeader)}>
           <Text as="h2" size={expanded ? 500 : 300} weight="semibold" className={styles.fullscreenTitle}>{model.summary.agentName}</Text>
-          <Tooltip content={expanded ? "Exit fullscreen" : "Expand to fullscreen"} relationship="label">
+          {!expanded && <Tooltip content="Expand to fullscreen" relationship="label">
             <Button
               appearance="secondary"
               size="small"
-              icon={expanded ? <ArrowMinimizeRegular /> : <ArrowMaximizeRegular />}
-              aria-label={expanded ? "Exit fullscreen" : "Expand to fullscreen"}
-              onClick={() => void (expanded ? closeFullReview() : openFullReview())}
+              icon={<ArrowMaximizeRegular />}
+              aria-label="Expand to fullscreen"
+              onClick={() => void openFullReview()}
             />
-          </Tooltip>
+          </Tooltip>}
         </div>
         {displayFeedback?.reviewId === reviewId && <Text size={200} className={styles.displayFeedback}>{displayFeedback.message}</Text>}
         <div className={mergeClasses(styles.fullscreenContent, !expanded && styles.inlineContent)}>

@@ -23,7 +23,6 @@ import {
 } from "@fluentui/react-components";
 import {
   ArrowMaximizeRegular,
-  ArrowMinimizeRegular,
   Bot24Regular,
   BranchFork20Regular,
   ChatMultiple20Regular,
@@ -949,19 +948,6 @@ export function AgentDebuggerApp() {
     } else setDisplayRefused(false);
   };
 
-  const exitFullscreen = async () => {
-    if (!app) return;
-    setDisplayFeedback("");
-    let refused: boolean;
-    try {
-      const display = await app.requestDisplayMode({ mode: "inline" });
-      refused = display?.mode !== "inline";
-    } catch {
-      refused = true;
-    }
-    if (refused) setDisplayFeedback("The host did not return the Debugger to inline mode.");
-  };
-
   const loadedConversationId = loadedTarget?.conversationId;
   useEffect(() => {
     if (!fullscreen || !loadedConversationId) return;
@@ -1294,13 +1280,14 @@ export function AgentDebuggerApp() {
                 Analyze and visualize agent conversation transcripts, thought processes and connected agents.
               </Text>}
             </div>
-            {!showFullscreenCta && <Tooltip content={fullscreen ? "Exit full screen" : "Open full screen"} relationship="label">
+            {/* Full screen relies on the host close control. */}
+            {!fullscreen && !showFullscreenCta && <Tooltip content="Open full screen" relationship="label">
               <Button
                 appearance="secondary"
                 size="small"
-                icon={fullscreen ? <ArrowMinimizeRegular /> : <ArrowMaximizeRegular />}
-                aria-label={fullscreen ? "Exit full screen" : "Open full screen"}
-                onClick={() => void (fullscreen ? exitFullscreen() : openFullscreen())}
+                icon={<ArrowMaximizeRegular />}
+                aria-label="Open full screen"
+                onClick={() => void openFullscreen()}
               />
             </Tooltip>}
           </div>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Badge, Button, Spinner, Textarea, Tooltip } from "@fluentui/react-components";
 import {
-  ArrowMaximizeRegular, ArrowMinimizeRegular, ArrowSync16Regular, CheckmarkCircle16Filled, Delete16Regular,
+  ArrowMaximizeRegular, ArrowSync16Regular, CheckmarkCircle16Filled, Delete16Regular,
   Edit16Regular, ErrorCircle16Filled, Open16Regular,
 } from "@fluentui/react-icons";
 import type { App } from "@modelcontextprotocol/ext-apps";
@@ -235,7 +235,6 @@ export function GeneratedEvaluationsApp() {
     } catch (caught) { setError(caught instanceof Error ? caught.message : "Copilot Studio could not be opened."); }
   };
   const inline = fit.inline;
-  const toggleFullscreen = () => void (fit.fullscreen ? fit.exitFullscreen() : fit.requestFullscreen());
   const errorMessage = error || (current.state === "error" || current.error ? current.error?.message ?? "" : "");
   const locked = saving || !receipt?.verified;
 
@@ -258,12 +257,12 @@ export function GeneratedEvaluationsApp() {
     <header className="eval-gen-head">
       <div className="eval-gen-title"><h1>Evaluate</h1><p>{subtitle}</p></div>
       {studioUrl && !simulation && <Button appearance="primary" className="eval-gen-open" icon={<Open16Regular />} disabled={!receipt?.verified} onClick={() => void openStudio()}>Open in Copilot Studio</Button>}
-      <Tooltip content={fit.fullscreen ? "Exit fullscreen" : "Open fullscreen"} relationship="label">
-        <Button appearance="secondary" size="small" icon={fit.fullscreen ? <ArrowMinimizeRegular /> : <ArrowMaximizeRegular />}
-          aria-label={fit.fullscreen ? "Exit fullscreen" : "Open fullscreen"} onClick={toggleFullscreen} />
-      </Tooltip>
+      {/* Full screen relies on the host close control. */}
+      {inline && <Tooltip content="Open fullscreen" relationship="label">
+        <Button appearance="secondary" size="small" icon={<ArrowMaximizeRegular />}
+          aria-label="Open fullscreen" onClick={() => void fit.requestFullscreen()} />
+      </Tooltip>}
     </header>
-    {fit.fullscreen && fit.note && <p className="eval-gen-muted eval-gen-note" role="status">{fit.note}</p>}
     {errorMessage && <p className="evaluation-info evaluation-error" role="alert"><ErrorCircle16Filled className="evaluation-info-icon" aria-hidden="true" />
       <span title={inline ? errorMessage : undefined}>{errorMessage}</span>
       {!receipt?.verified && shown && <Button size="small" appearance="secondary" icon={<ArrowSync16Regular />} disabled={saving} onClick={retry}>Retry</Button>}</p>}

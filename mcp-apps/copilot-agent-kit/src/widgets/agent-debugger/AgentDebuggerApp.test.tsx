@@ -315,6 +315,27 @@ it("uses the host display-mode operation rather than a browser-only full-screen 
   expect(display).toHaveBeenCalledWith({ mode: "fullscreen" });
 });
 
+it("relies on the host close control in full screen and never requests a display mode by itself", () => {
+  const fullscreenSubtitle = /Analyze and visualize agent conversation transcripts/;
+  // The prototype spy also records a request that a mount effect could make.
+  const display = vi.spyOn(App.prototype, "requestDisplayMode").mockResolvedValue({ mode: "fullscreen" });
+  const { call, setHost } = mount(manyTurns(7, usageFixture), undefined, fullscreenHost);
+  expect(screen.getByText(fullscreenSubtitle)).toBeInTheDocument();
+  expect(screen.queryByRole("button", { name: /exit full ?screen/i })).toBeNull();
+  expect(screen.queryByRole("button", { name: "Open full screen" })).toBeNull();
+  // The host close control ends full screen. The view shows its inline layout without a display request.
+  act(() => setHost({ displayMode: "inline" }));
+  expect(screen.queryByText(fullscreenSubtitle)).toBeNull();
+  expect(screen.getByRole("button", { name: "Open full screen" })).toBeInTheDocument();
+  expect(screen.getByRole("toolbar", { name: "Turn 6 actions" })).toBeInTheDocument();
+  act(() => setHost({ displayMode: "fullscreen" }));
+  expect(screen.getByText(fullscreenSubtitle)).toBeInTheDocument();
+  act(() => setHost({ displayMode: "inline" }));
+  expect(screen.getByRole("button", { name: "Open full screen" })).toBeInTheDocument();
+  expect(display).not.toHaveBeenCalled();
+  expect(call).not.toHaveBeenCalled();
+});
+
 it("does not add a second automatic chooser when a list-only Debugger reply arrives", async () => {
   const { call } = mount({
     state: "conversations", targetResolved: true, environment, environmentId: environment.id,

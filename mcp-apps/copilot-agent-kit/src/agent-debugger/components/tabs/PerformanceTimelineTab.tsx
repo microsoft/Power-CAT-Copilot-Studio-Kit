@@ -1,5 +1,5 @@
 import { type CSSProperties, type KeyboardEvent, type MouseEvent, type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Badge, Button, mergeClasses } from '@fluentui/react-components';
+import { Badge, Button, Tooltip, mergeClasses } from '@fluentui/react-components';
 import {
   ArrowTurnRightDownRegular,
   BranchFork16Regular,
@@ -409,8 +409,13 @@ export function PerformanceTimelineTab({ transcript, componentNameBySchemaName, 
           <span className="acts" role="toolbar" aria-label={`Turn ${turn.n} actions`}>
             {turn.messageId && onTurnNavigate ? (
               <>
-                <Button appearance="transparent" className="w-btn subtle" type="button" tabIndex={-1} onClick={(e) => { e.stopPropagation(); onTurnNavigate('flow', turn.messageId as string); }}><BranchFork16Regular className="w-ic" aria-hidden="true" /> Execution flow</Button>
-                <Button appearance="transparent" className="w-btn subtle" type="button" tabIndex={-1} onClick={(e) => { e.stopPropagation(); onTurnNavigate('conversation', turn.messageId as string); }}><Chat16Regular className="w-ic" aria-hidden="true" /> Conversation</Button>
+                {/* A narrow turn row hides the text labels (overrides.css), so each action keeps its name and a tooltip. */}
+                <Tooltip content="Execution flow" relationship="label">
+                  <Button appearance="transparent" className="w-btn subtle" type="button" tabIndex={-1} aria-label="Execution flow" onClick={(e) => { e.stopPropagation(); onTurnNavigate('flow', turn.messageId as string); }}><BranchFork16Regular className="w-ic" aria-hidden="true" /><span className="w-act-label">Execution flow</span></Button>
+                </Tooltip>
+                <Tooltip content="Conversation" relationship="label">
+                  <Button appearance="transparent" className="w-btn subtle" type="button" tabIndex={-1} aria-label="Conversation" onClick={(e) => { e.stopPropagation(); onTurnNavigate('conversation', turn.messageId as string); }}><Chat16Regular className="w-ic" aria-hidden="true" /><span className="w-act-label">Conversation</span></Button>
+                </Tooltip>
               </>
             ) : null}
           </span>

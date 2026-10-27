@@ -178,6 +178,23 @@ describe("Generated evaluations inline fit (D2)", () => {
     expect(screen.queryByText(/^Showing /)).not.toBeInTheDocument();
     expect(css()).not.toMatch(/\.eval-gen-table \{[^}]*(max-height|overflow: auto)/);
   });
+  it("relies on the host close control in full screen and never requests a display mode by itself", async () => {
+    mocks.host = { displayMode: "fullscreen", containerDimensions: { width: 760, maxHeight: 500 } };
+    const root = insetRoot();
+    const view = mount(root);
+    await saved();
+    expect(rows()).toHaveLength(30);
+    expect(screen.queryByRole("button", { name: /exit full ?screen/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Open fullscreen" })).not.toBeInTheDocument();
+    // The host close control ends full screen. The view shows its inline preview without a display request.
+    mocks.host = { displayMode: "inline", containerDimensions: { width: 760, maxHeight: 500 } };
+    view.rerender(<FluentProvider theme={webLightTheme}><GeneratedEvaluationsApp /></FluentProvider>);
+    await waitFor(() => expect(rows()).toHaveLength(3));
+    expect(screen.getByText("Showing 3 of 30 cases")).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Open fullscreen" })).toBeInTheDocument();
+    expect(document.querySelector(".eval-gen")).toHaveClass("is-inline");
+    expect(mocks.requestDisplayMode).not.toHaveBeenCalled();
+  });
 });
 
 describe("Generated evaluations fixed boxes (D7)", () => {

@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, expect, it, vi } from "vitest";
 import type { ProcessedTranscript } from "../../contracts/transcript";
@@ -82,4 +82,18 @@ it("reports an unknown focused turn as handled without scrolling", () => {
   expect(onFocusHandled).toHaveBeenCalledTimes(1);
   expect(scrolled).toHaveLength(0);
   expect(document.querySelector('[data-tv="t1"]')).toHaveClass("sel");
+});
+
+it("names the turn actions, so the icon-only actions of a narrow row keep their names", async () => {
+  const user = userEvent.setup();
+  const onTurnNavigate = vi.fn();
+  renderTimeline({ onTurnNavigate });
+  const toolbar = screen.getByRole("toolbar", { name: "Turn 2 actions" });
+  const flow = within(toolbar).getByRole("button", { name: "Execution flow" });
+  const conversation = within(toolbar).getByRole("button", { name: "Conversation" });
+  // overrides.css hides only these labels in a narrow turn row.
+  expect(flow.querySelector(".w-act-label")).toHaveTextContent("Execution flow");
+  expect(conversation.querySelector(".w-act-label")).toHaveTextContent("Conversation");
+  await user.click(conversation);
+  expect(onTurnNavigate).toHaveBeenCalledWith("conversation", "user-2");
 });

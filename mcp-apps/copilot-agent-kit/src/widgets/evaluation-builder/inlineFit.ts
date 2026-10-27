@@ -4,8 +4,6 @@ import { fullscreenOffered, inlineContentHeight, inlineHeightBudget, measureFram
 
 /** Neutral caption when the host does not offer full screen or refuses it. */
 export const DISPLAY_UNAVAILABLE = "Fullscreen is not available in this host.";
-/** Neutral caption when the host keeps full screen after an exit request. */
-export const EXIT_REFUSED = "The host did not return Eval Builder to inline mode.";
 
 /** Fixed 3-line box (generated cells and textareas): border 2 + padding 14 + 3 lines of 19 px. */
 export const FIXED_BOX_HEIGHT = 73;
@@ -77,14 +75,14 @@ export function loaderSkeletonCount(contentHeight: number): number {
 
 /**
  * Inline fit state for one Eval Builder view: the D2 height budget from the host
- * container, minus the measured #root padding, and the full-screen requests.
+ * container, minus the measured #root padding, and the full-screen request.
+ * Full screen relies on the host close control; the view has no exit request.
  */
 export function useInlineFit(host: McpUiHostContext | undefined, app: App | null) {
   const fullscreen = host?.displayMode === "fullscreen";
   const offered = fullscreenOffered(host);
   const [inset, setInset] = useState(() => measureFrameInset().height);
   const [refused, setRefused] = useState(false);
-  const [note, setNote] = useState("");
   useEffect(() => {
     const measure = () => setInset(measureFrameInset().height);
     measure();
@@ -93,7 +91,6 @@ export function useInlineFit(host: McpUiHostContext | undefined, app: App | null
   }, []);
   useEffect(() => {
     if (fullscreen) setRefused(false);
-    setNote("");
   }, [fullscreen]);
   const requestFullscreen = useCallback(async () => {
     if (!app || !offered) { setRefused(true); return false; }
@@ -104,19 +101,10 @@ export function useInlineFit(host: McpUiHostContext | undefined, app: App | null
     setRefused(true);
     return false;
   }, [app, offered]);
-  const exitFullscreen = useCallback(async () => {
-    setNote("");
-    try {
-      const result = await app?.requestDisplayMode({ mode: "inline" });
-      if (result?.mode === "inline") return true;
-    } catch { /* A refusal keeps the full-screen view. */ }
-    setNote(EXIT_REFUSED);
-    return false;
-  }, [app]);
   return {
     fullscreen, inline: !fullscreen, offered, refused, unavailable: !offered || refused,
     budget: inlineHeightBudget(host?.containerDimensions),
     contentHeight: inlineContentHeight(host?.containerDimensions, inset),
-    note, requestFullscreen, exitFullscreen,
+    requestFullscreen,
   };
 }
