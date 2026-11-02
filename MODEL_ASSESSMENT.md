@@ -62,39 +62,47 @@ An agent can be assessed with either of two test engines. **Their results are ne
 
 ### Architecture
 
-```
-+--------------------------------------------------------------------------+
-| Copilot Agent Kit for Makers > Advanced Testing > Model Assessment       |
-|                                                                          |
-|  Agents grid --> Agent drawer --> Run --> Progress panel --> Compare     |
-|        |             |  (model picker,        (polls run      dialog +   |
-|        |             |   Kit/eval switch)      status)        recommend. |
-+--------+-------------+--------------------------+----------------+-------+
-         | read        | create cat_evaluationrun | read           | Predict
-         v             v                          v                v
-+------------------------------------------+  +------------------------------+
-| Dataverse                                |  | AI Builder prompt            |
-|  cat_trackedagent   cat_modelhistory     |  | "Recommend Model from        |
-|  cat_evaluationrun  cat_evaluationresult |  |  Assessment Comparison"      |
-|  bots / botcomponents (Copilot Studio)   |  +------------------------------+
-|  cat_copilottestrun (Copilot Agent Kit)  |
-+-------+------------------------^---------+
-        | row created            | results, status, AI analysis
-        v                        |
-+---------------------------------------------+   +--------------------------+
-| Flow "Model Assessment |                    |-->| Microsoft Copilot Studio |
-|       Run Copilot Studio Evaluations"       |   | connector (evaluations)  |
-|  lock > detect model > baseline > run       |   +--------------------------+
-|  MODELCHECK test sets > score > AI explain  |--> AI prompt "Explain Copilot
-+-------+-------------------------------------+    Studio Assessment"
-        | Kit mode: status = Evaluation Running
-        v
-+---------------------------------------------+   +---------------------------+
-| Flow "Model Assessment |                    |-->| Kit action                |
-|       Run Copilot Agent Kit Tests"          |   | cat_RunAgentTestsAutomated|
-|  create Kit test run > poll > compare with  |   +---------------------------+
-|  previous Kit run > AI explain              |--> AI prompt "Explain Copilot
-+---------------------------------------------+    Agent Kit Assessment"
+```mermaid
+flowchart LR
+    subgraph APP["① Makers app · Advanced Testing › Model Assessment"]
+        direction TB
+        G["Agents grid"] --> DR["Agent drawer"] --> R["Run<br/>model picker, Kit/eval switch"] --> PP["Progress panel<br/>polls run status"] --> C["Compare dialog<br/>+ Model recommendation"]
+    end
+    DV[("② Dataverse<br/>cat_trackedagent · cat_modelhistory<br/>cat_evaluationrun · cat_evaluationresult<br/>bots / botcomponents (Copilot Studio)<br/>cat_copilottestrun (Copilot Agent Kit)")]
+    subgraph FLOWS["③ Cloud flows"]
+        direction TB
+        F1["Model Assessment | Run Copilot Studio Evaluations<br/>lock › detect model › baseline ›<br/>run MODELCHECK test sets › score › AI explain"]
+        F2["Model Assessment | Run Copilot Agent Kit Tests<br/>create Kit test run › poll ›<br/>compare with previous Kit run › AI explain"]
+        F1 -->|"Kit mode: status = Evaluation Running"| F2
+    end
+    subgraph SVC["④ Test engines"]
+        direction TB
+        MCS["Microsoft Copilot Studio connector<br/>evaluations"]
+        KIT["Kit action<br/>cat_RunAgentTestsAutomated"]
+    end
+    subgraph PROMPTS["⑤ AI Builder prompts"]
+        direction TB
+        P1["Explain Copilot Studio Assessment"]
+        P2["Explain Copilot Agent Kit Assessment"]
+        P3["Recommend Model from Assessment Comparison"]
+    end
+    APP <-->|"create run · read agents, runs, results"| DV
+    DV <-->|"row created · results, status, AI analysis"| FLOWS
+    F1 --> MCS
+    F2 --> KIT
+    F1 --> P1
+    F2 --> P2
+    C -->|Predict| P3
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class G,DR,R,PP,C app
+    class DV data
+    class F1,F2 flow
+    class MCS,KIT grey
+    class P1,P2,P3 ai
 ```
 
 ---
@@ -167,79 +175,92 @@ The three prompts are shipped in the solution. In **AI hub** › **Prompts**, ch
 
 Selecting **Run** in the app creates one row in `cat_evaluationrun` with status **Requested**. Everything after that is done by the two flows. The app polls the row every few seconds and shows progress.
 
-```
- User selects Run
-        |
-        v
- cat_evaluationrun created (Requested) ---------------+
-        |                                             | app polls every 4 s
-        v                                             | (slows to 10 s)
- Flow 1: Run Copilot Studio Evaluations               |
-        |                                             |
-        +- Kit tests selected? -- yes --> status = Evaluation Running
-        |                                   |
-        |                                   v
-        |                         Flow 2: Run Copilot Agent Kit Tests
-        |                                   |
-        +- no --> runs MODELCHECK test sets |
-                     |                      |
-                     v                      v
-              Completed / Completed With Errors / Failed / ...
-                     |
-                     v
-        App shows result, AI analysis, Model history row
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Maker
+    participant App as Makers app
+    participant DV as Dataverse
+    participant F1 as Flow 1: Run Copilot Studio Evaluations
+    participant MCS as Copilot Studio connector
+    participant F2 as Flow 2: Run Copilot Agent Kit Tests
+    participant Kit as Kit action
+    participant AI as AI Builder prompt
+
+    Maker->>App: Select Run
+    App->>DV: Create cat_evaluationrun (Requested)
+    DV--)F1: Trigger (row created)
+    F1->>DV: Take per-agent lock, status Detecting
+    F1->>DV: Detect model (bots / botcomponents), find baseline
+    F1->>DV: Status Evaluation Running
+    alt Kit tests selected
+        F1->>DV: Record model history, hand off
+        DV--)F2: Trigger (status changed)
+        F2->>DV: Create Kit test run
+        F2->>Kit: cat_RunAgentTestsAutomated
+        loop Every 1 min (40-minute deadline)
+            F2->>DV: Read Kit test results
+        end
+        F2->>AI: Explain Copilot Agent Kit Assessment
+        F2->>DV: Kit AI summary, run Completed
+    else Copilot Studio evaluations
+        loop Each ACTIVE MODELCHECK test set
+            F1->>MCS: Run test set, poll every 20 s
+            F1->>DV: Write cat_evaluationresult rows
+        end
+        F1->>AI: Explain Copilot Studio Assessment
+        F1->>DV: Regression status, AI analysis, run Completed
+    end
+    loop Meanwhile, every 4 s (slows to 10 s)
+        App->>DV: Read run status
+    end
+    App-->>Maker: Result, AI analysis, Model history row
 ```
 
 ### 4.1 Copilot Studio evaluations flow
 
 **Model Assessment | Run Copilot Studio Evaluations** starts when a `cat_evaluationrun` row is **created**.
 
-```
- Row created
-     |
-     v
- Per-agent lock ----------- another run active? --> skip (one run per agent)
- (cat_activeagentkey,       stale lock (finished run or expired)? --> old run = Stale
-  expires after 45 min)
-     |
-     v
- Status = Detecting
-     |
-     v
- Detect model from Copilot Studio
-   * GitHub Copilot harness agent --> agentSettings.model.series
-   * Other agents                 --> GPT component (type 15) modelNameHint
-   * Not found --> Metadata Unavailable  [stop]
-     |
-     v
- Find baseline = latest Completed / Completed With Errors run on the previous model
-     |
-     +- same model AND usable baseline --> No Change (analysis Skipped)  [stop]
-     |
-     v
- Status = Evaluation Running
-     |
-     +- Kit tests selected --> record model history, hand off to Flow 2  [stop]
-     |
-     v
- List ACTIVE test sets whose name/description contains MODELCHECK
-     +- none --> No Evaluations Configured  [stop]
-     v
- Check connection reference cat_CopilotStudioKitAutomatedTests
-     +- missing --> Failed (Connector)  [stop]
-     v
- For each test set (one at a time):
-     run test set -> poll every 20 s (up to 30 min) -> write one result per
-     test case x metric: Pass / Fail / Error / Excluded
-     compare with baseline result -> Improved / Regressed / Unchanged / Unmatched
-     harness agents only -> add Copilot Credits (conversation + evaluators)
-     |
-     v
- Regression status (see 4.3) --> AI prompt "Explain Copilot Studio Assessment"
-     |
-     v
- Completed (or Completed With Errors if a test set couldn't run)
- Agent's current model is updated ONLY if there were no errors
+```mermaid
+flowchart TD
+    A(["Row created"]) --> L{"Per-agent lock<br/>cat_activeagentkey<br/>expires after 45 min"}
+    L -->|another run active| SK["Skip<br/>one run per agent"]
+    L -.->|"stale lock (finished run or expired)"| ST["Old run = Stale"]
+    L -->|lock acquired| DT["Status = Detecting"]
+    DT --> M{"Detect model from<br/>Copilot Studio"}
+    M -->|GitHub Copilot harness agent| M1["agentSettings.model.series"]
+    M -->|Other agents| M2["GPT component (type 15)<br/>modelNameHint"]
+    M -->|Not found| MU["Metadata Unavailable"]
+    M1 --> B
+    M2 --> B
+    B["Find baseline<br/>latest Completed / Completed With Errors<br/>run on the previous model"] --> NC{"Same model AND<br/>usable baseline?"}
+    NC -->|yes| NCH["No Change<br/>analysis Skipped"]
+    NC -->|no| ER["Status = Evaluation Running"]
+    ER --> K{"Kit tests selected?"}
+    K -->|yes| KH["Record model history<br/>hand off to Flow 2"]
+    K -->|no| TS{"ACTIVE test sets with MODELCHECK<br/>in name or description?"}
+    TS -->|none| NE["No Evaluations Configured"]
+    TS -->|found| CR{"Connection reference<br/>cat_CopilotStudioKitAutomatedTests?"}
+    CR -->|missing| FC["Failed (Connector)"]
+    CR -->|ok| L1
+    subgraph LOOP["For each test set, one at a time"]
+        L1["Run test set<br/>poll every 20 s, up to 30 min"] --> L2["Write one result per test case × metric<br/>Pass / Fail / Error / Excluded"] --> L3["Compare with baseline result<br/>Improved / Regressed / Unchanged / Unmatched"] --> L4["Harness agents only<br/>add Copilot Credits (conversation + evaluators)"]
+    end
+    L4 --> RS["Regression status (see 4.3)"] --> AIP[/"AI prompt<br/>Explain Copilot Studio Assessment"/]
+    AIP --> DONE["Completed<br/>or Completed With Errors if a test set couldn't run"]
+    DONE --> CM["Agent's current model is updated<br/>ONLY if there were no errors"]
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
+    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class SK,MU,NCH,NE,FC stop
+    class ST,KH warn
+    class AIP ai
+    class DONE,CM ok
 ```
 
 Throughout the run the flow checks for **Cancelled** and stops if you cancelled. If any step fails, a final handler sets the run to **Failed** with a message such as *"The assessment stopped while &lt;stage&gt;. Step "&lt;step&gt;" failed: …"*, assigns an error category (Connector, Timeout, Authorization, Data or AI), and releases the lock.
@@ -248,51 +269,70 @@ Throughout the run the flow checks for **Cancelled** and stops if you cancelled.
 
 **Model Assessment | Run Copilot Agent Kit Tests** starts when the run's status changes to **Evaluation Running** or **No Change**.
 
-```
- Status changed
-     |
-     +- run cancelled / Kit not selected / Kit already handled --> stop
-     +- No Change --> Kit status Skipped ("No model change was detected...")  [stop]
-     +- no Agent Configuration or test set --> Failed  [stop]
-     v
- Create Kit test run -> Kit status Running -> call cat_RunAgentTestsAutomated
-     |
-     v
- Poll every 1 min until:
-   * complete and no results pending (waits up to 15 more min for enrichment)
-   * Kit run error --> Failed  [stop]
-   * cancelled --> Cancelled  [stop]
-   * 40-minute deadline --> Timed Out  [stop]
-     |
-     v
- Kit status Analysing
-     +- every test errored --> Failed ("None of the N Kit tests got a response...")  [stop]
-     v
- Compare with the previous completed Kit run for this agent
-   regressed = failed now, passed before; improved = the reverse
-     |
-     v
- AI prompt "Explain Copilot Agent Kit Assessment"
-     |
-     v
- Kit status Completed; run Completed (or Completed With Errors if any test
- errored or is still pending)
+```mermaid
+flowchart TD
+    S(["Status changed to<br/>Evaluation Running or No Change"]) --> G1{"Run cancelled, Kit not selected,<br/>or Kit already handled?"}
+    G1 -->|yes| X1["Stop"]
+    G1 -->|no| G2{"No Change?"}
+    G2 -->|yes| X2["Kit status Skipped<br/>#quot;No model change was detected…#quot;"]
+    G2 -->|no| G3{"Agent Configuration<br/>and test set present?"}
+    G3 -->|no| X3["Failed"]
+    G3 -->|yes| C1["Create Kit test run"] --> C2["Kit status Running"] --> C3[/"Call cat_RunAgentTestsAutomated"/]
+    C3 --> PL{"Poll every 1 min"}
+    PL -->|"complete, no results pending<br/>(waits up to 15 more min for enrichment)"| AN["Kit status Analysing"]
+    PL -->|Kit run error| X4["Failed"]
+    PL -->|cancelled| X5["Cancelled"]
+    PL -->|40-minute deadline| X6["Timed Out"]
+    AN --> E{"Every test errored?"}
+    E -->|yes| X7["Failed<br/>#quot;None of the N Kit tests got a response…#quot;"]
+    E -->|no| CMP["Compare with the previous completed Kit run<br/>regressed = failed now, passed before<br/>improved = the reverse"]
+    CMP --> AIP[/"AI prompt<br/>Explain Copilot Agent Kit Assessment"/]
+    AIP --> DONE["Kit status Completed; run Completed<br/>or Completed With Errors if any test<br/>errored or is still pending"]
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
+    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class X1,X2,X3,X4,X5,X6,X7 stop
+    class AIP ai
+    class DONE ok
 ```
 
 ### 4.3 Regression status
 
 Both flows compute the regression status in the same way. The **worse** of two checks wins:
 
-```
- Absolute check (this run)          Delta check (vs baseline)
- -------------------------          -------------------------
- no pass/fail  > Not Assessed       no baseline/no regressions > (neutral)
- 0 fails       > Healthy            regressed <= 20% of scored > Warning
- fails <= 20%   > Warning            regressed > 20% of scored > Critical
- fails > 20%   > Critical
-                 \                 /
-                  v               v
-              Regression status = max(absolute, delta)
+```mermaid
+flowchart LR
+    subgraph ABS["Absolute check (this run)"]
+        A1["No pass/fail → Not Assessed"]
+        A2["0 fails → Healthy"]
+        A3["fails ≤ 20% → Warning"]
+        A4["fails #gt; 20% → Critical"]
+    end
+    subgraph DEL["Delta check (vs baseline)"]
+        D1["No baseline or no regressions → neutral"]
+        D2["regressed ≤ 20% of scored → Warning"]
+        D3["regressed #gt; 20% of scored → Critical"]
+    end
+    ABS --> RS{{"Regression status =<br/>max(absolute, delta)"}}
+    DEL --> RS
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
+    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class A1 grey
+    class A2 ok
+    class A3,D2 warn
+    class A4,D3 stop
+    class D1 grey
 ```
 
 > [!NOTE]
@@ -323,49 +363,50 @@ If the Copilot Studio explain prompt fails, the evaluation run still finishes; o
 
 ### 5.1 Explain Copilot Studio Assessment
 
-```
- Flow 1 collects:                         Prompt rules:
-  * regression status, baseline or not     * business-user language
-  * pass / fail / error counts             * no numbers or percentages
-  * still passing, persistent failures,    * at most 15 lines
-    missing questions                      * only claims the evidence supports
-  * previous and current model
-  * failed checks per test set
-  * evaluator reasons per test case
-            |
-            v
-   +-------------------------------+
-   | Explain Copilot Studio        |
-   | Assessment (AssessmentData)   |
-   +---------------+---------------+
-                   v
-   * Overall              (always)
-   * Works well           (optional)
-   * Needs attention      (optional)
-   * What changed         (optional)
-   * Instruction focus    (optional)
-   * Evidence limits      (optional)
+```mermaid
+flowchart LR
+    IN["Flow 1 collects<br/>• regression status, baseline or not<br/>• pass / fail / error counts<br/>• still passing, persistent failures, missing questions<br/>• previous and current model<br/>• failed checks per test set<br/>• evaluator reasons per test case"]
+    RULES["Prompt rules<br/>• business-user language<br/>• no numbers or percentages<br/>• at most 15 lines<br/>• only claims the evidence supports"]
+    P{{"Explain Copilot Studio Assessment<br/>input: AssessmentData"}}
+    OUT["Overall (always)<br/>Works well · Needs attention · What changed<br/>Instruction focus · Evidence limits (optional)"]
+    IN --> P
+    RULES -.-> P
+    P --> OUT
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
+    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class IN data
+    class RULES grey
+    class P ai
+    class OUT ok
 ```
 
 ### 5.2 Explain Copilot Agent Kit Assessment
 
-```
- Flow 2 collects: agent, previous/current model, test set, counts,
- enrichment state, each test with its type and child steps
-            |
-            v
-   +------------------------------------------------------------+
-   | 1. Extract the evidence                                    |
-   | 2. Resolve units (multi-turn tests are scored as one unit) |
-   | 3. Rating = passed / (passed + failed + pending)           |
-   |      Healthy >= 95%   Warning 75-95%   Critical < 75%      |
-   |      (errors are left out)                                 |
-   | 4. Classify results, noting enrichment still running       |
-   | 5. Describe behavior per test type                         |
-   | 6. Recommend only what agent instructions can change       |
-   +---------------------------+--------------------------------+
-                               v
-                 Kit AI summary on the run
+```mermaid
+flowchart TB
+    IN["Flow 2 collects<br/>agent, previous/current model, test set, counts,<br/>enrichment state, each test with its type and child steps"] --> S1
+    subgraph STEPS["Explain Copilot Agent Kit Assessment"]
+        direction TB
+        S1["1 · Extract the evidence"] --> S2["2 · Resolve units<br/>multi-turn tests are scored as one unit"] --> S3["3 · Rating = passed / (passed + failed + pending)<br/>Healthy ≥ 95% · Warning 75–95% · Critical #lt; 75%<br/>errors are left out"] --> S4["4 · Classify results<br/>noting enrichment still running"] --> S5["5 · Describe behavior per test type"] --> S6["6 · Recommend only what<br/>agent instructions can change"]
+    end
+    S6 --> OUT["Kit AI summary on the run"]
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
+    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class IN data
+    class S1,S2,S3,S4,S5,S6 ai
+    class OUT ok
 ```
 
 ### 5.3 Recommend Model from Assessment Comparison
@@ -374,35 +415,58 @@ This prompt **explains** a decision; it doesn't make it. The Makers app computes
 
 #### When a recommendation is requested
 
-```
- Runs selected in the Compare dialog
-     |
-     +- fewer than 2 runs --------------> "Select two completed runs to get a
-     |                                     recommendation."
-     +- 3 runs -------------------------> "A recommendation compares two runs..."
-     +- one Kit run + one evaluation ---> "Copilot Studio evaluations and Copilot
-     |                                     Agent Kit tests score different things..."
-     +- Kit results failed to load -----> "Kit test results couldn't load..."
-     +- no check scored in both runs ---> "These runs have no test results scored
-     |                                     in both..."
-     v
- Build ComparisonData -> decide verdict + confidence -> call prompt (Predict)
+```mermaid
+flowchart TD
+    A(["Runs selected in the Compare dialog"]) --> B{"Fewer than 2 runs?"}
+    B -->|yes| M1["#quot;Select two completed runs to get a recommendation.#quot;"]
+    B -->|no| C{"3 runs?"}
+    C -->|yes| M2["#quot;A recommendation compares two runs…#quot;"]
+    C -->|no| D{"One Kit run +<br/>one evaluation?"}
+    D -->|yes| M3["#quot;Copilot Studio evaluations and Copilot Agent Kit tests<br/>score different things…#quot;"]
+    D -->|no| E{"Kit results<br/>failed to load?"}
+    E -->|yes| M4["#quot;Kit test results couldn't load…#quot;"]
+    E -->|no| F{"No check scored<br/>in both runs?"}
+    F -->|yes| M5["#quot;These runs have no test results scored in both…#quot;"]
+    F -->|no| G["Build ComparisonData"] --> H["Decide verdict + confidence"] --> I[/"Call prompt (Predict)"/]
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
+    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class M1,M2,M3,M4,M5 grey
+    class I ai
 ```
 
 A **shared check** is a test case and metric, or a Kit test, that has a Pass or Fail in **both** runs. The pass rates in the decision use shared checks only.
 
 #### How the verdict is decided (first matching rule wins)
 
-```
- 1. fewer than 3 shared checks
-    OR either run has >= 50% errors -----------------> Not enough data
- 2. both runs below 75% on shared checks ----------> Neither recommended
- 3. both runs used the same model -----------------> No clear winner
- 4. one run is >= 5 points better AND wins >= 2 more
-    checks than it loses --------------------------> Recommended (that model)
- 5. both runs report credits, they ran the same
-    checks, and one costs >= 15% less --------------> Recommended (cheaper model)
- 6. otherwise -------------------------------------> No clear winner
+```mermaid
+flowchart TD
+    R1{"1 · Fewer than 3 shared checks<br/>OR either run has ≥ 50% errors?"} -->|yes| V1["Not enough data"]
+    R1 -->|no| R2{"2 · Both runs below 75%<br/>on shared checks?"}
+    R2 -->|yes| V2["Neither recommended"]
+    R2 -->|no| R3{"3 · Both runs used<br/>the same model?"}
+    R3 -->|yes| V3["No clear winner"]
+    R3 -->|no| R4{"4 · One run ≥ 5 points better AND<br/>wins ≥ 2 more checks than it loses?"}
+    R4 -->|yes| V4["Recommended<br/>(that model)"]
+    R4 -->|no| R5{"5 · Both runs report credits, they ran<br/>the same checks, and one costs ≥ 15% less?"}
+    R5 -->|yes| V5["Recommended<br/>(cheaper model)"]
+    R5 -->|no| V6["6 · No clear winner"]
+    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
+    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
+    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
+    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
+    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
+    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
+    class V1,V3,V6 grey
+    class V2 warn
+    class V4,V5 ok
 ```
 
 Credits only break a quality tie (rule 5). They never override a clear quality difference. Because Kit tests don't report credits and evaluations report them only for harness agents, most comparisons are decided on quality alone.
@@ -564,13 +628,16 @@ Select **Export to PDF** to download the comparison as `ModelAssessment_<agent>_
 | **Evaluation Run** (`cat_evaluationrun`) | One assessment request and its outcome | Status, Analysis Status, Regression Status, Error Category/Message, counts, Overall AI Analysis, Conversation/Evaluator Credits, Credits Partial, Compared To Run, Kit status/counts/message/AI summary, Kit test run |
 | **Evaluation Result** (`cat_evaluationresult`) | One row per test case × metric (Copilot Studio evaluations) | Test Set, Test Case, Utterance, Metric Type, Result Status, Result Reason, credits |
 
-```
- cat_trackedagent 1 --< cat_modelhistory
-        | 1                    ^
-        +--< cat_evaluationrun + (Model History, Compared To Run)
-                 | 1      |
-                 |        +--> cat_copilottestrun (Kit tests)
-                 +--< cat_evaluationresult
+```mermaid
+erDiagram
+    cat_trackedagent ||--o{ cat_modelhistory : "has"
+    cat_trackedagent ||--o{ cat_evaluationrun : "has"
+    cat_evaluationrun ||--o{ cat_evaluationresult : "has"
+    cat_evaluationrun }o--o| cat_modelhistory : "Model History"
+    cat_evaluationrun |o--o| cat_copilottestrun : "Kit test run"
+    cat_evaluationrun {
+        lookup cat_comparedtorunid "Compared To Run: another cat_evaluationrun"
+    }
 ```
 
 ---
