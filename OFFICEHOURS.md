@@ -12,9 +12,9 @@ During office hours we will have Copilot Agent Kit team present and part of the 
 
 There are three regional time slots, and you may join either (or both) depending on your preferred time zone.
 
-[Download EU (EU/EST) Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-EU-EST.ics)
+[Download EU (EU/EST) Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotAgentKitOfficeHours-EU-EST.ics)
 
-[Download US (EST/PST) Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-EST-PST.ics)
+[Download US (EST/PST) Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotAgentKitOfficeHours-EST-PST.ics)
 
 [Download APAC Office Hours Calendar Information](https://microsoft.github.io/Power-CAT-Copilot-Studio-Kit/calendar/CopilotStudioKitOfficeHours-APAC.ics)
 
