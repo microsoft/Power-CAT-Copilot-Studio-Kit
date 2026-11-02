@@ -82,16 +82,16 @@ An agent can be assessed with either of two test engines. **Their results are ne
         | row created            | results, status, AI analysis
         v                        |
 +---------------------------------------------+   +--------------------------+
-| Flow: Model Assessment |                    |-->| Microsoft Copilot Studio |
-|       Run Copilot Studio Evaluations        |   | connector (evaluations)  |
+| Flow "Model Assessment |                    |-->| Microsoft Copilot Studio |
+|       Run Copilot Studio Evaluations"       |   | connector (evaluations)  |
 |  lock > detect model > baseline > run       |   +--------------------------+
 |  MODELCHECK test sets > score > AI explain  |--> AI prompt "Explain Copilot
 +-------+-------------------------------------+    Studio Assessment"
         | Kit mode: status = Evaluation Running
         v
 +---------------------------------------------+   +---------------------------+
-| Flow: Model Assessment |                    |-->| Kit action                |
-|       Run Copilot Agent Kit Tests           |   | cat_RunAgentTestsAutomated|
+| Flow "Model Assessment |                    |-->| Kit action                |
+|       Run Copilot Agent Kit Tests"          |   | cat_RunAgentTestsAutomated|
 |  create Kit test run > poll > compare with  |   +---------------------------+
 |  previous Kit run > AI explain              |--> AI prompt "Explain Copilot
 +---------------------------------------------+    Agent Kit Assessment"
