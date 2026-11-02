@@ -4,7 +4,6 @@
 
 - [1. Overview](#1-overview)
   - [Key capabilities](#key-capabilities)
-  - [Architecture](#architecture)
 - [2. Prerequisites](#2-prerequisites)
 - [3. Setup Instructions](#3-setup-instructions)
   - [3.1 Turn on the Model Assessment flows](#31-turn-on-the-model-assessment-flows)
@@ -12,10 +11,8 @@
   - [3.3 Make an agent eligible](#33-make-an-agent-eligible)
   - [3.4 Publish the AI prompts](#34-publish-the-ai-prompts)
 - [4. How It Works — End-to-End Flow](#4-how-it-works--end-to-end-flow)
-  - [4.1 Copilot Studio evaluations flow](#41-copilot-studio-evaluations-flow)
-  - [4.2 Copilot Agent Kit tests flow](#42-copilot-agent-kit-tests-flow)
-  - [4.3 Regression status](#43-regression-status)
-  - [4.4 Copilot Credits](#44-copilot-credits)
+  - [4.1 Regression status](#41-regression-status)
+  - [4.2 Copilot Credits](#42-copilot-credits)
 - [5. AI Prompts](#5-ai-prompts)
   - [5.1 Explain Copilot Studio Assessment](#51-explain-copilot-studio-assessment)
   - [5.2 Explain Copilot Agent Kit Assessment](#52-explain-copilot-agent-kit-assessment)
@@ -40,14 +37,12 @@
 
 **Model Assessment** helps makers check how a Copilot Studio agent behaves on a different AI model *before* they keep that model. It runs the same tests against the agent on its previous model and on its new model. It then shows what improved, what regressed and what still fails, and recommends which model to keep.
 
-It's part of the **Copilot Agent Kit for Makers** code app (React, Fluent UI v9), under **Advanced Testing**. The backend is the **Model Assessment** solution (`cat_ModelAssessmentTracker`), which contains four Dataverse tables, two cloud flows and three AI Builder prompts.
-
 An agent can be assessed with either of two test engines. **Their results are never compared with each other**, because they score different things:
 
-| Test engine | What runs | Results stored in |
-|---|---|---|
-| **Copilot Studio evaluations** | Copilot Studio agent evaluation test sets whose name contains `MODELCHECK` | `cat_evaluationresult` (one row per test case × metric) |
-| **Copilot Agent Kit tests** | A Kit test set, run through a pipeline-enabled Kit Agent Configuration against the **published** agent | Kit test run (`cat_copilottestrun`) and its results, linked from the assessment run |
+| Test engine | What runs |
+|---|---|
+| **Copilot Studio evaluations** | Copilot Studio agent evaluation test sets whose name contains `MODELCHECK` |
+| **Copilot Agent Kit tests** | A Kit test set, run through a pipeline-enabled Agent Configuration against the **published** agent |
 
 ### Key capabilities
 
@@ -60,66 +55,18 @@ An agent can be assessed with either of two test engines. **Their results are ne
 - **Compare model runs.** You can view up to three runs side by side, with test-by-test results and Copilot Credits, and export them to PDF.
 - **Model recommendation.** When two runs of the same kind are selected, the app decides a verdict and confidence level, and an AI prompt explains it.
 
-### Architecture
-
-```mermaid
-flowchart LR
-    subgraph APP["① Makers app · Advanced Testing › Model Assessment"]
-        direction TB
-        G["Agents grid"] --> DR["Agent drawer"] --> R["Run<br/>model picker, Kit/eval switch"] --> PP["Progress panel<br/>polls run status"] --> C["Compare dialog<br/>+ Model recommendation"]
-    end
-    DV[("② Dataverse<br/>cat_trackedagent · cat_modelhistory<br/>cat_evaluationrun · cat_evaluationresult<br/>bots / botcomponents (Copilot Studio)<br/>cat_copilottestrun (Copilot Agent Kit)")]
-    subgraph FLOWS["③ Cloud flows"]
-        direction TB
-        F1["Model Assessment | Run Copilot Studio Evaluations<br/>lock › detect model › baseline ›<br/>run MODELCHECK test sets › score › AI explain"]
-        F2["Model Assessment | Run Copilot Agent Kit Tests<br/>create Kit test run › poll ›<br/>compare with previous Kit run › AI explain"]
-        F1 -->|"Kit mode: status = Evaluation Running"| F2
-    end
-    subgraph SVC["④ Test engines"]
-        direction TB
-        MCS["Microsoft Copilot Studio connector<br/>evaluations"]
-        KIT["Kit action<br/>cat_RunAgentTestsAutomated"]
-    end
-    subgraph PROMPTS["⑤ AI Builder prompts"]
-        direction TB
-        P1["Explain Copilot Studio Assessment"]
-        P2["Explain Copilot Agent Kit Assessment"]
-        P3["Recommend Model from Assessment Comparison"]
-    end
-    APP <-->|"create run · read agents, runs, results"| DV
-    DV <-->|"row created · results, status, AI analysis"| FLOWS
-    F1 --> MCS
-    F2 --> KIT
-    F1 --> P1
-    F2 --> P2
-    C -->|Predict| P3
-    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
-    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
-    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
-    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
-    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
-    class G,DR,R,PP,C app
-    class DV data
-    class F1,F2 flow
-    class MCS,KIT grey
-    class P1,P2,P3 ai
-```
-
 ---
 
 ## 2. Prerequisites
 
 | # | Prerequisite | Details |
 |---|---|---|
-| 1 | **Copilot Agent Kit installed** | The Model Assessment solution depends on the Copilot Agent Kit solution (`CopilotStudioAccelerator`). It uses the Kit's Agent Configuration, test set and test run tables, the `cat_RunAgentTestsAutomated` action, the Kit connection references and the Kit security roles. |
-| 2 | **Model Assessment solution imported** | Solution `cat_ModelAssessmentTracker` (display name **Model Assessment**). |
-| 3 | **Connection references set** | `cat_CopilotStudioAcceleratorDataverse` (*Copilot Studio Kit - Dataverse*, Microsoft Dataverse) is used by both flows. `cat_CopilotStudioKitAutomatedTests` (*Copilot Agent Kit - Automated Tests*, Microsoft Copilot Studio) is used to run evaluations. Both belong to the Copilot Agent Kit solution. |
-| 4 | **Both flows turned on** | **Model Assessment \| Run Copilot Studio Evaluations** and **Model Assessment \| Run Copilot Agent Kit Tests**. |
-| 5 | **Three AI prompts published** | Explain Copilot Studio Assessment, Explain Copilot Agent Kit Assessment, and Recommend Model from Assessment Comparison. |
-| 6 | **Security role** | Model Assessment is a Makers feature, so users with either **CSK - Maker** or **CSK - Administrator** can use it. Both roles grant Read on tracked agents and Create on assessment runs. The Model Assessment solution doesn't add roles of its own. |
-| 7 | **App sharing** | The Copilot Agent Kit code app must be shared with makers. See the [app sharing steps in the Agent Insights Hub guide](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INSIGHTS_HUB.md#2-prerequisites). |
-| 8 | **Tests for each agent** | At least one of: an **active** Copilot Studio evaluation test set with `MODELCHECK` in its name, or a Kit **Agent Configuration** with **Pipeline Enabled** on and a Kit **test set**. |
-| 9 | **Capacity for AI prompts and evaluations** | Running an assessment spends Copilot Credits: the agent answers each test question, and an AI prompt summarizes the results. See [AI Builder licensing and Copilot Credits](https://learn.microsoft.com/ai-builder/message-management). |
+| 1 | **Connection references set** | `cat_CopilotStudioAcceleratorDataverse` (*Copilot Studio Kit - Dataverse*, Microsoft Dataverse) is used by both flows. `cat_CopilotStudioKitAutomatedTests` (*Copilot Agent Kit - Automated Tests*, Microsoft Copilot Studio) is used to run evaluations. Both belong to the Copilot Agent Kit solution. |
+| 2 | **Both flows turned on** | **Model Assessment \| Run Copilot Studio Evaluations** and **Model Assessment \| Run Copilot Agent Kit Tests**. |
+| 3 | **Security role** | Model Assessment is a Makers feature, so users with either **CSK - Maker** or **CSK - Administrator** can use it. Both roles grant Read on tracked agents and Create on assessment runs. The Model Assessment solution doesn't add roles of its own. |
+| 4 | **App sharing** | The Copilot Agent Kit code app must be shared with makers. See the [app sharing steps in the Agent Insights Hub guide](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INSIGHTS_HUB.md#2-prerequisites). |
+| 5 | **Tests for each agent** | At least one of: an **active** Copilot Studio evaluation test set with `MODELCHECK` in its name, or a **Agent Configuration** with **Pipeline Enabled** on and a Kit **test set**. |
+| 6 | **Capacity for AI prompts and evaluations** | Running an assessment spends Copilot Credits: the agent answers each test question, and an AI prompt summarizes the results. See [AI Builder licensing and Copilot Credits](https://learn.microsoft.com/ai-builder/message-management). |
 
 > [!NOTE]
 > Kit tests run against the **published** agent. Copilot Studio evaluations don't need the agent to be published.
@@ -160,14 +107,9 @@ An agent appears in Model Assessment as soon as it meets **either** condition be
 
 1. In the Copilot Agent Kit, create an **Agent Configuration** (Test Automation) for the agent and turn on **Pipeline Enabled**.
 2. Create a Kit **test set** with tests for the agent.
-3. Publish the agent in Copilot Studio.
 
 > [!NOTE]
 > Kit test automation supports standard agents only. Agents that run on the GitHub Copilot harness can be assessed only with Copilot Studio evaluations.
-
-### 3.4 Publish the AI prompts
-
-The three prompts are shipped in the solution. In **AI hub** › **Prompts**, check that each one is published. If the recommendation prompt isn't published, the Compare dialog shows *"…isn't published in this environment. Import or update the Model Assessment solution."*
 
 ---
 
@@ -217,91 +159,7 @@ sequenceDiagram
     App-->>Maker: Result, AI analysis, Model history row
 ```
 
-### 4.1 Copilot Studio evaluations flow
-
-**Model Assessment | Run Copilot Studio Evaluations** starts when a `cat_evaluationrun` row is **created**.
-
-```mermaid
-flowchart TD
-    A(["Row created"]) --> L{"Per-agent lock<br/>cat_activeagentkey<br/>expires after 45 min"}
-    L -->|another run active| SK["Skip<br/>one run per agent"]
-    L -.->|"stale lock (finished run or expired)"| ST["Old run = Stale"]
-    L -->|lock acquired| DT["Status = Detecting"]
-    DT --> M{"Detect model from<br/>Copilot Studio"}
-    M -->|GitHub Copilot harness agent| M1["agentSettings.model.series"]
-    M -->|Other agents| M2["GPT component (type 15)<br/>modelNameHint"]
-    M -->|Not found| MU["Metadata Unavailable"]
-    M1 --> B
-    M2 --> B
-    B["Find baseline<br/>latest Completed / Completed With Errors<br/>run on the previous model"] --> NC{"Same model AND<br/>usable baseline?"}
-    NC -->|yes| NCH["No Change<br/>analysis Skipped"]
-    NC -->|no| ER["Status = Evaluation Running"]
-    ER --> K{"Kit tests selected?"}
-    K -->|yes| KH["Record model history<br/>hand off to Flow 2"]
-    K -->|no| TS{"ACTIVE test sets with MODELCHECK<br/>in name or description?"}
-    TS -->|none| NE["No Evaluations Configured"]
-    TS -->|found| CR{"Connection reference<br/>cat_CopilotStudioKitAutomatedTests?"}
-    CR -->|missing| FC["Failed (Connector)"]
-    CR -->|ok| L1
-    subgraph LOOP["For each test set, one at a time"]
-        L1["Run test set<br/>poll every 20 s, up to 30 min"] --> L2["Write one result per test case × metric<br/>Pass / Fail / Error / Excluded"] --> L3["Compare with baseline result<br/>Improved / Regressed / Unchanged / Unmatched"] --> L4["Harness agents only<br/>add Copilot Credits (conversation + evaluators)"]
-    end
-    L4 --> RS["Regression status (see 4.3)"] --> AIP[/"AI prompt<br/>Explain Copilot Studio Assessment"/]
-    AIP --> DONE["Completed<br/>or Completed With Errors if a test set couldn't run"]
-    DONE --> CM["Agent's current model is updated<br/>ONLY if there were no errors"]
-    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
-    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
-    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
-    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
-    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
-    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
-    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
-    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
-    class SK,MU,NCH,NE,FC stop
-    class ST,KH warn
-    class AIP ai
-    class DONE,CM ok
-```
-
-Throughout the run the flow checks for **Cancelled** and stops if you cancelled. If any step fails, a final handler sets the run to **Failed** with a message such as *"The assessment stopped while &lt;stage&gt;. Step "&lt;step&gt;" failed: …"*, assigns an error category (Connector, Timeout, Authorization, Data or AI), and releases the lock.
-
-### 4.2 Copilot Agent Kit tests flow
-
-**Model Assessment | Run Copilot Agent Kit Tests** starts when the run's status changes to **Evaluation Running** or **No Change**.
-
-```mermaid
-flowchart TD
-    S(["Status changed to<br/>Evaluation Running or No Change"]) --> G1{"Run cancelled, Kit not selected,<br/>or Kit already handled?"}
-    G1 -->|yes| X1["Stop"]
-    G1 -->|no| G2{"No Change?"}
-    G2 -->|yes| X2["Kit status Skipped<br/>#quot;No model change was detected…#quot;"]
-    G2 -->|no| G3{"Agent Configuration<br/>and test set present?"}
-    G3 -->|no| X3["Failed"]
-    G3 -->|yes| C1["Create Kit test run"] --> C2["Kit status Running"] --> C3[/"Call cat_RunAgentTestsAutomated"/]
-    C3 --> PL{"Poll every 1 min"}
-    PL -->|"complete, no results pending<br/>(waits up to 15 more min for enrichment)"| AN["Kit status Analysing"]
-    PL -->|Kit run error| X4["Failed"]
-    PL -->|cancelled| X5["Cancelled"]
-    PL -->|40-minute deadline| X6["Timed Out"]
-    AN --> E{"Every test errored?"}
-    E -->|yes| X7["Failed<br/>#quot;None of the N Kit tests got a response…#quot;"]
-    E -->|no| CMP["Compare with the previous completed Kit run<br/>regressed = failed now, passed before<br/>improved = the reverse"]
-    CMP --> AIP[/"AI prompt<br/>Explain Copilot Agent Kit Assessment"/]
-    AIP --> DONE["Kit status Completed; run Completed<br/>or Completed With Errors if any test<br/>errored or is still pending"]
-    classDef app fill:#DEECF9,stroke:#0F6CBD,color:#000
-    classDef data fill:#DFF6DD,stroke:#107C10,color:#000
-    classDef flow fill:#FFF4CE,stroke:#C19C00,color:#000
-    classDef ai fill:#EDE3FA,stroke:#8764B8,color:#000
-    classDef ok fill:#DFF6DD,stroke:#107C10,color:#000
-    classDef stop fill:#FDE7E9,stroke:#C50F1F,color:#000
-    classDef warn fill:#FFF4CE,stroke:#C19C00,color:#000
-    classDef grey fill:#F3F2F1,stroke:#8A8886,color:#000
-    class X1,X2,X3,X4,X5,X6,X7 stop
-    class AIP ai
-    class DONE ok
-```
-
-### 4.3 Regression status
+### 4.1 Regression status
 
 Both flows compute the regression status in the same way. The **worse** of two checks wins:
 
@@ -338,14 +196,13 @@ flowchart LR
 > [!NOTE]
 > These 20% rules set the **run's** regression status. The AI prompts use separate pass-rate bands (Healthy ≥ 95%, Warning 75–95%, Critical < 75%) to word their summaries. The two are independent.
 
-### 4.4 Copilot Credits
+### 4.2 Copilot Credits
 
 | Item | Behavior |
 |---|---|
 | Credits per run | Recorded **only for agents on the GitHub Copilot harness**, from the `consumption` data that Copilot Studio returns with each evaluation run. Stored as *Conversation Credits* (answering) and *Evaluator Credits* (scoring). |
 | Partial credits | If Copilot Studio reports a partial total, the run is flagged **Credits Partial**. |
 | Kit tests | Kit tests don't report Copilot Credits. |
-| Where shown | Model history rows, run cards in the Compare dialog (for example *Est. 1.40 Copilot Credits*, with *(partial)* when the total is partial), per–test-case and per–test-set rows, and the PDF export. |
 
 ---
 
@@ -353,11 +210,11 @@ flowchart LR
 
 All three are AI Builder prompts that ship in the solution.
 
-| Prompt | Model | Called by | Input | Output |
-|---|---|---|---|---|
-| Explain Copilot Studio Assessment | GPT-5 reasoning | Flow 1 | `AssessmentData` (JSON text) | Text → *Overall AI Analysis* |
-| Explain Copilot Agent Kit Assessment | GPT-5 reasoning | Flow 2 | `AssessmentData` (JSON text) | Text → *Kit AI summary* and *Overall AI Analysis* |
-| Recommend Model from Assessment Comparison | GPT-4.1, temperature 0 | Makers app (Compare dialog) | `ComparisonData` (JSON text) | JSON: verdict, confidence, headline, reasons, trade-offs, caveats |
+| Prompt | Model | Called by | Output |
+|---|---|---|---|
+| Explain Copilot Studio Assessment | GPT-5 reasoning | Flow 1 | Text → *Overall AI Analysis* |
+| Explain Copilot Agent Kit Assessment | GPT-5 reasoning | Flow 2 | Text → *Kit AI summary* and *Overall AI Analysis* |
+| Recommend Model from Assessment Comparison | GPT-4.1, temperature 0 | Makers app (Compare dialog) | JSON: verdict, confidence, headline, reasons, trade-offs, caveats |
 
 If the Copilot Studio explain prompt fails, the evaluation run still finishes; only the AI analysis is missing.
 
@@ -498,7 +355,7 @@ The app caches each recommendation per pair of runs for the session, so reopenin
 
 ### 6.1 Open Model Assessment
 
-1. Open **Copilot Agent Kit for Makers**.
+1. Open **Copilot Agent Kit**.
 2. Select **Advanced Testing**, then **Model assessment** in the quick actions.
 
 ![Advanced Testing page with the Model assessment quick action](media/model-assessment/01-advanced-testing-entry.png)
@@ -544,7 +401,7 @@ Only one assessment can run per agent at a time. If someone else is already asse
 After the baseline, the drawer asks **Want to try a different model?**
 
 1. Pick a model in the **Model** picker. The app saves it to the agent. For Kit tests it also **publishes** the agent, because Kit tests run against the published version.
-2. Alternatively, change the model in Copilot Studio (**Open agent in Copilot Studio** › **Settings**), then come back. The drawer shows **New model detected**.
+2. Alternatively, change the model in Copilot Studio, then come back. The drawer shows **New model detected**.
 3. Select **Run**. If the model hasn't changed, the app tells you: *"Model unchanged since the last run. Update the model, then select Run."*
 
 The **Model history** list shows the baseline and each model change, with credits where reported and a **With errors** tag where a run had errors.
@@ -623,7 +480,7 @@ Select **Export to PDF** to download the comparison as `ModelAssessment_<agent>_
 
 | Table | Purpose | Key columns |
 |---|---|---|
-| **Tracked Agent** (`cat_trackedagent`) | One row per agent being followed | Copilot Agent ID, Current Model (last assessed), Source Status, Run Kit tests, Kit agent configuration, Kit test set |
+| **Tracked Agent** (`cat_trackedagent`) | One row per agent being followed | Copilot Agent ID, Current Model (last assessed), Source Status, Run Kit tests, Kit agent configuration, test set |
 | **Model History** (`cat_modelhistory`) | Baseline and model-change events | Change Type (Baseline / Model Changed), Previous Model, Current Model, Originating Evaluation Run |
 | **Evaluation Run** (`cat_evaluationrun`) | One assessment request and its outcome | Status, Analysis Status, Regression Status, Error Category/Message, counts, Overall AI Analysis, Conversation/Evaluator Credits, Credits Partial, Compared To Run, Kit status/counts/message/AI summary, Kit test run |
 | **Evaluation Result** (`cat_evaluationresult`) | One row per test case × metric (Copilot Studio evaluations) | Test Set, Test Case, Utterance, Metric Type, Result Status, Result Reason, credits |
@@ -661,7 +518,7 @@ erDiagram
 | Cancelled | You cancelled the assessment |
 | Stale | Its lock expired and the next assessment reclaimed it |
 
-**Regression status:** Not Assessed, Healthy, Warning, Critical (see [4.3](#43-regression-status)).
+**Regression status:** Not Assessed, Healthy, Warning, Critical (see [4.1](#41-regression-status)).
 **Analysis status:** Not Requested, Pending, Completed, Failed, Skipped.
 **Kit status:** Skipped, Running, Analysing, Completed, Failed, Timed Out.
 **Result status:** Pass, Fail, Error, Excluded.
@@ -692,7 +549,6 @@ erDiagram
 | No recommendation: *"…score different things. Select two runs of the same type."* | One Kit run and one evaluation run selected | Select two runs of the same kind. |
 | No recommendation: *"These runs have no test results scored in both…"* | The runs share no scored checks | Run the same test sets on both models. |
 | **Not enough data** / **Low confidence** | Fewer than 3 shared checks, many errors, or a run completed with errors | Add more test cases and fix erroring test sets, then rerun. |
-| *"Couldn't get a recommendation"*: prompt not published | The recommendation prompt is missing or unpublished | Import or update the Model Assessment solution and publish the prompt. Select **Try again**. |
 | *"No capacity is available to run AI prompts in this environment."* | No AI Builder or Copilot Credits capacity | Ask an admin to allocate capacity ([licensing](https://learn.microsoft.com/ai-builder/message-management)). |
 | Credits show as unavailable | Credits are reported only for GitHub Copilot harness agents, and never for Kit tests | Expected behavior. |
 | *"Export failed…"* | The PDF couldn't be generated | Read the error detail after *Export failed:* and select **Export to PDF** again. |
