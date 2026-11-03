@@ -193,6 +193,45 @@ flowchart LR
     class D1 grey
 ```
 
+#### Terms used
+
+| Term | Meaning |
+|---|---|
+| **Check** | One thing that gets a result. For Copilot Studio evaluations, one metric of one test case (a test case graded on two metrics is two checks). For Kit tests, one test. |
+| **Scored** | Checks that got a **Pass** or a **Fail**. Checks with an Error, Excluded or still pending result aren't scored and aren't counted in either percentage. |
+| **Baseline** | The earlier run this run is compared with (see the table below). The first run for an agent has no baseline. |
+| **Regressed** | A check that **passed on the baseline and fails now**. A check that failed both times is a *persistent failure*, not a regression. A check that is new in this run can't regress. |
+
+#### Absolute check: how is this run doing on its own?
+
+It looks only at this run, without comparing it with anything:
+
+1. If no check was scored, the result is **Not Assessed**.
+2. If no scored check failed, the result is **Healthy**.
+3. Otherwise it works out *failed ÷ scored × 100*. Up to 20% is **Warning**; more than 20% is **Critical**.
+
+#### Delta check: did the new model break what used to work?
+
+It compares this run with the baseline:
+
+1. If there's no baseline, or nothing regressed, the delta check doesn't affect the status.
+2. Otherwise it works out *regressed ÷ scored × 100*. Up to 20% is **Warning**; more than 20% is **Critical**.
+
+#### Putting it together
+
+The run's regression status is the **worse** of the two results (Critical is worse than Warning, which is worse than Healthy).
+
+| This run | Absolute check | Delta check | Regression status |
+|---|---|---|---|
+| 20 scored: 20 pass, 0 fail | 0% failed → Healthy | Nothing regressed | **Healthy** |
+| 20 scored: 16 pass, 4 fail; 3 of the 4 passed on the baseline | 20% failed → Warning | 15% regressed → Warning | **Warning** |
+| 18 scored: 14 pass, 4 fail; none passed on the baseline | 22% failed → Critical | Nothing regressed | **Critical** |
+| Only errors, nothing scored | Not Assessed | No effect | **Not Assessed** |
+
+Every regressed check is also a failed check, and both percentages divide by the same number of scored checks. So the delta check can never be worse than the absolute check, and in practice the absolute check decides the status. The regressed count still matters: it appears on the run and in the AI summary as what the model change broke.
+
+A run also stays **Not Assessed** when it doesn't score anything. This happens when the model hasn't changed since a usable baseline (run status **No Change**), when no test set is configured, or when the run fails.
+
 | Item | Copilot Studio evaluations (Flow 1) | Copilot Agent Kit tests (Flow 2) |
 |---|---|---|
 | Unit counted | One metric of one test case | One test |
@@ -311,7 +350,27 @@ flowchart TD
     class I ai
 ```
 
-A **shared check** is a test case and metric, or a Kit test, that has a Pass or Fail in **both** runs. The pass rates in the decision use shared checks only.
+#### What is a shared check?
+
+To compare two models fairly, the recommendation only compares like with like. A **shared check** is a check (one metric of one test case, or one Kit test) that got a **Pass** or a **Fail** in **both** selected runs. Each shared check is a row in the **Test runs** tab where both run columns show Pass or Fail.
+
+A check is **not** shared when either run:
+
+- didn't run it, for example because a test case was added after the first run;
+- returned an **Error**, so there's no answer to judge;
+- has an **Excluded**, pending or unknown result.
+
+Example. Run A and run B each ran five checks:
+
+| Check | Run A | Run B | Shared? |
+|---|---|---|---|
+| Q1 · Relevance | Pass | Pass | ✅ Both passed |
+| Q2 · Relevance | Pass | Fail | ✅ Only A passed |
+| Q3 · Relevance | Fail | Pass | ✅ Only B passed |
+| Q4 · Relevance | Pass | Error | ❌ B has no result to judge |
+| Q5 · Relevance | Not run | Pass | ❌ A didn't run it |
+
+There are 3 shared checks. Run A passed 2 of them (67%), and run B passed 2 of them (67%). Q4 and Q5 are left out of the pass rates, but they are counted as errors and as checks only one run covered. That can lower the confidence. Comparing only shared checks stops a model looking better just because it ran fewer or easier tests.
 
 #### How the verdict is decided (first matching rule wins)
 
