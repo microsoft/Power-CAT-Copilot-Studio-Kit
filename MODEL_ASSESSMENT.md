@@ -193,8 +193,22 @@ flowchart LR
     class D1 grey
 ```
 
+| Item | Copilot Studio evaluations (Flow 1) | Copilot Agent Kit tests (Flow 2) |
+|---|---|---|
+| Unit counted | One metric of one test case | One test |
+| Baseline | Latest completed run on the previous model | Latest run of the agent with completed Kit tests |
+| Regressed | Pass on the baseline, Fail now | Passed on the baseline, Failed now |
+| Errors | Not counted in the percentages | Not counted in the percentages |
+
+Percentages are whole numbers rounded down, so 20.5% failed counts as 20% (Warning).
+
 > [!NOTE]
-> These 20% rules set the **run's** regression status. The AI prompts use separate pass-rate bands (Healthy ≥ 95%, Warning 75–95%, Critical < 75%) to word their summaries. The two are independent.
+> These 20% rules set the **run's** regression status, which the app shows as a badge. The explain prompts work out their own **Overall** rating from pass-rate bands (Healthy ≥ 95%, Warning 75–95%, Critical < 75%), so the AI summary can rate a run differently from its badge. For example, 14 passed and 4 failed is **Critical** by the 20% rule (22% failed) but **Warning** in the AI summary (77.8% passed). The two prompts calculate the pass rate differently:
+>
+> - **Explain Copilot Studio Assessment:** pass ÷ (pass + fail + error). Errors count as not passed.
+> - **Explain Copilot Agent Kit Assessment:** passed ÷ (passed + failed + pending). Errors are left out.
+>
+> The Kit flow gives its prompt a verdict (Baseline, Regression Detected, No Regression (existing failures) or No Regression) rather than the Healthy / Warning / Critical status.
 
 ### 4.2 Copilot Credits
 
@@ -268,7 +282,7 @@ flowchart TB
 
 ### 5.3 Recommend Model from Assessment Comparison
 
-This prompt **explains** a decision; it doesn't make it. The Makers app computes the verdict and confidence in code (`contracts/model-recommendation.ts`), so the same two runs always get the same verdict. The prompt runs at temperature 0 and writes the headline, reasons, trade-offs and caveats around that decision.
+This prompt **explains** a decision; it doesn't make it. The Makers app computes the verdict and confidence in code, so the same two runs always get the same verdict. The prompt runs at temperature 0 and writes the headline, reasons, trade-offs and caveats around that decision.
 
 #### When a recommendation is requested
 
