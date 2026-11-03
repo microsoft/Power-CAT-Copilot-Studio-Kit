@@ -12,6 +12,13 @@ Copilot Agent Kit allows makers to configure agents, tests and test sets, and us
 
 More information on [testing capabilities](./TESTING_CAPABILITIES.md) 
 
+## Model Assessment
+Model Assessment helps makers check how a Copilot Studio agent behaves on a different AI model before they keep that model. It runs the same tests against the agent on its previous and new model, using either Copilot Studio evaluations or Copilot Agent Kit tests, and gives each run a regression status of Healthy, Warning or Critical.
+
+Makers can compare model runs side by side with test-by-test results and Copilot Credits, read an AI summary of each run, get an AI-assisted model recommendation, and export the comparison to PDF.
+
+More information on [Model Assessment](./MODEL_ASSESSMENT.md)
+
 ## Compliance Hub
 Compliance Hub helps organizations define and enforce governance policies for Copilot Studio agents at scale. It continuously evaluates agent configurations collected via Agent Inventory against configurable risk thresholds, automatically creating compliance cases when violations are detected and tracking them through an SLA-driven review lifecycle.
 
