@@ -9,22 +9,22 @@
   - [3.1 Turn on the Model Assessment flows](#31-turn-on-the-model-assessment-flows)
   - [3.2 Set up the connection references](#32-set-up-the-connection-references)
   - [3.3 Make an agent eligible](#33-make-an-agent-eligible)
-- [4. How It Works — End-to-End Flow](#4-how-it-works--end-to-end-flow)
-  - [4.1 Regression status](#41-regression-status)
-  - [4.2 Copilot Credits](#42-copilot-credits)
-- [5. AI Prompts](#5-ai-prompts)
-  - [5.1 Explain Copilot Studio Assessment](#51-explain-copilot-studio-assessment)
-  - [5.2 Explain Copilot Agent Kit Assessment](#52-explain-copilot-agent-kit-assessment)
-  - [5.3 Recommend Model from Assessment Comparison](#53-recommend-model-from-assessment-comparison)
-- [6. Using Model Assessment — Step by Step](#6-using-model-assessment--step-by-step)
-  - [6.1 Open Model Assessment](#61-open-model-assessment)
-  - [6.2 Find an agent](#62-find-an-agent)
-  - [6.3 Capture a baseline](#63-capture-a-baseline)
-  - [6.4 Change the model and assess it](#64-change-the-model-and-assess-it)
-  - [6.5 Choose Kit tests or Copilot Studio evaluations](#65-choose-kit-tests-or-copilot-studio-evaluations)
-  - [6.6 Compare model runs](#66-compare-model-runs)
-  - [6.7 Read the model recommendation](#67-read-the-model-recommendation)
-  - [6.8 Review test results and export](#68-review-test-results-and-export)
+- [4. Using Model Assessment — Step by Step](#4-using-model-assessment--step-by-step)
+  - [4.1 Open Model Assessment](#41-open-model-assessment)
+  - [4.2 Find an agent](#42-find-an-agent)
+  - [4.3 Capture a baseline](#43-capture-a-baseline)
+  - [4.4 Change the model and assess it](#44-change-the-model-and-assess-it)
+  - [4.5 Choose Kit tests or Copilot Studio evaluations](#45-choose-kit-tests-or-copilot-studio-evaluations)
+  - [4.6 Compare model runs](#46-compare-model-runs)
+  - [4.7 Read the model recommendation](#47-read-the-model-recommendation)
+  - [4.8 Review test results and export](#48-review-test-results-and-export)
+- [5. How It Works — End-to-End Flow](#5-how-it-works--end-to-end-flow)
+  - [5.1 Regression status](#51-regression-status)
+  - [5.2 Copilot Credits](#52-copilot-credits)
+- [6. AI Prompts](#6-ai-prompts)
+  - [6.1 Explain Copilot Studio Assessment](#61-explain-copilot-studio-assessment)
+  - [6.2 Explain Copilot Agent Kit Assessment](#62-explain-copilot-agent-kit-assessment)
+  - [6.3 Recommend Model from Assessment Comparison](#63-recommend-model-from-assessment-comparison)
 - [7. Data Model](#7-data-model)
 - [8. Status Reference](#8-status-reference)
 - [9. Troubleshooting](#9-troubleshooting)
@@ -112,7 +112,132 @@ An agent appears in Model Assessment as soon as it meets **either** condition be
 
 ---
 
-## 4. How It Works — End-to-End Flow
+## 4. Using Model Assessment — Step by Step
+
+### 4.1 Open Model Assessment
+
+1. Open **Copilot Agent Kit**.
+2. Select **Advanced Testing**, then **Model assessment** in the quick actions.
+
+![Advanced Testing page with the Model assessment quick action](media/model-assessment/01-advanced-testing-entry.png)
+
+### 4.2 Find an agent
+
+The **Agents** grid lists every eligible agent with its **Previous model**, **Current model**, **Regression**, **Last run** and **Latest results** (pass, fail and error counts).
+
+- Use the filter chips **All**, **Needs attention**, **Critical**, **Warning** and **Healthy**.
+- Search by agent name.
+- Select **Refresh agents** to reload.
+
+![Model Assessment agents grid](media/model-assessment/02-model-assessment-agents.png)
+
+The first time you open the page, a short tour explains the steps. You can replay it any time from **Help** › **Take the tour**. Help also links to Microsoft guidance on validating a model change and choosing an agent's model.
+
+| | |
+|---|---|
+| ![Tour step 1: Choose an agent to assess](media/model-assessment/tour-0.png) | ![Tour step 2: Capture a baseline, then change the model](media/model-assessment/tour-1.png) |
+| ![Tour step 3: Read the outcome](media/model-assessment/tour-2.png) | ![Tour step 4: Need guidance?](media/model-assessment/tour-3.png) |
+
+![Help menu](media/model-assessment/03-help-menu.png)
+
+### 4.3 Capture a baseline
+
+1. Select an agent to open its drawer.
+2. If there's no baseline yet, the drawer shows *"No baseline captured yet. Select Run to capture one."*
+3. Select **Run**. The progress panel shows the steps:
+
+   | Copilot Studio evaluations | Copilot Agent Kit tests |
+   |---|---|
+   | Initializing | Initializing |
+   | Running evaluations (discovering MODELCHECK test sets and running test cases) | Running Kit tests (sending each test utterance to the published agent) |
+   | Scoring results | Scoring results (comparing with the previous Kit run) |
+   | Generating AI analysis | Generating AI analysis |
+
+4. You can close the drawer while it runs; the run continues in the background. To stop it, select **Cancel assessment**. The assessment stops and won't be scored.
+
+Only one assessment can run per agent at a time. If someone else is already assessing the agent, the app says so.
+
+### 4.4 Change the model and assess it
+
+After the baseline, the drawer asks **Want to try a different model?**
+
+1. Pick a model in the **Model** picker. The app saves it to the agent. For Kit tests it also **publishes** the agent, because Kit tests run against the published version.
+2. Alternatively, change the model in Copilot Studio, then come back. The drawer shows **New model detected**.
+3. Select **Run**. If the model hasn't changed, the app tells you: *"Model unchanged since the last run. Update the model, then select Run."*
+
+The **Model history** list shows the baseline and each model change, with credits where reported and a **With errors** tag where a run had errors.
+
+![Agent drawer for Zava Kit Test Automation with the model picker and model history](media/model-assessment/07-agent-drawer-zkta.png)
+
+> [!NOTE]
+> The agent's model is recorded as changed only after an assessment completes **without errors**. If a test set couldn't run, fix it and select **Run** again.
+
+### 4.5 Choose Kit tests or Copilot Studio evaluations
+
+If an agent has both kinds of tests, the drawer shows *"This agent has both Copilot Agent Kit tests and Copilot Studio evaluations. Choose which one to run."* Use the **Kit evaluation / Copilot Studio evaluation** switch.
+
+For Kit tests, choose an **Agent configuration** and a **Test set**. If there's only one configuration, it's selected for you.
+
+![Agent drawer for Zava Workplace Assistant with the Kit or Copilot Studio switch](media/model-assessment/15-agent-drawer-zwa.png)
+
+### 4.6 Compare model runs
+
+Select a row in **Model history** to open **Compare model runs**. You can select up to three completed runs; they're shown oldest to newest.
+
+![Compare dialog with a recommendation for Zava Kit Test Automation](media/model-assessment/09-compare-recommendation.png)
+
+Use the run picker to change which runs are compared:
+
+![Run picker in the Compare dialog](media/model-assessment/13-compare-run-picker.png)
+
+The **Summary** tab shows a card per run with the model, date, run status, regression status, results and estimated credits. Below the cards, the **AI summary** section starts with the **Model recommendation** card, followed by each run's AI summary (Overall, Works well, Needs attention, What changed, Evidence limits…).
+
+![Run cards with AI summaries](media/model-assessment/11-compare-run-cards.png)
+
+If the earlier model was assessed with a different test engine, the dialog explains that the runs can't be compared and picks the latest run of the same kind instead:
+
+![Notice when the previous run used a different test engine](media/model-assessment/18-compare-kind-mismatch.png)
+
+### 4.7 Read the model recommendation
+
+The **Model recommendation** card is the first item in the **AI summary** section. It appears when exactly two runs of the same kind are selected, and shows a verdict, a confidence level, a headline, reasons, trade-offs and points to keep in mind.
+
+**Recommended.** The screenshot in [4.6](#46-compare-model-runs) recommends GPT-5 Chat at Medium confidence: quality is effectively tied, and it uses 61.8% fewer Copilot Credits than GPT 5.6 Sol.
+
+**Neither recommended.** Both models scored below 75% on the shared checks:
+
+![Neither recommended verdict](media/model-assessment/14-recommendation-neither.png)
+
+**No clear winner.** The quality difference is too small to recommend either model:
+
+![No clear winner verdict](media/model-assessment/17-recommendation-no-clear-winner.png)
+
+**Kit tests vs Kit tests.** A comparison of two Kit runs with only three shared checks. Neither model is recommended, confidence is Low, and the card notes that Copilot Credits weren't reported for these tests:
+
+![Kit comparison with low confidence](media/model-assessment/19-compare-kit.png)
+
+> [!TIP]
+> The recommendation is guidance, not a guarantee. Check the reasons and the test results before you change models.
+
+### 4.8 Review test results and export
+
+The **Test runs** tab lists each test case, its metric, and its result in every selected run, grouped by test set.
+
+![Test runs tab](media/model-assessment/12-compare-test-runs.png)
+
+Use **Needs attention** to show only failed or error results:
+
+![Needs attention filter](media/model-assessment/12b-compare-needs-attention.png)
+
+For Kit runs, the tab lists each Kit test with its result per run:
+
+![Kit test runs tab](media/model-assessment/20-compare-kit-test-runs.png)
+
+Select **Export to PDF** to download the comparison as `ModelAssessment_<agent>_<timestamp>.pdf`.
+
+---
+
+## 5. How It Works — End-to-End Flow
 
 Selecting **Run** in the app creates one row in `cat_evaluationrun` with status **Requested**. Everything after that is done by the two flows. The app polls the row every few seconds and shows progress.
 
@@ -158,7 +283,7 @@ sequenceDiagram
     App-->>Maker: Result, AI analysis, Model history row
 ```
 
-### 4.1 Regression status
+### 5.1 Regression status
 
 Both flows compute the regression status in the same way. The **worse** of two checks wins:
 
@@ -248,7 +373,7 @@ Percentages are whole numbers rounded down, so 20.5% failed counts as 20% (Warni
 >
 > The Kit flow gives its prompt a verdict (Baseline, Regression Detected, No Regression (existing failures) or No Regression) rather than the Healthy / Warning / Critical status.
 
-### 4.2 Copilot Credits
+### 5.2 Copilot Credits
 
 | Item | Behavior |
 |---|---|
@@ -258,7 +383,7 @@ Percentages are whole numbers rounded down, so 20.5% failed counts as 20% (Warni
 
 ---
 
-## 5. AI Prompts
+## 6. AI Prompts
 
 All three are AI Builder prompts that ship in the solution.
 
@@ -270,7 +395,7 @@ All three are AI Builder prompts that ship in the solution.
 
 If the Copilot Studio explain prompt fails, the evaluation run still finishes; only the AI analysis is missing.
 
-### 5.1 Explain Copilot Studio Assessment
+### 6.1 Explain Copilot Studio Assessment
 
 ```mermaid
 flowchart LR
@@ -295,7 +420,7 @@ flowchart LR
     class OUT ok
 ```
 
-### 5.2 Explain Copilot Agent Kit Assessment
+### 6.2 Explain Copilot Agent Kit Assessment
 
 ```mermaid
 flowchart TB
@@ -318,7 +443,7 @@ flowchart TB
     class OUT ok
 ```
 
-### 5.3 Recommend Model from Assessment Comparison
+### 6.3 Recommend Model from Assessment Comparison
 
 This prompt **explains** a decision; it doesn't make it. The Makers app computes the verdict and confidence in code, so the same two runs always get the same verdict. The prompt runs at temperature 0 and writes the headline, reasons, trade-offs and caveats around that decision.
 
@@ -423,131 +548,6 @@ The app caches each recommendation per pair of runs for the session, so reopenin
 
 ---
 
-## 6. Using Model Assessment — Step by Step
-
-### 6.1 Open Model Assessment
-
-1. Open **Copilot Agent Kit**.
-2. Select **Advanced Testing**, then **Model assessment** in the quick actions.
-
-![Advanced Testing page with the Model assessment quick action](media/model-assessment/01-advanced-testing-entry.png)
-
-### 6.2 Find an agent
-
-The **Agents** grid lists every eligible agent with its **Previous model**, **Current model**, **Regression**, **Last run** and **Latest results** (pass, fail and error counts).
-
-- Use the filter chips **All**, **Needs attention**, **Critical**, **Warning** and **Healthy**.
-- Search by agent name or schema name.
-- Select **Refresh agents** to reload.
-
-![Model Assessment agents grid](media/model-assessment/02-model-assessment-agents.png)
-
-The first time you open the page, a short tour explains the steps. You can replay it any time from **Help** › **Take the tour**. Help also links to Microsoft guidance on validating a model change and choosing an agent's model.
-
-| | |
-|---|---|
-| ![Tour step 1: Choose an agent to assess](media/model-assessment/tour-0.png) | ![Tour step 2: Capture a baseline, then change the model](media/model-assessment/tour-1.png) |
-| ![Tour step 3: Read the outcome](media/model-assessment/tour-2.png) | ![Tour step 4: Need guidance?](media/model-assessment/tour-3.png) |
-
-![Help menu](media/model-assessment/03-help-menu.png)
-
-### 6.3 Capture a baseline
-
-1. Select an agent to open its drawer.
-2. If there's no baseline yet, the drawer shows *"No baseline captured yet. Select Run to capture one."*
-3. Select **Run**. The progress panel shows the steps:
-
-   | Copilot Studio evaluations | Copilot Agent Kit tests |
-   |---|---|
-   | Initializing | Initializing |
-   | Running evaluations (discovering MODELCHECK test sets and running test cases) | Running Kit tests (sending each test utterance to the published agent) |
-   | Scoring results | Scoring results (comparing with the previous Kit run) |
-   | Generating AI analysis | Generating AI analysis |
-
-4. You can close the drawer while it runs; the run continues in the background. To stop it, select **Cancel assessment**. The assessment stops and won't be scored.
-
-Only one assessment can run per agent at a time. If someone else is already assessing the agent, the app says so.
-
-### 6.4 Change the model and assess it
-
-After the baseline, the drawer asks **Want to try a different model?**
-
-1. Pick a model in the **Model** picker. The app saves it to the agent. For Kit tests it also **publishes** the agent, because Kit tests run against the published version.
-2. Alternatively, change the model in Copilot Studio, then come back. The drawer shows **New model detected**.
-3. Select **Run**. If the model hasn't changed, the app tells you: *"Model unchanged since the last run. Update the model, then select Run."*
-
-The **Model history** list shows the baseline and each model change, with credits where reported and a **With errors** tag where a run had errors.
-
-![Agent drawer for Zava Kit Test Automation with the model picker and model history](media/model-assessment/07-agent-drawer-zkta.png)
-
-> [!NOTE]
-> The agent's model is recorded as changed only after an assessment completes **without errors**. If a test set couldn't run, fix it and select **Run** again.
-
-### 6.5 Choose Kit tests or Copilot Studio evaluations
-
-If an agent has both kinds of tests, the drawer shows *"This agent has both Copilot Agent Kit tests and Copilot Studio evaluations. Choose which one to run."* Use the **Kit evaluation / Copilot Studio evaluation** switch.
-
-For Kit tests, choose an **Agent configuration** and a **Test set**. If there's only one configuration, it's selected for you.
-
-![Agent drawer for Zava Workplace Assistant with the Kit or Copilot Studio switch](media/model-assessment/15-agent-drawer-zwa.png)
-
-### 6.6 Compare model runs
-
-Select a row in **Model history** to open **Compare model runs**. You can select up to three completed runs; they're shown oldest to newest.
-
-![Compare dialog with a recommendation for Zava Kit Test Automation](media/model-assessment/09-compare-recommendation.png)
-
-Use the run picker to change which runs are compared:
-
-![Run picker in the Compare dialog](media/model-assessment/13-compare-run-picker.png)
-
-The **Summary** tab shows a card per run with the model, date, run status, regression status, results and estimated credits. Below the cards, the **AI summary** section starts with the **Model recommendation** card, followed by each run's AI summary (Overall, Works well, Needs attention, What changed, Evidence limits…).
-
-![Run cards with AI summaries](media/model-assessment/11-compare-run-cards.png)
-
-If the earlier model was assessed with a different test engine, the dialog explains that the runs can't be compared and picks the latest run of the same kind instead:
-
-![Notice when the previous run used a different test engine](media/model-assessment/18-compare-kind-mismatch.png)
-
-### 6.7 Read the model recommendation
-
-The **Model recommendation** card is the first item in the **AI summary** section. It appears when exactly two runs of the same kind are selected, and shows a verdict, a confidence level, a headline, reasons, trade-offs and points to keep in mind.
-
-**Recommended.** The screenshot in [6.6](#66-compare-model-runs) recommends GPT-5 Chat at Medium confidence: quality is effectively tied, and it uses 61.8% fewer Copilot Credits than GPT 5.6 Sol.
-
-**Neither recommended.** Both models scored below 75% on the shared checks:
-
-![Neither recommended verdict](media/model-assessment/14-recommendation-neither.png)
-
-**No clear winner.** The quality difference is too small to recommend either model:
-
-![No clear winner verdict](media/model-assessment/17-recommendation-no-clear-winner.png)
-
-**Kit tests vs Kit tests.** A comparison of two Kit runs with only three shared checks. Neither model is recommended, confidence is Low, and the card notes that Copilot Credits weren't reported for these tests:
-
-![Kit comparison with low confidence](media/model-assessment/19-compare-kit.png)
-
-> [!TIP]
-> The recommendation is guidance, not a guarantee. Check the reasons and the test results before you change models.
-
-### 6.8 Review test results and export
-
-The **Test runs** tab lists each test case, its metric, and its result in every selected run, grouped by test set.
-
-![Test runs tab](media/model-assessment/12-compare-test-runs.png)
-
-Use **Needs attention** to show only failed or error results:
-
-![Needs attention filter](media/model-assessment/12b-compare-needs-attention.png)
-
-For Kit runs, the tab lists each Kit test with its result per run:
-
-![Kit test runs tab](media/model-assessment/20-compare-kit-test-runs.png)
-
-Select **Export to PDF** to download the comparison as `ModelAssessment_<agent>_<timestamp>.pdf`.
-
----
-
 ## 7. Data Model
 
 | Table | Purpose | Key columns |
@@ -590,7 +590,7 @@ erDiagram
 | Cancelled | You cancelled the assessment |
 | Stale | Its lock expired and the next assessment reclaimed it |
 
-**Regression status:** Not Assessed, Healthy, Warning, Critical (see [4.1](#41-regression-status)).
+**Regression status:** Not Assessed, Healthy, Warning, Critical (see [5.1](#51-regression-status)).
 **Analysis status:** Not Requested, Pending, Completed, Failed, Skipped.
 **Kit status:** Skipped, Running, Analysing, Completed, Failed, Timed Out.
 **Result status:** Pass, Fail, Error, Excluded.
