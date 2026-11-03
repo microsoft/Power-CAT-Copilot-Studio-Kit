@@ -9,7 +9,6 @@
   - [3.1 Turn on the Model Assessment flows](#31-turn-on-the-model-assessment-flows)
   - [3.2 Set up the connection references](#32-set-up-the-connection-references)
   - [3.3 Make an agent eligible](#33-make-an-agent-eligible)
-  - [3.4 Publish the AI prompts](#34-publish-the-ai-prompts)
 - [4. How It Works — End-to-End Flow](#4-how-it-works--end-to-end-flow)
   - [4.1 Regression status](#41-regression-status)
   - [4.2 Copilot Credits](#42-copilot-credits)
@@ -61,9 +60,9 @@ An agent can be assessed with either of two test engines. **Their results are ne
 
 | # | Prerequisite | Details |
 |---|---|---|
-| 1 | **Connection references set** | `cat_CopilotStudioAcceleratorDataverse` (*Copilot Studio Kit - Dataverse*, Microsoft Dataverse) is used by both flows. `cat_CopilotStudioKitAutomatedTests` (*Copilot Agent Kit - Automated Tests*, Microsoft Copilot Studio) is used to run evaluations. Both belong to the Copilot Agent Kit solution. |
+| 1 | **Connection references set** | `cat_CopilotStudioAcceleratorDataverse` (*Copilot Studio Kit - Dataverse*, Microsoft Dataverse) is used by both flows. `cat_CopilotStudioKitAutomatedTests` (*Copilot Agent Kit - Automated Tests*, Microsoft Copilot Studio) is used to run evaluations. |
 | 2 | **Both flows turned on** | **Model Assessment \| Run Copilot Studio Evaluations** and **Model Assessment \| Run Copilot Agent Kit Tests**. |
-| 3 | **Security role** | Model Assessment is a Makers feature, so users with either **CSK - Maker** or **CSK - Administrator** can use it. Both roles grant Read on tracked agents and Create on assessment runs. The Model Assessment solution doesn't add roles of its own. |
+| 3 | **Security role** | Model Assessment is a Makers feature, so users with either **CSK - Maker** or **CSK - Administrator** can use it. Both roles grant required permissions on tracked agents and Create on assessment runs. The Model Assessment solution doesn't add roles of its own. |
 | 4 | **App sharing** | The Copilot Agent Kit code app must be shared with makers. See the [app sharing steps in the Agent Insights Hub guide](https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit/blob/main/AGENT_INSIGHTS_HUB.md#2-prerequisites). |
 | 5 | **Tests for each agent** | At least one of: an **active** Copilot Studio evaluation test set with `MODELCHECK` in its name, or a **Agent Configuration** with **Pipeline Enabled** on and a Kit **test set**. |
 | 6 | **Capacity for AI prompts and evaluations** | Running an assessment spends Copilot Credits: the agent answers each test question, and an AI prompt summarizes the results. See [AI Builder licensing and Copilot Credits](https://learn.microsoft.com/ai-builder/message-management). |
@@ -79,7 +78,7 @@ An agent can be assessed with either of two test engines. **Their results are ne
 
 1. Go to [make.powerapps.com](https://make.powerapps.com) and select the Copilot Agent Kit environment.
 2. Open **Solutions** › **Model Assessment** › **Cloud flows**.
-3. Turn on **Model Assessment | Run Copilot Studio Evaluations** and **Model Assessment | Run Copilot Agent Kit Tests**.
+3. Turn on **Model Assessment | Run Copilot Agent Kit Tests** and **Model Assessment | Run Copilot Studio Evaluations**.
 
 If a flow is off, the app shows a message such as *"The Model Assessment | Run Copilot Studio Evaluations flow is turned off, so the assessment can't start."*
 
