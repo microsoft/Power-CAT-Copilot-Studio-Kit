@@ -131,7 +131,7 @@ The **Agents** grid lists every eligible agent with its **Previous model**, **Cu
 
 ![Model Assessment agents grid](media/model-assessment/02-model-assessment-agents.png)
 
-The first time you open the page, a short tour explains the steps. You can replay it any time from **Help** › **Take the tour**. Help also links to Microsoft guidance on validating a model change and choosing an agent's model.
+The first time you open the page, a short tour explains the steps. You can replay it any time from **Help** › **Take the tour**. Help also links to this documentation (**Help** › **Documentation**).
 
 | | |
 |---|---|
