@@ -18,6 +18,7 @@
   - [4.6 Compare model runs](#46-compare-model-runs)
   - [4.7 Read the model recommendation](#47-read-the-model-recommendation)
   - [4.8 Review test results and export](#48-review-test-results-and-export)
+- [Architecture](#architecture)
 - [5. How It Works — End-to-End Flow](#5-how-it-works--end-to-end-flow)
   - [5.1 Regression status](#51-regression-status)
   - [5.2 Copilot Credits](#52-copilot-credits)
@@ -237,21 +238,35 @@ Select **Export to PDF** to download the comparison as `ModelAssessment_<agent>_
 
 ---
 
+## Architecture
+
+Model Assessment runs within **Copilot Agent Kit**. The app manages model selection and comparison, Dataverse stores tracking and assessment data, and two cloud flows orchestrate Copilot Studio evaluations or Kit tests. AI Builder prompts explain the assessment results and the app-computed model recommendation.
+
+![Model Assessment architecture showing Copilot Agent Kit, assessment flows, AI Builder prompts and Dataverse tables](media/model-assessment/model-assessment-architecture.png)
+
+> **Implementation clarifications:** The image is a conceptual overview.
+>
+> - Assessment processing is triggered by creating `cat_evaluationrun`, not by updating the agent's model metadata in `bots` or `botcomponents`.
+> - The Kit handoff uses a Dataverse status-change trigger, not a direct flow-to-flow call. Flow 1 creates and links model history; Flow 2 writes Kit counts, regression and AI analysis to the evaluation run.
+> - Publishing is required only for Kit tests. Copilot Studio evaluations use the saved draft.
+
+---
+
 ## 5. How It Works — End-to-End Flow
 
-Selecting **Run** in the app creates one row in `cat_evaluationrun` with status **Requested**. Everything after that is done by the two flows. The app polls the row every few seconds and shows progress.
+Selecting **Run** in **Copilot Agent Kit** creates one row in `cat_evaluationrun` with status **Requested**. The two flows orchestrate the assessment. The app polls the row every few seconds and shows progress.
 
 ```mermaid
 sequenceDiagram
     autonumber
     actor Maker
-    participant App as Makers app
+    participant App as Copilot Agent Kit
     participant DV as Dataverse
-    participant F1 as Flow 1: Run Copilot Studio Evaluations
-    participant MCS as Copilot Studio connector
-    participant F2 as Flow 2: Run Copilot Agent Kit Tests
+    participant F1 as Flow 1:<br/>Run Copilot Studio<br/>Evaluations
+    participant MCS as Copilot Studio<br/>connector
+    participant F2 as Flow 2:<br/>Run Copilot Agent Kit<br/>Tests
     participant Kit as Kit action
-    participant AI as AI Builder prompt
+    participant AI as AI Builder<br/>prompts
 
     Maker->>App: Select Run
     App->>DV: Create cat_evaluationrun (Requested)
@@ -260,28 +275,33 @@ sequenceDiagram
     F1->>DV: Detect model (bots / botcomponents), find baseline
     F1->>DV: Status Evaluation Running
     alt Kit tests selected
-        F1->>DV: Record model history, hand off
-        DV--)F2: Trigger (status changed)
-        F2->>DV: Create Kit test run
-        F2->>Kit: cat_RunAgentTestsAutomated
+        DV--)F2: Trigger (status changed, Kit-mode guard)
+        F1->>DV: Record/link model history and update tracked model
+        Note over F1,F2: History updates and Flow 2 can overlap
+        F2->>DV: Create and link cat_copilottestrun
+        F2->>Kit: Bound action cat_RunAgentTestsAutomated
         loop Every 1 min (40-minute deadline)
-            F2->>DV: Read Kit test results
+            F2->>DV: Read shared Kit test run/results
         end
         F2->>AI: Explain Copilot Agent Kit Assessment
-        F2->>DV: Kit AI summary, run Completed
+        F2->>DV: Counts, regression, AI summary, finalize run
     else Copilot Studio evaluations
         loop Each ACTIVE MODELCHECK test set
             F1->>MCS: Run test set, poll every 20 s
-            F1->>DV: Write cat_evaluationresult rows
+            F1->>DV: Write cat_evaluationresult metric rows
         end
         F1->>AI: Explain Copilot Studio Assessment
-        F1->>DV: Regression status, AI analysis, run Completed
+        F1->>DV: Record/link model history
+        F1->>DV: Counts, regression, AI analysis, finalize run
     end
-    loop Meanwhile, every 4 s (slows to 10 s)
+    Note over F1,DV: Completed or Completed With Errors<br/>Release per-agent lock
+    loop Meanwhile, every 4 s<br/>(slows to 10 s)
         App->>DV: Read run status
     end
-    App-->>Maker: Result, AI analysis, Model history row
+    App-->>Maker: Result, AI analysis, model history
 ```
+
+For readability, this diagram omits early exits, cancellation, timeout and failure branches. Model switching, comparison recommendations and PDF export are outside this assessment-run diagram.
 
 ### 5.1 Regression status
 
