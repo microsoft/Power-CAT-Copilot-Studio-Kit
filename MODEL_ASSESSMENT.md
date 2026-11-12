@@ -247,7 +247,6 @@ Model Assessment runs within **Copilot Agent Kit**. The app manages model select
 > **Implementation clarifications:** The image is a conceptual overview.
 >
 > - Assessment processing is triggered by creating `cat_evaluationrun`, not by updating the agent's model metadata in `bots` or `botcomponents`.
-> - The Kit handoff uses a Dataverse status-change trigger, not a direct flow-to-flow call. Flow 1 creates and links model history; Flow 2 writes Kit counts, regression and AI analysis to the evaluation run.
 > - Publishing is required only for Kit tests. Copilot Studio evaluations use the saved draft.
 
 ---
