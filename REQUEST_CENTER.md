@@ -10,6 +10,8 @@ Request Center has two tabs:
 | **Copilot Credits** | Copilot Credits for an environment, permission to draw from the tenant's unassigned credits, or both | Allocates the credits to the environment in the Power Platform admin center |
 
 > [!NOTE]
+> The **Copilot Credits** tab works with environments whose Copilot Credits are managed in the Power Platform admin center. For details, see [Copilot Credits requests](./COPILOT_CREDITS_REQUESTS.md#key-concepts).
+>
 > The **Connector Requests** tab was previously called **Power Shield**. It works the same way as before, and your existing requests are on this tab.
 
 ## In this article

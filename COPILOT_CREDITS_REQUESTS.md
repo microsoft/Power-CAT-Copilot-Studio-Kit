@@ -18,8 +18,8 @@ The **Copilot Credits** tab in [Request Center](./REQUEST_CENTER.md) lets makers
 - **Tenant draw**: The **Draw from the available capacity in my tenant** setting for an environment. When it's on, the environment can use your tenant's unassigned credits when its own credits run out, or if it has none.
 - **One request per environment**: Each environment in a submission becomes its own request. An environment can have only one active credit request at a time.
 
-> [!IMPORTANT]
-> Copilot Credits requests work only for environments whose Copilot Credits are managed in the Power Platform admin center. If a Microsoft 365 admin center spending policy covers the environment, approval in Copilot Agent Kit doesn't apply. Reject the request and manage credits in the Microsoft 365 admin center instead. For more information, see [Manage Copilot Studio costs](https://learn.microsoft.com/copilot/implement/usage-based-billing-manage-copilot-studio-costs).
+> [!NOTE]
+> You can request credits for environments whose Copilot Credits are managed in the Power Platform admin center. If an environment's credits are managed in the Microsoft 365 admin center instead, manage them there. For more information, see [Manage Copilot Studio costs](https://learn.microsoft.com/copilot/implement/usage-based-billing-manage-copilot-studio-costs).
 
 ## Before you start
 
@@ -29,6 +29,7 @@ The Copilot Credits tab doesn't use any cloud flows. You don't need to run **Pow
 
 - The **CAK - Maker** or **System Administrator** security role.
 - The connections that Copilot Agent Kit for Makers already uses: **Power Apps for Makers** and **Microsoft Dataverse**. No extra setup is needed.
+- An environment whose Copilot Credits are managed in the Power Platform admin center. If you're not sure, ask your admin.
 
 ### Admins
 
@@ -121,7 +122,7 @@ You must assign a request to yourself before you can approve or reject it.
 1. In the request list, select the row action menu (⋮), and then select **Assign to Me**.
 2. Read the **Before you approve** checklist in the dialog:
    - You need the **Power Platform Administrator** role.
-   - Check the Power Platform admin center to see if the environment uses a Microsoft 365 admin center spending policy. If it does, reject the request.
+   - Check that the environment's credits are managed in the Power Platform admin center. If they're managed in the Microsoft 365 admin center, reject the request and let the maker know.
 3. Select **Confirm**. The request moves to **Under Review**.
 
 ### Review a request
@@ -217,4 +218,4 @@ An environment becomes free for a new request when its current request is **Allo
 
 **Approval succeeded, but the environment doesn't use the credits**
 
-- A Microsoft 365 admin center spending policy might cover the environment. Check the Power Platform admin center. If a spending policy applies, manage credits in the [Microsoft 365 admin center](https://admin.microsoft.com).
+- The environment's credits might be managed in the Microsoft 365 admin center. If so, manage them in the [Microsoft 365 admin center](https://admin.microsoft.com).
