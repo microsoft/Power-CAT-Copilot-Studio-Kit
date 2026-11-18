@@ -49,7 +49,7 @@ Before using Power Shield, ensure you have:
 - **Power Platform Administrator role** (admins only): Admins who approve requests and create DLP policies must also have the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). This Microsoft Entra ID role grants permission to create, update, and delete DLP policies via the Power Platform for Admins connector. Without it, DLP policy creation fails after approval.
 
 > [!WARNING]
-> Power Shield **will not work** until the **PowerShield | Sync Connectors** cloud flow has run at least once. This flow populates the connector catalog used in the connector selection step of the request wizard. See [Connector and Connector Actions sync](#connector-and-connector-actions-sync) for setup steps, or use the [Connection Health](#connection-health) screen in the admin app to configure everything in one place.
+> Power Shield **will not work** until the **PowerShield | Sync Connectors** cloud flow has run at least once. This flow populates the connector catalog used in the connector selection step of the request wizard. See [Connector and Connector Actions sync](#connector-and-connector-actions-sync) for setup steps, or use the [Setup](#setup) page in the admin app to configure everything in one place.
 
 > [!NOTE]
 > Developer environments are automatically excluded from Power Shield. Only Production, Sandbox, Trial, Default, and Teams environments are available.
@@ -115,10 +115,10 @@ Create two HTTP with Microsoft Entra ID (preauthorized) connections in your envi
 
 #### Step 2: Map connections and activate flows
 
-After creating the connections, complete setup using the [Connection Health](#connection-health) screen in the admin app. It maps all four connection references, activates the cloud flows, and verifies data sync from a single page. Sign in as a user with the **Power Platform Administrator** role so the BAPAPI connection can manage DLP policies.
+After creating the connections, complete setup on the **Connections** tab of the [Setup](#setup) page in the admin app. It maps all four connection references, activates the cloud flows, and verifies data sync from a single page. Sign in as a user with the **Power Platform Administrator** role so the BAPAPI connection can manage DLP policies.
 
 > [!NOTE]
-> Activating a flow doesn't trigger an immediate run. The **Sync Connectors** flow runs on a daily schedule. To populate the connector catalog immediately, open the flow in Power Automate and select **Run**, then return to Connection Health and select **Refresh**.
+> Activating a flow doesn't trigger an immediate run. The **Sync Connectors** flow runs on a daily schedule. To populate the connector catalog immediately, open the flow in Power Automate and select **Run**, then return to **Setup** and select **Refresh**.
 
 ### Connector and Connector Actions sync
 
@@ -145,7 +145,7 @@ The flow runs on a **daily schedule**. The connector sync preserves admin overri
 
 ### Maker
 
-Requires the **CAK - Maker** or **System Administrator** security role. Access Power Shield through the **Copilot Agent Kit for Makers** app (a **[Maker]** badge displays in the header).
+Requires the **CAK - Maker** or **System Administrator** security role. Access Power Shield through the **Copilot Agent Kit for Makers** app.
 
 Makers can:
 
@@ -158,7 +158,7 @@ Makers can:
 
 ### Admin
 
-Requires the **CAK - Administrator** or **System Administrator** security role. Access Power Shield through the **Copilot Agent Kit for Admins** app (an **[Admin]** badge displays in the header). Approving requests also requires the **Power Platform Administrator** role (see [Prerequisites](#prerequisites)) — the Dataverse security role controls app access; the Power Platform Administrator role controls DLP policy operations.
+Requires the **CAK - Administrator** or **System Administrator** security role. Access Power Shield through the **Copilot Agent Kit for Admins** app. Approving requests also requires the **Power Platform Administrator** role (see [Prerequisites](#prerequisites)) — the Dataverse security role controls app access; the Power Platform Administrator role controls DLP policy operations.
 
 Admins can:
 
@@ -166,7 +166,7 @@ Admins can:
 - Assign requests to themselves (**Assign to Me**)
 - Approve or reject requests (rejection requires a comment)
 - View fulfillment logs and notification history
-- Manage [Connector Configurations](#connector-configurations), [Question Configuration](#question-configuration), and [Notification Settings](#notification-settings)
+- Manage [Connector Configurations](#connector-configurations), [Question Configuration](#question-configuration), and email notifications on the [Notifications tab](#notifications-tab)
 - Post comments with file attachments on any request
 
 Users with the **System Administrator** role have access to both apps.
@@ -208,15 +208,17 @@ Power Shield is accessible from three apps within the Copilot Agent Kit solution
 
 The home screen provides an overview of your connector access requests.
 
-![Screenshot of the Power Shield maker home screen showing stat cards and request grid](./media/ps_maker_home.png)
+![Screenshot of the Connector Requests tab in Copilot Agent Kit for Makers showing stat cards, filters, and the request grid](./media/ps_maker_home.png)
 
 **Header actions:** **New connector request** (launch the wizard), **Manage Service Trees**, help (**?**), which opens this article, and the bug icon to report an issue.
 
 **Stat cards:** Four cards summarize your request portfolio — **Total**, **Pending**, **Completed** (with approval rate), and **Policy Failed**. Select a card to filter the grid.
 
-**Request grid:** Lists your requests with status, service tree, environment container, connector counts, and submission date. Select a row for details. Use the row action menu (⋮) for quick **Clone** and **Withdraw** actions.
+**Search and filters:** Search your requests, or narrow the grid with the **All Service Trees** and **All Environment Containers** filters.
 
-![Screenshot showing the row action menu with Clone and Withdraw options](./media/ps_maker_clone_withdraw.png)
+**Request grid:** Lists your requests with status, service tree, environment container, connector counts, and submission date. Select a row for details. Use the row action menu (⋮) to **Clone** a request. **Withdraw** also appears on your own requests that are in **Draft** or **Submitted** status.
+
+![Screenshot showing the row action menu with the Clone option](./media/ps_maker_clone_withdraw.png)
 
 ### Managing Service Trees
 
@@ -398,11 +400,13 @@ Exchange messages with admins via the Comments tab after submission.
 
 The admin home screen provides a tenant-wide view of all policy requests.
 
-![Screenshot of the Power Shield admin home screen showing six stat cards and tenant-wide request grid](./media/ps_admin_home.png)
+![Screenshot of the Connector Requests tab in Copilot Agent Kit for Admins showing six stat cards, filters, and the tenant-wide request grid](./media/ps_admin_home.png)
 
 **Stat cards:** Six cards — **All**, **Pending**, **Completed** (with approval rate), **Policy Failed**, **Rejected**, **Withdrawn**. Select a card to filter the grid.
 
-**Settings:** Select the gear (⚙) icon to access the [Settings Hub](#settings-hub).
+**Search and filters:** Search all requests, or narrow the grid with the **All Service Trees** and **All Environment Containers** filters.
+
+**Settings:** Select the gear (⚙) icon to access the [Settings Hub](#settings-hub). The help (**?**) icon opens this article, and the bug icon lets you report an issue.
 
 **Admin grid:** Displays all tenant requests with the same columns as the maker grid, plus **Created By** and **Assigned Admin**.
 
@@ -410,31 +414,32 @@ The admin home screen provides a tenant-wide view of all policy requests.
 
 Select the gear (⚙) icon on the admin home screen to configure Power Shield before processing requests.
 
-![Screenshot of the Settings Hub with Connector Configurations, Question Configurations, and Notification Settings cards](./media/ps_admin_settings_hub.png)
+![Screenshot of the Settings page with Setup, Connector Configurations, and Question Configurations cards](./media/ps_admin_settings_hub.png)
 
-Four configuration areas:
+Three configuration areas:
 
 | Card | Description |
 |------|-------------|
-| **Connection Health** | Manage connection references and cloud flows for data sync |
+| **Setup** | Manage connections, cloud flows, and email notifications |
 | **Connector Configurations** | Manage connector catalog, risk levels, and blocked status |
 | **Question Configurations** | Configure the compliance questionnaire |
-| **Notification Settings** | Configure email notification delivery |
 
-### Connection Health
+### Setup
 
-Connection Health is the single place to manage Power Shield connection references and cloud flow activation. Use it for initial setup and ongoing monitoring — connections can break and flows can be turned off at any time. Available only to users with the **CAK - Administrator** or **System Administrator** security role.
+Setup is the single place to manage Power Shield connection references, cloud flow activation, and email notifications. Use it for initial setup and ongoing monitoring — connections can break and flows can be turned off at any time. Available only to users with the **CAK - Administrator** or **System Administrator** security role.
 
-Open Connection Health from either:
+Open Setup from either:
 
-- **Settings Hub** → select **Connection Health** (first card)
-- **Admin home screen** → select **Check Health** on the sync flow prerequisites banner (appears when setup is incomplete)
+- **Settings Hub** → select **Setup** (first card)
+- **Admin home screen** → select **Open Setup** on the prerequisites banner (appears when setup is incomplete)
 
-![Screenshot of the Connection Health screen showing connection references, cloud flows, and data sync status](./media/ps_admin_connection_health.png)
+Setup has two tabs: **Connections** and **Notifications**.
 
-The screen has two collapsible sections and a status indicator:
+#### Connections tab
 
-#### Connection References
+The **Connections** tab has two collapsible sections and a status indicator.
+
+##### Connection References
 
 Map existing connections to the four Power Shield connection references. Select a connection from the dropdown for each reference. If no connection exists, select **+ Create New Connection** to open the Power Platform maker portal, create the connection, then return and select **Refresh**.
 
@@ -447,7 +452,7 @@ Map existing connections to the four Power Shield connection references. Select 
 
 A green checkmark (✓) appears next to each reference after a connection is successfully mapped.
 
-#### Cloud Flows
+##### Cloud Flows
 
 After all connection references are mapped, activate the Power Shield cloud flows by toggling each flow to **On**:
 
@@ -458,7 +463,7 @@ After all connection references are mapped, activate the Power Shield cloud flow
 
 Cloud flows can only be activated after all connection references are mapped. If connections are missing, a warning appears in this section.
 
-#### Data Sync Status
+##### Data Sync Status
 
 After the **Sync Connectors** flow runs, the Data Sync Status section confirms whether the connector catalog has been populated:
 
@@ -467,6 +472,19 @@ After the **Sync Connectors** flow runs, the Data Sync Status section confirms w
 - ⚠️ **Pending** — data has not yet synced; wait for the flow to complete or run it manually from Power Automate
 
 Select **Refresh** to recheck data sync status at any time.
+
+#### Notifications tab
+
+Configure email notification delivery.
+
+![Screenshot of the Notifications tab on the Setup page with sender email, distribution list, and app URL fields](./media/ps_notification_settings.png)
+
+| Setting | Description | Required |
+|---------|-------------|----------|
+| **Sender Email Address** | Queue or user mailbox with server-side sync enabled | Yes |
+| **Admin Distribution List** | Distribution list or shared mailbox for admin notifications | No |
+| **Request Center App URL** | Full app URL for deep links in emails | No |
+| **Notifications Enabled** | Enable or disable all email notifications | — |
 
 ### Connector Configurations
 
@@ -492,19 +510,6 @@ The interface has two tabs:
 - **Questions** — individual prompts. Configure answer type (Boolean, Text, Choice, MultiselectChoice, Date), display order, required flag, tooltip, and conditional logic (parent question + trigger value).
 
 For Choice and MultiselectChoice questions, define answer options with **+ New Option**.
-
-### Notification Settings
-
-Configure email notification delivery.
-
-![Screenshot of the Notification Settings page with sender email and distribution list fields](./media/ps_notification_settings.png)
-
-| Setting | Description | Required |
-|---------|-------------|----------|
-| **Sender Email Address** | Queue or user mailbox with server-side sync enabled | Yes |
-| **Admin Distribution List** | Distribution list or shared mailbox for admin notifications | No |
-| **PowerShield App URL** | Full app URL for deep links in emails | No |
-| **Notifications Enabled** | Enable or disable all email notifications | — |
 
 > [!IMPORTANT]
 > Without the Sender Email Address configured, all email notifications silently fail. Ensure server-side synchronization is enabled for the sender mailbox in Exchange Online.
@@ -680,7 +685,7 @@ All tables use the `cat_` publisher prefix.
 **"No environments available" in the wizard**
 
 - Ensure you have access to at least one non-Developer Power Platform environment.
-- Verify the Power Shield APIFlow connection is active. Check **Settings** → **[Connection Health](#connection-health)**.
+- Verify the Power Shield APIFlow connection is active. Check **Settings** → **[Setup](#setup)**.
 - Check that the connection user has the required permissions.
 
 **"In-progress conflict" error when creating a request**
@@ -691,7 +696,7 @@ All tables use the `cat_` publisher prefix.
 **Request stuck in "Implementing" status**
 
 - Check the **Activity** tab (admin only) for error details.
-- Verify the Power Shield BAPAPI connection is active. Check **Settings** → **[Connection Health](#connection-health)**.
+- Verify the Power Shield BAPAPI connection is active. Check **Settings** → **[Setup](#setup)**.
 - Ensure the approving admin has the **Power Platform Administrator** role assigned in the [Microsoft 365 admin center](https://admin.microsoft.com). DLP policy write operations (create, update, delete) require this Entra ID role.
 - If fulfillment failed, the status may transition to **Policy Failed** — review error details and retry.
 
@@ -713,4 +718,4 @@ All tables use the `cat_` publisher prefix.
 **No connectors available in wizard Step 3**
 
 - Non-Microsoft connectors are blocked by default. Ask your admin to unblock connectors via **Settings Hub** → **Connector Configurations**.
-- Ensure the "PowerShield | Sync Connectors" flow has run at least once. Check **Settings** → **[Connection Health](#connection-health)** for data sync status.
+- Ensure the "PowerShield | Sync Connectors" flow has run at least once. Check **Settings** → **[Setup](#setup)** for data sync status.

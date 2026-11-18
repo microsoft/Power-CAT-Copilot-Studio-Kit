@@ -109,8 +109,9 @@ To continue a draft later, select **Resume draft** from the row action menu.
 
 In **Copilot Agent Kit for Admins**, go to **Governance** > **Request Center**, and then select the **Copilot Credits Requests** tab.
 
-![Screenshot of the Copilot Credits Requests tab in Copilot Agent Kit for Admins showing stat cards and all credit requests.](./media/rc_admin_credits_home.png)
+![Screenshot of the Copilot Credits Requests tab in Copilot Agent Kit for Admins showing the info banner, stat cards, and all credit requests.](./media/rc_admin_credits_home.png)
 
+- **Info banner**: A reminder that you can approve credits for environments whose Copilot Credits are managed in the Power Platform admin center.
 - **Stat cards**: **Total**, **Awaiting decision**, **Approved**, and **Rejected**.
 - **Assigned to me**: Shows only the requests assigned to you.
 - **Row actions (⋮)**: **Assign to Me**.
