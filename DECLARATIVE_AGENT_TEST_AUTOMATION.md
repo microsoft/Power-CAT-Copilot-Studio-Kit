@@ -122,11 +122,15 @@ For the Agent Builder connection described in this walkthrough:
 2. Obtain the tenant's actual **default environment ID** from your Power Platform administrator. If it is supplied in the form `Default-<tenant-id>`, preserve the complete value, including `Default-`.
 3. Check these values with a response-match test from step 6.
 
-![Illustrative field map showing a synthetic manifest app ID and default environment ID alongside the corresponding Kit connection fields.](./media/declarative-agent-test-automation/04-agent-identifiers-example.svg)
+![Agent Builder app manifest screenshot with its top-level id highlighted and identifying values replaced with fictional ZAVA examples.](./media/declarative-agent-test-automation/04-agent-identifiers-example.png)
 
-*Figure 4. Illustrative field map using fictional IDs, not a product screenshot. Replace the examples with your own connection values.*
+*Figure 4a. Actual manifest screenshot with example values. The highlighted top-level `id` is the app ID, not the app-registration Client ID. Names and identifiers have been replaced.*
 
 **For agents authored in Copilot Studio:** If the agent exposes **Settings > Advanced > Metadata**, copy its **Environment ID** and **Schema name** instead. See the [Kit Microsoft Authentication guide](https://learn.microsoft.com/microsoft-copilot-studio/guidance/kit-microsoft-authentication#copilot-studio-and-dataverse). Agent Builder users can continue to step 4.
+
+![Copilot Studio exported app manifest screenshot showing registrationInfo.environment and registrationInfo.schemaName, with fictional example values.](./media/declarative-agent-test-automation/04b-studio-package-metadata-example.png)
+
+*Figure 4b. Optional Copilot Studio package example: the highlighted `environment` and `schemaName` identify the Studio-authored agent. This screenshot has example values; it is not the Agent Builder package shown in Figure 4a.*
 
 ## 4. Set up Microsoft Authentication
 
@@ -162,9 +166,9 @@ In the **Copilot Agent Kit** model-driven app:
 4. Leave **Pipeline Enabled** unset or **No** for this interactive walkthrough.
 5. Save the record.
 
-![Illustrative Agent Configuration example for ZAVA HR Test Demo, showing Test Automation, Microsoft Authentication, and synthetic connection values.](./media/declarative-agent-test-automation/05-agent-configuration-example.svg)
+![Actual Agent Configuration form screenshot showing Test Automation and Microsoft Authentication, with names and connection identifiers replaced with fictional ZAVA examples.](./media/declarative-agent-test-automation/05-agent-configuration-example.png)
 
-*Figure 5. Illustrative configuration using fictional IDs, not a saved record or product screenshot. The app-registration Client ID is different from the agent's ID.*
+*Figure 5. Actual Agent Configuration form with example values, shown before saving. Names, owner, and identifiers have been replaced; long values are truncated by the form. The app-registration Client ID is different from the agent's ID.*
 
 ## 6. Create a test set
 
