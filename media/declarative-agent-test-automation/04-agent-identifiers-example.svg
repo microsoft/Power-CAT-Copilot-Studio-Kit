@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="880" viewBox="0 0 1440 880" role="img" aria-labelledby="title description">
+  <title id="title">Illustrative agent connection values</title>
+  <desc id="description">A field map with fictional values. The top-level manifest app ID is shown next to the Kit Agent Schema Name field. The tenant's default environment ID is shown next to the Kit Environment Id field. This is an illustration, not a product screenshot or evidence of a test run.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#5b3fa5"/>
+    </marker>
+  </defs>
+  <rect width="1440" height="880" fill="#f5f5f5"/>
+  <rect x="1" y="1" width="1438" height="878" rx="20" fill="none" stroke="#d1d1d1" stroke-width="2"/>
+  <g font-family="Segoe UI, Arial, sans-serif">
+    <rect x="40" y="32" width="482" height="34" rx="17" fill="#eee7f8"/>
+    <text x="58" y="55" font-size="16" font-weight="600" fill="#4a2d83">ILLUSTRATION ONLY | ALL IDENTIFIERS ARE FICTIONAL</text>
+    <text x="40" y="112" font-size="34" font-weight="600" fill="#242424">Find the agent connection values</text>
+    <text x="40" y="146" font-size="20" fill="#424242">ZAVA HR Test Demo | Agent Builder example</text>
+    <rect x="40" y="184" width="610" height="374" rx="12" fill="#ffffff" stroke="#d1d1d1"/>
+    <rect x="790" y="184" width="610" height="374" rx="12" fill="#ffffff" stroke="#d1d1d1"/>
+    <text x="64" y="224" font-size="22" font-weight="600" fill="#242424">1. App package: manifest.json</text>
+    <text x="64" y="254" font-size="17" fill="#616161">Relevant excerpt from a fictional app manifest</text>
+    <rect x="62" y="304" width="566" height="40" rx="6" fill="#eee7f8"/>
+    <g font-family="Consolas, Courier New, monospace" font-size="17" fill="#242424">
+      <text x="72" y="296">{</text>
+      <text x="72" y="330">  "id": "11111111-2222-4333-8444-555555555555",</text>
+      <text x="72" y="364">  "name": {</text>
+      <text x="72" y="398">    "short": "ZAVA HR Test Demo"</text>
+      <text x="72" y="432">  }</text>
+      <text x="72" y="466">}</text>
+    </g>
+    <text x="64" y="516" font-size="18" fill="#424242">Locate the top-level app ID, not the longer .gpt. ID.</text>
+    <text x="814" y="224" font-size="22" font-weight="600" fill="#242424">Kit connection field</text>
+    <text x="814" y="300" font-size="20" font-weight="600" fill="#242424">Agent Schema Name</text>
+    <rect x="814" y="316" width="562" height="62" rx="6" fill="#faf7ff" stroke="#5b3fa5" stroke-width="2"/>
+    <text x="832" y="354" font-family="Consolas, Courier New, monospace" font-size="19" fill="#242424">11111111-2222-4333-8444-555555555555</text>
+    <text x="814" y="422" font-size="18" fill="#424242">The Kit form uses this field label for the agent</text>
+    <text x="814" y="449" font-size="18" fill="#424242">identifier in the connection example.</text>
+    <path d="M 666 338 H 774" fill="none" stroke="#5b3fa5" stroke-width="3" marker-end="url(#arrow)"/>
+    <rect x="40" y="586" width="610" height="210" rx="12" fill="#ffffff" stroke="#d1d1d1"/>
+    <rect x="790" y="586" width="610" height="210" rx="12" fill="#ffffff" stroke="#d1d1d1"/>
+    <text x="64" y="626" font-size="22" font-weight="600" fill="#242424">2. Target environment</text>
+    <text x="64" y="658" font-size="18" fill="#424242">Obtain the actual default environment ID</text>
+    <text x="64" y="685" font-size="18" fill="#424242">from your Power Platform administrator.</text>
+    <text x="64" y="740" font-family="Consolas, Courier New, monospace" font-size="18" fill="#242424">Default-aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee</text>
+    <text x="814" y="626" font-size="22" font-weight="600" fill="#242424">Environment Id</text>
+    <rect x="814" y="692" width="562" height="62" rx="6" fill="#faf7ff" stroke="#5b3fa5" stroke-width="2"/>
+    <text x="832" y="730" font-family="Consolas, Courier New, monospace" font-size="18" fill="#242424">Default-aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee</text>
+    <path d="M 666 724 H 774" fill="none" stroke="#5b3fa5" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="40" y="844" font-size="18" fill="#424242">Use your own agent and environment values. This field map is not a product screenshot.</text>
+  </g>
+</svg>
