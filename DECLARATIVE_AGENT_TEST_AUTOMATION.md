@@ -1,4 +1,4 @@
-# Test a declarative agent with Copilot Agent Kit (draft)
+# Test a declarative agent with Copilot Agent Kit
 
 Use this guide to prepare a declarative agent, configure an authenticated connection in **Copilot Agent Kit**, create repeatable tests, and review the results.
 
