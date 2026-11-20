@@ -93,12 +93,15 @@ Agent Review Tool is a solution analysis tool that can be used to review your ag
 
 More information on [Agent Review Tool](./AGENT_REVIEW_TOOL.md)
 
-## PowerShield
-PowerShield enables organizations using the Power Platform to manage connector access through a structured, approval-based workflow for Data Loss Prevention (DLP) policies. It provides a self-service experience for makers to request connector access via a guided 5-step wizard, and a review interface for administrators to approve, reject, or manage those requests. Every DLP policy change is traceable to a PowerShield request, ensuring governance compliance and auditability.
+<a id="powershield"></a>
 
-Administrators can configure blocked connectors, compliance questionnaires, and notification settings, while makers create requests scoped to Service Trees and Environment Containers. PowerShield automatically handles DLP policy creation, conflict resolution with existing policies, and per-environment fulfillment tracking.
+## Request Center
+Request Center is where makers ask for Power Platform resources and admins approve them. It has two tabs:
 
-More information on [PowerShield](./POWER_SHIELD.md)
+- **Connector Requests** (formerly PowerShield): Makers request connector access through a guided 5-step wizard, and admins approve, reject, or manage those requests. Approval creates or updates Data Loss Prevention (DLP) policies, so every policy change is traceable to a request. Admins can configure blocked connectors, compliance questionnaires, and notification settings.
+- **Copilot Credits**: Makers request Copilot Credits for their environments, permission to draw from the tenant's unassigned credits, or both. Admins review each request and allocate the credits in the Power Platform admin center from within the kit.
+
+More information on [Request Center](./REQUEST_CENTER.md), [Connector Requests](./POWER_SHIELD.md), and [Copilot Credits requests](./COPILOT_CREDITS_REQUESTS.md)
 
 ## Conversation Analyzer
 Conversation Analyzer allows makers to analyze the conversations of their custom agents using custom prompts to get additional insights.

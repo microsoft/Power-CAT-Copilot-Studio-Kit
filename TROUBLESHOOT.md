@@ -5,17 +5,17 @@ Ensure that the following connectors are allowed in the DLP policies applied to 
 
 | Connector | Used by feature(s) |
 | :-- | :-- |
-| Microsoft Dataverse | Core (all features), Power Shield, Agent Review Tool |
+| Microsoft Dataverse | Core (all features), Request Center, Agent Review Tool |
 | Power Platform for Admins | Agent Inventory |
-| Power Platform for Admins V2 | Agent Inventory, Compliance Hub |
+| Power Platform for Admins V2 | Agent Inventory, Compliance Hub, Request Center (Copilot Credits) |
 | Microsoft Teams | Compliance Hub |
 | Office 365 Groups | Compliance Hub |
 | Office 365 Users | Compliance Hub |
 | Office 365 Outlook | Compliance Hub |
 | Approvals | Compliance Hub |
 | SharePoint Online | SharePoint File Sync |
-| Power Apps for Makers | Setup Wizard, Power Shield |
-| HTTP with Microsoft Entra ID (preauthorized) | Power Shield, Usage Metrics |
+| Power Apps for Makers | Setup Wizard, Request Center |
+| HTTP with Microsoft Entra ID (preauthorized) | Request Center (Connector Requests), Usage Metrics |
 | Microsoft Copilot Studio | Test Automation and Pipeline |
 
 See [Prerequisites → Connector requirements](./PREREQUISITES.md#connector-requirements) for the authoritative list.
