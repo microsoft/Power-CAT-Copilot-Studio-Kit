@@ -1,0 +1,369 @@
+{
+  "version": "1.0",
+  "appId": null,
+  "appDisplayName": "Copilot Agent Kit for Admins",
+  "description": "Copilot Agent Kit analytics and governance tools for administrators",
+  "environmentId": "00000000-0000-0000-0000-000000000000",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "logoPath": "./dist/media/Copilot Studio Kit 2.svg",
+  "localAppUrl": "http://localhost:3001/",
+  "region": "prod",
+  "connectionReferences": {
+    "e4bb200c-de3d-4bd4-9c7d-046952d76240": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+      "displayName": "Microsoft Dataverse",
+      "dataSources": [
+        "commondataserviceforapps"
+      ],
+      "authenticationType": null,
+      "sharedConnectionId": "",
+      "dataSets": {}
+    },
+    "e5994886-a865-468a-8be7-34c8529815da": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_powerappsforappmakers",
+      "displayName": "Power Apps for Makers",
+      "dataSources": [
+        "powerappsforappmakers"
+      ],
+      "dataSets": {}
+    },
+    "116be491-2047-4112-af63-6798d8f7cb11": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_powerplatformforadmins",
+      "displayName": "Power Platform for Admins",
+      "dataSources": [
+        "powerplatformforadmins"
+      ],
+      "dataSets": {}
+    },
+    "599df2d8-45fa-4a08-98ad-a477d4d481ed": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+      "displayName": "Logic flows",
+      "dataSources": [
+        "logfeaturetelemetry"
+      ],
+      "workflowDetails": {
+        "workflowEntityId": "fc955cf5-0c8a-f111-ab0f-70a8a5afad9f",
+        "workflowDisplayName": "LogFeatureTelemetry",
+        "workflowName": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "36d7cc35-ed6a-4354-801b-cb4c5597e843": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_office365users",
+      "displayName": "Office 365 Users",
+      "dataSources": [
+        "office365users"
+      ],
+      "dataSets": {}
+    },
+    "16d57482-e77a-4c39-8e2a-6b383579ac0e": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+      "displayName": "Logic flows",
+      "dataSources": [
+        "agentinventory_agentsdataloadondemand"
+      ],
+      "workflowDetails": {
+        "workflowEntityId": "af2bf60d-0bb0-f011-bbd3-6045bd08568b",
+        "workflowDisplayName": "Agent Inventory | Agents Data Load OnDemand",
+        "workflowName": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "58801c22-3683-4d01-bed0-a1a6c4123171": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+      "displayName": "Logic flows",
+      "dataSources": [
+        "agentinventory_agentdataforactions"
+      ],
+      "workflowDetails": {
+        "workflowEntityId": "8fbc78f0-c36f-f111-ab0d-70a8a59be4e5",
+        "workflowDisplayName": "Agent Inventory | Agent Data for Actions",
+        "workflowName": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "53831f1a-c434-4407-b76f-824721a320ef": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+      "displayName": "Logic flows",
+      "dataSources": [
+        "agentinventory_agentactions"
+      ],
+      "workflowDetails": {
+        "workflowEntityId": "761891bb-c46f-f111-ab0d-70a8a59be4e5",
+        "workflowDisplayName": "Agent Inventory | Agent Actions",
+        "workflowName": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "fb6a4c3f-1c5a-4a2f-86d8-aaa24f250b98": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+      "displayName": "Logic flows",
+      "dataSources": [
+        "agentinventory_environmentdataload"
+      ],
+      "workflowDetails": {
+        "workflowEntityId": "806f4432-6f8a-f111-ab0f-70a8a5afa41d",
+        "workflowDisplayName": "Agent Inventory | Environment Data Load",
+        "workflowName": "00000000-0000-0000-0000-000000000000"
+      }
+    },
+    "c265b011-7793-4313-9e37-bacea56258dc": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_powerplatformadminv2",
+      "displayName": "Power Platform for Admins V2",
+      "dataSources": [
+        "powerplatformadminv2"
+      ],
+      "authenticationType": "oauth2-auth",
+      "dataSets": {}
+    }
+  },
+  "databaseReferences": {
+    "default.cds": {
+      "databaseDetails": null,
+      "dataSources": {
+        "cat_copilotconfigurations": {
+          "entitySetName": "cat_copilotconfigurations",
+          "logicalName": "cat_copilotconfiguration",
+          "isHidden": false
+        },
+        "cat_dailymetricses": {
+          "entitySetName": "cat_dailymetricses",
+          "logicalName": "cat_dailymetrics",
+          "isHidden": false
+        },
+        "cat_topicmetricses": {
+          "entitySetName": "cat_topicmetricses",
+          "logicalName": "cat_topicmetrics",
+          "isHidden": false
+        },
+        "cat_errordetailses": {
+          "entitySetName": "cat_errordetailses",
+          "logicalName": "cat_errordetails",
+          "isHidden": false
+        },
+        "cat_toolmetricses": {
+          "entitySetName": "cat_toolmetricses",
+          "logicalName": "cat_toolmetrics",
+          "isHidden": false
+        },
+        "cat_actionmetricses": {
+          "entitySetName": "cat_actionmetricses",
+          "logicalName": "cat_actionmetrics",
+          "isHidden": false
+        },
+        "cat_transcriptmetricses": {
+          "entitySetName": "cat_transcriptmetricses",
+          "logicalName": "cat_transcriptmetrics",
+          "isHidden": false
+        },
+        "cat_agentusagehistories": {
+          "entitySetName": "cat_agentusagehistories",
+          "logicalName": "cat_agentusagehistory",
+          "isHidden": false
+        },
+        "cat_copilotstudiokitlogses": {
+          "entitySetName": "cat_copilotstudiokitlogses",
+          "logicalName": "cat_copilotstudiokitlogs",
+          "isHidden": false
+        },
+        "cat_agentdetailses": {
+          "entitySetName": "cat_agentdetailses",
+          "logicalName": "cat_agentdetails",
+          "isHidden": false
+        },
+        "cat_agentinsightstranscriptstagings": {
+          "entitySetName": "cat_agentinsightstranscriptstagings",
+          "logicalName": "cat_agentinsightstranscriptstaging",
+          "isHidden": false
+        },
+        "systemusers": {
+          "entitySetName": "systemusers",
+          "logicalName": "systemuser",
+          "isHidden": false
+        },
+        "systemuserrolescollection": {
+          "entitySetName": "systemuserrolescollection",
+          "logicalName": "systemuserroles",
+          "isHidden": false
+        },
+        "roles": {
+          "entitySetName": "roles",
+          "logicalName": "role",
+          "isHidden": false
+        },
+        "notes": {
+          "entitySetName": "annotations",
+          "logicalName": "annotation"
+        },
+        "emailmessages": {
+          "entitySetName": "emails",
+          "logicalName": "email"
+        },
+        "powershieldconnectors": {
+          "entitySetName": "cat_connectors",
+          "logicalName": "cat_connector"
+        },
+        "powershieldconnectoractions": {
+          "entitySetName": "cat_connectoractions",
+          "logicalName": "cat_connectoraction"
+        },
+        "powershieldpolicyrequests": {
+          "entitySetName": "cat_policyrequests",
+          "logicalName": "cat_policyrequest"
+        },
+        "powershieldpolicyrequestanswers": {
+          "entitySetName": "cat_policyrequestanswers",
+          "logicalName": "cat_policyrequestanswer"
+        },
+        "powershieldpolicyrequestconnectors": {
+          "entitySetName": "cat_policyrequestconnectors",
+          "logicalName": "cat_policyrequestconnector"
+        },
+        "powershieldpolicyrequestenvironments": {
+          "entitySetName": "cat_policyrequestenvironments",
+          "logicalName": "cat_policyrequestenvironment"
+        },
+        "powershieldpolicyrequestparticipants": {
+          "entitySetName": "cat_policyrequestparticipants",
+          "logicalName": "cat_policyrequestparticipant"
+        },
+        "powershieldblockedconnectors": {
+          "entitySetName": "cat_powershieldblockedconnectorses",
+          "logicalName": "cat_powershieldblockedconnectors"
+        },
+        "powershieldcustomconnectorpatterns": {
+          "entitySetName": "cat_powershieldcustomconnectorpatterns",
+          "logicalName": "cat_powershieldcustomconnectorpattern"
+        },
+        "powershieldenvironmentcontainers": {
+          "entitySetName": "cat_powershieldenvironmentgroups",
+          "logicalName": "cat_powershieldenvironmentgroup"
+        },
+        "powershieldenvironmentcontainermembers": {
+          "entitySetName": "cat_powershieldenvironmentgroupmembers",
+          "logicalName": "cat_powershieldenvironmentgroupmember"
+        },
+        "powershieldpolicyrequestcomments": {
+          "entitySetName": "cat_powershieldpolicyrequestcomments",
+          "logicalName": "cat_powershieldpolicyrequestcomment"
+        },
+        "powershieldpolicyrequestlogs": {
+          "entitySetName": "cat_powershieldpolicyrequestlogs",
+          "logicalName": "cat_powershieldpolicyrequestlog"
+        },
+        "powershieldservicetreemembers": {
+          "entitySetName": "cat_powershieldservicetreememberses",
+          "logicalName": "cat_powershieldservicetreemembers"
+        },
+        "powershieldsettings": {
+          "entitySetName": "cat_powershieldsettingses",
+          "logicalName": "cat_powershieldsettings"
+        },
+        "powershieldquestions": {
+          "entitySetName": "cat_questions",
+          "logicalName": "cat_question"
+        },
+        "powershieldquestioncategories": {
+          "entitySetName": "cat_questioncategories",
+          "logicalName": "cat_questioncategory"
+        },
+        "powershieldquestionoptions": {
+          "entitySetName": "cat_questionoptions",
+          "logicalName": "cat_questionoption"
+        },
+        "powershieldservicetrees": {
+          "entitySetName": "cat_servicetrees",
+          "logicalName": "cat_servicetree"
+        },
+        "agentvalues": {
+          "entitySetName": "cat_agentvalues",
+          "logicalName": "cat_agentvalue",
+          "isHidden": false
+        },
+        "securityroles": {
+          "entitySetName": "roles",
+          "logicalName": "role"
+        },
+        "conversationanalyzers": {
+          "entitySetName": "cat_conversationanalyzers",
+          "logicalName": "cat_conversationanalyzer"
+        },
+        "conversationanalyzerprompts": {
+          "entitySetName": "cat_conversationanalyzerprompts",
+          "logicalName": "cat_conversationanalyzerprompt"
+        },
+        "conversationtranscripts": {
+          "entitySetName": "conversationtranscripts",
+          "logicalName": "conversationtranscript"
+        },
+        "aievents": {
+          "entitySetName": "msdyn_aievents",
+          "logicalName": "msdyn_aievent",
+          "isHidden": false
+        },
+        "metricdefinitions": {
+          "entitySetName": "cat_metricdefinitions",
+          "logicalName": "cat_metricdefinition"
+        },
+        "userlayouts": {
+          "entitySetName": "cat_userlayouts",
+          "logicalName": "cat_userlayout"
+        },
+        "conversationkpis": {
+          "entitySetName": "cat_copilotkpis",
+          "logicalName": "cat_copilotkpi"
+        },
+        "customers": {
+          "entitySetName": "cat_customers",
+          "logicalName": "cat_customer"
+        },
+        "agentreviews": {
+          "entitySetName": "cat_agentreviewses",
+          "logicalName": "cat_agentreviews"
+        },
+        "agenttests": {
+          "entitySetName": "cat_copilottests",
+          "logicalName": "cat_copilottest"
+        },
+        "agenttestresults": {
+          "entitySetName": "cat_copilottestresults",
+          "logicalName": "cat_copilottestresult"
+        },
+        "agenttestruns": {
+          "entitySetName": "cat_copilottestruns",
+          "logicalName": "cat_copilottestrun"
+        },
+        "agenttranscripts": {
+          "entitySetName": "cat_agenttranscriptses",
+          "logicalName": "cat_agenttranscripts"
+        },
+        "agenttemplates": {
+          "entitySetName": "cat_agenttemplates",
+          "logicalName": "cat_agenttemplate"
+        },
+        "agentdetails": {
+          "entitySetName": "cat_agentdetailses",
+          "logicalName": "cat_agentdetails"
+        },
+        "agentusagehistories": {
+          "entitySetName": "cat_agentusagehistories",
+          "logicalName": "cat_agentusagehistory"
+        },
+        "agentinventorysettings": {
+          "entitySetName": "cat_agentinventorysettingses",
+          "logicalName": "cat_agentinventorysettings"
+        },
+        "environmentgroups": {
+          "entitySetName": "cat_environmentgroupses",
+          "logicalName": "cat_environmentgroups"
+        },
+        "processes": {
+          "entitySetName": "workflows",
+          "logicalName": "workflow"
+        },
+        "agentinventoryactionaudits": {
+          "entitySetName": "cat_agentinventoryactionaudits",
+          "logicalName": "cat_agentinventoryactionaudit"
+        }
+      },
+      "actions": null
+    }
+  }
+}

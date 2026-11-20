@@ -1,0 +1,6 @@
+/* Feature-scoped design stylesheet.
+   Import order matters: the shim declares the spacing scale that
+   workspace.css consumes. */
+@import './tokens-shim.css';
+@import './workspace.css';
+@import './overrides.css';

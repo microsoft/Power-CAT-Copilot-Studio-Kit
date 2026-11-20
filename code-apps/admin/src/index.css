@@ -1,0 +1,34 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* Lock the document so the app fits the embedded player iframe exactly.
+     The single scroll region is Content.root; without this the iframe adds a
+     second, document-level scrollbar that moves the whole app (sidebar included). */
+  overflow: hidden;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Let the sole child (FluentProvider) fill #root so the shell's height:100%
+   chain resolves without depending on the provider's own styling. */
+#root > * {
+  flex: 1 1 auto;
+  min-height: 0;
+}

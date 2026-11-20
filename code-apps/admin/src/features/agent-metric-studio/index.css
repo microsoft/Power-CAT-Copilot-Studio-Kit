@@ -1,0 +1,61 @@
+@import 'react-grid-layout/css/styles.css';
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: var(--fontFamilyBase, 'Segoe UI Variable', 'Segoe UI', sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--colorNeutralBackground2);
+}
+
+code {
+  font-family: var(--fontFamilyMonospace, 'Cascadia Code', 'Fira Code', Consolas, monospace);
+  font-size: 12px;
+}
+
+/* Accessibility: respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessibility: forced colors (Windows High Contrast) */
+@media (forced-colors: active) {
+  .ams-card-drag-handle { border: 1px solid ButtonText; }
+  :focus-visible { outline: 2px solid Highlight !important; }
+}
+
+/* Accessibility: skip-to-content link */
+.ams-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 100000;
+  padding: 8px 16px;
+  background: var(--colorNeutralBackground1);
+  color: var(--colorNeutralForeground1);
+  font-size: 14px;
+  text-decoration: underline;
+}
+.ams-skip-link:focus {
+  left: 8px;
+  top: 8px;
+  width: auto;
+  height: auto;
+  clip: auto;
+}

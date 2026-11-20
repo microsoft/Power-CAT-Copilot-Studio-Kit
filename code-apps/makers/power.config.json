@@ -1,0 +1,224 @@
+{
+  "version": "1.0",
+  "appId": null,
+  "appDisplayName": "Copilot Agent Kit for Makers",
+  "description": "Copilot Agent Kit productivity and agent-building tools for makers",
+  "environmentId": "00000000-0000-0000-0000-000000000000",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "logoPath": "./dist/media/Copilot Studio Kit 2.svg",
+  "localAppUrl": "http://localhost:3002/",
+  "region": "prod",
+  "connectionReferences": {
+    "e4bb200c-de3d-4bd4-9c7d-046952d76240": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+      "displayName": "Microsoft Dataverse",
+      "dataSources": [
+        "commondataserviceforapps"
+      ],
+      "authenticationType": null,
+      "sharedConnectionId": "",
+      "dataSets": {}
+    },
+    "46119dd5-5a9b-4bfb-a7ac-782e97ecde03": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_powerappsforappmakers",
+      "displayName": "Power Apps for Makers",
+      "dataSources": [
+        "powerappsforappmakers"
+      ],
+      "dataSets": {}
+    },
+    "96077a26-18b3-4d7a-bee8-57b6baa54db5": {
+      "id": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+      "displayName": "Logic flows",
+      "dataSources": [
+        "logfeaturetelemetry"
+      ],
+      "workflowDetails": {
+        "workflowEntityId": "fc955cf5-0c8a-f111-ab0f-70a8a5afad9f",
+        "workflowDisplayName": "LogFeatureTelemetry",
+        "workflowName": "00000000-0000-0000-0000-000000000000"
+      }
+    }
+  },
+  "databaseReferences": {
+    "default.cds": {
+      "databaseDetails": null,
+      "dataSources": {
+        "bots": {
+          "entitySetName": "bots",
+          "logicalName": "bot"
+        },
+        "botcomponents": {
+          "entitySetName": "botcomponents",
+          "logicalName": "botcomponent"
+        },
+        "cat_agentdetailses": {
+          "entitySetName": "cat_agentdetailses",
+          "logicalName": "cat_agentdetails",
+          "isHidden": false
+        },
+        "cat_agentreviewfres": {
+          "entitySetName": "cat_agentreviewfres",
+          "logicalName": "cat_agentreviewfre"
+        },
+        "cat_agentreviewses": {
+          "entitySetName": "cat_agentreviewses",
+          "logicalName": "cat_agentreviews"
+        },
+        "cat_copilotconfigurations": {
+          "entitySetName": "cat_copilotconfigurations",
+          "logicalName": "cat_copilotconfiguration",
+          "isHidden": false
+        },
+        "systemusers": {
+          "entitySetName": "systemusers",
+          "logicalName": "systemuser",
+          "isHidden": false
+        },
+        "solutions": {
+          "entitySetName": "solutions",
+          "logicalName": "solution"
+        },
+        "botcomponentcollections": {
+          "entitySetName": "botcomponentcollections",
+          "logicalName": "botcomponentcollection"
+        },
+        "importjobs": {
+          "entitySetName": "importjobs",
+          "logicalName": "importjob"
+        },
+        "cat_copilottestsets": {
+          "entitySetName": "cat_copilottestsets",
+          "logicalName": "cat_copilottestset",
+          "isHidden": false
+        },
+        "cat_copilottests": {
+          "entitySetName": "cat_copilottests",
+          "logicalName": "cat_copilottest",
+          "isHidden": false
+        },
+        "cat_copilottestruns": {
+          "entitySetName": "cat_copilottestruns",
+          "logicalName": "cat_copilottestrun",
+          "isHidden": false
+        },
+        "cat_copilottestresults": {
+          "entitySetName": "cat_copilottestresults",
+          "logicalName": "cat_copilottestresult",
+          "isHidden": false
+        },
+        "cat_copilotcards": {
+          "entitySetName": "cat_copilotcards",
+          "logicalName": "cat_copilotcard",
+          "isHidden": false
+        },
+        "powershieldconnectors": {
+          "entitySetName": "cat_connectors",
+          "logicalName": "cat_connector"
+        },
+        "powershieldconnectoractions": {
+          "entitySetName": "cat_connectoractions",
+          "logicalName": "cat_connectoraction"
+        },
+        "powershieldpolicyrequests": {
+          "entitySetName": "cat_policyrequests",
+          "logicalName": "cat_policyrequest"
+        },
+        "powershieldpolicyrequestanswers": {
+          "entitySetName": "cat_policyrequestanswers",
+          "logicalName": "cat_policyrequestanswer"
+        },
+        "powershieldpolicyrequestconnectors": {
+          "entitySetName": "cat_policyrequestconnectors",
+          "logicalName": "cat_policyrequestconnector"
+        },
+        "powershieldpolicyrequestenvironments": {
+          "entitySetName": "cat_policyrequestenvironments",
+          "logicalName": "cat_policyrequestenvironment"
+        },
+        "powershieldpolicyrequestparticipants": {
+          "entitySetName": "cat_policyrequestparticipants",
+          "logicalName": "cat_policyrequestparticipant"
+        },
+        "powershieldcustomconnectorpatterns": {
+          "entitySetName": "cat_powershieldcustomconnectorpatterns",
+          "logicalName": "cat_powershieldcustomconnectorpattern"
+        },
+        "powershieldenvironmentcontainers": {
+          "entitySetName": "cat_powershieldenvironmentgroups",
+          "logicalName": "cat_powershieldenvironmentgroup"
+        },
+        "powershieldenvironmentcontainermembers": {
+          "entitySetName": "cat_powershieldenvironmentgroupmembers",
+          "logicalName": "cat_powershieldenvironmentgroupmember"
+        },
+        "powershieldpolicyrequestcomments": {
+          "entitySetName": "cat_powershieldpolicyrequestcomments",
+          "logicalName": "cat_powershieldpolicyrequestcomment"
+        },
+        "powershieldpolicyrequestlogs": {
+          "entitySetName": "cat_powershieldpolicyrequestlogs",
+          "logicalName": "cat_powershieldpolicyrequestlog"
+        },
+        "powershieldservicetreemembers": {
+          "entitySetName": "cat_powershieldservicetreememberses",
+          "logicalName": "cat_powershieldservicetreemembers"
+        },
+        "powershieldsettings": {
+          "entitySetName": "cat_powershieldsettingses",
+          "logicalName": "cat_powershieldsettings"
+        },
+        "powershieldquestions": {
+          "entitySetName": "cat_questions",
+          "logicalName": "cat_question"
+        },
+        "powershieldquestioncategories": {
+          "entitySetName": "cat_questioncategories",
+          "logicalName": "cat_questioncategory"
+        },
+        "powershieldquestionoptions": {
+          "entitySetName": "cat_questionoptions",
+          "logicalName": "cat_questionoption"
+        },
+        "powershieldservicetrees": {
+          "entitySetName": "cat_servicetrees",
+          "logicalName": "cat_servicetree"
+        },
+        "systemuserroles": {
+          "entitySetName": "systemuserrolescollection",
+          "logicalName": "systemuserroles"
+        },
+        "notes": {
+          "entitySetName": "annotations",
+          "logicalName": "annotation"
+        },
+        "emailmessages": {
+          "entitySetName": "emails",
+          "logicalName": "email"
+        },
+        "users": {
+          "entitySetName": "systemusers",
+          "logicalName": "systemuser"
+        },
+        "securityroles": {
+          "entitySetName": "roles",
+          "logicalName": "role"
+        },
+        "agenttemplates": {
+          "entitySetName": "cat_agenttemplates",
+          "logicalName": "cat_agenttemplate"
+        },
+        "agentreviewjobs": {
+          "entitySetName": "cat_agentreviewjobs",
+          "logicalName": "cat_agentreviewjob"
+        },
+        "agentreviewjobitems": {
+          "entitySetName": "cat_agentreviewjobitems",
+          "logicalName": "cat_agentreviewjobitem"
+        }
+      },
+      "actions": null
+    }
+  }
+}

@@ -153,6 +153,8 @@ Stay up to date with our releases by **subscribing** to them:
 
 The Copilot Agent Kit GitHub Repo contains the source, releases, issues and backlog items of all components that are part of the Copilot Agent Kit.
 
+The [code-apps](./code-apps/README.md) folder has the source code of the code apps Copilot Agent Kit for Makers and Copilot Agent Kit for Admins. To build and run an app, see the `README.md` file of the app. To contribute to the code apps, see [Contribute to the code apps](./CONTRIBUTING.md#contribute-to-the-code-apps).
+
 ## Submit a feature request
 
 Let us know by filing an issue. 
