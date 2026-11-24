@@ -1,0 +1,112 @@
+import { makeStyles, tokens } from '@fluentui/react-components';
+
+/**
+ * Shared table styles for DataGrid containers, headers, and pagination.
+ * Replaces duplicated table/grid wrapper styles across components.
+ */
+export const useTableStyles = makeStyles({
+  /** Table shell — bordered container for DataGrid */
+  tableShell: {
+    backgroundColor: tokens.colorNeutralBackground1,
+    borderTopWidth: '1px',
+    borderRightWidth: '1px',
+    borderBottomWidth: '1px',
+    borderLeftWidth: '1px',
+    borderTopStyle: 'solid',
+    borderRightStyle: 'solid',
+    borderBottomStyle: 'solid',
+    borderLeftStyle: 'solid',
+    borderTopColor: tokens.colorNeutralStroke1,
+    borderRightColor: tokens.colorNeutralStroke1,
+    borderBottomColor: tokens.colorNeutralStroke1,
+    borderLeftColor: tokens.colorNeutralStroke1,
+    borderRadius: tokens.borderRadiusLarge,
+    overflow: 'hidden',
+    boxShadow: tokens.shadow4,
+  },
+  /** Pagination footer bar */
+  paginationBar: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: tokens.colorNeutralBackground2,
+    borderTopWidth: '1px',
+    borderTopStyle: 'solid',
+    borderTopColor: tokens.colorNeutralStroke1,
+    paddingTop: tokens.spacingVerticalS,
+    paddingBottom: tokens.spacingVerticalS,
+    paddingLeft: tokens.spacingHorizontalM,
+    paddingRight: tokens.spacingHorizontalM,
+  },
+  /** Pagination button group container */
+  paginationButtons: {
+    display: 'flex',
+    flexDirection: 'row',
+    gap: tokens.spacingHorizontalXS,
+    alignItems: 'center',
+  },
+  /** Individual pagination arrow/page button */
+  pageBtn: {
+    width: '26px',
+    height: '26px',
+    minWidth: '26px',
+    padding: '0',
+    borderRadius: tokens.borderRadiusMedium,
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: tokens.colorNeutralBackground1,
+    borderTopWidth: '1px',
+    borderRightWidth: '1px',
+    borderBottomWidth: '1px',
+    borderLeftWidth: '1px',
+    borderTopStyle: 'solid',
+    borderRightStyle: 'solid',
+    borderBottomStyle: 'solid',
+    borderLeftStyle: 'solid',
+    borderTopColor: tokens.colorNeutralStroke1,
+    borderRightColor: tokens.colorNeutralStroke1,
+    borderBottomColor: tokens.colorNeutralStroke1,
+    borderLeftColor: tokens.colorNeutralStroke1,
+    color: tokens.colorNeutralForeground2,
+    cursor: 'pointer',
+    fontSize: tokens.fontSizeBase200,
+    fontWeight: tokens.fontWeightMedium,
+    ':hover': {
+      backgroundColor: tokens.colorNeutralBackground2,
+      borderTopColor: tokens.colorNeutralStroke2,
+      borderRightColor: tokens.colorNeutralStroke2,
+      borderBottomColor: tokens.colorNeutralStroke2,
+      borderLeftColor: tokens.colorNeutralStroke2,
+    },
+  },
+  /** Disabled state for pagination buttons */
+  pageBtnDisabled: {
+    opacity: '0.45',
+    cursor: 'not-allowed',
+  },
+  /** Page size selector dropdown */
+  pageSelect: {
+    paddingTop: '3px',
+    paddingBottom: '3px',
+    paddingLeft: tokens.spacingHorizontalSNudge,
+    paddingRight: tokens.spacingHorizontalSNudge,
+    borderRadius: tokens.borderRadiusMedium,
+    borderTopWidth: '1px',
+    borderRightWidth: '1px',
+    borderBottomWidth: '1px',
+    borderLeftWidth: '1px',
+    borderTopStyle: 'solid',
+    borderRightStyle: 'solid',
+    borderBottomStyle: 'solid',
+    borderLeftStyle: 'solid',
+    borderTopColor: tokens.colorNeutralStroke1,
+    borderRightColor: tokens.colorNeutralStroke1,
+    borderBottomColor: tokens.colorNeutralStroke1,
+    borderLeftColor: tokens.colorNeutralStroke1,
+    backgroundColor: tokens.colorNeutralBackground1,
+    fontSize: tokens.fontSizeBase200,
+    cursor: 'pointer',
+  },
+});

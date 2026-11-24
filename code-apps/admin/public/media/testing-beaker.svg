@@ -1,0 +1,42 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Beaker illustration with molecules -->
+  <g id="beaker-illustration">
+    <!-- Background molecules/scoops -->
+    <circle cx="130" cy="30" r="8" fill="#E3F2FD" opacity="0.6"/>
+    <circle cx="145" cy="45" r="5" fill="#BBDEFB" opacity="0.5"/>
+    <circle cx="25" cy="35" r="6" fill="#E3F2FD" opacity="0.6"/>
+    <circle cx="15" cy="50" r="4" fill="#BBDEFB" opacity="0.5"/>
+    
+    <!-- Beaker shadow -->
+    <ellipse cx="80" cy="145" rx="35" ry="8" fill="#000000" opacity="0.08"/>
+    
+    <!-- Beaker body -->
+    <path d="M60 50 L60 110 Q60 130 80 130 Q100 130 100 110 L100 50 Z" 
+          fill="#0078D4" opacity="0.15" stroke="#0078D4" stroke-width="2"/>
+    
+    <!-- Beaker rim -->
+    <rect x="55" y="45" width="50" height="8" rx="2" fill="#0078D4" opacity="0.3"/>
+    
+    <!-- Beaker content/liquid -->
+    <path d="M62 90 Q62 108 80 108 Q98 108 98 90 L98 80 L62 80 Z" 
+          fill="#0078D4" opacity="0.4"/>
+    
+    <!-- Bubbles in liquid -->
+    <circle cx="72" cy="88" r="3" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="85" cy="92" r="2.5" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="90" cy="85" r="2" fill="#FFFFFF" opacity="0.7"/>
+    
+    <!-- Floating molecules above beaker -->
+    <g opacity="0.5">
+      <circle cx="70" cy="25" r="4" fill="#90CAF9"/>
+      <circle cx="90" cy="20" r="3" fill="#64B5F6"/>
+      <circle cx="110" cy="28" r="4.5" fill="#90CAF9"/>
+    </g>
+    
+    <!-- Vapor/steam wisps -->
+    <path d="M75 40 Q78 35 80 40" stroke="#90CAF9" stroke-width="1.5" 
+          stroke-linecap="round" fill="none" opacity="0.4"/>
+    <path d="M85 38 Q88 33 90 38" stroke="#90CAF9" stroke-width="1.5" 
+          stroke-linecap="round" fill="none" opacity="0.4"/>
+  </g>
+</svg>

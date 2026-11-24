@@ -1,0 +1,132 @@
+{
+  "name": "Agent Inventory | Agent Actions",
+  "id": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+  "type": "Microsoft.PowerApps/apis",
+  "properties": {
+    "displayName": "Agent Inventory | Agent Actions",
+    "isCustom": false,
+    "swagger": {
+      "swagger": "2.0",
+      "info": {
+        "title": "Agent Inventory | Agent Actions",
+        "version": "2015-02-01-preview"
+      },
+      "host": "unitedstates-002.azure-apim.net",
+      "schemes": [
+        "https"
+      ],
+      "consumes": [
+        "application/json"
+      ],
+      "produces": [
+        "application/json"
+      ],
+      "paths": {
+        "/{connectionId}/triggers/manual/run": {
+          "post": {
+            "operationId": "Run",
+            "description": "Runs a logic flow trigger.",
+            "parameters": [
+              {
+                "name": "connectionId",
+                "in": "path",
+                "required": true,
+                "type": "string",
+                "x-ms-visibility": "internal"
+              },
+              {
+                "name": "input",
+                "description": "The trigger's input",
+                "in": "body",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/ManualTriggerInput"
+                }
+              },
+              {
+                "name": "api-version",
+                "description": "The api version",
+                "in": "query",
+                "required": true,
+                "default": "2015-02-01-preview",
+                "x-ms-visibility": "internal",
+                "type": "string"
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Ok",
+                "schema": {
+                  "$ref": "#/definitions/ResponseActionOutput"
+                }
+              },
+              "default": {
+                "description": "The Flow Response.",
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      },
+      "definitions": {
+        "ManualTriggerInput": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "title": "Action",
+              "type": "string",
+              "x-ms-dynamically-added": true,
+              "description": "Please enter your input",
+              "x-ms-content-hint": "TEXT"
+            },
+            "text_1": {
+              "title": "AgentRecords",
+              "type": "string",
+              "x-ms-dynamically-added": true,
+              "description": "Please enter your input",
+              "x-ms-content-hint": "TEXT"
+            },
+            "text_4": {
+              "title": "UserData",
+              "type": "string",
+              "x-ms-dynamically-added": true,
+              "description": "Please enter your input",
+              "x-ms-content-hint": "TEXT"
+            },
+            "text_5": {
+              "title": "ActionPerformedBy",
+              "type": "string",
+              "x-ms-dynamically-added": true,
+              "description": "Please enter your input",
+              "x-ms-content-hint": "TEXT"
+            }
+          },
+          "required": [
+            "text",
+            "text_1",
+            "text_4",
+            "text_5"
+          ]
+        },
+        "ResponseActionOutput": {
+          "type": "object",
+          "properties": {
+            "errormessage": {
+              "title": "ErrorMessage",
+              "x-ms-dynamically-added": true,
+              "type": "string"
+            },
+            "name": {
+              "title": "Name",
+              "x-ms-dynamically-added": true,
+              "type": "string"
+            }
+          }
+        }
+      },
+      "basePath": "/apim/logicflows"
+    }
+  }
+}

@@ -1,0 +1,1085 @@
+{
+  "name": "cat_copilottestresult",
+  "title": "Agent Test Results",
+  "schema": {
+    "type": "array",
+    "items": {
+      "type": "object",
+      "x-ms-dataverse-entity": true,
+      "x-ms-dataverse-entityset": "cat_copilottestresults",
+      "x-ms-dataverse-primary-id": "cat_copilottestresultid",
+      "x-ms-dataverse-primary-name": "cat_name",
+      "properties": {
+        "cat_actualcompleteresponse": {
+          "type": "string",
+          "title": "Actual Complete Response",
+          "x-ms-dataverse-attribute": "cat_actualcompleteresponse",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_ActualCompleteResponse",
+          "maxLength": 1048576
+        },
+        "cat_actualtools": {
+          "type": "string",
+          "title": "Actual Tools",
+          "x-ms-dataverse-attribute": "cat_actualtools",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_ActualTools",
+          "maxLength": 2000
+        },
+        "cat_adaptivecardpayload": {
+          "type": "string",
+          "title": "Adaptive Card Payload",
+          "x-ms-dataverse-attribute": "cat_adaptivecardpayload",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_AdaptiveCardPayload",
+          "maxLength": 2000
+        },
+        "cat_aibuildercreditconsumed": {
+          "type": "string",
+          "title": "AI Builder Credit Consumed",
+          "x-ms-dataverse-attribute": "cat_aibuildercreditconsumed",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "cat_AIBuilderCreditConsumed"
+        },
+        "cat_aigradecode": {
+          "type": "string",
+          "title": "AI Grade",
+          "x-ms-dataverse-attribute": "cat_aigradecode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_AIGradeCode",
+          "enum": [
+            "5 - (Exemplary)",
+            "4 - (Strong)",
+            "3 - (Acceptable)",
+            "2 - (Weak)",
+            "1 - (Needs Improvement)"
+          ],
+          "x-ms-enum-values": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "Color": [
+            "#c6efce",
+            "#caedfb",
+            "#f2f2f2",
+            "#ffeb9c",
+            "#ffc7ce"
+          ],
+          "x-ms-optionsetmetadataid": "2654494e-eeb9-429f-a679-e8b22effd18b",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Rubric Grade",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_aigradecodename": {
+          "type": "string",
+          "title": "cat_aigradecodename",
+          "x-ms-dataverse-attribute": "cat_aigradecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_aigradecodeName",
+          "x-ms-read-only": true
+        },
+        "cat_airationale": {
+          "type": "string",
+          "title": "AI Rationale",
+          "x-ms-dataverse-attribute": "cat_airationale",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_AIRationale",
+          "maxLength": 200000
+        },
+        "cat_alignmentpercentage": {
+          "type": "string",
+          "title": "Alignment Percentage",
+          "x-ms-dataverse-attribute": "cat_alignmentpercentage",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "cat_AlignmentPercentage"
+        },
+        "cat_appinsightsmessage": {
+          "type": "string",
+          "title": "App Insights Message",
+          "x-ms-dataverse-attribute": "cat_appinsightsmessage",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_AppInsightsMessage",
+          "maxLength": 2000
+        },
+        "cat_appinsightsresult": {
+          "type": "string",
+          "title": "App Insights Result",
+          "x-ms-dataverse-attribute": "cat_appinsightsresult",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_AppInsightsResult",
+          "maxLength": 100
+        },
+        "cat_attachmentsjson": {
+          "type": "string",
+          "title": "Attachments JSON",
+          "x-ms-dataverse-attribute": "cat_attachmentsjson",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_AttachmentsJSON",
+          "maxLength": 1048576
+        },
+        "cat_citations": {
+          "type": "string",
+          "title": "Citations",
+          "x-ms-dataverse-attribute": "cat_citations",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_Citations",
+          "maxLength": 1048576
+        },
+        "cat_comparisonoperator": {
+          "type": "string",
+          "title": "Comparison Operator",
+          "x-ms-dataverse-attribute": "cat_comparisonoperator",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_ComparisonOperator",
+          "enum": [
+            "Equals",
+            "Does not equal",
+            "Contains",
+            "Does not contain",
+            "Begins with",
+            "Does not begin with",
+            "Ends with",
+            "Does not end with",
+            "Contains data"
+          ],
+          "x-ms-enum-values": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9
+          ],
+          "Color": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "033e502e-3a06-f011-bae1-002248095f4f",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Comparison Operator",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_comparisonoperatorname": {
+          "type": "string",
+          "title": "cat_comparisonoperatorname",
+          "x-ms-dataverse-attribute": "cat_comparisonoperatorname",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_comparisonoperatorName",
+          "x-ms-read-only": true
+        },
+        "cat_conversationtranscriptfile": {
+          "type": "string",
+          "title": "Conversation Transcript",
+          "x-ms-dataverse-attribute": "cat_conversationtranscriptfile",
+          "x-ms-dataverse-type": "FileType",
+          "x-ms-schema-name": "cat_ConversationTranscriptFile",
+          "x-ms-read-only": true
+        },
+        "cat_conversationtranscriptfile_name": {
+          "type": "string",
+          "title": "cat_conversationtranscriptfile_name",
+          "x-ms-dataverse-attribute": "cat_conversationtranscriptfile_name",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_ConversationTranscriptFile_Name",
+          "x-ms-read-only": true,
+          "maxLength": 200
+        },
+        "cat_copilottestid": {
+          "type": "string",
+          "title": "Agent Test",
+          "x-ms-dataverse-attribute": "cat_copilottestid",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "cat_CopilotTestId",
+          "required": true
+        },
+        "cat_copilottestidname": {
+          "type": "string",
+          "title": "cat_copilottestidname",
+          "x-ms-dataverse-attribute": "cat_copilottestidname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_CopilotTestIdName",
+          "x-ms-read-only": true,
+          "maxLength": 200
+        },
+        "cat_copilottestresultid": {
+          "type": "string",
+          "title": "Agent Test Result",
+          "x-ms-dataverse-attribute": "cat_copilottestresultid",
+          "x-ms-dataverse-type": "UniqueidentifierType",
+          "x-ms-schema-name": "cat_CopilotTestResultId",
+          "x-ms-dataverse-primary-id": true,
+          "required": true,
+          "x-ms-keyType": "primary"
+        },
+        "cat_copilottestrunid": {
+          "type": "string",
+          "title": "Agent Test Run",
+          "x-ms-dataverse-attribute": "cat_copilottestrunid",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "cat_CopilotTestRunId",
+          "required": true
+        },
+        "cat_copilottestrunidname": {
+          "type": "string",
+          "title": "cat_copilottestrunidname",
+          "x-ms-dataverse-attribute": "cat_copilottestrunidname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_CopilotTestRunIdName",
+          "x-ms-read-only": true,
+          "maxLength": 100
+        },
+        "cat_exampletypecode": {
+          "type": "string",
+          "title": "Example Type",
+          "x-ms-dataverse-attribute": "cat_exampletypecode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_ExampleTypeCode",
+          "enum": [
+            "Good Example",
+            "Bad Example"
+          ],
+          "x-ms-enum-values": [
+            1,
+            2
+          ],
+          "Color": [
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "c92b746e-f7fd-4e2b-beb4-0cfebd607436",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Example Type",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_exampletypecodename": {
+          "type": "string",
+          "title": "cat_exampletypecodename",
+          "x-ms-dataverse-attribute": "cat_exampletypecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_exampletypecodeName",
+          "x-ms-read-only": true
+        },
+        "cat_expectedattachmentsjson": {
+          "type": "string",
+          "title": "Expected Attachments JSON",
+          "x-ms-dataverse-attribute": "cat_expectedattachmentsjson",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_ExpectedAttachmentsJSON",
+          "maxLength": 1048576
+        },
+        "cat_expectedpositionoftheresponseactivity": {
+          "type": "string",
+          "title": "Expected Position of the Response Message",
+          "x-ms-dataverse-attribute": "cat_expectedpositionoftheresponseactivity",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "cat_ExpectedPositionoftheResponseActivity"
+        },
+        "cat_expectedresponse": {
+          "type": "string",
+          "title": "Expected Response",
+          "x-ms-dataverse-attribute": "cat_expectedresponse",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_ExpectedResponse",
+          "maxLength": 10000
+        },
+        "cat_expectedtools": {
+          "type": "string",
+          "title": "Expected Tools",
+          "x-ms-dataverse-attribute": "cat_expectedtools",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_ExpectedTools",
+          "maxLength": 200
+        },
+        "cat_expectedtopicname": {
+          "type": "string",
+          "title": "Expected Topic Name",
+          "x-ms-dataverse-attribute": "cat_expectedtopicname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_ExpectedTopicName",
+          "maxLength": 100
+        },
+        "cat_externalvariablesjson": {
+          "type": "string",
+          "title": "External Variables JSON",
+          "x-ms-dataverse-attribute": "cat_externalvariablesjson",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_ExternalVariablesJSON",
+          "maxLength": 1048576
+        },
+        "cat_generativeansweroutcomecode": {
+          "type": "string",
+          "title": "Expected Generative Answers Outcome",
+          "x-ms-dataverse-attribute": "cat_generativeansweroutcomecode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_GenerativeAnswerOutcomeCode",
+          "enum": [
+            "Answered",
+            "Not Answered",
+            "Moderated",
+            "No Search Results"
+          ],
+          "x-ms-enum-values": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "Color": [
+            null,
+            null,
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "845745b0-6bb8-4f2a-9015-ada85517c623",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Generative Answer Outcome",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_generativeansweroutcomecodename": {
+          "type": "string",
+          "title": "cat_generativeansweroutcomecodename",
+          "x-ms-dataverse-attribute": "cat_generativeansweroutcomecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_generativeansweroutcomecodeName",
+          "x-ms-read-only": true
+        },
+        "cat_humangradecode": {
+          "type": "string",
+          "title": "Human Grade",
+          "x-ms-dataverse-attribute": "cat_humangradecode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_HumanGradeCode",
+          "enum": [
+            "5 - (Exemplary)",
+            "4 - (Strong)",
+            "3 - (Acceptable)",
+            "2 - (Weak)",
+            "1 - (Needs Improvement)"
+          ],
+          "x-ms-enum-values": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "Color": [
+            "#c6efce",
+            "#caedfb",
+            "#f2f2f2",
+            "#ffeb9c",
+            "#ffc7ce"
+          ],
+          "x-ms-optionsetmetadataid": "2654494e-eeb9-429f-a679-e8b22effd18b",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Rubric Grade",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_humangradecodename": {
+          "type": "string",
+          "title": "cat_humangradecodename",
+          "x-ms-dataverse-attribute": "cat_humangradecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_humangradecodeName",
+          "x-ms-read-only": true
+        },
+        "cat_humanreasoning": {
+          "type": "string",
+          "title": "Human Reasoning",
+          "x-ms-dataverse-attribute": "cat_humanreasoning",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_HumanReasoning",
+          "maxLength": 20000
+        },
+        "cat_isstartconversationeventsent": {
+          "type": "string",
+          "title": "Send startConversation Event",
+          "x-ms-dataverse-attribute": "cat_isstartconversationeventsent",
+          "x-ms-dataverse-type": "BooleanType",
+          "x-ms-schema-name": "cat_IsStartConversationEventSent",
+          "enum": [
+            "No",
+            "Yes"
+          ],
+          "x-ms-enum-values": [
+            0,
+            1
+          ],
+          "Color": [
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "a50b8625-fff7-ef11-9340-000d3a3ab4a2",
+          "x-ms-isGlobal": false,
+          "x-ms-optionsetdisplayname": "Send startConversation Event",
+          "x-ms-optionSetType": "Boolean"
+        },
+        "cat_isstartconversationeventsentname": {
+          "type": "string",
+          "title": "cat_isstartconversationeventsentname",
+          "x-ms-dataverse-attribute": "cat_isstartconversationeventsentname",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_isstartconversationeventsentName",
+          "x-ms-read-only": true
+        },
+        "cat_jsoneditorpcfcolumn": {
+          "type": "string",
+          "title": "JSonEditorPCFColumn",
+          "x-ms-dataverse-attribute": "cat_jsoneditorpcfcolumn",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_JSonEditorPCFColumn",
+          "maxLength": 1048576
+        },
+        "cat_latencyms": {
+          "type": "string",
+          "title": "Latency (ms)",
+          "x-ms-dataverse-attribute": "cat_latencyms",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "cat_Latencyms"
+        },
+        "cat_markedasexample": {
+          "type": "string",
+          "title": "Marked as Example",
+          "x-ms-dataverse-attribute": "cat_markedasexample",
+          "x-ms-dataverse-type": "BooleanType",
+          "x-ms-schema-name": "cat_MarkedasExample",
+          "enum": [
+            "No",
+            "Yes"
+          ],
+          "x-ms-enum-values": [
+            0,
+            1
+          ],
+          "Color": [
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "92491d91-c1df-f011-8543-000d3a5ae775",
+          "x-ms-isGlobal": false,
+          "x-ms-optionsetdisplayname": "Marked as Example",
+          "x-ms-optionSetType": "Boolean"
+        },
+        "cat_markedasexamplename": {
+          "type": "string",
+          "title": "cat_markedasexamplename",
+          "x-ms-dataverse-attribute": "cat_markedasexamplename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_markedasexampleName",
+          "x-ms-read-only": true
+        },
+        "cat_messagesenttimestamp": {
+          "type": "string",
+          "title": "Message Sent Timestamp",
+          "x-ms-dataverse-attribute": "cat_messagesenttimestamp",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_MessageSentTimestamp",
+          "maxLength": 50
+        },
+        "cat_name": {
+          "type": "string",
+          "title": "Conversation ID",
+          "x-ms-dataverse-attribute": "cat_name",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_Name",
+          "x-ms-dataverse-primary-name": true,
+          "required": true,
+          "maxLength": 850
+        },
+        "cat_operationtypecode": {
+          "type": "string",
+          "title": "Operation Type",
+          "x-ms-dataverse-attribute": "cat_operationtypecode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_OperationTypeCode",
+          "enum": [
+            "Comparison Operator",
+            "AI Validation",
+            "Invoke Actions"
+          ],
+          "x-ms-enum-values": [
+            1,
+            2,
+            3
+          ],
+          "Color": [
+            null,
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "09193c51-6a6b-f011-bec3-6045bd06b6eb",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Operation Type",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_operationtypecodename": {
+          "type": "string",
+          "title": "cat_operationtypecodename",
+          "x-ms-dataverse-attribute": "cat_operationtypecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_operationtypecodeName",
+          "x-ms-read-only": true
+        },
+        "cat_parent": {
+          "type": "string",
+          "title": "Parent",
+          "x-ms-dataverse-attribute": "cat_parent",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "cat_Parent"
+        },
+        "cat_parentname": {
+          "type": "string",
+          "title": "cat_parentname",
+          "x-ms-dataverse-attribute": "cat_parentname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_ParentName",
+          "x-ms-read-only": true,
+          "maxLength": 850
+        },
+        "cat_passinggradecode": {
+          "type": "string",
+          "title": "Passing Grade",
+          "x-ms-dataverse-attribute": "cat_passinggradecode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_PassingGradeCode",
+          "enum": [
+            "5 - (Exemplary)",
+            "4 - (Strong)",
+            "3 - (Acceptable)",
+            "2 - (Weak)",
+            "1 - (Needs Improvement)"
+          ],
+          "x-ms-enum-values": [
+            5,
+            4,
+            3,
+            2,
+            1
+          ],
+          "Color": [
+            "#c6efce",
+            "#caedfb",
+            "#f2f2f2",
+            "#ffeb9c",
+            "#ffc7ce"
+          ],
+          "x-ms-optionsetmetadataid": "2654494e-eeb9-429f-a679-e8b22effd18b",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Rubric Grade",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_passinggradecodename": {
+          "type": "string",
+          "title": "cat_passinggradecodename",
+          "x-ms-dataverse-attribute": "cat_passinggradecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_passinggradecodeName",
+          "x-ms-read-only": true
+        },
+        "cat_passthreshold": {
+          "type": "string",
+          "title": "Pass Threshold %",
+          "x-ms-dataverse-attribute": "cat_passthreshold",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "cat_PassThreshold"
+        },
+        "cat_recognizedintentscore": {
+          "type": "string",
+          "title": "Recognized Intent Score",
+          "x-ms-dataverse-attribute": "cat_recognizedintentscore",
+          "x-ms-dataverse-type": "DecimalType",
+          "x-ms-schema-name": "cat_RecognizedIntentScore"
+        },
+        "cat_recognizedtopicid": {
+          "type": "string",
+          "title": "Triggered Topic ID",
+          "x-ms-dataverse-attribute": "cat_recognizedtopicid",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_RecognizedTopicID",
+          "maxLength": 100
+        },
+        "cat_recognizedtopicname": {
+          "type": "string",
+          "title": "Triggered Topic / Event",
+          "x-ms-dataverse-attribute": "cat_recognizedtopicname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_RecognizedTopicName",
+          "maxLength": 200
+        },
+        "cat_response": {
+          "type": "string",
+          "title": "Response",
+          "x-ms-dataverse-attribute": "cat_response",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_Response",
+          "maxLength": 1048576
+        },
+        "cat_responsereceivedtimestamp": {
+          "type": "string",
+          "title": "Response Received Timestamp",
+          "x-ms-dataverse-attribute": "cat_responsereceivedtimestamp",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_ResponseReceivedTimestamp",
+          "maxLength": 50
+        },
+        "cat_resultcode": {
+          "type": "string",
+          "title": "Result",
+          "x-ms-dataverse-attribute": "cat_resultcode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_ResultCode",
+          "required": true,
+          "enum": [
+            "Success",
+            "Failed",
+            "Unknown",
+            "Error",
+            "Pending"
+          ],
+          "x-ms-enum-values": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "Color": [
+            "#c6efce",
+            "#ffc7ce",
+            "#f2f2f2",
+            "#ffeb9c",
+            "#caedfb"
+          ],
+          "x-ms-optionsetmetadataid": "c9a93e6e-e339-4fd8-b05a-90d6dd5b69ff",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Result",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_resultcodename": {
+          "type": "string",
+          "title": "cat_resultcodename",
+          "x-ms-dataverse-attribute": "cat_resultcodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_resultcodeName",
+          "x-ms-read-only": true
+        },
+        "cat_resultreason": {
+          "type": "string",
+          "title": "Result Reason",
+          "x-ms-dataverse-attribute": "cat_resultreason",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_ResultReason",
+          "maxLength": 200
+        },
+        "cat_rubricid": {
+          "type": "string",
+          "title": "Rubric",
+          "x-ms-dataverse-attribute": "cat_rubricid",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "cat_RubricId"
+        },
+        "cat_rubricidname": {
+          "type": "string",
+          "title": "cat_rubricidname",
+          "x-ms-dataverse-attribute": "cat_rubricidname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "cat_RubricIdName",
+          "x-ms-read-only": true,
+          "maxLength": 850
+        },
+        "cat_suggestedactionsjson": {
+          "type": "string",
+          "title": "Suggested Actions JSON",
+          "x-ms-dataverse-attribute": "cat_suggestedactionsjson",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_SuggestedActionsJSON",
+          "maxLength": 1048576
+        },
+        "cat_testtypecode": {
+          "type": "string",
+          "title": "Test Type",
+          "x-ms-dataverse-attribute": "cat_testtypecode",
+          "x-ms-dataverse-type": "PicklistType",
+          "x-ms-schema-name": "cat_TestTypeCode",
+          "required": true,
+          "enum": [
+            "Response Match",
+            "Topic Match",
+            "Attachments (Adaptive Cards, etc.)",
+            "Generative Answers",
+            "Plan Validation",
+            "Multi-turn"
+          ],
+          "x-ms-enum-values": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            5
+          ],
+          "Color": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "65804ee8-aea7-4257-b744-999464e6ec92",
+          "x-ms-isGlobal": true,
+          "x-ms-optionsetdisplayname": "Test Type",
+          "x-ms-optionSetType": "Picklist"
+        },
+        "cat_testtypecodename": {
+          "type": "string",
+          "title": "cat_testtypecodename",
+          "x-ms-dataverse-attribute": "cat_testtypecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "cat_testtypecodeName",
+          "x-ms-read-only": true
+        },
+        "cat_testutterance": {
+          "type": "string",
+          "title": "Test Utterance",
+          "x-ms-dataverse-attribute": "cat_testutterance",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_TestUtterance",
+          "maxLength": 1048576
+        },
+        "cat_webchatpcfcolumn": {
+          "type": "string",
+          "title": "WebChatPCFColumn",
+          "x-ms-dataverse-attribute": "cat_webchatpcfcolumn",
+          "x-ms-dataverse-type": "MemoType",
+          "x-ms-schema-name": "cat_WebChatPCFColumn",
+          "maxLength": 1048576
+        },
+        "createdby": {
+          "type": "string",
+          "title": "Created By",
+          "x-ms-dataverse-attribute": "createdby",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "CreatedBy",
+          "x-ms-read-only": true
+        },
+        "createdbyname": {
+          "type": "string",
+          "title": "createdbyname",
+          "x-ms-dataverse-attribute": "createdbyname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "CreatedByName",
+          "x-ms-read-only": true,
+          "maxLength": 100
+        },
+        "createdbyyominame": {
+          "type": "string",
+          "title": "createdbyyominame",
+          "x-ms-dataverse-attribute": "createdbyyominame",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "CreatedByYomiName",
+          "x-ms-read-only": true,
+          "required": true,
+          "maxLength": 100
+        },
+        "createdon": {
+          "type": "string",
+          "title": "Created On",
+          "x-ms-dataverse-attribute": "createdon",
+          "x-ms-dataverse-type": "DateTimeType",
+          "x-ms-schema-name": "CreatedOn",
+          "x-ms-read-only": true
+        },
+        "createdonbehalfby": {
+          "type": "string",
+          "title": "Created By (Delegate)",
+          "x-ms-dataverse-attribute": "createdonbehalfby",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "CreatedOnBehalfBy",
+          "x-ms-read-only": true
+        },
+        "createdonbehalfbyname": {
+          "type": "string",
+          "title": "createdonbehalfbyname",
+          "x-ms-dataverse-attribute": "createdonbehalfbyname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "CreatedOnBehalfByName",
+          "x-ms-read-only": true,
+          "maxLength": 100
+        },
+        "createdonbehalfbyyominame": {
+          "type": "string",
+          "title": "createdonbehalfbyyominame",
+          "x-ms-dataverse-attribute": "createdonbehalfbyyominame",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "CreatedOnBehalfByYomiName",
+          "x-ms-read-only": true,
+          "required": true,
+          "maxLength": 100
+        },
+        "importsequencenumber": {
+          "type": "string",
+          "title": "Import Sequence Number",
+          "x-ms-dataverse-attribute": "importsequencenumber",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "ImportSequenceNumber"
+        },
+        "modifiedby": {
+          "type": "string",
+          "title": "Modified By",
+          "x-ms-dataverse-attribute": "modifiedby",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "ModifiedBy",
+          "x-ms-read-only": true
+        },
+        "modifiedbyname": {
+          "type": "string",
+          "title": "modifiedbyname",
+          "x-ms-dataverse-attribute": "modifiedbyname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "ModifiedByName",
+          "x-ms-read-only": true,
+          "maxLength": 100
+        },
+        "modifiedbyyominame": {
+          "type": "string",
+          "title": "modifiedbyyominame",
+          "x-ms-dataverse-attribute": "modifiedbyyominame",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "ModifiedByYomiName",
+          "x-ms-read-only": true,
+          "required": true,
+          "maxLength": 100
+        },
+        "modifiedon": {
+          "type": "string",
+          "title": "Modified On",
+          "x-ms-dataverse-attribute": "modifiedon",
+          "x-ms-dataverse-type": "DateTimeType",
+          "x-ms-schema-name": "ModifiedOn",
+          "x-ms-read-only": true
+        },
+        "modifiedonbehalfby": {
+          "type": "string",
+          "title": "Modified By (Delegate)",
+          "x-ms-dataverse-attribute": "modifiedonbehalfby",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "ModifiedOnBehalfBy",
+          "x-ms-read-only": true
+        },
+        "modifiedonbehalfbyname": {
+          "type": "string",
+          "title": "modifiedonbehalfbyname",
+          "x-ms-dataverse-attribute": "modifiedonbehalfbyname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "ModifiedOnBehalfByName",
+          "x-ms-read-only": true,
+          "maxLength": 100
+        },
+        "modifiedonbehalfbyyominame": {
+          "type": "string",
+          "title": "modifiedonbehalfbyyominame",
+          "x-ms-dataverse-attribute": "modifiedonbehalfbyyominame",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "ModifiedOnBehalfByYomiName",
+          "x-ms-read-only": true,
+          "required": true,
+          "maxLength": 100
+        },
+        "overriddencreatedon": {
+          "type": "string",
+          "title": "Record Created On",
+          "x-ms-dataverse-attribute": "overriddencreatedon",
+          "x-ms-dataverse-type": "DateTimeType",
+          "x-ms-schema-name": "OverriddenCreatedOn"
+        },
+        "ownerid": {
+          "type": "string",
+          "title": "Owner",
+          "x-ms-dataverse-attribute": "ownerid",
+          "x-ms-dataverse-type": "OwnerType",
+          "x-ms-schema-name": "OwnerId",
+          "required": true
+        },
+        "owneridname": {
+          "type": "string",
+          "title": "owneridname",
+          "x-ms-dataverse-attribute": "owneridname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "OwnerIdName",
+          "x-ms-read-only": true,
+          "required": true,
+          "maxLength": 100
+        },
+        "owneridtype": {
+          "type": "string",
+          "title": "owneridtype",
+          "x-ms-dataverse-attribute": "owneridtype",
+          "x-ms-dataverse-type": "EntityNameType",
+          "x-ms-schema-name": "OwnerIdType",
+          "required": true
+        },
+        "owneridyominame": {
+          "type": "string",
+          "title": "owneridyominame",
+          "x-ms-dataverse-attribute": "owneridyominame",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "OwnerIdYomiName",
+          "x-ms-read-only": true,
+          "required": true,
+          "maxLength": 100
+        },
+        "owningbusinessunit": {
+          "type": "string",
+          "title": "Owning Business Unit",
+          "x-ms-dataverse-attribute": "owningbusinessunit",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "OwningBusinessUnit",
+          "x-ms-read-only": true
+        },
+        "owningbusinessunitname": {
+          "type": "string",
+          "title": "owningbusinessunitname",
+          "x-ms-dataverse-attribute": "owningbusinessunitname",
+          "x-ms-dataverse-type": "StringType",
+          "x-ms-schema-name": "OwningBusinessUnitName",
+          "x-ms-read-only": true,
+          "required": true,
+          "maxLength": 100
+        },
+        "owningteam": {
+          "type": "string",
+          "title": "Owning Team",
+          "x-ms-dataverse-attribute": "owningteam",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "OwningTeam",
+          "x-ms-read-only": true
+        },
+        "owninguser": {
+          "type": "string",
+          "title": "Owning User",
+          "x-ms-dataverse-attribute": "owninguser",
+          "x-ms-dataverse-type": "LookupType",
+          "x-ms-schema-name": "OwningUser",
+          "x-ms-read-only": true
+        },
+        "statecode": {
+          "type": "string",
+          "title": "Status",
+          "x-ms-dataverse-attribute": "statecode",
+          "x-ms-dataverse-type": "StateType",
+          "x-ms-schema-name": "statecode",
+          "required": true,
+          "enum": [
+            "Active",
+            "Inactive"
+          ],
+          "x-ms-enum-values": [
+            0,
+            1
+          ],
+          "Color": [
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "e54f57a9-2ee2-ef11-8eea-000d3a341b0b",
+          "x-ms-isGlobal": false,
+          "x-ms-optionsetdisplayname": "Status",
+          "x-ms-optionSetType": "State"
+        },
+        "statecodename": {
+          "type": "string",
+          "title": "statecodename",
+          "x-ms-dataverse-attribute": "statecodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "statecodeName",
+          "x-ms-read-only": true
+        },
+        "statuscode": {
+          "type": "string",
+          "title": "Status Reason",
+          "x-ms-dataverse-attribute": "statuscode",
+          "x-ms-dataverse-type": "StatusType",
+          "x-ms-schema-name": "statuscode",
+          "enum": [
+            "Active",
+            "Inactive"
+          ],
+          "x-ms-enum-values": [
+            1,
+            2
+          ],
+          "Color": [
+            null,
+            null
+          ],
+          "x-ms-optionsetmetadataid": "ef4f57a9-2ee2-ef11-8eea-000d3a341b0b",
+          "x-ms-isGlobal": false,
+          "x-ms-optionsetdisplayname": "Status Reason",
+          "x-ms-optionSetType": "Status"
+        },
+        "statuscodename": {
+          "type": "string",
+          "title": "statuscodename",
+          "x-ms-dataverse-attribute": "statuscodename",
+          "x-ms-dataverse-type": "VirtualType",
+          "x-ms-schema-name": "statuscodeName",
+          "x-ms-read-only": true
+        },
+        "timezoneruleversionnumber": {
+          "type": "string",
+          "title": "Time Zone Rule Version Number",
+          "x-ms-dataverse-attribute": "timezoneruleversionnumber",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "TimeZoneRuleVersionNumber"
+        },
+        "utcconversiontimezonecode": {
+          "type": "string",
+          "title": "UTC Conversion Time Zone Code",
+          "x-ms-dataverse-attribute": "utcconversiontimezonecode",
+          "x-ms-dataverse-type": "IntegerType",
+          "x-ms-schema-name": "UTCConversionTimeZoneCode"
+        },
+        "versionnumber": {
+          "type": "string",
+          "title": "Version Number",
+          "x-ms-dataverse-attribute": "versionnumber",
+          "x-ms-dataverse-type": "BigIntType",
+          "x-ms-schema-name": "VersionNumber",
+          "x-ms-read-only": true
+        }
+      },
+      "required": [
+        "cat_copilottestid",
+        "cat_copilottestresultid",
+        "cat_copilottestrunid",
+        "cat_name",
+        "cat_resultcode",
+        "cat_testtypecode",
+        "createdbyyominame",
+        "createdonbehalfbyyominame",
+        "modifiedbyyominame",
+        "modifiedonbehalfbyyominame",
+        "ownerid",
+        "owneridname",
+        "owneridtype",
+        "owneridyominame",
+        "owningbusinessunitname",
+        "statecode"
+      ]
+    }
+  }
+}

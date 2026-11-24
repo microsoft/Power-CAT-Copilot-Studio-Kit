@@ -1,0 +1,22 @@
+/* Override Prism.js default backgrounds to inherit from Fluent UI token-based styles.
+   font-family is handled by makeStyles codeBlock using tokens.fontFamilyMonospace. */
+pre[class*="language-"],
+code[class*="language-"] {
+  background: none;
+  text-shadow: none;
+}
+
+/* Pin the JSON code font size + wrap long JSON instead of horizontal scrolling.
+   Prism's highlightElement adds `language-json` to the parent <pre>, so prism.css's
+   `pre[class*="language-"] { font-size: 1em }` (specificity 0,1,1) overrides the
+   makeStyles `codeBlock` font-size (0,1,0) and the block renders at ~14px. This rule
+   (same specificity, loaded after prism.css) wins the size back to 11px. Prism also
+   defaults code blocks to `white-space: pre` (no wrap); override that so long values
+   (URLs, tokens, arrays) wrap within the panel. All debug-panel JSON is `language-json`. */
+pre[class*="language-json"],
+code[class*="language-json"] {
+  font-size: 11px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
