@@ -5,6 +5,8 @@ export default defineConfig({
   plugins: [offlineViewerPlugin()],
   test: {
     include: [
+      'src/features/agent-debugger/utils/__tests__/deep-link.test.ts',
+      'src/features/agent-debugger/services/__tests__/snapshot-service.test.ts',
       'src/features/agent-debugger/utils/analysis-report.test.ts',
       'src/features/agent-debugger/utils/analysis-html.test.ts',
       'src/features/agent-debugger/utils/transcript/extract-activity-text.test.ts',
