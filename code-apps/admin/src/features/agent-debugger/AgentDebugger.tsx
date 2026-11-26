@@ -65,6 +65,7 @@ import {
 } from "./contracts/filters";
 import type { AnalysisMeta, AnalysisTabKey } from "./contracts/workspace";
 import { dedupeOutcome } from "./utils/outcome";
+import { normalizeEnvironmentUrl, resolveDebuggerDeepLink } from "./utils/deep-link";
 
 const EMPTY_META: AnalysisMeta = {
   isReady: false,
@@ -263,19 +264,6 @@ function formatDateForPicker(date?: Date | null): string {
   });
 }
 
-function normalizeRecordId(value: string): string {
-  return value.trim().replace(/[{}]/g, "").toLowerCase();
-}
-
-function normalizeEnvironmentUrl(value: string): string {
-  try {
-    const url = new URL(value.trim());
-    return `${url.protocol}//${url.host}`.toLowerCase();
-  } catch {
-    return value.trim().replace(/\/+$/g, "").toLowerCase();
-  }
-}
-
 export default function AgentDebugger() {
   useFeatureTelemetry('agent-debugger-load', 'Agent Debugger');
   const [searchParams] = useSearchParams();
@@ -414,74 +402,20 @@ export default function AgentDebugger() {
   const {
     data: agents, isLoading: agentsLoading, isDiscovering: agentsDiscovering,
     currentEnvironmentUrl, isEnvironmentLoading, loadRemainingAgents, hasMoreAgents,
-  } = useLiveAgents(mode === "transcript", normalizeEnvironmentUrl(searchParams.get("environmentUrl") ?? ""));
-
-  const deepLinkConversationId = searchParams.get("conversationId")?.trim() ?? "";
-  const deepLinkEnvironmentUrl = searchParams.get("environmentUrl")?.trim() ?? "";
-  const deepLinkAgentId = searchParams.get("agentId")?.trim() ?? "";
-  const hasDeepLinkParams = Boolean(
-    deepLinkConversationId || deepLinkEnvironmentUrl || deepLinkAgentId,
+  } = useLiveAgents(
+    mode === "transcript",
+    normalizeEnvironmentUrl(searchParams.get("environmentUrl") ?? ""),
+    searchParams.get("environmentId")?.trim() ?? "",
   );
-  const hasDeepLinkRequest = hasDeepLinkParams;
 
-  const deepLinkResolution = useMemo(() => {
-    if (!hasDeepLinkRequest) {
-      return { requestKey: "", agent: null, error: null, incomplete: false };
-    }
-
-    const requestKey = [
-      deepLinkConversationId,
-      normalizeEnvironmentUrl(deepLinkEnvironmentUrl),
-      normalizeRecordId(deepLinkAgentId),
-    ].join("|");
-    const missing = [
-      !deepLinkConversationId && "conversationId",
-      !deepLinkEnvironmentUrl && "environmentUrl",
-      !deepLinkAgentId && "agentId",
-    ].filter(Boolean);
-
-    if (missing.length > 0) {
-      return {
-        requestKey,
-        agent: null,
-        error: `This Agent Debugger link is incomplete. Select an agent and conversation to continue. Missing: ${missing.join(", ")}.`,
-        incomplete: true,
-      };
-    }
-    if (isEnvironmentLoading(normalizeEnvironmentUrl(deepLinkEnvironmentUrl))) {
-      return { requestKey, agent: null, error: null, incomplete: false };
-    }
-
-    const normalizedAgentId = normalizeRecordId(deepLinkAgentId);
-    const normalizedEnvironmentUrl = normalizeEnvironmentUrl(deepLinkEnvironmentUrl);
-    const agent =
-      (agents ?? []).find(
-        (candidate) =>
-          normalizeRecordId(candidate.botId ?? "") === normalizedAgentId &&
-          normalizeEnvironmentUrl(candidate.environmentUrl ?? "") ===
-            normalizedEnvironmentUrl,
-      ) ?? null;
-
-    return {
-      requestKey,
-      agent,
-      error: agent
-        ? null
-        : "The Agent Debugger link does not match an agent in the specified environment.",
-      incomplete: false,
-    };
-  }, [
-    agents,
-    isEnvironmentLoading,
-    deepLinkAgentId,
-    deepLinkConversationId,
-    deepLinkEnvironmentUrl,
-    hasDeepLinkRequest,
-  ]);
+  const deepLinkResolution = useMemo(
+    () => resolveDebuggerDeepLink(searchParams, agents ?? [], isEnvironmentLoading),
+    [agents, isEnvironmentLoading, searchParams],
+  );
+  const hasDeepLinkRequest = deepLinkResolution.requestKey !== "";
 
   useEffect(() => {
-    const matchedAgent = deepLinkResolution.agent;
-    const requestKey = deepLinkResolution.requestKey;
+    const { agent: matchedAgent, requestKey, conversationId } = deepLinkResolution;
     if (!matchedAgent || processedDeepLinkRef.current === requestKey) return;
 
     const handle = window.setTimeout(() => {
@@ -491,29 +425,26 @@ export default function AgentDebugger() {
       setSnapshotData(null);
       setSnapshotDialogOpen(false);
       setSelectedAgentId(matchedAgent.id);
-      setSelectedTranscriptName(deepLinkConversationId);
+      setSelectedTranscriptName(conversationId);
       setSelectedTranscriptStartTime("");
       setSelectedSessionId("all");
       setAgentSearch("");
       setTranscriptSearch("");
       setActiveTab("performance");
       setMeta(EMPTY_META);
-      setAnalysisProps({
+      setAnalysisProps(conversationId ? {
         mode: "transcript",
         agentId: matchedAgent.id,
         environmentUrl: matchedAgent.environmentUrl ?? "",
         environmentId: matchedAgent.environmentId ?? "",
         botId: matchedAgent.botId ?? "",
         agentName: matchedAgent.name,
-        transcriptId: deepLinkConversationId,
-      });
+        transcriptId: conversationId,
+      } : null);
     }, 0);
 
     return () => window.clearTimeout(handle);
-  }, [
-    deepLinkConversationId,
-    deepLinkResolution,
-  ]);
+  }, [deepLinkResolution]);
 
   // ---------------------------------------------------------------------
   // Advanced filters (design: `.w-drawer` / `paintPanel()`)
@@ -1037,7 +968,9 @@ export default function AgentDebugger() {
                 Opening Agent Debugger
               </Text>
               <Text className={styles.deepLinkLoadingText}>
-                Finding the agent and loading this conversation...
+                {deepLinkResolution.conversationId
+                  ? "Finding the agent and loading this conversation..."
+                  : "Finding the agent..."}
               </Text>
             </div>
           </div>

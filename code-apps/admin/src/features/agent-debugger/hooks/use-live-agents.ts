@@ -9,6 +9,7 @@ import {
   agentDiscoveryErrorCacheTime, agentDiscoveryRetryDelay, classifyAgentDiscoveryError, shouldRetryAgentDiscovery,
 } from "../utils/agent-discovery-errors";
 import { createAgentDiscoveryPriorityCache } from "../utils/agent-discovery-priority";
+import { normalizeRecordId } from "../utils/deep-link";
 
 const staleTime = 5 * 60 * 1000;
 const queryOptions = { staleTime, retry: false, refetchOnWindowFocus: false } as const;
@@ -19,7 +20,9 @@ const agentsKey = (url: string) => ["debugger-live-agents-with-transcripts", url
 const currentAlias: AgentEnvironment = { url: "current", name: "Current environment" };
 type EnvironmentResult = { agents: AgentDetailsOption[]; error?: Error };
 
-export function useLiveAgents(enabled = true, requestedEnvironmentUrl = "") {
+const sameId = (a?: string, b?: string) => !!a && !!b && normalizeRecordId(a) === normalizeRecordId(b);
+
+export function useLiveAgents(enabled = true, requestedUrl = "", requestedEnvironmentId = "") {
   const client = useQueryClient();
   const [mountedAt] = useState(Date.now);
   const context = useQuery({
@@ -50,6 +53,14 @@ export function useLiveAgents(enabled = true, requestedEnvironmentUrl = "") {
     return [...byUrl.values()].sort((a, b) => a.name.localeCompare(b.name));
   }, [makers.data, organizations.data]);
   const remaining = useMemo(() => environments.filter(env => env.url !== current?.url), [environments, current?.url]);
+  /** Maps an environment URL or ID to its directory URL, or "" when unknown. */
+  const resolveEnvironmentUrl = useCallback((url: string, id?: string) => {
+    if (url) return url;
+    if (!id) return "";
+    if (sameId(id, current?.id ?? context.data?.environmentId)) return current?.url ?? "current";
+    return environments.find(env => sameId(env.id, id))?.url ?? "";
+  }, [current?.id, current?.url, context.data?.environmentId, environments]);
+  const requestedEnvironmentUrl = resolveEnvironmentUrl(requestedUrl, requestedEnvironmentId);
   const [loadRequested, setLoadRequested] = useState(false);
   const search = useRef("");
   const loadRemainingAgents = useCallback((query?: string) => {
@@ -135,11 +146,12 @@ export function useLiveAgents(enabled = true, requestedEnvironmentUrl = "") {
       ? "Current environment details are unavailable. Agents can still be read using the current connection."
       : undefined,
   ].filter((message): message is string => !!message);
-  const isEnvironmentLoading = useCallback((url: string) => {
-    if (url === "current" || current?.url === url) return currentAgents.isPending;
+  const isEnvironmentLoading = useCallback((requested: string, id?: string) => {
+    const url = resolveEnvironmentUrl(requested, id);
+    if (url === "current" || (url && current?.url === url)) return currentAgents.isPending;
     if (remaining.some(env => env.url === url)) return !results[url];
     return context.isPending || makers.isPending || organizations.isPending;
-  }, [current?.url, currentAgents.isPending, remaining, results, context.isPending, makers.isPending, organizations.isPending]);
+  }, [resolveEnvironmentUrl, current?.url, currentAgents.isPending, remaining, results, context.isPending, makers.isPending, organizations.isPending]);
 
   return {
     data, isLoading: enabled && currentAgents.isPending && data.length === 0, isDiscovering: loading,

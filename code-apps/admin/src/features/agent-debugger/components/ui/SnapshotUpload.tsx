@@ -1,15 +1,22 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { Button } from "@fluentui/react-components";
 import {
   ArrowUpload24Regular,
   Dismiss16Regular,
   DocumentBulletList20Regular,
 } from "@fluentui/react-icons";
-import { parseSnapshotZip, isZipFile } from "../../services/snapshot-service";
+import {
+  parseSnapshotFile,
+  parseTranscriptJson,
+  isJsonFile,
+  isZipFile,
+} from "../../services/snapshot-service";
 import type { SnapshotData } from "../../services/snapshot-service";
 export interface SnapshotUploadProps {
   onSnapshotParsed: (data: SnapshotData | null) => void;
 }
+
+const PASTED_SOURCE_NAME = "Pasted transcript JSON";
 
 export default function SnapshotUpload({ onSnapshotParsed }: SnapshotUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -19,17 +26,13 @@ export default function SnapshotUpload({ onSnapshotParsed }: SnapshotUploadProps
   const [error, setError] = useState<string | null>(null);
   const [loaded, setLoaded] = useState<{ data: SnapshotData; fileName: string } | null>(null);
 
-  const processFile = useCallback(
-    async (file: File) => {
-      if (!isZipFile(file)) {
-        setError("Please upload a .zip snapshot file from Copilot Studio.");
-        return;
-      }
+  const load = useCallback(
+    async (sourceName: string, parse: () => Promise<SnapshotData>) => {
       setLoading(true);
       setError(null);
       try {
-        const data = await parseSnapshotZip(file);
-        setLoaded({ data, fileName: file.name });
+        const data = await parse();
+        setLoaded({ data, fileName: sourceName });
         onSnapshotParsed(data);
       } catch (err) {
         const msg = err instanceof Error ? err.message : "Failed to parse snapshot file.";
@@ -42,6 +45,38 @@ export default function SnapshotUpload({ onSnapshotParsed }: SnapshotUploadProps
     },
     [onSnapshotParsed]
   );
+
+  const processFile = useCallback(
+    (file: File) => {
+      if (!isZipFile(file) && !isJsonFile(file)) {
+        setError("Please upload a .zip snapshot or a transcript .json file.");
+        return;
+      }
+      void load(file.name, () => parseSnapshotFile(file));
+    },
+    [load]
+  );
+
+  // Ctrl+V anywhere while the uploader is idle loads pasted transcript JSON or a copied file.
+  useEffect(() => {
+    if (loaded || loading) return;
+    const handlePaste = (e: ClipboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (target?.closest("input, textarea, [contenteditable='true']")) return;
+      const file = e.clipboardData?.files[0];
+      if (file) {
+        e.preventDefault();
+        processFile(file);
+        return;
+      }
+      const text = e.clipboardData?.getData("text/plain")?.trim();
+      if (!text) return;
+      e.preventDefault();
+      void load(PASTED_SOURCE_NAME, async () => parseTranscriptJson(text));
+    };
+    document.addEventListener("paste", handlePaste);
+    return () => document.removeEventListener("paste", handlePaste);
+  }, [loaded, loading, load, processFile]);
 
   const handleDrop = useCallback(
     (e: React.DragEvent) => {
@@ -89,10 +124,10 @@ export default function SnapshotUpload({ onSnapshotParsed }: SnapshotUploadProps
       <input
         ref={fileInputRef}
         type="file"
-        accept=".zip"
+        accept=".zip,.json"
         hidden
         onChange={handleFileChange}
-        aria-label="Upload snapshot ZIP file"
+        aria-label="Upload snapshot ZIP or transcript JSON file"
       />
 
       {loading ? (
@@ -143,18 +178,19 @@ export default function SnapshotUpload({ onSnapshotParsed }: SnapshotUploadProps
           onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
           onDragLeave={() => setDragging(false)}
           onDrop={handleDrop}
-          aria-label="Drop snapshot ZIP here or press Enter to browse"
+          aria-label="Drop snapshot ZIP or transcript JSON here, press Enter to browse, or press Ctrl+V to paste transcript JSON"
         >
           <span className="ic big">
             <ArrowUpload24Regular className="w-ic" />
           </span>
-          <span className="t">Upload a snapshot to analyze a conversation</span>
+          <span className="t">Upload a snapshot or conversation transcript to analyze a conversation</span>
           <span className="hint">
-            Drop <b>.zip</b> here or <u>browse</u>
+            Drop <b>.zip</b> or <b>.json</b> here or <u>browse</u>
           </span>
           <span className="desc">
-            Upload a Copilot Studio snapshot ZIP file from the test pane to
-            automatically analyze the conversation.
+            Upload a Copilot Studio snapshot ZIP file from the test pane or a
+            conversation transcript JSON file. You can also paste the transcript
+            JSON directly.
           </span>
         </Button>
       )}

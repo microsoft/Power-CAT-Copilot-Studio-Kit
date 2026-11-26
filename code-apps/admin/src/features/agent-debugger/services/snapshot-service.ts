@@ -6,6 +6,9 @@
  *   - dialog.json  — Bot Framework activities for the conversation
  *   - botContent.yml — Full bot definition (topics, actions, flows, agents)
  *
+ * A conversation transcript JSON (`transcript.json`) is also accepted in place of
+ * the ZIP; it supplies activities only, so component names fall back to schema names.
+ *
  * This service extracts both, building the same activity array and component-name
  * map that the Dataverse transcript fetch + botcomponents lookup produces — so the
  * existing parser and UI can be reused unchanged.
@@ -160,7 +163,84 @@ export async function parseSnapshotZip(file: File): Promise<SnapshotData> {
     }
   }
 
-  // 3. Derive top-level metadata from activities
+  return buildSnapshotData(activities, componentNames);
+}
+
+/**
+ * Parses conversation transcript JSON (for example a `transcript.json` export
+ * of a Dataverse `conversationtranscript`) into a SnapshotData object.
+ *
+ * Accepts `{ activities: [...] }`, a bare activity array, or a transcript
+ * record whose `content` holds that JSON. Component names are unavailable
+ * without botContent.yml, so steps fall back to schema names.
+ * Throws an Error with a user-friendly message if the JSON is unusable.
+ */
+export function parseTranscriptJson(text: string): SnapshotData {
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(text.replace(/^\uFEFF/, ""));
+  } catch {
+    throw new Error("Could not parse the transcript. Please provide valid transcript JSON.");
+  }
+
+  let fallbackConversationId = "";
+  if (isRecord(parsed) && "content" in parsed && !("activities" in parsed)) {
+    fallbackConversationId = String(parsed.name ?? parsed.conversationtranscriptid ?? "");
+    const { content } = parsed;
+    if (typeof content === "string") {
+      try {
+        parsed = JSON.parse(content);
+      } catch {
+        throw new Error("The transcript record's content is not valid JSON.");
+      }
+    } else {
+      parsed = content;
+    }
+  }
+
+  const activities = Array.isArray(parsed)
+    ? parsed
+    : isRecord(parsed) && Array.isArray(parsed.activities)
+      ? parsed.activities
+      : null;
+  if (!activities || !activities.some(isRecord)) {
+    throw new Error(
+      "No activities found. The transcript JSON must contain an \"activities\" array."
+    );
+  }
+
+  return buildSnapshotData(activities.filter(isRecord) as unknown as Activity[], {}, fallbackConversationId);
+}
+
+/** Parses an uploaded snapshot ZIP or transcript JSON file. */
+export async function parseSnapshotFile(file: File): Promise<SnapshotData> {
+  return isJsonFile(file) ? parseTranscriptJson(await file.text()) : parseSnapshotZip(file);
+}
+
+/** Returns true if the file has a .zip extension or application/zip MIME type. */
+export function isZipFile(file: File): boolean {
+  return (
+    file.name.toLowerCase().endsWith(".zip") ||
+    file.type === "application/zip" ||
+    file.type === "application/x-zip-compressed"
+  );
+}
+
+/** Returns true if the file has a .json extension or application/json MIME type. */
+export function isJsonFile(file: File): boolean {
+  return file.name.toLowerCase().endsWith(".json") || file.type === "application/json";
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+/** Derives top-level snapshot metadata from the conversation's activities. */
+function buildSnapshotData(
+  activities: Activity[],
+  componentNames: Record<string, ComponentInfo>,
+  fallbackConversationId = ""
+): SnapshotData {
   const snapshotActivities = activities as SnapshotActivity[];
   const firstActivity = snapshotActivities[0];
   const firstBotActivity = activities.find(
@@ -172,19 +252,12 @@ export async function parseSnapshotZip(file: File): Promise<SnapshotData> {
     firstActivity?.from?.name ||
     "Agent";
   const botId = firstBotActivity?.from?.id || "";
-  const conversationId = firstActivity?.conversation?.id || "";
+  const conversationId =
+    snapshotActivities.find((activity) => activity.conversation?.id)?.conversation?.id ||
+    fallbackConversationId;
   const startTime = String(firstActivity?.timestamp ?? "");
 
   return { activities, componentNames, botName, botId, conversationId, startTime };
-}
-
-/** Returns true if the file has a .zip extension or application/zip MIME type. */
-export function isZipFile(file: File): boolean {
-  return (
-    file.name.toLowerCase().endsWith(".zip") ||
-    file.type === "application/zip" ||
-    file.type === "application/x-zip-compressed"
-  );
 }
 
 /**
