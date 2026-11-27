@@ -13,6 +13,22 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
 or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
+## Rules for pull requests
+
+These rules apply to all pull requests to the `main` branch.
+
+- Copilot can review your pull request automatically. The review starts when you open the pull request, or the first time that you mark a draft pull request as ready for review. Copilot does not review again when you push more commits.
+- We can merge a pull request only when all its review conversations are resolved. This includes the conversations that Copilot starts. For each comment, change the code, or reply and tell us why you do not agree. Then resolve the conversation.
+- At least 1 maintainer must approve the pull request. A Copilot review is not an approval. If you push more commits after the approval, the pull request needs a new approval.
+- If your pull request comes from a fork, the checks can wait until a maintainer approves the workflow runs.
+- If GitHub blocks your push because it found a secret, remove the secret from your commits. Do not bypass the block.
+
+### Code scanning
+
+CodeQL scans the `main` branch and the pull requests from branches in this repository. It does not scan pull requests from forks. If CodeQL finds a new alert in your pull request, fix the cause. If you think that the alert is a false positive, tell us why in the pull request. A maintainer then decides about the alert.
+
+If you find a secret, personal data, or other private data in this repository, do not write it in an issue or a pull request. Report it as described in [SECURITY.md](SECURITY.md).
+
 ## Contribute to the code apps
 
 The `code-apps` folder has the source code of 2 Power Apps code apps:
@@ -71,12 +87,6 @@ Examples:
 - `fix(makers): show the agent name in the review summary`
 - `docs(code-apps): change the minimum Node.js version`
 
-### Code scanning
-
-CodeQL checks each pull request. If your pull request adds an alert, fix the cause. If you think that the alert is a false positive, tell us why in the pull request. A maintainer then decides about the alert.
-
-If you find a secret, personal data, or other private data in this repository, do not write it in an issue or a pull request. Report it as described in [SECURITY.md](SECURITY.md).
-
 ### How we merge pull requests
 
-We keep the main copy of the code app source in an internal repository, and we build the Copilot Agent Kit releases from it. When we merge your pull request, we also make the same change in the internal repository. Thus, the next release keeps your change. Each release then updates the `code-apps` folder in this repository with a pull request.
+This repository is the main copy of the code app source. We merge pull requests into the `main` branch. For the review and merge rules, see [Rules for pull requests](#rules-for-pull-requests).
