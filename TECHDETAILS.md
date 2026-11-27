@@ -8,16 +8,16 @@ The Kit imports as a single solution. Every connector in rows 1–14 must be all
 
 | # | Connector (display name) | Connector ID | Connection reference(s) in solution | What it's used for | Feature(s) |
 |---|---|---|---|---|---|
-| 1 | **Microsoft Dataverse** | `shared_commondataserviceforapps` | **Copilot Studio Kit - Dataverse**; **PowerShield Dataverse** | Read and write all Kit tables, plus agent, transcript and solution data | Core (all features), PowerShield |
-| 2 | **HTTP with Microsoft Entra ID (preauthorized)** | `shared_webcontents` | **Copilot Agent Kit - Power Platform Licensing**; **PowerShield APIFlow**; **PowerShield BAPAPI** | Call the Licensing API (usage and credits), the Flow API (custom connectors) and the BAP API (data policies) | Agent Inventory (Usage metrics), PowerShield |
+| 1 | **Microsoft Dataverse** | `shared_commondataserviceforapps` | **Copilot Studio Kit - Dataverse**; **PowerShield Dataverse** | Read and write all Kit tables, plus agent, transcript and solution data | Core (all features), Request Center |
+| 2 | **HTTP with Microsoft Entra ID (preauthorized)** | `shared_webcontents` | **Copilot Agent Kit - Power Platform Licensing**; **PowerShield APIFlow**; **PowerShield BAPAPI** | Call the Licensing API (usage and credits), the Flow API (custom connectors) and the BAP API (data policies) | Agent Inventory (Usage metrics), Request Center (Connector Requests) |
 | 3 | **Power Platform for Admins** | `shared_powerplatformforadmins` | **Copilot Agent Kit - Power Platform for Admins** | Enumerate environments and agents tenant-wide | Agent Inventory, Compliance Hub |
-| 4 | **Power Platform for Admins V2** | `shared_powerplatformadminv2` | **Copilot Agent Kit - Power Platform for Admins V2** | Agent actions; quarantine, unquarantine and status | Agent Inventory, Compliance Hub |
+| 4 | **Power Platform for Admins V2** | `shared_powerplatformadminv2` | **Copilot Agent Kit - Power Platform for Admins V2** | Agent actions; quarantine, unquarantine and status. The admin code app also uses a per-user connection to read and allocate Copilot Credits | Agent Inventory, Compliance Hub, Request Center (Copilot Credits) |
 | 5 | **Office 365 Users** | `shared_office365users` | **Copilot Agent Kit - Office 365 Users** | Look up user and manager profiles | Agent Inventory, Compliance Hub |
 | 6 | **Microsoft Teams** | `shared_teams` | **Copilot Agent Kit - Microsoft Teams** | Notify makers and admins in Teams | Compliance Hub |
 | 7 | **Office 365 Groups** | `shared_office365groups` | **Copilot Agent Kit - Office 365 Groups** | Resolve group members for approvals and cases | Compliance Hub |
 | 8 | **Approvals** (Standard approvals) | `shared_approvals` | **Copilot Agent Kit - Standard approvals** | Admin approval of compliance cases | Compliance Hub |
 | 9 | **Office 365 Outlook** | `shared_office365` | **Copilot Agent Kit - Outlook** | Send emails | Compliance Hub, Setup Wizard |
-| 10 | **Power Apps for Makers** | `shared_powerappsforappmakers` | **Copilot Agent Kit - Power Apps for Makers**; **PowerShield PowerApps for Makers** | Share or unshare apps; read connections; list custom connectors | Setup Wizard, Code Apps, Agent Review Tool, PowerShield |
+| 10 | **Power Apps for Makers** | `shared_powerappsforappmakers` | **Copilot Agent Kit - Power Apps for Makers**; **PowerShield PowerApps for Makers** | Share or unshare apps; read connections; list custom connectors | Setup Wizard, Code Apps, Agent Review Tool, Request Center |
 | 11 | **Agents** *(docs say preview)* | `shared_agentnode` | **Agent Review Tool \| Agents** | AI review of agent components. Can't be set on the solution import screen (see §2.1) | Agent Review Tool, Kit Installer |
 | 12 | **Power Automate Management** | `shared_flowmanagement` | – (app connection only) | Turn on Kit flows after connections are set | Kit Installer |
 | 13 | **SharePoint** | `shared_sharepointonline` | **Copilot Agent Kit - SharePoint** | Read SharePoint files to sync into an agent's knowledge | SharePoint Synchronization |
@@ -45,12 +45,12 @@ The Kit imports as a single solution. Every connector in rows 1–14 must be all
 | 12 | Agent Review Tool Dataverse Connection Ref | Microsoft Dataverse | Pre-deployment review gate. Only if that solution is installed | Agent Review Pipeline (separate solution) |
 | 13 | Copilot Agent Kit - SharePoint | SharePoint | Sync SharePoint files to agent knowledge | SharePoint Synchronization |
 | 14 | Copilot Agent Kit - Automated Tests | Microsoft Copilot Studio | Run agent tests from flows and pipelines | Test Automation |
-| 15 | PowerShield Dataverse | Microsoft Dataverse | PowerShield data | PowerShield |
-| 16 | PowerShield PowerApps for Makers | Power Apps for Makers | Read connectors and custom connectors | PowerShield |
-| 17 | PowerShield APIFlow | HTTP with Microsoft Entra ID (preauthorized) | Call the Flow API (connectors). **Per-cloud URLs: §4** | PowerShield |
-| 18 | PowerShield BAPAPI | HTTP with Microsoft Entra ID (preauthorized) | Call the BAP governance API (patch data policies). **Per-cloud URLs: §4** | PowerShield |
+| 15 | PowerShield Dataverse | Microsoft Dataverse | Connector Requests data | Request Center (Connector Requests) |
+| 16 | PowerShield PowerApps for Makers | Power Apps for Makers | Read connectors and custom connectors | Request Center (Connector Requests) |
+| 17 | PowerShield APIFlow | HTTP with Microsoft Entra ID (preauthorized) | Call the Flow API (connectors). **Per-cloud URLs: §4** | Request Center (Connector Requests) |
+| 18 | PowerShield BAPAPI | HTTP with Microsoft Entra ID (preauthorized) | Call the BAP governance API (patch data policies). **Per-cloud URLs: §4** | Request Center (Connector Requests) |
 
-PowerShield flows stay **off** until their connections are configured. Run **PowerShield | Sync Connectors** once first.
+PowerShield flows (used by the **Connector Requests** tab of Request Center) stay **off** until their connections are configured. Run **PowerShield | Sync Connectors** once first. The **Copilot Credits** tab doesn't use flows.
 
 ### 2.1 Agents connector
 - You can't select it on the solution import connection-reference screen. Leave it empty and finish setup with the **Copilot Agent Kit Installer** / Setup Wizard.
@@ -77,7 +77,7 @@ PowerShield flows stay **off** until their connections are configured. Run **Pow
 | 12 | Require Case For No Risk | Boolean | no | Require a case even for no-risk agents | Compliance Hub | Optional |
 | 13 | Send Case Alerts via Email | Boolean | no | Email makers about compliance cases | Compliance Hub | Optional |
 | 14 | Send Case Alerts via Teams | Boolean | no | Teams alerts to makers about compliance cases | Compliance Hub | Optional |
-| 15 | Power Automate Region | String | Commercial | Tenant cloud. Builds cloud-specific maker portal links. Allowed values → maker portal used:<br>`Commercial` → `https://make.powerautomate.com/`<br>`GCC` → `https://make.gov.powerautomate.us/`<br>`GCC(High)` → `https://make.high.powerautomate.us/`<br>`DoD` → `https://make.powerautomate.appsplatform.us/` | Compliance Hub, Agent Insights, Agent Inventory, Conversation Analyzer, Conversation KPI, PowerShield, SharePoint Sync, Test Automation | **Set it if not Commercial** |
+| 15 | Power Automate Region | String | Commercial | Tenant cloud. Builds cloud-specific maker portal links. Allowed values → maker portal used:<br>`Commercial` → `https://make.powerautomate.com/`<br>`GCC` → `https://make.gov.powerautomate.us/`<br>`GCC(High)` → `https://make.high.powerautomate.us/`<br>`DoD` → `https://make.powerautomate.appsplatform.us/` | Compliance Hub, Agent Insights, Agent Inventory, Conversation Analyzer, Conversation KPI, Request Center, SharePoint Sync, Test Automation | **Set it if not Commercial** |
 | 16 | Enable Agent Inventory V2 | Boolean | yes | Use the modern (V2) or classic Agent Inventory experience | Agent Inventory | Optional |
 | 17 | Agent Change Tracker Base Environment URL | String | (empty) | Org URL of the hub (base) environment that holds the Agent Change Tracker tables | Agent Change Tracker | Per feature |
 | 18 | Enable Value Component | Boolean | no | Turn on agent value classification | Agent Value Summary | Optional |

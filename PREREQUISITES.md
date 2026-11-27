@@ -57,17 +57,17 @@ Every connector shipped in the Copilot Agent Kit solution must be allowed by the
 
 | Connector | Used by feature(s) |
 | :-- | :-- |
-| [Microsoft Dataverse](https://learn.microsoft.com/connectors/commondataserviceforapps/) | Core (all features), Power Shield, Agent Review Tool |
+| [Microsoft Dataverse](https://learn.microsoft.com/connectors/commondataserviceforapps/) | Core (all features), Request Center, Agent Review Tool |
 | [Power Platform for Admins](https://learn.microsoft.com/connectors/powerplatformforadmins/) | Agent Inventory |
-| [Power Platform for Admins V2](https://learn.microsoft.com/connectors/powerplatformadminv2/) | Agent Inventory, Compliance Hub |
+| [Power Platform for Admins V2](https://learn.microsoft.com/connectors/powerplatformadminv2/) | Agent Inventory, Compliance Hub, Request Center (Copilot Credits; each admin creates their own connection when they first open the admin app) |
 | [Microsoft Teams](https://learn.microsoft.com/connectors/teams/) | Compliance Hub |
 | [Office 365 Groups](https://learn.microsoft.com/connectors/office365groups/) | Compliance Hub |
 | [Office 365 Users](https://learn.microsoft.com/connectors/office365users/) | Compliance Hub |
 | [Office 365 Outlook](https://learn.microsoft.com/connectors/office365/) | Compliance Hub |
 | [Approvals](https://learn.microsoft.com/connectors/approvals/) | Compliance Hub |
 | [SharePoint Online](https://learn.microsoft.com/connectors/sharepointonline/) | SharePoint File Sync |
-| [Power Apps for Makers](https://learn.microsoft.com/connectors/powerappsforappmakers/) | Setup Wizard, Power Shield |
-| [HTTP with Microsoft Entra ID (preauthorized)](https://learn.microsoft.com/connectors/webcontents/) | Power Shield, Usage Metrics |
+| [Power Apps for Makers](https://learn.microsoft.com/connectors/powerappsforappmakers/) | Setup Wizard, Request Center |
+| [HTTP with Microsoft Entra ID (preauthorized)](https://learn.microsoft.com/connectors/webcontents/) | Request Center (Connector Requests), Usage Metrics |
 | [Microsoft Copilot Studio](https://learn.microsoft.com/connectors/microsoftcopilotstudio/) | Test Automation and Pipeline |
 | [Power Automate Management](https://learn.microsoft.com/connectors/flowmanagement/) | Setup Wizard / Installer, Agent Review Tool |
 | Agents (preview) | Agent Review Tool |
