@@ -78,7 +78,7 @@ An agent can be assessed with either of two test engines. **Their results are ne
 ### 3.1 Turn on the Model Assessment flows
 
 1. Go to [make.powerapps.com](https://make.powerapps.com) and select the Copilot Agent Kit environment.
-2. Open **Solutions** › **Model Assessment** › **Cloud flows**.
+2. Open **Solutions** › **Copilot Agent Kit** › **Cloud flows**.
 3. Turn on **Model Assessment | Run Copilot Agent Kit Tests** and **Model Assessment | Run Copilot Studio Evaluations**.
 
 If a flow is off, the app shows a message such as *"The Model Assessment | Run Copilot Studio Evaluations flow is turned off, so the assessment can't start."*
