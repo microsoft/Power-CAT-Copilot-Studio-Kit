@@ -6,6 +6,9 @@ Before you begin, please make sure to study the [prerequisites](/PREREQUISITES.m
 > [!NOTE]
 > May 2025 release onwards the Copilot Agent Kit has had a **setup wizard**, which allows viewing and editing connection references, environment variables and set up cloud flows. Please see more information from [here](./SETUP_WIZARD.md).
 
+> [!NOTE]
+> If the import or the Copilot Agent Kit Installer fails with an `AcpDlpPolicyEvaluation` error, a data policy or advanced connector policy is blocking or splitting the Kit's connectors. See [Troubleshooting `AcpDlpPolicyEvaluation`](./TECHDETAILS.md#64-troubleshooting-acpdlppolicyevaluation). For what each environment variable does, see the [environment variables table](./TECHDETAILS.md#3-environment-variables).
+
 # Installing the Copilot Agent Kit ([Microsoft Marketplace](http://aka.ms/DownloadCopilotStudioKit))
 
 ## Deploy from Microsoft Marketplace

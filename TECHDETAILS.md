@@ -165,7 +165,8 @@ All connectors in §1 must be allowed. Add each one to the ACP allowlist, then c
 ### 6.4 Troubleshooting `AcpDlpPolicyEvaluation`
 1. Find the connector ID in the error (for example `shared_agentnode`), then map it with the table in §1.
 2. Check **both** the ACP for the environment or group **and** every classic data policy in scope. In Mixed mode either one can block.
-3. Fix it, wait for propagation, then retry the import or installation.
+3. If the violation type is `BusinessAndNonBusinessConnector`, the connectors aren't blocked: two connectors that one app or flow uses together are in **different groups** of a classic data policy. For example, the **Copilot Agent Kit Installer** uses **Agents** (`shared_agentnode`), **Microsoft Dataverse** and **Power Automate Management** together. New connectors default to **Non-Business** (§5.1), so check **Agents** first and move it into the same group as the others (§5.3), in every policy that applies to the environment.
+4. Fix it, wait for propagation, then retry the import or installation.
 
 ---
 

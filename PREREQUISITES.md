@@ -75,5 +75,8 @@ Every connector shipped in the Copilot Agent Kit solution must be allowed by the
 > [!NOTE]
 > The **Agents** connector is a preview connector (`shared_agentnode`) used by the Agent Review Tool workflow. It cannot be configured through the standard connection-reference screen during solution import — skip it during import and use the **Setup Wizard / Installer** to complete the Agent Review setup. See the [Agent Review Tool reference guide](./AGENTREVIEWTOOL_REFERENCE_GUIDE.md#set-up-agent-review-with-the-setup-wizard-and-installer) for details.
 
+> [!TIP]
+> **Tenants with strict data policies or advanced connector policies (ACP):** see [Technical information about Copilot Agent Kit](./TECHDETAILS.md) before you import. It lists every connector ID, the recommended data policy and ACP setup for the Kit environment, the endpoint filtering URLs, and how to troubleshoot `AcpDlpPolicyEvaluation` import errors. It also has the full list of [environment variables](./TECHDETAILS.md#3-environment-variables).
+
 ## Next step
 [Installation instructions](./INSTALLATION_INSTRUCTIONS.md)
